@@ -1,0 +1,77 @@
+name: Tunnels-Common
+main: com.caved_in.commons.Commons
+version: 1.0
+description: Commons LIB for the Tunnels Network Servers and plugins
+author: Brandon
+depend: [PopupMenuAPI]
+softdepend: [TagAPI]
+commands:
+   buypremium:
+      description: Used to add premium (Console only)
+      usage: /<command> <PlayerName>
+   removepremium:
+      description: Used to remove premium (Console only)
+      usage: /<command> <PlayerName>
+   ban:
+      description: Used to ban a player across all servers
+      usage: /<command> <Player> <Reason> [t:Time]
+   unban:
+      description: Used to unban a player across all servers
+      usage: /<command> <name>
+   pardon:
+      description: Used to unban a player across all servers
+      usage: /<command> <name>
+   mute:
+      description: Used to mute a player across all servers
+      usage: /<command> <Player>
+   unmute:
+      description: Used to unmute a player across all servers
+      usage: /<command> <Player>
+   buyinfo:
+      usage: /buyinfo <player>
+   msg:
+      usage: /msg <player>
+   channel:
+      usage: /channel <channel>
+   fly:
+      usage: /fly
+   fw:
+      usage: /fw
+   hat:
+      usage: /msg <player>
+   gm:
+      usage: /gm [Mode]
+   msg:
+      usage: /msg <player>
+   maintenance:
+      usage: /maintenance [on/off/toggle]
+   silence:
+      usage: /silence
+   unsilence:
+      usage: /unsilence
+   nick:
+      usage: /nick help
+   nicklist:
+      usage: /nicklist
+   sc:
+      usage: /sc [Message]
+   friends:
+      usage: /friends <SubCommand>
+   setplayerrank:
+      usage: /setplayerrank <Player> <Rank>
+   r:
+      usage: /r <Message>
+   m:
+      usage: /m <player> <message>
+   tell:
+      usage: /tell <player> <message>
+   whisper:
+      usage: /whisper <player> <message>
+   t:
+      usage: /t <player> <message>
+   skull:
+      usage: /skull <Name>
+   setspawn:
+      usage: /setspawn
+   xp:
+      usage: /xp
