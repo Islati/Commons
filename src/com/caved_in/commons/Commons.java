@@ -3,19 +3,19 @@ package com.caved_in.commons;
 import java.io.File;
 
 import com.caved_in.commons.commands.CommandRegister;
-import com.caved_in.commons.handlers.Friends.FriendHandler;
-import com.caved_in.commons.handlers.Menus.ServerSelection.ServerMenuGenerator;
-import com.caved_in.commons.handlers.Menus.ServerSelection.ServerMenuWrapper;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
+import com.caved_in.commons.handlers.friends.FriendHandler;
+import com.caved_in.commons.handlers.menus.serverselection.ServerMenuGenerator;
+import com.caved_in.commons.handlers.menus.serverselection.ServerMenuWrapper;
+import com.caved_in.commons.handlers.player.PlayerHandler;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.handlers.Items.ItemHandler;
-import com.caved_in.commons.handlers.SQL.BansSQL;
-import com.caved_in.commons.handlers.SQL.DisguiseSQL;
-import com.caved_in.commons.handlers.SQL.FriendSQL;
-import com.caved_in.commons.handlers.SQL.PlayerSQL;
-import com.caved_in.commons.handlers.Threading.RunnableManager;
-import com.caved_in.commons.handlers.Utilities.StringUtil;
+import com.caved_in.commons.handlers.items.ItemHandler;
+import com.caved_in.commons.handlers.sql.BansSQL;
+import com.caved_in.commons.handlers.sql.DisguiseSQL;
+import com.caved_in.commons.handlers.sql.FriendSQL;
+import com.caved_in.commons.handlers.sql.PlayerSQL;
+import com.caved_in.commons.handlers.threading.RunnableManager;
+import com.caved_in.commons.handlers.utilities.StringUtil;
 import com.caved_in.commons.listeners.*;
 
 import org.bukkit.Bukkit;
@@ -177,7 +177,7 @@ public class Commons extends JavaPlugin
 		messageConsole("&aRegistered the Server Ping listener");
 
 		registerListener(new PlayerLoginListener());
-		messageConsole("&aRegistered the Player Login listener");
+		messageConsole("&aRegistered the player Login listener");
 
 		registerListener(new PlayerJoinListener());
 		messageConsole("&aRegistered the player join listener");
@@ -192,7 +192,7 @@ public class Commons extends JavaPlugin
 		messageConsole("&aRegistered the player pre-login listener");
 
 		registerListener(new PlayerQuitListener());
-		messageConsole("&aRegistered the Player Quit listener");
+		messageConsole("&aRegistered the player Quit listener");
 	}
 
 	private void registerListener(Listener listener)

@@ -1,9 +1,9 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.handlers.Data.Bans.Punishment;
-import com.caved_in.commons.handlers.Data.Bans.PunishmentType;
-import com.caved_in.commons.handlers.Misc.TimeHandler;
+import com.caved_in.commons.handlers.data.bans.Punishment;
+import com.caved_in.commons.handlers.data.bans.PunishmentType;
+import com.caved_in.commons.handlers.misc.TimeHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

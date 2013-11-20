@@ -21,7 +21,7 @@ public class ItemMenuConfiguration
 	public ItemMenuConfiguration()
 	{
 		this.menuItems = new ArrayList<XmlMenuItem>();
-		addMenuItem("Test",new String[] {"This is line one","This is line two", "this is line 3", "this is line 4!" }, 0, 0, 1, "/help");
+		addMenuItem("Test",new String[] {"This is line one","This is line two", "this is line 3", "this is line 4!" }, "0", 0, 1, "lobby");
 	}
 	
 	public List<XmlMenuItem> getXmlItems()
@@ -29,10 +29,10 @@ public class ItemMenuConfiguration
 		return this.menuItems;
 	}
 	
-	public void addMenuItem(String name, String[] Lore, int itemID, int x, int y, String command)
+	public void addMenuItem(String name, String[] Lore, String itemID, int x, int y, String bungeeServer)
 	{
 		//ServerMenuItem serverItem = new ServerMenuItem(name, new MaterialData(Material.getMaterial(itemID)), Arrays.asList(Lore), command);
-		XmlMenuItem menuItem = new XmlMenuItem(y,x,itemID,name,Arrays.asList(Lore),command);
+		XmlMenuItem menuItem = new XmlMenuItem(y,x,itemID,name,Arrays.asList(Lore),bungeeServer);
 		this.menuItems.add(menuItem);
 	}
 	

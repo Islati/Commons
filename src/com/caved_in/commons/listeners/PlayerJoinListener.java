@@ -1,9 +1,9 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.handlers.Friends.FriendHandler;
-import com.caved_in.commons.handlers.Items.ItemHandler;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
+import com.caved_in.commons.handlers.friends.FriendHandler;
+import com.caved_in.commons.handlers.items.ItemHandler;
+import com.caved_in.commons.handlers.player.PlayerHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

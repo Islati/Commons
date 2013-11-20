@@ -53,12 +53,8 @@ commands:
       usage: /nick help
    nicklist:
       usage: /nicklist
-   sc:
-      usage: /sc [Message]
    friends:
       usage: /friends <SubCommand>
-   setplayerrank:
-      usage: /setplayerrank <Player> <Rank>
    r:
       usage: /r <Message>
    m:

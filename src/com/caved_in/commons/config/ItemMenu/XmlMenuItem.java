@@ -3,7 +3,6 @@ package com.caved_in.commons.config.ItemMenu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.ChatColor;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -17,30 +16,30 @@ public class XmlMenuItem
 	private int itemX = 0;
 
 	@Attribute(name = "item_id")
-	private int itemIconID = 0;
+	private String itemIconID = "0";
 
 	@Attribute(name = "display_name")
 	private String itemName = "";
 	
-	@Element(name = "command_to_execute")
-	private String itemExecuteCommand = "";
+	@Element(name = "server_to_join")
+	private String bungeeServerToJoin = "";
 
 	@ElementList(name = "lore",inline = true)
 	private List<String> itemLore = new ArrayList<String>();
 
 	public XmlMenuItem(@Attribute(name = "y")int itemY,
 			@Attribute(name = "x")int itemX,
-			@Attribute(name = "item_id") int itemIconID,
+			@Attribute(name = "item_id") String itemIconID,
 			@Attribute(name = "display_name") String itemName,
 			@ElementList(name = "lore",inline = true) List<String> itemLore,
-			@Element(name = "command_to_execute")String itemCommand)		
+			@Element(name = "server_to_join")String bungeeServer)
 	{
 		this.itemY = itemY;
 		this.itemX = itemX;
 		this.itemIconID = itemIconID;
 		this.itemName = itemName;
 		this.itemLore = itemLore;
-		this.itemExecuteCommand = itemCommand;
+		this.bungeeServerToJoin = bungeeServer;
 	}
 	
 	public XmlMenuItem()
@@ -68,12 +67,12 @@ public class XmlMenuItem
 		this.itemX = x;
 	}
 
-	public int getItemIconID()
+	public String getItemIconID()
 	{
 		return itemIconID;
 	}
 
-	public void setItemIconID(int itemIconID)
+	public void setItemIconID(String itemIconID)
 	{
 		this.itemIconID = itemIconID;
 	}
@@ -98,13 +97,13 @@ public class XmlMenuItem
 		this.itemLore = list;
 	}
 	
-	public String getItemCommand()
+	public String getBungeeServer()
 	{
-		return this.itemExecuteCommand;
+		return this.bungeeServerToJoin;
 	}
 	
-	public void setItemCommand(String itemCommand)
+	public void setBungeeServer(String itemCommand)
 	{
-		this.itemExecuteCommand = itemCommand;
+		this.bungeeServerToJoin = itemCommand;
 	}
 }

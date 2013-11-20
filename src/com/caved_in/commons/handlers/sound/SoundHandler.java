@@ -1,6 +1,6 @@
 package com.caved_in.commons.handlers.sound;
 
-import com.caved_in.commons.handlers.Location.LocationHandler;
+import com.caved_in.commons.handlers.location.LocationHandler;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

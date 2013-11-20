@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.handlers.Items.ItemHandler;
+import com.caved_in.commons.handlers.items.ItemHandler;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

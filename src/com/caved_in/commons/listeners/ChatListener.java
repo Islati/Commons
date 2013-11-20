@@ -1,8 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
-import com.caved_in.commons.handlers.Utilities.StringUtil;
+import com.caved_in.commons.handlers.player.PlayerHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

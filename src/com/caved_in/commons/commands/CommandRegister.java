@@ -1,12 +1,12 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.commands.Chat.ChatCommands;
-import com.caved_in.commons.commands.Moderation.PunishmentCommands;
+import com.caved_in.commons.commands.chat.ChatCommands;
+import com.caved_in.commons.commands.moderation.PunishmentCommands;
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.commands.Admin.AdminCommands;
-import com.caved_in.commons.commands.Donator.DonatorCommands;
-import com.caved_in.commons.commands.Friends.FriendCommands;
-import com.caved_in.commons.commands.Utility.Utility;
+import com.caved_in.commons.commands.admin.AdminCommands;
+import com.caved_in.commons.commands.donator.DonatorCommands;
+import com.caved_in.commons.commands.friends.FriendCommands;
+import com.caved_in.commons.commands.utility.Utility;
 
 public class CommandRegister
 {
