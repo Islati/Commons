@@ -1,16 +1,14 @@
-package com.caved_in.commons.commands.Utility;
+package com.caved_in.commons.commands.utility;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.handlers.Data.Disguises.Disguise;
-import com.caved_in.commons.handlers.Items.ItemHandler;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
-import com.caved_in.commons.handlers.Utilities.StringUtil;
+import com.caved_in.commons.data.disguises.Disguise;
+import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
-import com.caved_in.commons.handlers.Data.Menu.HelpScreen;
+import com.caved_in.commons.data.menu.HelpScreen;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -83,9 +81,9 @@ public class Utility
 		HelpScreen.setFlipColor(ChatColor.GREEN, ChatColor.DARK_GREEN);
 
 		HelpScreen.setEntry("/nick help", "Shows the help menu");
-		HelpScreen.setEntry("/nick off [Player]", "Turns the nickname off for yourself, or another player");
+		HelpScreen.setEntry("/nick off [player]", "Turns the nickname off for yourself, or another player");
 		HelpScreen.setEntry("/nick <Name>", "Disguise yourself as another player");
-		HelpScreen.setEntry("/nick <Player> <Name>", "Disguise another player");
+		HelpScreen.setEntry("/nick <player> <Name>", "Disguise another player");
 		return HelpScreen;
 	}
 
@@ -112,103 +110,6 @@ public class Utility
 		}
 	}
 
-	/*
-	@CommandHandler(name = "nick", permission = "tunnels.common.nick")
-	public void setNickNameCommand(Player player, String[] commandArgs)
-	{
-		// todo make /nick help menu
-		if (commandArgs.length > 0)
-		{
-			if (commandArgs.length == 1 && commandArgs[0] != null && !commandArgs[0].isEmpty())
-			{
-				String nickSwitch = commandArgs[0];
-				if (nickSwitch.equalsIgnoreCase("off"))
-				{
-					if (PlayerHandler.getData(player.getName()).hasNickName())
-					{
-						PlayerHandler.clearDisguise(player);
-						Commons.disguiseDatabase.deletePlayerDisguiseData(player.getName());
-					}
-					else
-					{
-						player.sendMessage(StringUtil.formatColorCodes("&eYou're currently not disguised as anybody else"));
-					}
-				}
-				else if (nickSwitch.equalsIgnoreCase("help") || nickSwitch.equalsIgnoreCase("?"))
-				{
-					this.getNickHelpScreen().sendTo(player, 1, 5);
-				}
-				else
-				{
-					PlayerHandler.setDisguise(player, nickSwitch);
-					Commons.disguiseDatabase.addPlayerDisguiseData(new Disguise(player.getName(), nickSwitch, Commons.getConfiguration().getServerName()));
-				}
-			}
-			else if (commandArgs.length > 1 && commandArgs[0] != null && !commandArgs[0].isEmpty())
-			{
-				String nickSwitch = commandArgs[0];
-				if (nickSwitch.equalsIgnoreCase("off"))
-				{
-					if (commandArgs[1] != null && !commandArgs[1].isEmpty())
-					{
-						String playerOff = commandArgs[1];
-						if (PlayerHandler.isOnline(playerOff))
-						{
-							Player playerToUnhide = Bukkit.getPlayer(playerOff);
-							if (PlayerHandler.getData(playerToUnhide.getName()).hasNickName())
-							{
-								PlayerHandler.clearDisguise(playerToUnhide);
-								Commons.disguiseDatabase.deletePlayerDisguiseData(playerToUnhide.getName());
-							}
-							else
-							{
-								player.sendMessage(StringUtil.formatColorCodes("&c" + playerOff + " &eisn't currently disguised as anybody else"));
-							}
-						}
-						else
-						{
-							player.sendMessage(StringUtil.formatColorCodes("&c" + playerOff + "&e isn't currently online."));
-						}
-					}
-				}
-				else if (nickSwitch.equalsIgnoreCase("help") || nickSwitch.equalsIgnoreCase("?"))
-				{
-					if (commandArgs[1] != null && StringUtils.isNumeric(commandArgs[1]))
-					{
-						int Page = Integer.parseInt(commandArgs[1]);
-						this.getNickHelpScreen().sendTo(player, Page, 5);
-					}
-				}
-				else if (commandArgs[1] != null && !commandArgs[1].isEmpty())
-				{
-					String playerToHide = commandArgs[0];
-					String playerDisguiseName = commandArgs[1];
-					if (PlayerHandler.isOnline(playerToHide))
-					{
-						if (!PlayerHandler.isOnline(playerDisguiseName))
-						{
-							PlayerHandler.setDisguise(Bukkit.getPlayer(playerToHide), playerDisguiseName);
-							Commons.disguiseDatabase.addPlayerDisguiseData(new Disguise(playerToHide, playerDisguiseName, Commons.getConfiguration().getServerName()));
-						}
-						else
-						{
-							player.sendMessage(StringUtil.formatColorCodes("&eYou can't disguise &c" + playerToHide + " &eas &c" + playerDisguiseName + "&e because &c" + playerDisguiseName + " &eis currently online."));
-						}
-					}
-					else
-					{
-						player.sendMessage(StringUtil.formatColorCodes("&c" + playerToHide + " &eisn't online"));
-					}
-					// PlayerHandler.setDisguise(player, nickSwitch);
-				}
-			}
-		}
-		else
-		{
-			player.sendMessage(StringUtil.formatColorCodes("&cPlease use &e/nick help"));
-		}
-	}
-	*/
 	public void sendGameModeMessage(Player Player)
 	{
 		Player.sendMessage(ChatColor.GREEN + "You've switched your gamemode to " + WordUtils.capitalize(Player.getGameMode().name().toLowerCase()));
@@ -238,7 +139,7 @@ public class Utility
 		int y = (int)playerLocation.getY();
 		int z = (int)playerLocation.getZ();
 		player.getWorld().setSpawnLocation(x,y,z);
-		player.sendMessage(ChatColor.GREEN + "Spawn location has been set!");
+		PlayerHandler.sendMessage(player,"&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
 	}
 
 }

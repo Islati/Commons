@@ -1,11 +1,11 @@
-package com.caved_in.commons.commands.Chat;
+package com.caved_in.commons.commands.chat;
 
 import com.caved_in.commons.commands.CommandController.CommandHandler;
-import com.caved_in.commons.handlers.Chat.ChatHandler;
-import com.caved_in.commons.handlers.Chat.ChatMessage;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
+import com.caved_in.commons.chat.ChatHandler;
+import com.caved_in.commons.chat.ChatMessage;
+import com.caved_in.commons.player.PlayerHandler;
 
-import com.caved_in.commons.handlers.Utilities.StringUtil;
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 

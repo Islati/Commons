@@ -1,6 +1,6 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.handlers.world.WorldHandler;
+import com.caved_in.commons.world.WorldHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

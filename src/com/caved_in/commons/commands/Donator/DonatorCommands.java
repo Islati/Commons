@@ -1,8 +1,8 @@
-package com.caved_in.commons.commands.Donator;
+package com.caved_in.commons.commands.donator;
 
-import com.caved_in.commons.handlers.Fireworks.FireworkEffectPlayer;
-import com.caved_in.commons.handlers.Fireworks.FireworkSettings;
-import com.caved_in.commons.handlers.Items.ItemType;
+import com.caved_in.commons.fireworks.FireworkEffectPlayer;
+import com.caved_in.commons.fireworks.FireworkSettings;
+import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 
 import org.apache.commons.lang.StringUtils;

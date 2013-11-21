@@ -1,6 +1,6 @@
 package com.caved_in.commons.config;
 
-import com.caved_in.commons.handlers.utilities.StringUtil;
+import com.caved_in.commons.utilities.StringUtil;
 
 import org.simpleframework.xml.Element;
 

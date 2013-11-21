@@ -1,11 +1,10 @@
-package com.caved_in.commons.commands.Admin;
+package com.caved_in.commons.commands.admin;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.TunnelsPermissions;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
+import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
-import com.caved_in.commons.handlers.Player.PlayerWrapper;
-import com.caved_in.commons.handlers.Utilities.StringUtil;
+import com.caved_in.commons.utilities.StringUtil;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -131,69 +130,4 @@ public class AdminCommands
 			commandSender.sendMessage(StringUtil.formatColorCodes("&aMaintenance mode is currently " + (Commons.getConfiguration().getMaintenanceConfig().isMaintenanceMode() ? "&eEnabled " : "&eDisabled ") + " to change this, do &e/Maintenance toggle"));
 		}
 	}
-
-	/*
-	@CommandHandler(name = "sc", permission = "tunnels.common.staffchat")
-	public void staffChatMessage(Player Sender, String[] Args)
-	{
-		String senderName = Sender.getName();
-		if (Args.length > 1)
-		{
-			String staffMessage = "";
-			for (String argument : Args)
-			{
-				staffMessage += (staffMessage.isEmpty() ? argument : " " + argument);
-			}
-			//PluginMessage.sendStaffChatMessage(Sender, staffMessage);
-		}
-		else
-		{
-			PlayerWrapper playerData = PlayerHandler.getData(senderName);
-			playerData.setInStaffChat(!playerData.isInStaffChat());
-			Sender.sendMessage(ChatColor.YELLOW + "You are " + (playerData.isInStaffChat() ? "now in Staff Chat; only you and other staff members will be able to see these messages." : "no longer in Staff Chat and have re-joined Public Chat."));
-		}
-	}
-	
-	@CommandHandler(name = "setplayerrank", permission = "tunnels.common.playerrank")
-	public void promotePlayer(CommandSender sender, String[] Args)
-	{
-		if (Args.length >= 2)
-		{
-			if (Args[0] != null && Args[1] != null)
-			{
-				String playerName = Args[0];
-				if (Commons.playerDatabase.hasData(playerName))
-				{
-					String rankName = Args[1];
-					Rank playerRank = Rank.getRankFromName(rankName);
-					if (playerRank != null)
-					{
-						Rank previousRank = Commons.playerDatabase.getRank(playerName);
-						Commons.playerDatabase.setRank(playerName, playerRank);
-						if (PlayerHandler.isOnline(playerName))
-						{
-							PlayerHandler.getPlayer(playerName).sendMessage(ChatColor.GREEN + "Your rank has been changed from " + previousRank.getColoured() + previousRank.getName() + ChatColor.RESET + " to " + playerRank.getColoured() + playerRank.getName() + ChatColor.GREEN  + "; please relog for it to take effect.");
-							PlayerHandler.getData(playerName).setRank(playerRank);
-						}
-						sender.sendMessage(ChatColor.GREEN + playerName + "'s rank has been changed from " + previousRank.getColoured() + previousRank.getName() + ChatColor.GREEN + " to " + playerRank.getColoured() + playerRank.getName());
-					}
-					else
-					{
-						sender.sendMessage(StringUtil.formatColorCodes("&c" + rankName + "&eisn't a valid rank"));
-						String validRanks = "";
-						for(Rank rank : Rank.values())
-						{
-							validRanks += rank.getColoured() + rank.getName() + ChatColor.RESET + " ";
-						}
-						sender.sendMessage(ChatColor.YELLOW + "The valid ranks are " + validRanks);
-					}
-				}
-				else
-				{
-					sender.sendMessage(StringUtil.formatColorCodes("&e" + playerName + "&c has never played on this server before; Is the name correct?"));
-				}
-			}
-		}
-	}
-	*/
 }

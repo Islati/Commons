@@ -1,13 +1,12 @@
-package com.caved_in.commons.commands.Moderation;
+package com.caved_in.commons.commands.moderation;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.config.Messages;
-import com.caved_in.commons.handlers.Data.Bans.PunishmentType;
-import com.caved_in.commons.handlers.Misc.TimeHandler;
-import com.caved_in.commons.handlers.Misc.TimeHandler.TimeType;
-import com.caved_in.commons.handlers.Player.PlayerHandler;
-import com.caved_in.commons.handlers.Utilities.CommonUtils;
+import com.caved_in.commons.data.bans.PunishmentType;
+import com.caved_in.commons.misc.TimeHandler;
+import com.caved_in.commons.misc.TimeHandler.TimeType;
+import com.caved_in.commons.player.PlayerHandler;
 
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
