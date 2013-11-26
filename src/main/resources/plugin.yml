@@ -1,7 +1,7 @@
 name: Tunnels-Common
 main: com.caved_in.commons.Commons
 version: 1.0
-description: Commons LIB for the Tunnels Network Servers and plugins
+description: Commons Library built for easier plugin development
 author: Brandon
 depend: [PopupMenuAPI]
 softdepend: [TagAPI]
@@ -30,9 +30,8 @@ commands:
    buyinfo:
       usage: /buyinfo <player>
    msg:
-      usage: /msg <player>
-   channel:
-      usage: /channel <channel>
+      usage: /msg <player> <message>
+      aliases: [m, t, tell, whisper]
    fly:
       usage: /fly
    fw:
@@ -41,8 +40,6 @@ commands:
       usage: /msg <player>
    gm:
       usage: /gm [Mode]
-   msg:
-      usage: /msg <player>
    maintenance:
       usage: /maintenance [on/off/toggle]
    silence:
@@ -57,17 +54,11 @@ commands:
       usage: /friends <SubCommand>
    r:
       usage: /r <Message>
-   m:
-      usage: /m <player> <message>
-   tell:
-      usage: /tell <player> <message>
-   whisper:
-      usage: /whisper <player> <message>
-   t:
-      usage: /t <player> <message>
    skull:
       usage: /skull <Name>
    setspawn:
       usage: /setspawn
    xp:
       usage: /xp
+   more:
+      usage: /more

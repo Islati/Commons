@@ -21,11 +21,10 @@ package com.caved_in.commons.items;
 
 /**
  * List of item IDs.
- * 
+ *
  * @author sk89q
  */
-public final class ItemID
-{
+public final class ItemID {
 	public static final int IRON_SHOVEL = 256;
 	public static final int IRON_PICK = 257;
 	public static final int IRON_AXE = 258;
@@ -187,10 +186,10 @@ public final class ItemID
 
 	@Deprecated
 	public static final int GOLD_RECORD = 2256; // deprecated, but leave it
-												// there
+	// there
 	@Deprecated
 	public static final int GREEN_RECORD = 2257; // deprecated, but leave it
-													// there
+	// there
 	public static final int DISC_13 = 2256;
 	public static final int DISC_CAT = 2257;
 	public static final int DISC_BLOCKS = 2258;

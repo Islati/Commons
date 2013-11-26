@@ -6,12 +6,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 
-public class WorldLoadedListener implements Listener
-{
+public class WorldLoadedListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void worldLoaded(WorldLoadEvent Event)
-	{
+	public void worldLoaded(WorldLoadEvent Event) {
 		WorldHandler.handleWorldWeather(Event.getWorld());
 	}
 }

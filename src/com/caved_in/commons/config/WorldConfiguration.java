@@ -4,8 +4,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root
-public class WorldConfiguration
-{
+public class WorldConfiguration {
 	@Element
 	private boolean disableWeather = true;
 
@@ -64,8 +63,7 @@ public class WorldConfiguration
 							  @Element(name = "enableItemPickup") boolean enableItemPickup,
 							  @Element(name = "enableItemDrop") boolean enableItemDrop,
 							  @Element(name = "enableFoodChange") boolean enableFoodChange
-	)
-	{
+	) {
 		this.disableIceAccumulation = disableIceAccumulation;
 		this.disableWeather = disableWeather;
 		this.disableLightning = disableLightning;
@@ -82,87 +80,70 @@ public class WorldConfiguration
 		this.enableFoodChange = enableFoodChange;
 	}
 
-	public WorldConfiguration()
-	{
+	public WorldConfiguration() {
 	}
 
-	public boolean isWeatherDisabled()
-	{
+	public boolean isWeatherDisabled() {
 		return this.disableWeather;
 	}
 
-	public boolean isChatSilenced()
-	{
+	public boolean isChatSilenced() {
 		return this.silenceChat;
 	}
 
-	public void setChatSilenced(boolean silenced)
-	{
+	public void setChatSilenced(boolean silenced) {
 		this.silenceChat = silenced;
 	}
 
-	public boolean isLightningDisabled()
-	{
+	public boolean isLightningDisabled() {
 		return this.disableLightning;
 	}
 
-	public boolean isThunderDisabled()
-	{
+	public boolean isThunderDisabled() {
 		return this.disableThunder;
 	}
 
-	public boolean isIceSpreadDisabled()
-	{
+	public boolean isIceSpreadDisabled() {
 		return this.disableIceAccumulation;
 	}
 
-	public boolean isSnowSpreadDisabled()
-	{
+	public boolean isSnowSpreadDisabled() {
 		return this.disableSnowAccumulation;
 	}
 
-	public boolean isMyceliumSpreadDisabled()
-	{
+	public boolean isMyceliumSpreadDisabled() {
 		return this.disableMyceliumSpread;
 	}
 
-	public boolean hasLaunchpadPressurePlates()
-	{
+	public boolean hasLaunchpadPressurePlates() {
 		return this.launchpadPressurePlates;
 	}
 
-	public boolean isCompassMenuEnabled()
-	{
+	public boolean isCompassMenuEnabled() {
 		return this.enableCompassMenu;
 	}
 
-	public boolean isJoinLeaveMessagesEnabled()
-	{
+	public boolean isJoinLeaveMessagesEnabled() {
 		return this.enableJoinLeaveMessages;
 	}
 
-	public boolean hasExternalChatHandler()
-	{
+	public boolean hasExternalChatHandler() {
 		return this.externalChatHandler;
 	}
 
-	public boolean isBlockBreakEnabled()
-	{
+	public boolean isBlockBreakEnabled() {
 		return this.enableBlockBreak;
 	}
 
-	public boolean isItemDropEnabled()
-	{
+	public boolean isItemDropEnabled() {
 		return enableItemDrop;
 	}
 
-	public boolean isItemPickupEnabled()
-	{
+	public boolean isItemPickupEnabled() {
 		return enableItemPickup;
 	}
 
-	public boolean isFoodChangeEnabled()
-	{
+	public boolean isFoodChangeEnabled() {
 		return enableFoodChange;
 	}
 }

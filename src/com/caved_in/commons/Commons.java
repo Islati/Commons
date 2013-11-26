@@ -1,23 +1,20 @@
 package com.caved_in.commons;
 
-import java.io.File;
-
 import com.caved_in.commons.commands.CommandRegister;
+import com.caved_in.commons.config.Configuration;
+import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.friends.FriendHandler;
+import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menus.serverselection.ServerMenuGenerator;
 import com.caved_in.commons.menus.serverselection.ServerMenuWrapper;
 import com.caved_in.commons.player.PlayerHandler;
-import com.caved_in.commons.config.Configuration;
-import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.sql.BansSQL;
 import com.caved_in.commons.sql.DisguiseSQL;
 import com.caved_in.commons.sql.FriendSQL;
 import com.caved_in.commons.sql.PlayerSQL;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.utilities.StringUtil;
-import com.caved_in.commons.listeners.*;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,8 +25,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-public class Commons extends JavaPlugin
-{
+import java.io.File;
+
+public class Commons extends JavaPlugin {
 	public static BansSQL bansDatabase;
 	public static DisguiseSQL disguiseDatabase;
 	public static FriendSQL friendDatabase;
@@ -37,24 +35,21 @@ public class Commons extends JavaPlugin
 	public static RunnableManager threadManager;
 
 	private static Configuration globalConfig = new Configuration();
-	
+
 	public static ServerMenuWrapper serverMenu;
 
 	private static String PLUGIN_DATA_FOLDER = "plugins/Tunnels-Common/";
 
-	public static Commons getCommons()
-	{
+	public static Commons getCommons() {
 		return (Commons) Bukkit.getPluginManager().getPlugin("Tunnels-Common");
 	}
 
 	@Override
-	public void onEnable()
-	{
-		Bukkit.getMessenger().registerOutgoingPluginChannel(this,"BungeeCord");
+	public void onEnable() {
+		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		threadManager = new RunnableManager(this); // New Thread handler
 
-		if (!this.getDataFolder().exists())
-		{
+		if (!this.getDataFolder().exists()) {
 			this.getDataFolder().mkdir();
 		}
 
@@ -72,100 +67,83 @@ public class Commons extends JavaPlugin
 
 		threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				bansDatabase.Refresh();
 				disguiseDatabase.refreshConnection();
 				friendDatabase.refresh();
 				playerDatabase.refreshConnection();
 			}
-		},36000,36000); // SQL Keep alive
+		}, 36000, 36000); // SQL Keep alive
 
-		for(Player player : Bukkit.getOnlinePlayers())
-		{
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			PlayerHandler.addData(player);
 			FriendHandler.addFriendList(player.getName());
-			if (globalConfig.getWorldConfig().isCompassMenuEnabled())
-			{
-				if (!player.getInventory().contains(Material.COMPASS))
-				{
+			if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
+				if (!player.getInventory().contains(Material.COMPASS)) {
 					player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 				}
 			}
 		}
 	}
 
-	private void registerListeners()
-	{
-		if (!globalConfig.getWorldConfig().hasExternalChatHandler())
-		{
+	private void registerListeners() {
+		if (!globalConfig.getWorldConfig().hasExternalChatHandler()) {
 			registerListener(new ChatListener());
 			messageConsole("&aUsing Tunnels-Common Chat Listener");
 		}
 
-		if (globalConfig.getWorldConfig().isCompassMenuEnabled())
-		{
+		if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
 			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig().getXmlItems()));
 			registerListener(new CompassListener());
 			messageConsole("&aRegistered the compass-menu listener");
 		}
 
-		if (globalConfig.getWorldConfig().hasLaunchpadPressurePlates())
-		{
+		if (globalConfig.getWorldConfig().hasLaunchpadPressurePlates()) {
 			registerListener(new LauncherListener()); // Register launch pad listener if its enabled
 			messageConsole("&aRegistered the launch pad listener");
 		}
 
-		if (globalConfig.getWorldConfig().isIceSpreadDisabled() || globalConfig.getWorldConfig().isSnowSpreadDisabled())
-		{
+		if (globalConfig.getWorldConfig().isIceSpreadDisabled() || globalConfig.getWorldConfig().isSnowSpreadDisabled()) {
 			registerListener(new BlockFormListener());
 			messageConsole("&aRegistered the block spread listener");
 		}
 
-		if (globalConfig.getWorldConfig().isMyceliumSpreadDisabled())
-		{
+		if (globalConfig.getWorldConfig().isMyceliumSpreadDisabled()) {
 			registerListener(new BlockSpreadListener());
 			messageConsole("&aRegistered the mycelium spread listener");
 		}
 
-		if (globalConfig.getWorldConfig().isThunderDisabled())
-		{
+		if (globalConfig.getWorldConfig().isThunderDisabled()) {
 			registerListener(new ThungerChangeListener());
 			messageConsole("&aRegistered the thunder listener");
 		}
 
-		if (globalConfig.getWorldConfig().isWeatherDisabled())
-		{
+		if (globalConfig.getWorldConfig().isWeatherDisabled()) {
 			registerListener(new WeatherChangeListener());
 			messageConsole("&aRegistered the Weather-Change listener");
 		}
 
-		if (globalConfig.getWorldConfig().isLightningDisabled())
-		{
+		if (globalConfig.getWorldConfig().isLightningDisabled()) {
 			registerListener(new LightningStrikeListener());
 			messageConsole("&aRegistered the lightning listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isBlockBreakEnabled())
-		{
+		if (!globalConfig.getWorldConfig().isBlockBreakEnabled()) {
 			registerListener(new BlockBreakListener());
 			messageConsole("&aRegistered the block break listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isItemDropEnabled())
-		{
+		if (!globalConfig.getWorldConfig().isItemDropEnabled()) {
 			registerListener(new ItemDropListener());
 			messageConsole("&aRegistered the item-drop listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isItemPickupEnabled())
-		{
+		if (!globalConfig.getWorldConfig().isItemPickupEnabled()) {
 			registerListener(new ItemPickupListener());
 			messageConsole("&aRegistered the item-pickup listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isFoodChangeEnabled())
-		{
+		if (!globalConfig.getWorldConfig().isFoodChangeEnabled()) {
 			registerListener(new FoodChangeListener());
 			messageConsole("&aRegistered the food change listener");
 		}
@@ -195,54 +173,43 @@ public class Commons extends JavaPlugin
 		messageConsole("&aRegistered the player Quit listener");
 	}
 
-	private void registerListener(Listener listener)
-	{
-		Bukkit.getPluginManager().registerEvents(listener,this);
+	private void registerListener(Listener listener) {
+		Bukkit.getPluginManager().registerEvents(listener, this);
 	}
 
-	public static void messageConsole(String message)
-	{
+	public static void messageConsole(String message) {
 		Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
 	}
 
-	private boolean initConfiguration()
-	{
+	private boolean initConfiguration() {
 		Serializer configSerializer = new Persister();
-		try
-		{
+		try {
 			File Config = new File(PLUGIN_DATA_FOLDER + "Config.xml");
-			if (!Config.exists())
-			{
+			if (!Config.exists()) {
 				configSerializer.write(new Configuration(), Config);
 			}
 			globalConfig = configSerializer.read(Configuration.class, Config);
 			return true;
-		}
-		catch (Exception Ex)
-		{
+		} catch (Exception Ex) {
 			Ex.printStackTrace();
 			return false;
 		}
 	}
 
-	public static boolean reloadConfiguration()
-	{
+	public static boolean reloadConfiguration() {
 		return getCommons().initConfiguration();
 	}
 
-	public static Configuration getConfiguration()
-	{
+	public static Configuration getConfiguration() {
 		return globalConfig;
 	}
 
 	@Override
-	public void onDisable()
-	{
+	public void onDisable() {
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
-		
-		for(Player player : Bukkit.getOnlinePlayers())
-		{
+
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			PlayerHandler.removeData(player.getName());
 			FriendHandler.removeFriendList(player.getName());
 			disguiseDatabase.deletePlayerDisguiseData(player.getName());

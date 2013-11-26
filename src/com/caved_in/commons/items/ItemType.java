@@ -19,22 +19,16 @@
 
 package com.caved_in.commons.items;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-
 import com.caved_in.commons.utilities.StringUtil;
+
+import java.util.*;
 
 /**
  * ItemType types.
- * 
+ *
  * @author sk89q
  */
-public enum ItemType
-{
+public enum ItemType {
 	// Blocks
 	AIR(BlockID.AIR, "Air", "air"),
 	STONE(BlockID.STONE, "Stone", "stone", "rock"),
@@ -392,13 +386,10 @@ public enum ItemType
 	private final String name;
 	private final String[] lookupKeys;
 
-	static
-	{
-		for (ItemType type : EnumSet.allOf(ItemType.class))
-		{
+	static {
+		for (ItemType type : EnumSet.allOf(ItemType.class)) {
 			ids.put(type.id, type);
-			for (String key : type.lookupKeys)
-			{
+			for (String key : type.lookupKeys) {
 				lookup.put(key, type);
 			}
 		}
@@ -406,25 +397,23 @@ public enum ItemType
 
 	/**
 	 * Construct the type.
-	 * 
+	 *
 	 * @param id
 	 * @param name
 	 */
-	ItemType(int id, String name, String lookupKey)
-	{
+	ItemType(int id, String name, String lookupKey) {
 		this.id = id;
 		this.name = name;
-		this.lookupKeys = new String[] { lookupKey };
+		this.lookupKeys = new String[]{lookupKey};
 	}
 
 	/**
 	 * Construct the type.
-	 * 
+	 *
 	 * @param id
 	 * @param name
 	 */
-	ItemType(int id, String name, String... lookupKeys)
-	{
+	ItemType(int id, String name, String... lookupKeys) {
 		this.id = id;
 		this.name = name;
 		this.lookupKeys = lookupKeys;
@@ -432,120 +421,102 @@ public enum ItemType
 
 	/**
 	 * Return type from ID. May return null.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
-	public static ItemType fromID(int id)
-	{
+	public static ItemType fromID(int id) {
 		return ids.get(id);
 	}
 
 	/**
 	 * Get a name for the item.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
-	public static String toName(int id)
-	{
+	public static String toName(int id) {
 		ItemType type = ids.get(id);
-		if (type != null)
-		{
+		if (type != null) {
 			return type.getName();
-		}
-		else
-		{
+		} else {
 			return "#" + id;
 		}
 	}
 
 	/**
 	 * Get a name for a held item.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
-	public static String toHeldName(int id)
-	{
-		if (id == 0)
-		{
+	public static String toHeldName(int id) {
+		if (id == 0) {
 			return "Hand";
 		}
 		ItemType type = ids.get(id);
-		if (type != null)
-		{
+		if (type != null) {
 			return type.getName();
-		}
-		else
-		{
+		} else {
 			return "#" + id;
 		}
 	}
 
 	/**
 	 * Return type from name. May return null.
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
-	public static ItemType lookup(String name)
-	{
+	public static ItemType lookup(String name) {
 		return lookup(name, true);
 	}
 
 	/**
 	 * Return type from name. May return null.
-	 * 
+	 *
 	 * @param name
 	 * @param fuzzy
 	 * @return
 	 */
-	public static ItemType lookup(String name, boolean fuzzy)
-	{
-		try
-		{
+	public static ItemType lookup(String name, boolean fuzzy) {
+		try {
 			return fromID(Integer.parseInt(name));
-		}
-		catch (NumberFormatException e)
-		{
+		} catch (NumberFormatException e) {
 			return StringUtil.lookup(lookup, name, fuzzy);
 		}
 	}
 
 	/**
 	 * Get item numeric ID.
-	 * 
+	 *
 	 * @return
 	 */
-	public int getID()
-	{
+	public int getID() {
 		return id;
 	}
 
 	/**
 	 * Get user-friendly item name.
-	 * 
+	 *
 	 * @return
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	/**
 	 * Get a list of aliases.
-	 * 
+	 *
 	 * @return
 	 */
-	public String[] getAliases()
-	{
+	public String[] getAliases() {
 		return lookupKeys;
 	}
 
 	private static final Set<Integer> shouldNotStack = new HashSet<Integer>();
-	static
-	{
+
+	static {
 		shouldNotStack.add(ItemID.IRON_SHOVEL);
 		shouldNotStack.add(ItemID.IRON_PICK);
 		shouldNotStack.add(ItemID.IRON_AXE);
@@ -634,18 +605,17 @@ public enum ItemType
 
 	/**
 	 * Returns true if an item should not be stacked.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
-	public static boolean shouldNotStack(int id)
-	{
+	public static boolean shouldNotStack(int id) {
 		return shouldNotStack.contains(id);
 	}
 
 	private static final Set<Integer> usesDamageValue = new HashSet<Integer>();
-	static
-	{
+
+	static {
 		usesDamageValue.add(BlockID.WOOD);
 		usesDamageValue.add(BlockID.SAPLING);
 		usesDamageValue.add(BlockID.LOG);
@@ -679,12 +649,11 @@ public enum ItemType
 	/**
 	 * Returns true if an item uses its damage value for something other than
 	 * damage.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
-	public static boolean usesDamageValue(int id)
-	{
+	public static boolean usesDamageValue(int id) {
 		return usesDamageValue.contains(id);
 	}
 }

@@ -1,7 +1,6 @@
 package com.caved_in.commons.sql;
 
-public enum FriendStatus
-{
+public enum FriendStatus {
 	ACCEPTED("Accepted"),
 	DENIED("Request denied"),
 	BLOCKED("Blocked"),
@@ -13,8 +12,7 @@ public enum FriendStatus
 
 	String message = "";
 
-	FriendStatus(String message)
-	{
+	FriendStatus(String message) {
 		this.message = message;
 	}
 }

@@ -6,14 +6,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.weather.LightningStrikeEvent;
 
-public class LightningStrikeListener implements Listener
-{
+public class LightningStrikeListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	public void onLightningStrike(LightningStrikeEvent Event)
-	{
-		if (Commons.getConfiguration().getWorldConfig().isThunderDisabled())
-		{
+	public void onLightningStrike(LightningStrikeEvent Event) {
+		if (Commons.getConfiguration().getWorldConfig().isThunderDisabled()) {
 			Event.setCancelled(true);
 		}
 	}

@@ -6,14 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockSpreadEvent;
 
-public class BlockSpreadListener implements Listener
-{
+public class BlockSpreadListener implements Listener {
 
 	@EventHandler
-	public void onBlockSpread(BlockSpreadEvent Event)
-	{
-		if (Event.getSource().getType() == Material.MYCEL && Commons.getConfiguration().getWorldConfig().isMyceliumSpreadDisabled())
-		{
+	public void onBlockSpread(BlockSpreadEvent Event) {
+		if (Event.getSource().getType() == Material.MYCEL && Commons.getConfiguration().getWorldConfig().isMyceliumSpreadDisabled()) {
 			Event.setCancelled(true);
 		}
 	}

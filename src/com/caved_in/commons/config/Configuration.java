@@ -2,8 +2,7 @@ package com.caved_in.commons.config;
 
 import org.simpleframework.xml.Element;
 
-public class Configuration
-{
+public class Configuration {
 	@Element(name = "DatabaseConfig", type = SqlConfiguration.class)
 	private SqlConfiguration sqlConfig;
 
@@ -12,7 +11,7 @@ public class Configuration
 
 	@Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class)
 	private MaintenanceConfiguration maintenanceConfig;
-	
+
 	@Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class)
 	private ItemMenuConfiguration itemMenuConfig;
 
@@ -20,11 +19,10 @@ public class Configuration
 	private String serverName = "EDIT THIS";
 
 	public Configuration(@Element(name = "WorldConfig", type = WorldConfiguration.class) WorldConfiguration worldConfig,
-			@Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
-			@Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
-			@Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class)ItemMenuConfiguration itemMenuConfig,
-			@Element(name = "Server_Name") String serverName)
-	{
+						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
+						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
+						 @Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
+						 @Element(name = "Server_Name") String serverName) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
@@ -32,36 +30,30 @@ public class Configuration
 		this.serverName = serverName;
 	}
 
-	public Configuration()
-	{
+	public Configuration() {
 		this.worldConfig = new WorldConfiguration();
 		this.sqlConfig = new SqlConfiguration();
 		this.maintenanceConfig = new MaintenanceConfiguration();
 		this.itemMenuConfig = new ItemMenuConfiguration();
 	}
 
-	public MaintenanceConfiguration getMaintenanceConfig()
-	{
+	public MaintenanceConfiguration getMaintenanceConfig() {
 		return this.maintenanceConfig;
 	}
 
-	public WorldConfiguration getWorldConfig()
-	{
+	public WorldConfiguration getWorldConfig() {
 		return this.worldConfig;
 	}
-	
-	public ItemMenuConfiguration getItemMenuConfig()
-	{
+
+	public ItemMenuConfiguration getItemMenuConfig() {
 		return this.itemMenuConfig;
 	}
 
-	public SqlConfiguration getSqlConfig()
-	{
+	public SqlConfiguration getSqlConfig() {
 		return this.sqlConfig;
 	}
 
-	public String getServerName()
-	{
+	public String getServerName() {
 		return this.serverName;
 	}
 }

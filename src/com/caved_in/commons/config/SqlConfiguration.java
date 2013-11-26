@@ -4,8 +4,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root
-public class SqlConfiguration
-{
+public class SqlConfiguration {
 	@Element(name = "MySqlHost")
 	private String mySqlHost = "localhost";
 
@@ -22,8 +21,7 @@ public class SqlConfiguration
 	private String mySqlPassword = "password";
 
 	public SqlConfiguration(@Element(name = "MySqlHost") String mySqlHost, @Element(name = "MySqlPort") String mySqlPort, @Element(name = "Database") String mySqlDatabase,
-			@Element(name = "MySqlUsername") String mySqlUsername, @Element(name = "MySqlPassword") String mySqlPassword)
-	{
+							@Element(name = "MySqlUsername") String mySqlUsername, @Element(name = "MySqlPassword") String mySqlPassword) {
 		this.mySqlHost = mySqlHost;
 		this.mySqlPort = mySqlPort;
 		this.mySqlDatabaseName = mySqlDatabase;
@@ -31,32 +29,26 @@ public class SqlConfiguration
 		this.mySqlPassword = mySqlPassword;
 	}
 
-	public SqlConfiguration()
-	{
+	public SqlConfiguration() {
 	}
 
-	public String getHost()
-	{
+	public String getHost() {
 		return this.mySqlHost;
 	}
 
-	public String getPort()
-	{
+	public String getPort() {
 		return this.mySqlPort;
 	}
 
-	public String getDatabase()
-	{
+	public String getDatabase() {
 		return this.mySqlDatabaseName;
 	}
 
-	public String getUsername()
-	{
+	public String getUsername() {
 		return this.mySqlUsername;
 	}
 
-	public String getPassword()
-	{
+	public String getPassword() {
 		return this.mySqlPassword;
 	}
 }

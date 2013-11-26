@@ -1,7 +1,6 @@
 package com.caved_in.commons.data.bans;
 
-public abstract interface IPunishment
-{
+public abstract interface IPunishment {
 	public PunishmentType getType();
 
 	public long getExpiryTime();

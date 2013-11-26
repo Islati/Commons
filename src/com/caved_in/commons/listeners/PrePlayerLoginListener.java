@@ -9,15 +9,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
-public class PrePlayerLoginListener implements Listener
-{
+public class PrePlayerLoginListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void PlayerPreLogin(AsyncPlayerPreLoginEvent Event)
-	{
+	public void PlayerPreLogin(AsyncPlayerPreLoginEvent Event) {
 		Commons.bansDatabase.PardonAllExpiredPunishments(Event.getName());
-		if (Commons.bansDatabase.isBanned(Event.getName()))
-		{
+		if (Commons.bansDatabase.isBanned(Event.getName())) {
 			Punishment Ban = Commons.bansDatabase.getLatestRecord(PunishmentType.Ban, Event.getName());
 			String KickMessage = "";
 			KickMessage = "You've been banned by " + Ban.getIssuer();

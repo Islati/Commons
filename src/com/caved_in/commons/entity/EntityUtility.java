@@ -11,101 +11,82 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 
 
-public class EntityUtility
-{
-	
+public class EntityUtility {
+
 	/**
 	 * Change the entities name
+	 *
 	 * @param Entity
 	 * @param Name
 	 */
-	public static LivingEntity spawnLivingEntity(Location Location, EntityType Type)
-	{
-		LivingEntity spawnedEntity = (LivingEntity)Location.getWorld().spawnEntity(Location, Type);
+	public static LivingEntity spawnLivingEntity(Location Location, EntityType Type) {
+		LivingEntity spawnedEntity = (LivingEntity) Location.getWorld().spawnEntity(Location, Type);
 		return spawnedEntity;
 	}
-	
+
 	/**
 	 * Gets a color for the entities health bar based on the percentage of their health
+	 *
 	 * @param entity
 	 * @return
 	 */
-	public static ChatColor getHealthBarColor(double enemyHealthPercentage)
-	{
+	public static ChatColor getHealthBarColor(double enemyHealthPercentage) {
 		ChatColor healthBarColor = ChatColor.GREEN;
-		if (enemyHealthPercentage >= 35 && enemyHealthPercentage <= 65)
-		{
+		if (enemyHealthPercentage >= 35 && enemyHealthPercentage <= 65) {
 			healthBarColor = ChatColor.YELLOW;
-		}
-		else if (enemyHealthPercentage < 35)
-		{
+		} else if (enemyHealthPercentage < 35) {
 			healthBarColor = ChatColor.RED;
 		}
 		return healthBarColor;
 	}
-	
+
 	/**
-	 * 
 	 * @param entity
 	 * @return
 	 */
-	public static ChatColor getHealthBarColor(Damageable entity)
-	{
+	public static ChatColor getHealthBarColor(Damageable entity) {
 		return getHealthBarColor((entity.getHealth() / entity.getMaxHealth()) * 100);
 	}
-	
-	public static void setName(LivingEntity Entity, String Name)
-	{
+
+	public static void setName(LivingEntity Entity, String Name) {
 		Entity.setCustomName(Name);
 	}
-	
-	public static void setName(LivingEntity Entity, String Name, boolean Visible)
-	{
-		setName(Entity,Name);
+
+	public static void setName(LivingEntity Entity, String Name, boolean Visible) {
+		setName(Entity, Name);
 		Entity.setCustomNameVisible(Visible);
 	}
-	
-	public static String getDefaultName(LivingEntity Entity)
-	{
+
+	public static String getDefaultName(LivingEntity Entity) {
 		return getDefaultName(Entity.getType());
 	}
-	
-	public static String getDefaultName(EntityType EntityType)
-	{
+
+	public static String getDefaultName(EntityType EntityType) {
 		return WordUtils.capitalizeFully(EntityType.name().toLowerCase().replace("_", " "));
 	}
-	
-	public static int getCurrentHealth(LivingEntity Entity)
-	{
-		return (int)((Damageable)Entity).getHealth();
+
+	public static int getCurrentHealth(LivingEntity Entity) {
+		return (int) ((Damageable) Entity).getHealth();
 	}
-	
-	public static void setCurrentHealth(LivingEntity Entity,int Health)
-	{
-		if (Health <= ((Damageable)Entity).getMaxHealth())
-		{
-			((Damageable)Entity).setHealth((double)Health);
-		}
-		else
-		{
-			((Damageable)Entity).setHealth(((Damageable)Entity).getMaxHealth());
+
+	public static void setCurrentHealth(LivingEntity Entity, int Health) {
+		if (Health <= ((Damageable) Entity).getMaxHealth()) {
+			((Damageable) Entity).setHealth((double) Health);
+		} else {
+			((Damageable) Entity).setHealth(((Damageable) Entity).getMaxHealth());
 		}
 	}
-	
-	public static int getMaxHealth(LivingEntity Entity)
-	{
-		return (int)((Damageable)Entity).getMaxHealth();
+
+	public static int getMaxHealth(LivingEntity Entity) {
+		return (int) ((Damageable) Entity).getMaxHealth();
 	}
-	
-	public static void setMaxHealth(LivingEntity Entity,int Health)
-	{
-		((Damageable)Entity).setMaxHealth((double)Health);
+
+	public static void setMaxHealth(LivingEntity Entity, int Health) {
+		((Damageable) Entity).setMaxHealth((double) Health);
 	}
-	
-	public static void setEntityEquipment(LivingEntity Entity, EntityArmorSlot Slot, ItemStack Item)
-	{
-		switch (Slot)
-		{
+
+	public static void setEntityEquipment(LivingEntity Entity, EntityArmorSlot Slot, ItemStack Item) {
+		switch (Slot) {
 			case BOOTS:
 				Entity.getEquipment().setBoots(Item);
 				break;
@@ -125,12 +106,10 @@ public class EntityUtility
 				break;
 		}
 	}
-	
-	public static EntityType getTypeByName(String Name)
-	{
+
+	public static EntityType getTypeByName(String Name) {
 		String SwitchName = Name.toLowerCase().replace("_", "");
-		switch (SwitchName)
-		{
+		switch (SwitchName) {
 			case "zombie":
 			case "zombies":
 			case "undead":
@@ -208,28 +187,22 @@ public class EntityUtility
 				return EntityType.UNKNOWN;
 		}
 	}
-	
-	public static void cleanAllEntities()
-	{
-		for(World bukkitWorld : Bukkit.getWorlds())
-		{
-			for(LivingEntity livingEntity : bukkitWorld.getLivingEntities())
-			{
-				if (!livingEntity.hasMetadata("NPC"))
-				{
+
+	public static void cleanAllEntities() {
+		for (World bukkitWorld : Bukkit.getWorlds()) {
+			for (LivingEntity livingEntity : bukkitWorld.getLivingEntities()) {
+				if (!livingEntity.hasMetadata("NPC")) {
 					livingEntity.remove();
 				}
 			}
 		}
 	}
 
-	public static void knockbackEntity(LivingEntity entity)
-	{
-		knockbackEntity(entity,-1);
+	public static void knockbackEntity(LivingEntity entity) {
+		knockbackEntity(entity, -1);
 	}
 
-	public static void knockbackEntity(LivingEntity entity, int force)
-	{
+	public static void knockbackEntity(LivingEntity entity, int force) {
 		entity.setVelocity(entity.getLocation().getDirection().multiply(force));
 	}
 }

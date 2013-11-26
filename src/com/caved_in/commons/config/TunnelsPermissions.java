@@ -1,7 +1,6 @@
 package com.caved_in.commons.config;
 
-public class TunnelsPermissions
-{
+public class TunnelsPermissions {
 	public static String MAINTAINANCE_WHITELIST = "tunnels.common.whitelist.access";
 	public static String BYPASS_DISGUISED_PLAYERS = "tunnels.common.nickvisible";
 	public static String BLACK_NAMETAG = "tunnels.common.formatting.black";

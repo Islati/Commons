@@ -1,17 +1,16 @@
 package com.caved_in.commons.config.ItemMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
-public class XmlMenuItem
-{
+import java.util.ArrayList;
+import java.util.List;
+
+public class XmlMenuItem {
 	@Attribute(name = "y")
 	private int itemY = 0;
-	
+
 	@Attribute(name = "x")
 	private int itemX = 0;
 
@@ -20,20 +19,19 @@ public class XmlMenuItem
 
 	@Attribute(name = "display_name")
 	private String itemName = "";
-	
+
 	@Element(name = "server_to_join")
 	private String bungeeServerToJoin = "";
 
-	@ElementList(name = "lore",inline = true)
+	@ElementList(name = "lore", inline = true)
 	private List<String> itemLore = new ArrayList<String>();
 
-	public XmlMenuItem(@Attribute(name = "y")int itemY,
-			@Attribute(name = "x")int itemX,
-			@Attribute(name = "item_id") String itemIconID,
-			@Attribute(name = "display_name") String itemName,
-			@ElementList(name = "lore",inline = true) List<String> itemLore,
-			@Element(name = "server_to_join")String bungeeServer)
-	{
+	public XmlMenuItem(@Attribute(name = "y") int itemY,
+					   @Attribute(name = "x") int itemX,
+					   @Attribute(name = "item_id") String itemIconID,
+					   @Attribute(name = "display_name") String itemName,
+					   @ElementList(name = "lore", inline = true) List<String> itemLore,
+					   @Element(name = "server_to_join") String bungeeServer) {
 		this.itemY = itemY;
 		this.itemX = itemX;
 		this.itemIconID = itemIconID;
@@ -41,69 +39,56 @@ public class XmlMenuItem
 		this.itemLore = itemLore;
 		this.bungeeServerToJoin = bungeeServer;
 	}
-	
-	public XmlMenuItem()
-	{
-		
+
+	public XmlMenuItem() {
+
 	}
 
-	public int getY()
-	{
+	public int getY() {
 		return itemY;
 	}
 
-	public void setY(int y)
-	{
+	public void setY(int y) {
 		this.itemY = y;
 	}
-	
-	public int getX()
-	{
+
+	public int getX() {
 		return itemX;
 	}
-	
-	public void setX(int x)
-	{
+
+	public void setX(int x) {
 		this.itemX = x;
 	}
 
-	public String getItemIconID()
-	{
+	public String getItemIconID() {
 		return itemIconID;
 	}
 
-	public void setItemIconID(String itemIconID)
-	{
+	public void setItemIconID(String itemIconID) {
 		this.itemIconID = itemIconID;
 	}
 
-	public String getItemName()
-	{
+	public String getItemName() {
 		return itemName;
 	}
 
-	public void setItemName(String itemName)
-	{
+	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
 
-	public List<String> getItemLore()
-	{
+	public List<String> getItemLore() {
 		return itemLore;
 	}
 
-	public void setItemLore(List<String> list)
-	{
+	public void setItemLore(List<String> list) {
 		this.itemLore = list;
 	}
-	
-	public String getBungeeServer()
-	{
+
+	public String getBungeeServer() {
 		return this.bungeeServerToJoin;
 	}
-	
-	public void setBungeeServer(String itemCommand)
-	{
+
+	public void setBungeeServer(String itemCommand) {
 		this.bungeeServerToJoin = itemCommand;
 	}
 }

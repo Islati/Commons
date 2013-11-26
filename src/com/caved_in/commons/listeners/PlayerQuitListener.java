@@ -7,14 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class PlayerQuitListener implements Listener
-{
+public class PlayerQuitListener implements Listener {
 	@EventHandler
-	public void PlayerQuit(PlayerQuitEvent Event)
-	{
+	public void PlayerQuit(PlayerQuitEvent Event) {
 		String playerName = Event.getPlayer().getName();
-		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled())
-		{
+		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			Event.setQuitMessage(null);
 		}
 		PlayerHandler.removeData(playerName);

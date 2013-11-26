@@ -1,15 +1,14 @@
 package com.caved_in.commons.fireworks;
 
-import java.lang.reflect.Method;
-
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-public class FireworkEffectPlayer
-{
+import java.lang.reflect.Method;
+
+public class FireworkEffectPlayer {
 
 	/*
 	 * Example use:
@@ -33,14 +32,13 @@ public class FireworkEffectPlayer
 	/**
 	 * Play a pretty firework at the location with the FireworkEffect when
 	 * called
-	 * 
+	 *
 	 * @param world
 	 * @param loc
 	 * @param fe
 	 * @throws Exception
 	 */
-	public void playFirework(World world, Location loc, FireworkEffect fe) throws Exception
-	{
+	public void playFirework(World world, Location loc, FireworkEffect fe) throws Exception {
 		// Bukkity load (CraftFirework)
 		Firework fw = world.spawn(loc, Firework.class);
 		// the net.minecraft.server.World
@@ -50,8 +48,7 @@ public class FireworkEffectPlayer
 		 * The reflection part, this gives us access to funky ways of messing
 		 * around with things
 		 */
-		if (world_getHandle == null)
-		{
+		if (world_getHandle == null) {
 			// get the methods of the craftbukkit objects
 			world_getHandle = getMethod(world.getClass(), "getHandle");
 			firework_getHandle = getMethod(fw.getClass(), "getHandle");
@@ -60,8 +57,7 @@ public class FireworkEffectPlayer
 		nms_world = world_getHandle.invoke(world, (Object[]) null);
 		nms_firework = firework_getHandle.invoke(fw, (Object[]) null);
 		// null checks are fast, so having this seperate is ok
-		if (nms_world_broadcastEntityEffect == null)
-		{
+		if (nms_world_broadcastEntityEffect == null) {
 			// get the method of the nms_world
 			nms_world_broadcastEntityEffect = getMethod(nms_world.getClass(), "broadcastEntityEffect");
 		}
@@ -85,7 +81,7 @@ public class FireworkEffectPlayer
 		 */
 
 		// invoke with arguments
-		nms_world_broadcastEntityEffect.invoke(nms_world, new Object[] { nms_firework, (byte) 17 });
+		nms_world_broadcastEntityEffect.invoke(nms_world, new Object[]{nms_firework, (byte) 17});
 		// remove from the game
 		fw.remove();
 	}
@@ -93,17 +89,14 @@ public class FireworkEffectPlayer
 	/**
 	 * Internal method, used as shorthand to grab our method in a nice friendly
 	 * manner
-	 * 
+	 *
 	 * @param cl
 	 * @param method
 	 * @return Method (or null)
 	 */
-	private static Method getMethod(Class<?> cl, String method)
-	{
-		for (Method m : cl.getMethods())
-		{
-			if (m.getName().equals(method))
-			{
+	private static Method getMethod(Class<?> cl, String method) {
+		for (Method m : cl.getMethods()) {
+			if (m.getName().equals(method)) {
 				return m;
 			}
 		}

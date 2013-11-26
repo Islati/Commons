@@ -1,13 +1,12 @@
 package com.caved_in.commons.config.Formatting;
 
+import org.bukkit.ChatColor;
+
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.ChatColor;
-
-public enum ColorCode
-{
+public enum ColorCode {
 	BLACK("tunnels.common.formatting.black", ChatColor.BLACK),
 	DARK_BLUE("tunnels.common.formatting.darkblue", ChatColor.DARK_BLUE),
 	BLUE("tunnels.common.formatting.blue", ChatColor.BLUE),
@@ -28,32 +27,26 @@ public enum ColorCode
 
 	private static Map<String, ChatColor> permissionColors = new HashMap<String, ChatColor>();
 
-	static
-	{
-		for (ColorCode colorCode : EnumSet.allOf(ColorCode.class))
-		{
+	static {
+		for (ColorCode colorCode : EnumSet.allOf(ColorCode.class)) {
 			permissionColors.put(colorCode.colorPermission, colorCode.color);
 		}
 	}
 
-	ColorCode(String permission, ChatColor color)
-	{
+	ColorCode(String permission, ChatColor color) {
 		this.color = color;
 		this.colorPermission = permission;
 	}
 
-	public String getPermission()
-	{
+	public String getPermission() {
 		return this.colorPermission;
 	}
 
-	public ChatColor getColor()
-	{
+	public ChatColor getColor() {
 		return this.color;
 	}
 
-	public static ChatColor getColorForPermission(String permission)
-	{
+	public static ChatColor getColorForPermission(String permission) {
 		return permissionColors.get(permission.toLowerCase());
 	}
 }

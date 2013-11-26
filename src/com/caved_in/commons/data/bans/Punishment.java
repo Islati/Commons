@@ -1,7 +1,6 @@
 package com.caved_in.commons.data.bans;
 
-public abstract class Punishment implements IPunishment
-{
+public abstract class Punishment implements IPunishment {
 	private PunishmentType Type;
 	private long ExpiryTime;
 	private long IssuedTime;
@@ -9,8 +8,7 @@ public abstract class Punishment implements IPunishment
 	private String Reason = "";
 	private String Issuer = "";
 
-	public Punishment(PunishmentType Type, long Expiry, long Issued, boolean Active, String Reason, String Issuer)
-	{
+	public Punishment(PunishmentType Type, long Expiry, long Issued, boolean Active, String Reason, String Issuer) {
 		this.Type = Type;
 		this.ExpiryTime = Expiry;
 		this.IssuedTime = Issued;
@@ -20,38 +18,32 @@ public abstract class Punishment implements IPunishment
 	}
 
 	@Override
-	public PunishmentType getType()
-	{
+	public PunishmentType getType() {
 		return this.Type;
 	}
 
 	@Override
-	public long getExpiryTime()
-	{
+	public long getExpiryTime() {
 		return this.ExpiryTime;
 	}
 
 	@Override
-	public long getIssuedTime()
-	{
+	public long getIssuedTime() {
 		return this.IssuedTime;
 	}
 
 	@Override
-	public boolean isActive()
-	{
+	public boolean isActive() {
 		return this.Active;
 	}
 
 	@Override
-	public String getReason()
-	{
+	public String getReason() {
 		return this.Reason;
 	}
 
 	@Override
-	public String getIssuer()
-	{
+	public String getIssuer() {
 		return this.Issuer;
 	}
 }

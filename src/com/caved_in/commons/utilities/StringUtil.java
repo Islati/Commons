@@ -25,19 +25,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-public class StringUtil
-{
+public class StringUtil {
 	/**
 	 * Trim a string if it is longer than a certain length.
-	 * 
+	 *
 	 * @param str
 	 * @param len
 	 * @return
 	 */
-	public static String trimLength(String str, int len)
-	{
-		if (str.length() > len)
-		{
+	public static String trimLength(String str, int len) {
+		if (str.length() > len) {
 			return str.substring(0, len);
 		}
 
@@ -46,22 +43,19 @@ public class StringUtil
 
 	/**
 	 * Join an array of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @param initialIndex
 	 * @return
 	 */
 	public static String joinString(String[] str, String delimiter,
-			int initialIndex)
-	{
-		if (str.length == 0)
-		{
+									int initialIndex) {
+		if (str.length == 0) {
 			return "";
 		}
 		StringBuilder buffer = new StringBuilder(str[initialIndex]);
-		for (int i = initialIndex + 1; i < str.length; ++i)
-		{
+		for (int i = initialIndex + 1; i < str.length; ++i) {
 			buffer.append(delimiter).append(str[i]);
 		}
 		return buffer.toString();
@@ -69,7 +63,7 @@ public class StringUtil
 
 	/**
 	 * Join an array of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @param initialIndex
@@ -77,18 +71,15 @@ public class StringUtil
 	 * @return
 	 */
 	public static String joinQuotedString(String[] str, String delimiter,
-			int initialIndex, String quote)
-	{
-		if (str.length == 0)
-		{
+										  int initialIndex, String quote) {
+		if (str.length == 0) {
 			return "";
 		}
 		StringBuilder buffer = new StringBuilder();
 		buffer.append(quote);
 		buffer.append(str[initialIndex]);
 		buffer.append(quote);
-		for (int i = initialIndex + 1; i < str.length; ++i)
-		{
+		for (int i = initialIndex + 1; i < str.length; ++i) {
 			buffer.append(delimiter).append(quote).append(str[i]).append(quote);
 		}
 		return buffer.toString();
@@ -96,34 +87,30 @@ public class StringUtil
 
 	/**
 	 * Join an array of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @return
 	 */
-	public static String joinString(String[] str, String delimiter)
-	{
+	public static String joinString(String[] str, String delimiter) {
 		return joinString(str, delimiter, 0);
 	}
 
 	/**
 	 * Join an array of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @param initialIndex
 	 * @return
 	 */
 	public static String joinString(Object[] str, String delimiter,
-			int initialIndex)
-	{
-		if (str.length == 0)
-		{
+									int initialIndex) {
+		if (str.length == 0) {
 			return "";
 		}
 		StringBuilder buffer = new StringBuilder(str[initialIndex].toString());
-		for (int i = initialIndex + 1; i < str.length; ++i)
-		{
+		for (int i = initialIndex + 1; i < str.length; ++i) {
 			buffer.append(delimiter).append(str[i].toString());
 		}
 		return buffer.toString();
@@ -131,22 +118,19 @@ public class StringUtil
 
 	/**
 	 * Join an array of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @param initialIndex
 	 * @return
 	 */
 	public static String joinString(int[] str, String delimiter,
-			int initialIndex)
-	{
-		if (str.length == 0)
-		{
+									int initialIndex) {
+		if (str.length == 0) {
 			return "";
 		}
 		StringBuilder buffer = new StringBuilder(Integer.toString(str[initialIndex]));
-		for (int i = initialIndex + 1; i < str.length; ++i)
-		{
+		for (int i = initialIndex + 1; i < str.length; ++i) {
 			buffer.append(delimiter).append(Integer.toString(str[i]));
 		}
 		return buffer.toString();
@@ -154,27 +138,22 @@ public class StringUtil
 
 	/**
 	 * Join an list of strings into a string.
-	 * 
+	 *
 	 * @param str
 	 * @param delimiter
 	 * @param initialIndex
 	 * @return
 	 */
 	public static String joinString(Collection<?> str, String delimiter,
-			int initialIndex)
-	{
-		if (str.size() == 0)
-		{
+									int initialIndex) {
+		if (str.size() == 0) {
 			return "";
 		}
 		StringBuilder buffer = new StringBuilder();
 		int i = 0;
-		for (Object o : str)
-		{
-			if (i >= initialIndex)
-			{
-				if (i > 0)
-				{
+		for (Object o : str) {
+			if (i >= initialIndex) {
+				if (i > 0) {
 					buffer.append(delimiter);
 				}
 
@@ -189,20 +168,20 @@ public class StringUtil
 	 * <p>
 	 * Find the Levenshtein distance between two Strings.
 	 * </p>
-	 * 
+	 * <p/>
 	 * <p>
 	 * This is the number of changes needed to change one String into another,
 	 * where each change is a single character modification (deletion, insertion
 	 * or substitution).
 	 * </p>
-	 * 
+	 * <p/>
 	 * <p>
 	 * The previous implementation of the Levenshtein distance algorithm was
 	 * from <a
 	 * href="http://www.merriampark.com/ld.htm">http://www.merriampark.com
 	 * /ld.htm</a>
 	 * </p>
-	 * 
+	 * <p/>
 	 * <p>
 	 * Chas Emerick has written an implementation in Java, which avoids an
 	 * OutOfMemoryError which can occur when my Java implementation is used with
@@ -211,7 +190,7 @@ public class StringUtil
 	 * href="http://www.merriampark.com/ldjava.htm">http://www.merriampark.com/
 	 * ldjava.htm</a>
 	 * </p>
-	 * 
+	 * <p/>
 	 * <pre>
 	 * StringUtil.getLevenshteinDistance(null, *)             = IllegalArgumentException
 	 * StringUtil.getLevenshteinDistance(*, null)             = IllegalArgumentException
@@ -225,19 +204,14 @@ public class StringUtil
 	 * StringUtil.getLevenshteinDistance("hippo", "zzzzzzzz") = 8
 	 * StringUtil.getLevenshteinDistance("hello", "hallo")    = 1
 	 * </pre>
-	 * 
-	 * @param s
-	 *            the first String, must not be null
-	 * @param t
-	 *            the second String, must not be null
+	 *
+	 * @param s the first String, must not be null
+	 * @param t the second String, must not be null
 	 * @return result distance
-	 * @throws IllegalArgumentException
-	 *             if either String input <code>null</code>
+	 * @throws IllegalArgumentException if either String input <code>null</code>
 	 */
-	public static int getLevenshteinDistance(String s, String t)
-	{
-		if (s == null || t == null)
-		{
+	public static int getLevenshteinDistance(String s, String t) {
+		if (s == null || t == null) {
 			throw new IllegalArgumentException("Strings must not be null");
 		}
 
@@ -264,12 +238,9 @@ public class StringUtil
 		int n = s.length(); // length of s
 		int m = t.length(); // length of t
 
-		if (n == 0)
-		{
+		if (n == 0) {
 			return m;
-		}
-		else if (m == 0)
-		{
+		} else if (m == 0) {
 			return n;
 		}
 
@@ -285,18 +256,15 @@ public class StringUtil
 
 		int cost; // cost
 
-		for (i = 0; i <= n; ++i)
-		{
+		for (i = 0; i <= n; ++i) {
 			p[i] = i;
 		}
 
-		for (j = 1; j <= m; ++j)
-		{
+		for (j = 1; j <= m; ++j) {
 			t_j = t.charAt(j - 1);
 			d[0] = j;
 
-			for (i = 1; i <= n; ++i)
-			{
+			for (i = 1; i <= n; ++i) {
 				cost = s.charAt(i - 1) == t_j ? 0 : 1;
 				// minimum of cell to the left+1, to the top+1, diagonally left
 				// and up +cost
@@ -317,48 +285,41 @@ public class StringUtil
 
 	/**
 	 * Lookup a string within a map
-	 * 
+	 *
 	 * @param lookup
 	 * @param name
 	 * @param fuzzy
 	 * @return
 	 */
-	public static <T extends Enum<?>> T lookup(Map<String, T> lookup, String name, boolean fuzzy)
-	{
+	public static <T extends Enum<?>> T lookup(Map<String, T> lookup, String name, boolean fuzzy) {
 		String testName = name.replaceAll("[ _]", "").toLowerCase();
 
 		T type = lookup.get(testName);
-		if (type != null)
-		{
+		if (type != null) {
 			return type;
 		}
 
-		if (!fuzzy)
-		{
+		if (!fuzzy) {
 			return null;
 		}
 
 		int minDist = Integer.MAX_VALUE;
 
-		for (Map.Entry<String, T> entry : lookup.entrySet())
-		{
+		for (Map.Entry<String, T> entry : lookup.entrySet()) {
 			final String key = entry.getKey();
-			if (key.charAt(0) != testName.charAt(0))
-			{
+			if (key.charAt(0) != testName.charAt(0)) {
 				continue;
 			}
 
 			int dist = getLevenshteinDistance(key, testName);
 
-			if (dist >= minDist)
-			{
+			if (dist >= minDist) {
 				minDist = dist;
 				type = entry.getValue();
 			}
 		}
 
-		if (minDist > 1)
-		{
+		if (minDist > 1) {
 			return null;
 		}
 
@@ -367,44 +328,35 @@ public class StringUtil
 
 	/**
 	 * Scramble text; What else is there?
-	 * 
+	 *
 	 * @param Text
 	 * @return
 	 */
-	public static String scrambleText(String Text)
-	{
+	public static String scrambleText(String Text) {
 		StringBuilder Scrambled = new StringBuilder();
-		if (Text.contains(" "))
-		{
+		if (Text.contains(" ")) {
 			String[] Words = Text.split(" ");
-			for (String word : Words)
-			{
+			for (String word : Words) {
 				ArrayList<Character> chars = new ArrayList<Character>(word.length());
-				for (char c : word.toCharArray())
-				{
+				for (char c : word.toCharArray()) {
 					chars.add(c);
 				}
 				Collections.shuffle(chars);
 				char[] shuffled = new char[chars.size()];
-				for (int i = 0; i < shuffled.length; i++)
-				{
+				for (int i = 0; i < shuffled.length; i++) {
 					shuffled[i] = chars.get(i);
 				}
 				Scrambled.append(" ").append(shuffled);
 			}
 			return Scrambled.toString();
-		}
-		else
-		{
+		} else {
 			ArrayList<Character> chars = new ArrayList<Character>(Text.length());
-			for (char c : Text.toCharArray())
-			{
+			for (char c : Text.toCharArray()) {
 				chars.add(c);
 			}
 			Collections.shuffle(chars);
 			char[] shuffled = new char[chars.size()];
-			for (int i = 0; i < shuffled.length; i++)
-			{
+			for (int i = 0; i < shuffled.length; i++) {
 				shuffled[i] = chars.get(i);
 			}
 			return new String(shuffled);
@@ -413,20 +365,17 @@ public class StringUtil
 
 	/**
 	 * Format all & within a string to �
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
-	public static String formatColorCodes(String str)
-	{
+	public static String formatColorCodes(String str) {
 		return ChatColor.translateAlternateColorCodes('&', str);
 	}
-	
-	public static String getTrimmedPlayerName(String playerName)
-	{
-		
-		switch (playerName.length())
-		{
+
+	public static String getTrimmedPlayerName(String playerName) {
+
+		switch (playerName.length()) {
 			case 16:
 				return playerName.substring(0, playerName.length() - 3);
 			case 15:
