@@ -1,5 +1,6 @@
 package com.caved_in.commons.entity;
 
+import com.caved_in.commons.Commons;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -204,5 +205,14 @@ public class EntityUtility {
 
 	public static void knockbackEntity(LivingEntity entity, int force) {
 		entity.setVelocity(entity.getLocation().getDirection().multiply(force));
+	}
+
+	public static void removeEntitySafely(final LivingEntity entity) {
+		Commons.threadManager.runTaskOneTickLater(new Runnable() {
+			@Override
+			public void run() {
+				entity.remove();
+			}
+		});
 	}
 }
