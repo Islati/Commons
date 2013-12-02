@@ -62,3 +62,5 @@ commands:
       usage: /xp
    more:
       usage: /more
+   addcurrency:
+      usage: /addcurrency <Player> <Amount>

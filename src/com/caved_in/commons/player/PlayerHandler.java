@@ -6,6 +6,7 @@ import com.caved_in.commons.config.TunnelsPermissions;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -199,10 +200,10 @@ public class PlayerHandler {
 	 * @param messages
 	 */
 	public static void sendMessageToAllPlayersWithoutPermission(String permission, String... messages) {
-		for (Player Player : Bukkit.getOnlinePlayers()) {
-			if (!Player.hasPermission(permission)) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (!player.hasPermission(permission)) {
 				for (String message : messages) {
-					Player.sendMessage(StringUtil.formatColorCodes(message));
+					sendMessage(player,message);
 				}
 			}
 		}
@@ -212,29 +213,29 @@ public class PlayerHandler {
 	 * @param player
 	 * @param messages
 	 */
-	public static void sendMessageToPlayer(Player player, String... messages) {
-		for (String message : messages) {
-			player.sendMessage(StringUtil.formatColorCodes(message));
-		}
+	public static void sendMessagesToPlayer(Player player, String... messages) {
+		sendMessage(player,messages);
 	}
 
 	public static void sendMessageToPlayer(Player player, String message) {
-		player.sendMessage(StringUtil.formatColorCodes(message));
+		sendMessage(player,message);
 	}
 
 
 	/**
 	 * Sends message(s) to a player while auto-formatting the color codes
 	 *
-	 * @param player
+	 * @param commandSender
 	 * @param messages
 	 */
-	public static void sendMessage(Player player, String... messages) {
-		sendMessageToPlayer(player, messages);
+	public static void sendMessage(CommandSender commandSender, String... messages) {
+		for (String message : messages) {
+			commandSender.sendMessage(StringUtil.formatColorCodes(message));
+		}
 	}
 
-	public static void sendMessage(Player player, String message) {
-		sendMessageToPlayer(player, message);
+	public static void sendMessage(CommandSender commandSender, String message) {
+		commandSender.sendMessage(StringUtil.formatColorCodes(message));
 	}
 
 	/**

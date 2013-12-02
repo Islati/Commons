@@ -4,7 +4,9 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.config.TunnelsPermissions;
 import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.utilities.StringUtil;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,6 +21,38 @@ public class AdminCommands {
 			} else {
 				player.sendMessage("Please include a name: /buyinfo <name>");
 			}
+		}
+	}
+
+	@CommandHandler(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "tunnels.common.currency")
+	public void addCurrencyCommand(CommandSender sender, String[] commandArgs) {
+		if (commandArgs.length > 1 && commandArgs[0] != null && commandArgs[1] != null) {
+			String playerName = commandArgs[0];
+			String currencyAmount = commandArgs[1];
+			if (Commons.playerDatabase.hasData(playerName)) {
+				if (StringUtils.isNumeric(currencyAmount)) {
+					int currency = Integer.parseInt(currencyAmount);
+					if (PlayerHandler.isOnlineFuzzy(playerName)) {
+						PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
+						playerWrapper.addCurrency((double)currency);
+						PlayerHandler.updateData(playerWrapper);
+						Commons.messageConsole("Added " + currency + " to " + playerName);
+					} else {
+						PlayerWrapper playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
+						if (playerWrapper != null) {
+							playerWrapper.addCurrency((double)currency);
+							PlayerHandler.updateData(playerWrapper);
+							Commons.messageConsole("Added " + currency + " to " + playerName);
+						}
+					}
+				} else {
+					PlayerHandler.sendMessage(sender,"&c" + currencyAmount + "&e isn't a number.. &o/addcurrency <Player> <Amount>");
+				}
+			} else {
+				PlayerHandler.sendMessage(sender,"&eUnable to find data for " + playerName + "; Names are Case Sensitive, try again?");
+			}
+		} else {
+			PlayerHandler.sendMessage(sender,"&e/addcurrency <Player> <Amount>");
 		}
 	}
 

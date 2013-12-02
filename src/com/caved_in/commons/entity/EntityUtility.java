@@ -9,7 +9,10 @@ import org.bukkit.World;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.UUID;
 
 
 public class EntityUtility {
@@ -49,65 +52,112 @@ public class EntityUtility {
 		return getHealthBarColor((entity.getHealth() / entity.getMaxHealth()) * 100);
 	}
 
-	public static void setName(LivingEntity Entity, String Name) {
-		Entity.setCustomName(Name);
+	/**
+	 * Change the name of a LivingEntity
+	 * @param entity The entity to modify
+	 * @param name Name we wish to give our entity
+	 */
+	public static void setName(LivingEntity entity, String name) {
+		entity.setCustomName(name);
 	}
 
+	/**
+	 * Change the name of a living entity, and set whether or not
+	 * its name is always visible
+	 * @param Entity
+	 * @param Name
+	 * @param Visible
+	 */
 	public static void setName(LivingEntity Entity, String Name, boolean Visible) {
 		setName(Entity, Name);
 		Entity.setCustomNameVisible(Visible);
 	}
 
+	/**
+	 * Gets the default name for an entity based on it's type
+	 * @param Entity
+	 * @return
+	 */
 	public static String getDefaultName(LivingEntity Entity) {
 		return getDefaultName(Entity.getType());
 	}
 
+	/**
+	 * Gets the default name of an entity of the given type
+	 * @param EntityType
+	 * @return
+	 */
 	public static String getDefaultName(EntityType EntityType) {
 		return WordUtils.capitalizeFully(EntityType.name().toLowerCase().replace("_", " "));
 	}
 
+	/**
+	 * Get the current health for an entity, as an integer
+	 * @param Entity
+	 * @return
+	 */
 	public static int getCurrentHealth(LivingEntity Entity) {
 		return (int) ((Damageable) Entity).getHealth();
 	}
 
-	public static void setCurrentHealth(LivingEntity Entity, int Health) {
-		if (Health <= ((Damageable) Entity).getMaxHealth()) {
-			((Damageable) Entity).setHealth((double) Health);
+	/**
+	 *
+	 * @param livingEntity
+	 * @param health
+	 */
+	public static void setCurrentHealth(LivingEntity livingEntity, int health) {
+		if (health <= ((Damageable) livingEntity).getMaxHealth()) {
+			((Damageable) livingEntity).setHealth((double) health);
 		} else {
-			((Damageable) Entity).setHealth(((Damageable) Entity).getMaxHealth());
+			((Damageable) livingEntity).setHealth(((Damageable) livingEntity).getMaxHealth());
 		}
 	}
 
-	public static int getMaxHealth(LivingEntity Entity) {
-		return (int) ((Damageable) Entity).getMaxHealth();
+	public static int getMaxHealth(LivingEntity livingEntity) {
+		return (int) ((Damageable) livingEntity).getMaxHealth();
 	}
 
-	public static void setMaxHealth(LivingEntity Entity, int Health) {
-		((Damageable) Entity).setMaxHealth((double) Health);
+	public static void setMaxHealth(LivingEntity livingEntity, int health) {
+		((Damageable) livingEntity).setMaxHealth((double) health);
 	}
 
-	public static void setEntityEquipment(LivingEntity Entity, EntityArmorSlot Slot, ItemStack Item) {
-		switch (Slot) {
+	/**
+	 * Change the active armor of an entity in the specified slot
+	 * to be of the given ItemStack
+	 *
+	 * This method doesn't check if the slot, or item, are valid items for the slot:
+	 * It forces the items to be in the slot.
+	 * @param livingEntity
+	 * @param entityArmorSlot
+	 * @param itemStack
+	 */
+	public static void setEntityEquipment(LivingEntity livingEntity, EntityArmorSlot entityArmorSlot, ItemStack itemStack) {
+		switch (entityArmorSlot) {
 			case BOOTS:
-				Entity.getEquipment().setBoots(Item);
+				livingEntity.getEquipment().setBoots(itemStack);
 				break;
 			case CHEST:
-				Entity.getEquipment().setChestplate(Item);
+				livingEntity.getEquipment().setChestplate(itemStack);
 				break;
 			case HELMET:
-				Entity.getEquipment().setHelmet(Item);
+				livingEntity.getEquipment().setHelmet(itemStack);
 				break;
 			case LEGS:
-				Entity.getEquipment().setLeggings(Item);
+				livingEntity.getEquipment().setLeggings(itemStack);
 				break;
 			case WEAPON:
-				Entity.getEquipment().setItemInHand(Item);
+				livingEntity.getEquipment().setItemInHand(itemStack);
 				break;
 			default:
 				break;
 		}
 	}
 
+	/**
+	 * Get an entities type by it's name
+	 * @param Name
+	 * @return
+	 */
 	public static EntityType getTypeByName(String Name) {
 		String SwitchName = Name.toLowerCase().replace("_", "");
 		switch (SwitchName) {
@@ -189,30 +239,59 @@ public class EntityUtility {
 		}
 	}
 
+	/**
+	 * Cleans all the entities in every world (that isn't an npc or player)
+	 */
 	public static void cleanAllEntities() {
 		for (World bukkitWorld : Bukkit.getWorlds()) {
 			for (LivingEntity livingEntity : bukkitWorld.getLivingEntities()) {
-				if (!livingEntity.hasMetadata("NPC")) {
+				if (!(livingEntity.hasMetadata("NPC")) && (livingEntity instanceof Player)) {
 					livingEntity.remove();
 				}
 			}
 		}
 	}
 
+	/**
+	 * Simulate player knock-back on an entity
+	 * @param entity
+	 */
 	public static void knockbackEntity(LivingEntity entity) {
 		knockbackEntity(entity, -1);
 	}
 
+	/**
+	 * Knock back en entity with a specified amount of force
+	 * @param entity
+	 * @param force
+	 */
 	public static void knockbackEntity(LivingEntity entity, int force) {
 		entity.setVelocity(entity.getLocation().getDirection().multiply(force));
 	}
 
 	public static void removeEntitySafely(final LivingEntity entity) {
-		Commons.threadManager.runTaskOneTickLater(new Runnable() {
+		Commons.threadManager.runTaskOneTickLater(new Runnable()
+		{
 			@Override
-			public void run() {
+			public void run()
+			{
 				entity.remove();
 			}
 		});
+	}
+
+	/**
+	 *
+	 * @param world
+	 * @param entityUUID
+	 * @return
+	 */
+	public static LivingEntity getEntityByUUID(World world, UUID entityUUID) {
+		for(LivingEntity entity : world.getLivingEntities()) {
+			if (entity.getUniqueId().equals(entityUUID)) {
+				return entity;
+			}
+		}
+		return null;
 	}
 }

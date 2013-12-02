@@ -1,62 +1,163 @@
 package com.caved_in.commons.particles;
 
-import com.caved_in.commons.location.LocationHandler;
-import net.minecraft.server.v1_6_R3.Packet63WorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R3.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.Random;
-
-//import net.minecraft.server.v1_5_R3.Packet63WorldParticles;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public enum ParticleEffects {
-	HUGE_EXPLOSION("hugeexplosion"), LARGE_EXPLODE("largeexplode"), FIREWORKS_SPARK("fireworksSpark"), BUBBLE("bubble"), SUSPEND("suspend"), DEPTH_SUSPEND("depthSuspend"), TOWN_AURA("townaura"), CRIT("crit"), MAGIC_CRIT("magicCrit"), MOB_SPELL("mobSpell"), MOB_SPELL_AMBIENT("mobSpellAmbient"), SPELL("spell"), INSTANT_SPELL("instantSpell"), WITCH_MAGIC("witchMagic"), NOTE("note"), PORTAL("portal"), ENCHANTMENT_TABLE("enchantmenttable"), EXPLODE("explode"), FLAME("flame"), LAVA("lava"), FOOTSTEP("footstep"), SPLASH("splash"), LARGE_SMOKE("largesmoke"), CLOUD("cloud"), RED_DUST("reddust"), SNOWBALL_POOF("snowballpoof"), DRIP_WATER("dripWater"), DRIP_LAVA("dripLava"), SNOW_SHOVEL("snowshovel"), SLIME("slime"), HEART("heart"), ANGRY_VILLAGER("angryVillager"), HAPPY_VILLAGER("happerVillager"), ICONCRACK("iconcrack_"), TILECRACK("tilecrack_");
 
-	private String particleName;
+	HUGE_EXPLODE("hugeexplosion", 0), LARGE_EXPLODE("largeexplode", 1), FIREWORK_SPARK("fireworksSpark", 2), AIR_BUBBLE(
+			"bubble", 3), SUSPEND("suspend", 4), DEPTH_SUSPEND("depthSuspend", 5), TOWN_AURA("townaura", 6), CRITICAL_HIT(
+			"crit", 7), MAGIC_CRITICAL_HIT("magicCrit", 8), MOB_SPELL("mobSpell", 9), MOB_SPELL_AMBIENT(
+			"mobSpellAmbient", 10), SPELL("spell", 11), INSTANT_SPELL("instantSpell", 12), BLUE_SPARKLE("witchMagic",
+			13), NOTE_BLOCK("note", 14), ENDER("portal", 15), ENCHANTMENT_TABLE("enchantmenttable", 16), EXPLODE(
+			"explode", 17), FIRE("flame", 18), LAVA_SPARK("lava", 19), FOOTSTEP("footstep", 20), SPLASH("splash", 21), LARGE_SMOKE(
+			"largesmoke", 22), CLOUD("cloud", 23), REDSTONE_DUST("reddust", 24), SNOWBALL_HIT("snowballpoof", 25), DRIP_WATER(
+			"dripWater", 26), DRIP_LAVA("dripLava", 27), SNOW_DIG("snowshovel", 28), SLIME("slime", 29), HEART("heart",
+			30), ANGRY_VILLAGER("angryVillager", 31), GREEN_SPARKLE("happyVillager", 32), ICONCRACK("iconcrack", 33), TILECRACK(
+			"tilecrack", 34);
 
-	private ParticleEffects(String particleName) {
-		this.particleName = particleName;
+	private String name;
+	private int id;
+
+	ParticleEffects(String name, int id) {
+		this.name = name;
+		this.id = id;
 	}
 
-	private Packet63WorldParticles Packet(Location location, float offsetX, float offsetY, float offsetZ, float speed, int particleCount) throws Exception {
-		Packet63WorldParticles packet = new Packet63WorldParticles();
-		ReflectionUtilities.setValue(packet, "a", this.particleName);
-		ReflectionUtilities.setValue(packet, "b", (float) location.getX());
-		ReflectionUtilities.setValue(packet, "c", (float) location.getY());
-		ReflectionUtilities.setValue(packet, "d", (float) location.getZ());
-		ReflectionUtilities.setValue(packet, "e", offsetX);
-		ReflectionUtilities.setValue(packet, "f", offsetY);
-		ReflectionUtilities.setValue(packet, "g", offsetZ);
-		ReflectionUtilities.setValue(packet, "h", speed);
-		ReflectionUtilities.setValue(packet, "i", particleCount);
+	/**
+	 * Gets the name of the Particle Effect
+	 *
+	 * @return The particle effect name
+	 */
+	String getName() {
+		return name;
+	}
+
+	/**
+	 * Gets the id of the Particle Effect
+	 *
+	 * @return The id of the Particle Effect
+	 */
+	int getId() {
+		return id;
+	}
+
+	/**
+	 * Send a particle effect to a player
+	 *
+	 * @param effect
+	 *            The particle effect to send
+	 * @param player
+	 *            The player to send the effect to
+	 * @param location
+	 *            The location to send the effect to
+	 * @param offsetX
+	 *            The x range of the particle effect
+	 * @param offsetY
+	 *            The y range of the particle effect
+	 * @param offsetZ
+	 *            The z range of the particle effect
+	 * @param speed
+	 *            The speed (or color depending on the effect) of the particle
+	 *            effect
+	 * @param count
+	 *            The count of effects
+	 */
+	public static void sendToPlayer(ParticleEffects effect, Player player, Location location, float offsetX, float offsetY,
+									float offsetZ, float speed, int count) {
+		try {
+			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
+			sendPacket(player, packet);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Send a particle effect to all players
+	 *
+	 * @param effect
+	 *            The particle effect to send
+	 * @param location
+	 *            The location to send the effect to
+	 * @param offsetX
+	 *            The x range of the particle effect
+	 * @param offsetY
+	 *            The y range of the particle effect
+	 * @param offsetZ
+	 *            The z range of the particle effect
+	 * @param speed
+	 *            The speed (or color depending on the effect) of the particle
+	 *            effect
+	 * @param count
+	 *            The count of effects
+	 */
+	public static void sendToLocation(ParticleEffects effect, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) {
+		try {
+			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				sendPacket(player, packet);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static Object createPacket(ParticleEffects effect, Location location, float offsetX, float offsetY,
+									   float offsetZ, float speed, int count) throws Exception {
+		if (count <= 0) {
+			count = 1;
+		}
+		Class<?> packetClass = getCraftClass("PacketPlayOutWorldParticles");
+		Object packet = packetClass.getConstructor(String.class, float.class, float.class, float.class, float.class,
+				float.class, float.class, float.class, int.class).newInstance(effect.name, (float) location.getX(),
+				(float) location.getY(), (float) location.getZ(), offsetX, offsetY, offsetZ, speed, count);
 		return packet;
 	}
 
-	public void sendToPlayer(Player player, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) throws Exception {
-		((CraftPlayer) player).getHandle().playerConnection.sendPacket(Packet(location, offsetX, offsetY, offsetZ, speed, count));
-	}
-
-	public void sendToPlayer(Player Player, Location location, float speed, int Count) throws Exception {
-		sendToPlayer(Player, location, new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat(), speed, Count);
-	}
-
-	public void sendToAll(Location location, float speed, int count) throws Exception {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			sendToPlayer(player, location, speed, count);
+	private static void sendPacket(Player p, Object packet) throws Exception {
+		Object eplayer = getHandle(p);
+		Field playerConnectionField = eplayer.getClass().getField("playerConnection");
+		Object playerConnection = playerConnectionField.get(eplayer);
+		for (Method m : playerConnection.getClass().getMethods()) {
+			if (m.getName().equalsIgnoreCase("sendPacket")) {
+				m.invoke(playerConnection, packet);
+				return;
+			}
 		}
 	}
 
-	public void sendToAllInRadius(Location particleLocation, Location radiusLocation, double Radius, float speed, int Count) throws Exception {
-		for (Player player : LocationHandler.getPlayersInRadius(radiusLocation, Radius)) {
-			sendToPlayer(player, particleLocation, speed, Count);
+	private static Object getHandle(Entity entity) {
+		try {
+			Method entity_getHandle = entity.getClass().getMethod("getHandle");
+			Object nms_entity = entity_getHandle.invoke(entity);
+			return nms_entity;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
 		}
 	}
 
-	public void sendToAllInRadius(Location particleLocation, double radius, float speed, int particleCount) throws Exception {
-		for (Player player : LocationHandler.getPlayersInRadius(particleLocation, radius)) {
-			sendToPlayer(player, particleLocation, speed, particleCount);
+	private static Class<?> getCraftClass(String name) {
+		String version = getVersion() + ".";
+		String className = "net.minecraft.server." + version + name;
+		Class<?> clazz = null;
+		try {
+			clazz = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+		return clazz;
 	}
+
+	private static String getVersion() {
+		return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+	}
+
 }
