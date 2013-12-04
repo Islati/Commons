@@ -12,10 +12,29 @@ import org.bukkit.entity.Player;
  * Time: 11:48 AM
  */
 public class EffectPlayer {
-
+	/**
+	 * Plays the given effect  at a specific location to all the players within the
+	 * given radius of said location
+	 * @param location location to play the effect
+	 * @param radius radius to search for players
+	 * @param blockType the material of the block
+	 */
 	public static void playBlockEffectAt(Location location, int radius, Effect effect, Material blockType) {
 		for (Player player : LocationHandler.getPlayersInRadius(location, radius)) {
 			player.playEffect(location, effect, blockType.getId());
+		}
+	}
+
+	/**
+	 * Plays the effect of a block breaking at a specific location to all the players within the
+	 * given radius of said location
+	 * @param location location to play the block break effect
+	 * @param radius radius to search for players
+	 * @param blockType the material of the block
+	 */
+	public static void playBlockBreakEffect(Location location, int radius, Material blockType) {
+		for (Player player : LocationHandler.getPlayersInRadius(location,radius)) {
+			player.playEffect(location,Effect.STEP_SOUND,blockType.getId());
 		}
 	}
 

@@ -3,6 +3,8 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Formatting.ColorCode;
 import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.potions.PotionHandler;
+import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -327,5 +329,26 @@ public class PlayerHandler {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
 		}
+	}
+
+	/**
+	 * Give a player a potion effect of the given type
+	 * This method is a soft reference to EntityUtility.addPotionEffect(*)
+	 * @param player player to give the potion effect to
+	 * @param potionEffect the potion effect in which to give the player
+	 */
+	public static void addPotionEffect(Player player, PotionEffect potionEffect) {
+		player.addPotionEffect(potionEffect);
+	}
+
+	/**
+	 * Give a player a potion effect of the given type for a specific duration
+	 * This method is a soft reference to EntityUtility.addPotionEffect(*)
+	 * @param player player to give the potion effect to
+	 * @param potionType effect type to give the player
+	 * @param durationInTicks duration of the potion effect (in ticks. 20 ticks = 1 second)
+	 */
+	public static void addPotionEffect(Player player, PotionType potionType, int durationInTicks) {
+		addPotionEffect(player, PotionHandler.getPotionEffect(potionType,durationInTicks));
 	}
 }

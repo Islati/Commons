@@ -1,6 +1,8 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.potions.PotionHandler;
+import com.caved_in.commons.potions.PotionType;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +13,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -98,6 +103,25 @@ public class EntityUtility {
 	 */
 	public static int getCurrentHealth(LivingEntity Entity) {
 		return (int) ((Damageable) Entity).getHealth();
+	}
+
+	/**
+	 * Give an entity a potion effect
+	 * @param livingEntity entity to give the potion effect to
+	 * @param potionEffect the potion effect in which to give the player
+	 */
+	public static void addPotionEffect(LivingEntity livingEntity, PotionEffect potionEffect) {
+		livingEntity.addPotionEffect(potionEffect);
+	}
+
+	/**
+	 * Give an entity a potion effect of the given type for a specific duration
+	 * @param livingEntity entity to give the potion effect to
+	 * @param potionType effect type to give the player
+	 * @param durationInTicks duration of the potion effect (in ticks. 20 ticks = 1 second)
+	 */
+	public static void addPotionEffect(LivingEntity livingEntity, PotionType potionType, int durationInTicks) {
+		addPotionEffect(livingEntity, PotionHandler.getPotionEffect(potionType, durationInTicks));
 	}
 
 	/**
@@ -244,8 +268,33 @@ public class EntityUtility {
 	 */
 	public static void cleanAllEntities() {
 		for (World bukkitWorld : Bukkit.getWorlds()) {
-			for (LivingEntity livingEntity : bukkitWorld.getLivingEntities()) {
-				if (!(livingEntity.hasMetadata("NPC")) && (livingEntity instanceof Player)) {
+			cleanAllEntities(bukkitWorld);
+		}
+	}
+
+	/**
+	 * Cleans all the entities in the given world
+	 * that isn't an npc (citizens NPC) or a player
+	 * @param world
+	 */
+	public static void cleanAllEntities(World world) {
+		for (LivingEntity livingEntity : world.getLivingEntities()) {
+			if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof Player)) {
+				livingEntity.remove();
+			}
+		}
+	}
+
+	/**
+	 * Clean all the entities in a world except the defined types (And players, and citizens NPC'S)
+	 * @param world world to clean of livingEntities
+	 * @param entityTypes entityTypes to not remove
+	 */
+	public static void cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
+		List<EntityType> eTypes = Arrays.asList(entityTypes);
+		for (LivingEntity livingEntity : world.getLivingEntities()) {
+			if (!eTypes.contains(livingEntity.getType())) {
+				if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof Player)) {
 					livingEntity.remove();
 				}
 			}
