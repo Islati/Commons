@@ -58,4 +58,18 @@ public class LocationHandler {
 		double y = locationCenter.getWorld().getHighestBlockYAt((int) x, (int) z);
 		return new Location(locationCenter.getWorld(), x, y, z);
 	}
+
+	/**
+	 * Get the X, Y, and Z Coords of a location
+	 * in a literal array, where index:
+	 * <b>0 = X <br/>1 = Y<br/>2 = Z</b>
+	 * @param location
+	 * @return
+	 */
+	public static int[] getXYZ(Location location) {
+		int x = (int) location.getX();
+		int y = (int) location.getY();
+		int z = (int) location.getZ();
+		return new int[] {x, y, z};
+	}
 }

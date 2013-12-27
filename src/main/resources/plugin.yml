@@ -53,14 +53,16 @@ commands:
    friends:
       usage: /friends <SubCommand>
    r:
-      usage: /r <Message>
+      usage: /<command> <Message>
    skull:
-      usage: /skull <Name>
+      usage: /<command> <Name>
    setspawn:
       usage: /setspawn
    xp:
-      usage: /xp
+      usage: /<command>
    more:
-      usage: /more
+      usage: /<command>
    addcurrency:
-      usage: /addcurrency <Player> <Amount>
+      usage: /<command> <Player> <Amount>
+   heal:
+      usage: /<command>

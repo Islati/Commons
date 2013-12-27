@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/potions/PotionHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/potions/PotionType.java" />
-      <change type="DELETED" beforePath="C:\Users\brandon\IdeaProjects\Commons\commons.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/entity/EntityUtility.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/entity/EntityUtility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/block/chest/ChestType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/http/Connection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/inventory/InventoryHandler.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/inventory/InventoryHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/location/LocationHandler.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/location/LocationHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/commands/utility/UtilityCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/caved_in/commons/world/WorldHandler.java" afterPath="$PROJECT_DIR$/src/com/caved_in/commons/world/WorldHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +76,28 @@
       <file leaf-file-name="ParticleEffects.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="32" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2856">
+            <state line="21" column="0" selection-start="1153" selection-end="1273" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2856">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Commons.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/Commons.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="109" column="0" selection-start="4088" selection-end="4088" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="3298">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Connection.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/http/Connection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="171" column="18" selection-start="5298" selection-end="5298" vertical-scroll-proportion="0.71267605" vertical-offset="2401" max-vertical-offset="3111">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -100,10 +120,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InventoryHandler.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="InventoryHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/inventory/InventoryHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="9" selection-start="696" selection-end="696" vertical-scroll-proportion="0.42323652" vertical-offset="0" max-vertical-offset="723">
+            <state line="48" column="7" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1700">
               <folding />
             </state>
           </provider>
@@ -130,7 +150,7 @@
       <file leaf-file-name="plugin.yml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="66" column="0" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1224">
+            <state line="8" column="14" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1258">
               <folding />
             </state>
           </provider>
@@ -167,6 +187,7 @@
         <option value="$PROJECT_DIR$/src/com/caved_in/commons/potions/PotionHandler.java" />
         <option value="$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerHandler.java" />
         <option value="$PROJECT_DIR$/src/com/caved_in/commons/entity/EntityUtility.java" />
+        <option value="$PROJECT_DIR$/src/com/caved_in/commons/http/Connection.java" />
       </list>
     </option>
   </component>
@@ -230,7 +251,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -303,281 +324,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="utilities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="time" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sql" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="potions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="particles" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="misc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="inventory" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="file" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="effects" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commons" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="http" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -595,6 +348,13 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\http" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
@@ -784,7 +544,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -834,20 +594,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1224">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="38" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="3502">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="32" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="2856">
@@ -913,9 +659,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/file/DataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295">
-          <folding />
-        </state>
+        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
@@ -962,9 +706,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/effects/EffectPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527">
-          <folding />
-        </state>
+        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -976,9 +718,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/file/DataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295">
-          <folding />
-        </state>
+        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
@@ -1025,9 +765,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/effects/EffectPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527">
-          <folding />
-        </state>
+        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -1039,9 +777,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/file/DataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295">
-          <folding />
-        </state>
+        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2295" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
@@ -1088,9 +824,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/effects/EffectPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527">
-          <folding />
-        </state>
+        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -1102,16 +836,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/file/DataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="32" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2856">
-          <folding />
-        </state>
+        <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ReflectionUtilities.java">
@@ -1123,21 +848,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/sql/PlayerSQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="5" selection-start="4407" selection-end="4407" vertical-scroll-proportion="0.85745615" vertical-offset="1428" max-vertical-offset="2499">
-          <folding />
-        </state>
+        <state line="111" column="5" selection-start="4407" selection-end="4407" vertical-scroll-proportion="0.85745615" vertical-offset="1428" max-vertical-offset="2499" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/commands/admin/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="28" selection-start="1006" selection-end="1017" vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2227">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1224">
           <folding />
         </state>
       </provider>
@@ -1151,18 +867,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/potions/PotionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="5" selection-start="600" selection-end="600" vertical-scroll-proportion="0.5219298" vertical-offset="0" max-vertical-offset="456">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="14" column="5" selection-start="600" selection-end="600" vertical-scroll-proportion="0.5219298" vertical-offset="0" max-vertical-offset="456" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/effects/EffectPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.32622603" vertical-offset="0" max-vertical-offset="469">
-          <folding />
-        </state>
+        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.32622603" vertical-offset="0" max-vertical-offset="469" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerWrapper.java">
@@ -1174,9 +884,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/player/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="335" column="7" selection-start="8779" selection-end="8779" vertical-scroll-proportion="0.14254385" vertical-offset="5392" max-vertical-offset="5882">
-          <folding />
-        </state>
+        <state line="335" column="7" selection-start="8779" selection-end="8779" vertical-scroll-proportion="0.14254385" vertical-offset="5392" max-vertical-offset="5882" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/entity/EntityUtility.java">
@@ -1188,8 +896,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/inventory/InventoryHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="9" selection-start="696" selection-end="696" vertical-scroll-proportion="0.42323652" vertical-offset="0" max-vertical-offset="723">
+        <state line="48" column="7" selection-start="1526" selection-end="1526" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="1530">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="14" selection-start="218" selection-end="218" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1258">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/particles/ParticleEffects.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="1153" selection-end="1273" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2686">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/Commons.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="0" selection-start="4088" selection-end="4088" vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="3298">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/caved_in/commons/http/Connection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="171" column="18" selection-start="5298" selection-end="5298" vertical-scroll-proportion="0.71267605" vertical-offset="2401" max-vertical-offset="3111">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

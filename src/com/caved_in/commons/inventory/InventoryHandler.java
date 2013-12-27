@@ -1,5 +1,6 @@
 package com.caved_in.commons.inventory;
 
+import com.caved_in.commons.block.chest.ChestType;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.event.inventory.InventoryType;
@@ -12,22 +13,47 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InventoryHandler {
+
+	public static ChestType getChestType(InventoryHolder inventoryHolder) {
+		if (isChest(inventoryHolder)) {
+			return ChestType.SINGLE_CHEST;
+		} else if (isDoubleChest(inventoryHolder)) {
+			return ChestType.DOUBLE_CHEST;
+		} else if (inventoryHolder.getInventory().getType() == InventoryType.ENDER_CHEST) {
+			return ChestType.ENDER_CHEST;
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * Check if the type of an inventory is a chest
 	 * @param inventory inventory to check
-	 * @return true if the inventories type is a chest, or enderchest
+	 * @return true if the inventories type is a chest
 	 */
 	public static boolean isChest(Inventory inventory) {
-		return inventory.getType() == InventoryType.CHEST || inventory.getType() == InventoryType.ENDER_CHEST;
+		ChestType chestType = getChestType(inventory.getHolder());
+		return (chestType != null && chestType == ChestType.SINGLE_CHEST);
 	}
 
 	/**
 	 * Check if the inventoryholder is a chest
 	 * @param inventoryHolder inventoryholder to check
-	 * @return true if the inventorys holder is a chest, double chest, or enderchest; False otherwise
+	 * @return true if the inventorys holder is a chest
 	 */
 	public static boolean isChest(InventoryHolder inventoryHolder) {
-		return inventoryHolder instanceof Chest || inventoryHolder instanceof DoubleChest || inventoryHolder.getInventory().getType() == InventoryType.ENDER_CHEST;
+		ChestType chestType = getChestType(inventoryHolder);
+		return (chestType != null && chestType == ChestType.SINGLE_CHEST);
+	}
+
+	/**
+	 * Check if the inventoryholder is a double chest
+	 * @param inventoryHolder inventoryholder to check
+	 * @return true if the inventorys holder is a double chest
+	 */
+	public static boolean isDoubleChest(InventoryHolder inventoryHolder) {
+		ChestType chestType = getChestType(inventoryHolder);
+		return (chestType != null && chestType == ChestType.DOUBLE_CHEST);
 	}
 
 	/**
@@ -35,9 +61,16 @@ public class InventoryHandler {
 	 * @param inventoryHolder inventoryholder to get the chest of
 	 * @return
 	 */
-	public static Chest getChestFromHolder(InventoryHolder inventoryHolder) {
+	public static Chest getChest(InventoryHolder inventoryHolder) {
 		if (isChest(inventoryHolder)) {
 			return (Chest)inventoryHolder;
+		}
+		return null;
+	}
+
+	public static DoubleChest getDoubleChest(InventoryHolder inventoryHolder) {
+		if (isDoubleChest(inventoryHolder)) {
+			return (DoubleChest)inventoryHolder;
 		}
 		return null;
 	}

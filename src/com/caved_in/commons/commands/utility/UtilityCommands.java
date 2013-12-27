@@ -4,9 +4,12 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.data.disguises.Disguise;
 import com.caved_in.commons.data.menu.HelpScreen;
+import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.utilities.StringUtil;
+import com.caved_in.commons.world.WorldHandler;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -117,12 +120,11 @@ public class UtilityCommands {
 
 	@CommandHandler(name = "setspawn", usage = "/setspawn", permission = "tunnels.common.setspawn")
 	public void setSpawnCommand(Player player, String[] commandArgs) {
-		Location playerLocation = player.getLocation();
-		int x = (int) playerLocation.getX();
-		int y = (int) playerLocation.getY();
-		int z = (int) playerLocation.getZ();
-		player.getWorld().setSpawnLocation(x, y, z);
-		PlayerHandler.sendMessage(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
+		if (WorldHandler.setSpawn(player.getWorld(), player.getLocation())) {
+			PlayerHandler.sendMessage(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
+		} else {
+			PlayerHandler.sendMessage(player,"&eThere was an error changing the spawn location for world &7" + player.getWorld().getName() + "&e; please check the console.");
+		}
 	}
 
 	@CommandHandler(name = "more", usage = "/more", permission = "tunnels.common.more")
@@ -130,6 +132,13 @@ public class UtilityCommands {
 		ItemStack playerHandItem = player.getItemInHand();
 		playerHandItem.setAmount(playerHandItem.getMaxStackSize());
 		player.setItemInHand(playerHandItem);
+	}
+
+	@CommandHandler(name = "heal", usage = "/heal", permission = "tunnels.common.heal")
+	public void onHealCommand(Player player, String[] commandArgs) {
+		PlayerHandler.removePotionEffects(player);
+		EntityUtility.setCurrentHealth(player,EntityUtility.getMaxHealth(player));
+		player.sendMessage("&eYou've been healed!");
 	}
 
 }
