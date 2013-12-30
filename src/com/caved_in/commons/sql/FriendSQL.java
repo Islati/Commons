@@ -10,18 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendSQL {
+	//TODO Make this entire class neater
 	private SQL SQL;
 
-	private String tableName = "Friends";
+	private String tableName = "friends";
 	private String playerField = "player";
 	private String friendField = "Friend";
 	private String acceptedField = "Accepted";
+
+	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`friends` (" +
+			"  `player` text NOT NULL," +
+			"  `Friend` text NOT NULL," +
+			"  `Accepted` tinyint(1) NOT NULL DEFAULT '0'" +
+			") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 	/**
 	 * @param sqlConfig
 	 */
 	public FriendSQL(SqlConfiguration sqlConfig) {
 		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
+		this.SQL.execute(creationStatement);
 	}
 
 	/**
@@ -29,15 +38,6 @@ public class FriendSQL {
 	 */
 	public void refresh() {
 		this.SQL.refreshConnection();
-	}
-
-	/**
-	 * Echo a message to bukkit console
-	 *
-	 * @param Message Message to Echo
-	 */
-	public void consoleOutput(String Message) {
-		Bukkit.getLogger().info(Message);
 	}
 
 	/**

@@ -19,7 +19,8 @@ public class Connection implements Serializable {
 	String domain, referer;
 	Map<String, String> cookies;
 
-	static String rpUseragent = "Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.8.1.14) Gecko/20080509 Firefox/2.0.0.14";
+	//Google chrome User Agent
+	static String rpUseragent = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
 	static String rpAcceptText = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
 	static String rpAcceptPng = "image/png,image/*;q=0.8,*/*;q=0.5";
 	static String rpAcceptLanguage = "en-us,en;q=0.5";

@@ -67,7 +67,8 @@ public class SQL {
 		PreparedStatement st = null;
 		ResultSet valid = null;
 		try {
-			st = Connection.prepareStatement("SELECT 1 FROM Players");
+			//TODO Make this more secure / Not a bloody eye-sore.
+			st = Connection.prepareStatement("SELECT * FROM players");
 			valid = st.executeQuery();
 			if (valid.next()) {
 				return;
@@ -82,6 +83,7 @@ public class SQL {
 		long end = 0;
 
 		try {
+			//TODO Clean up this and handle it better; It's copy-pastad wherever we time a connection
 			start = System.currentTimeMillis();
 			System.out.println("Attempting to establish a connection the MySQL server!");
 			Class.forName("com.mysql.jdbc.Driver");

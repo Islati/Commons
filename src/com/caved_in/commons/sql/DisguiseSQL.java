@@ -3,6 +3,7 @@ package com.caved_in.commons.sql;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.data.disguises.Disguise;
 import org.bukkit.Bukkit;
+import sun.security.krb5.internal.crypto.crc32;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,14 +13,24 @@ import java.util.List;
 public class DisguiseSQL {
 	private SQL SQL;
 
-	private String dataTable = "Disguises";
+	private String dataTable = "disguises";
 	private String idTag = "ID";
 	private String nameTag = "Name";
 	private String disguisedTag = "DisguisedAs";
 	private String serverTag = "Server";
 
+	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`disguises` (" +
+			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
+			"  `Name` text NOT NULL," +
+			"  `DisguisedAs` text NOT NULL," +
+			"  `Server` text NOT NULL," +
+			"  PRIMARY KEY (`ID`)" +
+			") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
 	public DisguiseSQL(SqlConfiguration sqlConfig) {
 		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
+		this.SQL.execute(creationStatement);
 	}
 
 	public void refreshConnection() {

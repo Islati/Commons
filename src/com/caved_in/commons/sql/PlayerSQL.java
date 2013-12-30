@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class PlayerSQL {
 	private SQL playerSql;
-	private String tableName = "Players";
+	private String tableName = "players";
 	private String playerField = "Name";
 	private String onlineStatusField = "OnlineStatus";
 	private String serverField = "Server";
@@ -16,8 +16,21 @@ public class PlayerSQL {
 	private String lastSeenField = "LastOnline";
 	private String premiumField = "Premium";
 
+	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`players` (" +
+			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
+			"  `Name` text NOT NULL," +
+			"  `OnlineStatus` tinyint(1) NOT NULL DEFAULT '0'," +
+			"  `Server` text NOT NULL," +
+			"  `XP` double unsigned NOT NULL," +
+			"  `LastOnline` bigint(20) unsigned NOT NULL," +
+			"  `Premium` tinyint(1) NOT NULL DEFAULT '0'," +
+			"  PRIMARY KEY (`ID`)" +
+			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+
 	public PlayerSQL(SqlConfiguration sqlConfig) {
 		this.playerSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
+		this.playerSql.execute(creationStatement);
 	}
 
 	private ResultSet getData(String playerName) {

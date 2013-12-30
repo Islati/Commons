@@ -1,0 +1,22 @@
+Refactor all methods that user Snake_casing and UpperCamelCasing to use lowerCamelCasing
+
+Update ALL Sql classes to use prepared statements
+
+Refactor and re-code all SQL classes to be much more optimized
+
+Create a new Prepared-Statements wrapper class for SQL
+
+Optimize the friends list
+
+Implement a tpa, tp, and tphere command
+
+Bug-fix the Compass menu
+
+Add a "Premium only" option to the config.xml; kicks on join if the
+player isn't premium (option is a boolean)
+
+Optimize Block Handler
+
+optimize commands for admins / mods
+
+Implement a "Welcome Message" variable into commons (with support for colorcodes

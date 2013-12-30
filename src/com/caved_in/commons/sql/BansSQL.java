@@ -15,7 +15,7 @@ import java.util.List;
 public class BansSQL {
 	private SQL SQL;
 
-	private String Table = "Bans";
+	private String Table = "bans";
 	private String IDTag = "ID";
 	private String TypeTag = "Type";
 	private String NameTag = "Name";
@@ -25,8 +25,22 @@ public class BansSQL {
 	private String ExpiresTag = "Expires";
 	private String ActiveTag = "Active";
 
+	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`bans` (" +
+			"  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT," +
+			"  `Type` text NOT NULL," +
+			"  `Name` text NOT NULL," +
+			"  `Reason` text NOT NULL," +
+			"  `IssuedBy` text NOT NULL," +
+			"  `Issued` bigint(20) unsigned NOT NULL," +
+			"  `Expires` bigint(20) NOT NULL," +
+			"  `Active` tinyint(1) NOT NULL DEFAULT '1'," +
+			"  PRIMARY KEY (`ID`)" +
+			") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
 	public BansSQL(SqlConfiguration sqlConfig) {
 		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
+		this.SQL.execute(this.creationStatement);
 	}
 
 	public void Refresh() {

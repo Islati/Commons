@@ -240,6 +240,10 @@ public class PlayerHandler {
 		commandSender.sendMessage(StringUtil.formatColorCodes(message));
 	}
 
+	public static String getIPAddress(Player player) {
+		return player.getAddress().getHostName();
+	}
+
 	/**
 	 * @param player
 	 * @return
