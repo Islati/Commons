@@ -355,4 +355,21 @@ public class PlayerHandler {
 	public static void addPotionEffect(Player player, PotionType potionType, int durationInTicks) {
 		addPotionEffect(player, PotionHandler.getPotionEffect(potionType,durationInTicks));
 	}
+
+	public static int getOnlinePlayersCount() {
+		return Bukkit.getOnlinePlayers().length;
+	}
+
+	public static Player[] getOnlinePlayers() {
+		return Bukkit.getOnlinePlayers();
+	}
+
+	/**
+	 * Check if there's atleast the given amount of players online
+	 * @param amount Amount to check against
+	 * @return true if amount is greater or equal to the amount of players online, false otherwise
+	 */
+	public static boolean hasOnlineCount(int amount) {
+		return getOnlinePlayersCount() >= amount;
+	}
 }

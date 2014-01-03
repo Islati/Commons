@@ -68,7 +68,7 @@ public class Commons extends JavaPlugin {
 		threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
 			@Override
 			public void run() {
-				bansDatabase.Refresh();
+				bansDatabase.refreshConnection();
 				disguiseDatabase.refreshConnection();
 				friendDatabase.refresh();
 				playerDatabase.refreshConnection();

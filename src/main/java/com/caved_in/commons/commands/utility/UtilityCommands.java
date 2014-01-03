@@ -1,6 +1,7 @@
 package com.caved_in.commons.commands.utility;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.data.disguises.Disguise;
 import com.caved_in.commons.data.menu.HelpScreen;
@@ -14,7 +15,9 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class UtilityCommands {
@@ -71,7 +74,7 @@ public class UtilityCommands {
 		player.sendMessage(StringUtil.formatColorCodes("&aYou have " + ((int) PlayerHandler.getData(player.getName()).getCurrency()) + " Tunnels XP"));
 	}
 
-	private HelpScreen getNickHelpScreen() {
+	private static HelpScreen getNickHelpScreen() {
 		HelpScreen nicknameHelpsScreen = new HelpScreen("Nickname Command Help");
 		nicknameHelpsScreen.setHeader(ChatColor.YELLOW + "<name> Page <page> of <maxpage>");
 		nicknameHelpsScreen.setFormat("<name> -- <desc>");
@@ -114,7 +117,7 @@ public class UtilityCommands {
 			ItemHandler.setItemName(playerSkull, playerName + "'s Head");
 			player.getInventory().addItem(playerSkull);
 		} else {
-			player.sendMessage(ChatColor.RED + "The proper usage is " + ChatColor.YELLOW + "/skull <Name>");
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("player"));
 		}
 	}
 
@@ -139,6 +142,62 @@ public class UtilityCommands {
 		PlayerHandler.removePotionEffects(player);
 		EntityUtility.setCurrentHealth(player,EntityUtility.getMaxHealth(player));
 		player.sendMessage("&eYou've been healed!");
+	}
+
+	@CommandHandler(name = "ci", usage = "/ci [player]", permission = "tunnels.common.clearinventory", aliases = {"clearinventory", "clearinv"})
+	public void onClearInventoryCommand(CommandSender commandSender, String[] args) {
+		//Check if we've got a player using this command
+		if (args.length > 0) {
+			String playerName = args[1];
+			//Check if there's a player online with the name in our argument
+			if (PlayerHandler.isOnlineFuzzy(playerName)) {
+				//Get the player and clear their inventory + armor
+				Player player = PlayerHandler.getPlayer(playerName);
+				PlayerHandler.clearInventory(player,true);
+				player.sendMessage(Messages.INVENTORY_CLEARED);
+			} else {
+				PlayerHandler.sendMessage(commandSender, Messages.PLAYER_OFFLINE(playerName));
+			}
+		} else {
+			if (commandSender instanceof Player) {
+				Player player = (Player)commandSender;
+				PlayerHandler.clearInventory(player);
+				PlayerHandler.sendMessage(player,Messages.INVENTORY_CLEARED);
+			} else {
+				PlayerHandler.sendMessage(commandSender, Messages.INVALID_COMMAND_USAGE("player"));
+			}
+		}
+	}
+
+	@CommandHandler(name = "tphere", permission = "tunnels.common.tphere", aliases = {"bring"})
+	public void onTeleportHereCommand(Player player, String[] args) {
+		if (args.length > 0) {
+			String playerName = args[0];
+			if (PlayerHandler.isOnlineFuzzy(playerName)) {
+				Player playerToTeleport = PlayerHandler.getPlayer(playerName);
+				playerToTeleport.teleport(player, PlayerTeleportEvent.TeleportCause.COMMAND);
+			} else {
+				PlayerHandler.sendMessage(player,Messages.PLAYER_OFFLINE(playerName));
+			}
+		} else {
+			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("player"));
+		}
+	}
+
+	//TODO Make this command able to teleport one player to another via arguments; CommandSender instead of player
+	@CommandHandler(name = "tp", permission = "tunnels.common.teleport", aliases = {"teleport"})
+	public void onTeleportCommand(Player player, String[] args) {
+		if (args.length > 0) {
+			String playerName = args[0];
+			if (PlayerHandler.isOnlineFuzzy(playerName)) {
+				Player playerTeleportingTo = PlayerHandler.getPlayer(playerName);
+				player.teleport(playerTeleportingTo, PlayerTeleportEvent.TeleportCause.COMMAND);
+			} else {
+				PlayerHandler.sendMessage(player,Messages.PLAYER_OFFLINE(playerName));
+			}
+		} else {
+			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("player"));
+		}
 	}
 
 }

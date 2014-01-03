@@ -16,15 +16,15 @@ public class LocationHandler {
 	 * @return
 	 */
 	public static ArrayList<Player> getPlayersInRadius(Location location, double radius) {
-		ArrayList<Player> Players = new ArrayList<Player>();
-		Player[] OnlinePlayers = Bukkit.getOnlinePlayers();
+		ArrayList<Player> playerInRadius = new ArrayList<Player>();
+		Player[] onlinePlayers = Bukkit.getOnlinePlayers();
 		double radiusSquared = radius * radius;
-		for (Player onlinePlayer : OnlinePlayers) {
+		for (Player onlinePlayer : onlinePlayers) {
 			if (onlinePlayer.getLocation().distanceSquared(location) <= radiusSquared) {
-				Players.add(onlinePlayer);
+				playerInRadius.add(onlinePlayer);
 			}
 		}
-		return Players;
+		return playerInRadius;
 	}
 
 	/**

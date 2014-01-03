@@ -8,8 +8,6 @@ Create a new Prepared-Statements wrapper class for SQL
 
 Optimize the friends list
 
-Implement a tpa, tp, and tphere command
-
 Bug-fix the Compass menu
 
 Add a "Premium only" option to the config.xml; kicks on join if the

@@ -43,7 +43,7 @@ public class BansSQL {
 		this.SQL.execute(this.creationStatement);
 	}
 
-	public void Refresh() {
+	public void refreshConnection() {
 		this.SQL.refreshConnection();
 	}
 

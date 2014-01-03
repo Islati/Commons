@@ -5,7 +5,7 @@
   <artifactId>commons</artifactId>
   <version>1.0-RELEASE</version>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>

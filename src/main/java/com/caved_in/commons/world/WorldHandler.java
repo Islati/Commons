@@ -6,6 +6,7 @@ import com.sun.java.swing.plaf.windows.resources.windows_pt_BR;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 
 import java.util.UUID;
 
@@ -51,5 +52,19 @@ public class WorldHandler {
 
 	public static boolean setSpawn(World world, Location location) {
 		return setSpawn(world, LocationHandler.getXYZ(location));
+	}
+
+	public static boolean unloadWorld(String worldName) {
+		return Bukkit.getServer().unloadWorld(getWorld(worldName),false);
+	}
+
+	public static boolean loadWorld(String worldName) {
+		try {
+			Bukkit.getServer().createWorld(new WorldCreator(worldName));
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 }

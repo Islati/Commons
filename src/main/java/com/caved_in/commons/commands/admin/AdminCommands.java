@@ -1,6 +1,7 @@
 package com.caved_in.commons.commands.admin;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.config.TunnelsPermissions;
 import com.caved_in.commons.player.PlayerHandler;
@@ -52,7 +53,7 @@ public class AdminCommands {
 				PlayerHandler.sendMessage(sender,"&eUnable to find data for " + playerName + "; Names are Case Sensitive, try again?");
 			}
 		} else {
-			PlayerHandler.sendMessage(sender,"&e/addcurrency <Player> <Amount>");
+			PlayerHandler.sendMessage(sender,Messages.INVALID_COMMAND_USAGE("Player", "Amount"));
 		}
 	}
 
@@ -66,7 +67,7 @@ public class AdminCommands {
 				sender.sendMessage(StringUtil.formatColorCodes("&aSuccessfully promoted &e" + playerName + " &ato premium status!"));
 			}
 		} else {
-			sender.sendMessage(StringUtil.formatColorCodes("&cThe proper usage is &e/buypremium <Name>"));
+			PlayerHandler.sendMessage(sender,Messages.INVALID_COMMAND_USAGE("PlayerName"));
 		}
 	}
 
@@ -80,7 +81,7 @@ public class AdminCommands {
 				sender.sendMessage(StringUtil.formatColorCodes("&aSuccessfully removed premium from &e" + playerName));
 			}
 		} else {
-			sender.sendMessage(StringUtil.formatColorCodes("&cThe proper usage is &e/removepremium <Name>"));
+			PlayerHandler.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("PlayerName"));
 		}
 	}
 

@@ -32,6 +32,15 @@ commands:
    msg:
       usage: /msg <player> <message>
       aliases: [m, t, tell, whisper]
+   ci:
+      usage: /<command> [player]
+      aliases: [clearinventory, clearinv]
+   tphere:
+      usage: /<command> <player>
+      aliases: [bring]
+   tp:
+      usage: /<command> <player> [Player]
+      aliases: [teleport]
    fly:
       usage: /fly
    fw:
