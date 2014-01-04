@@ -7,10 +7,12 @@ import com.caved_in.commons.data.disguises.Disguise;
 import com.caved_in.commons.data.menu.HelpScreen;
 import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.WorldHandler;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -19,6 +21,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 public class UtilityCommands {
 
@@ -197,6 +200,35 @@ public class UtilityCommands {
 			}
 		} else {
 			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("player"));
+		}
+	}
+
+	@CommandHandler(name = "i", permission = "tunnels.common.item", aliases = {"item"})
+	public void onItemCommand(Player player, String[] args) {
+		if (args.length > 0) {
+			//Our item argument
+			String itemArgument = args[0];
+			int itemID = 0;
+			//Check if they want an item with a byte value or not
+			if (itemArgument.contains(":")) {
+				String[] splitItemData = itemArgument.split(":");
+				//The ID or material
+				String itemMaterial = splitItemData[0];
+				//The potential byte value
+				String itemByte = splitItemData[1];
+
+				//Check if the first have of our string is an integer, or a name
+				if (StringUtils.isNumeric(itemMaterial)) {
+					itemID = Integer.parseInt(itemMaterial);
+				} else {
+					ItemType itemType = ItemType.lookup(itemMaterial, true);
+					if (itemType != null) {
+						itemID = itemType.getID();
+					} else {
+						PlayerHandler.sendMessage();
+					}
+				}
+			}
 		}
 	}
 

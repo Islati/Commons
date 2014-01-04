@@ -183,13 +183,10 @@ public final class ItemID {
 	public static final int HORSE_ARMOR_DIAMOND = 419;
 	public static final int LEAD = 420;
 	public static final int NAME_TAG = 421;
+	public static final int COMMAND_BLOCK_MINECART = 422;
 
-	@Deprecated
-	public static final int GOLD_RECORD = 2256; // deprecated, but leave it
-	// there
-	@Deprecated
-	public static final int GREEN_RECORD = 2257; // deprecated, but leave it
-	// there
+	@Deprecated public static final int GOLD_RECORD = 2256; // deprecated, but leave it there
+	@Deprecated public static final int GREEN_RECORD = 2257; // deprecated, but leave it there
 	public static final int DISC_13 = 2256;
 	public static final int DISC_CAT = 2257;
 	public static final int DISC_BLOCKS = 2258;

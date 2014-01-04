@@ -240,6 +240,25 @@ public class PlayerHandler {
 		commandSender.sendMessage(StringUtil.formatColorCodes(message));
 	}
 
+	/**
+	 * Forces a player to chat the given message
+	 * @param player player who we want to say this
+	 * @param message what they'll be saying
+	 */
+	public static void playerChat(Player player, String message) {
+		player.chat(message);
+	}
+
+	/**
+	 * Force all players on the server to chat the given message
+	 * @param message message for the players to say
+	 */
+	public static void allPlayersChat(String message) {
+		for(Player player : getOnlinePlayers()) {
+			playerChat(player,message);
+		}
+	}
+
 	public static String getIPAddress(Player player) {
 		return player.getAddress().getHostName();
 	}
@@ -322,6 +341,15 @@ public class PlayerHandler {
 		if (clearArmor) {
 			player.getInventory().setArmorContents(new ItemStack[]{null, null, null, null});
 		}
+	}
+
+	/**
+	 * Set the armor on a player
+	 * @param player player to set armor on
+	 * @param armor itemstack array of the armor we're equiping the player with
+	 */
+	public static void setPlayerArmor(Player player, ItemStack[] armor) {
+		player.getInventory().setArmorContents(armor);
 	}
 
 	/**

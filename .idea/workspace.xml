@@ -2,117 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/cuboid/Cuboid.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/WrappedLore.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\.idea\libraries\Maven__org_bukkit_craftbukkit_1_7_2_R0_1_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_craftbukkit_1_7_2_R0_3_SNAPSHOT.xml" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\Commons.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\block\BlockData.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/BlockData.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\block\BlockHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/BlockHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\block\chest\ChestType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/chest/ChestType.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\chat\ChatHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/ChatHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\chat\ChatMessage.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/ChatMessage.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\CommandController.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/CommandController.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\CommandMessage.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/CommandMessage.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\CommandRegister.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/CommandRegister.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\admin\AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\chat\ChatCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/chat/ChatCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\donator\DonatorCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/donator/DonatorCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\friends\FriendCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\moderation\PunishmentCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\commands\utility\UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\Configuration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Configuration.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\Formatting\ColorCode.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Formatting/ColorCode.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\ItemMenuConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ItemMenuConfiguration.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\ItemMenu\XmlMenuItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ItemMenu/XmlMenuItem.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\MaintenanceConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/MaintenanceConfiguration.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Messages.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\SqlConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SqlConfiguration.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\TunnelsPermissions.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/TunnelsPermissions.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\config\WorldConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/WorldConfiguration.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\Ban.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/Ban.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\Flag.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/Flag.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\IPunishment.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/IPunishment.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\Mute.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/Mute.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\Punishment.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/Punishment.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\PunishmentType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/PunishmentType.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\bans\Warn.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/bans/Warn.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\disguises\Disguise.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/disguises/Disguise.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\menu\HelpScreen.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/menu/HelpScreen.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\data\menu\Pages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/data/menu/Pages.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\effects\EffectPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/effects/EffectPlayer.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\entity\EntityArmorSlot.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityArmorSlot.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\entity\EntityUtility.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityUtility.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\file\DataHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/file/DataHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\file\FolderHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/file/FolderHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\file\Tag.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/file/Tag.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\fireworks\FireworkEffectPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/fireworks/FireworkEffectPlayer.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\fireworks\FireworkSettings.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/fireworks/FireworkSettings.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\friends\Friend.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/Friend.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\friends\FriendHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\friends\FriendList.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendList.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\http\Connection.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/http/Connection.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\inventory\InventoryHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/InventoryHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\items\BlockID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\items\ItemHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\items\ItemID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\items\ItemType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\items\PotionUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/PotionUtil.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\BlockBreakListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockBreakListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\BlockFormListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockFormListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\BlockSpreadListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockSpreadListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\ChatListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ChatListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\CommandPreProcessListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CommandPreProcessListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\CompassListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CompassListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\FoodChangeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/FoodChangeListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\ItemDropListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ItemDropListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\ItemPickupListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ItemPickupListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\LauncherListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LauncherListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\LightningStrikeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LightningStrikeListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\PlayerJoinListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\PlayerKickListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\PlayerLoginListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerLoginListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\PlayerQuitListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\PrePlayerLoginListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PrePlayerLoginListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\ServerPingListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ServerPingListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\ThungerChangeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ThungerChangeListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\WeatherChangeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WeatherChangeListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\listeners\WorldLoadedListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WorldLoadedListener.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\location\LocationHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/LocationHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\MenuHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/MenuHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\MenuWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/MenuWrapper.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\XYMenuItemWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/XYMenuItemWrapper.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\serverselection\ServerMenuGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/serverselection/ServerMenuGenerator.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\serverselection\ServerMenuItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/serverselection/ServerMenuItem.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\menus\serverselection\ServerMenuWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/serverselection/ServerMenuWrapper.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\misc\PunishmentUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/misc/PunishmentUtils.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\misc\TimeHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/misc/TimeHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\particles\ParticleEffects.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/particles/ParticleEffects.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\particles\ReflectionUtilities.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/particles/ReflectionUtilities.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\player\PlayerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\player\PlayerWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerWrapper.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\potions\PotionHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/potions/PotionHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\potions\PotionType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/potions/PotionType.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sound\SoundHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sound/SoundHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\BansSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/BansSQL.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\DisguiseSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/DisguiseSQL.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\FriendSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\FriendStatus.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendStatus.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\PlayerSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\sql\SQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\threading\RunnableManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/RunnableManager.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\time\Cooldown.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/Cooldown.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\utilities\CommonUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/CommonUtils.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\utilities\LogUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/LogUtils.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\utilities\NumberUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/NumberUtil.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\utilities\StringUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/StringUtil.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\world\WorldHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/world/WorldHandler.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\yml\YMLIO.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/YMLIO.java" />
-      <change type="MOVED" beforePath="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\yml\YML_Wrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/YML_Wrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kitteh_tagapi_2_7_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commons.iml" afterPath="$PROJECT_DIR$/commons.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -178,34 +76,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Commons.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="200" column="5" selection-start="7126" selection-end="7126" vertical-scroll-proportion="0.0" vertical-offset="3400" max-vertical-offset="3808">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PlayerHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="369" column="98" selection-start="10124" selection-end="10124" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6205">
+            <state line="388" column="5" selection-start="10610" selection-end="10610" vertical-scroll-proportion="0.0" vertical-offset="5937" max-vertical-offset="6715">
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#689#712#0" expanded="false" />
-                <element signature="e#9784#9785#0" expanded="false" />
-                <element signature="e#9830#9831#0" expanded="false" />
+                <element signature="e#10563#10564#0" expanded="true" />
+                <element signature="e#10609#10610#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorldHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/world/WorldHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="33" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.0" vertical-offset="331" max-vertical-offset="1156">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -213,45 +91,16 @@
       <file leaf-file-name="ItemHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6171">
+            <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5440" max-vertical-offset="6171">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WrappedLore.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/WrappedLore.java">
+      <file leaf-file-name="UtilityCommands.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="40" selection-start="816" selection-end="816" vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="833">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PotionUtil.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/PotionUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityArmorSlot.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityArmorSlot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="12" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="255">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ItemType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="12" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0" vertical-offset="1377" max-vertical-offset="10863">
+            <state line="227" column="50" selection-start="9367" selection-end="9367" vertical-scroll-proportion="0.95348835" vertical-offset="2805" max-vertical-offset="3740">
               <folding />
             </state>
           </provider>
@@ -260,16 +109,42 @@
       <file leaf-file-name="ItemID.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="19" selection-start="849" selection-end="849" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3281">
+            <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3519">
+              <folding>
+                <element signature="e#0#8468#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ItemType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#28124#28143#0" expanded="true" />
+                <element signature="e#28274#28292#0" expanded="true" />
+                <element signature="e#30448#30457#0" expanded="true" />
+                <element signature="e#34295#34304#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="132" column="25" selection-start="5346" selection-end="5346" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2482">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlockID.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java">
+      <file leaf-file-name="CallbackTask.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="19" selection-start="850" selection-end="850" vertical-scroll-proportion="0.21161826" vertical-offset="0" max-vertical-offset="3111">
+            <state line="17" column="5" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="425">
               <folding />
             </state>
           </provider>
@@ -308,15 +183,20 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityUtility.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/world/WorldHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/WrappedLore.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/Callback.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
       </list>
     </option>
   </component>
@@ -401,7 +281,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -568,7 +448,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
+              <option name="myItemId" value="threading" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -598,7 +478,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="listeners" />
+              <option name="myItemId" value="player" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -719,6 +599,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="commands" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commands" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utility" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -920,7 +834,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -930,7 +844,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sk89q-command-framework-master/pom.xml" />
+    <property name="last_opened_file_path" value="$USER_HOME$/git/EntitySpawning/EntitySpawning/pom.xml" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -943,6 +857,9 @@
     <property name="LayoutCode.rearrangeEntriesXML" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.caved_in.commons.threading" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\brandon\IdeaProjects\Commons\src\main\java" />
       <recent name="C:\Users\brandon\IdeaProjects\Commons\src\com\caved_in\commons\http" />
@@ -953,26 +870,6 @@
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
@@ -997,12 +894,45 @@
       </MavenSettings>
       <method />
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -1030,19 +960,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1140,7 +1057,15 @@
       <created>1388428348761</created>
       <updated>1388428348761</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated the itemhandler and optimized it&#10;Added a WrappedLore class for later usage&#10;Added a cuboid class for later usage&#10;updated the world handler with loadWorld and unloadWorld methods">
+      <created>1388768978220</created>
+      <updated>1388768978220</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution">
+      <created>1388769825984</created>
+      <updated>1388769825984</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1159,10 +1084,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18375" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.136875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1188,7 +1113,9 @@
     <MESSAGE value="Updated entity utility to have various methods to cleaning entities&#10;Updated particle effects to have 1.7 usage capabilities&#10;&#10;Added the &quot;EffectHandler&quot; which is for block effects&#10;Fixed pom.xml for commons-io" />
     <MESSAGE value="Updated entity utility to have various methods to cleaning entities&#10;Updated particle effects to have 1.7 usage capabilities&#10;&#10;Added the &quot;EffectHandler&quot; which is for block effects&#10;Fixed pom.xml for commons-io&#10;&#10;Added Chest Types, updated utility commands to have a &quot;few&quot; more things, updated the inventory handler, began working on a world handler, normalized the location handler and added a Connection class for HTTP Connections / as an HTTPWrapper" />
     <MESSAGE value="Updated entity utility to have various methods to cleaning entities&#10;Updated particle effects to have 1.7 usage capabilities&#10;&#10;Added the &quot;EffectHandler&quot; which is for block effects&#10;Fixed pom.xml for commons-io&#10;&#10;Added Chest Types, updated utility commands to have a &quot;few&quot; more things, updated the inventory handler, began working on a world handler, normalized the location handler and added a Connection class for HTTP Connections / as an HTTPWrapper&#10;&#10;Updated all SQL classes to create tables if they don't exist.&#10;&#10;Added an HTTP Wrapper&#10;&#10;Added a todo list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated entity utility to have various methods to cleaning entities&#10;Updated particle effects to have 1.7 usage capabilities&#10;&#10;Added the &quot;EffectHandler&quot; which is for block effects&#10;Fixed pom.xml for commons-io&#10;&#10;Added Chest Types, updated utility commands to have a &quot;few&quot; more things, updated the inventory handler, began working on a world handler, normalized the location handler and added a Connection class for HTTP Connections / as an HTTPWrapper&#10;&#10;Updated all SQL classes to create tables if they don't exist.&#10;&#10;Added an HTTP Wrapper&#10;&#10;Added a todo list" />
+    <MESSAGE value="Updated the itemhandler and optimized it&#10;Added a WrappedLore class for later usage&#10;Added a cuboid class for later usage&#10;updated the world handler with loadWorld and unloadWorld methods" />
+    <MESSAGE value="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1198,21 +1125,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="0" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1224" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="38" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="3502" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/effects/EffectPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="305" selection-end="305" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="527" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/file/DataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="31" selection-start="67" selection-end="67" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295" />
@@ -1384,13 +1296,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="84" selection-start="4758" selection-end="4758" vertical-scroll-proportion="0.0" vertical-offset="2499" max-vertical-offset="3247">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="13" selection-start="691" selection-end="691" vertical-scroll-proportion="-4.3577466" vertical-offset="3162" max-vertical-offset="4063">
@@ -1407,21 +1312,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TODO">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="22" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-          <folding />
-        </state>
+        <state line="15" column="22" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="25" selection-start="1301" selection-end="1301" vertical-scroll-proportion="-23.12" vertical-offset="136" max-vertical-offset="1411" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="22" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0" vertical-offset="7" max-vertical-offset="2414">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java">
@@ -1433,9 +1329,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/BansSQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="40" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="5015">
-          <folding />
-        </state>
+        <state line="23" column="40" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="5015" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java">
@@ -1466,28 +1360,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="98" selection-start="10124" selection-end="10124" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6205">
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#689#712#0" expanded="false" />
-            <element signature="e#9784#9785#0" expanded="false" />
-            <element signature="e#9830#9831#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/world/WorldHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="33" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.0" vertical-offset="331" max-vertical-offset="1156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6171">
           <folding />
         </state>
       </provider>
@@ -1502,29 +1377,87 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/WrappedLore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="40" selection-start="816" selection-end="816" vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="132" column="25" selection-start="5346" selection-end="5346" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2482">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/Callback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="17" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="5" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="388" column="5" selection-start="10610" selection-end="10610" vertical-scroll-proportion="0.0" vertical-offset="5937" max-vertical-offset="6715">
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#10563#10564#0" expanded="true" />
+            <element signature="e#10609#10610#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.7.0_45/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="12" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0" vertical-offset="6206" max-vertical-offset="10863">
+        <state line="199" column="6" selection-start="9031" selection-end="9031" vertical-scroll-proportion="0.33333334" vertical-offset="2751" max-vertical-offset="7837">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="19" selection-start="849" selection-end="849" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3281">
-          <folding />
+        <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519">
+          <folding>
+            <element signature="e#0#8468#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="19" selection-start="850" selection-end="850" vertical-scroll-proportion="0.21161826" vertical-offset="0" max-vertical-offset="3111">
+        <state line="13" column="32" selection-start="328" selection-end="328" vertical-scroll-proportion="0.15994623" vertical-offset="102" max-vertical-offset="3264">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#28124#28143#0" expanded="true" />
+            <element signature="e#28274#28292#0" expanded="true" />
+            <element signature="e#30448#30457#0" expanded="true" />
+            <element signature="e#34295#34304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6171">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="227" column="50" selection-start="9367" selection-end="9367" vertical-scroll-proportion="0.95348835" vertical-offset="2805" max-vertical-offset="3740">
           <folding />
         </state>
       </provider>
