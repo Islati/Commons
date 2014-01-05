@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kitteh_tagapi_2_7_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commons.iml" afterPath="$PROJECT_DIR$/commons.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
@@ -79,11 +71,8 @@
       <file leaf-file-name="PlayerHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="388" column="5" selection-start="10610" selection-end="10610" vertical-scroll-proportion="0.0" vertical-offset="5937" max-vertical-offset="6715">
-              <folding>
-                <element signature="e#10563#10564#0" expanded="true" />
-                <element signature="e#10609#10610#0" expanded="true" />
-              </folding>
+            <state line="388" column="5" selection-start="10610" selection-end="10610" vertical-scroll-proportion="0.0" vertical-offset="6596" max-vertical-offset="6953">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,7 +80,7 @@
       <file leaf-file-name="ItemHandler.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5440" max-vertical-offset="6171">
+            <state line="369" column="5" selection-start="12097" selection-end="12097" vertical-scroll-proportion="0.0" vertical-offset="5406" max-vertical-offset="6171">
               <folding />
             </state>
           </provider>
@@ -100,7 +89,16 @@
       <file leaf-file-name="UtilityCommands.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="227" column="50" selection-start="9367" selection-end="9367" vertical-scroll-proportion="0.95348835" vertical-offset="2805" max-vertical-offset="3740">
+            <state line="240" column="20" selection-start="9743" selection-end="9743" vertical-scroll-proportion="0.95348835" vertical-offset="3026" max-vertical-offset="3944">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Messages.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="69" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
               <folding />
             </state>
           </provider>
@@ -110,9 +108,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="3519">
-              <folding>
-                <element signature="e#0#8468#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -120,14 +116,8 @@
       <file leaf-file-name="ItemType.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#28124#28143#0" expanded="true" />
-                <element signature="e#28274#28292#0" expanded="true" />
-                <element signature="e#30448#30457#0" expanded="true" />
-                <element signature="e#34295#34304#0" expanded="true" />
-              </folding>
+            <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="3723" max-vertical-offset="11424">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -182,7 +172,6 @@
         <option value="$PROJECT_DIR$/src/com/caved_in/commons/commands/utility/UtilityCommands.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityUtility.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
         <option value="$PROJECT_DIR$/TODO" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
@@ -196,6 +185,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
       </list>
     </option>
@@ -282,6 +272,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -834,7 +825,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -872,6 +862,26 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -894,45 +904,12 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -960,6 +937,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1065,12 +1055,16 @@
       <created>1388769825984</created>
       <updated>1388769825984</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Beginning steps towards the /i command&#10;">
+      <created>1388872381997</created>
+      <updated>1388872381997</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1087,7 +1081,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.136875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1115,7 +1109,8 @@
     <MESSAGE value="Updated entity utility to have various methods to cleaning entities&#10;Updated particle effects to have 1.7 usage capabilities&#10;&#10;Added the &quot;EffectHandler&quot; which is for block effects&#10;Fixed pom.xml for commons-io&#10;&#10;Added Chest Types, updated utility commands to have a &quot;few&quot; more things, updated the inventory handler, began working on a world handler, normalized the location handler and added a Connection class for HTTP Connections / as an HTTPWrapper&#10;&#10;Updated all SQL classes to create tables if they don't exist.&#10;&#10;Added an HTTP Wrapper&#10;&#10;Added a todo list" />
     <MESSAGE value="Updated the itemhandler and optimized it&#10;Added a WrappedLore class for later usage&#10;Added a cuboid class for later usage&#10;updated the world handler with loadWorld and unloadWorld methods" />
     <MESSAGE value="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution" />
+    <MESSAGE value="Beginning steps towards the /i command&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Beginning steps towards the /i command&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1277,9 +1272,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/chat/ChatCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
-          <folding />
-        </state>
+        <state line="9" column="13" selection-start="355" selection-end="355" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/ChatMessage.java">
@@ -1322,21 +1315,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="34" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-          <folding />
-        </state>
+        <state line="32" column="34" selection-start="1358" selection-end="1358" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/BansSQL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="40" selection-start="713" selection-end="713" vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="5015" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="32" selection-start="869" selection-end="869" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityUtility.java">
@@ -1405,26 +1389,19 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="388" column="5" selection-start="10610" selection-end="10610" vertical-scroll-proportion="0.0" vertical-offset="5937" max-vertical-offset="6715">
-          <folding>
-            <element signature="e#10563#10564#0" expanded="true" />
-            <element signature="e#10609#10610#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.7.0_45/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="6" selection-start="9031" selection-end="9031" vertical-scroll-proportion="0.33333334" vertical-offset="2751" max-vertical-offset="7837">
-          <folding />
-        </state>
+        <state line="199" column="6" selection-start="9031" selection-end="9031" vertical-scroll-proportion="0.33333334" vertical-offset="2751" max-vertical-offset="7837" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519">
-          <folding>
-            <element signature="e#0#8468#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1438,26 +1415,27 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#28124#28143#0" expanded="true" />
-            <element signature="e#28274#28292#0" expanded="true" />
-            <element signature="e#30448#30457#0" expanded="true" />
-            <element signature="e#34295#34304#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="315" column="5" selection-start="10177" selection-end="10177" vertical-scroll-proportion="0.0" vertical-offset="5461" max-vertical-offset="6171">
+        <state line="369" column="5" selection-start="12097" selection-end="12097" vertical-scroll-proportion="0.0" vertical-offset="5406" max-vertical-offset="6171">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="69" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="227" column="50" selection-start="9367" selection-end="9367" vertical-scroll-proportion="0.95348835" vertical-offset="2805" max-vertical-offset="3740">
+        <state line="240" column="20" selection-start="9743" selection-end="9743" vertical-scroll-proportion="0.95348835" vertical-offset="3026" max-vertical-offset="3944">
           <folding />
         </state>
       </provider>

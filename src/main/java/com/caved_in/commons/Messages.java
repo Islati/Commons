@@ -12,6 +12,14 @@ public class Messages {
 		return "&eYou were teleported to &a" + playerName;
 	}
 
+	public static String ITEM_DOESNT_EXIST(String itemName) {
+		return "&cSorry, but &e" + itemName + "&c isn't a valid item";
+	}
+
+	public static String INVALID_ITEM_DATA(String input) {
+		return "&cSorry; &e" + input + "&c isn't a valid data value";
+	}
+
 	public static String INVALID_COMMAND_USAGE(String... requiredArguments) {
 		String[] requiredArgs = requiredArguments.clone();
 		String returnString = "&cThis command requires the following arguments: ";

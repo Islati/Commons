@@ -209,6 +209,7 @@ public class UtilityCommands {
 			//Our item argument
 			String itemArgument = args[0];
 			int itemID = 0;
+			byte dataValue;
 			//Check if they want an item with a byte value or not
 			if (itemArgument.contains(":")) {
 				String[] splitItemData = itemArgument.split(":");
@@ -221,12 +222,23 @@ public class UtilityCommands {
 				if (StringUtils.isNumeric(itemMaterial)) {
 					itemID = Integer.parseInt(itemMaterial);
 				} else {
+					//Get the item type based on whatever the player entered
 					ItemType itemType = ItemType.lookup(itemMaterial, true);
 					if (itemType != null) {
+						//Set our itemID to be the id of the name they entered
 						itemID = itemType.getID();
 					} else {
-						PlayerHandler.sendMessage();
+						//Player entered an item that doesn't exist
+						PlayerHandler.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemMaterial));
+						return;
 					}
+				}
+
+				//Now we parse for the extra byte data
+				if (StringUtils.isNumeric(itemByte)) {
+
+				} else {
+					
 				}
 			}
 		}
