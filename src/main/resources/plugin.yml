@@ -75,3 +75,6 @@ commands:
       usage: /<command> <Player> <Amount>
    heal:
       usage: /<command>
+   i:
+      usage: /<command> <Item> [Amount]
+      aliases: [item]

@@ -343,6 +343,10 @@ public class PlayerHandler {
 		}
 	}
 
+	public static void giveItem(Player player, ItemStack itemStack) {
+		player.getInventory().addItem(itemStack);
+	}
+
 	/**
 	 * Set the armor on a player
 	 * @param player player to set armor on
