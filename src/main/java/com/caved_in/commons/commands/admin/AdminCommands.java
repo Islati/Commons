@@ -37,7 +37,6 @@ public class AdminCommands {
 						PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
 						playerWrapper.addCurrency((double)currency);
 						PlayerHandler.updateData(playerWrapper);
-						Commons.messageConsole("Added " + currency + " to " + playerName);
 					} else {
 						PlayerWrapper playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
 						if (playerWrapper != null) {
