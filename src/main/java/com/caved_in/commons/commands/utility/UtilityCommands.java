@@ -266,7 +266,7 @@ public class UtilityCommands {
 					//Parse what the player entered and set that to the amount to give them
 					itemAmount = Integer.parseInt(itemAmountArg);
 				} else {
-					PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item id/name", "item amount"));
+					PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item", "item amount"));
 				}
 			}
 
@@ -274,6 +274,8 @@ public class UtilityCommands {
 			ItemStack itemStack = ItemHandler.getMaterialData(itemID, dataValue).toItemStack(itemAmount);
 			//give the player the item :)
 			PlayerHandler.giveItem(player, itemStack);
+		} else {
+			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("item"));
 		}
 	}
 

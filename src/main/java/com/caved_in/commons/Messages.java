@@ -25,7 +25,7 @@ public class Messages {
 		String returnString = "&cThis command requires the following arguments: ";
 		if (requiredArgs.length > 0) {
 			for (int I = 0; I < requiredArgs.length; I++) {
-				returnString += "&e[" + requiredArgs[I] + "]&r" + (I >= (requiredArgs.length - 1) ? ", " : "");
+				returnString += "&e[" + requiredArgs[I] + "]&r" + (I < (requiredArgs.length - 1) ? ", " : "");
 			}
 			return returnString;
 		} else {

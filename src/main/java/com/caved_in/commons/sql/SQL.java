@@ -39,6 +39,15 @@ public class SQL {
 		this.password = password;
 	}
 
+	public PreparedStatement prepareStatement(String sqlStatement) {
+		try {
+			return Connection.prepareStatement(sqlStatement);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	/**
 	 * Check if the instanced SQL Connection is connected
 	 *
