@@ -238,7 +238,7 @@ public class UtilityCommands {
 				if (StringUtils.isNumeric(itemByte)) {
 
 				} else {
-					
+
 				}
 			}
 		}
