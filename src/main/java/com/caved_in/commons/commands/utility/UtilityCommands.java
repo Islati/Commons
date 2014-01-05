@@ -8,7 +8,6 @@ import com.caved_in.commons.data.menu.HelpScreen;
 import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.items.ItemType;
-import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.WorldHandler;
@@ -16,12 +15,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
 
 public class UtilityCommands {
 
@@ -208,8 +205,11 @@ public class UtilityCommands {
 		if (args.length > 0) {
 			//Our item argument
 			String itemArgument = args[0];
+			//Our item ID
 			int itemID = 0;
-			byte dataValue;
+			//How many of the item we want
+			int itemAmount = 1;
+			int dataValue = 0;
 			//Check if they want an item with a byte value or not
 			if (itemArgument.contains(":")) {
 				String[] splitItemData = itemArgument.split(":");
@@ -233,14 +233,47 @@ public class UtilityCommands {
 						return;
 					}
 				}
-
 				//Now we parse for the extra byte data
 				if (StringUtils.isNumeric(itemByte)) {
-
+					//Parse the byte and say that we DO have a byte value
+					dataValue = Integer.parseInt(itemByte);
 				} else {
-					
+					//They entered an invalid data value
+					PlayerHandler.sendMessage(player, Messages.INVALID_ITEM_DATA(itemByte));
+					return;
+				}
+			} else {
+				//Check if they entered an ID or name
+				if (StringUtils.isNumeric(itemArgument)) {
+					//They passed an ID as the argument, so parse it
+					itemID = Integer.parseInt(itemArgument);
+				} else {
+					//Look for the itemtype based on the name they entered
+					ItemType itemType = ItemType.lookup(itemArgument,true);
+					if (itemType != null) {
+						itemID = itemType.getID();
+					} else {
+						//No results; Sawwy!
+						PlayerHandler.sendMessage(player,Messages.ITEM_DOESNT_EXIST(itemArgument));
+					}
 				}
 			}
+
+			//Now we check if the player entered an amount that they'd like.
+			if (args.length > 1) {
+				String itemAmountArg = args[1];
+				if (StringUtils.isNumeric(itemAmountArg)) {
+					//Parse what the player entered and set that to the amount to give them
+					itemAmount = Integer.parseInt(itemAmountArg);
+				} else {
+					PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item id/name", "item amount"));
+				}
+			}
+
+			//Now we create the itemstack based on what they gave us previously.
+			ItemStack itemStack = ItemHandler.getMaterialData(itemID, dataValue).toItemStack(itemAmount);
+			//give the player the item :)
+			PlayerHandler.giveItem(player, itemStack);
 		}
 	}
 
