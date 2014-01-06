@@ -1,4 +1,4 @@
-package com.caved_in.commons.particles;
+package com.caved_in.commons.effects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
