@@ -1,14 +1,15 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.friends.FriendList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 /**
  * User: Brandon
  */
 public class PlayerWrapper {
+	private FriendList friendsList;
 	private boolean inStaffChat = false;
 
 	private String playerName = "";
@@ -23,17 +24,6 @@ public class PlayerWrapper {
 	private ChatColor tagColor = ChatColor.WHITE;
 
 	/**
-	 * vPlayer Initialization
-	 *
-	 * @param playerName
-	 */
-	public PlayerWrapper(String playerName) {
-		this.playerName = playerName;
-		this.currentServer = Commons.getConfiguration().getServerName();
-		this.lastOnline = System.currentTimeMillis();
-	}
-
-	/**
 	 * PlayerWrapper  initialization with assigning their currency to
 	 * <b>currencyAmount</b>
 	 *
@@ -42,110 +32,86 @@ public class PlayerWrapper {
 	 */
 	public PlayerWrapper(String playerName, double currencyAmount) {
 		this.playerName = playerName;
-		this.currentServer = Commons.getConfiguration().getServerName();
-		this.lastOnline = System.currentTimeMillis();
 		this.currencyAmount = currencyAmount;
+		initWrapper();
 	}
 
-	/**
-	 * PlayerWrapper Initialization
-	 *
-	 * @param player
-	 */
-	public PlayerWrapper(Player player) {
-		this.playerName = player.getName();
+	private void initWrapper() {
 		this.currentServer = Commons.getConfiguration().getServerName();
 		this.lastOnline = System.currentTimeMillis();
+		//Load the players friends list
+		friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
 	}
 
 	/**
-	 * PlayerWrapper  initialization with assigning their currency to
-	 * <b>currencyAmount</b>
+	 * Players username
 	 *
-	 * @param player
-	 * @param currencyAmount
-	 */
-	public PlayerWrapper(Player player, double currencyAmount) {
-		this.playerName = player.getName();
-		this.currentServer = Commons.getConfiguration().getServerName();
-		this.lastOnline = System.currentTimeMillis();
-		this.currencyAmount = currencyAmount;
-	}
-
-	/**
-	 * Get the instanced players name
-	 *
-	 * @return
+	 * @return the players username
 	 */
 	public String getName() {
 		return this.playerName;
 	}
 
 	/**
-	 * If the player is currently online on the server with this plugin
-	 * instanced
+	 * Whether or not the player is online
 	 *
-	 * @return
+	 * @return true if the player is online, false otherwise
 	 */
 	public boolean isOnline() {
 		return Bukkit.getPlayer(this.getName()) != null;
 	}
 
 	/**
-	 * Move this player to-or-from Staff Chat
+	 * Change if the player is in the staff chat
 	 *
-	 * @param Value
+	 * @param inStaffChat true if they're in staff chat, false otherwise
 	 */
-	public void setInStaffChat(boolean Value) {
-		this.inStaffChat = Value;
+	public void setInStaffChat(boolean inStaffChat) {
+		this.inStaffChat = inStaffChat;
 	}
 
 	/**
-	 * Is the player currently talking in staff chat
+	 * Whether or not the player's in the staff chat
 	 *
-	 * @return
+	 * @return true if they are, false otherwise
 	 */
 	public boolean isInStaffChat() {
-		return this.inStaffChat;
+		return inStaffChat;
 	}
 
 	/**
-	 * Add the amount defined by <b>amountToAdd</b> to the instanced player
+	 * Adds an amount of currency defined by <i>amountToAdd</i> to the player
 	 *
-	 * @param amountToAdd
-	 * @return The players currency after having <b>amountToAdd</b> added to it
+	 * @param amountToAdd how much currency to add to the player
+	 * @return The players currency after having <i>amountToAdd</i> added to it
 	 */
 	public double addCurrency(double amountToAdd) {
-		this.currencyAmount += amountToAdd;
-		return this.currencyAmount;
+		currencyAmount += amountToAdd;
+		return currencyAmount;
 	}
 
 	/**
-	 * Remove the amount defined by <b>amountToRemove</b> from the instanced
-	 * player
+	 * Remove an amount of currency defined by <i>amountToRemove</i> from the player
 	 *
-	 * @param amountToRemove
-	 * @return The players currency after having <b>amountToRemove</b> from it
+	 * @param amountToRemove how much currency to remove from the player
+	 * @return The players currency after having <i>amountToRemove</i> from it
 	 */
 	public double removeCurrency(double amountToRemove) {
-		this.currencyAmount -= amountToRemove;
-		return this.currencyAmount;
+		currencyAmount -= amountToRemove;
+		return currencyAmount;
 	}
 
 	/**
-	 * Return if the player has atleast the amount of currency specified in
-	 * <b>amount</b>
+	 * Check if the player has atleast the amount of currency defined by <i>amount</i>
 	 *
-	 * @param amount
-	 * @return true if they player has atleast <b>amount</b>, false otherwise
+	 * @param amount amount to check
+	 * @return true if the player has the same or more than <i>amount</i>, false otherwise
 	 */
 	public boolean hasCurrency(double amount) {
-		return this.currencyAmount >= amount;
+		return currencyAmount >= amount;
 	}
 
 	/**
-	 * Get the players current currency amount
-	 *
 	 * @return Players current currency amount
 	 */
 	public double getCurrency() {
@@ -153,9 +119,9 @@ public class PlayerWrapper {
 	}
 
 	/**
-	 * Set the players currency to <b>amountToSet</b>
+	 * Set the players amount of currency
 	 *
-	 * @param amountToSet
+	 * @param amountToSet what the players currency is being set to
 	 */
 	public void setCurrency(double amountToSet) {
 		this.currencyAmount = amountToSet;
@@ -196,5 +162,15 @@ public class PlayerWrapper {
 
 	public void setTagColor(ChatColor tagColor) {
 		this.tagColor = tagColor;
+	}
+
+	/**
+	 * Gets the players friends list
+	 *
+	 * @return a FriendList object which contains the players friends; If there are no
+	 * Friend objects, then the friendslist is still returned though with no friend objects
+	 */
+	public FriendList getFriendsList() {
+		return friendsList;
 	}
 }

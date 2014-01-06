@@ -33,9 +33,7 @@ public class FriendList {
 	}
 
 	public void removeFriend(String name) {
-		if (isFriendsWith(name)) {
-			this.playerFriends.remove(name);
-		}
+		this.playerFriends.remove(name);
 	}
 
 	public List<Friend> getFriends() {
@@ -43,13 +41,13 @@ public class FriendList {
 	}
 
 	public List<Friend> getUnacceptedFriends() {
-		List<Friend> friends = new ArrayList<Friend>();
+		List<Friend> unacceptedFriends = new ArrayList<Friend>();
 		for (Friend friend : getFriends()) {
 			if (!friend.isAccepted()) {
-				friends.add(friend);
+				unacceptedFriends.add(friend);
 			}
 		}
-		return friends;
+		return unacceptedFriends;
 	}
 
 	public Map<String, Friend> getFriendsMap() {

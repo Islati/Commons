@@ -3,7 +3,6 @@ package com.caved_in.commons;
 import com.caved_in.commons.commands.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.friends.FriendHandler;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menus.serverselection.ServerMenuGenerator;
@@ -222,7 +221,6 @@ public class Commons extends JavaPlugin {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			String playerName = player.getName();
 			PlayerHandler.removeData(playerName);
-			FriendHandler.removeFriendList(playerName);
 			disguiseDatabase.deletePlayerDisguiseData(playerName);
 		}
 	}

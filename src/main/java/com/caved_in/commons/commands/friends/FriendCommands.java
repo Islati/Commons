@@ -3,10 +3,10 @@ package com.caved_in.commons.commands.friends;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.commands.CommandController.SubCommandHandler;
-import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.friends.Friend;
-import com.caved_in.commons.friends.FriendHandler;
+import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.sql.FriendStatus;
 import com.caved_in.commons.utilities.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -16,25 +16,26 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+//TODO REFACTOR AND OPTIMIZE THIS ENTIRE FUCKING CLASS
 public class FriendCommands {
 	@CommandHandler(name = "friends"/*, permission = "tunnels.common.friends"*/)
-	public void friendsCommand(Player player, String[] commandArgs) {
-		if (commandArgs.length == 0) {
-			player.sendMessage(StringUtil.formatColorCodes("&ePlease use &a/friends help"));
+	public void friendsCommand(Player player, String[] args) {
+		if (args.length == 0) {
+			PlayerHandler.sendMessage(player, "&ePlease use &a/friends help");
 		}
 	}
 
 	@SubCommandHandler(name = "help", parent = "friends")
-	public void friendsHelpCommand(Player player, String commandArgs[]) {
-		if (commandArgs.length > 1) {
-			if (commandArgs.length >= 2) {
-				if (commandArgs[1] != null && !commandArgs[1].isEmpty()) {
-					String helpPage = commandArgs[1];
+	public void friendsHelpCommand(Player player, String args[]) {
+		if (args.length > 1) {
+			if (args.length >= 2) {
+				if (args[1] != null && !args[1].isEmpty()) {
+					String helpPage = args[1];
 					if (StringUtils.isNumeric(helpPage)) {
 						int page = Integer.parseInt(helpPage);
 						getFriendsCommandHelpScreen().sendTo(player, page, 6);
 					} else {
-						player.sendMessage(StringUtil.formatColorCodes("&c Please include a page number for the help screen; &e" + helpPage + "&c is not a number"));
+						player.sendMessage(StringUtil.formatColorCodes("&cPlease include a page number for the help screen; &e" + helpPage + "&c is not a number"));
 					}
 				}
 			} else {
@@ -85,6 +86,7 @@ public class FriendCommands {
 	@SubCommandHandler(name = "remove", parent = "friends")
 	public void friendsRemoveCommand(Player player, String[] commandArgs) {
 		String playerName = player.getName();
+		PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
 		if (commandArgs.length > 1) {
 			String usernameToRemove = commandArgs[1];
 			if (usernameToRemove != null && !usernameToRemove.isEmpty()) {
@@ -114,7 +116,7 @@ public class FriendCommands {
 	@SubCommandHandler(name = "requests", parent = "friends")
 	public void friendsRequestListCommand(Player player, String[] commandArgs) {
 		String playerName = player.getName();
-		List<Friend> playerFriends = FriendHandler.getFriendList(playerName).getUnacceptedFriends();
+		List<Friend> playerFriends = PlayerHandler.getData(playerName).getFriendsList().getUnacceptedFriends();
 		if (playerFriends.size() > 0) {
 			if (commandArgs.length >= 2) {
 				if (commandArgs[1] != null && !commandArgs[1].isEmpty()) {
@@ -143,9 +145,9 @@ public class FriendCommands {
 					if (PlayerHandler.isOnlineFuzzy(denyName)) {
 						String pDenyName = Bukkit.getPlayer(denyName).getName();
 						Bukkit.getPlayer(pDenyName).sendMessage(StringUtil.formatColorCodes("&e" + playerName + "&c has denied your friend request"));
-						FriendHandler.getFriendList(pDenyName).removeFriend(playerName);
+						PlayerHandler.getData(pDenyName).getFriendsList().removeFriend(playerName);
 					}
-					FriendHandler.getFriendList(playerName).removeFriend(denyName);
+					PlayerHandler.getData(playerName).getFriendsList().removeFriend(denyName);
 					player.sendMessage(StringUtil.formatColorCodes("&aYou've denied the friend request from &e" + denyName));
 				} else {
 					player.sendMessage(StringUtil.formatColorCodes("&cYou don't have a pending friend request from &e" + denyName));
@@ -159,20 +161,21 @@ public class FriendCommands {
 	}
 
 	@SubCommandHandler(name = "accept", parent = "friends")
-	public void friendsAcceptCommand(Player player, String[] commandArgs) {
+	public void friendsAcceptCommand(Player player, String[] args) {
 		String playerName = player.getName();
-		if (commandArgs.length >= 2) {
-			String acceptName = commandArgs[1];
+		PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
+		if (args.length >= 2) {
+			String acceptName = args[1];
 			if (acceptName != null && !acceptName.isEmpty()) {
 				if (Commons.friendDatabase.hasFriendRequest(playerName, acceptName)) {
 					Commons.friendDatabase.acceptFriendRequest(playerName, acceptName);
 					if (PlayerHandler.isOnlineFuzzy(acceptName)) {
 						String playerAcceptName = Bukkit.getPlayer(acceptName).getName();
 						Bukkit.getPlayer(acceptName).sendMessage(StringUtil.formatColorCodes("&b" + playerName + "&a has accepted your friend request!"));
-						FriendHandler.getFriendList(playerAcceptName).addFriend(new Friend(acceptName, playerName, true));
+						PlayerHandler.getData(playerAcceptName).getFriendsList().addFriend(new Friend(acceptName, playerName, true));
 					}
 					player.sendMessage(StringUtil.formatColorCodes("&aYou've accepted the friend request from &b" + acceptName));
-					FriendHandler.getFriendList(playerName).addFriend(new Friend(playerName, acceptName, true));
+					playerWrapper.getFriendsList().addFriend(new Friend(playerName, acceptName, true));
 				} else {
 					player.sendMessage(StringUtil.formatColorCodes("&cYou don't have a pending friend request from &e" + acceptName));
 				}
@@ -187,7 +190,7 @@ public class FriendCommands {
 	@SubCommandHandler(name = "list", parent = "friends")
 	public void friendsListCommand(Player player, String[] commandArgs) {
 		String playerName = player.getName();
-		List<Friend> playerFriends = FriendHandler.getFriendList(playerName).getFriends();
+		List<Friend> playerFriends = PlayerHandler.getData(playerName).getFriendsList().getFriends();
 		if (commandArgs.length >= 2) {
 			if (commandArgs[1] != null && !commandArgs[1].isEmpty()) {
 				String helpPage = commandArgs[1];
