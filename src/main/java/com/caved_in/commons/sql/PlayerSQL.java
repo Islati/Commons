@@ -4,17 +4,27 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.player.PlayerWrapper;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PlayerSQL {
 	private SQL playerSql;
-	private String tableName = "players";
-	private String playerField = "Name";
-	private String onlineStatusField = "OnlineStatus";
-	private String serverField = "Server";
-	private String currencyField = "XP";
-	private String lastSeenField = "LastOnline";
-	private String premiumField = "Premium";
+	private static String tableName = "players";
+	private static String playerField = "Name";
+	private static String onlineStatusField = "OnlineStatus";
+	private static String serverField = "Server";
+	private static String currencyField = "XP";
+	private static String lastSeenField = "LastOnline";
+	private static String premiumField = "Premium";
+
+	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE Name =?";
+	private static String updatePlayerDataStatement = "UPDATE " + tableName + " SET " + playerField + "=?, " + lastSeenField + "=?, " + currencyField + "=?, " +
+			"" + serverField + "=?, " + premiumField + "=?, " + onlineStatusField + "=? WHERE " + playerField + "=?";
+	private static String insertDefaultsStatement = "INSERT INTO " + tableName + " (" + playerField + ", " + onlineStatusField + ", " + serverField + ", " +
+			"" + premiumField + ", " + currencyField + ", " + lastSeenField + ") VALUES (?, 1, ?, 0, 0, ?)";
+	private static String updatePlayerCurrencyStatement = "UPDATE " + tableName + " SET " + currencyField + "=? WHERE " + playerField + "=?";
+	private static String updatePlayerPremiumStatement = "UPDATE " + tableName + " SET " + premiumField + "=? WHERE " + playerField + "=?";
 
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`players` (" +
 			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
@@ -28,128 +38,167 @@ public class PlayerSQL {
 			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 
 	public PlayerSQL(SqlConfiguration sqlConfig) {
-		this.playerSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
-		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
-		this.playerSql.execute(creationStatement);
+		playerSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
+		playerSql.execute(creationStatement);
 	}
 
 	private ResultSet getData(String playerName) {
-		return this.playerSql.executeQueryOpen("SELECT * FROM " + this.tableName + " WHERE " + this.playerField + "='" + playerName + "'");
+		try {
+			PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
+			playerDataStatement.setString(1, playerName);
+			return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private void close(PreparedStatement preparedStatement) {
+		if (preparedStatement != null) {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public boolean hasData(String playerName) {
-		ResultSet playerData = this.getData(playerName);
+		PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
+		boolean hasData = false;
 		try {
-			boolean hasData = playerData.next();
+			playerDataStatement.setString(1, playerName);
+			ResultSet playerData = playerDataStatement.executeQuery();
+			hasData = playerData.next();
 			playerData.close();
-			return hasData;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(playerDataStatement);
 		}
+		return hasData;
 	}
 
 	public PlayerWrapper getPlayerWrapper(String playerName) {
-		if (hasData(playerName)) {
-			try {
-				ResultSet playerData = this.getData(playerName);
-				if (playerData.next()) {
-					PlayerWrapper playerWrapper = new PlayerWrapper(playerName, playerData.getDouble(this.currencyField)); //Initiate a new player instance
-					playerWrapper.setPremium(playerData.getBoolean(this.premiumField)); //Set the users premium status based on what it says in SQL
-					playerData.close(); //Close the sql
-					return playerWrapper; //Return the player wrapper
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return null;
-			}
-		} else {
-			try {
-				insertDefaults(playerName);
-				ResultSet playerData = this.getData(playerName);
-				if (playerData.next()) {
-					PlayerWrapper playerWrapper = new PlayerWrapper(playerName, playerData.getDouble(this.currencyField));//Initiate a new player instance
-					playerWrapper.setPremium(playerData.getBoolean(this.premiumField));//Set the users premium status based on what it says in SQL
-					playerData.close(); //Close the sql
-					return playerWrapper; //Return the player wrapper
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return null;
-			}
+		//Create our SQL Statement
+		PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
+		//Create a null player wrapper
+		PlayerWrapper playerWrapper = null;
+		//Check if the player doesn't have any data, and if they don't, create some!
+		if (!hasData(playerName)) {
+			insertDefaults(playerName);
 		}
-		return null;
+		try {
+			playerDataStatement.setString(1, playerName);
+			ResultSet playerData = playerDataStatement.executeQuery();
+			if (playerData.next()) {
+				//Build their player wrapper
+				playerWrapper = new PlayerWrapper(playerName, playerData.getDouble(currencyField));
+				playerWrapper.setPremium(playerData.getBoolean(premiumField));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			close(playerDataStatement);
+		}
+		return playerWrapper;
 	}
 
 	public boolean syncPlayerWrapperData(PlayerWrapper playerWrapper) {
-		if (hasData(playerWrapper.getName())) {
+		String playerName = playerWrapper.getName();
+		PreparedStatement syncDataStatement = playerSql.prepareStatement(updatePlayerDataStatement);
+		boolean isSynced = false;
+		if (hasData(playerName)) {
 			try {
-				String sqlStatement = "UPDATE " + this.tableName + " SET " + this.playerField + "='" + playerWrapper.getName() + "'," + this.lastSeenField + "='" + System.currentTimeMillis() + "', " + this.currencyField + "='" + playerWrapper.getCurrency() + "', " + this.serverField + "='" + playerWrapper.getServer() + "', " + this.premiumField + "='" + (playerWrapper.isPremium() ? "1" : "0") + "', " + this.onlineStatusField + "='" + (playerWrapper.isOnline() ? "1" : "0") + "' WHERE " + this.playerField + "='" + playerWrapper.getName() + "';";
-				this.playerSql.executeUpdate(sqlStatement);
-				return true;
+				//Set the players name variable
+				syncDataStatement.setString(1, playerName);
+				//Set the last time the player was online to NOW
+				syncDataStatement.setLong(2, System.currentTimeMillis());
+				//Update the players currency
+				syncDataStatement.setDouble(3, playerWrapper.getCurrency());
+				//Update the server which the player was on
+				syncDataStatement.setString(4, playerWrapper.getServer());
+				//Update the players premium status
+				syncDataStatement.setBoolean(5, playerWrapper.isPremium());
+				//Update the players online status
+				syncDataStatement.setBoolean(6, playerWrapper.isOnline());
+				//Set the search field to the players name
+				syncDataStatement.setString(7, playerName);
+				//Execute the update
+				syncDataStatement.executeUpdate();
+				isSynced = true;
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				return false;
+			} finally {
+				close(syncDataStatement);
 			}
 		} else {
-			return insertDefaults(playerWrapper.getName());
+			isSynced = insertDefaults(playerName);
 		}
+		return isSynced;
 	}
 
 	public boolean insertDefaults(String playerName) {
+		PreparedStatement preparedStatement = playerSql.prepareStatement(insertDefaultsStatement);
+		boolean dataInserted = false;
 		if (!hasData(playerName)) {
 			try {
-				String sqlStatement = "INSERT INTO " + this.tableName + " (" + this.playerField + ", " + this.onlineStatusField + ", " + this.serverField + ", " + this.premiumField + ", " + this.currencyField + ", " + this.lastSeenField + ") VALUES ('" + playerName + "', '1', '" + Commons.getConfiguration().getServerName() + "', '0', '0', '" + System.currentTimeMillis() + "');";
-				this.playerSql.executeUpdate(sqlStatement);
-				return true;
+				//Set the players name
+				preparedStatement.setString(1, playerName);
+				//Set the servers name
+				preparedStatement.setString(2, Commons.getConfiguration().getServerName());
+				//Set the current time
+				preparedStatement.setLong(3, System.currentTimeMillis());
+				dataInserted = preparedStatement.execute();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				return false;
+			} finally {
+				close(preparedStatement);
 			}
 		}
-		return false;
+		return dataInserted;
 	}
 
 	public boolean updatePlayerCurrency(PlayerWrapper playerWrapper) {
-		if (hasData(playerWrapper.getName())) {
-			String sqlStatement = "UPDATE " + this.tableName + " SET " + this.currencyField + "='" + playerWrapper.getCurrency() + "' WHERE " + this.playerField + "='" + playerWrapper.getName() + "';";
+		PreparedStatement preparedStatement = playerSql.prepareStatement(updatePlayerCurrencyStatement);
+		String playerName = playerWrapper.getName();
+		boolean updatedCurrency = false;
+		if (hasData(playerName)) {
 			try {
-				this.playerSql.executeUpdate(sqlStatement);
-				return true;
+				preparedStatement.setDouble(1, playerWrapper.getCurrency());
+				preparedStatement.setString(2, playerName);
+				preparedStatement.executeUpdate();
+				updatedCurrency = true;
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				return false;
+			} finally {
+				close(preparedStatement);
 			}
 		}
-		return false;
+		return updatedCurrency;
 	}
 
 	public boolean updatePlayerPremium(PlayerWrapper playerWrapper) {
-		if (hasData(playerWrapper.getName())) {
-			String sqlStatement = "UPDATE " + this.tableName + " SET " + this.premiumField + "='" + (playerWrapper.isPremium() ? "1" : "0") + "' WHERE " + this.playerField + "='" + playerWrapper.getName() + "';";
-			try {
-				this.playerSql.executeUpdate(sqlStatement);
-				return true;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-				return false;
-			}
-		}
-		return false;
+		return updatePlayerPremium(playerWrapper.getName(), playerWrapper.isPremium());
 	}
 
 	public boolean updatePlayerPremium(String playerName, boolean isPremium) {
+		PreparedStatement preparedStatement = playerSql.prepareStatement(updatePlayerPremiumStatement);
+		boolean wasUpdated = false;
 		if (hasData(playerName)) {
-			String sqlStatement = "UPDATE " + this.tableName + " SET " + this.premiumField + "='" + (isPremium ? "1" : "0") + "' WHERE " + this.playerField + "='" + playerName + "';";
 			try {
-				this.playerSql.executeUpdate(sqlStatement);
-				return true;
+				preparedStatement.setBoolean(1, isPremium);
+				preparedStatement.setString(2, playerName);
+				preparedStatement.executeUpdate();
+				wasUpdated = true;
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				return false;
+			} finally {
+				close(preparedStatement);
 			}
 		}
-		return false;
+		return wasUpdated;
 	}
 
 	public void refreshConnection() {

@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_craftbukkit_1_7_2_R0_3_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_craftbukkit_1_7_2_R0_3_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,11 +87,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UtilityCommands.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="UtilityCommands.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="264" column="59" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.44186047" vertical-offset="3859" max-vertical-offset="4590">
+            <state line="264" column="59" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.0" vertical-offset="3859" max-vertical-offset="4590">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SQL.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="114" column="0" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="1840" max-vertical-offset="4777">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FriendStatus.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendStatus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="12" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FriendSQL.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="8" selection-start="1926" selection-end="1926" vertical-scroll-proportion="1.1557018" vertical-offset="0" max-vertical-offset="3519">
+              <folding>
+                <element signature="method#close#0;class#FriendSQL#0" expanded="false" />
+                <element signature="method#refresh#0;class#FriendSQL#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -121,24 +150,6 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="3723" max-vertical-offset="11424">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="25" selection-start="5346" selection-end="5346" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2482">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CallbackTask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="5" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="289" max-vertical-offset="425">
               <folding />
             </state>
           </provider>
@@ -191,6 +202,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" />
       </list>
     </option>
   </component>
@@ -444,6 +458,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="threading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="commons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sql" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1067,7 +1111,11 @@
       <created>1388882947110</created>
       <updated>1388882947110</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added the /i command which works perfectly; Also cleaned up player handler, and admin commands. Working on prepared statements migration now.">
+      <created>1388935878604</created>
+      <updated>1388935878604</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1079,22 +1127,22 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.136875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.136875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1118,7 +1166,8 @@
     <MESSAGE value="Updated the itemhandler and optimized it&#10;Added a WrappedLore class for later usage&#10;Added a cuboid class for later usage&#10;updated the world handler with loadWorld and unloadWorld methods" />
     <MESSAGE value="Added a callback interface, and a callback task&#10;Callback tasks can be used to execute a method ONLY after a thread finishes its execution" />
     <MESSAGE value="Beginning steps towards the /i command&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Beginning steps towards the /i command&#10;" />
+    <MESSAGE value="Added the /i command which works perfectly; Also cleaned up player handler, and admin commands. Working on prepared statements migration now." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the /i command which works perfectly; Also cleaned up player handler, and admin commands. Working on prepared statements migration now." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1146,11 +1195,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="38" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3145" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SqlConfiguration.java">
@@ -1213,24 +1257,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="2332" max-vertical-offset="2788" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="33" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2720" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="101" selection-start="2266" selection-end="2266" vertical-scroll-proportion="1.4912281" vertical-offset="765" max-vertical-offset="5780" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/BlockHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="13" selection-start="274" selection-end="274" vertical-scroll-proportion="-0.18640351" vertical-offset="153" max-vertical-offset="1870" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="40" selection-start="330" selection-end="330" vertical-scroll-proportion="0.18640351" vertical-offset="0" max-vertical-offset="3536" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Dynamic Events/pom.xml">
@@ -1394,8 +1423,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="264" column="59" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.44186047" vertical-offset="3859" max-vertical-offset="4590">
+        <state line="264" column="59" selection-start="10649" selection-end="10649" vertical-scroll-proportion="0.0" vertical-offset="3859" max-vertical-offset="4590">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="4" selection-start="2674" selection-end="2873" vertical-scroll-proportion="0.5450704" vertical-offset="242" max-vertical-offset="1241">
+          <folding>
+            <element signature="method#PlayerSQL#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#getData#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#hasData#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#getPlayerWrapper#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#syncPlayerWrapperData#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#insertDefaults#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#updatePlayerCurrency#0;class#PlayerSQL#0" expanded="false" />
+            <element signature="method#updatePlayerPremium#1;class#PlayerSQL#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="2795" selection-end="2795" vertical-scroll-proportion="0.0" vertical-offset="1840" max-vertical-offset="4777">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="8" selection-start="1926" selection-end="1926" vertical-scroll-proportion="1.1557018" vertical-offset="0" max-vertical-offset="3519">
+          <folding>
+            <element signature="method#close#0;class#FriendSQL#0" expanded="false" />
+            <element signature="method#refresh#0;class#FriendSQL#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

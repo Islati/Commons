@@ -2,21 +2,20 @@ package com.caved_in.commons.sql;
 
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.friends.Friend;
-import org.bukkit.Bukkit;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FriendSQL {
-	//TODO Make this entire class neater
-	private SQL SQL;
+	private SQL friendSql;
 
-	private String tableName = "friends";
-	private String playerField = "player";
-	private String friendField = "Friend";
-	private String acceptedField = "Accepted";
+	private static String tableName = "friends";
+	private static String playerField = "player";
+	private static String friendField = "Friend";
+	private static String acceptedField = "Accepted";
 
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`friends` (" +
 			"  `player` text NOT NULL," +
@@ -24,186 +23,196 @@ public class FriendSQL {
 			"  `Accepted` tinyint(1) NOT NULL DEFAULT '0'" +
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
-	/**
-	 * @param sqlConfig
-	 */
+	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE " + playerField + "=?";
+	private static String getFriendsStatusStatement = "SELECT * FROM " + tableName + " WHERE " + playerField + "=? AND " + friendField + "=?";
+	private static String hasRequestStatement = "SELECT * FROM " + tableName + " WHERE " + playerField + "=? AND " + friendField + "=? AND " + acceptedField +
+			"=?";
+	private static String acceptFriendStatement = "UPDATE " + tableName + " SET " + acceptedField + "=? WHERE " + playerField + "=? AND " + friendField + "=?";
+	private static String insertFriendRequest = "INSERT INTO " + tableName + " (" + playerField + ", " + friendField + ", " + acceptedField + ") VALUES (?," +
+			"?," +
+			"?)";
+	private static String deleteFriendRequest = "DELETE FROM " + tableName + " WHERE " + playerField + "=? AND " + friendField + "=?";
+
 	public FriendSQL(SqlConfiguration sqlConfig) {
-		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
-		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
-		this.SQL.execute(creationStatement);
+		friendSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
+		friendSql.execute(creationStatement);
 	}
 
-	/**
-	 *
-	 */
-	public void refresh() {
-		this.SQL.refreshConnection();
-	}
-
-	/**
-	 * Gets the data for a player via ResultSet
-	 *
-	 * @param playerName Name to get data of
-	 * @return ResultSet of Data
-	 */
-	public ResultSet getPlayerData(String playerName) {
-		return this.SQL.executeQueryOpen("SELECT * FROM " + this.tableName + " WHERE " + this.playerField + "= '" + playerName + "';");
-	}
-
-	public boolean hasData(String playerName) {
-		ResultSet playerData = this.getPlayerData(playerName);
-		try {
-			boolean returnValue = false;
-			returnValue = playerData.next();
-			playerData.close();
-			return returnValue;
-		} catch (Exception Ex) {
-			Ex.printStackTrace();
-			return false;
+	private void close(PreparedStatement preparedStatement) {
+		if (preparedStatement != null) {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	/**
-	 * @param playerName
-	 * @return
-	 */
+	public void refresh() {
+		this.friendSql.refreshConnection();
+	}
+
+	public boolean hasData(String playerName) {
+		PreparedStatement preparedStatement = friendSql.prepareStatement(getPlayerDataStatement);
+		boolean hasData = false;
+		try {
+			preparedStatement.setString(1, playerName);
+			hasData = preparedStatement.executeQuery().next();
+		} catch (Exception Ex) {
+			Ex.printStackTrace();
+		} finally {
+			close(preparedStatement);
+		}
+		return hasData;
+	}
+
 	public List<Friend> getFriends(String playerName) {
-		List<Friend> playerFriends = new ArrayList<Friend>();
+		List<Friend> playerFriends = new ArrayList<>();
+		PreparedStatement preparedStatement = friendSql.prepareStatement(getPlayerDataStatement);
 		if (this.hasData(playerName)) {
-			ResultSet playerData = this.getPlayerData(playerName);
 			try {
+				preparedStatement.setString(1, playerName);
+				ResultSet playerData = preparedStatement.executeQuery();
 				while (playerData.next()) {
-					String friendName = playerData.getString(friendField);
-					playerFriends.add(new Friend(playerName, friendName, playerData.getBoolean(this.acceptedField)));
+					playerFriends.add(new Friend(playerName, playerData.getString(friendField), playerData.getBoolean(acceptedField)));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
 			}
 		}
 		return playerFriends;
 	}
 
 	public List<Friend> getUnacceptedFriends(String playerName) {
-		List<Friend> unacceptedFriends = new ArrayList<Friend>();
-		if (this.hasData(playerName)) {
-			ResultSet playerData = this.getPlayerData(playerName);
-			try {
-				while (playerData.next()) {
-					if (!playerData.getBoolean(this.acceptedField)) {
-						unacceptedFriends.add(new Friend(playerName, playerData.getString(this.friendField), false));
-					}
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
+		List<Friend> unacceptedFriends = new ArrayList<>();
+		for (Friend friend : getFriends(playerName)) {
+			if (!friend.isAccepted()) {
+				unacceptedFriends.add(friend);
 			}
 		}
 		return unacceptedFriends;
 	}
 
-	/**
-	 * @param Player
-	 * @param Friend
-	 * @return
-	 */
-	public boolean isPlayerFriendsWith(String Player, String Friend) {
-		if (this.hasData(Player)) {
-			ResultSet playerResults = this.SQL.executeQueryOpen("SELECT * FROM " + this.tableName + " WHERE " + this.playerField + "='" + Player + "' AND " + this.friendField + "='" + Friend + "';");
+	public boolean isPlayerFriendsWith(String playerName, String friendName) {
+		PreparedStatement preparedStatement = friendSql.prepareStatement(getFriendsStatusStatement);
+		boolean isAccepted = false;
+		if (this.hasData(playerName)) {
 			try {
-				boolean isAccepted = false;
-				if (playerResults.next()) {
-					isAccepted = playerResults.getBoolean(this.acceptedField);
+				preparedStatement.setString(1, playerName);
+				preparedStatement.setString(2, friendName);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) {
+					isAccepted = resultSet.getBoolean(acceptedField);
 				}
-				playerResults.close();
-				return isAccepted;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * @param Player
-	 * @param From
-	 * @return
-	 */
-	public boolean hasFriendRequest(String Player, String From) {
-		if (this.hasData(Player)) {
-			ResultSet playerResults = this.SQL.executeQueryOpen("SELECT * FROM " + this.tableName + " WHERE " + this.playerField + "='" + Player + "' AND " + this.friendField + "='" + From + "' AND " + this.acceptedField + "='0';");
-			try {
-				boolean hasRequest = false;
-				if (playerResults.next()) {
-					hasRequest = true;
-				}
-				playerResults.close();
-				return hasRequest;
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
 			}
 		}
-		return false;
+		return isAccepted;
 	}
 
-	/**
-	 * @param Player
-	 * @param Friend
-	 * @return
-	 */
-	public FriendStatus acceptFriendRequest(String Player, String Friend) {
-		if (hasFriendRequest(Player, Friend) && hasFriendRequest(Friend, Player)) {
+	public boolean hasFriendRequest(String playerName, String friendName) {
+		PreparedStatement preparedStatement = friendSql.prepareStatement(hasRequestStatement);
+		boolean hasRequest = false;
+		if (this.hasData(playerName)) {
 			try {
-				String playerAcceptFriendQuery = "UPDATE " + this.tableName + " SET " + this.acceptedField + "='1' WHERE " + this.playerField + "='" + Player + "' AND " + this.friendField + "='" + Friend + "';";
-				String friendAcceptPlayerQuery = "UPDATE " + this.tableName + " SET " + this.acceptedField + "='1' WHERE " + this.playerField + "='" + Friend + "' AND " + this.friendField + "='" + Player + "';";
-				this.SQL.executeUpdate(playerAcceptFriendQuery);
-				this.SQL.executeUpdate(friendAcceptPlayerQuery);
-				return FriendStatus.ACCEPTED;
+				//Player we're checking requests for
+				preparedStatement.setString(1, playerName);
+				//Players we're checking requests from
+				preparedStatement.setString(2, friendName);
+				//Check for friend requests that havn't been accepted yet
+				preparedStatement.setBoolean(3, false);
+				hasRequest = preparedStatement.executeQuery().next();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
+			}
+		}
+		return hasRequest;
+	}
+
+	public FriendStatus acceptFriendRequest(String playerName, String friendName) {
+		PreparedStatement preparedStatement = friendSql.prepareStatement(acceptFriendStatement);
+		FriendStatus friendStatus = FriendStatus.NO_REQUEST;
+		if (hasFriendRequest(playerName, friendName) && hasFriendRequest(friendName, playerName)) {
+			try {
+				//Player to Friend statement
+				preparedStatement.setBoolean(1, true);
+				preparedStatement.setString(2, playerName);
+				preparedStatement.setString(3, friendName);
+				preparedStatement.addBatch();
+				//Friend to player statement
+				preparedStatement.setBoolean(1, true);
+				preparedStatement.setString(2, friendName);
+				preparedStatement.setString(3, playerName);
+				preparedStatement.addBatch();
+				//Execute the batch statements
+				preparedStatement.executeBatch();
+				friendStatus = FriendStatus.ACCEPTED;
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				return FriendStatus.ERROR;
+				friendStatus = FriendStatus.ERROR;
+			} finally {
+				close(preparedStatement);
 			}
 		} else {
-			return FriendStatus.NO_REQUEST;
+			friendStatus = FriendStatus.NO_REQUEST;
 		}
+		return friendStatus;
 	}
 
-	/**
-	 * @param playerSending
-	 * @param friendRequested
-	 */
 	public FriendStatus insertFriendRequest(String playerSending, String friendRequested) {
+		PreparedStatement preparedStatement = friendSql.prepareStatement(insertFriendRequest);
+		FriendStatus friendStatus;
+		//Check if they're not already friends
 		if (!this.hasFriendRequest(playerSending, friendRequested) && !this.hasFriendRequest(friendRequested, playerSending)) {
 			if (!this.isPlayerFriendsWith(playerSending, friendRequested) && !this.isPlayerFriendsWith(friendRequested, playerSending)) {
-				String playerRequestFriend = "INSERT INTO " + this.tableName + " (" + this.playerField + ", " + this.friendField + ", " + this.acceptedField + ") VALUES ('" + playerSending + "', '" + friendRequested + "', '1');";
-				String friendRequestPlayer = "INSERT INTO " + this.tableName + " (" + this.playerField + ", " + this.friendField + ", " + this.acceptedField + ") VALUES ('" + friendRequested + "', '" + playerSending + "', '0');";
 				try {
-					this.SQL.executeUpdate(playerRequestFriend);
-					this.SQL.executeUpdate(friendRequestPlayer);
-					return FriendStatus.REQUESTED;
+					preparedStatement.setString(1, playerSending);
+					preparedStatement.setString(2, friendRequested);
+					preparedStatement.setBoolean(3, true);
+					preparedStatement.addBatch();
+					preparedStatement.setString(1, friendRequested);
+					preparedStatement.setString(2, playerSending);
+					preparedStatement.setBoolean(3, false);
+					preparedStatement.addBatch();
+					preparedStatement.executeBatch();
+					friendStatus = FriendStatus.REQUESTED;
 				} catch (Exception ex) {
 					ex.printStackTrace();
-					return FriendStatus.ERROR;
+					friendStatus = FriendStatus.ERROR;
+				} finally {
+					close(preparedStatement);
 				}
 			} else {
-				return FriendStatus.ALREADY_FRIENDS;
+				friendStatus = FriendStatus.ALREADY_FRIENDS;
 			}
 		} else {
-			return FriendStatus.ALREADY_PENDING;
+			friendStatus = FriendStatus.ALREADY_PENDING;
 		}
+		return friendStatus;
 	}
 
-	/**
-	 * @param playerToDeleteFrom
-	 * @param deletingRequestOf
-	 */
 	public void deleteFriendRequest(String playerToDeleteFrom, String deletingRequestOf) {
-		String deleteSqlStatementPlayer = "DELETE FROM " + this.tableName + " WHERE " + this.playerField + "='" + playerToDeleteFrom + "' AND " + this.friendField + "='" + deletingRequestOf + "';";
-		String deleteSqlStatementFriend = "DELETE FROM " + this.tableName + " WHERE " + this.playerField + "='" + deletingRequestOf + "' AND " + this.friendField + "='" + playerToDeleteFrom + "';";
+		PreparedStatement preparedStatement = friendSql.prepareStatement(deleteFriendRequest);
 		try {
-			this.SQL.executeUpdate(deleteSqlStatementPlayer);
-			this.SQL.executeUpdate(deleteSqlStatementFriend);
+			preparedStatement.setString(1, playerToDeleteFrom);
+			preparedStatement.setString(2, deletingRequestOf);
+			preparedStatement.addBatch();
+			preparedStatement.setString(1, deletingRequestOf);
+			preparedStatement.setString(2, playerToDeleteFrom);
+			preparedStatement.addBatch();
+			preparedStatement.executeBatch();
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
 	}
 }
