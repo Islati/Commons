@@ -8,8 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PlayerSQL {
-	private SQL playerSql;
+public class PlayerSQL extends SQL {
 	private static String tableName = "players";
 	private static String playerField = "Name";
 	private static String onlineStatusField = "OnlineStatus";
@@ -38,20 +37,9 @@ public class PlayerSQL {
 			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 
 	public PlayerSQL(SqlConfiguration sqlConfig) {
-		playerSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
 		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
-		playerSql.execute(creationStatement);
-	}
-
-	private ResultSet getData(String playerName) {
-		try {
-			PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
-			playerDataStatement.setString(1, playerName);
-			return null;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		execute(creationStatement);
 	}
 
 	private void close(PreparedStatement preparedStatement) {
@@ -65,7 +53,7 @@ public class PlayerSQL {
 	}
 
 	public boolean hasData(String playerName) {
-		PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
+		PreparedStatement playerDataStatement = prepareStatement(getPlayerDataStatement);
 		boolean hasData = false;
 		try {
 			playerDataStatement.setString(1, playerName);
@@ -82,7 +70,7 @@ public class PlayerSQL {
 
 	public PlayerWrapper getPlayerWrapper(String playerName) {
 		//Create our SQL Statement
-		PreparedStatement playerDataStatement = playerSql.prepareStatement(getPlayerDataStatement);
+		PreparedStatement playerDataStatement = prepareStatement(getPlayerDataStatement);
 		//Create a null player wrapper
 		PlayerWrapper playerWrapper = null;
 		//Check if the player doesn't have any data, and if they don't, create some!
@@ -107,7 +95,7 @@ public class PlayerSQL {
 
 	public boolean syncPlayerWrapperData(PlayerWrapper playerWrapper) {
 		String playerName = playerWrapper.getName();
-		PreparedStatement syncDataStatement = playerSql.prepareStatement(updatePlayerDataStatement);
+		PreparedStatement syncDataStatement = prepareStatement(updatePlayerDataStatement);
 		boolean isSynced = false;
 		if (hasData(playerName)) {
 			try {
@@ -140,7 +128,7 @@ public class PlayerSQL {
 	}
 
 	public boolean insertDefaults(String playerName) {
-		PreparedStatement preparedStatement = playerSql.prepareStatement(insertDefaultsStatement);
+		PreparedStatement preparedStatement = prepareStatement(insertDefaultsStatement);
 		boolean dataInserted = false;
 		if (!hasData(playerName)) {
 			try {
@@ -161,7 +149,7 @@ public class PlayerSQL {
 	}
 
 	public boolean updatePlayerCurrency(PlayerWrapper playerWrapper) {
-		PreparedStatement preparedStatement = playerSql.prepareStatement(updatePlayerCurrencyStatement);
+		PreparedStatement preparedStatement = prepareStatement(updatePlayerCurrencyStatement);
 		String playerName = playerWrapper.getName();
 		boolean updatedCurrency = false;
 		if (hasData(playerName)) {
@@ -184,7 +172,7 @@ public class PlayerSQL {
 	}
 
 	public boolean updatePlayerPremium(String playerName, boolean isPremium) {
-		PreparedStatement preparedStatement = playerSql.prepareStatement(updatePlayerPremiumStatement);
+		PreparedStatement preparedStatement = prepareStatement(updatePlayerPremiumStatement);
 		boolean wasUpdated = false;
 		if (hasData(playerName)) {
 			try {
@@ -199,9 +187,5 @@ public class PlayerSQL {
 			}
 		}
 		return wasUpdated;
-	}
-
-	public void refreshConnection() {
-		this.playerSql.refreshConnection();
 	}
 }

@@ -8,12 +8,12 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandPreProcessListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void CommandPreProcess(PlayerCommandPreprocessEvent Event) {
-		String Command = Event.getMessage().toLowerCase();
-		if (Command.startsWith("/plugins") || Command.startsWith("/pl") || Command.startsWith("/?") || Command.startsWith("/version")) {
-			if (!Event.getPlayer().isOp()) {
-				Event.getPlayer().sendMessage(CommandMessage.Deny.getMessage());
-				Event.setCancelled(true);
+	public void onCommandPreProcess(PlayerCommandPreprocessEvent event) {
+		String command = event.getMessage().toLowerCase();
+		if (command.startsWith("/plugins") || command.startsWith("/pl") || command.startsWith("/?") || command.startsWith("/version")) {
+			if (!event.getPlayer().isOp()) {
+				event.getPlayer().sendMessage(CommandMessage.Deny.getMessage());
+				event.setCancelled(true);
 			}
 		}
 	}

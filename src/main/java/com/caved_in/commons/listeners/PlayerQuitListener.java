@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 	@EventHandler
-	public void PlayerQuit(PlayerQuitEvent Event) {
-		String playerName = Event.getPlayer().getName();
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		String playerName = event.getPlayer().getName();
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
-			Event.setQuitMessage(null);
+			event.setQuitMessage(null);
 		}
 		PlayerHandler.removeData(playerName);
 		FriendHandler.removeFriendList(playerName);

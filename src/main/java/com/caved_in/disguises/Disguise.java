@@ -5,11 +5,6 @@ public class Disguise {
 	private String disguisedAs = "";
 	private String serverOn = "";
 
-	/**
-	 * @param playerDisguised
-	 * @param disguisedAs
-	 * @param Server
-	 */
 	public Disguise(String playerDisguised, String disguisedAs, String Server) {
 		this.playerDisguised = playerDisguised;
 		this.disguisedAs = disguisedAs;

@@ -1,8 +1,10 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.player.PlayerHandler;
-import org.bukkit.ChatColor;
+import com.caved_in.commons.utilities.StringUtil;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -11,30 +13,26 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void PlayerChat(AsyncPlayerChatEvent Event) {
-		String playerName = Event.getPlayer().getName();
-		String playerDisplayName = Event.getPlayer().getDisplayName();
-		/*
-		 * if (PlayerHandler.isInStaffChat(Event.getPlayer().getName())) {
-		 * PluginMessage.sendStaffChatMessage(Event.getPlayer(),
-		 * Event.getMessage());
-		 * PlayerHandler.sendToAllStaff(Event.getPlayer().getName
-		 * (),Event.getMessage()); Event.setCancelled(true); return; }
-		 */
-
+	public void onPlayerChat(AsyncPlayerChatEvent event) {
+		Player player = event.getPlayer();
+		//Check if the chat is silenced
 		if (Commons.getConfiguration().getWorldConfig().isChatSilenced()) {
-			if (PlayerHandler.canChatWhileSilenced(Event.getPlayer()) == false) {
-				Event.getPlayer().sendMessage(ChatColor.GRAY + "Chat is currently silenced, you are only able to chat if you have the required permissions");
-				Event.setCancelled(true);
+			if (!PlayerHandler.canChatWhileSilenced(player)) {
+				//Send the player a message saying the chat's silenced
+				PlayerHandler.sendMessage(player, Messages.CHAT_SILENCED);
+				event.setCancelled(true);
 				return;
 			}
 		}
+		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s",player.getDisplayName(),event.getMessage())));
+		/*
+		TODO Optimize this
 		ChatColor playerChatColor = PlayerHandler.getData(playerName).getTagColor();
-		if (Event.getPlayer().isOp()) {
-			Event.setFormat(playerChatColor + "[Owner] " + playerDisplayName + ChatColor.RESET + " - " + Event.getMessage());
+		if (event.getPlayer().isOp()) {
+			event.setFormat(playerChatColor + "[Owner] " + playerDisplayName + ChatColor.RESET + " - " + event.getMessage());
 		} else {
-			Event.setFormat(ChatColor.RESET + playerDisplayName + ChatColor.RESET + " - " + Event.getMessage());
+			event.setFormat(ChatColor.RESET + playerDisplayName + ChatColor.RESET + " - " + event.getMessage());
 		}
-		//Event.setFormat((playerChatColor == ChatColor.AQUA ? "[Owner] " + ChatColor.RESET : playerChatColor) + playerDisplayName + " - " + ChatColor.RESET + Event.getMessage());
+		*/
 	}
 }

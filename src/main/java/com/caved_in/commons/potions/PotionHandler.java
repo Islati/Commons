@@ -1,6 +1,5 @@
 package com.caved_in.commons.potions;
 
-import com.caved_in.commons.misc.TimeHandler;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 

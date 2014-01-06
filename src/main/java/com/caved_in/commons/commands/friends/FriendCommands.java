@@ -3,7 +3,7 @@ package com.caved_in.commons.commands.friends;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.commands.CommandController.SubCommandHandler;
-import com.caved_in.commons.data.menu.HelpScreen;
+import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.friends.FriendHandler;
 import com.caved_in.commons.player.PlayerHandler;

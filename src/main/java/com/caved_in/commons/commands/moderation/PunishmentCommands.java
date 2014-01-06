@@ -3,9 +3,9 @@ package com.caved_in.commons.commands.moderation;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.config.Messages;
-import com.caved_in.commons.data.bans.PunishmentType;
-import com.caved_in.commons.misc.TimeHandler;
-import com.caved_in.commons.misc.TimeHandler.TimeType;
+import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeHandler.TimeType;
 import com.caved_in.commons.player.PlayerHandler;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ public class PunishmentCommands {
 	public void BanCommand(CommandSender Sender, String[] Args) {
 		if (Args.length > 0) {
 			String Name = Args[0];
-			if (Commons.bansDatabase.isBanned(Name) == false) {
+			if (!Commons.bansDatabase.isBanned(Name)) {
 				String Reason = "";
 				String BannedBy = "";
 				int TimeArg = 0;
@@ -99,12 +99,12 @@ public class PunishmentCommands {
 						Player bPlayer = Bukkit.getPlayer(Name);
 						Name = bPlayer.getName();
 						bPlayer.kickPlayer(Reason);
-						Commons.bansDatabase.InsertPunishment(PunishmentType.Ban, Name, Reason, BannedBy, BanExpires);
+						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, Name, Reason, BannedBy, BanExpires);
 						PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + Name + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + BannedBy, ChatColor.RED + " - Reason: " + Reason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(BanExpires - System.currentTimeMillis()))));
 					} else {
 						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(Name);
 						if (bPlayer.hasPlayedBefore()) {
-							Commons.bansDatabase.InsertPunishment(PunishmentType.Ban, Name, Reason, BannedBy, BanExpires);
+							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, Name, Reason, BannedBy, BanExpires);
 							PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + Name + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + BannedBy, ChatColor.RED + " - Reason: " + Reason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(BanExpires - System.currentTimeMillis()))));
 						} else {
 							Sender.sendMessage(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + bPlayer.getName() + ChatColor.GREEN + " isn't a valid player; They've never played on this server.");
@@ -127,7 +127,7 @@ public class PunishmentCommands {
 			} else {
 				Unbanner = "Console";
 			}
-			if (Commons.bansDatabase.Pardon(Unban, Unbanner)) {
+			if (Commons.bansDatabase.pardonPlayer(Unban, Unbanner)) {
 				PlayerHandler.sendMessageToAllPlayers("&a" + Messages.messagePrefix + "&e" + Unban + "&a was unbanned by &e" + Unbanner);
 			} else {
 				Sender.sendMessage(Unban + " has failed to be unbanned; They're either not banned, or an error was made");
@@ -147,7 +147,7 @@ public class PunishmentCommands {
 			} else {
 				Unbanner = "Console";
 			}
-			if (Commons.bansDatabase.Pardon(Unban, Unbanner)) {
+			if (Commons.bansDatabase.pardonPlayer(Unban, Unbanner)) {
 				PlayerHandler.sendMessageToAllPlayers("&a" + Messages.messagePrefix + "&e" + Unban + "&a was unbanned by &e" + Unbanner);
 				Sender.sendMessage(Unban + " has been successfully unbanned.");
 			} else {

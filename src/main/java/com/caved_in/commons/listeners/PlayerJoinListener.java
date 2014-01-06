@@ -15,11 +15,12 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerJoinListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void PlayerJoin(PlayerJoinEvent Event) {
-		Player player = Event.getPlayer();
+	public void onPlayerJoin(PlayerJoinEvent event) {
+		Player player = event.getPlayer();
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
-			Event.setJoinMessage(null);
+			event.setJoinMessage(null);
 		}
+
 		PlayerHandler.addData(player);
 		FriendHandler.addFriendList(player.getName());
 		if (Commons.getConfiguration().getWorldConfig().isCompassMenuEnabled()) {

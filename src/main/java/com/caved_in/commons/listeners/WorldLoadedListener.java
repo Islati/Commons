@@ -9,7 +9,7 @@ import org.bukkit.event.world.WorldLoadEvent;
 public class WorldLoadedListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void worldLoaded(WorldLoadEvent Event) {
-		WorldHandler.handleWorldWeather(Event.getWorld());
+	public void onWorldLoaded(WorldLoadEvent event) {
+		WorldHandler.handleWorldWeather(event.getWorld());
 	}
 }

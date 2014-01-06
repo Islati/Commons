@@ -28,6 +28,8 @@ import org.simpleframework.xml.core.Persister;
 import java.io.File;
 
 public class Commons extends JavaPlugin {
+	private static Commons plugin;
+
 	public static BansSQL bansDatabase;
 	public static DisguiseSQL disguiseDatabase;
 	public static FriendSQL friendDatabase;
@@ -41,7 +43,10 @@ public class Commons extends JavaPlugin {
 	private static String PLUGIN_DATA_FOLDER = "plugins/Tunnels-Common/";
 
 	public static Commons getCommons() {
-		return (Commons) Bukkit.getPluginManager().getPlugin("Tunnels-Common");
+		if (plugin == null) {
+			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Tunnels-Common");
+		}
+		return plugin;
 	}
 
 	@Override
@@ -57,11 +62,16 @@ public class Commons extends JavaPlugin {
 
 		SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
 
-		bansDatabase = new BansSQL(sqlConfig); // Init connection to bans SQL
-		disguiseDatabase = new DisguiseSQL(sqlConfig); // Init Disguise sql
-		friendDatabase = new FriendSQL(sqlConfig); // Init friends sql
+		//Init connection to bans SQL
+		bansDatabase = new BansSQL(sqlConfig);
+		//Init Disguise sql
+		disguiseDatabase = new DisguiseSQL(sqlConfig);
+		//Init friends sql
+		friendDatabase = new FriendSQL(sqlConfig);
+		//Initialize the players sql
 		playerDatabase = new PlayerSQL(sqlConfig);
-		new CommandRegister(this); // Register commands
+		//Register commands
+		new CommandRegister(this);
 
 		registerListeners(); //Register all our event listeners
 
@@ -70,7 +80,7 @@ public class Commons extends JavaPlugin {
 			public void run() {
 				bansDatabase.refreshConnection();
 				disguiseDatabase.refreshConnection();
-				friendDatabase.refresh();
+				friendDatabase.refreshConnection();
 				playerDatabase.refreshConnection();
 			}
 		}, 36000, 36000); // SQL Keep alive
@@ -210,9 +220,10 @@ public class Commons extends JavaPlugin {
 		Bukkit.getScheduler().cancelTasks(this);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			PlayerHandler.removeData(player.getName());
-			FriendHandler.removeFriendList(player.getName());
-			disguiseDatabase.deletePlayerDisguiseData(player.getName());
+			String playerName = player.getName();
+			PlayerHandler.removeData(playerName);
+			FriendHandler.removeFriendList(playerName);
+			disguiseDatabase.deletePlayerDisguiseData(playerName);
 		}
 	}
 }

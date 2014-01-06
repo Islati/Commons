@@ -5,18 +5,11 @@ import com.google.common.base.Stopwatch;
 
 import java.sql.*;
 
-public class SQL {
+public abstract class SQL {
 
 	private Connection sqlConnection = null;
 	private String host, port, database, username, password;
 
-	/**
-	 * @param host
-	 * @param port
-	 * @param database
-	 * @param username
-	 * @param password
-	 */
 	public SQL(String host, String port, String database, String username, String password) {
 		this.host = host;
 		this.port = port;

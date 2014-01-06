@@ -8,9 +8,9 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 public class ServerPingListener implements Listener {
 	@EventHandler
-	public void serverListPingEvent(ServerListPingEvent Event) {
+	public void onServerPing(ServerListPingEvent event) {
 		if (Commons.getConfiguration().getMaintenanceConfig().isMaintenanceMode()) {
-			Event.setMotd(StringUtil.formatColorCodes(Commons.getConfiguration().getMaintenanceConfig().getMotd()));
+			event.setMotd(StringUtil.formatColorCodes(Commons.getConfiguration().getMaintenanceConfig().getMotd()));
 		}
 	}
 }

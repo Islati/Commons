@@ -18,6 +18,9 @@ public class Configuration {
 	@Element(name = "Server_Name")
 	private String serverName = "EDIT THIS";
 
+	//TODO Actually add this to the configuration
+	private String chatFormat = "TODO";
+
 	public Configuration(@Element(name = "WorldConfig", type = WorldConfiguration.class) WorldConfiguration worldConfig,
 						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
 						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,

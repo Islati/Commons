@@ -8,11 +8,11 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PlayerLoginListener implements Listener {
 	@EventHandler
-	public void onPlayerLogin(PlayerLoginEvent Event) {
+	public void onPlayerLogin(PlayerLoginEvent event) {
 		if (Commons.getConfiguration().getMaintenanceConfig().isMaintenanceMode()) {
-			if (!Event.getPlayer().hasPermission(TunnelsPermissions.MAINTAINANCE_WHITELIST)) {
-				Event.setKickMessage(Commons.getConfiguration().getMaintenanceConfig().getKickMessage());
-				Event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+			if (!event.getPlayer().hasPermission(TunnelsPermissions.MAINTAINANCE_WHITELIST)) {
+				event.setKickMessage(Commons.getConfiguration().getMaintenanceConfig().getKickMessage());
+				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}
 		}
 	}

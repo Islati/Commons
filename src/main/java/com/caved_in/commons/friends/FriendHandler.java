@@ -14,23 +14,8 @@ public class FriendHandler {
 		List<Friend> playerFriends = new ArrayList<Friend>();
 
 		if (Commons.friendDatabase.hasData(playerName)) {
-			List<Friend> friendList = Commons.friendDatabase.getFriends(playerName);
-			for (Friend friend : friendList) {
-				playerFriends.add(friend);
-			}
+			playerFriends = Commons.friendDatabase.getFriends(playerName);
 		}
-
-		/*
-		 * Commons.threadManager.runTaskAsynch(new Runnable() {
-		 * 
-		 * @Override public void run() { if
-		 * (Commons.friendDatabase.hasData(playerName)) { List<Friend>
-		 * friendList = Commons.friendDatabase.getFriends(playerName);
-		 * for(Friend friend : friendList) { playerFriends.add(friend); }
-		 * 
-		 * } } });
-		 */
-
 		friendsLists.put(playerName, new FriendList(playerName, playerFriends));
 	}
 
