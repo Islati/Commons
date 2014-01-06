@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/BansSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/BansSQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockFormListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockFormListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockSpreadListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockSpreadListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ChatListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ChatListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CommandPreProcessListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CommandPreProcessListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CompassListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/CompassListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Configuration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/disguises/Disguise.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/disguises/Disguise.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/DisguiseSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/DisguiseSQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendList.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LauncherListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LauncherListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LightningStrikeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LightningStrikeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerLoginListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerLoginListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/potions/PotionHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/potions/PotionHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PrePlayerLoginListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PrePlayerLoginListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ServerPingListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ServerPingListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO" afterPath="$PROJECT_DIR$/TODO" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ThungerChangeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/ThungerChangeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WeatherChangeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WeatherChangeListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WorldLoadedListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/WorldLoadedListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
@@ -128,7 +97,7 @@
       <file leaf-file-name="FriendHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="30" selection-start="741" selection-end="741" vertical-scroll-proportion="0.49484536" vertical-offset="0" max-vertical-offset="582">
+            <state line="23" column="5" selection-start="711" selection-end="711" vertical-scroll-proportion="0.49484536" vertical-offset="0" max-vertical-offset="582">
               <folding />
             </state>
           </provider>
@@ -980,7 +949,11 @@
       <created>1389022671649</created>
       <updated>1389022671649</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Optimized listeners; updated some configuration&#10;refactored friends.&#10;TODO: Optimize friends list and object">
+      <created>1389028513819</created>
+      <updated>1389028513819</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -998,6 +971,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17272727" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1008,7 +982,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328594" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1035,7 +1008,8 @@
     <MESSAGE value="Untested /i command; Should work" />
     <MESSAGE value="Untested /i command; Should work&#10;" />
     <MESSAGE value="Refactored all th database classes&#10;Made SQL abstract&#10;Updated commons to be a singleton&#10;Optimized sql statements and removed un-needed calls / redundancy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored all th database classes&#10;Made SQL abstract&#10;Updated commons to be a singleton&#10;Optimized sql statements and removed un-needed calls / redundancy" />
+    <MESSAGE value="Optimized listeners; updated some configuration&#10;refactored friends.&#10;TODO: Optimize friends list and object" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimized listeners; updated some configuration&#10;refactored friends.&#10;TODO: Optimize friends list and object" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1057,12 +1031,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="345" column="69" selection-start="9128" selection-end="9128" vertical-scroll-proportion="0.0" vertical-offset="4997" max-vertical-offset="6352" />
+        <state line="345" column="69" selection-start="9128" selection-end="9128" vertical-scroll-proportion="0.0" vertical-offset="4997" max-vertical-offset="6352">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="281" column="1" selection-start="11243" selection-end="11243" vertical-scroll-proportion="0.0" vertical-offset="3959" max-vertical-offset="4320" />
+        <state line="281" column="1" selection-start="11243" selection-end="11243" vertical-scroll-proportion="0.0" vertical-offset="3959" max-vertical-offset="4320">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
@@ -1091,7 +1069,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/bans/Punishment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="95" selection-start="771" selection-end="771" vertical-scroll-proportion="0.56042033" vertical-offset="0" max-vertical-offset="752" />
+        <state line="20" column="95" selection-start="771" selection-end="771" vertical-scroll-proportion="0.56042033" vertical-offset="0" max-vertical-offset="752">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java">
@@ -1108,12 +1088,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="46" selection-start="985" selection-end="985" vertical-scroll-proportion="0.28021017" vertical-offset="0" max-vertical-offset="2480" />
+        <state line="22" column="46" selection-start="985" selection-end="985" vertical-scroll-proportion="0.28021017" vertical-offset="0" max-vertical-offset="2480">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="5" selection-start="1017" selection-end="1017" vertical-scroll-proportion="-2.2224169" vertical-offset="1509" max-vertical-offset="2080" />
+        <state line="25" column="5" selection-start="1017" selection-end="1017" vertical-scroll-proportion="-2.2224169" vertical-offset="1509" max-vertical-offset="2080">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/bans/PunishmentType.java">
@@ -1155,7 +1139,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/disguises/Disguise.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="416" />
+        <state line="6" column="0" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="416">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TODO">
@@ -1382,7 +1368,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="30" selection-start="741" selection-end="741" vertical-scroll-proportion="0.49484536" vertical-offset="0" max-vertical-offset="582">
+        <state line="23" column="5" selection-start="711" selection-end="711" vertical-scroll-proportion="0.49484536" vertical-offset="0" max-vertical-offset="582">
           <folding />
         </state>
       </provider>

@@ -20,15 +20,10 @@ public class FriendHandler {
 	}
 
 	public static void removeFriendList(String playerName) {
-		if (friendsLists.containsKey(playerName)) {
-			friendsLists.remove(playerName);
-		}
+		friendsLists.remove(playerName);
 	}
 
 	public static FriendList getFriendList(String playerName) {
-		if (friendsLists.containsKey(playerName)) {
-			return friendsLists.get(playerName);
-		}
-		return null;
+		return friendsLists.get(playerName);
 	}
 }
