@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
@@ -106,7 +105,7 @@
       <file leaf-file-name="AdminCommands.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1761" selection-end="1761" vertical-scroll-proportion="0.81546575" vertical-offset="0" max-vertical-offset="2080">
+            <state line="25" column="5" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.42179263" vertical-offset="0" max-vertical-offset="2080">
               <folding />
             </state>
           </provider>
@@ -1084,7 +1083,11 @@
       <created>1388935582001</created>
       <updated>1388935582001</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Untested /i command; Should work&#10;">
+      <created>1388935678530</created>
+      <updated>1388935678530</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1464,7 +1467,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1761" selection-end="1761" vertical-scroll-proportion="0.81546575" vertical-offset="0" max-vertical-offset="2080">
+        <state line="25" column="5" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.42179263" vertical-offset="0" max-vertical-offset="2080">
           <folding />
         </state>
       </provider>
