@@ -34,21 +34,14 @@ public class PlayerHandler {
 		return playerData.get(Name);
 	}
 
-	/**
-	 * @param player
-	 * @return
-	 */
-	private static PlayerWrapper getData(Player player) {
+	public static PlayerWrapper getData(Player player) {
 		return playerData.get(player.getName());
 	}
 
-	/**
-	 * @param player
-	 */
 	public static void addData(Player player) {
 		String playerName = player.getName();
 
-		PlayerWrapper PlayerWrapper = null;
+		PlayerWrapper PlayerWrapper;
 
 		if (Commons.playerDatabase.hasData(playerName)) {
 			Commons.messageConsole("&a" + playerName + " has data, attempting to load it.");
@@ -67,17 +60,11 @@ public class PlayerHandler {
 		playerData.put(playerName, PlayerWrapper);
 	}
 
-	/**
-	 * @param playerWrapper
-	 */
 	public static void updateData(PlayerWrapper playerWrapper) {
 		playerData.put(playerWrapper.getName(), playerWrapper);
 		Commons.playerDatabase.syncPlayerWrapperData(playerWrapper);
 	}
 
-	/**
-	 * @param playerName
-	 */
 	public static void removeData(String playerName) {
 		if (hasData(playerName)) {
 			Commons.messageConsole("&aPreparing to sync " + playerName + "'s data to database");
@@ -87,33 +74,36 @@ public class PlayerHandler {
 		}
 	}
 
-	/**
-	 * @param playerName
-	 * @return
-	 */
 	public static boolean isOnline(String playerName) {
+		return isOnline(playerName, false);
+	}
+
+	public static boolean isOnlineExact(String playerName) {
 		return Bukkit.getPlayerExact(playerName) != null;
 	}
 
-	/**
-	 * @param playerName
-	 * @return
-	 */
+	public static boolean isOnline(String playerName, boolean isExact) {
+		return isExact ? isOnlineExact(playerName) : isOnlineFuzzy(playerName);
+	}
+
 	public static boolean isOnlineFuzzy(String playerName) {
 		return Bukkit.getPlayer(playerName) != null;
 	}
 
-	/**
-	 * @param playerName
-	 * @return
-	 */
 	public static Player getPlayer(String playerName) {
 		return Bukkit.getPlayer(playerName);
 	}
 
 	/**
-	 * @param reason
+	 * Get players exact name based on the partial name passed. Calls <i>Bukkit.getPlayer(partialPlayerName)</i>
+	 * @param partialPlayerName Partial name of the player to get the full name of
+	 * @return An exact players name if there's a player online which matches the partial name passed; Otherwise
+	 * returns the partial name passed
 	 */
+	public static String getName(String partialPlayerName) {
+		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : partialPlayerName;
+	}
+
 	public static void kickAllPlayers(String... reason) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			for (String kickReason : reason) {
@@ -128,10 +118,6 @@ public class PlayerHandler {
 		}
 	}
 
-	/**
-	 * @param permission
-	 * @param reason
-	 */
 	public static void kickAllPlayersWithoutPermission(String permission, String... reason) {
 		if (permission != null && !permission.isEmpty()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
@@ -158,9 +144,6 @@ public class PlayerHandler {
 		}
 	}
 
-	/**
-	 * @param messages
-	 */
 	public static void sendMessageToAllPlayers(String... messages) {
 		for (Player Player : Bukkit.getOnlinePlayers()) {
 			for (String message : messages) {
@@ -175,10 +158,6 @@ public class PlayerHandler {
 		}
 	}
 
-	/**
-	 * @param permission
-	 * @param messages
-	 */
 	public static void sendMessageToAllPlayersWithPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.hasPermission(permission)) {
@@ -197,39 +176,16 @@ public class PlayerHandler {
 		}
 	}
 
-	/**
-	 * @param permission
-	 * @param messages
-	 */
 	public static void sendMessageToAllPlayersWithoutPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (!player.hasPermission(permission)) {
 				for (String message : messages) {
-					sendMessage(player,message);
+					sendMessage(player, message);
 				}
 			}
 		}
 	}
 
-	/**
-	 * @param player
-	 * @param messages
-	 */
-	public static void sendMessagesToPlayer(Player player, String... messages) {
-		sendMessage(player,messages);
-	}
-
-	public static void sendMessageToPlayer(Player player, String message) {
-		sendMessage(player,message);
-	}
-
-
-	/**
-	 * Sends message(s) to a player while auto-formatting the color codes
-	 *
-	 * @param commandSender
-	 * @param messages
-	 */
 	public static void sendMessage(CommandSender commandSender, String... messages) {
 		for (String message : messages) {
 			commandSender.sendMessage(StringUtil.formatColorCodes(message));
@@ -242,7 +198,8 @@ public class PlayerHandler {
 
 	/**
 	 * Forces a player to chat the given message
-	 * @param player player who we want to say this
+	 *
+	 * @param player  player who we want to say this
 	 * @param message what they'll be saying
 	 */
 	public static void playerChat(Player player, String message) {
@@ -251,11 +208,12 @@ public class PlayerHandler {
 
 	/**
 	 * Force all players on the server to chat the given message
+	 *
 	 * @param message message for the players to say
 	 */
 	public static void allPlayersChat(String message) {
-		for(Player player : getOnlinePlayers()) {
-			playerChat(player,message);
+		for (Player player : getOnlinePlayers()) {
+			playerChat(player, message);
 		}
 	}
 
@@ -263,10 +221,6 @@ public class PlayerHandler {
 		return player.getAddress().getHostName();
 	}
 
-	/**
-	 * @param player
-	 * @return
-	 */
 	public static ChatColor getNameTagColor(Player player) {
 		if (!player.isOp()) {
 			for (ColorCode colorCode : ColorCode.values()) {
@@ -278,12 +232,6 @@ public class PlayerHandler {
 		return ChatColor.AQUA;
 	}
 
-	/**
-	 * Checks if the player can chat while the chat is in silence mode
-	 *
-	 * @param player
-	 * @return
-	 */
 	public static boolean canChatWhileSilenced(Player player) {
 		return (isPremium(player.getName()));
 	}
@@ -301,31 +249,14 @@ public class PlayerHandler {
 		sendMessageToAllPlayersWithPermission(ChatColor.RED + "[Staff Chat] " + Player + ChatColor.RESET + ": " + Message, TunnelsPermissions.STAFF_PERMISSION);
 	}
 
-	/**
-	 * Check if a player is premium
-	 *
-	 * @param playerName
-	 * @return
-	 */
 	public static boolean isPremium(String playerName) {
 		return playerData.get(playerName).isPremium();
 	}
 
-	/**
-	 * Check if a player is premium
-	 *
-	 * @param player
-	 * @return
-	 */
 	public static boolean isPremium(Player player) {
 		return isPremium(player.getName());
 	}
 
-	/**
-	 * Clear a players inventory (armor included)
-	 *
-	 * @param player
-	 */
 	public static void clearInventory(Player player) {
 		clearInventory(player, true);
 	}
@@ -349,8 +280,9 @@ public class PlayerHandler {
 
 	/**
 	 * Set the armor on a player
+	 *
 	 * @param player player to set armor on
-	 * @param armor itemstack array of the armor we're equiping the player with
+	 * @param armor  itemstack array of the armor we're equiping the player with
 	 */
 	public static void setPlayerArmor(Player player, ItemStack[] armor) {
 		player.getInventory().setArmorContents(armor);
@@ -370,7 +302,8 @@ public class PlayerHandler {
 	/**
 	 * Give a player a potion effect of the given type
 	 * This method is a soft reference to EntityUtility.addPotionEffect(*)
-	 * @param player player to give the potion effect to
+	 *
+	 * @param player       player to give the potion effect to
 	 * @param potionEffect the potion effect in which to give the player
 	 */
 	public static void addPotionEffect(Player player, PotionEffect potionEffect) {
@@ -380,12 +313,13 @@ public class PlayerHandler {
 	/**
 	 * Give a player a potion effect of the given type for a specific duration
 	 * This method is a soft reference to EntityUtility.addPotionEffect(*)
-	 * @param player player to give the potion effect to
-	 * @param potionType effect type to give the player
+	 *
+	 * @param player          player to give the potion effect to
+	 * @param potionType      effect type to give the player
 	 * @param durationInTicks duration of the potion effect (in ticks. 20 ticks = 1 second)
 	 */
 	public static void addPotionEffect(Player player, PotionType potionType, int durationInTicks) {
-		addPotionEffect(player, PotionHandler.getPotionEffect(potionType,durationInTicks));
+		addPotionEffect(player, PotionHandler.getPotionEffect(potionType, durationInTicks));
 	}
 
 	public static int getOnlinePlayersCount() {
@@ -398,6 +332,7 @@ public class PlayerHandler {
 
 	/**
 	 * Check if there's atleast the given amount of players online
+	 *
 	 * @param amount Amount to check against
 	 * @return true if amount is greater or equal to the amount of players online, false otherwise
 	 */

@@ -50,6 +50,10 @@ public class FriendList {
 		return unacceptedFriends;
 	}
 
+	public boolean hasRequest(String playerName) {
+		return playerFriends.containsKey(playerName) && !playerFriends.get(playerName).isAccepted();
+	}
+
 	public Map<String, Friend> getFriendsMap() {
 		return this.playerFriends;
 	}

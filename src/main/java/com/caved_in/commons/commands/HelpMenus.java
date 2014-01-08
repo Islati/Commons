@@ -1,17 +1,23 @@
 package com.caved_in.commons.commands;
 
+import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.menu.HelpScreen;
+import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.ChatColor;
 
+import java.util.List;
 import java.util.Map;
 
 public class HelpMenus {
 
 	enum ItemFormat {
 		DOUBLE_DASH("<name> -- <desc>"),
-		SINGLE_DASH("<name> - <desc>");
+		SINGLE_DASH("<name> - <desc>"),
+		IS("<name> is <desc>"),
+		FRIEND_REQUEST("<name> wants to add you as a friend!");
 
 		private String formatting;
+
 		private ItemFormat(String formatting) {
 			this.formatting = formatting;
 		}
@@ -27,6 +33,7 @@ public class HelpMenus {
 		SHORTHAND("<name> (P.<page>/<maxpage>)");
 
 		private String formatting;
+
 		private PageDisplay(String formatting) {
 			this.formatting = formatting;
 		}
@@ -37,23 +44,53 @@ public class HelpMenus {
 		}
 	}
 
-	private static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd){
+	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd) {
 		HelpScreen helpScreen = new HelpScreen(menuName);
 		helpScreen.setHeader(pageDisplay.toString());
 		helpScreen.setFormat(itemFormat.toString());
-		helpScreen.setFlipColor(flipColorEven,flipColorOdd);
+		helpScreen.setFlipColor(flipColorEven, flipColorOdd);
 		return helpScreen;
 	}
 
-	private static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd, Map<String,String> helpItems){
+	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd, Map<String, String> helpItems) {
 		HelpScreen helpScreen = new HelpScreen(menuName);
 		helpScreen.setHeader(pageDisplay.toString());
 		helpScreen.setFormat(itemFormat.toString());
-		helpScreen.setFlipColor(flipColorEven,flipColorOdd);
-		for(Map.Entry<String, String> menuItem : helpItems.entrySet()) {
-			helpScreen.setEntry(menuItem.getKey(),menuItem.getValue());
+		helpScreen.setFlipColor(flipColorEven, flipColorOdd);
+		for (Map.Entry<String, String> menuItem : helpItems.entrySet()) {
+			helpScreen.setEntry(menuItem.getKey(), menuItem.getValue());
 		}
 		return helpScreen;
 	}
 
+	public static HelpScreen getFriendsListScreen(List<Friend> friendsList) {
+		HelpScreen requestScreen = generateHelpScreen("Your friends list", PageDisplay.DEFAULT, ItemFormat.IS, ChatColor.WHITE, ChatColor.WHITE);
+		for (Friend friend : friendsList) {
+			boolean isOnline = PlayerHandler.isOnline(friend.getFriendName());
+			ChatColor friendColor = isOnline ? ChatColor.GREEN : ChatColor.RED;
+			requestScreen.setEntry(friendColor + friend.getFriendName() + ChatColor.YELLOW, "currently " + friendColor + (isOnline ? "online" : "offline") + ".");
+		}
+		return requestScreen;
+	}
+
+	public static HelpScreen getFriendRequestsHelpScreen(List<Friend> friendsList) {
+		HelpScreen requestScreen = generateHelpScreen("Friend Requests", PageDisplay.DEFAULT, ItemFormat.FRIEND_REQUEST, ChatColor.GREEN, ChatColor.DARK_GREEN);
+		for (Friend friend : friendsList) {
+			requestScreen.setEntry(friend.getFriendName(), "");
+		}
+		return requestScreen;
+	}
+
+	public static HelpScreen getFriendsCommandHelpScreen() {
+		HelpScreen friendScreen = generateHelpScreen("Friends Command-Help", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
+		friendScreen.setEntry("/friends add <username>", "Send a player a friend request with the given message");
+		friendScreen.setEntry("/friends help", "This help-menu");
+		friendScreen.setEntry("/friends accept <Username>", "Accept the friend request from this user (if you have one)");
+		friendScreen.setEntry("/friends block <Username>", "Block this user from sending you friend requests");
+		friendScreen.setEntry("/friends requests", "See all of the friend-requests you have.");
+		friendScreen.setEntry("/friends list", "See a list of all your friends");
+		friendScreen.setEntry("/friends remove <Username>", "Remove this user from you friends");
+		friendScreen.setEntry("/friends deny <Username>", "Deny a friend request from this user");
+		return friendScreen;
+	}
 }
