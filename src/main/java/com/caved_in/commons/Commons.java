@@ -86,7 +86,6 @@ public class Commons extends JavaPlugin {
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			PlayerHandler.addData(player);
-			FriendHandler.addFriendList(player.getName());
 			if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
 				if (!player.getInventory().contains(Material.COMPASS)) {
 					player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));

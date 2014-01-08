@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+//TODO Move this class to utilities, and optimize all of this
 public class DonatorCommands {
 	@CommandHandler(name = "hat", usage = "/hat <ItemID/ItemName> to place an item on your head (overwriting your current item); /hat to remove it", permission = "tunnels.common.hat")
 	public void HatCommand(Player player, String[] commandArgs) {

@@ -1,18 +1,20 @@
 package com.caved_in.commons.commands.chat;
 
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.ChatHandler;
 import com.caved_in.commons.chat.ChatMessage;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
+import sun.net.www.content.text.plain;
 
 public class ChatCommands {
 	@CommandHandler(name = "msg", usage = "/msg <player> <msg> to send a player a message", aliases = {"m", "tell", "t", "whisper"}/*permission = "tunnels.common.message"*/)
 	public void Message(Player Player, String[] commandArgs) {
-		if (commandArgs.length > 0 && !commandArgs[0].isEmpty()) {
+		if (commandArgs.length > 0) {
 			String receivingPlayer = commandArgs[0];
-			if (!commandArgs[1].isEmpty()) {
+			if (commandArgs.length > 1) {
 				String message = "";
 				for (int I = 1; I < commandArgs.length; I++) {
 					message += commandArgs[I] + " ";
@@ -23,7 +25,11 @@ public class ChatCommands {
 				} else {
 					Player.sendMessage(StringUtil.formatColorCodes("&cUnable to send a message to &e" + receivingPlayer + "&c, perhaps they're offline?"));
 				}
+			} else {
+				PlayerHandler.sendMessage(Player, Messages.INVALID_COMMAND_USAGE("message"));
 			}
+		} else {
+			PlayerHandler.sendMessage(Player, Messages.INVALID_COMMAND_USAGE("player", "message"));
 		}
 	}
 

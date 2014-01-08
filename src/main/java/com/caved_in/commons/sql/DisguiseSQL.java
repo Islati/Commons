@@ -1,7 +1,7 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.disguises.Disguise;
+import com.caved_in.commons.disguises.Disguise;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

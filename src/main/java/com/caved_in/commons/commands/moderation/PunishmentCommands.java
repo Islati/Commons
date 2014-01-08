@@ -17,37 +17,37 @@ import org.bukkit.entity.Player;
 public class PunishmentCommands {
 
 	@CommandHandler(name = "ban", description = "Bans a player permanately, or temporarily across all servers", permission = "tunnels.common.ban", usage = "/ban [Name] [Reason] <Time>")
-	public void BanCommand(CommandSender Sender, String[] Args) {
-		if (Args.length > 0) {
-			String Name = Args[0];
-			if (!Commons.bansDatabase.isBanned(Name)) {
-				String Reason = "";
-				String BannedBy = "";
-				int TimeArg = 0;
-				long BanExpires = 0L;
+	public void onBanCommand(CommandSender sender, String[] args) {
+		if (args.length > 0) {
+			String playerName = args[0];
+			if (!Commons.bansDatabase.isBanned(playerName)) {
+				String banReason = "";
+				String bannedBy = "";
+				int timeArg = 0;
+				long banExpires = 0L;
 				boolean PermBan = false;
-				if (Sender instanceof Player) {
-					BannedBy = ((Player) Sender).getName();
+				if (sender instanceof Player) {
+					bannedBy = ((Player) sender).getName();
 				} else {
-					BannedBy = "Console";
+					bannedBy = "Console";
 				}
-				if (Args.length >= 1) {
-					if (Args[1] != null) {
-						for (int I = 1; I < Args.length; I++) {
-							if (!Args[I].startsWith("t:")) {
-								Reason += Args[I] + " ";
+				if (args.length >= 1) {
+					if (args[1] != null) {
+						for (int I = 1; I < args.length; I++) {
+							if (!args[I].startsWith("t:")) {
+								banReason += args[I] + " ";
 							} else {
-								TimeArg = I;
+								timeArg = I;
 								break;
 							}
 						}
 					} else {
-						Sender.sendMessage(ChatColor.GREEN + "[Tunnels Network] " + ChatColor.RED + "You need to give a reason when banning someone.");
+						sender.sendMessage(ChatColor.GREEN + "[Tunnels Network] " + ChatColor.RED + "You need to give a reason when banning someone.");
 						return;
 					}
 
-					if (TimeArg != 0) {
-						String TimeOrReason = Args[TimeArg];
+					if (timeArg != 0) {
+						String TimeOrReason = args[timeArg];
 						if (TimeOrReason.toLowerCase().contains("t:")) {
 							String TimeUnit = "";
 							int TimeLength = 0;
@@ -59,59 +59,60 @@ public class PunishmentCommands {
 										TimeLength = Integer.parseInt(TimeBetween);
 										switch (TimeUnit) {
 											case "y":
-												BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Years));
+												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Years));
 												break;
 											case "m":
-												BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Months));
+												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Months));
 												break;
 											case "w":
-												BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Weeks));
+												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Weeks));
 												break;
 											case "d":
-												BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Days));
+												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Days));
 												break;
 											case "h":
-												BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Hours));
+												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(TimeLength, TimeType.Hours));
 												break;
 											default:
 												break;
 										}
 										break;
 									} else {
-										Sender.sendMessage(TimeOrReason + " is not a valid measurement of time...");
+										sender.sendMessage(TimeOrReason + " is not a valid measurement of time...");
 										return;
 									}
 								}
 							}
 							if (TimeLength == 0 || TimeUnit == "") {
-								Sender.sendMessage("Error processing Command [--" + TimeOrReason + "--]");
+								sender.sendMessage("Error processing Command [--" + TimeOrReason + "--]");
 								return;
 							}
 						}
 					}
 
-					if (BanExpires == 0L) {
-						BanExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(10, TimeType.Years));
+					if (banExpires == 0L) {
+						banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(10, TimeType.Years));
 						PermBan = true;
 					}
 
-					if (Bukkit.getPlayer(Name) != null) {
-						Player bPlayer = Bukkit.getPlayer(Name);
-						Name = bPlayer.getName();
-						bPlayer.kickPlayer(Reason);
-						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, Name, Reason, BannedBy, BanExpires);
-						PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + Name + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + BannedBy, ChatColor.RED + " - Reason: " + Reason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(BanExpires - System.currentTimeMillis()))));
+					if (Bukkit.getPlayer(playerName) != null) {
+						Player bPlayer = Bukkit.getPlayer(playerName);
+						playerName = bPlayer.getName();
+						bPlayer.kickPlayer(banReason);
+						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
+						PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + playerName + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + bannedBy, ChatColor.RED + " - Reason: " + banReason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis()))));
 					} else {
-						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(Name);
+						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(playerName);
 						if (bPlayer.hasPlayedBefore()) {
-							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, Name, Reason, BannedBy, BanExpires);
-							PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + Name + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + BannedBy, ChatColor.RED + " - Reason: " + Reason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(BanExpires - System.currentTimeMillis()))));
+							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
+							PlayerHandler.sendMessageToAllPlayers(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + playerName + ChatColor.GREEN + " was banned by " + ChatColor.YELLOW + bannedBy, ChatColor.RED + " - Reason: " + banReason, ChatColor.RED + " - Expires: " + (PermBan ? "Never" : (TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis()))));
 						} else {
-							Sender.sendMessage(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + bPlayer.getName() + ChatColor.GREEN + " isn't a valid player; They've never played on this server.");
+							sender.sendMessage(ChatColor.GREEN + Messages.messagePrefix + ChatColor.YELLOW + bPlayer.getName() + ChatColor.GREEN + " isn't a " +
+									"valid player; They've never played on this server.");
 						}
 					}
 				} else {
-					Sender.sendMessage("You need to provide a reason for banning");
+					sender.sendMessage("You need to provide a reason for banning");
 				}
 			}
 		}

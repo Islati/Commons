@@ -36,6 +36,10 @@ public class FriendList {
 		this.playerFriends.remove(name);
 	}
 
+	public void acceptFriend(String name) {
+		playerFriends.get(name).setAccepted(true);
+	}
+
 	public List<Friend> getFriends() {
 		return new ArrayList<Friend>(playerFriends.values());
 	}
