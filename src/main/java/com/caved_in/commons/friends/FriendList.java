@@ -25,10 +25,7 @@ public class FriendList {
 	}
 
 	public boolean isFriendsWith(String name) {
-		if (this.playerFriends.containsKey(name)) {
-			return this.playerFriends.get(name).isAccepted();
-		}
-		return false;
+		return this.playerFriends.containsKey(name) && this.playerFriends.get(name).isAccepted();
 	}
 
 	public void addFriend(Friend friendToAdd) {
@@ -36,29 +33,25 @@ public class FriendList {
 	}
 
 	public void removeFriend(String name) {
-		if (isFriendsWith(name)) {
-			this.playerFriends.remove(name);
-		}
+		this.playerFriends.remove(name);
 	}
 
 	public List<Friend> getFriends() {
-		List<Friend> playerFriends = new ArrayList<Friend>();
-		for (Friend friend : this.playerFriends.values()) {
-			if (friend.isAccepted()) {
-				playerFriends.add(friend);
-			}
-		}
-		return playerFriends;
+		return new ArrayList<Friend>(playerFriends.values());
 	}
 
 	public List<Friend> getUnacceptedFriends() {
-		List<Friend> friends = new ArrayList<Friend>();
-		for (Friend friend : this.getFriends()) {
-			if (friend.isAccepted() == false) {
-				friends.add(friend);
+		List<Friend> unacceptedFriends = new ArrayList<Friend>();
+		for (Friend friend : getFriends()) {
+			if (!friend.isAccepted()) {
+				unacceptedFriends.add(friend);
 			}
 		}
-		return friends;
+		return unacceptedFriends;
+	}
+
+	public boolean hasRequest(String playerName) {
+		return playerFriends.containsKey(playerName) && !playerFriends.get(playerName).isAccepted();
 	}
 
 	public Map<String, Friend> getFriendsMap() {

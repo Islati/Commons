@@ -1,29 +1,27 @@
 package com.caved_in.commons.sql;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.data.bans.Punishment;
-import com.caved_in.commons.data.bans.PunishmentType;
-import com.caved_in.commons.misc.PunishmentUtils;
-import com.caved_in.commons.misc.TimeHandler;
-import org.bukkit.Bukkit;
+import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.time.TimeHandler;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BansSQL {
-	private SQL SQL;
-
-	private String Table = "bans";
-	private String IDTag = "ID";
-	private String TypeTag = "Type";
-	private String NameTag = "Name";
-	private String ReasonTag = "Reason";
-	private String IssuedByTag = "IssuedBy";
-	private String IssuedTag = "Issued";
-	private String ExpiresTag = "Expires";
-	private String ActiveTag = "Active";
+public class BansSQL extends SQL {
+	private static String tableName = "bans";
+	private static String idColumn = "ID";
+	private static String typeColumn = "Type";
+	private static String nameColumn = "Name";
+	private static String reasonColumn = "Reason";
+	private static String issuedByColumn = "IssuedBy";
+	private static String timeIssuedColumn = "Issued";
+	private static String expiryColumn = "Expires";
+	private static String activeColumn = "Active";
 
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`bans` (" +
 			"  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT," +
@@ -37,263 +35,190 @@ public class BansSQL {
 			"  PRIMARY KEY (`ID`)" +
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
+	private static String getDataStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=?";
+	private static String insertDataStatement = "INSERT INTO " + tableName + " (" + typeColumn + ", " + nameColumn + ", " + reasonColumn + ", " + issuedByColumn + ", " + timeIssuedColumn + ", " + expiryColumn + ") VALUES (?,?,?,?,?,?)";
+	private static String updateActiveStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + nameColumn + "=?";
+	private static String updateIDStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + idColumn + "=?";
+	private static String getActiveTypeStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + typeColumn + "=? AND " + activeColumn + "=?";
+	private static String getActiveStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + activeColumn + "=?";
+
 	public BansSQL(SqlConfiguration sqlConfig) {
-		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
 		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
-		this.SQL.execute(this.creationStatement);
+		execute(this.creationStatement);
 	}
 
-	public void refreshConnection() {
-		this.SQL.refreshConnection();
+	private void close(PreparedStatement preparedStatement) {
+		if (preparedStatement != null) {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-
-	/**
-	 * Echo a message to bukkit console
-	 *
-	 * @param Message Message to Echo
-	 */
-	public void Console(String Message) {
-		Bukkit.getLogger().info(Message);
-	}
-
-	/**
-	 * Gets the data for a player via ResultSet
-	 *
-	 * @param PlayerName Name to get data of
-	 * @return ResultSet of Data
-	 */
-	public ResultSet getPlayerData(String PlayerName) {
-		return this.SQL.executeQueryOpen("SELECT * FROM " + this.Table + " WHERE " + this.NameTag + " = '" + PlayerName + "';");
-	}
-
-	/**
-	 * Does the player have data?
-	 *
-	 * @param PlayerName Name to check
-	 * @return true if they do, false otherwise
-	 */
-	private boolean hasData(String PlayerName) {
+	
+	private boolean hasData(String playerName) {
+		//Prepare our statement
+		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
+		boolean hasData = false;
 		try {
-			ResultSet OpenStatement = this.SQL.executeQueryOpen("SELECT * FROM " + this.Table + " WHERE " + this.NameTag + " = '" + PlayerName + "';");
-			boolean HasNext = OpenStatement.next();
-			OpenStatement.close();
-			return HasNext;
+			//Set the search variable to the players name
+			preparedStatement.setString(1, playerName);
+			hasData = preparedStatement.executeQuery().next();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
-		return false;
+		return hasData;
 	}
 
-	/**
-	 * ALL punishment records for the given player
-	 *
-	 * @param PlayerName
-	 * @return List of all Punishments, active and expired
-	 */
-	public List<Punishment> getRecords(String PlayerName) {
-		List<Punishment> Punishments = new ArrayList<Punishment>();
+	public List<Punishment> getRecords(String playerName) {
+		List<Punishment> punishments = new ArrayList<>();
+		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
 		try {
-			ResultSet OpenStatement = this.SQL.executeQueryOpen("SELECT * FROM " + this.Table + " WHERE " + this.NameTag + " = '" + PlayerName + "';");
-			while (OpenStatement.next()) {
-				Punishment Record = PunishmentUtils.getPunishment(OpenStatement.getString(this.TypeTag), OpenStatement.getLong(this.ExpiresTag), OpenStatement.getLong(this.IssuedTag), OpenStatement.getBoolean(this.ActiveTag), OpenStatement.getString(this.ReasonTag), OpenStatement.getString(this.IssuedByTag));
-				if (Record != null) {
-					Punishments.add(Record);
-				}
+			preparedStatement.setString(1, playerName);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				punishments.add(new Punishment(resultSet.getString(typeColumn), resultSet.getLong(expiryColumn), resultSet.getLong(timeIssuedColumn), resultSet.getBoolean(activeColumn), resultSet.getString(reasonColumn), resultSet.getString(issuedByColumn)));
 			}
-			OpenStatement.close();
-		} catch (SQLException Ex) {
-			Ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
-		return Punishments;
+		return punishments;
 	}
 
-	public Punishment getLatestRecord(PunishmentType Type, String PlayerName) {
-		List<Punishment> Records = this.getActiveRecords(Type, PlayerName);
-		if (!Records.isEmpty()) {
-			return Records.get(Records.size() - 1);
+	public Punishment getLatestRecord(PunishmentType punishmentType, String playerName) {
+		List<Punishment> punishmentRecords = this.getActiveRecords(punishmentType, playerName);
+		if (!punishmentRecords.isEmpty()) {
+			return punishmentRecords.get(punishmentRecords.size() - 1);
 		}
 		return null;
 	}
 
-	/**
-	 * Checks if the player has any active punishments (Bans, Mutes,
-	 * infractions, etc)
-	 *
-	 * @param PlayerName
-	 * @return true if they do, false otherwise
-	 */
-	public boolean hasActiveData(String PlayerName) {
-		for (Punishment Record : this.getRecords(PlayerName)) {
-			if (Record.isActive()) {
+	public boolean hasActiveData(String playerName) {
+		for (Punishment punishment : this.getRecords(playerName)) {
+			if (punishment.isActive()) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	/**
-	 * Checks if the player has any active punishments of the specified type
-	 *
-	 * @param Type
-	 * @param PlayerName
-	 * @return true if so, false otherwise
-	 */
-	public boolean hasActivePunishment(PunishmentType Type, String PlayerName) {
-		for (Punishment Record : this.getActiveRecords(PlayerName)) {
-			if (Record.getType() == Type) {
+	public boolean hasActivePunishment(PunishmentType punishmentType, String playerName) {
+		for (Punishment Record : this.getActiveRecords(playerName)) {
+			if (Record.getPunishmentType() == punishmentType) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	/**
-	 * List of all the Active punishments of the specified type for the player
-	 * requested
-	 *
-	 * @param Type
-	 * @param PlayerName
-	 * @return
-	 */
-	public List<Punishment> getActiveRecords(PunishmentType Type, String PlayerName) {
-		List<Punishment> Records = new ArrayList<Punishment>();
-		for (Punishment Record : this.getActiveRecords(PlayerName)) {
-			if (Record.getType() == Type) {
-				Records.add(Record);
+	public List<Punishment> getActiveRecords(PunishmentType type, String playerName) {
+		List<Punishment> activeRecords = new ArrayList<Punishment>();
+		for (Punishment record : this.getActiveRecords(playerName)) {
+			if (record.getPunishmentType() == type) {
+				activeRecords.add(record);
 			}
 		}
-		return Records;
+		return activeRecords;
 	}
 
-	/**
-	 * Gets all active records for the given player
-	 *
-	 * @param PlayerName
-	 * @return
-	 */
-	public List<Punishment> getActiveRecords(String PlayerName) {
-		List<Punishment> ActiveRecords = new ArrayList<Punishment>();
-		for (Punishment Record : this.getRecords(PlayerName)) {
-			if (Record.isActive()) {
-				ActiveRecords.add(Record);
+	public List<Punishment> getActiveRecords(String playerName) {
+		List<Punishment> activeRecords = new ArrayList<Punishment>();
+		for (Punishment punishment : this.getRecords(playerName)) {
+			if (punishment.isActive()) {
+				activeRecords.add(punishment);
 			}
 		}
-		return ActiveRecords;
+		return activeRecords;
 	}
 
-	private PunishmentType getPunishmentType(ResultSet Set) throws SQLException {
-		return PunishmentUtils.getType(Set.getString(this.TypeTag));
+	public boolean isBanned(String playerName) {
+		return (hasActivePunishment(PunishmentType.BAN, playerName));
 	}
 
-	/**
-	 * Is the player currently serving an active ban punishment?
-	 *
-	 * @param PlayerName
-	 * @return true if they are, false otherwise
-	 */
-	public boolean isBanned(String PlayerName) {
-		return (this.hasActivePunishment(PunishmentType.Ban, PlayerName));
-	}
-
-	/**
-	 * Issue a punishment
-	 *
-	 * @param Type
-	 * @param PlayerName
-	 * @param Reason
-	 * @param IssuedBy
-	 * @param Expires
-	 */
-	public void InsertPunishment(PunishmentType Type, String PlayerName, String Reason, String IssuedBy, long Expires) {
-		this.SQL.executeUpdate("INSERT INTO " + this.Table + " (Type, Name, Reason, IssuedBy, Issued, Expires) VALUES ('" + Type.name().toLowerCase() + "','" + PlayerName + "','" + Reason + "','" + IssuedBy + "','" + System.currentTimeMillis() + "','" + Expires + "');");
-		Console(Type.name() + " issued by [" + IssuedBy + "] for player [" + PlayerName + "] for \"" + Reason + " \" which will expire in " + TimeHandler.getDurationTrimmed(Expires));
-	}
-
-	/**
-	 * Pardon a player from all punishments / offences
-	 *
-	 * @param PlayerName
-	 * @param UnbannedBy
-	 * @return
-	 */
-	public boolean Pardon(String PlayerName, String UnbannedBy) {
-		if (this.hasActiveData(PlayerName)) {
-			this.SQL.executeUpdate("UPDATE " + this.Table + " SET " + this.ActiveTag + "='0' WHERE " + this.NameTag + "='" + PlayerName + "';");
-			Console(PlayerName + " has been pardoned by " + UnbannedBy);
-			return true;
+	public void insertPunishment(PunishmentType punishmentType, String playerName, String reason, String issuedBy, long expires) {
+		PreparedStatement preparedStatement = prepareStatement(insertDataStatement);
+		try {
+			//Set the variables for our ban statement
+			//Punishment type
+			preparedStatement.setString(1, punishmentType.toString());
+			//Player name
+			preparedStatement.setString(2, playerName);
+			//Reason for punishment
+			preparedStatement.setString(3, reason);
+			//Who the punishment might be issued by
+			preparedStatement.setString(4, issuedBy);
+			//When the punishment was issued
+			preparedStatement.setLong(5, System.currentTimeMillis());
+			//When the punishment expires
+			preparedStatement.setLong(6, expires);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
-		return false;
+		Commons.messageConsole(punishmentType.toString() + " issued by [" + issuedBy + "] for player [" + playerName + "] for \"" + reason + " \" which will expire in " + TimeHandler.getDurationTrimmed(expires));
 	}
 
-	/**
-	 * Clear a player of all their active mutes
-	 *
-	 * @param PlayerName
-	 * @param UnmuteBy
-	 * @return
-	 */
-	public boolean Unmute(String PlayerName, String UnmuteBy) {
-		if (this.hasActivePunishment(PunishmentType.Mute, PlayerName)) {
+	public boolean pardonPlayer(String playerName, String pardonedBy) {
+		boolean pardoned = false;
+		if (hasActiveData(playerName)) {
+				PreparedStatement preparedStatement = prepareStatement(updateActiveStatement);
 			try {
-				this.SQL.executeUpdate("UPDATE " + this.Table + " SET " + this.ActiveTag + "='0' WHERE " + this.NameTag + "='" + PlayerName + "' AND " + this.TypeTag + "='mute';");
-				Console(PlayerName + " has been unmuted by " + UnmuteBy);
-				return true;
-			} catch (Exception Ex) {
-				Ex.printStackTrace();
+				preparedStatement.setBoolean(1, false);
+				preparedStatement.setString(2, playerName);
+				preparedStatement.executeUpdate();
+				pardoned = true;
+				Commons.messageConsole(playerName + " has been pardoned by " + pardonedBy);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
 			}
 		}
-		return false;
+
+		return pardoned;
 	}
 
-	/**
-	 * Pardon a player of all expired punishments of the specified type
-	 *
-	 * @param Type
-	 * @param Player
-	 */
-	public void PardonAllExpiredPunishments(PunishmentType Type, String Player) {
-		List<String> Statements = new ArrayList<String>();
-		ResultSet PlayerData = this.SQL.executeQueryOpen("SELECT * FROM " + this.Table + " WHERE " + this.NameTag + "='" + Player + "' AND " + this.TypeTag + "='" + Type.name().toLowerCase() + "' AND " + this.ActiveTag + "='1';");
+	public void pardonExpiredPunishments(String playerName) {
+		//Our prepared statement for getting active punishment
+		PreparedStatement activePunishmentsStatement = prepareStatement(getActiveStatement);
+		//Our prepared statement for pardoning players
+		PreparedStatement pardonStatement = prepareStatement(updateIDStatement);
 		try {
-			while (PlayerData.next()) {
-				long Expires = PlayerData.getLong(this.ExpiresTag);
-				if (System.currentTimeMillis() >= Expires) {
-					Statements.add("UPDATE " + this.Table + " SET " + this.ActiveTag + "='0' WHERE ID='" + PlayerData.getInt("ID") + "';");
+			//Set the variables for our search statement
+			activePunishmentsStatement.setString(1, playerName);
+			activePunishmentsStatement.setBoolean(2, true);
+			//Get the results from our search
+			ResultSet activePunishments = activePunishmentsStatement.executeQuery();
+			//Get the time we're checking against
+			long currentTime = System.currentTimeMillis();
+			//Loop through all active punishments
+			while (activePunishments.next()) {
+				//Check if the punishment has expired or not
+				if (currentTime >= activePunishments.getLong(expiryColumn)) {
+					//Change the "active" status of this punishment to false
+					pardonStatement.setBoolean(1, false);
+					//Set the ID to the active punishments ID
+					pardonStatement.setInt(2, activePunishments.getInt(idColumn));
+					pardonStatement.addBatch();
 				}
 			}
-			PlayerData.close();
+			//Execute our pool of batch statements
+			pardonStatement.executeBatch();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-
-		for (String Statement : Statements) {
-			this.SQL.executeUpdate(Statement);
-		}
-	}
-
-	/**
-	 * Pardon a player of all expired punishments of the specified type
-	 *
-	 * @param Type
-	 * @param Player
-	 */
-	public void PardonAllExpiredPunishments(String Player) {
-		List<String> Statements = new ArrayList<String>();
-		ResultSet PlayerData = this.SQL.executeQueryOpen("SELECT * FROM " + this.Table + " WHERE " + this.NameTag + "='" + Player + "' AND " + this.ActiveTag + "='1';");
-		try {
-			while (PlayerData.next()) {
-				long Expires = PlayerData.getLong(this.ExpiresTag);
-				if (System.currentTimeMillis() >= Expires) {
-					Statements.add("UPDATE " + this.Table + " SET " + this.ActiveTag + "='0' WHERE ID='" + PlayerData.getInt("ID") + "';");
-				}
-			}
-			PlayerData.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		for (String Statement : Statements) {
-			this.SQL.executeUpdate(Statement);
+		} finally {
+			//Close the search statement
+			close(activePunishmentsStatement);
+			//Close the batch pardon statement
+			close(pardonStatement);
 		}
 	}
 }

@@ -1,23 +1,21 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.data.disguises.Disguise;
-import org.bukkit.Bukkit;
-import sun.security.krb5.internal.crypto.crc32;
+import com.caved_in.disguises.Disguise;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisguiseSQL {
-	private SQL SQL;
+public class DisguiseSQL extends SQL{
 
-	private String dataTable = "disguises";
-	private String idTag = "ID";
-	private String nameTag = "Name";
-	private String disguisedTag = "DisguisedAs";
-	private String serverTag = "Server";
+	private static String dataTable = "disguises";
+	private static String idTag = "ID";
+	private static String nameTag = "Name";
+	private static String disguisedTag = "DisguisedAs";
+	private static String serverTag = "Server";
 
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`disguises` (" +
 			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
@@ -27,104 +25,112 @@ public class DisguiseSQL {
 			"  PRIMARY KEY (`ID`)" +
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
+	private static String getDataStatement = "SELECT * FROM " + dataTable + " WHERE " + nameTag + "=?";
+	private static String getDisguisesStatement = "SELECT * FROM " + dataTable;
+	private static String insertDataStatement = "INSERT INTO " + dataTable + " (" + nameTag + ", " + disguisedTag + ", " + serverTag + ") VALUES (?,?,?)";
+	private static String deleteDataStatement = "DELETE FROM " + dataTable + " WHERE " + nameTag + " =?";
+
 	public DisguiseSQL(SqlConfiguration sqlConfig) {
-		this.SQL = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
 		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
-		this.SQL.execute(creationStatement);
+		execute(creationStatement);
 	}
 
-	public void refreshConnection() {
-		this.SQL.refreshConnection();
+	private void close(PreparedStatement preparedStatement) {
+		if (preparedStatement != null) {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
-	/**
-	 * Echo a message to bukkit console
-	 *
-	 * @param Message Message to Echo
-	 */
-	public void Console(String Message) {
-		Bukkit.getLogger().info(Message);
-	}
-
-	/**
-	 * Gets the data for a player via ResultSet
-	 *
-	 * @param PlayerName Name to get data of
-	 * @return ResultSet of Data
-	 */
-	public ResultSet getPlayerData(String PlayerName) {
-		return this.SQL.executeQueryOpen("SELECT * FROM " + this.dataTable + " WHERE " + this.nameTag + " = '" + PlayerName + "';");
-	}
-
-	/**
-	 * Does the player have data?
-	 *
-	 * @param PlayerName Name to check
-	 * @return true if they do, false otherwise
-	 */
-	public boolean hasData(String PlayerName) {
+	public boolean hasData(String playerName) {
+		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
+		boolean hasData = false;
 		try {
-			ResultSet OpenStatement = this.SQL.executeQueryOpen("SELECT * FROM " + this.dataTable + " WHERE " + this.nameTag + " = '" + PlayerName + "';");
-			boolean HasNext = OpenStatement.next();
-			OpenStatement.close();
-			return HasNext;
+			preparedStatement.setString(1, playerName);
+			hasData = preparedStatement.executeQuery().next();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
-		return false;
+		return hasData;
 	}
 
 	public List<Disguise> getDisguises() {
 		List<Disguise> activeDisguises = new ArrayList<Disguise>();
+		PreparedStatement preparedStatement = prepareStatement(getDisguisesStatement);
 		try {
-			ResultSet disguiseStatement = this.SQL.executeQueryOpen("SELECT * FROM " + this.dataTable + ";");
-			while (disguiseStatement.next()) {
-				Disguise playerDisguise = new Disguise(disguiseStatement.getString(this.nameTag), disguiseStatement.getString(this.disguisedTag), disguiseStatement.getString(this.serverTag));
-				activeDisguises.add(playerDisguise);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				activeDisguises.add(new Disguise(resultSet.getString(nameTag), resultSet.getString(disguisedTag), resultSet.getString(serverTag)));
 			}
-			disguiseStatement.close();
-		} catch (SQLException Ex) {
-			Ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
 		return activeDisguises;
 	}
 
 	public Disguise getDisguise(String playerName) {
 		Disguise playerDisguise = null;
+		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
 		try {
-			ResultSet disguiseStatement = this.SQL.executeQueryOpen("SELECT * FROM " + this.dataTable + " WHERE " + this.nameTag + " ='" + playerName + "';");
-			if (disguiseStatement.next()) {
-				playerDisguise = new Disguise(playerName, disguiseStatement.getString(this.disguisedTag), disguiseStatement.getString(this.serverTag));
+			preparedStatement.setString(1, playerName);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				playerDisguise = new Disguise(playerName, resultSet.getString(disguisedTag), resultSet.getString(serverTag));
 			}
-			disguiseStatement.close();
-		} catch (SQLException Ex) {
-			Ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
 		}
 		return playerDisguise;
 	}
 
 	public boolean addPlayerDisguiseData(Disguise disguise) {
-		try {
-			if (this.hasData(disguise.getPlayerDisguised())) {
-				this.deletePlayerDisguiseData(disguise.getPlayerDisguised());
-			}
-			this.SQL.executeUpdate("INSERT INTO " + this.dataTable + " (" + this.nameTag + ", " + this.disguisedTag + ", " + this.serverTag + ") VALUES ('" + disguise.getPlayerDisguised() + "','" + disguise.getDisguisedAs() + "','" + disguise.getServerOn() + "');");
-			return true;
-		} catch (Exception Ex) {
-			Ex.printStackTrace();
-			return false;
+		String playerName = disguise.getPlayerDisguised();
+		boolean addedData = false;
+		//Check if the player already has data, if so delete it
+		if (hasData(playerName)) {
+			deletePlayerDisguiseData(playerName);
 		}
+		//Prepare our data statement
+		PreparedStatement preparedStatement = prepareStatement(insertDataStatement);
+		try {
+			//Set the statement variables
+			preparedStatement.setString(1, playerName);
+			preparedStatement.setString(2, disguise.getDisguisedAs());
+			preparedStatement.setString(3, disguise.getServerOn());
+			preparedStatement.executeUpdate();
+			addedData = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(preparedStatement);
+		}
+		return addedData;
 	}
 
 	public boolean deletePlayerDisguiseData(String playerName) {
-		try {
-			if (this.hasData(playerName)) {
-				this.SQL.executeUpdate("DELETE FROM " + this.dataTable + " WHERE " + this.nameTag + " ='" + playerName + "';");
-				return true;
+		boolean deletedData = false;
+		if (hasData(playerName)) {
+			PreparedStatement preparedStatement = prepareStatement(deleteDataStatement);
+			try {
+				preparedStatement.setString(1, playerName);
+				preparedStatement.executeUpdate();
+				deletedData = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
 			}
-			return false;
-		} catch (Exception Ex) {
-			return false;
 		}
+		return deletedData;
 	}
 }

@@ -1,9 +1,9 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.data.bans.Punishment;
-import com.caved_in.commons.data.bans.PunishmentType;
-import com.caved_in.commons.misc.TimeHandler;
+import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.time.TimeHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,15 +12,16 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 public class PrePlayerLoginListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void PlayerPreLogin(AsyncPlayerPreLoginEvent Event) {
-		Commons.bansDatabase.PardonAllExpiredPunishments(Event.getName());
-		if (Commons.bansDatabase.isBanned(Event.getName())) {
-			Punishment Ban = Commons.bansDatabase.getLatestRecord(PunishmentType.Ban, Event.getName());
-			String KickMessage = "";
-			KickMessage = "You've been banned by " + Ban.getIssuer();
-			KickMessage += " for '" + Ban.getReason() + "'";
-			KickMessage += " and will be unbanned in " + TimeHandler.getDurationBreakdown(Ban.getExpiryTime() - System.currentTimeMillis());
-			Event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, KickMessage);
+	public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
+		//Person who's logging in
+		String playerName = event.getName();
+		//Pardon all expired punishments for this player
+		//TODO Make a "cron thread" to do this.
+		Commons.bansDatabase.pardonExpiredPunishments(playerName);
+		if (Commons.bansDatabase.isBanned(playerName)) {
+			//Get the players ban
+			Punishment playerBan = Commons.bansDatabase.getLatestRecord(PunishmentType.BAN, playerName);
+			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, String.format("You've been banned by %s for '%s' and will be unbanned in %s",playerBan.getIssuer(),playerBan.getReason(),TimeHandler.getDurationBreakdown(playerBan.getExpiryTime() - System.currentTimeMillis())));
 		}
 	}
 }

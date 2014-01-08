@@ -9,17 +9,17 @@ import org.bukkit.event.block.BlockFormEvent;
 public class BlockFormListener implements Listener {
 
 	@EventHandler
-	public void onBlockForm(BlockFormEvent Event) {
-		Material blockType = Event.getNewState().getType();
+	public void onBlockForm(BlockFormEvent event) {
+		Material blockType = event.getNewState().getType();
 		switch (blockType) {
 			case SNOW:
 				if (Commons.getConfiguration().getWorldConfig().isSnowSpreadDisabled()) {
-					Event.setCancelled(true);
+					event.setCancelled(true);
 				}
 				break;
 			case ICE:
 				if (Commons.getConfiguration().getWorldConfig().isIceSpreadDisabled()) {
-					Event.setCancelled(true);
+					event.setCancelled(true);
 				}
 				break;
 			default:

@@ -9,9 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendSQL {
-	private SQL friendSql;
-
+public class FriendSQL extends SQL{
 	private static String tableName = "friends";
 	private static String playerField = "player";
 	private static String friendField = "Friend";
@@ -34,9 +32,9 @@ public class FriendSQL {
 	private static String deleteFriendRequest = "DELETE FROM " + tableName + " WHERE " + playerField + "=? AND " + friendField + "=?";
 
 	public FriendSQL(SqlConfiguration sqlConfig) {
-		friendSql = new SQL(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
+		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
 		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
-		friendSql.execute(creationStatement);
+		execute(creationStatement);
 	}
 
 	private void close(PreparedStatement preparedStatement) {
@@ -49,12 +47,8 @@ public class FriendSQL {
 		}
 	}
 
-	public void refresh() {
-		this.friendSql.refreshConnection();
-	}
-
 	public boolean hasData(String playerName) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(getPlayerDataStatement);
+		PreparedStatement preparedStatement = prepareStatement(getPlayerDataStatement);
 		boolean hasData = false;
 		try {
 			preparedStatement.setString(1, playerName);
@@ -69,7 +63,7 @@ public class FriendSQL {
 
 	public List<Friend> getFriends(String playerName) {
 		List<Friend> playerFriends = new ArrayList<>();
-		PreparedStatement preparedStatement = friendSql.prepareStatement(getPlayerDataStatement);
+		PreparedStatement preparedStatement = prepareStatement(getPlayerDataStatement);
 		if (this.hasData(playerName)) {
 			try {
 				preparedStatement.setString(1, playerName);
@@ -97,7 +91,7 @@ public class FriendSQL {
 	}
 
 	public boolean isPlayerFriendsWith(String playerName, String friendName) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(getFriendsStatusStatement);
+		PreparedStatement preparedStatement = prepareStatement(getFriendsStatusStatement);
 		boolean isAccepted = false;
 		if (this.hasData(playerName)) {
 			try {
@@ -117,7 +111,7 @@ public class FriendSQL {
 	}
 
 	public boolean hasFriendRequest(String playerName, String friendName) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(hasRequestStatement);
+		PreparedStatement preparedStatement = prepareStatement(hasRequestStatement);
 		boolean hasRequest = false;
 		if (this.hasData(playerName)) {
 			try {
@@ -138,7 +132,7 @@ public class FriendSQL {
 	}
 
 	public FriendStatus acceptFriendRequest(String playerName, String friendName) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(acceptFriendStatement);
+		PreparedStatement preparedStatement = prepareStatement(acceptFriendStatement);
 		FriendStatus friendStatus = FriendStatus.NO_REQUEST;
 		if (hasFriendRequest(playerName, friendName) && hasFriendRequest(friendName, playerName)) {
 			try {
@@ -168,7 +162,7 @@ public class FriendSQL {
 	}
 
 	public FriendStatus insertFriendRequest(String playerSending, String friendRequested) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(insertFriendRequest);
+		PreparedStatement preparedStatement = prepareStatement(insertFriendRequest);
 		FriendStatus friendStatus;
 		//Check if they're not already friends
 		if (!this.hasFriendRequest(playerSending, friendRequested) && !this.hasFriendRequest(friendRequested, playerSending)) {
@@ -200,7 +194,7 @@ public class FriendSQL {
 	}
 
 	public void deleteFriendRequest(String playerToDeleteFrom, String deletingRequestOf) {
-		PreparedStatement preparedStatement = friendSql.prepareStatement(deleteFriendRequest);
+		PreparedStatement preparedStatement = prepareStatement(deleteFriendRequest);
 		try {
 			preparedStatement.setString(1, playerToDeleteFrom);
 			preparedStatement.setString(2, deletingRequestOf);

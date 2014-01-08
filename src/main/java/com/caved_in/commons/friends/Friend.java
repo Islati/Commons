@@ -7,14 +7,23 @@ public class Friend {
 	private boolean isAccepted = false;
 
 	/**
-	 * @param friendOf   player whos friend this is
-	 * @param friendName Name of friend
-	 * @param isAccepted if they're accepted
+	 * @param player   name of the player who's friend this is
+	 * @param friendName name of the players friend
+	 * @param isAccepted if the friend is accepted or not
 	 */
-	public Friend(String friendOf, String friendName, boolean isAccepted) {
-		this.friendOf = friendOf;
+	public Friend(String player, String friendName, boolean isAccepted) {
+		this.friendOf = player;
 		this.friendName = friendName;
 		this.isAccepted = isAccepted;
+	}
+
+	/**
+	 * Creates a new friend object where the accepted status is defaulted to false
+	 * @param player name of the player who's friend this is
+	 * @param friendName name of the players friend
+	 */
+	public Friend(String player, String friendName) {
+		this(player, friendName, false);
 	}
 
 	public String getFriendName() {
