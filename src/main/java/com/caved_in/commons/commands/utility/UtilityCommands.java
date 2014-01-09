@@ -3,7 +3,7 @@ package com.caved_in.commons.commands.utility;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
-import com.caved_in.disguises.Disguise;
+import com.caved_in.commons.disguises.Disguise;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;

@@ -15,7 +15,6 @@ public class PlayerKickListener implements Listener {
 
 		String playerName = event.getPlayer().getName();
 		PlayerHandler.removeData(playerName);
-		FriendHandler.removeFriendList(playerName);
 		Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
 	}
 }

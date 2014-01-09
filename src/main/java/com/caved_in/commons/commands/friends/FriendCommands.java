@@ -16,7 +16,6 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-//TODO REFACTOR AND OPTIMIZE THIS ENTIRE FUCKING CLASS
 public class FriendCommands {
 	@CommandHandler(name = "friends")
 	public void friendsCommand(Player player, String[] args) {
@@ -173,46 +172,35 @@ public class FriendCommands {
 		} else {
 			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
 		}
-		/*
-		if (commandArgs.length >= 2) {
-			String denyName = commandArgs[1];
-			if (denyName != null && !denyName.isEmpty()) {
-				if (Commons.friendDatabase.hasFriendRequest(playerName, denyName)) {
-					Commons.friendDatabase.deleteFriendRequest(playerName, denyName);
-					if (PlayerHandler.isOnlineFuzzy(denyName)) {
-						String pDenyName = Bukkit.getPlayer(denyName).getName();
-						Bukkit.getPlayer(pDenyName).sendMessage(StringUtil.formatColorCodes("&e" + playerName + "&c has denied your friend request"));
-						PlayerHandler.getData(pDenyName).getFriendsList().removeFriend(playerName);
-					}
-					PlayerHandler.getData(playerName).getFriendsList().removeFriend(denyName);
-					player.sendMessage(StringUtil.formatColorCodes("&aYou've denied the friend request from &e" + denyName));
-				} else {
-					player.sendMessage(StringUtil.formatColorCodes("&cYou don't have a pending friend request from &e" + denyName));
-				}
-			} else {
-				player.sendMessage(StringUtil.formatColorCodes("&cInvalid command syntax, please use &e/friends help&c to see the proper syntax"));
-			}
-		} else {
-			player.sendMessage(StringUtil.formatColor	Codes("&cInvalid command syntax, please use &e/friends help&c to see the proper syntax"));
-		}
-		*/
 	}
 
 	@SubCommandHandler(name = "accept", parent = "friends")
 	public void friendsAcceptCommand(Player player, String[] args) {
+		//Get the players name and their wrapped data
 		String playerName = player.getName();
 		PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
 		if (args.length > 1) {
 			String acceptName = args[1];
+			//Get the players friends list
 			FriendList friendList = playerWrapper.getFriendsList();
+			//Check if they have a friend request from the name they're trying to accept
 			if (friendList.hasRequest(acceptName)) {
 				Commons.friendDatabase.acceptFriendRequest(playerName, acceptName);
+				//Check if the player they're accepting is online
 				if (PlayerHandler.isOnline(acceptName)) {
-
+					Player acceptedPlayer = PlayerHandler.getPlayer(acceptName);
+					//Set the friend status to accepted and send a message
+					PlayerHandler.getData(acceptedPlayer).getFriendsList().acceptFriend(playerName);
+					PlayerHandler.sendMessage(player, Messages.FRIEND_REQUEST_ACCEPTED(playerName));
 				}
+				//Set the friend status to accepted and send a message
+				friendList.acceptFriend(acceptName);
+				PlayerHandler.sendMessage(player,Messages.FRIEND_ACCEPTED_REQUEST(acceptName));
 			} else {
-
+				PlayerHandler.sendMessage(player, Messages.FRIEND_NO_REQUEST(acceptName));
 			}
+		} else {
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
 		}
 	}
 

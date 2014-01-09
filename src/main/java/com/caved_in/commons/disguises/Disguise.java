@@ -1,4 +1,4 @@
-package com.caved_in.disguises;
+package com.caved_in.commons.disguises;
 
 public class Disguise {
 	private String playerDisguised = "";

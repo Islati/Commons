@@ -14,7 +14,6 @@ public class PlayerQuitListener implements Listener {
 			event.setQuitMessage(null);
 		}
 		PlayerHandler.removeData(playerName);
-		FriendHandler.removeFriendList(playerName);
 		Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
 	}
 }

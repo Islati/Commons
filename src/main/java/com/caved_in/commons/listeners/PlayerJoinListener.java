@@ -21,7 +21,6 @@ public class PlayerJoinListener implements Listener {
 		}
 
 		PlayerHandler.addData(player);
-		FriendHandler.addFriendList(player.getName());
 		if (Commons.getConfiguration().getWorldConfig().isCompassMenuEnabled()) {
 			if (!player.getInventory().contains(Material.COMPASS)) {
 				player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
