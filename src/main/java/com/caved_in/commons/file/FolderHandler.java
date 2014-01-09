@@ -3,15 +3,22 @@ package com.caved_in.commons.file;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FolderHandler {
 
 	private String folderLocation = "";
+	private Map<String, String> filesInFolder = new HashMap<>();
 
 	public FolderHandler(String folderLocation) {
 		this.folderLocation = folderLocation;
+		initData();
+	}
+
+	private void initData() {
+		for (File folderFile : FileUtils.listFiles(new File(folderLocation), new String[]{"txt"}, false)) {
+			filesInFolder.put(folderFile.getName(), folderLocation + folderFile.getName());
+		}
 	}
 
 	/**
@@ -20,36 +27,16 @@ public class FolderHandler {
 	 * @return
 	 */
 	public List<String> getFiles() {
-		List<String> folderFiles = new ArrayList<String>();
-		for (File folderFile : FileUtils.listFiles(new File(folderLocation), new String[]{"txt"}, false)) {
-			folderFiles.add(this.folderLocation + folderFile.getName());
-		}
-		return folderFiles;
+		return new ArrayList<String>(filesInFolder.values());
 	}
 
 	/**
-	 * Checks if the file exists, ignoring all case and looping through this.getFiles()
-	 *
+	 * Checks if the file exists, ignoring all case
 	 * @param fileName
 	 * @return True if it does, false otherwise
 	 */
 	public boolean fileExists(String fileName) {
-		for (String File : this.getFiles()) {
-			if (File.equalsIgnoreCase(folderLocation + fileName)) {
-				return true;
-			}
-		}
-		return false;
-		//return this.getFiles().contains(this.Folder + Name);
-	}
-
-	public String getExactFileName(String fileName) {
-		for (String file : getFiles()) {
-			if (file.equalsIgnoreCase(folderLocation + fileName)) {
-				return file;
-			}
-		}
-		return null;
+		return filesInFolder.containsValue(folderLocation + fileName);
 	}
 
 }

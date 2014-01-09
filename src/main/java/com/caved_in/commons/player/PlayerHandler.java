@@ -3,13 +3,17 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Formatting.ColorCode;
 import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
 import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -194,6 +198,18 @@ public class PlayerHandler {
 
 	public static void sendMessage(CommandSender commandSender, String message) {
 		commandSender.sendMessage(StringUtil.formatColorCodes(message));
+	}
+
+	public static void teleport(Player player, Entity target) {
+		player.teleport(target, PlayerTeleportEvent.TeleportCause.PLUGIN);
+	}
+
+	public static void teleport(Player player, Location location) {
+		player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+	}
+
+	public static void teleport(Player player, double[] xyz) {
+		player.teleport(LocationHandler.getLocation(player.getWorld(), xyz));
 	}
 
 	/**
