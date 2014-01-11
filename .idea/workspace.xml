@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/chat/ChatCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/chat/ChatCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/DisguiseSQL.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/DisguiseSQL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/donator/DonatorCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/donator/DonatorCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/friends/FriendCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendList.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/friends/FriendList.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java" />
+    <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="Cleaned up some of the errors and syntax to donator commands&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="commons.iws" />
@@ -87,28 +75,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerJoinListener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java">
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="820" selection-end="820" vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="527">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Commons.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="3" selection-start="2872" selection-end="2872" vertical-scroll-proportion="2.2741227" vertical-offset="0" max-vertical-offset="3451">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerKickListener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerKickListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+            <state line="10" column="42" selection-start="526" selection-end="526" vertical-scroll-proportion="0.36247334" vertical-offset="0" max-vertical-offset="2482">
               <folding />
             </state>
           </provider>
@@ -117,7 +87,7 @@
       <file leaf-file-name="PunishmentCommands.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/moderation/PunishmentCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="31" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="2142" max-vertical-offset="2652">
+            <state line="29" column="31" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="2856">
               <folding />
             </state>
           </provider>
@@ -126,7 +96,7 @@
       <file leaf-file-name="DonatorCommands.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/donator/DonatorCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="61" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1564">
+            <state line="12" column="61" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1700">
               <folding />
             </state>
           </provider>
@@ -135,7 +105,7 @@
       <file leaf-file-name="ChatCommands.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/chat/ChatCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="67" selection-start="2043" selection-end="2043" vertical-scroll-proportion="0.0" vertical-offset="666" max-vertical-offset="1122">
+            <state line="42" column="67" selection-start="2043" selection-end="2043" vertical-scroll-proportion="0.0" vertical-offset="714" max-vertical-offset="1241">
               <folding />
             </state>
           </provider>
@@ -145,9 +115,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="33" column="26" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0" vertical-offset="1924" max-vertical-offset="2380">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -155,7 +123,7 @@
       <file leaf-file-name="EntityUtility.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/EntityUtility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="255" column="42" selection-start="6933" selection-end="6933" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5559">
+            <state line="255" column="42" selection-start="6933" selection-end="6933" vertical-scroll-proportion="0.0" vertical-offset="4335" max-vertical-offset="5967">
               <folding />
             </state>
           </provider>
@@ -164,14 +132,8 @@
       <file leaf-file-name="PlayerSQL.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="150" column="16" selection-start="5776" selection-end="5776" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1649">
-              <folding>
-                <element signature="method#PlayerSQL#0;class#PlayerSQL#0" expanded="false" />
-                <element signature="method#getPlayerWrapper#0;class#PlayerSQL#0" expanded="false" />
-                <element signature="method#syncPlayerWrapperData#0;class#PlayerSQL#0" expanded="false" />
-                <element signature="method#insertDefaults#0;class#PlayerSQL#0" expanded="false" />
-                <element signature="method#updatePlayerPremium#1;class#PlayerSQL#0" expanded="false" />
-              </folding>
+            <state line="150" column="16" selection-start="5776" selection-end="5776" vertical-scroll-proportion="0.0" vertical-offset="2550" max-vertical-offset="3349">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -319,8 +281,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -727,6 +687,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -764,6 +726,26 @@
       <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -786,45 +768,12 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -852,6 +801,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -981,7 +943,11 @@
       <created>1389223652201</created>
       <updated>1389223652201</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Cleaned up some of the errors and syntax to donator commands">
+      <created>1389224080322</created>
+      <updated>1389224080322</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -998,17 +964,17 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32987013" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.136875" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.194375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32987013" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987013" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -1038,7 +1004,8 @@
     <MESSAGE value="Entirely optimized and cleaned up the friends list and related commands." />
     <MESSAGE value="Removed all referenced to the FriendHandler class" />
     <MESSAGE value="Removed all references to friendhandler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed all references to friendhandler" />
+    <MESSAGE value="Cleaned up some of the errors and syntax to donator commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up some of the errors and syntax to donator commands" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1143,13 +1110,6 @@
         <state line="35" column="40" selection-start="816" selection-end="816" vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="833" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="25" selection-start="5346" selection-end="5346" vertical-scroll-proportion="0.0" vertical-offset="1996" max-vertical-offset="2482">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/Callback.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="17" selection-start="58" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187" />
@@ -1157,16 +1117,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/CallbackTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="5" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
-          <folding />
-        </state>
+        <state line="17" column="5" selection-start="345" selection-end="345" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="388" column="5" selection-start="10633" selection-end="10633" vertical-scroll-proportion="0.0" vertical-offset="6596" max-vertical-offset="7021">
-          <folding />
-        </state>
+        <state line="388" column="5" selection-start="10633" selection-end="10633" vertical-scroll-proportion="0.0" vertical-offset="6596" max-vertical-offset="7021" />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.7.0_45/src.zip!/java/util/Map.java">
@@ -1176,9 +1132,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemID.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519">
-          <folding />
-        </state>
+        <state line="200" column="45" selection-start="8466" selection-end="8466" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/BlockID.java">
@@ -1188,16 +1142,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322">
-          <folding />
-        </state>
+        <state line="219" column="63" selection-start="16279" selection-end="16279" vertical-scroll-proportion="0.0" vertical-offset="6328" max-vertical-offset="11322" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/items/ItemHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="5" selection-start="12097" selection-end="12097" vertical-scroll-proportion="0.0" vertical-offset="5406" max-vertical-offset="6171">
-          <folding />
-        </state>
+        <state line="369" column="5" selection-start="12097" selection-end="12097" vertical-scroll-proportion="0.0" vertical-offset="5406" max-vertical-offset="6171" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/disguises/Disguise.java">
@@ -1223,37 +1173,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/ChatHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.09139785" vertical-offset="0" max-vertical-offset="744">
-          <folding />
-        </state>
+        <state line="5" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.09139785" vertical-offset="0" max-vertical-offset="744" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/effects/EffectPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="36" selection-start="439" selection-end="439" vertical-scroll-proportion="0.22311828" vertical-offset="38" max-vertical-offset="782">
-          <folding />
-        </state>
+        <state line="16" column="36" selection-start="439" selection-end="439" vertical-scroll-proportion="0.22311828" vertical-offset="38" max-vertical-offset="782" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendSQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="55" selection-start="1222" selection-end="1222" vertical-scroll-proportion="-3.4418604" vertical-offset="2856" max-vertical-offset="3587">
-          <folding />
-        </state>
+        <state line="27" column="55" selection-start="1222" selection-end="1222" vertical-scroll-proportion="-3.4418604" vertical-offset="2856" max-vertical-offset="3587" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/FriendStatus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="12" selection-start="47" selection-end="47" vertical-scroll-proportion="0.045698926" vertical-offset="0" max-vertical-offset="744">
-          <folding />
-        </state>
+        <state line="2" column="12" selection-start="47" selection-end="47" vertical-scroll-proportion="0.045698926" vertical-offset="0" max-vertical-offset="744" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/SQL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="0" selection-start="2883" selection-end="2883" vertical-scroll-proportion="-0.069767445" vertical-offset="1938" max-vertical-offset="4607">
-          <folding />
-        </state>
+        <state line="114" column="0" selection-start="2883" selection-end="2883" vertical-scroll-proportion="-0.069767445" vertical-offset="1938" max-vertical-offset="4607" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/utility/UtilityCommands.java">
@@ -1291,30 +1231,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="820" selection-end="820" vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="527">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/PlayerSQL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="150" column="16" selection-start="5776" selection-end="5776" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1649">
-          <folding>
-            <element signature="method#PlayerSQL#0;class#PlayerSQL#0" expanded="false" />
-            <element signature="method#getPlayerWrapper#0;class#PlayerSQL#0" expanded="false" />
-            <element signature="method#syncPlayerWrapperData#0;class#PlayerSQL#0" expanded="false" />
-            <element signature="method#insertDefaults#0;class#PlayerSQL#0" expanded="false" />
-            <element signature="method#updatePlayerPremium#1;class#PlayerSQL#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1349,9 +1269,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/commands/admin/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="26" selection-start="1431" selection-end="1431" vertical-scroll-proportion="0.0" vertical-offset="1924" max-vertical-offset="2380">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1364,7 +1282,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="3" selection-start="2872" selection-end="2872" vertical-scroll-proportion="2.2741227" vertical-offset="0" max-vertical-offset="3451">
+        <state line="162" column="64" selection-start="5730" selection-end="5730" vertical-scroll-proportion="0.023943663" vertical-offset="2278" max-vertical-offset="3451">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="820" selection-end="820" vertical-scroll-proportion="0.30567083" vertical-offset="0" max-vertical-offset="723">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="42" selection-start="526" selection-end="526" vertical-scroll-proportion="0.36247334" vertical-offset="0" max-vertical-offset="2482">
           <folding />
         </state>
       </provider>
