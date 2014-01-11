@@ -377,4 +377,18 @@ public class UtilityCommands {
 		}
 	}
 
+	@CommandHandler(name = "day", permission = "tunnels.commons.time")
+	public void onDayCommand(Player player, String[] args) {
+		World world = player.getWorld();
+		WorldHandler.setTimeDay(world);
+		PlayerHandler.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "day"));
+	}
+
+	@CommandHandler(name = "night", permission = "tunnels.common.time")
+	public void onNightCommand(Player player, String[] args) {
+		World world = player.getWorld();
+		WorldHandler.setTimeNight(world);
+		PlayerHandler.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "night"));
+	}
+
 }

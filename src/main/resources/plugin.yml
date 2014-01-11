@@ -1,7 +1,7 @@
 name: Tunnels-Common
 main: com.caved_in.commons.Commons
-version: 1.0
-description: Commons Library built for easier plugin development
+version: 1.1
+description: Commons Library built for easier plugin development and server managment
 author: Brandon
 depend: [PopupMenuAPI]
 softdepend: [TagAPI]
@@ -82,3 +82,7 @@ commands:
       usage: /<command> <speed>
    time:
       usage: /<command> <time>
+   day:
+      usage: /<command>
+   night:
+      usage: /<command>
