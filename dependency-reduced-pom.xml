@@ -44,11 +44,22 @@
               <artifactSet>
                 <includes>
                   <include>org.simpleframework:simple-xml:jar:*</include>
+                  <include>commons-io:commons-io:jar:*</include>
                 </includes>
               </artifactSet>
               <filters>
                 <filter>
                   <artifact>org.simpleframework:simple-xml:jar:*</artifact>
+                  <excludes>
+                    <exclude>templates/**</exclude>
+                    <exclude>META-INF/*.xml</exclude>
+                    <exclude>META-INF/*.txt</exclude>
+                    <exclude>**/LICENSE</exclude>
+                    <exclude>**/*.java</exclude>
+                  </excludes>
+                </filter>
+                <filter>
+                  <artifact>commons-io:commons-io:jar:*</artifact>
                   <excludes>
                     <exclude>templates/**</exclude>
                     <exclude>META-INF/*.xml</exclude>
@@ -75,12 +86,6 @@
     </repository>
   </repositories>
   <dependencies>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-      <scope>compile</scope>
-    </dependency>
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>

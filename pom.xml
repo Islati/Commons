@@ -46,12 +46,23 @@
                                 <includes>
                                     <!--Include the SimpleXML framework in commons-->
                                     <include>org.simpleframework:simple-xml:jar:*</include>
+                                    <include>commons-io:commons-io:jar:*</include>
                                     <!--Shade in SK89Q's command framework so other plugins can depend on it / use it-->
                                 </includes>
                             </artifactSet>
                             <filters>
                                 <filter>
                                     <artifact>org.simpleframework:simple-xml:jar:*</artifact>
+                                    <excludes>
+                                        <exclude>templates/**</exclude>
+                                        <exclude>META-INF/*.xml</exclude>
+                                        <exclude>META-INF/*.txt</exclude>
+                                        <exclude>**/LICENSE</exclude>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>commons-io:commons-io:jar:*</artifact>
                                     <excludes>
                                         <exclude>templates/**</exclude>
                                         <exclude>META-INF/*.xml</exclude>

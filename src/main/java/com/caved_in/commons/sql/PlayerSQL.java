@@ -42,15 +42,6 @@ public class PlayerSQL extends SQL {
 		execute(creationStatement);
 	}
 
-	private void close(PreparedStatement preparedStatement) {
-		if (preparedStatement != null) {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 
 	public boolean hasData(String playerName) {
 		PreparedStatement playerDataStatement = prepareStatement(getPlayerDataStatement);

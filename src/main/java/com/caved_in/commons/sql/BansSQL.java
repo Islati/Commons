@@ -48,16 +48,6 @@ public class BansSQL extends SQL {
 		execute(this.creationStatement);
 	}
 
-	private void close(PreparedStatement preparedStatement) {
-		if (preparedStatement != null) {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
 	private boolean hasData(String playerName) {
 		//Prepare our statement
 		PreparedStatement preparedStatement = prepareStatement(getDataStatement);

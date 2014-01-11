@@ -268,4 +268,14 @@ public abstract class SQL {
 		Boolean, Long, Double, String
 	}
 
+	public void close(PreparedStatement preparedStatement) {
+		if (preparedStatement != null) {
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
