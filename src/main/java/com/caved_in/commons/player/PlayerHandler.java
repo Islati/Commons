@@ -98,6 +98,10 @@ public class PlayerHandler {
 		return Bukkit.getPlayer(playerName);
 	}
 
+	public static Player getPlayer(PlayerWrapper playerWrapper) {
+		return Bukkit.getPlayer(playerWrapper.getName());
+	}
+
 	/**
 	 * Get players exact name based on the partial name passed. Calls <i>Bukkit.getPlayer(partialPlayerName)</i>
 	 * @param partialPlayerName Partial name of the player to get the full name of

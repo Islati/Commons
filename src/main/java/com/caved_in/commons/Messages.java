@@ -97,10 +97,26 @@ public class Messages {
 	}
 
 	public static String TELEPORTED_TO(String description) {
-		return String.format("&eYou've been teleported to &a", description);
+		return String.format("&eYou've been teleported to &a%s", description);
 	}
 
 	public static String TELEPORTED_TO(String item, String target) {
-		return String.format("&eYou've teleported &a%s%e to &a%s");
+		return String.format("&eYou've teleported &a%s&e to &a%s", item, target);
+	}
+
+	public static String SPEED_UPDATED(boolean isFlying, double speed) {
+		return String.format("&aYou've set your &e%s&a speed to &e%s&a; to reset it to default use &e/speed", isFlying ? "fly" : "walk", speed);
+	}
+
+	public static String SPEED_RESET(boolean isFlying) {
+		return String.format("&aYou've reset your &e%s&a speed to default", isFlying ? "fly" : "walk");
+	}
+
+	public static String WORLD_DOESNT_EXIST(String worldName) {
+		return String.format("&cThe world &e%s&c doesn't exist, or isn't loaded", worldName);
+	}
+
+	public static String TIME_CHANGED(String worldName, String time) {
+		return String.format("&aThe time for the world &7%s&a has been set to &e%s", worldName, time);
 	}
 }

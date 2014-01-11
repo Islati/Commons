@@ -78,3 +78,7 @@ commands:
    i:
       usage: /<command> <Item> [Amount]
       aliases: [item]
+   speed:
+      usage: /<command> <speed>
+   time:
+      usage: /<command> <time>

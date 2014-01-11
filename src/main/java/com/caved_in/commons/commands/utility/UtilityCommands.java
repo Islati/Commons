@@ -9,11 +9,14 @@ import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.world.WorldHandler;
+import com.caved_in.commons.world.WorldTime;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -284,6 +287,93 @@ public class UtilityCommands {
 			PlayerHandler.giveItem(player, itemStack);
 		} else {
 			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("item"));
+		}
+	}
+
+	@CommandHandler(name = "speed", permission = "tunnels.common.speed")
+	public void onSpeedCommand(Player player, String[] args) {
+		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
+		if (args.length > 0) {
+			String speedArg = args[0];
+			if (StringUtils.isNumeric(speedArg)) {
+				//Get the speed from whatever the player passed as an argument
+				double speed = Double.parseDouble(speedArg);
+				//Assure the number isn't >10 or <0.1
+				if (speed >= 10) {
+					speed = 10;
+				} else if (speed <= 0.01) {
+					speed = 0.01;
+				}
+
+				//If they're flying, set their fly speed; if not, their walk speed
+				if (player.isFlying()) {
+					playerWrapper.setFlySpeed(speed);
+				} else {
+					playerWrapper.setWalkSpeed(speed);
+				}
+
+				//Send the player a message saying their speed was updated
+				PlayerHandler.sendMessage(player, Messages.SPEED_UPDATED(player.isFlying(), speed));
+
+			} else {
+				PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("speed"));
+			}
+		} else {
+			//They didn't pass a speed argument, so reset their speeds to default
+			if (player.isFlying()) {
+				//Default fly speed
+				playerWrapper.setFlySpeed(PlayerWrapper.defaultFlySpeed);
+			} else {
+				//Default walk speed
+				playerWrapper.setWalkSpeed(PlayerWrapper.defaultWalkSpeed);
+			}
+			PlayerHandler.sendMessage(player, Messages.SPEED_RESET(player.isFlying()));
+		}
+	}
+
+	@CommandHandler(name = "time", permission = "tunnels.commons.time")
+	public void onTimeCommand(CommandSender sender, String[] args) {
+		if (args.length > 0) {
+			String timeAction = args[0];
+			World world;
+			if (sender instanceof Player) {
+				world = ((Player)sender).getWorld();
+			} else {
+				//Not a player sending the message, so check if they passed an argument for a world
+				if (args.length > 1) {
+					//Get what they passed, and see if the world exists
+					String worldName = args[1];
+					if (WorldHandler.worldExists(worldName)) {
+						world = WorldHandler.getWorld(worldName);
+					} else {
+						//Send a message saying the world requested doesn't exist
+						PlayerHandler.sendMessage(sender, Messages.WORLD_DOESNT_EXIST(worldName));
+						return;
+					}
+				} else {
+					//They didnt include a world argument
+					PlayerHandler.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("time", "world"));
+					return;
+				}
+			}
+
+			timeAction = timeAction.toLowerCase();
+
+			//Switch on what the player entered
+			switch (timeAction) {
+				case "day":
+				case "night":
+				case "dawn":
+					WorldHandler.setTime(world, WorldTime.getWorldTime(timeAction));
+					PlayerHandler.sendMessage(sender, Messages.TIME_CHANGED(world.getName(), timeAction));
+					break;
+				default:
+					PlayerHandler.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("Time [day/night/dawn]"));
+					break;
+			}
+
+		} else {
+			PlayerHandler.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("Time [day/night/dawn]"));
 		}
 	}
 
