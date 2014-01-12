@@ -18,8 +18,8 @@ public class PlayerWrapper {
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
 
-	public static final float defaultWalkSpeed = 0.22f;
-	public static final float defaultFlySpeed = 0.1f;
+	public static double defaultWalkSpeed = 0.22;
+	public static double defaultFlySpeed = 0.1;
 
 	private String playerName = "";
 	private String currentServer = "";

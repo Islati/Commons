@@ -18,8 +18,8 @@ public class PlayerJoinListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		//Reset the players walk and fly speeds
-		player.setFlySpeed(PlayerWrapper.defaultFlySpeed);
-		player.setWalkSpeed(PlayerWrapper.defaultWalkSpeed);
+		player.setFlySpeed((float)PlayerWrapper.defaultFlySpeed);
+		player.setWalkSpeed((float)PlayerWrapper.defaultWalkSpeed);
 
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			event.setJoinMessage(null);

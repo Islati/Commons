@@ -297,23 +297,28 @@ public class UtilityCommands {
 			String speedArg = args[0];
 			if (StringUtils.isNumeric(speedArg)) {
 				//Get the speed from whatever the player passed as an argument
-				double speed = Double.parseDouble(speedArg);
-				//Assure the number isn't >10 or <0.1
-				if (speed >= 10) {
-					speed = 10;
-				} else if (speed <= 0.01) {
-					speed = 0.01;
+				double speed = Integer.parseInt(speedArg);
+				//Assure the number isn't >8 or <0.1
+				if (speed >= 7.8) {
+					speed = 7.8;
+				} else if (speed <= 1) {
+					speed = 1;
 				}
 
 				//If they're flying, set their fly speed; if not, their walk speed
 				if (player.isFlying()) {
-					playerWrapper.setFlySpeed(speed);
+					double fSpeed = (speed + (PlayerWrapper.defaultWalkSpeed * 10)) / 10;
+					playerWrapper.setFlySpeed(fSpeed);
+					PlayerHandler.sendMessage(player, "" + player.getFlySpeed());
+
 				} else {
-					playerWrapper.setWalkSpeed(speed);
+					double fSpeed = (speed + (PlayerWrapper.defaultWalkSpeed * 10)) / 10;
+					playerWrapper.setWalkSpeed(fSpeed);
+					PlayerHandler.sendMessage(player, "" + player.getWalkSpeed());
 				}
 
 				//Send the player a message saying their speed was updated
-				PlayerHandler.sendMessage(player, Messages.SPEED_UPDATED(player.isFlying(), speed));
+				PlayerHandler.sendMessage(player, Messages.SPEED_UPDATED(player.isFlying(), Integer.parseInt(speedArg)));
 
 			} else {
 				PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("speed"));

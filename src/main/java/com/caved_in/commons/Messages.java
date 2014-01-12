@@ -119,4 +119,8 @@ public class Messages {
 	public static String TIME_CHANGED(String worldName, String time) {
 		return String.format("&aThe time for the world &7%s&a has been set to &e%s", worldName, time);
 	}
+
+	public static String ADDED_XP(String playerName, int amount) {
+		return String.format("&aYou've added &e%s&a tunnels xp to &b%s",amount,playerName);
+	}
 }
