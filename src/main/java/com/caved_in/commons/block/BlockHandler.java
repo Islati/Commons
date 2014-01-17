@@ -1,11 +1,11 @@
 package com.caved_in.commons.block;
 
 import com.caved_in.commons.effects.EffectPlayer;
-import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.items.BlockID;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.inventory.ItemStack;
 
 public class BlockHandler {
 
@@ -103,6 +103,39 @@ public class BlockHandler {
 				return true;
 			default:
 				return false;
+		}
+	}
+
+	/**
+	 * Check a block at a specific XYZ Cordinate for a world, and destroy all the blocks with the
+	 * id defined by <i>required</i> around the block
+	 * @param world World which we're getting the block
+	 * @param x x-Axis coordinate for the blocks location
+	 * @param y y-Axis coordinate for the blocks location
+	 * @param z z-Axis coordinate for the blocks location
+	 * @param required id of the block to destroy
+	 */
+	private void checkAndDestroyAround(World world, int x, int y, int z, int required) {
+		checkAndDestroy(world, x, y, z + 1, required);
+		checkAndDestroy(world, x, y, z - 1, required);
+		checkAndDestroy(world, x, y + 1, z, required);
+		checkAndDestroy(world, x, y - 1, z, required);
+		checkAndDestroy(world, x + 1, y, z, required);
+		checkAndDestroy(world, x - 1, y, z, required);
+	}
+
+	/**
+	 * Check if a block at a specific location is the same as the block defined by <i>required</i>
+	 * and then destroy the block if so
+	 * @param world World which we're getting the block
+	 * @param x x-Axis coordinate for the blocks location
+	 * @param y y-Axis coordinate for the blocks location
+	 * @param z z-Axis coordinate for the blocks location
+	 * @param required id of the block to destroy
+	 */
+	private void checkAndDestroy(World world, int x, int y, int z, int required) {
+		if (world.getBlockTypeIdAt(x, y, z) == required) {
+			world.getBlockAt(x, y, z).setTypeId(BlockID.AIR);
 		}
 	}
 

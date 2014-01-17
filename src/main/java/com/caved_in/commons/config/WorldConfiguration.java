@@ -24,6 +24,9 @@ public class WorldConfiguration {
 	private boolean disableMyceliumSpread = true;
 
 	@Element
+	private boolean disableFireSpread = true;
+
+	@Element
 	private boolean launchpadPressurePlates = false;
 
 	@Element
@@ -62,7 +65,8 @@ public class WorldConfiguration {
 							  @Element(name = "enableBlockBreak") boolean enableBlockBreak,
 							  @Element(name = "enableItemPickup") boolean enableItemPickup,
 							  @Element(name = "enableItemDrop") boolean enableItemDrop,
-							  @Element(name = "enableFoodChange") boolean enableFoodChange
+							  @Element(name = "enableFoodChange") boolean enableFoodChange,
+							  @Element(name = "disableFireSpread") boolean disableFireSpread
 	) {
 		this.disableIceAccumulation = disableIceAccumulation;
 		this.disableWeather = disableWeather;
@@ -78,6 +82,7 @@ public class WorldConfiguration {
 		this.enableItemDrop = enableItemDrop;
 		this.enableItemPickup = enableItemPickup;
 		this.enableFoodChange = enableFoodChange;
+		this.disableFireSpread = disableFireSpread;
 	}
 
 	public WorldConfiguration() {
@@ -145,5 +150,9 @@ public class WorldConfiguration {
 
 	public boolean isFoodChangeEnabled() {
 		return enableFoodChange;
+	}
+
+	public boolean isFireSpreadDisabled() {
+		return disableFireSpread;
 	}
 }
