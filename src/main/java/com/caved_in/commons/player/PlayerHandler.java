@@ -104,6 +104,7 @@ public class PlayerHandler {
 
 	/**
 	 * Get players exact name based on the partial name passed. Calls <i>Bukkit.getPlayer(partialPlayerName)</i>
+	 *
 	 * @param partialPlayerName Partial name of the player to get the full name of
 	 * @return An exact players name if there's a player online which matches the partial name passed; Otherwise
 	 * returns the partial name passed
@@ -359,4 +360,6 @@ public class PlayerHandler {
 	public static boolean hasOnlineCount(int amount) {
 		return getOnlinePlayersCount() >= amount;
 	}
+
+
 }
