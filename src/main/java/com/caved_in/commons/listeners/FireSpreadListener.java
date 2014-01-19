@@ -9,11 +9,6 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 15/01/14
- * Time: 10:21 AM
- */
 public class FireSpreadListener implements Listener {
 
 	@EventHandler
