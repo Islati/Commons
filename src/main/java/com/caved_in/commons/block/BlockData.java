@@ -16,10 +16,19 @@ public class BlockData {
 	private MaterialData blockMaterialData;
 	private Location location;
 
+	/**
+	 * Creates a new Blockdata object based on the block passed to it
+	 * @param block block to instance a new blockdata for
+	 */
 	public BlockData(Block block) {
 		this(block,block.getType());
 	}
 
+	/**
+	 *
+	 * @param block
+	 * @param changeMaterial
+	 */
 	public BlockData(Block block, Material changeMaterial) {
 		this.location = block.getLocation();
 		this.blockMaterialData = new MaterialData(changeMaterial);

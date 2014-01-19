@@ -27,22 +27,25 @@ public class AdminCommands {
 
 	@CommandHandler(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "tunnels.common.currency")
 	public void addCurrencyCommand(CommandSender sender, String[] commandArgs) {
-		if (commandArgs.length > 1 && commandArgs[0] != null && commandArgs[1] != null) {
+		if (commandArgs.length > 1) {
 			String playerName = commandArgs[0];
 			String currencyAmount = commandArgs[1];
 			if (Commons.playerDatabase.hasData(playerName)) {
 				if (StringUtils.isNumeric(currencyAmount)) {
 					int currency = Integer.parseInt(currencyAmount);
-					if (PlayerHandler.isOnlineFuzzy(playerName)) {
+					if (PlayerHandler.isOnline(playerName)) {
 						PlayerWrapper playerWrapper = PlayerHandler.getData(playerName);
 						playerWrapper.addCurrency((double)currency);
 						PlayerHandler.updateData(playerWrapper);
+						PlayerHandler.sendMessage(sender, Messages.ADDED_XP(playerName, currency));
 					} else {
 						PlayerWrapper playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
 						if (playerWrapper != null) {
 							playerWrapper.addCurrency((double)currency);
 							PlayerHandler.updateData(playerWrapper);
 							Commons.messageConsole("Added " + currency + " to " + playerName);
+						} else {
+							PlayerHandler.sendMessage(sender, Messages.PLAYER_OFFLINE(playerName));
 						}
 					}
 				} else {

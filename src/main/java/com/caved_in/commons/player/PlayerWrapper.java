@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.friends.FriendList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 /**
  * User: Brandon
@@ -11,6 +12,14 @@ import org.bukkit.ChatColor;
 public class PlayerWrapper {
 	private FriendList friendsList;
 	private boolean inStaffChat = false;
+	private boolean customWalkSpeed = false;
+	private boolean customFlySpeed = false;
+
+	private double walkSpeed = 0.22;
+	private double flySpeed = 0.1;
+
+	public static double defaultWalkSpeed = 0.22;
+	public static double defaultFlySpeed = 0.1;
 
 	private String playerName = "";
 	private String currentServer = "";
@@ -41,6 +50,10 @@ public class PlayerWrapper {
 		this.lastOnline = System.currentTimeMillis();
 		//Load the players friends list
 		friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
+	}
+
+	private Player getPlayer() {
+		return PlayerHandler.getPlayer(this);
 	}
 
 	/**
@@ -172,5 +185,31 @@ public class PlayerWrapper {
 	 */
 	public FriendList getFriendsList() {
 		return friendsList;
+	}
+
+	public boolean hasCustomWalkSpeed() {
+		return customWalkSpeed;
+	}
+
+	public boolean hasCustomFlySpeed() {
+		return customFlySpeed;
+	}
+
+	public double getWalkSpeed() {
+		return walkSpeed;
+	}
+
+	public void setWalkSpeed(double walkSpeed) {
+		this.walkSpeed = walkSpeed;
+		getPlayer().setWalkSpeed((float)walkSpeed);
+	}
+
+	public double getFlySpeed() {
+		return flySpeed;
+	}
+
+	public void setFlySpeed(double flySpeed) {
+		this.flySpeed = flySpeed;
+		getPlayer().setFlySpeed((float)flySpeed);
 	}
 }

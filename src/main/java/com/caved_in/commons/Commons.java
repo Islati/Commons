@@ -3,6 +3,7 @@ package com.caved_in.commons;
 import com.caved_in.commons.commands.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
+import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menus.serverselection.ServerMenuGenerator;
@@ -95,66 +96,75 @@ public class Commons extends JavaPlugin {
 	}
 
 	private void registerListeners() {
-		if (!globalConfig.getWorldConfig().hasExternalChatHandler()) {
+		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
+
+		if (!worldConfig.hasExternalChatHandler()) {
 			registerListener(new ChatListener());
 			messageConsole("&aUsing Tunnels-Common Chat Listener");
 		}
 
-		if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
+		if (worldConfig.isCompassMenuEnabled()) {
 			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig().getXmlItems()));
 			registerListener(new CompassListener());
 			messageConsole("&aRegistered the compass-menu listener");
 		}
 
-		if (globalConfig.getWorldConfig().hasLaunchpadPressurePlates()) {
+		if (worldConfig.hasLaunchpadPressurePlates()) {
 			registerListener(new LauncherListener()); // Register launch pad listener if its enabled
 			messageConsole("&aRegistered the launch pad listener");
 		}
 
-		if (globalConfig.getWorldConfig().isIceSpreadDisabled() || globalConfig.getWorldConfig().isSnowSpreadDisabled()) {
+		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
 			registerListener(new BlockFormListener());
 			messageConsole("&aRegistered the block spread listener");
 		}
 
-		if (globalConfig.getWorldConfig().isMyceliumSpreadDisabled()) {
+		if (worldConfig.isMyceliumSpreadDisabled()) {
 			registerListener(new BlockSpreadListener());
 			messageConsole("&aRegistered the mycelium spread listener");
 		}
 
-		if (globalConfig.getWorldConfig().isThunderDisabled()) {
+		if (worldConfig.isThunderDisabled()) {
 			registerListener(new ThungerChangeListener());
 			messageConsole("&aRegistered the thunder listener");
 		}
 
-		if (globalConfig.getWorldConfig().isWeatherDisabled()) {
+		if (worldConfig.isWeatherDisabled()) {
 			registerListener(new WeatherChangeListener());
 			messageConsole("&aRegistered the Weather-Change listener");
 		}
 
-		if (globalConfig.getWorldConfig().isLightningDisabled()) {
+		if (worldConfig.isLightningDisabled()) {
 			registerListener(new LightningStrikeListener());
 			messageConsole("&aRegistered the lightning listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isBlockBreakEnabled()) {
+		if (worldConfig.isFireSpreadDisabled()) {
+			registerListener(new FireSpreadListener());
+			messageConsole("&aRegistered the fire-spread listener");
+		}
+
+		if (!worldConfig.isBlockBreakEnabled()) {
 			registerListener(new BlockBreakListener());
 			messageConsole("&aRegistered the block break listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isItemDropEnabled()) {
+		if (!worldConfig.isItemDropEnabled()) {
 			registerListener(new ItemDropListener());
 			messageConsole("&aRegistered the item-drop listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isItemPickupEnabled()) {
+		if (!worldConfig.isItemPickupEnabled()) {
 			registerListener(new ItemPickupListener());
 			messageConsole("&aRegistered the item-pickup listener");
 		}
 
-		if (!globalConfig.getWorldConfig().isFoodChangeEnabled()) {
+		if (!worldConfig.isFoodChangeEnabled()) {
 			registerListener(new FoodChangeListener());
 			messageConsole("&aRegistered the food change listener");
 		}
+
+		//Events that'll be registered regardless of the configuration
 
 		registerListener(new WorldLoadedListener());
 		messageConsole("&aRegistered the World-Load listener");

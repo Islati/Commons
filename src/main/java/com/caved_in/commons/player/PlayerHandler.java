@@ -3,13 +3,17 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Formatting.ColorCode;
 import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
 import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -94,8 +98,13 @@ public class PlayerHandler {
 		return Bukkit.getPlayer(playerName);
 	}
 
+	public static Player getPlayer(PlayerWrapper playerWrapper) {
+		return Bukkit.getPlayer(playerWrapper.getName());
+	}
+
 	/**
 	 * Get players exact name based on the partial name passed. Calls <i>Bukkit.getPlayer(partialPlayerName)</i>
+	 *
 	 * @param partialPlayerName Partial name of the player to get the full name of
 	 * @return An exact players name if there's a player online which matches the partial name passed; Otherwise
 	 * returns the partial name passed
@@ -194,6 +203,18 @@ public class PlayerHandler {
 
 	public static void sendMessage(CommandSender commandSender, String message) {
 		commandSender.sendMessage(StringUtil.formatColorCodes(message));
+	}
+
+	public static void teleport(Player player, Entity target) {
+		player.teleport(target, PlayerTeleportEvent.TeleportCause.PLUGIN);
+	}
+
+	public static void teleport(Player player, Location location) {
+		player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+	}
+
+	public static void teleport(Player player, double[] xyz) {
+		player.teleport(LocationHandler.getLocation(player.getWorld(), xyz));
 	}
 
 	/**
@@ -339,4 +360,6 @@ public class PlayerHandler {
 	public static boolean hasOnlineCount(int amount) {
 		return getOnlinePlayersCount() >= amount;
 	}
+
+
 }

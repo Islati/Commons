@@ -20,6 +20,12 @@
     <orderEntry type="library" name="Maven: me.xhawk87:PopupMenuAPI:0.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.5.2-R0.1" level="project" />
     <orderEntry type="library" name="Maven: org.kitteh:tagapi:2.7.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.github:site-maven-plugin:0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.github:github-maven-core:0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.12.2" level="project" />
   </component>
 </module>
 

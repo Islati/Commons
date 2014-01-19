@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.caved_in</groupId>
   <artifactId>commons</artifactId>
-  <version>1.0-RELEASE</version>
+  <version>1.1-RELEASE</version>
   <build>
     <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
     <resources>
@@ -44,6 +44,7 @@
               <artifactSet>
                 <includes>
                   <include>org.simpleframework:simple-xml:jar:*</include>
+                  <include>commons-io:commons-io:jar:*</include>
                 </includes>
               </artifactSet>
               <filters>
@@ -57,10 +58,45 @@
                     <exclude>**/*.java</exclude>
                   </excludes>
                 </filter>
+                <filter>
+                  <artifact>commons-io:commons-io:jar:*</artifact>
+                  <excludes>
+                    <exclude>templates/**</exclude>
+                    <exclude>META-INF/*.xml</exclude>
+                    <exclude>META-INF/*.txt</exclude>
+                    <exclude>**/LICENSE</exclude>
+                    <exclude>**/*.java</exclude>
+                  </excludes>
+                </filter>
               </filters>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.9</version>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <message>Maven artifacts for ${project.groupId}${project.artifactId} ${project.version}</message>
+          <noJekyll>true</noJekyll>
+          <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+          <branch>refs/heads/master</branch>
+          <includes>
+            <include>**/*</include>
+          </includes>
+          <repositoryName>mvn-repo</repositoryName>
+          <repositoryOwner>TheGamersCave</repositoryOwner>
+          <merge>true</merge>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -75,12 +111,6 @@
     </repository>
   </repositories>
   <dependencies>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.4</version>
-      <scope>compile</scope>
-    </dependency>
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>craftbukkit</artifactId>
@@ -97,6 +127,18 @@
       <groupId>org.kitteh</groupId>
       <artifactId>tagapi</artifactId>
       <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.github</groupId>
+      <artifactId>site-maven-plugin</artifactId>
+      <version>0.9</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.12.2</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
@@ -127,7 +169,27 @@
         <artifactId>PopupMenuAPI</artifactId>
         <version>0.2.1</version>
       </dependency>
+      <dependency>
+        <groupId>com.github.github</groupId>
+        <artifactId>site-maven-plugin</artifactId>
+        <version>0.9</version>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.12.2</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>Temporary Staging Repository</name>
+      <url>file://${project.build.directory}/mvn-repo</url>
+    </repository>
+  </distributionManagement>
+  <properties>
+    <github.global.server>github</github.global.server>
+  </properties>
 </project>
 

@@ -2,7 +2,6 @@ package com.caved_in.commons.world;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.location.LocationHandler;
-import com.sun.java.swing.plaf.windows.resources.windows_pt_BR;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,6 +23,10 @@ public class WorldHandler {
 
 	public static World getWorld(UUID worldUUID) {
 		return Bukkit.getWorld(worldUUID);
+	}
+
+	public static boolean worldExists(String worldName) {
+		return Bukkit.getWorld(worldName) != null;
 	}
 
 	public static Location getSpawn(UUID worldUUID) {
@@ -66,5 +69,25 @@ public class WorldHandler {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+
+	public static void setTime(World world, long time) {
+		world.setTime(time);
+	}
+
+	public static void setTime(World world, WorldTime time) {
+		world.setTime(time.getTime());
+	}
+
+	public static void setTimeDawn(World world) {
+		setTime(world, WorldTime.DAWN);
+	}
+
+	public static void setTimeNight(World world) {
+		setTime(world, WorldTime.NIGHT);
+	}
+
+	public static void setTimeDay(World world) {
+		setTime(world, WorldTime.DAY);
 	}
 }

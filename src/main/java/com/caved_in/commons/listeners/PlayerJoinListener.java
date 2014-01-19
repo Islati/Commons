@@ -3,6 +3,7 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.PlayerWrapper;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,6 +17,10 @@ public class PlayerJoinListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		//Reset the players walk and fly speeds
+		player.setFlySpeed((float)PlayerWrapper.defaultFlySpeed);
+		player.setWalkSpeed((float)PlayerWrapper.defaultWalkSpeed);
+
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			event.setJoinMessage(null);
 		}

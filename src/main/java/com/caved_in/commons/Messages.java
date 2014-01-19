@@ -1,11 +1,15 @@
 package com.caved_in.commons;
 
+import com.caved_in.commons.player.PlayerHandler;
+import org.bukkit.entity.Player;
+
 public class Messages {
 	public static final String INVENTORY_CLEARED = "&aYour inventory has been cleared";
 	public static final String PLAYER_OFFLINE = "&cThe requested player is offline";
 	public static final String CHAT_SILENCED = "&7Chat is currently silenced, you are only able to chat if you have the required permissions";
 	public static final String HELP_INCLUDE_PAGE_NUMBER = "&cPlease include a page number for the help menu";
 	public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
+	public static final String PLAYER_HEALED = "&eYou've been healed!";
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return "&e" + playerName + " &cis offline";
@@ -75,6 +79,10 @@ public class Messages {
 		return String.format("&b%s&a has accepted your friend request!", playerName);
 	}
 
+	public static String TUNNELS_XP_BALANCE(Player player) {
+		return String.format("&aYou have &e%s&a Tunnels XP", (int)PlayerHandler.getData(player).getCurrency());
+	}
+
 	public static String INVALID_COMMAND_USAGE(String... requiredArguments) {
 		String[] requiredArgs = requiredArguments.clone();
 		String returnString = "&cThis command requires the following arguments: ";
@@ -86,5 +94,33 @@ public class Messages {
 		} else {
 			return "&cPlease validate the syntax of the command you performed";
 		}
+	}
+
+	public static String TELEPORTED_TO(String description) {
+		return String.format("&eYou've been teleported to &a%s", description);
+	}
+
+	public static String TELEPORTED_TO(String item, String target) {
+		return String.format("&eYou've teleported &a%s&e to &a%s", item, target);
+	}
+
+	public static String SPEED_UPDATED(boolean isFlying, double speed) {
+		return String.format("&aYou've set your &e%s&a speed to &e%s&a; to reset it to default use &e/speed", isFlying ? "fly" : "walk", speed);
+	}
+
+	public static String SPEED_RESET(boolean isFlying) {
+		return String.format("&aYou've reset your &e%s&a speed to default", isFlying ? "fly" : "walk");
+	}
+
+	public static String WORLD_DOESNT_EXIST(String worldName) {
+		return String.format("&cThe world &e%s&c doesn't exist, or isn't loaded", worldName);
+	}
+
+	public static String TIME_CHANGED(String worldName, String time) {
+		return String.format("&aThe time for the world &7%s&a has been set to &e%s", worldName, time);
+	}
+
+	public static String ADDED_XP(String playerName, int amount) {
+		return String.format("&aYou've added &e%s&a tunnels xp to &b%s",amount,playerName);
 	}
 }

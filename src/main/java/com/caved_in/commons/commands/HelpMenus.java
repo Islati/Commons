@@ -29,7 +29,7 @@ public class HelpMenus {
 	}
 
 	enum PageDisplay {
-		DEFAULT("<name> (Page <page> of <maxpage>"),
+		DEFAULT("<name> (Page <page> of <maxpage>)"),
 		SHORTHAND("<name> (P.<page>/<maxpage>)");
 
 		private String formatting;
@@ -61,6 +61,15 @@ public class HelpMenus {
 			helpScreen.setEntry(menuItem.getKey(), menuItem.getValue());
 		}
 		return helpScreen;
+	}
+
+	private static HelpScreen getNickHelpScreen() {
+		HelpScreen nicknameHelpsScreen = generateHelpScreen("Nickname Command Help", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
+		nicknameHelpsScreen.setEntry("/nick help", "Shows the help menu");
+		nicknameHelpsScreen.setEntry("/nick off [player]", "Turns the nickname off for yourself, or another player");
+		nicknameHelpsScreen.setEntry("/nick <Name>", "Disguise yourself as another player");
+		nicknameHelpsScreen.setEntry("/nick <player> <Name>", "Disguise another player");
+		return nicknameHelpsScreen;
 	}
 
 	public static HelpScreen getFriendsListScreen(List<Friend> friendsList) {

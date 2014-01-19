@@ -1,7 +1,9 @@
 package com.caved_in.commons.location;
 
+import com.caved_in.commons.world.WorldHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class LocationHandler {
 	 * Get the X, Y, and Z Coords of a location
 	 * in a literal array, where index:
 	 * <b>0 = X <br/>1 = Y<br/>2 = Z</b>
+	 *
 	 * @param location
 	 * @return
 	 */
@@ -70,6 +73,18 @@ public class LocationHandler {
 		int x = (int) location.getX();
 		int y = (int) location.getY();
 		int z = (int) location.getZ();
-		return new int[] {x, y, z};
+		return new int[]{x, y, z};
+	}
+
+	public static Location getLocation(String worlName, double x, double y, double z) {
+		return new Location(WorldHandler.getWorld(worlName), x, y, z);
+	}
+
+	public static Location getLocation(String worldName, double[] xyz) {
+		return getLocation(worldName, xyz[0], xyz[1], xyz[2]);
+	}
+
+	public static Location getLocation(World world, double[] xyz) {
+		return new Location(world, xyz[0], xyz[1], xyz[2]);
 	}
 }

@@ -36,16 +36,6 @@ public class DisguiseSQL extends SQL{
 		execute(creationStatement);
 	}
 
-	private void close(PreparedStatement preparedStatement) {
-		if (preparedStatement != null) {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public boolean hasData(String playerName) {
 		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
 		boolean hasData = false;
