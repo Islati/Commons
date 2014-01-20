@@ -10,6 +10,7 @@ import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.WorldHandler;
 import com.caved_in.commons.world.WorldTime;
 import org.apache.commons.lang.StringUtils;
@@ -285,6 +286,7 @@ public class UtilityCommands {
 			ItemStack itemStack = ItemHandler.getMaterialData(itemID, dataValue).toItemStack(itemAmount);
 			//give the player the item :)
 			PlayerHandler.giveItem(player, itemStack);
+			PlayerHandler.sendMessage(player, Messages.ITEM_GIVEN_COMMAND(ItemHandler.getFormattedMaterialName(itemStack.getType()), itemAmount));
 		} else {
 			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("item"));
 		}
