@@ -98,11 +98,19 @@ public class Messages {
 	}
 
 	public static String TELEPORTED_TO(String description) {
-		return String.format("&eYou've been teleported to &a%s", description);
+		return String.format("&eYou've been teleported to &a", description);
 	}
 
 	public static String TELEPORTED_TO(String item, String target) {
-		return String.format("&eYou've teleported &a%s&e to &a%s", item, target);
+		return String.format("&eYou've teleported &a%s%e to &a%s");
+	}
+
+	public static String ITEM_GIVEN_COMMAND(String item, int amount) {
+		return String.format("&aAdded &e%s &aof &e%s&a to your inventory",amount, item);
+	}
+
+	public static String ITEM_GIVEN_COMMAND(String item) {
+		return ITEM_GIVEN_COMMAND(item,1);
 	}
 
 	public static String SPEED_UPDATED(boolean isFlying, double speed) {
