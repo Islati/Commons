@@ -10,6 +10,7 @@ public class Messages {
 	public static final String HELP_INCLUDE_PAGE_NUMBER = "&cPlease include a page number for the help menu";
 	public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
 	public static final String PLAYER_HEALED = "&eYou've been healed!";
+	public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return "&e" + playerName + " &cis offline";

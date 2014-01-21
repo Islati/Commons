@@ -396,4 +396,20 @@ public class UtilityCommands {
 		PlayerHandler.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "night"));
 	}
 
+	public void onEnchantCommand(Player player, String[] args) {
+
+	}
+
+	public void onItemRepairCommand(Player player, String[] args) {
+		//Todo find how to make a /repair command
+	}
+
+	public void onPowerMineCommand(Player player, String[] args) {
+		//Toggling power-mine
+		//power mine = hold right click and destroy block thats are right clicked
+	}
+
+	//Make features to detroy/modify a cube of blocks, spehere, how long (depth & width)
+	//kinda like world edit but not really
+
 }

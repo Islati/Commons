@@ -1,9 +1,11 @@
 package com.caved_in.commons.items;
 
+import com.caved_in.commons.block.BlockHandler;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,6 +22,7 @@ public class ItemHandler {
 
 	/**
 	 * Check whether or not an item has metadata
+	 *
 	 * @param itemStack
 	 * @return true if the item has metadata, false otherwise
 	 */
@@ -29,6 +32,7 @@ public class ItemHandler {
 
 	/**
 	 * Get the metadata attached to an itemstack
+	 *
 	 * @param itemStack
 	 * @return ItemMeta of the item if it exists, otherwise null.
 	 */
@@ -38,8 +42,9 @@ public class ItemHandler {
 
 	/**
 	 * Set the MetaData on an Item Stack
+	 *
 	 * @param itemStack item stack to set the metadata on
-	 * @param itemMeta The metadata to set on our item
+	 * @param itemMeta  The metadata to set on our item
 	 * @return The itemstack passed, but with its metadata changed.
 	 */
 	public static ItemStack setItemMeta(ItemStack itemStack, ItemMeta itemMeta) {
@@ -68,9 +73,9 @@ public class ItemHandler {
 	 * Check the players inventory for an item with a specific material and name
 	 * Uses a fuzzy search to determine if the item is in their inventory
 	 *
-	 * @param player player who's inventory we're checking
+	 * @param player   player who's inventory we're checking
 	 * @param material The material type were checking for
-	 * @param name The name we're doing a fuzzy search against for
+	 * @param name     The name we're doing a fuzzy search against for
 	 * @return true if they have the item, false otherwise
 	 */
 	public static boolean playerHasItem(Player player, Material material, String name) {
@@ -87,7 +92,7 @@ public class ItemHandler {
 	 * Get lore of item at specific line
 	 *
 	 * @param itemStack Item to get lore of
-	 * @param line Index of lore to get
+	 * @param line      Index of lore to get
 	 * @return String of lore if it exists, otherwise null
 	 */
 	public static String getItemLore(ItemStack itemStack, int line) {
@@ -104,6 +109,7 @@ public class ItemHandler {
 
 	/**
 	 * Add lines of lore to an item
+	 *
 	 * @param itemStack item stack to add lore on
 	 * @param loreLines the lore lines to add to the item
 	 * @return itemstack with the new lore lines added
@@ -114,6 +120,7 @@ public class ItemHandler {
 
 	/**
 	 * Add lines of lore to an item
+	 *
 	 * @param itemStack item stack to add lore on
 	 * @param loreLines the lore lines to add to the item
 	 * @return itemstack with the new lore lines added
@@ -131,6 +138,7 @@ public class ItemHandler {
 
 	/**
 	 * Check if an item has lore
+	 *
 	 * @param itemStack itemstack to check
 	 * @return true if the itemstack has lore, false otherwise
 	 */
@@ -140,6 +148,7 @@ public class ItemHandler {
 
 	/**
 	 * Check if an item has lore
+	 *
 	 * @param itemMeta Metadata to check for lore
 	 * @return true if the metadata has lore, false otherwise
 	 */
@@ -175,7 +184,7 @@ public class ItemHandler {
 	 * Checks if an items lore contains specific text
 	 *
 	 * @param itemStack Item to check
-	 * @param text Text to check the item for
+	 * @param text      Text to check the item for
 	 * @return true if the item has the text in its lore, otherwise false.
 	 */
 	public static boolean itemLoreContains(ItemStack itemStack, String text) {
@@ -194,12 +203,12 @@ public class ItemHandler {
 	 * Set the name of an Item
 	 *
 	 * @param itemStack Item to set the name of
-	 * @param itemName The name to give the item
+	 * @param itemName  The name to give the item
 	 */
 	public static ItemStack setItemName(ItemStack itemStack, String itemName) {
 		ItemMeta iMeta = getItemMeta(itemStack);
 		iMeta.setDisplayName(itemName);
-		return setItemMeta(itemStack,iMeta);
+		return setItemMeta(itemStack, iMeta);
 	}
 
 	/**
@@ -222,6 +231,7 @@ public class ItemHandler {
 
 	/**
 	 * Check if an items name contains a sequence of text
+	 *
 	 * @param item itemStack to check the name of
 	 * @param text text to check the items name for
 	 * @return true if the item name contains the text, false otherwise
@@ -253,9 +263,9 @@ public class ItemHandler {
 			case LEATHER_CHESTPLATE:
 			case LEATHER_HELMET:
 			case LEATHER_LEGGINGS:
-				LeatherArmorMeta itemMeta = (LeatherArmorMeta)getItemMeta(itemStack);
+				LeatherArmorMeta itemMeta = (LeatherArmorMeta) getItemMeta(itemStack);
 				itemMeta.setColor(color);
-				return setItemMeta(itemStack,itemMeta);
+				return setItemMeta(itemStack, itemMeta);
 			default:
 				return itemStack;
 		}
@@ -264,8 +274,12 @@ public class ItemHandler {
 	public static boolean addEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel, boolean ignoreRestrictions) {
 		ItemMeta itemMeta = getItemMeta(itemStack);
 		boolean enchantmentStatus = itemMeta.addEnchant(enchantment, enchantmentLevel, ignoreRestrictions);
-		setItemMeta(itemStack,itemMeta);
+		setItemMeta(itemStack, itemMeta);
 		return enchantmentStatus;
+	}
+
+	public static boolean addUnsafeEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel) {
+		return addEnchantment(itemStack, enchantment, enchantmentLevel, true);
 	}
 
 	public static boolean addEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel) {
@@ -274,11 +288,12 @@ public class ItemHandler {
 
 	@Deprecated
 	public static ItemStack setItemLore(ItemStack itemStack, List<String> itemLore) {
-		return setLore(itemStack,itemLore);
+		return setLore(itemStack, itemLore);
 	}
 
 	/**
 	 * Make a new item stack with the given material
+	 *
 	 * @param material Material to create the itemstack with
 	 * @return a new item stack of the given material
 	 */
@@ -288,6 +303,7 @@ public class ItemHandler {
 
 	/**
 	 * Make an itemstack with a specific material and display name
+	 *
 	 * @param material material of the itemstack
 	 * @param itemName name to give the itemstack
 	 * @return Itemstack with the material and name
@@ -298,12 +314,12 @@ public class ItemHandler {
 	}
 
 	public static ItemStack makeItemStack(Material material, String itemName, List<String> itemLore) {
-		ItemStack itemStack = makeItemStack(material,itemName);
+		ItemStack itemStack = makeItemStack(material, itemName);
 		return setLore(itemStack, itemLore);
 	}
 
 	public static ItemStack makeLeatherItemStack(Material material, String itemName, List<String> itemLore, Map<Enchantment, Integer> enchantments, Color itemColor) {
-		ItemStack itemStack = makeItemStack(material,itemName,itemLore);
+		ItemStack itemStack = makeItemStack(material, itemName, itemLore);
 		for (Entry<Enchantment, Integer> itemEnchantment : enchantments.entrySet()) {
 			addEnchantment(itemStack, itemEnchantment.getKey(), itemEnchantment.getValue(), true);
 		}
@@ -316,8 +332,8 @@ public class ItemHandler {
 	}
 
 	public static ItemStack makeLeatherItemStack(Material material, String itemName, List<String> itemLore, Color itemColor) {
-		ItemStack itemStack = makeItemStack(material,itemName,itemLore);
-		return setColor(itemStack,itemColor);
+		ItemStack itemStack = makeItemStack(material, itemName, itemLore);
+		return setColor(itemStack, itemColor);
 	}
 
 	public static ItemStack getSkull(String playerName) {
@@ -367,6 +383,10 @@ public class ItemHandler {
 
 	public static MaterialData getMaterialData(Material material, int dataValue) {
 		return new MaterialData(material, (byte) dataValue);
+	}
+
+	public static ItemStack convertBlockToItem(Block block) {
+		return new ItemStack(BlockHandler.getBlockMaterial(block));
 	}
 
 }

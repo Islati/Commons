@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class HelpMenus {
 
-	enum ItemFormat {
+	public enum ItemFormat {
 		DOUBLE_DASH("<name> -- <desc>"),
 		SINGLE_DASH("<name> - <desc>"),
 		IS("<name> is <desc>"),
@@ -28,7 +28,7 @@ public class HelpMenus {
 		}
 	}
 
-	enum PageDisplay {
+	public enum PageDisplay {
 		DEFAULT("<name> (Page <page> of <maxpage>)"),
 		SHORTHAND("<name> (P.<page>/<maxpage>)");
 

@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.friends.FriendList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -31,6 +32,9 @@ public class PlayerWrapper {
 	private double currencyAmount = 0.0D;
 
 	private ChatColor tagColor = ChatColor.WHITE;
+
+	/** Location the player was before their last teleport */
+	private Location lastLocation;
 
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to
