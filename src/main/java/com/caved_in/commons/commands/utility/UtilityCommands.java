@@ -10,7 +10,6 @@ import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
-import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.WorldHandler;
 import com.caved_in.commons.world.WorldTime;
 import org.apache.commons.lang.StringUtils;
@@ -26,14 +25,15 @@ import org.bukkit.inventory.ItemStack;
 public class UtilityCommands {
 
 	@CommandHandler(name = "gm", usage = "/gm <0/1/survival/creative> to switch gamemodes", permission = "tunnels.common.gamemode")
-	public void GamemodeHandler(Player player, String[] args) {
-		if (args.length >= 1) {
-			String modeArgument = args[0];
+	public void GamemodeHandler(Player player, String[] commandArgs) {
+		if (commandArgs.length >= 1 && commandArgs[0] != null) {
+			String modeArgument = commandArgs[0];
 			switch (modeArgument.toLowerCase()) {
 				case "0":
 				case "s":
 				case "survival":
 					player.setGameMode(GameMode.SURVIVAL);
+					
 					break;
 				case "1":
 				case "creative":
@@ -65,9 +65,8 @@ public class UtilityCommands {
 					player.setGameMode(GameMode.SURVIVAL);
 					break;
 			}
+			sendGameModeMessage(player);
 		}
-		sendGameModeMessage(player);
-
 	}
 
 	@CommandHandler(name = "xp", usage = "/xp")
@@ -129,7 +128,7 @@ public class UtilityCommands {
 	public void onHealCommand(Player player, String[] commandArgs) {
 		PlayerHandler.removePotionEffects(player);
 		EntityUtility.setCurrentHealth(player,EntityUtility.getMaxHealth(player));
-		PlayerHandler.sendMessage(player, Messages.PLAYER_HEALED);
+		player.sendMessage("&eYou've been healed!");
 	}
 
 	@CommandHandler(name = "ci", usage = "/ci [player]", permission = "tunnels.common.clearinventory", aliases = {"clearinventory", "clearinv"})

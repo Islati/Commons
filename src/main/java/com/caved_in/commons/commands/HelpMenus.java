@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class HelpMenus {
 
-	public enum ItemFormat {
+	enum ItemFormat {
 		DOUBLE_DASH("<name> -- <desc>"),
 		SINGLE_DASH("<name> - <desc>"),
 		IS("<name> is <desc>"),
