@@ -3,14 +3,16 @@ package com.caved_in.commons.inventory;
 import com.caved_in.commons.block.chest.ChestType;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.EnderChest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class InventoryHandler {
 
@@ -91,4 +93,20 @@ public class InventoryHandler {
 	public static void setContents(Inventory inventory, ItemStack[] items) {
 		inventory.setContents(items);
 	}
+
+	public static InventoryView openWorkbench(Player player) {
+		return player.openWorkbench(null, true);
+	}
+
+	public static void setViewItemAtSlot(InventoryView inventoryView, int itemSlot, ItemStack itemStack) {
+		inventoryView.setItem(itemSlot, itemStack);
+	}
+
+	public static void setViewItems(InventoryView inventoryView, Map<Integer, ItemStack> inventoryItems) {
+		for(Map.Entry<Integer, ItemStack> itemEntry : inventoryItems.entrySet()) {
+			inventoryView.setItem(itemEntry.getKey(),itemEntry.getValue());
+		}
+	}
+
+
 }

@@ -1,14 +1,16 @@
 package com.caved_in.commons.items;
 
 import com.caved_in.commons.block.BlockHandler;
+import com.caved_in.commons.inventory.InventoryHandler;
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -387,6 +389,56 @@ public class ItemHandler {
 
 	public static ItemStack convertBlockToItem(Block block) {
 		return new ItemStack(BlockHandler.getBlockMaterial(block));
+	}
+
+	public static List<Recipe> getRecipes(ItemStack itemStack) {
+		return Bukkit.getServer().getRecipesFor(itemStack);
+	}
+
+	public static void showFurnaceRecipe(Player player, FurnaceRecipe furnaceRecipe) {
+		//do something
+	}
+
+	public static void showShapedRecipe(Player player, ShapedRecipe shapedRecipe) {
+		//Get a map of all our ingredients
+		Map<Character, ItemStack> itemIngredients = shapedRecipe.getIngredientMap();
+		//Get the shape of our recipe
+		String[] recipeShape = shapedRecipe.getShape();
+		//Create a new list used to create the inventory
+		Map<Integer, ItemStack> itemRecipe = new HashMap<>();
+		player.closeInventory();
+		//Loop through all the items of the shapes (row 1, 2, and 3)
+		for(int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
+			String recipeRow = recipeShape[shapeIterator];
+			char[] rowCharacters = recipeRow.toCharArray();
+			//Loop through all the characters in the rowCharachers array and add the
+			//Respective itemstack to the retrieved item
+			for (int ingredientIterator = 0; ingredientIterator < recipeRow.length(); ingredientIterator++) {
+				ItemStack itemStack = itemIngredients.get(rowCharacters[ingredientIterator]);
+				itemStack.setAmount(0);
+				itemRecipe.put(shapeIterator * 3 + ingredientIterator + 1, itemStack);
+			}
+		}
+
+		//Open the workbench view
+		InventoryView inventoryView = InventoryHandler.openWorkbench(player);
+		//Set the item recipe
+		InventoryHandler.setViewItems(inventoryView, itemRecipe);
+	}
+
+	public static boolean showRecipe(Player player, ItemStack itemStack, int recipeNumber) {
+		List<Recipe> recipesForItem = getRecipes(itemStack);
+		if (recipeNumber >= 0 || recipeNumber < recipesForItem.size()) {
+			Recipe recipe = recipesForItem.get(recipeNumber);
+			if (recipe instanceof FurnaceRecipe) {
+				//Show items required
+			} else if (recipe instanceof ShapedRecipe) {
+				//Show shaped recipe
+			} else if (recipe instanceof ShapelessRecipe) {
+
+			}
+		}
+		return false;
 	}
 
 }

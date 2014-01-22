@@ -5,6 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.disguises.Disguise;
 import com.caved_in.commons.entity.EntityUtility;
+import com.caved_in.commons.items.Enchantments;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.items.ItemType;
 import com.caved_in.commons.menu.HelpScreen;
@@ -18,6 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
@@ -33,7 +35,7 @@ public class UtilityCommands {
 				case "s":
 				case "survival":
 					player.setGameMode(GameMode.SURVIVAL);
-					
+
 					break;
 				case "1":
 				case "creative":
@@ -113,7 +115,7 @@ public class UtilityCommands {
 		if (WorldHandler.setSpawn(player.getWorld(), player.getLocation())) {
 			PlayerHandler.sendMessage(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
 		} else {
-			PlayerHandler.sendMessage(player,"&eThere was an error changing the spawn location for world &7" + player.getWorld().getName() + "&e; please check the console.");
+			PlayerHandler.sendMessage(player, "&eThere was an error changing the spawn location for world &7" + player.getWorld().getName() + "&e; please check the console.");
 		}
 	}
 
@@ -127,7 +129,7 @@ public class UtilityCommands {
 	@CommandHandler(name = "heal", usage = "/heal", permission = "tunnels.common.heal")
 	public void onHealCommand(Player player, String[] commandArgs) {
 		PlayerHandler.removePotionEffects(player);
-		EntityUtility.setCurrentHealth(player,EntityUtility.getMaxHealth(player));
+		EntityUtility.setCurrentHealth(player, EntityUtility.getMaxHealth(player));
 		player.sendMessage("&eYou've been healed!");
 	}
 
@@ -140,16 +142,16 @@ public class UtilityCommands {
 			if (PlayerHandler.isOnline(playerName)) {
 				//Get the player and clear their inventory + armor
 				Player player = PlayerHandler.getPlayer(playerName);
-				PlayerHandler.clearInventory(player,true);
+				PlayerHandler.clearInventory(player, true);
 				player.sendMessage(Messages.INVENTORY_CLEARED);
 			} else {
 				PlayerHandler.sendMessage(commandSender, Messages.PLAYER_OFFLINE("name"));
 			}
 		} else {
 			if (commandSender instanceof Player) {
-				Player player = (Player)commandSender;
+				Player player = (Player) commandSender;
 				PlayerHandler.clearInventory(player);
-				PlayerHandler.sendMessage(player,Messages.INVENTORY_CLEARED);
+				PlayerHandler.sendMessage(player, Messages.INVENTORY_CLEARED);
 			} else {
 				PlayerHandler.sendMessage(commandSender, Messages.INVALID_COMMAND_USAGE("name"));
 			}
@@ -164,10 +166,10 @@ public class UtilityCommands {
 				Player playerToTeleport = PlayerHandler.getPlayer(playerName);
 				playerToTeleport.teleport(player, PlayerTeleportEvent.TeleportCause.COMMAND);
 			} else {
-				PlayerHandler.sendMessage(player,Messages.PLAYER_OFFLINE("name"));
+				PlayerHandler.sendMessage(player, Messages.PLAYER_OFFLINE("name"));
 			}
 		} else {
-			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("name"));
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
 		}
 	}
 
@@ -178,7 +180,7 @@ public class UtilityCommands {
 		if (args.length == 1) {
 			//Check if the issuer is a player
 			if (sender instanceof Player) {
-				Player player = (Player)sender;
+				Player player = (Player) sender;
 				String playerName = args[0];
 				//Check if the player requested is online
 				if (PlayerHandler.isOnline(playerName)) {
@@ -199,7 +201,7 @@ public class UtilityCommands {
 				//If player two is online
 				if (PlayerHandler.isOnline(playerTwo)) {
 					//Teleport the first player to the second
-					PlayerHandler.teleport(PlayerHandler.getPlayer(playerOne),PlayerHandler.getPlayer(playerTwo));
+					PlayerHandler.teleport(PlayerHandler.getPlayer(playerOne), PlayerHandler.getPlayer(playerTwo));
 					PlayerHandler.sendMessage(sender, Messages.TELEPORTED_TO(playerOne, playerTwo));
 				} else {
 					PlayerHandler.sendMessage(sender, Messages.PLAYER_OFFLINE(playerTwo));
@@ -260,12 +262,12 @@ public class UtilityCommands {
 					itemID = Integer.parseInt(itemArgument);
 				} else {
 					//Look for the itemtype based on the name they entered
-					ItemType itemType = ItemType.lookup(itemArgument,true);
+					ItemType itemType = ItemType.lookup(itemArgument, true);
 					if (itemType != null) {
 						itemID = itemType.getID();
 					} else {
 						//No results; Sawwy!
-						PlayerHandler.sendMessage(player,Messages.ITEM_DOESNT_EXIST(itemArgument));
+						PlayerHandler.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemArgument));
 					}
 				}
 			}
@@ -287,7 +289,7 @@ public class UtilityCommands {
 			PlayerHandler.giveItem(player, itemStack);
 			PlayerHandler.sendMessage(player, Messages.ITEM_GIVEN_COMMAND(ItemHandler.getFormattedMaterialName(itemStack.getType()), itemAmount));
 		} else {
-			PlayerHandler.sendMessage(player,Messages.INVALID_COMMAND_USAGE("item"));
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item"));
 		}
 	}
 
@@ -343,7 +345,7 @@ public class UtilityCommands {
 			String timeAction = args[0];
 			World world;
 			if (sender instanceof Player) {
-				world = ((Player)sender).getWorld();
+				world = ((Player) sender).getWorld();
 			} else {
 				//Not a player sending the message, so check if they passed an argument for a world
 				if (args.length > 1) {
@@ -397,8 +399,67 @@ public class UtilityCommands {
 		PlayerHandler.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "night"));
 	}
 
+	@CommandHandler(name = "enchant", permission = "tunnels.common.enchant")
 	public void onEnchantCommand(Player player, String[] args) {
+		//Check if an enchantment name was passed
+		if (args.length > 0) {
+			String enchantmentName = args[0];
+			//Check if the enchantment they entered is a valid enchantment
+			if (Enchantments.isEnchantment(enchantmentName)) {
+				//Get the enchantment they entered
+				Enchantment enchantment = Enchantments.getEnchantment(enchantmentName);
+				int enchantmentLevel = 1;
+				//Check if they entered a level argument for the enchantment
+				if (args.length > 1 && StringUtils.isNumeric(args[1])) {
+					enchantmentLevel = Integer.parseInt(args[1]);
+				}
+				ItemStack itemStack = player.getItemInHand();
+				//If the player has an item in their hand
+				if (itemStack != null) {
+					//Check if they enchanted the item successfully, and if so send them a message
+					if (ItemHandler.addEnchantment(itemStack, enchantment, enchantmentLevel, true)) {
+						PlayerHandler.sendMessage(player, Messages.ITEM_ENCHANTED(enchantmentName, enchantmentLevel));
+					} else {
+						//Send them a message saying it failed
+						PlayerHandler.sendMessage(player, Messages.FAILED_TO_ENCHANT_ITEM);
+					}
+				} else {
+					//Send the player a message saying they require an item in their hand
+					PlayerHandler.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+				}
+			} else {
+				//Send the player a message saying the enchantment doesn't exist
+				PlayerHandler.sendMessage(player, Messages.ENCHANTMENT_DOESNT_EXIST(enchantmentName));
+			}
+		} else {
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("enchantment", "level"));
+		}
+	}
 
+	@CommandHandler(name = "feed", permission = "tunnels.common.feed")
+	public void onFeedCommand(CommandSender sender, String[] args) {
+		//Check if they entered a player name as an argument
+		if (args.length > 0) {
+			String playerName = args[0];
+			//Check if the player name they entered is online
+			if (PlayerHandler.isOnline(playerName)) {
+				//Get the player and feed them
+				Player player = PlayerHandler.getPlayer(playerName);
+				PlayerHandler.feedPlayer(player);
+				//Send messages saying the player requested was fed
+				PlayerHandler.sendMessage(player, Messages.PLAYER_FED);
+				PlayerHandler.sendMessage(sender, Messages.PLAYER_FED(playerName));
+			} else {
+				PlayerHandler.sendMessage(sender, Messages.PLAYER_OFFLINE(playerName));
+			}
+		} else {
+			if (sender instanceof Player) {
+				PlayerHandler.feedPlayer((Player)sender);
+				PlayerHandler.sendMessage(sender,Messages.PLAYER_FED);
+			} else {
+				PlayerHandler.sendMessage(sender,Messages.PLAYER_COMMAND_SENDER_REQUIRED);
+			}
+		}
 	}
 
 	public void onItemRepairCommand(Player player, String[] args) {

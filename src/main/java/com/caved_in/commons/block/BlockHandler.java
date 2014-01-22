@@ -15,8 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BlockHandler {
-	public static final Set<Integer> HOLLOW_MATERIALS = new HashSet<Integer>();
-	private static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<Byte>();
+	public static final Set<Integer> HOLLOW_MATERIALS = new HashSet<>();
+	private static final Set<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
 
 	static {
 		HOLLOW_MATERIALS.add(Material.AIR.getId());

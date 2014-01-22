@@ -7,6 +7,7 @@ import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
 import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
+import com.caved_in.commons.world.WorldHeight;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -23,8 +24,7 @@ import java.util.Map;
 public class PlayerHandler {
 	private static Map<String, PlayerWrapper> playerData = new HashMap<String, PlayerWrapper>();
 
-	public PlayerHandler() {
-	}
+	public static final int DEPTH_EQUILZE_NUMBER = 63;
 
 	public static boolean hasData(String Name) {
 		return playerData.containsKey(Name);
@@ -361,5 +361,44 @@ public class PlayerHandler {
 		return getOnlinePlayersCount() >= amount;
 	}
 
+	public static int getPlayerDepth(Player player) {
+		return player.getLocation().getBlockY();
+	}
 
+	public static WorldHeight getPlayerWorldHeight(Player player) {
+		int equalizedDepth = getEquilizedPlayerDepth(player);
+		if (equalizedDepth > 0) {
+			return WorldHeight.ABOVE_SEA_LEVEL;
+		} else if (equalizedDepth < 0) {
+			return WorldHeight.BELOW_SEA_LEVEL;
+		} else {
+			return WorldHeight.AT_SEA_LEVEL;
+		}
+	}
+
+	public static int getEquilizedPlayerDepth(Player player) {
+		return getPlayerDepth(player) - DEPTH_EQUILZE_NUMBER;
+	}
+
+	public static boolean isAboveSeaLevel(Player player) {
+		return getEquilizedPlayerDepth(player) > 0;
+	}
+
+	public static boolean isBelowSeaLevel(Player player) {
+		return getEquilizedPlayerDepth(player) < 0;
+	}
+
+	public static boolean isAtSeaLevel(Player player) {
+		return getEquilizedPlayerDepth(player) == 0;
+	}
+
+	public static void feedPlayer(Player player, int amount) {
+		player.setFoodLevel(amount);
+		player.setSaturation(10);
+		player.setExhaustion(0);
+	}
+
+	public static void feedPlayer(Player player) {
+		feedPlayer(player, 20);
+	}
 }

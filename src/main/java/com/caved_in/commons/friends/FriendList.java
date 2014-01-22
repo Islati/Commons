@@ -1,9 +1,6 @@
 package com.caved_in.commons.friends;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FriendList {
 	private String playerName = "";
@@ -13,7 +10,7 @@ public class FriendList {
 		this.playerName = playerName;
 	}
 
-	public FriendList(String playerName, List<Friend> playerFriends) {
+	public FriendList(String playerName, Collection<Friend> playerFriends) {
 		this.playerName = playerName;
 		for (Friend friend : playerFriends) {
 			this.playerFriends.put(friend.getFriendName(), friend);
@@ -25,27 +22,27 @@ public class FriendList {
 	}
 
 	public boolean isFriendsWith(String name) {
-		return this.playerFriends.containsKey(name) && this.playerFriends.get(name).isAccepted();
+		return playerFriends.containsKey(name) && playerFriends.get(name).isAccepted();
 	}
 
 	public void addFriend(Friend friendToAdd) {
-		this.playerFriends.put(friendToAdd.getFriendName(), friendToAdd);
+		playerFriends.put(friendToAdd.getFriendName(), friendToAdd);
 	}
 
 	public void removeFriend(String name) {
-		this.playerFriends.remove(name);
+		playerFriends.remove(name);
 	}
 
 	public void acceptFriend(String name) {
 		playerFriends.get(name).setAccepted(true);
 	}
 
-	public List<Friend> getFriends() {
-		return new ArrayList<Friend>(playerFriends.values());
+	public Collection<Friend> getFriends() {
+		return playerFriends.values();
 	}
 
-	public List<Friend> getUnacceptedFriends() {
-		List<Friend> unacceptedFriends = new ArrayList<Friend>();
+	public Set<Friend> getUnacceptedFriends() {
+		Set<Friend> unacceptedFriends = new HashSet<Friend>();
 		for (Friend friend : getFriends()) {
 			if (!friend.isAccepted()) {
 				unacceptedFriends.add(friend);

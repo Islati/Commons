@@ -9,8 +9,13 @@ public class Messages {
 	public static final String CHAT_SILENCED = "&7Chat is currently silenced, you are only able to chat if you have the required permissions";
 	public static final String HELP_INCLUDE_PAGE_NUMBER = "&cPlease include a page number for the help menu";
 	public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
-	public static final String PLAYER_HEALED = "&eYou've been healed!";
+	public static final String PLAYER_HEALED = "&aYou've been healed!";
 	public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
+	public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your hand";
+	public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
+	public static final String PLAYER_FED = "&aYou've been fed!";
+	public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
+
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return "&e" + playerName + " &cis offline";
@@ -131,5 +136,21 @@ public class Messages {
 
 	public static String ADDED_XP(String playerName, int amount) {
 		return String.format("&aYou've added &e%s&a tunnels xp to &b%s",amount,playerName);
+	}
+
+	public static String ITEM_ENCHANTED(String enchantmentName) {
+		return String.format("&aYou've added the '&e%s&a' enchantment to your item",enchantmentName);
+	}
+
+	public static String ITEM_ENCHANTED(String enchantmentName, int level) {
+		return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item",level,enchantmentName);
+	}
+
+	public static String ENCHANTMENT_DOESNT_EXIST(String enchantmentName) {
+		return String.format("&e'&c%s&e' isn't a valid enchantment", enchantmentName);
+	}
+
+	public static String PLAYER_FED(String playerName) {
+		return String.format("&e%s&a has been fed",playerName);
 	}
 }

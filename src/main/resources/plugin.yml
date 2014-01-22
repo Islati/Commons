@@ -86,3 +86,7 @@ commands:
       usage: /<command>
    night:
       usage: /<command>
+   enchant:
+      usage: /<command>
+   repair:
+      usage: /<command>
