@@ -164,7 +164,7 @@ public class Messages {
 		return String.format("&eUnable to find recipe for &c%s", ItemHandler.getFormattedMaterialName(itemStack));
 	}
 
-	public static String INVALID_MOB_POINT(String mobType) {
+	public static String INVALID_MOB_TYPE(String mobType) {
 		return String.format("&c%s&e is an invalid mob type",mobType);
 	}
 }

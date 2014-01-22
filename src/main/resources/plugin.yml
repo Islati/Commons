@@ -94,3 +94,8 @@ commands:
       usage: /<command> [item name or id]
    feed:
       usage: /<command> [player]
+   spawnmob:
+      usage: /<command> <Mob> [Amount]
+   workbench:
+      usage: /<command> [Player]
+      aliases: [wb, wbench]

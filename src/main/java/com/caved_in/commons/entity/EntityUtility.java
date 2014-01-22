@@ -15,16 +15,22 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 public class EntityUtility {
 
-	public static LivingEntity spawnLivingEntity(Location Location, EntityType Type) {
-		LivingEntity spawnedEntity = (LivingEntity) Location.getWorld().spawnEntity(Location, Type);
-		return spawnedEntity;
+	public static Set<LivingEntity> spawnLivingEntity(EntityType entityType, Location location, int amount) {
+		Set<LivingEntity> entities = new HashSet<>();
+		//Loop and spawn enties until the amount requested has been spawned
+		for(int i = 0; i < amount; i++) {
+			entities.add(spawnLivingEntity(entityType, location));
+		}
+		return entities;
+	}
+
+	public static LivingEntity spawnLivingEntity(EntityType entityType, Location location) {
+		return (LivingEntity) location.getWorld().spawnEntity(location, entityType);
 	}
 
 	public static ChatColor getHealthBarColor(double enemyHealthPercentage) {

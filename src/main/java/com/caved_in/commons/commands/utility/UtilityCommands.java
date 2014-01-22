@@ -5,6 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.disguises.Disguise;
 import com.caved_in.commons.entity.EntityUtility;
+import com.caved_in.commons.inventory.InventoryHandler;
 import com.caved_in.commons.items.Enchantments;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.items.ItemType;
@@ -516,19 +517,29 @@ public class UtilityCommands {
 		}
 	}
 
+	@CommandHandler(name = "spawnmob", permission = "tunnels.common.spawnmob")
 	public void onSpawnMobCommand(Player player, String[] args) {
 		//Args = {mobtype, amount, ?[stacked]}
 		if (args.length > 0) {
 			String mobArg = args[0];
 			EntityType entityType = EntityUtility.getTypeByName(mobArg);
 			if (entityType != EntityType.UNKNOWN) {
-
+				int spawnAmount = 1;
+				if (args.length > 1 && StringUtils.isNumeric(args[1])) {
+					spawnAmount = Integer.parseInt(args[1]);
+				}
+				EntityUtility.spawnLivingEntity(entityType,PlayerHandler.getTargetLocation(player),spawnAmount);
 			} else {
-
+				PlayerHandler.sendMessage(player, Messages.INVALID_MOB_TYPE(mobArg));
 			}
 		} else {
 			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("mob"));
 		}
+	}
+
+	@CommandHandler(name = "workbench", permission = "tunnels.common.workbench", aliases = {"wb","wbench"})
+	public void onWorkbenchCommand(Player player, String[] args) {
+		InventoryHandler.openWorkbench(player);
 	}
 
 	//TODO make "spawner" command
