@@ -189,6 +189,9 @@ public class Commons extends JavaPlugin {
 
 		registerListener(new PlayerQuitListener());
 		messageConsole("&aRegistered the player Quit listener");
+
+		registerListener(new InventoryListener());
+		messageConsole("&aRegistered the inventory listener");
 	}
 
 	private void registerListener(Listener listener) {

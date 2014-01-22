@@ -15,6 +15,7 @@ public class PlayerWrapper {
 	private boolean inStaffChat = false;
 	private boolean customWalkSpeed = false;
 	private boolean customFlySpeed = false;
+	private boolean viewingRecipe = false;
 
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
@@ -215,5 +216,13 @@ public class PlayerWrapper {
 	public void setFlySpeed(double flySpeed) {
 		this.flySpeed = flySpeed;
 		getPlayer().setFlySpeed((float)flySpeed);
+	}
+
+	public boolean isViewingRecipe() {
+		return viewingRecipe;
+	}
+
+	public void setViewingRecipe(boolean viewingRecipe) {
+		this.viewingRecipe = viewingRecipe;
 	}
 }

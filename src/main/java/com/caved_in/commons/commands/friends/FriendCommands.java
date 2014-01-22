@@ -14,7 +14,7 @@ import com.caved_in.commons.sql.FriendStatus;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Set;
 
 public class FriendCommands {
 	@CommandHandler(name = "friends")
@@ -128,7 +128,7 @@ public class FriendCommands {
 	public void friendsRequestListCommand(Player player, String[] args) {
 		String playerName = player.getName();
 		//Get all unaccepted friends of the player
-		List<Friend> friendList = PlayerHandler.getData(playerName).getFriendsList().getUnacceptedFriends();
+		Set<Friend> friendList = PlayerHandler.getData(playerName).getFriendsList().getUnacceptedFriends();
 		int page = 1;
 		//Check if the player has friends
 		if (friendList.size() > 0) {
@@ -207,7 +207,7 @@ public class FriendCommands {
 	@SubCommandHandler(name = "list", parent = "friends")
 	public void friendsListCommand(Player player, String[] args) {
 		String playerName = player.getName();
-		List<Friend> playerFriends = PlayerHandler.getData(playerName).getFriendsList().getFriends();
+		Set<Friend> playerFriends = PlayerHandler.getData(playerName).getFriendsList().getFriends();
 		HelpScreen friendsList = HelpMenus.getFriendsListScreen(playerFriends);
 		int page = 1;
 		if (args.length >= 2) {

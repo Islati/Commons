@@ -1,5 +1,7 @@
 package com.caved_in.commons.friends;
 
+import com.google.common.collect.Sets;
+
 import java.util.*;
 
 public class FriendList {
@@ -37,8 +39,8 @@ public class FriendList {
 		playerFriends.get(name).setAccepted(true);
 	}
 
-	public Collection<Friend> getFriends() {
-		return playerFriends.values();
+	public Set<Friend> getFriends() {
+		return Sets.newHashSet(playerFriends.values());
 	}
 
 	public Set<Friend> getUnacceptedFriends() {

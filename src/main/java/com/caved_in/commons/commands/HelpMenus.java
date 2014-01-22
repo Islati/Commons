@@ -5,8 +5,8 @@ import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.ChatColor;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HelpMenus {
 
@@ -72,7 +72,7 @@ public class HelpMenus {
 		return nicknameHelpsScreen;
 	}
 
-	public static HelpScreen getFriendsListScreen(List<Friend> friendsList) {
+	public static HelpScreen getFriendsListScreen(Set<Friend> friendsList) {
 		HelpScreen requestScreen = generateHelpScreen("Your friends list", PageDisplay.DEFAULT, ItemFormat.IS, ChatColor.WHITE, ChatColor.WHITE);
 		for (Friend friend : friendsList) {
 			boolean isOnline = PlayerHandler.isOnline(friend.getFriendName());
@@ -82,7 +82,7 @@ public class HelpMenus {
 		return requestScreen;
 	}
 
-	public static HelpScreen getFriendRequestsHelpScreen(List<Friend> friendsList) {
+	public static HelpScreen getFriendRequestsHelpScreen(Set<Friend> friendsList) {
 		HelpScreen requestScreen = generateHelpScreen("Friend Requests", PageDisplay.DEFAULT, ItemFormat.FRIEND_REQUEST, ChatColor.GREEN, ChatColor.DARK_GREEN);
 		for (Friend friend : friendsList) {
 			requestScreen.setEntry(friend.getFriendName(), "");

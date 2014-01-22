@@ -1,7 +1,10 @@
 package com.caved_in.commons.items;
 
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.BlockHandler;
 import com.caved_in.commons.inventory.InventoryHandler;
+import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.PlayerWrapper;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -352,6 +355,10 @@ public class ItemHandler {
 		return skull;
 	}
 
+	public static String getFormattedMaterialName(ItemStack itemStack) {
+		return getFormattedMaterialName(itemStack.getType());
+	}
+
 	public static String getFormattedMaterialName(Material Material) {
 		return WordUtils.capitalize(Material.name().toLowerCase().replaceAll("_", " "));
 	}
@@ -396,7 +403,23 @@ public class ItemHandler {
 	}
 
 	public static void showFurnaceRecipe(Player player, FurnaceRecipe furnaceRecipe) {
-		//do something
+		PlayerHandler.sendMessage(player, Messages.FURNACE_RECIPE(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
+	}
+
+	public static void showShapelessRecipe(Player player, ShapelessRecipe shapelessRecipe) {
+		//Get the ingredients required for this recipe
+		List<ItemStack> recipeIngredients = shapelessRecipe.getIngredientList();
+		//Create a map for the recipes items
+		Map<Integer, ItemStack> recipeItems = new HashMap<>();
+		//Put each item in their respective spot
+		for (int i = 0; i < recipeIngredients.size(); i++) {
+			recipeItems.put(i + 1, recipeIngredients.get(i));
+		}
+
+		//Open the workbench inventory
+		InventoryView inventoryView = InventoryHandler.openWorkbench(player);
+		//Set the items in our inventory
+		InventoryHandler.setViewItems(inventoryView, recipeItems);
 	}
 
 	public static void showShapedRecipe(Player player, ShapedRecipe shapedRecipe) {
@@ -408,7 +431,7 @@ public class ItemHandler {
 		Map<Integer, ItemStack> itemRecipe = new HashMap<>();
 		player.closeInventory();
 		//Loop through all the items of the shapes (row 1, 2, and 3)
-		for(int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
+		for (int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
 			String recipeRow = recipeShape[shapeIterator];
 			char[] rowCharacters = recipeRow.toCharArray();
 			//Loop through all the characters in the rowCharachers array and add the
@@ -429,16 +452,35 @@ public class ItemHandler {
 	public static boolean showRecipe(Player player, ItemStack itemStack, int recipeNumber) {
 		List<Recipe> recipesForItem = getRecipes(itemStack);
 		if (recipeNumber >= 0 || recipeNumber < recipesForItem.size()) {
+			//Get the recipe requested for the item requested
 			Recipe recipe = recipesForItem.get(recipeNumber);
+			//Get the wrapped player data
+			PlayerWrapper playerWrapper = PlayerHandler.getData(player);
 			if (recipe instanceof FurnaceRecipe) {
-				//Show items required
+				//Show the furnace recipe to the player
+				showFurnaceRecipe(player, (FurnaceRecipe) recipe);
 			} else if (recipe instanceof ShapedRecipe) {
-				//Show shaped recipe
+				//Show the shaped recipe to the player
+				showShapedRecipe(player, (ShapedRecipe) recipe);
 			} else if (recipe instanceof ShapelessRecipe) {
-
+				//Show the shapeless recipe to the player
+				showShapelessRecipe(player, (ShapelessRecipe) recipe);
 			}
+			//Set their wrapper object as viewing a recipe
+			playerWrapper.setViewingRecipe(true);
+			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Show the first recipe used to craft the passed itemstack to the player
+	 * @param player player to show the recipe to
+	 * @param itemStack item we're getting the recipe for
+	 * @return true if they were shown the recipe, false otherwise
+	 */
+	public static boolean showRecipe(Player player, ItemStack itemStack) {
+		return showRecipe(player, itemStack, 0);
 	}
 
 }

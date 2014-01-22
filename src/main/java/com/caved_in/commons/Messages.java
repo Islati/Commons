@@ -1,7 +1,9 @@
 package com.caved_in.commons;
 
+import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class Messages {
 	public static final String INVENTORY_CLEARED = "&aYour inventory has been cleared";
@@ -152,5 +154,9 @@ public class Messages {
 
 	public static String PLAYER_FED(String playerName) {
 		return String.format("&e%s&a has been fed",playerName);
+	}
+
+	public static String FURNACE_RECIPE(ItemStack smeltResult, ItemStack itemRequired) {
+		return String.format("&e%s&a is produced by smelting &e%s", ItemHandler.getFormattedMaterialName(smeltResult), ItemHandler.getFormattedMaterialName(itemRequired));
 	}
 }
