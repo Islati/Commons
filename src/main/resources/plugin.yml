@@ -90,3 +90,7 @@ commands:
       usage: /<command>
    repair:
       usage: /<command>
+   recipe:
+      usage: /<command> [item name or id]
+   feed:
+      usage: /<command> [player]

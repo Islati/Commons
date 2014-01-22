@@ -76,8 +76,12 @@ public class LocationHandler {
 		return new int[]{x, y, z};
 	}
 
-	public static Location getLocation(String worlName, double x, double y, double z) {
-		return new Location(WorldHandler.getWorld(worlName), x, y, z);
+	public static Location getLocation(World world, double x, double y, double z) {
+		return new Location(world, x, y, z);
+	}
+
+	public static Location getLocation(String worldName, double x, double y, double z) {
+		return getLocation(WorldHandler.getWorld(worldName), x, y, z);
 	}
 
 	public static Location getLocation(String worldName, double[] xyz) {
@@ -86,5 +90,9 @@ public class LocationHandler {
 
 	public static Location getLocation(World world, double[] xyz) {
 		return new Location(world, xyz[0], xyz[1], xyz[2]);
+	}
+
+	public static Location getNormalizedLocation(Location location) {
+		return getLocation(location.getWorld(),location.getBlockX(), location.getBlockY() + 0.5, location.getBlockZ());
 	}
 }

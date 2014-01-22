@@ -20,6 +20,7 @@ import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
@@ -339,7 +340,7 @@ public class UtilityCommands {
 		}
 	}
 
-	@CommandHandler(name = "time", permission = "tunnels.commons.time")
+	@CommandHandler(name = "time", permission = "tunnels.common.time")
 	public void onTimeCommand(CommandSender sender, String[] args) {
 		if (args.length > 0) {
 			String timeAction = args[0];
@@ -385,7 +386,7 @@ public class UtilityCommands {
 		}
 	}
 
-	@CommandHandler(name = "day", permission = "tunnels.commons.time")
+	@CommandHandler(name = "day", permission = "tunnels.common.time")
 	public void onDayCommand(Player player, String[] args) {
 		World world = player.getWorld();
 		WorldHandler.setTimeDay(world);
@@ -462,16 +463,79 @@ public class UtilityCommands {
 		}
 	}
 
+	@CommandHandler(name="repair", permission = "tunnels.common.repair")
 	public void onItemRepairCommand(Player player, String[] args) {
-		//Todo find how to make a /repair command
+		//If the command issuer wanted to repair all their items
+		if (args.length > 0 && args[0].equalsIgnoreCase("all")) {
+			PlayerHandler.repairItems(player, true);
+			PlayerHandler.sendMessage(player, Messages.ITEMS_REPAIRED);
+		} else {
+			if (PlayerHandler.hasItemInHand(player)) {
+				ItemHandler.repairItem(player.getItemInHand());
+				PlayerHandler.sendMessage(player, Messages.ITEMS_REPAIRED);
+			} else {
+				PlayerHandler.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+			}
+		}
 	}
 
-	public void onPowerMineCommand(Player player, String[] args) {
-		//Toggling power-mine
-		//power mine = hold right click and destroy block thats are right clicked
+	@CommandHandler(name = "recipe", permission = "tunnels.common.recipe")
+	public void onItemRecipeCommand(Player player, String[] args) {
+		if (args.length > 0) {
+			String itemArg = args[0];
+			int itemId = 0;
+			//If they entered an item id parse it
+			if (StringUtils.isNumeric(itemArg)) {
+				itemId = Integer.parseInt(itemArg);
+			} else {
+				ItemType itemType = ItemType.lookup(itemArg);
+				if (itemType != null) {
+					//Set our itemid to the look-up id
+					itemId = itemType.getID();
+				} else {
+					PlayerHandler.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemArg));
+					return;
+				}
+			}
+			//Get an itemstack for the item in our recipe
+			ItemStack itemStack = ItemHandler.makeItemStack(ItemHandler.getMaterialById(itemId));
+			//If the recipe failed to show, then send a message saying recipe not found
+			if (!ItemHandler.showRecipe(player, itemStack)) {
+				PlayerHandler.sendMessage(player, Messages.RECIPE_NOT_FOUND(itemStack));
+			}
+		} else {
+			if (PlayerHandler.hasItemInHand(player)) {
+				ItemStack playerHandItem = player.getItemInHand();
+				//If the recipe failed to show, then send a message saying recipe not found
+				if (!ItemHandler.showRecipe(player, playerHandItem)) {
+					PlayerHandler.sendMessage(player,Messages.RECIPE_NOT_FOUND(playerHandItem));
+				}
+			} else {
+				PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item in hand / item name"));
+			}
+		}
 	}
 
-	//Make features to detroy/modify a cube of blocks, spehere, how long (depth & width)
+	public void onSpawnMobCommand(Player player, String[] args) {
+		//Args = {mobtype, amount, ?[stacked]}
+		if (args.length > 0) {
+			String mobArg = args[0];
+			EntityType entityType = EntityUtility.getTypeByName(mobArg);
+			if (entityType != EntityType.UNKNOWN) {
+
+			} else {
+
+			}
+		} else {
+			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("mob"));
+		}
+	}
+
+	//TODO make "spawner" command
+
+	//TODO make "spawnmob" command
+
+	//TODO Make features to detroy/modify a cube of blocks, spehere, how long (depth & width)
 	//kinda like world edit but not really
 
 }

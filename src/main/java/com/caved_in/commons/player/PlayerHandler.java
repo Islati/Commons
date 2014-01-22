@@ -3,6 +3,7 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Formatting.ColorCode;
 import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
 import com.caved_in.commons.potions.PotionType;
@@ -16,12 +17,14 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerHandler {
+	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
 	private static Map<String, PlayerWrapper> playerData = new HashMap<String, PlayerWrapper>();
 
 	public static final int DEPTH_EQUILZE_NUMBER = 63;
@@ -400,5 +403,25 @@ public class PlayerHandler {
 
 	public static void feedPlayer(Player player) {
 		feedPlayer(player, 20);
+	}
+
+	public static void repairItems(Player player) {
+		repairItems(player, false);
+	}
+
+	public static void repairItems(Player player, boolean repairArmor) {
+		PlayerInventory inventory = player.getInventory();
+		ItemHandler.repairItems(inventory.getContents());
+		if (repairArmor) {
+			ItemHandler.repairItems(inventory.getArmorContents());
+		}
+	}
+
+	public static boolean hasItemInHand(Player player) {
+		return player.getItemInHand() != null;
+	}
+
+	public static Location getTargetLocation(Player player) {
+		return LocationHandler.getNormalizedLocation(player.getTargetBlock(null,MAX_BLOCK_TARGET_DISTANCE).getLocation());
 	}
 }

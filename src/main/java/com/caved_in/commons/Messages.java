@@ -17,7 +17,7 @@ public class Messages {
 	public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
 	public static final String PLAYER_FED = "&aYou've been fed!";
 	public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
-
+	public static final String ITEMS_REPAIRED = "&aYour item(s) has been repaired";
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return "&e" + playerName + " &cis offline";
@@ -158,5 +158,13 @@ public class Messages {
 
 	public static String FURNACE_RECIPE(ItemStack smeltResult, ItemStack itemRequired) {
 		return String.format("&e%s&a is produced by smelting &e%s", ItemHandler.getFormattedMaterialName(smeltResult), ItemHandler.getFormattedMaterialName(itemRequired));
+	}
+
+	public static String RECIPE_NOT_FOUND(ItemStack itemStack) {
+		return String.format("&eUnable to find recipe for &c%s", ItemHandler.getFormattedMaterialName(itemStack));
+	}
+
+	public static String INVALID_MOB_POINT(String mobType) {
+		return String.format("&c%s&e is an invalid mob type",mobType);
 	}
 }
