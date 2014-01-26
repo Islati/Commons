@@ -463,30 +463,35 @@ public class ItemHandler {
 	}
 
 	public static boolean showRecipe(Player player, ItemStack itemStack, int recipeNumber) {
-		List<Recipe> recipesForItem = getRecipes(itemStack);
-		if (recipeNumber >= 0 || recipeNumber < recipesForItem.size()) {
-			//Get the recipe requested for the item requested
-			Recipe recipe = recipesForItem.get(recipeNumber);
-			//Get the wrapped player data
-			if (recipe instanceof FurnaceRecipe) {
-				//Show the furnace recipe to the player
-				showFurnaceRecipe(player, (FurnaceRecipe) recipe);
-			} else if (recipe instanceof ShapedRecipe) {
-				//Show the shaped recipe to the player
-				showShapedRecipe(player, (ShapedRecipe) recipe);
-			} else if (recipe instanceof ShapelessRecipe) {
-				//Show the shapeless recipe to the player
-				showShapelessRecipe(player, (ShapelessRecipe) recipe);
+		//Check if the items type
+		if (itemStack != null && itemStack.getType() != Material.AIR) {
+			List<Recipe> recipesForItem = getRecipes(itemStack);
+			int recipeAmount = recipesForItem.size();
+			if (recipeAmount > 0 && (recipeNumber >= 0 || recipeNumber < recipeAmount)) {
+				//Get the recipe requested for the item requested
+				Recipe recipe = recipesForItem.get(recipeNumber);
+				//Get the wrapped player data
+				if (recipe instanceof FurnaceRecipe) {
+					//Show the furnace recipe to the player
+					showFurnaceRecipe(player, (FurnaceRecipe) recipe);
+				} else if (recipe instanceof ShapedRecipe) {
+					//Show the shaped recipe to the player
+					showShapedRecipe(player, (ShapedRecipe) recipe);
+				} else if (recipe instanceof ShapelessRecipe) {
+					//Show the shapeless recipe to the player
+					showShapelessRecipe(player, (ShapelessRecipe) recipe);
+				}
+				//Set their wrapper object as viewing a recipe
+				return true;
 			}
-			//Set their wrapper object as viewing a recipe
-			return true;
 		}
 		return false;
 	}
 
 	/**
 	 * Show the first recipe used to craft the passed itemstack to the player
-	 * @param player player to show the recipe to
+	 *
+	 * @param player    player to show the recipe to
 	 * @param itemStack item we're getting the recipe for
 	 * @return true if they were shown the recipe, false otherwise
 	 */
@@ -495,31 +500,46 @@ public class ItemHandler {
 	}
 
 	/**
+	 * Sets an items durability to either full-red or full-orange based on arguments
+	 * @param itemStack item stack to change the durability bar on
+	 * @param isRed whether or not we want the bar to be red; if false, the bar will be orange
+	 */
+	public static void colouredDurability(ItemStack itemStack, boolean isRed) {
+		itemStack.setDurability((short) (isRed ? 1000 : itemStack.getType().getMaxDurability() * 2));
+	}
+
+	/**
 	 * Repair an items durability
+	 *
 	 * @param itemStack item to repair
 	 * @return true if the item was repaired; false if the item is a block, or unable to be repaired
 	 */
 	public static boolean repairItem(ItemStack itemStack) {
 		Material material = itemStack.getType();
-		//If the item isn't a block, and is repairable repair it
-		if (!material.isBlock() && material.getMaxDurability() >= 1) {
-			itemStack.setDurability((short)0);
+		if (itemStack != null && itemStack.getDurability() != 0 && !material.isBlock()) {
+			itemStack.setDurability((short) 0);
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	/**
 	 * Repair multiple item stacks
+	 *
 	 * @param itemStacks items to be repaired
 	 * @return integer of how many items were repaired
 	 */
 	public static int repairItems(ItemStack... itemStacks) {
 		int repairedItems = 0;
-		for(int i = 0; i < itemStacks.length; i++) {
+		for (int i = 0; i < itemStacks.length; i++) {
+			ItemStack itemStack = itemStacks[i];
+			if (itemStack == null) {
+				continue;
+			}
 			//If the item was repaired successfully, increment the repaired items count
 			//Otherwise don't add anything
-			repairedItems += repairItem(itemStacks[i]) ? 1 : 0;
+			repairedItems += repairItem(itemStack) ? 1 : 0;
 		}
 		return repairedItems;
 	}

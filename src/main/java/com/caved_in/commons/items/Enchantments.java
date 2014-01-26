@@ -64,6 +64,10 @@ public enum Enchantments {
 		return enchantmentNames;
 	}
 
+	public String getMainAlias() {
+		return getAliases()[0];
+	}
+
 	public static Enchantment getEnchantment(String name) {
 		return enchantments.get(name.toLowerCase());
 	}

@@ -93,6 +93,6 @@ public class LocationHandler {
 	}
 
 	public static Location getNormalizedLocation(Location location) {
-		return getLocation(location.getWorld(),location.getBlockX(), location.getBlockY() + 0.5, location.getBlockZ());
+		return getLocation(location.getWorld(),location.getX(), location.getY() + 1, location.getZ());
 	}
 }

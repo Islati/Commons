@@ -12,6 +12,7 @@ import com.caved_in.commons.world.WorldHeight;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -418,7 +419,7 @@ public class PlayerHandler {
 	}
 
 	public static boolean hasItemInHand(Player player) {
-		return player.getItemInHand() != null;
+		return player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR;
 	}
 
 	public static Location getTargetLocation(Player player) {
