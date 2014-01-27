@@ -108,50 +108,93 @@ public class WorldConfiguration {
 		return this.disableThunder;
 	}
 
+	/**
+	 *
+	 * @return true if ice spread is disabled, false otherwise
+	 */
 	public boolean isIceSpreadDisabled() {
 		return this.disableIceAccumulation;
 	}
 
+	/**
+	 *
+	 * @return true if snow spread is disabled, false otherwise
+	 */
 	public boolean isSnowSpreadDisabled() {
 		return this.disableSnowAccumulation;
 	}
 
+	/**
+	 *
+	 * @return true if mycelium spread is disabled, false otherwise
+	 */
 	public boolean isMyceliumSpreadDisabled() {
 		return this.disableMyceliumSpread;
 	}
 
+	/**
+	 * Whether or not this server has "launch-pad" pressure plates
+	 *
+	 * @return true if pressure plates are launch-pads, false otherwise
+	 */
 	public boolean hasLaunchpadPressurePlates() {
 		return this.launchpadPressurePlates;
 	}
 
+	/**
+	 * Check whether or not the menu for server-selection via compass is enabled
+	 *
+	 * @return true if the compass menu is enabled, false otherwise
+	 */
 	public boolean isCompassMenuEnabled() {
 		return this.enableCompassMenu;
 	}
 
+	/**
+	 * @return true if join / leave messages are enabled, false otherwise
+	 */
 	public boolean isJoinLeaveMessagesEnabled() {
 		return this.enableJoinLeaveMessages;
 	}
 
+	/**
+	 * @return true if there's an external plugin for chat handling, false if commons is handling
+	 */
 	public boolean hasExternalChatHandler() {
 		return this.externalChatHandler;
 	}
 
+	/**
+	 * @return true if players can break blocks, false otherwise
+	 */
 	public boolean isBlockBreakEnabled() {
 		return this.enableBlockBreak;
 	}
 
+	/**
+	 * @return true if players can drop items, false otherwise
+	 */
 	public boolean isItemDropEnabled() {
 		return enableItemDrop;
 	}
 
+	/**
+	 * @return true if players can pick up items, false otherwise
+	 */
 	public boolean isItemPickupEnabled() {
 		return enableItemPickup;
 	}
 
+	/**
+	 * @return true if food-change is enabled, false otherwise
+	 */
 	public boolean isFoodChangeEnabled() {
 		return enableFoodChange;
 	}
 
+	/**
+	 * @return true if firespread is disabled, false otherwise
+	 */
 	public boolean isFireSpreadDisabled() {
 		return disableFireSpread;
 	}

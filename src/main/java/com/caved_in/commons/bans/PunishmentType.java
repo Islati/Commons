@@ -4,6 +4,10 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Brandon Curtis
+ * @since 1.0
+ */
 public enum PunishmentType {
 	BAN("ban"),
 	MUTE("mute"),

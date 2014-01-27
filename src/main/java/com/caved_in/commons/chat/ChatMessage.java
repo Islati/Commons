@@ -1,8 +1,8 @@
 package com.caved_in.commons.chat;
 
 public class ChatMessage {
-	private String playerReceivingMessage = "";
-	private String playerSendingMessage = "";
+	private String playerReceivingMessage;
+	private String playerSendingMessage;
 
 	public ChatMessage(String playerSendingMessage, String playerReceivingMessage) {
 		this.playerReceivingMessage = playerReceivingMessage;

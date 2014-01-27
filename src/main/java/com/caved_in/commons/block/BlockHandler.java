@@ -14,10 +14,20 @@ import org.bukkit.entity.TNTPrimed;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Brandon Curtis
+ * @version 1.0
+ * @since 1.0
+ */
 public class BlockHandler {
+
+	/**
+	 * Set of the item-ids which materials are hollow
+	 */
 	public static final Set<Integer> HOLLOW_MATERIALS = new HashSet<>();
 	public static final Set<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
 
+	/* Initialize the materials which are hollow */
 	static {
 		HOLLOW_MATERIALS.add(Material.AIR.getId());
 		HOLLOW_MATERIALS.add(Material.SAPLING.getId());
@@ -70,6 +80,18 @@ public class BlockHandler {
 		TRANSPARENT_MATERIALS.add((byte) Material.STATIONARY_WATER.getId());
 	}
 
+	/**
+	 * Gets the corresponding material for blocks and materials.
+	 * <p>
+	 * For example: {@link org.bukkit.Material#WOODEN_DOOR} is the block-correspondant
+	 * for {@link org.bukkit.Material#WOOD_DOOR}.
+	 * <p/>
+	 * Passing a block to this method will result in the corresponding item-stack material for the block.
+	 * </p>
+	 *
+	 * @param block block to get the material of
+	 * @return the corresponding item-stack material for the block.
+	 */
 	public static Material getBlockMaterial(Block block) {
 		Material itemMaterial = block.getType();
 		switch (itemMaterial) {
@@ -119,36 +141,55 @@ public class BlockHandler {
 		return itemMaterial;
 	}
 
+	/**
+	 * Gets the material id for the block passed
+	 *
+	 * @param block block to get the id for
+	 * @return id of the block
+	 * @see #getBlockId(org.bukkit.block.Block, boolean)
+	 */
 	public static int getBlockId(Block block) {
 		return getBlockId(block, true);
 	}
 
+	/**
+	 * Gets either the block id, or material id based on the parameters.s
+	 *
+	 * @param block   block to get the id for
+	 * @param itemsId whether or not to retrieve the item-stack id, or the actual block material id
+	 * @return integer for the item id requested (either block or material)
+	 */
 	public static int getBlockId(Block block, boolean itemsId) {
 		return itemsId ? getBlockMaterial(block).getId() : block.getType().getId();
 	}
 
 	/**
 	 * Check whether or not a block is hollow
+	 *
 	 * @param block block to check
 	 * @return true if the block is hollow (meaning it can't be stood on / walked over without falling through), false otherwise
 	 */
 	public static boolean isHollowBlock(Block block) {
-		return HOLLOW_MATERIALS.contains(getBlockId(block,false));
+		return HOLLOW_MATERIALS.contains(getBlockId(block, false));
 	}
 
 	/**
 	 * Check whether or not a block is transparent
+	 *
 	 * @param block block to check
 	 * @return true if the block is hollow (meaning it can't be stood on / walked over without falling through), false otherwise
 	 */
 	public static boolean isTransparentBlock(Block block) {
-		return TRANSPARENT_MATERIALS.contains((byte)getBlockId(block,false));
+		return TRANSPARENT_MATERIALS.contains((byte) getBlockId(block, false));
 	}
 
 	/**
 	 * Determine whether or not the block above the block passed is air
+	 *
 	 * @param block block to check
 	 * @return true if the block above the block passed is air, false otherwise
+	 * @see #isHollowBlock(org.bukkit.block.Block)
+	 * @see #isBlockAboveAir(org.bukkit.block.Block)
 	 */
 	public static boolean isBlockAboveAir(Block block) {
 		return isHollowBlock(getBlockAbove(block));
@@ -157,8 +198,10 @@ public class BlockHandler {
 	/**
 	 * Determine whether or not the block passed is a damaging block, or would be damaging
 	 * if a player were to be at that location
+	 *
 	 * @param block block to check
 	 * @return true if the block could damage players / entities, false otherwise
+	 * @see #getBlockBelow(org.bukkit.block.Block)
 	 */
 	public static boolean isBlockDamaging(Block block) {
 		Block blockBelow = getBlockBelow(block);
@@ -174,7 +217,7 @@ public class BlockHandler {
 	}
 
 	/**
-	 * Return the block at a specific location
+	 * Returns the block at a specific location
 	 *
 	 * @param blockLocation location of the block
 	 * @return Block that was at the given location, or null if none was there
@@ -184,23 +227,25 @@ public class BlockHandler {
 	}
 
 	/**
-	 * Break a block at specific location
+	 * Breaks the block at specific location without showing the block-break effect
 	 *
 	 * @param blockLocation location to break the block
 	 * @param natural       whether or not to break naturally
 	 * @return true if the block was broken, false if it doesn't exist or wasn't broken
+	 * @see #breakBlock(org.bukkit.block.Block, boolean, boolean)
 	 */
 	public static boolean breakBlockAt(Location blockLocation, boolean natural) {
 		return breakBlockAt(blockLocation, natural, false);
 	}
 
 	/**
-	 * Break a block at a specific location
+	 * Breaks the block at a specific location
 	 *
 	 * @param blockLocation location to break the block
 	 * @param natural       whether or not to break naturally
 	 * @param playeffect    whether or not to play the block-break effect
 	 * @return true if the block was broken, false if it wasn't broken, or no block is at the location
+	 * @see #breakBlock(org.bukkit.block.Block, boolean)
 	 */
 	public static boolean breakBlockAt(Location blockLocation, boolean natural, boolean playeffect) {
 		Block block = getBlockAt(blockLocation);
@@ -211,11 +256,12 @@ public class BlockHandler {
 	}
 
 	/**
-	 * Break a block either naturally, or un-naturally
+	 * Breaks the block either naturally, or un-naturally
 	 *
 	 * @param block   block to "break" / remove
 	 * @param natural whether or not to break naturally
 	 * @return true if the block has been broken, false otherwise (Normally followed by a bukkit exception)
+	 * @see #breakBlock(org.bukkit.block.Block, boolean, boolean)
 	 */
 	public static boolean breakBlock(Block block, boolean natural) {
 		//If it's supposed to be natural, return the bukkit call for breakNaturally, otherwise return our methods return
@@ -223,7 +269,7 @@ public class BlockHandler {
 	}
 
 	/**
-	 * Breaks a block
+	 * Breaks the block
 	 *
 	 * @param block      block to break
 	 * @param natural    whether or not to break naturally
@@ -246,7 +292,7 @@ public class BlockHandler {
 	}
 
 	/**
-	 * Change a block to the data inside the blockdata
+	 * Changes the block to the data inside the blockdata instance
 	 *
 	 * @param block     block to change
 	 * @param blockData blockdata used to update the block
@@ -278,6 +324,7 @@ public class BlockHandler {
 	 * Set blockdata for a specific block
 	 *
 	 * @param blockData blockdata to update at
+	 * @see com.caved_in.commons.block.BlockData
 	 */
 	public static void setBlock(BlockData blockData) {
 		setBlock(blockData.getLocation(), blockData);
@@ -288,6 +335,8 @@ public class BlockHandler {
 	 *
 	 * @param location  location of the block
 	 * @param blockData blockdata used to update the block
+	 * @see com.caved_in.commons.block.BlockData
+	 * @see #setBlock(org.bukkit.block.Block, BlockData)
 	 */
 	public static void setBlock(Location location, BlockData blockData) {
 		setBlock(location.getWorld().getBlockAt(location), blockData);
@@ -361,6 +410,7 @@ public class BlockHandler {
 
 	/**
 	 * Spawn primed tnt at a specific location
+	 *
 	 * @param location location to spawn tnt
 	 */
 	public static void spawnTNT(Location location) {
@@ -369,8 +419,9 @@ public class BlockHandler {
 
 	/**
 	 * Spawn a specific amount of primed tnt at a specific location
+	 *
 	 * @param location location to spawn tnt
-	 * @param amount amount of tnt to spawn
+	 * @param amount   amount of tnt to spawn
 	 */
 	public static void spawnTNT(Location location, int amount) {
 		for (int i = 0; i < amount; i++) {
@@ -380,22 +431,24 @@ public class BlockHandler {
 
 	/**
 	 * Gets the block above the block passed
+	 *
 	 * @param block block to get the block above
 	 * @return block that was above the previous block (may be null if block didn't exist)
 	 */
 	public static Block getBlockAbove(Block block) {
 		int[] xyz = LocationHandler.getXYZ(block.getLocation());
-		return block.getWorld().getBlockAt(xyz[0],xyz[1] - 1, xyz[2]);
+		return block.getWorld().getBlockAt(xyz[0], xyz[1] - 1, xyz[2]);
 	}
 
 	/**
 	 * Get a block below the block passed
+	 *
 	 * @param block block to get the block below
 	 * @return block that was below the previous block (may be null if block did not exist)
 	 */
 	public static Block getBlockBelow(Block block) {
 		int[] xyz = LocationHandler.getXYZ(block.getLocation());
-		return block.getWorld().getBlockAt(xyz[0],xyz[1] + 1, xyz[2]);
+		return block.getWorld().getBlockAt(xyz[0], xyz[1] + 1, xyz[2]);
 	}
 
 }
