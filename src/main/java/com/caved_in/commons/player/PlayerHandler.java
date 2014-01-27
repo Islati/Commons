@@ -2,7 +2,6 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Formatting.ColorCode;
-import com.caved_in.commons.config.TunnelsPermissions;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
@@ -213,16 +212,26 @@ public class PlayerHandler {
 		player.teleport(target, PlayerTeleportEvent.TeleportCause.PLUGIN);
 	}
 
+	/**
+	 * Teleport the player to a location
+	 * @param player player to teleport
+	 * @param location location to teleport the player to
+	 */
 	public static void teleport(Player player, Location location) {
 		player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
 	}
 
+	/**
+	 * Teleport the player to xyz co-ordinates in their current world.
+	 * @param player player to teleport
+	 * @param xyz co-ordinates to teleport the player to
+	 */
 	public static void teleport(Player player, double[] xyz) {
 		player.teleport(LocationHandler.getLocation(player.getWorld(), xyz));
 	}
 
 	/**
-	 * Forces a player to chat the given message
+	 * Forces the player to chat the given message
 	 *
 	 * @param player  player who we want to say this
 	 * @param message what they'll be saying
@@ -232,7 +241,7 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Force all players on the server to chat the given message
+	 * Force all players on the server to chat the message given
 	 *
 	 * @param message message for the players to say
 	 */
@@ -242,10 +251,26 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Gets the readable IP address for the player
+	 * @param player player to get the ip address of
+	 * @return the players ip address in plain decimal-formatted text, for example: {@code 127.0.0.1}
+	 * @since 1.0
+	 */
 	public static String getIPAddress(Player player) {
 		return player.getAddress().getHostName();
 	}
 
+	/**
+	 * Gets the players chat name-tag color based on their permissions on the server.
+	 * <p>
+	 *     Defaults to {@link org.bukkit.ChatColor#AQUA} if the player is operator
+	 *     or no permissions have been assigned
+	 * </p>
+	 * @param player player to get the nametag color of
+	 * @return The players nametag color based on the permission. Defaults to {@link org.bukkit.ChatColor#AQUA}
+	 * @since 1.0
+	 */
 	public static ChatColor getNameTagColor(Player player) {
 		if (!player.isOp()) {
 			for (ColorCode colorCode : ColorCode.values()) {
@@ -257,40 +282,53 @@ public class PlayerHandler {
 		return ChatColor.AQUA;
 	}
 
+	/**
+	 * Check whether or not the player can speak in the chat when it's silenced.
+	 * @param player player to check permissions for
+	 * @return true if they can chat while its silenced (has premium), false otherwise
+	 */
 	public static boolean canChatWhileSilenced(Player player) {
 		return (isPremium(player.getName()));
 	}
 
-
-	public static boolean isInStaffChat(String Player) {
-		return (playerData.get(Player).isInStaffChat());
-	}
-
-	public static void setPlayerInStaffChat(String Player, boolean InChat) {
-		playerData.get(Player).setInStaffChat(InChat);
-	}
-
-	public static void sendToAllStaff(String Player, String Message) {
-		sendMessageToAllPlayersWithPermission(ChatColor.RED + "[Staff Chat] " + Player + ChatColor.RESET + ": " + Message, TunnelsPermissions.STAFF_PERMISSION);
-	}
-
+	/**
+	 * Check whether or not the player is premium
+	 * @param playerName name of the player to check the premium status of
+	 * @return true if a player with the requested name has premium, false if they have no data, or are not premium
+	 */
 	public static boolean isPremium(String playerName) {
-		return playerData.get(playerName).isPremium();
+		if (playerData.containsKey(playerName)) {
+			return playerData.get(playerName).isPremium();
+		}
+		return false;
 	}
 
+	/**
+	 * Check whether or not the player is premium.
+	 * @param player player to check the premium status of
+	 * @return true if they have premium status, false otherwise
+	 * @see #isPremium(String)
+	 */
 	public static boolean isPremium(Player player) {
 		return isPremium(player.getName());
 	}
 
+	/**
+	 * Clear the players entire inventory, armor slots included.
+	 * @param player player to clear inventory of
+	 * @see #clearInventory(org.bukkit.entity.Player, boolean)
+	 * @since 1.0
+	 */
 	public static void clearInventory(Player player) {
 		clearInventory(player, true);
 	}
 
 	/**
-	 * Clear a players inventory
+	 * Clear the players entire inventory, and optionally their armor slots.
 	 *
 	 * @param player     player to clear inventory of
 	 * @param clearArmor whether or not to clear the players armor slots
+	 * @since 1.0
 	 */
 	public static void clearInventory(Player player, boolean clearArmor) {
 		player.getInventory().clear();
@@ -299,24 +337,43 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Places an item into the players inventory but does NOT call an update to their inventory
+	 * @param player player to give an item to
+	 * @param itemStack itemstack to give to the player
+	 * @since 1.0
+	 */
 	public static void giveItem(Player player, ItemStack itemStack) {
 		player.getInventory().addItem(itemStack);
 	}
 
 	/**
-	 * Set the armor on a player
+	 * Places items into the players inventory without calling an update method
+	 * @param player player to give the items to
+	 * @param items items to give the player
+	 * @since 1.0
+	 */
+	public static void giveItem(Player player, ItemStack... items) {
+		for(ItemStack itemStack : items) {
+			giveItem(player, itemStack);
+		}
+	}
+
+	/**
+	 * Sets the players armor to the armor itemstacks
 	 *
 	 * @param player player to set armor on
-	 * @param armor  itemstack array of the armor we're equiping the player with
+	 * @param armor  itemstack array of the armor we're equipping the player with
+	 * @since 1.0
 	 */
 	public static void setPlayerArmor(Player player, ItemStack[] armor) {
 		player.getInventory().setArmorContents(armor);
 	}
 
 	/**
-	 * Remove all potion effects from a player
+	 * Removes all the potion effects from this player
 	 *
-	 * @param player
+	 * @param player player to remove the potion effects from
 	 */
 	public static void removePotionEffects(Player player) {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
@@ -336,21 +393,29 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Give a player a potion effect of the given type for a specific duration
-	 * This method is a soft reference to EntityUtility.addPotionEffect(*)
+	 * Give this player a potion effect of the given type for a specific duration
+	 * This method is a soft reference to {@code EntityUtility.addPotionEffect()}
 	 *
 	 * @param player          player to give the potion effect to
 	 * @param potionType      effect type to give the player
 	 * @param durationInTicks duration of the potion effect (in ticks. 20 ticks = 1 second)
+	 * @see com.caved_in.commons.entity.EntityUtility#addPotionEffect(org.bukkit.entity.LivingEntity, com.caved_in.commons.potions.PotionType, int)
 	 */
 	public static void addPotionEffect(Player player, PotionType potionType, int durationInTicks) {
 		addPotionEffect(player, PotionHandler.getPotionEffect(potionType, durationInTicks));
 	}
 
+	/**
+	 * The amount of players that are currently online
+	 * @return
+	 */
 	public static int getOnlinePlayersCount() {
 		return Bukkit.getOnlinePlayers().length;
 	}
 
+	/**
+	 * @return an array of players who are currently online
+	 */
 	public static Player[] getOnlinePlayers() {
 		return Bukkit.getOnlinePlayers();
 	}
@@ -365,11 +430,21 @@ public class PlayerHandler {
 		return getOnlinePlayersCount() >= amount;
 	}
 
-	public static int getPlayerDepth(Player player) {
+	/**
+	 * Gets the players depth on the y-axis
+	 * @param player player to get the depth of
+	 * @return the players block-level depth
+	 */
+	public static int getDepth(Player player) {
 		return player.getLocation().getBlockY();
 	}
 
-	public static WorldHeight getPlayerWorldHeight(Player player) {
+	/**
+	 * Gets the players position in the world (Above/At/Below sea level)
+	 * @param player the player to get the {@link com.caved_in.commons.world.WorldHeight} of
+	 * @return {@link com.caved_in.commons.world.WorldHeight} based on the players y-axis position
+	 */
+	public static WorldHeight getWorldHeight(Player player) {
 		int equalizedDepth = getEquilizedPlayerDepth(player);
 		if (equalizedDepth > 0) {
 			return WorldHeight.ABOVE_SEA_LEVEL;
@@ -381,7 +456,7 @@ public class PlayerHandler {
 	}
 
 	public static int getEquilizedPlayerDepth(Player player) {
-		return getPlayerDepth(player) - DEPTH_EQUILZE_NUMBER;
+		return getDepth(player) - DEPTH_EQUILZE_NUMBER;
 	}
 
 	public static boolean isAboveSeaLevel(Player player) {
