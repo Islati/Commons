@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="Updated the enchantments to allow getting of their aliases&#10;Added a &quot;colouredDurability&quot; method to item handler, added methods for enchantments, cleaned up some un-optimized code&#10;&#10;Added methods to playerhandler to heal,repair,equip,etc&#10;">
+    <list default="true" id="58e5230b-9fd1-469e-9db4-084c6e01962c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -70,12 +70,12 @@
       <file leaf-file-name="PlayerHandler.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="217" column="57" selection-start="7186" selection-end="7186" vertical-scroll-proportion="0.18781726" vertical-offset="3361" max-vertical-offset="8144">
+            <state line="175" column="54" selection-start="5882" selection-end="5882" vertical-scroll-proportion="0.24365482" vertical-offset="2656" max-vertical-offset="8624">
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1026#1049#0" expanded="true" />
-                <element signature="e#13425#13426#0" expanded="true" />
-                <element signature="e#13471#13472#0" expanded="true" />
+                <element signature="e#14558#14559#0" expanded="true" />
+                <element signature="e#14604#14605#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1486,12 +1486,16 @@
       <created>1390755800218</created>
       <updated>1390755800218</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="JavaDoc creation">
+      <created>1390791855952</created>
+      <updated>1390791855952</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1368" height="745" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1510,7 +1514,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30227274" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30227274" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="998" y="428" width="368" height="340" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1554,7 +1558,8 @@
     <MESSAGE value="Began working on spawnmob command&#10;" />
     <MESSAGE value="Finished spawnmob command, added workbench command with aliases /wb and /wbench" />
     <MESSAGE value="Updated the enchantments to allow getting of their aliases&#10;Added a &quot;colouredDurability&quot; method to item handler, added methods for enchantments, cleaned up some un-optimized code&#10;&#10;Added methods to playerhandler to heal,repair,equip,etc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the enchantments to allow getting of their aliases&#10;Added a &quot;colouredDurability&quot; method to item handler, added methods for enchantments, cleaned up some un-optimized code&#10;&#10;Added methods to playerhandler to heal,repair,equip,etc" />
+    <MESSAGE value="JavaDoc creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="JavaDoc creation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1910,12 +1915,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="57" selection-start="7186" selection-end="7186" vertical-scroll-proportion="0.18781726" vertical-offset="3361" max-vertical-offset="8144">
+        <state line="175" column="54" selection-start="5882" selection-end="5882" vertical-scroll-proportion="0.24365482" vertical-offset="2656" max-vertical-offset="8624">
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1026#1049#0" expanded="true" />
-            <element signature="e#13425#13426#0" expanded="true" />
-            <element signature="e#13471#13472#0" expanded="true" />
+            <element signature="e#14558#14559#0" expanded="true" />
+            <element signature="e#14604#14605#0" expanded="true" />
           </folding>
         </state>
       </provider>

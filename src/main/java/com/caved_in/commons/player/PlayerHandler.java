@@ -170,6 +170,11 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Sends messages to all players <b>with</b> a specific permission
+	 * @param permission permission to check for on players
+	 * @param messages messages to send to the players
+	 */
 	public static void sendMessageToAllPlayersWithPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.hasPermission(permission)) {
@@ -180,6 +185,11 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Sends a message to all players without a specific permission
+	 * @param permission permission to check for on players
+	 * @param message message to send
+	 */
 	public static void sendMessageToAllPlayersWithoutPermission(String permission, String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.hasPermission(permission)) {
@@ -188,6 +198,11 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Sends messages to all players without a specific permission
+	 * @param permission permission to check for on players
+	 * @param messages messages to send to the player
+	 */
 	public static void sendMessageToAllPlayersWithoutPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (!player.hasPermission(permission)) {
@@ -198,22 +213,37 @@ public class PlayerHandler {
 		}
 	}
 
+	/**
+	 * Sends message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
+	 * @param commandSender commandsender to send the message to
+	 * @param messages messages to send
+	 */
 	public static void sendMessage(CommandSender commandSender, String... messages) {
 		for (String message : messages) {
 			commandSender.sendMessage(StringUtil.formatColorCodes(message));
 		}
 	}
 
+	/**
+	 * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
+	 * @param commandSender commandsender to send the message to
+	 * @param message message to send
+	 */
 	public static void sendMessage(CommandSender commandSender, String message) {
 		commandSender.sendMessage(StringUtil.formatColorCodes(message));
 	}
 
+	/**
+	 * Teleports the player to a location
+	 * @param player player to teleport
+	 * @param target location to teleport the player to
+	 */
 	public static void teleport(Player player, Entity target) {
 		player.teleport(target, PlayerTeleportEvent.TeleportCause.PLUGIN);
 	}
 
 	/**
-	 * Teleport the player to a location
+	 * Teleports the player to a location
 	 * @param player player to teleport
 	 * @param location location to teleport the player to
 	 */
@@ -222,7 +252,7 @@ public class PlayerHandler {
 	}
 
 	/**
-	 * Teleport the player to xyz co-ordinates in their current world.
+	 * Teleports the player to xyz co-ordinates in their current world.
 	 * @param player player to teleport
 	 * @param xyz co-ordinates to teleport the player to
 	 */
