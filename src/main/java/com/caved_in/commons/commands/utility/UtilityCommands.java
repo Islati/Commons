@@ -31,25 +31,35 @@ import org.bukkit.inventory.ItemStack;
 public class UtilityCommands {
 
 	@CommandHandler(name = "gm", usage = "/gm <0/1/survival/creative> to switch gamemodes", permission = "tunnels.common.gamemode")
-	public void GamemodeHandler(Player player, String[] commandArgs) {
-		if (commandArgs.length >= 1 && commandArgs[0] != null) {
-			String modeArgument = commandArgs[0];
+	public void GamemodeHandler(Player player, String[] args) {
+		if (args.length >= 1) {
+			String modeArgument = args[0];
+			Player playerToChange = player;
+			//Check if an argument to change the mode of an opposite player is included
+			if (args.length >= 2) {
+				String playerArg = args[1];
+				if (PlayerHandler.isOnline(playerArg)) {
+					//Get the player if they're online
+					playerToChange = PlayerHandler.getPlayer(playerArg);
+				} else {
+					PlayerHandler.sendMessage(player, Messages.PLAYER_OFFLINE(playerArg));
+				}
+			}
 			switch (modeArgument.toLowerCase()) {
 				case "0":
 				case "s":
 				case "survival":
-					player.setGameMode(GameMode.SURVIVAL);
-
+					playerToChange.setGameMode(GameMode.SURVIVAL);
 					break;
 				case "1":
 				case "creative":
 				case "c":
-					player.setGameMode(GameMode.CREATIVE);
+					playerToChange.setGameMode(GameMode.CREATIVE);
 					break;
 				case "a":
 				case "adventure":
 				case "2":
-					player.setGameMode(GameMode.ADVENTURE);
+					playerToChange.setGameMode(GameMode.ADVENTURE);
 					break;
 				default:
 					PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("gamemode"));
@@ -128,6 +138,15 @@ public class UtilityCommands {
 		ItemStack playerHandItem = player.getItemInHand();
 		playerHandItem.setAmount(playerHandItem.getMaxStackSize());
 		player.setItemInHand(playerHandItem);
+	}
+
+	@CommandHandler(name = "tpall", usage = "/tpall", permission = "tunnels.common.tpall")
+	public void onTpallCommand(Player player, String[] args) {
+		String playerName = player.getName();
+		for(Player onlinePlayer : PlayerHandler.getOnlinePlayers()) {
+			PlayerHandler.teleport(onlinePlayer,player);
+			PlayerHandler.sendMessage(player, Messages.TELEPORTED_TO_PLAYER(playerName));
+		}
 	}
 
 	@CommandHandler(name = "heal", usage = "/heal", permission = "tunnels.common.heal")
@@ -563,8 +582,6 @@ public class UtilityCommands {
 	}
 
 	//TODO make "spawner" command
-
-	//TODO make "spawnmob" command
 
 	//TODO Make features to detroy/modify a cube of blocks, spehere, how long (depth & width)
 	//kinda like world edit but not really

@@ -35,14 +35,13 @@ public class PlayerWrapper {
 	private ChatColor tagColor = ChatColor.WHITE;
 
 	/** Location the player was before their last teleport */
-	private Location lastLocation;
+	private Location preTeleportLocation;
 
 	/**
-	 * PlayerWrapper  initialization with assigning their currency to
-	 * <b>currencyAmount</b>
+	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
 	 *
-	 * @param playerName
-	 * @param currencyAmount
+	 * @param playerName name of the player to be instanced
+	 * @param currencyAmount currency the player has
 	 */
 	public PlayerWrapper(String playerName, double currencyAmount) {
 		this.playerName = playerName;
@@ -224,5 +223,20 @@ public class PlayerWrapper {
 
 	public void setViewingRecipe(boolean viewingRecipe) {
 		this.viewingRecipe = viewingRecipe;
+	}
+
+	/**
+	 * @return the players location prior to their most recent teleport
+	 */
+	public Location getPreTeleportLocation() {
+		return preTeleportLocation;
+	}
+
+	/**
+	 *
+	 * @param preTeleportLocation
+	 */
+	public void setPreTeleportLocation(Location preTeleportLocation) {
+		this.preTeleportLocation = preTeleportLocation;
 	}
 }

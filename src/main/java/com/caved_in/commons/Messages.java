@@ -167,4 +167,5 @@ public class Messages {
 	public static String INVALID_MOB_TYPE(String mobType) {
 		return String.format("&c%s&e is an invalid mob type",mobType);
 	}
+
 }

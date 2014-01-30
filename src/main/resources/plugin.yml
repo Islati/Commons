@@ -99,3 +99,5 @@ commands:
    workbench:
       usage: /<command> [Player]
       aliases: [wb, wbench]
+   tpall:
+      usage: /<command>
