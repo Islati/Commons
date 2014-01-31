@@ -5,10 +5,10 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-public class YML_Wrapper {
+public class YMLWrapper {
 	private YMLIO YML;
 
-	public YML_Wrapper(String File_Location) {
+	public YMLWrapper(String File_Location) {
 		try {
 			this.YML = new YMLIO(new File(File_Location));
 		} catch (IOException | InvalidConfigurationException e) {
@@ -114,5 +114,5 @@ public class YML_Wrapper {
 
 /*
  * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Config.YML_Wrapper JD-Core Version: 0.6.2
+ * com.caved_in.Config.YMLWrapper JD-Core Version: 0.6.2
  */

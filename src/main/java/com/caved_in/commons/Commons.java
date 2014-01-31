@@ -15,6 +15,7 @@ import com.caved_in.commons.sql.FriendSQL;
 import com.caved_in.commons.sql.PlayerSQL;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.utilities.StringUtil;
+import com.caved_in.commons.warps.WarpManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -28,18 +29,15 @@ import org.simpleframework.xml.core.Persister;
 import java.io.File;
 
 public class Commons extends JavaPlugin {
-	private static Commons plugin;
-
 	public static BansSQL bansDatabase;
 	public static DisguiseSQL disguiseDatabase;
 	public static FriendSQL friendDatabase;
 	public static PlayerSQL playerDatabase;
 	public static RunnableManager threadManager;
-
-	private static Configuration globalConfig = new Configuration();
-
 	public static ServerMenuWrapper serverMenu;
-
+	public static String WARP_DATA_FOLDER = "plugins/Tunnels-Common/Warps/";
+	private static Commons plugin;
+	private static Configuration globalConfig = new Configuration();
 	private static String PLUGIN_DATA_FOLDER = "plugins/Tunnels-Common/";
 
 	public static Commons getCommons() {
@@ -49,6 +47,18 @@ public class Commons extends JavaPlugin {
 		return plugin;
 	}
 
+	public static void messageConsole(String message) {
+		Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
+	}
+
+	public static boolean reloadConfiguration() {
+		return getCommons().initConfiguration();
+	}
+
+	public static Configuration getConfiguration() {
+		return globalConfig;
+	}
+
 	@Override
 	public void onEnable() {
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -56,6 +66,11 @@ public class Commons extends JavaPlugin {
 
 		if (!this.getDataFolder().exists()) {
 			this.getDataFolder().mkdir();
+		}
+
+		File warpsFolder = new File(WARP_DATA_FOLDER);
+		if (!warpsFolder.exists()) {
+			warpsFolder.mkdirs();
 		}
 
 		initConfiguration(); // Init config
@@ -71,9 +86,12 @@ public class Commons extends JavaPlugin {
 		//Initialize the players sql
 		playerDatabase = new PlayerSQL(sqlConfig);
 		//Register commands
-		new CommandRegister(this);
+		CommandRegister.registerCommands();
 
 		registerListeners(); //Register all our event listeners
+
+		//Load all the warps
+		WarpManager.loadWarps();
 
 		threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
 			@Override
@@ -192,37 +210,29 @@ public class Commons extends JavaPlugin {
 
 		registerListener(new InventoryListener());
 		messageConsole("&aRegistered the inventory listener");
+
+		registerListener(new PlayerTeleportListener());
+		messageConsole("&aRegistered the player teleport listener");
 	}
 
 	private void registerListener(Listener listener) {
 		Bukkit.getPluginManager().registerEvents(listener, this);
 	}
 
-	public static void messageConsole(String message) {
-		Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
-	}
-
 	private boolean initConfiguration() {
 		Serializer configSerializer = new Persister();
 		try {
-			File Config = new File(PLUGIN_DATA_FOLDER + "Config.xml");
-			if (!Config.exists()) {
-				configSerializer.write(new Configuration(), Config);
+			File configFile = new File(PLUGIN_DATA_FOLDER + "Config.xml");
+			if (!configFile.exists()) {
+				configSerializer.write(new Configuration(), configFile);
 			}
-			globalConfig = configSerializer.read(Configuration.class, Config);
+
+			globalConfig = configSerializer.read(Configuration.class, configFile);
 			return true;
 		} catch (Exception Ex) {
 			Ex.printStackTrace();
 			return false;
 		}
-	}
-
-	public static boolean reloadConfiguration() {
-		return getCommons().initConfiguration();
-	}
-
-	public static Configuration getConfiguration() {
-		return globalConfig;
 	}
 
 	@Override
@@ -235,5 +245,7 @@ public class Commons extends JavaPlugin {
 			PlayerHandler.removeData(playerName);
 			disguiseDatabase.deletePlayerDisguiseData(playerName);
 		}
+		//Save all the warp data
+		WarpManager.saveWarps();
 	}
 }

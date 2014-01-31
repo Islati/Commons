@@ -19,7 +19,8 @@ public class HelpMenus {
 		DOUBLE_DASH("<name> -- <desc>"),
 		SINGLE_DASH("<name> - <desc>"),
 		IS("<name> is <desc>"),
-		FRIEND_REQUEST("<name> wants to add you as a friend!");
+		FRIEND_REQUEST("<name> wants to add you as a friend!"),
+		NO_DESCRIPTION("<name>");
 
 		private String formatting;
 

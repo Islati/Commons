@@ -16,7 +16,7 @@ public class FolderHandler {
 	}
 
 	private void initData() {
-		for (File folderFile : FileUtils.listFiles(new File(folderLocation), new String[]{"txt"}, false)) {
+		for (File folderFile : FileUtils.listFiles(new File(folderLocation), null, false)) {
 			filesInFolder.put(folderFile.getName(), folderLocation + folderFile.getName());
 		}
 	}
@@ -26,8 +26,8 @@ public class FolderHandler {
 	 *
 	 * @return
 	 */
-	public List<String> getFiles() {
-		return new ArrayList<String>(filesInFolder.values());
+	public Collection<String> getFiles() {
+		return filesInFolder.values();
 	}
 
 	/**

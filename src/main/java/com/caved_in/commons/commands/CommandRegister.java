@@ -4,8 +4,8 @@ import com.caved_in.commons.Commons;
 
 public class CommandRegister {
 
-	public CommandRegister(Commons Plugin) {
-		CommandController.registerCommands(Plugin, new FriendCommands());
+	public static void registerCommands() {
+		registerCommand(new FriendCommands());
 		//Register the individual commands
 
 		/*== Utility Commands ==*/
@@ -32,6 +32,19 @@ public class CommandRegister {
 		registerCommand(new FeedCommand());
 		registerCommand(new EnchantCommand());
 		registerCommand(new ClearInventoryCommand());
+		registerCommand(new HatCommand());
+		registerCommand(new FireworksCommand());
+		registerCommand(new FlyCommand());
+		registerCommand(new MaintenanceCommand());
+		registerCommand(new MessageCommand());
+		registerCommand(new SilenceCommand());
+		registerCommand(new QuickResponseCommand());
+		registerCommand(new TeleportPositionCommand());
+		registerCommand(new SetWarpCommand());
+		registerCommand(new WarpCommand());
+		registerCommand(new BackCommand());
+		registerCommand(new WarpsCommand());
+
 		/* Punishment / Moderation Commands */
 		registerCommand(new BanCommand());
 		registerCommand(new UnbanCommand());
@@ -42,17 +55,10 @@ public class CommandRegister {
 		registerCommand(new BuyPremiumCommand());
 		registerCommand(new RemovePremiumCommand());
 
-		/* Utilities / Misc */
-		registerCommand(new HatCommand());
-		registerCommand(new FireworksCommand());
-		registerCommand(new FlyCommand());
-		registerCommand(new MaintenanceCommand());
-		registerCommand(new MessageCommand());
-		registerCommand(new SilenceCommand());
-		registerCommand(new QuickResponseCommand());
+
 	}
 
-	private void registerCommand(Object commandHandler) {
+	private static void registerCommand(Object commandHandler) {
 		CommandController.registerCommands(Commons.getCommons(), commandHandler);
 	}
 

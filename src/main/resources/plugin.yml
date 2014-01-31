@@ -1,6 +1,6 @@
 name: Tunnels-Common
 main: com.caved_in.commons.Commons
-version: 1.1
+version: 1.2
 description: Commons Library built for easier plugin development and server managment
 author: Brandon
 depend: [PopupMenuAPI]
@@ -98,4 +98,14 @@ commands:
    tpall:
       usage: /<command>
    spawn:
+      usage: /<command>
+   tppos:
+      usage: /<command> <x> <y> <z>
+   warp:
+      usage: /<command> <name>
+   warps:
+      usage: /<command> [page]
+   setwarp:
+      usage: /<command> <name>
+   back:
       usage: /<command>

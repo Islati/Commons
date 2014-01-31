@@ -1,5 +1,6 @@
 package com.caved_in.commons.commands;
 
+import com.caved_in.commons.Messages;
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -97,7 +98,7 @@ public class CommandController implements CommandExecutor {
 
 		String permission() default "";
 
-		String permissionMessage() default Messages.messagePrefix + "You do not have permission for this command, if you believe this is an error please fill out a bug report on our forums.";
+		String permissionMessage() default Messages.MESSAGE_PREFIX + "You do not have permission for this command, if you believe this is an error please fill out a bug report on our forums.";
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class CommandController implements CommandExecutor {
 
 		String permission() default "";
 
-		String permissionMessage() default Messages.messagePrefix + "You do not have permission for this command, if you believe this is an error please fill out a bug report on our forums.";
+		String permissionMessage() default Messages.MESSAGE_PREFIX + "You do not have permission for this command, if you believe this is an error please fill out a bug report on our forums.";
 	}
 
 	/**
@@ -211,7 +212,7 @@ public class CommandController implements CommandExecutor {
 					try {
 						subMethod.invoke(subHandler, sender, args);
 					} catch (Exception e) {
-						sender.sendMessage(ChatColor.RED + Messages.messagePrefix + "There was an error while processing this command; Please check the syntax used, and if it persists fill out a bug report on our forums.");
+						sender.sendMessage(ChatColor.RED + Messages.MESSAGE_PREFIX + "There was an error while processing this command; Please check the syntax used, and if it persists fill out a bug report on our forums.");
 						e.printStackTrace();
 					}
 					return true;
@@ -248,7 +249,7 @@ public class CommandController implements CommandExecutor {
 			try {
 				method.invoke(handler, sender, args);
 			} catch (Exception e) {
-				sender.sendMessage(ChatColor.RED + Messages.messagePrefix + "There was an error while processing this command; Please check the syntax used, and if it persists fill out a bug report on our forums.");
+				sender.sendMessage(ChatColor.RED + Messages.MESSAGE_PREFIX + "There was an error while processing this command; Please check the syntax used, and if it persists fill out a bug report on our forums.");
 				e.printStackTrace();
 			}
 		}

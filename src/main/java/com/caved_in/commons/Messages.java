@@ -20,7 +20,6 @@ public class Messages {
 	public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
 	public static final String ITEMS_REPAIRED = "&aYour item(s) has been repaired";
 	public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
-
 	public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance toggle";
 	public static final String MAINTENANCE_MODE_DISABLED = "&aMaintenancemode is now &edisabled&a, to enable it do &e/maintenance on&a or &e/Maintenance toggle";
 
@@ -126,7 +125,11 @@ public class Messages {
 	}
 
 	public static String TELEPORTED_TO(String item, String target) {
-		return String.format("&eYou've teleported &a%s%e to &a%s", item, target);
+		return String.format("&eYou've teleported &a%s&e to &a%s", item, target);
+	}
+
+	public static String WARPED_TO(String warpName) {
+		return String.format("&aYou've warped to &e%s", warpName);
 	}
 
 	public static String ITEM_GIVEN_COMMAND(String item, int amount) {
@@ -202,7 +205,19 @@ public class Messages {
 	}
 
 	public static String PLAYER_NOT_BANNED(String playerName) {
-		return String.format("&e%s&c is not banned.", playerName);
+		return String.format("&e%s&c is not banned", playerName);
+	}
+
+	public static String WARP_DOESNT_EXIST(String warpName) {
+		return String.format("&eThe warp '&c%s&e' doesn't exist", warpName);
+	}
+
+	public static String WARP_CREATED(String warpName) {
+		return String.format("&eThe warp '&a%s&e' has been created!", warpName);
+	}
+
+	public static String WARP_ALREADY_EXISTS(String warpName) {
+		return String.format("&eThe warp '&c%s&e' already exists",warpName);
 	}
 
 }

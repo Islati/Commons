@@ -19,6 +19,9 @@ public class InventoryListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
 		//Get the inventory that's being clicked
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();

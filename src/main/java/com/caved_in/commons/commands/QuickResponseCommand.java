@@ -3,6 +3,7 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.chat.ChatHandler;
 import com.caved_in.commons.chat.ChatMessage;
 import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 
 /**
@@ -17,10 +18,8 @@ public class QuickResponseCommand {
 			String playerName = player.getName();
 			if (ChatHandler.hasRecentChatter(playerName)) {
 				String playerToSendMessageTo = ChatHandler.getRecentChatter(playerName);
-				String playerMessage = "";
-				for (int i = 0; i < commandArgs.length; i++) {
-					playerMessage += commandArgs[i] + " ";
-				}
+				String playerMessage = StringUtil.joinString(commandArgs, " ");
+
 				if (PlayerHandler.isOnline(playerToSendMessageTo)) {
 					Player playerSendingTo = PlayerHandler.getPlayer(playerToSendMessageTo);
 					PlayerHandler.sendMessage(playerSendingTo, "&r[&e" + player.getName() + "&b -> &aYou&r] " + playerMessage);

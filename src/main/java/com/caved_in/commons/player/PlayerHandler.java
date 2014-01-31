@@ -8,6 +8,7 @@ import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.potions.PotionHandler;
 import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
+import com.caved_in.commons.warps.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -383,6 +384,16 @@ public class PlayerHandler {
 	 */
 	public static void teleport(Player player, double[] xyz) {
 		player.teleport(LocationHandler.getLocation(player.getWorld(), xyz));
+	}
+
+	/**
+	 * Teleports the player to the location of the warp
+	 * @param player player to teleport
+	 * @param warp warp to teleport the player to
+	 * @since 1.0
+	 */
+	public static void teleport(Player player, Warp warp) {
+		teleport(player, warp.getLocation());
 	}
 
 	/**
