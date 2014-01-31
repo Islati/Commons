@@ -1,10 +1,9 @@
-package com.caved_in.commons.commands.friends;
+package com.caved_in.commons.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.commands.CommandController.CommandHandler;
 import com.caved_in.commons.commands.CommandController.SubCommandHandler;
-import com.caved_in.commons.commands.HelpMenus;
 import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.friends.FriendList;
 import com.caved_in.commons.menu.HelpScreen;

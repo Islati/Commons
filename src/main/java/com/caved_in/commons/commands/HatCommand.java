@@ -1,8 +1,5 @@
-package com.caved_in.commons.commands.donator;
+package com.caved_in.commons.commands;
 
-import com.caved_in.commons.commands.CommandController.CommandHandler;
-import com.caved_in.commons.fireworks.FireworkEffectPlayer;
-import com.caved_in.commons.fireworks.FireworkSettings;
 import com.caved_in.commons.items.ItemType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
@@ -10,9 +7,13 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-//TODO Move this class to utilities, and optimize all of this
-public class DonatorCommands {
-	@CommandHandler(name = "hat", usage = "/hat <ItemID/ItemName> to place an item on your head (overwriting your current item); /hat to remove it", permission = "tunnels.common.hat")
+/**
+ * Created By: TheGamersCave (Brandon)
+ * Date: 30/01/14
+ * Time: 8:26 PM
+ */
+public class HatCommand {
+	@CommandController.CommandHandler(name = "hat", usage = "/hat <ItemID/ItemName> to place an item on your head (overwriting your current item); /hat to remove it", permission = "tunnels.common.hat")
 	public void HatCommand(Player player, String[] commandArgs) {
 		Material hatMaterial = null;
 		if (commandArgs.length >= 1) {
@@ -75,20 +76,4 @@ public class DonatorCommands {
 			}
 		}
 	}
-
-	@CommandHandler(name = "fly", usage = "/fly to toggle your fly on and off accordingly", permission = "tunnels.common.fly")
-	public void FlyCommand(Player player, String[] commandArgs) {
-		player.setAllowFlight(!player.getAllowFlight());
-		player.sendMessage(ChatColor.GREEN + "You are " + (player.getAllowFlight() ? "now in fly mode" : "no longer in fly mode"));
-	}
-
-	@CommandHandler(name = "fw", usage = "/fw to create random fireworks around you", permission = "tunnels.common.fireworks")
-	public void FireworksCommand(Player player, String[] commandArgs) {
-		try {
-			new FireworkEffectPlayer().playFirework(player.getWorld(), player.getEyeLocation(), new FireworkSettings().randomFireworkEffect());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }

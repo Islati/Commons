@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Messages {
+	public static final String MESSAGE_PREFIX = "[Tunnels Network] ";
 	public static final String INVENTORY_CLEARED = "&aYour inventory has been cleared";
 	public static final String PLAYER_OFFLINE = "&cThe requested player is offline";
 	public static final String CHAT_SILENCED = "&7Chat is currently silenced, you are only able to chat if you have the required permissions";
@@ -18,41 +19,57 @@ public class Messages {
 	public static final String PLAYER_FED = "&aYou've been fed!";
 	public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
 	public static final String ITEMS_REPAIRED = "&aYour item(s) has been repaired";
+	public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
+
+	public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance toggle";
+	public static final String MAINTENANCE_MODE_DISABLED = "&aMaintenancemode is now &edisabled&a, to enable it do &e/maintenance on&a or &e/Maintenance toggle";
 
 	public static String PLAYER_OFFLINE(String playerName) {
-		return "&e" + playerName + " &cis offline";
+		return String.format("&e%s&cis offline", playerName);
+	}
+
+	public static String PLAYER_DATA_NOT_FOUND(String playerName) {
+		return String.format("&eUnable to find data for %s; Try again?", playerName);
+	}
+
+	public static String PREMIUM_STATUS_PROMOTED(String playerName) {
+		return String.format("&aSuccessfully promoted &e%s&a &ato premium status!", playerName);
+	}
+
+	public static String PREMIUM_STATUS_DEMOTED(String playerName) {
+		return String.format("&aSuccessfully demoted &e%s&a &afrom premium status!", playerName);
 	}
 
 	public static String TELEPORTED_TO_PLAYER(String playerName) {
-		return "&eYou were teleported to &a" + playerName;
+		return String.format("&eYou were teleported to &a%s", playerName);
 	}
 
 	public static String ITEM_DOESNT_EXIST(String itemName) {
-		return "&cSorry, but &e" + itemName + "&c isn't a valid item";
+		return String.format("&cSorry, but &e%s&c isn't a valid item", itemName);
 	}
 
 	public static String INVALID_ITEM_DATA(String input) {
-		return "&cSorry; &e" + input + "&c isn't a valid data value";
+		return String.format("&cSorry; &e%s&c isn't a valid data value", input);
 	}
 
 	public static String PROPER_USAGE(String usage) {
-		return "&ePlease use &a" + usage;
+		return String.format("&ePlease use &a%s", usage);
 	}
 
 	public static String FRIEND_REQUEST_RECEIVED(String playerRequesting) {
-		return String.format("&b%s&a has added you as a friend, do &e/friends accept %s &ato accept, or &e/friends deny %s&a to deny them",playerRequesting,playerRequesting,playerRequesting);
+		return String.format("&b%s&a has added you as a friend, do &e/friends accept %s &ato accept, or &e/friends deny %s&a to deny them", playerRequesting, playerRequesting, playerRequesting);
 	}
 
 	public static String FRIEND_REQUEST_SENT(String playerName) {
-		return String.format("&aYour friend request to &e%s&a has been sent",playerName);
+		return String.format("&aYour friend request to &e%s&a has been sent", playerName);
 	}
 
 	public static String FRIEND_DOESNT_EXIST(String playerName) {
-		return String.format("&e%s&c isn't on your friends list",playerName);
+		return String.format("&e%s&c isn't on your friends list", playerName);
 	}
 
 	public static String FRIEND_REQUEST_DENIED(String playerName) {
-		return String.format("&aYou've denied the friend request from &e%s",playerName);
+		return String.format("&aYou've denied the friend request from &e%s", playerName);
 	}
 
 	public static String FRIEND_DENIED_REQUEST(String playerName) {
@@ -72,7 +89,7 @@ public class Messages {
 	}
 
 	public static String FRIEND_DELETED(String playerName) {
-		return String.format("&aYou've removed &e%s &afrom your friends list",playerName);
+		return String.format("&aYou've removed &e%s &afrom your friends list", playerName);
 	}
 
 	public static String FRIEND_NO_REQUEST(String playerName) {
@@ -88,7 +105,7 @@ public class Messages {
 	}
 
 	public static String TUNNELS_XP_BALANCE(Player player) {
-		return String.format("&aYou have &e%s&a Tunnels XP", (int)PlayerHandler.getData(player).getCurrency());
+		return String.format("&aYou have &e%s&a Tunnels XP", (int) PlayerHandler.getData(player).getCurrency());
 	}
 
 	public static String INVALID_COMMAND_USAGE(String... requiredArguments) {
@@ -105,19 +122,19 @@ public class Messages {
 	}
 
 	public static String TELEPORTED_TO(String description) {
-		return String.format("&eYou've been teleported to &a", description);
+		return String.format("&eYou've been teleported to &a%S", description);
 	}
 
 	public static String TELEPORTED_TO(String item, String target) {
-		return String.format("&eYou've teleported &a%s%e to &a%s");
+		return String.format("&eYou've teleported &a%s%e to &a%s", item, target);
 	}
 
 	public static String ITEM_GIVEN_COMMAND(String item, int amount) {
-		return String.format("&aAdded &e%s &aof &e%s&a to your inventory",amount, item);
+		return String.format("&aAdded &e%s &aof &e%s&a to your inventory", amount, item);
 	}
 
 	public static String ITEM_GIVEN_COMMAND(String item) {
-		return ITEM_GIVEN_COMMAND(item,1);
+		return ITEM_GIVEN_COMMAND(item, 1);
 	}
 
 	public static String SPEED_UPDATED(boolean isFlying, double speed) {
@@ -137,15 +154,15 @@ public class Messages {
 	}
 
 	public static String ADDED_XP(String playerName, int amount) {
-		return String.format("&aYou've added &e%s&a tunnels xp to &b%s",amount,playerName);
+		return String.format("&aYou've added &e%s&a tunnels xp to &b%s", amount, playerName);
 	}
 
 	public static String ITEM_ENCHANTED(String enchantmentName) {
-		return String.format("&aYou've added the '&e%s&a' enchantment to your item",enchantmentName);
+		return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
 	}
 
 	public static String ITEM_ENCHANTED(String enchantmentName, int level) {
-		return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item",level,enchantmentName);
+		return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
 	}
 
 	public static String ENCHANTMENT_DOESNT_EXIST(String enchantmentName) {
@@ -153,7 +170,7 @@ public class Messages {
 	}
 
 	public static String PLAYER_FED(String playerName) {
-		return String.format("&e%s&a has been fed",playerName);
+		return String.format("&e%s&a has been fed", playerName);
 	}
 
 	public static String FURNACE_RECIPE(ItemStack smeltResult, ItemStack itemRequired) {
@@ -165,7 +182,27 @@ public class Messages {
 	}
 
 	public static String INVALID_MOB_TYPE(String mobType) {
-		return String.format("&c%s&e is an invalid mob type",mobType);
+		return String.format("&c%s&e is an invalid mob type", mobType);
+	}
+
+	public static String HEALED_PLAYER(String playerName) {
+		return String.format("&e%s&a has been healed!", playerName);
+	}
+
+	public static String[] PLAYER_BANNED_GLOBAL_MESSAGE(String playerName, String banIssuer, String reason, String duration) {
+		return new String[]{
+				String.format("&e%s&a was banned by &e%s", playerName, banIssuer),
+				String.format("&e - Reason: &c%s", reason),
+				String.format("&e - Expires: &c%s", duration)
+		};
+	}
+
+	public static String PLAYER_UNBANNED(String playerName, String pardonIssuer) {
+		return String.format("&a%s&e has been unbanned by &a%s", playerName, pardonIssuer);
+	}
+
+	public static String PLAYER_NOT_BANNED(String playerName) {
+		return String.format("&e%s&c is not banned.", playerName);
 	}
 
 }

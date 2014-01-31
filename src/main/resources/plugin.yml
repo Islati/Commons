@@ -18,17 +18,13 @@ commands:
    unban:
       description: Used to unban a player across all servers
       usage: /<command> <name>
-   pardon:
-      description: Used to unban a player across all servers
-      usage: /<command> <name>
+      aliases: [pardon]
    mute:
       description: Used to mute a player across all servers
       usage: /<command> <Player>
    unmute:
       description: Used to unmute a player across all servers
       usage: /<command> <Player>
-   buyinfo:
-      usage: /buyinfo <player>
    msg:
       usage: /msg <player> <message>
       aliases: [m, t, tell, whisper]
@@ -100,4 +96,6 @@ commands:
       usage: /<command> [Player]
       aliases: [wb, wbench]
    tpall:
+      usage: /<command>
+   spawn:
       usage: /<command>

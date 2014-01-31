@@ -1,6 +1,5 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.config.Messages;
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

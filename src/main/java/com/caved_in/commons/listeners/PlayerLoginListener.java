@@ -10,7 +10,7 @@ public class PlayerLoginListener implements Listener {
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		if (Commons.getConfiguration().getMaintenanceConfig().isMaintenanceMode()) {
-			if (!event.getPlayer().hasPermission(TunnelsPermissions.MAINTAINANCE_WHITELIST)) {
+			if (!event.getPlayer().hasPermission(TunnelsPermissions.MAINTENANCE_WHITELIST)) {
 				event.setKickMessage(Commons.getConfiguration().getMaintenanceConfig().getKickMessage());
 				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}
