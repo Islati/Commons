@@ -1,9 +1,9 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.time.TimeHandler;
 
 import java.sql.PreparedStatement;
@@ -159,7 +159,7 @@ public class BansSQL extends SQL {
 	public boolean pardonPlayer(String playerName, String pardonedBy) {
 		boolean pardoned = false;
 		if (hasActiveData(playerName)) {
-				PreparedStatement preparedStatement = prepareStatement(updateActiveStatement);
+			PreparedStatement preparedStatement = prepareStatement(updateActiveStatement);
 			try {
 				preparedStatement.setBoolean(1, false);
 				preparedStatement.setString(2, playerName);

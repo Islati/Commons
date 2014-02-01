@@ -48,7 +48,7 @@ public class Warp {
 		this.z = z;
 		this.yaw = yaw;
 		this.pitch = pitch;
-		this.location = new Location(WorldHandler.getWorld(worldName),x,y,z,yaw,pitch);
+		this.location = new Location(WorldHandler.getWorld(worldName), x, y, z, yaw, pitch);
 	}
 
 	public Warp(String name, Location location) {

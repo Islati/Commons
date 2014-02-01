@@ -2,7 +2,6 @@ package com.caved_in.commons.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.commands.CommandController;
 import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,12 +25,12 @@ public class UnbanCommand {
 			}
 
 			if (Commons.bansDatabase.pardonPlayer(playerToUnban, pardonIssuer)) {
-				PlayerHandler.sendMessage(sender, Messages.PLAYER_UNBANNED(playerToUnban,pardonIssuer));
+				PlayerHandler.sendMessage(sender, Messages.PLAYER_UNBANNED(playerToUnban, pardonIssuer));
 			} else {
-				PlayerHandler.sendMessage(sender,Messages.PLAYER_NOT_BANNED(playerToUnban));
+				PlayerHandler.sendMessage(sender, Messages.PLAYER_NOT_BANNED(playerToUnban));
 			}
 		} else {
-			PlayerHandler.sendMessage(sender,Messages.INVALID_COMMAND_USAGE("name"));
+			PlayerHandler.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("name"));
 		}
 	}
 }

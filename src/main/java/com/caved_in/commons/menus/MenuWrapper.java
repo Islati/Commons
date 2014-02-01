@@ -15,8 +15,4 @@ public abstract class MenuWrapper {
 	}
 
 	public abstract PopupMenu getMenu();
-
-	public static int getRows(int ItemCount) {
-		return ((int) Math.ceil(ItemCount / 9.0D));
-	}
 }

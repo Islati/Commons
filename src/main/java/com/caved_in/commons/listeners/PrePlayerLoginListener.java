@@ -21,7 +21,7 @@ public class PrePlayerLoginListener implements Listener {
 		if (Commons.bansDatabase.isBanned(playerName)) {
 			//Get the players ban
 			Punishment playerBan = Commons.bansDatabase.getLatestRecord(PunishmentType.BAN, playerName);
-			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, String.format("You've been banned by %s for '%s' and will be unbanned in %s",playerBan.getIssuer(),playerBan.getReason(),TimeHandler.getDurationBreakdown(playerBan.getExpiryTime() - System.currentTimeMillis())));
+			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, String.format("You've been banned by %s for '%s' and will be unbanned in %s", playerBan.getIssuer(), playerBan.getReason(), TimeHandler.getDurationBreakdown(playerBan.getExpiryTime() - System.currentTimeMillis())));
 		}
 	}
 }

@@ -15,9 +15,9 @@ public class WarpsCommand {
 	@CommandController.CommandHandler(name = "warps", permission = "tunnels.common.warps")
 	public void onWarpsCommand(Player player, String[] args) {
 		int page = 1;
-		HelpScreen warpsMenu = HelpMenus.generateHelpScreen("Warps / Waypoints", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.NO_DESCRIPTION, ChatColor.GREEN,ChatColor.DARK_GREEN);
-		for(String warp : WarpManager.getWarps()) {
-			warpsMenu.setEntry(warp,"");
+		HelpScreen warpsMenu = HelpMenus.generateHelpScreen("Warps / Waypoints", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
+		for (String warp : WarpManager.getWarps()) {
+			warpsMenu.setEntry(warp, "");
 		}
 		if (args.length > 0) {
 			String pageArg = args[0];

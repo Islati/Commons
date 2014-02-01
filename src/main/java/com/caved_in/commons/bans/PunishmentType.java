@@ -17,8 +17,8 @@ public enum PunishmentType {
 	private static Map<String, PunishmentType> punishments = new HashMap<String, PunishmentType>();
 
 	static {
-		for(PunishmentType punishmentType : EnumSet.allOf(PunishmentType.class)) {
-			for(String identifier : punishmentType.getIdentifiers()) {
+		for (PunishmentType punishmentType : EnumSet.allOf(PunishmentType.class)) {
+			for (String identifier : punishmentType.getIdentifiers()) {
 				punishments.put(identifier, punishmentType);
 			}
 		}
@@ -26,6 +26,7 @@ public enum PunishmentType {
 
 	private String[] identifiers;
 	private String identifier;
+
 	PunishmentType(String... identifiers) {
 		this.identifiers = identifiers;
 		this.identifier = identifiers[0];

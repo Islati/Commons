@@ -9,8 +9,4 @@ public class PotionHandler {
 		return new PotionEffect(potionEffectType, durationInTicks, amplification);
 	}
 
-	public static PotionEffect getPotionEffect(PotionType potionType, int durationInTicks) {
-		return new PotionEffect(potionType.getPotionEffectType(),durationInTicks, potionType.getAmplification());
-	}
-
 }

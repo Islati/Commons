@@ -29,7 +29,7 @@ public class QuickResponseCommand {
 					PlayerHandler.sendMessage(player, "&e" + playerToSendMessageTo + "&c has gone offline");
 				}
 			} else {
-				PlayerHandler.sendMessage(player,"&cYou havn't received any messages from anybody");
+				PlayerHandler.sendMessage(player, "&cYou havn't received any messages from anybody");
 			}
 		}
 	}

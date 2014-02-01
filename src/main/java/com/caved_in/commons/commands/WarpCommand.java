@@ -20,7 +20,7 @@ public class WarpCommand {
 			if (WarpManager.isWarp(warpArg)) {
 				Warp warp = WarpManager.getWarp(warpArg);
 				PlayerHandler.teleport(player, warp);
-				PlayerHandler.sendMessage(player,Messages.WARPED_TO(warpArg));
+				PlayerHandler.sendMessage(player, Messages.WARPED_TO(warpArg));
 			}
 		} else {
 			PlayerHandler.sendMessage(player, Messages.INVALID_COMMAND_USAGE("warp name"));

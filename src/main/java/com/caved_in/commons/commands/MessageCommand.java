@@ -25,7 +25,7 @@ public class MessageCommand {
 				if (PlayerHandler.isOnline(receivingPlayer)) {
 					messagePlayer(PlayerHandler.getPlayer(receivingPlayer), Player, message);
 				} else {
-					PlayerHandler.sendMessage(Player,"&cUnable to send a message to &e" + receivingPlayer + "&c, perhaps they're offline?");
+					PlayerHandler.sendMessage(Player, "&cUnable to send a message to &e" + receivingPlayer + "&c, perhaps they're offline?");
 				}
 			} else {
 				PlayerHandler.sendMessage(Player, Messages.INVALID_COMMAND_USAGE("message"));

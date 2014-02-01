@@ -18,7 +18,7 @@ public class SetWarpCommand {
 		if (args.length > 0) {
 			String warpName = args[0];
 			if (!WarpManager.isWarp(warpName)) {
-				WarpManager.addWarp(new Warp(warpName, player.getLocation()),true);
+				WarpManager.addWarp(new Warp(warpName, player.getLocation()), true);
 				PlayerHandler.sendMessage(player, WARP_CREATED(warpName));
 			} else {
 				PlayerHandler.sendMessage(player, WARP_ALREADY_EXISTS(warpName));

@@ -50,23 +50,15 @@ public enum ParticleEffects {
 	/**
 	 * Send a particle effect to a player
 	 *
-	 * @param effect
-	 *            The particle effect to send
-	 * @param player
-	 *            The player to send the effect to
-	 * @param location
-	 *            The location to send the effect to
-	 * @param offsetX
-	 *            The x range of the particle effect
-	 * @param offsetY
-	 *            The y range of the particle effect
-	 * @param offsetZ
-	 *            The z range of the particle effect
-	 * @param speed
-	 *            The speed (or color depending on the effect) of the particle
-	 *            effect
-	 * @param count
-	 *            The count of effects
+	 * @param effect   The particle effect to send
+	 * @param player   The player to send the effect to
+	 * @param location The location to send the effect to
+	 * @param offsetX  The x range of the particle effect
+	 * @param offsetY  The y range of the particle effect
+	 * @param offsetZ  The z range of the particle effect
+	 * @param speed    The speed (or color depending on the effect) of the particle
+	 *                 effect
+	 * @param count    The count of effects
 	 */
 	public static void sendToPlayer(ParticleEffects effect, Player player, Location location, float offsetX, float offsetY,
 									float offsetZ, float speed, int count) {
@@ -82,21 +74,14 @@ public enum ParticleEffects {
 	/**
 	 * Send a particle effect to all players
 	 *
-	 * @param effect
-	 *            The particle effect to send
-	 * @param location
-	 *            The location to send the effect to
-	 * @param offsetX
-	 *            The x range of the particle effect
-	 * @param offsetY
-	 *            The y range of the particle effect
-	 * @param offsetZ
-	 *            The z range of the particle effect
-	 * @param speed
-	 *            The speed (or color depending on the effect) of the particle
-	 *            effect
-	 * @param count
-	 *            The count of effects
+	 * @param effect   The particle effect to send
+	 * @param location The location to send the effect to
+	 * @param offsetX  The x range of the particle effect
+	 * @param offsetY  The y range of the particle effect
+	 * @param offsetZ  The z range of the particle effect
+	 * @param speed    The speed (or color depending on the effect) of the particle
+	 *                 effect
+	 * @param count    The count of effects
 	 */
 	public static void sendToLocation(ParticleEffects effect, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) {
 		try {

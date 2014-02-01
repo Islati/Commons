@@ -10,8 +10,8 @@ import java.util.Set;
 
 /**
  * @author Brandon Curtis
- * @since 1.0
  * @version 1.0
+ * @since 1.0
  */
 public class HelpMenus {
 
@@ -51,11 +51,11 @@ public class HelpMenus {
 	}
 
 	/**
-	 * @param menuName name to be shown at the top of the menu
-	 * @param pageDisplay formatting for pages
-	 * @param itemFormat formatting for items
+	 * @param menuName      name to be shown at the top of the menu
+	 * @param pageDisplay   formatting for pages
+	 * @param itemFormat    formatting for items
 	 * @param flipColorEven color on even-elements
-	 * @param flipColorOdd color on odd-elements
+	 * @param flipColorOdd  color on odd-elements
 	 * @return HelpScreen with the settings provided in parameters
 	 */
 	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd) {
@@ -68,12 +68,13 @@ public class HelpMenus {
 
 	/**
 	 * Generate a help menu and set the elements in the menu to a map of values and keys
-	 * @param menuName name to be shown at the top of the menu
-	 * @param pageDisplay formatting for pages
-	 * @param itemFormat formatting for items
+	 *
+	 * @param menuName      name to be shown at the top of the menu
+	 * @param pageDisplay   formatting for pages
+	 * @param itemFormat    formatting for items
 	 * @param flipColorEven color on even-elements
-	 * @param flipColorOdd color on odd-elements
-	 * @param helpItems map of elements to set; key is the item, value is the description
+	 * @param flipColorOdd  color on odd-elements
+	 * @param helpItems     map of elements to set; key is the item, value is the description
 	 * @return HelpScreen with the settings provided in parameters
 	 */
 	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd, Map<String, String> helpItems) {

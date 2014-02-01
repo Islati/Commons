@@ -11,6 +11,7 @@ public enum WorldTime {
 	NIGHT(12000);
 
 	private long time;
+
 	WorldTime(long time) {
 		this.time = time;
 	}

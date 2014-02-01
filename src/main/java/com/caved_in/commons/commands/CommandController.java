@@ -164,7 +164,7 @@ public class CommandController implements CommandExecutor {
          */
 		if (args.length > 0) {
 			/*
-             * Get the subcommand given and the handler and method attached to it
+			 * Get the subcommand given and the handler and method attached to it
              */
 			SubCommand subCommand = new SubCommand(command, args[0]);
 			subCommand = subCommands.get(subCommand.toString());

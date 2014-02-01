@@ -1,7 +1,6 @@
 package com.caved_in.commons.commands;
 
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.commands.CommandController;
 import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,9 +29,9 @@ public class ClearInventoryCommand {
 			//Check if the commandsender is a player
 			if (commandSender instanceof Player) {
 				//Assign the player variable to the player sending the command
-				player = (Player)commandSender;
+				player = (Player) commandSender;
 			} else {
-				PlayerHandler.sendMessage(commandSender,Messages.INVALID_COMMAND_USAGE("name"));
+				PlayerHandler.sendMessage(commandSender, Messages.INVALID_COMMAND_USAGE("name"));
 				return;
 			}
 		}

@@ -1,8 +1,6 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.potions.PotionHandler;
-import com.caved_in.commons.potions.PotionType;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +21,7 @@ public class EntityUtility {
 	public static Set<LivingEntity> spawnLivingEntity(EntityType entityType, Location location, int amount) {
 		Set<LivingEntity> entities = new HashSet<>();
 		//Loop and spawn enties until the amount requested has been spawned
-		for(int i = 0; i < amount; i++) {
+		for (int i = 0; i < amount; i++) {
 			entities.add(spawnLivingEntity(entityType, location));
 		}
 		return entities;
@@ -72,10 +70,6 @@ public class EntityUtility {
 		livingEntity.addPotionEffect(potionEffect);
 	}
 
-	public static void addPotionEffect(LivingEntity livingEntity, PotionType potionType, int durationInTicks) {
-		addPotionEffect(livingEntity, PotionHandler.getPotionEffect(potionType, durationInTicks));
-	}
-
 	public static void setCurrentHealth(LivingEntity livingEntity, int health) {
 		if (health <= ((Damageable) livingEntity).getMaxHealth()) {
 			((Damageable) livingEntity).setHealth((double) health);
@@ -95,9 +89,10 @@ public class EntityUtility {
 	/**
 	 * Change the active armor of an entity in the specified slot
 	 * to be of the given ItemStack
-	 *
+	 * <p/>
 	 * This method doesn't check if the slot, or item, are valid items for the slot:
 	 * It forces the items to be in the slot.
+	 *
 	 * @param livingEntity
 	 * @param entityArmorSlot
 	 * @param itemStack
@@ -146,6 +141,7 @@ public class EntityUtility {
 	/**
 	 * Cleans all the entities in the given world
 	 * that isn't an npc (citizens NPC) or a player
+	 *
 	 * @param world
 	 */
 	public static void cleanAllEntities(World world) {
@@ -158,7 +154,8 @@ public class EntityUtility {
 
 	/**
 	 * Clean all the entities in a world except the defined types (And players, and citizens NPC'S)
-	 * @param world world to clean of livingEntities
+	 *
+	 * @param world       world to clean of livingEntities
 	 * @param entityTypes entityTypes to not remove
 	 */
 	public static void cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
@@ -174,6 +171,7 @@ public class EntityUtility {
 
 	/**
 	 * Simulate player knock-back on an entity
+	 *
 	 * @param entity
 	 */
 	public static void knockbackEntity(LivingEntity entity) {
@@ -182,6 +180,7 @@ public class EntityUtility {
 
 	/**
 	 * Knock back en entity with a specified amount of force
+	 *
 	 * @param entity
 	 * @param force
 	 */
@@ -190,24 +189,21 @@ public class EntityUtility {
 	}
 
 	public static void removeEntitySafely(final LivingEntity entity) {
-		Commons.threadManager.runTaskOneTickLater(new Runnable()
-		{
+		Commons.threadManager.runTaskOneTickLater(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				entity.remove();
 			}
 		});
 	}
 
 	/**
-	 *
 	 * @param world
 	 * @param entityUUID
 	 * @return
 	 */
 	public static LivingEntity getEntityByUUID(World world, UUID entityUUID) {
-		for(LivingEntity entity : world.getLivingEntities()) {
+		for (LivingEntity entity : world.getLivingEntities()) {
 			if (entity.getUniqueId().equals(entityUUID)) {
 				return entity;
 			}

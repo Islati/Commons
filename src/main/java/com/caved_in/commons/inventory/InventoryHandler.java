@@ -30,6 +30,7 @@ public class InventoryHandler {
 
 	/**
 	 * Check if the type of an inventory is a chest
+	 *
 	 * @param inventory inventory to check
 	 * @return true if the inventories type is a chest
 	 */
@@ -40,6 +41,7 @@ public class InventoryHandler {
 
 	/**
 	 * Check if the inventoryholder is a chest
+	 *
 	 * @param inventoryHolder inventoryholder to check
 	 * @return true if the inventorys holder is a chest
 	 */
@@ -50,6 +52,7 @@ public class InventoryHandler {
 
 	/**
 	 * Check if the inventoryholder is a double chest
+	 *
 	 * @param inventoryHolder inventoryholder to check
 	 * @return true if the inventorys holder is a double chest
 	 */
@@ -60,19 +63,20 @@ public class InventoryHandler {
 
 	/**
 	 * Gets the chest block related to the passed inventory holder
+	 *
 	 * @param inventoryHolder inventoryholder to get the chest of
 	 * @return
 	 */
 	public static Chest getChest(InventoryHolder inventoryHolder) {
 		if (isChest(inventoryHolder)) {
-			return (Chest)inventoryHolder;
+			return (Chest) inventoryHolder;
 		}
 		return null;
 	}
 
 	public static DoubleChest getDoubleChest(InventoryHolder inventoryHolder) {
 		if (isDoubleChest(inventoryHolder)) {
-			return (DoubleChest)inventoryHolder;
+			return (DoubleChest) inventoryHolder;
 		}
 		return null;
 	}
@@ -103,8 +107,8 @@ public class InventoryHandler {
 	}
 
 	public static void setViewItems(InventoryView inventoryView, Map<Integer, ItemStack> inventoryItems) {
-		for(Map.Entry<Integer, ItemStack> itemEntry : inventoryItems.entrySet()) {
-			inventoryView.setItem(itemEntry.getKey(),itemEntry.getValue());
+		for (Map.Entry<Integer, ItemStack> itemEntry : inventoryItems.entrySet()) {
+			inventoryView.setItem(itemEntry.getKey(), itemEntry.getValue());
 		}
 	}
 

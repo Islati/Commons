@@ -4,6 +4,7 @@ import com.caved_in.commons.world.WorldHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -93,6 +94,10 @@ public class LocationHandler {
 	}
 
 	public static Location getNormalizedLocation(Location location) {
-		return getLocation(location.getWorld(),location.getX(), location.getY() + 1, location.getZ());
+		return getLocation(location.getWorld(), location.getX(), location.getY() + 1, location.getZ());
+	}
+
+	public static boolean isBehind(LivingEntity entityToCheck, LivingEntity entityBehind) {
+		return Math.abs(Math.toDegrees(entityToCheck.getEyeLocation().getDirection().angle(entityBehind.getLocation().getDirection()))) < 45;
 	}
 }

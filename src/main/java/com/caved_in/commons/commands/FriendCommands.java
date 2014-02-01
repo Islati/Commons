@@ -38,7 +38,7 @@ public class FriendCommands {
 			}
 		}
 		//Send the player the commands help menu
-		HelpMenus.getFriendsCommandHelpScreen().sendTo(player,page,6);
+		HelpMenus.getFriendsCommandHelpScreen().sendTo(player, page, 6);
 	}
 
 	@SubCommandHandler(name = "add", parent = "friends")
@@ -72,7 +72,7 @@ public class FriendCommands {
 						}
 						//Add a friend to users friend list
 						playerFriends.addFriend(new Friend(playerName, playerAddedName, true));
-						PlayerHandler.sendMessage(player,Messages.FRIEND_REQUEST_SENT(playerAddedName));
+						PlayerHandler.sendMessage(player, Messages.FRIEND_REQUEST_SENT(playerAddedName));
 						break;
 					case ALREADY_FRIENDS:
 						PlayerHandler.sendMessage(player, Messages.FRIEND_ALREADY_EXISTS(addedName));
@@ -143,7 +143,7 @@ public class FriendCommands {
 			//Show the friend-requests menu
 			HelpMenus.getFriendRequestsHelpScreen(friendList).sendTo(player, page, 6);
 		} else {
-			PlayerHandler.sendMessage(player,Messages.NO_PENDING_FRIENDS);
+			PlayerHandler.sendMessage(player, Messages.NO_PENDING_FRIENDS);
 		}
 	}
 
@@ -194,7 +194,7 @@ public class FriendCommands {
 				}
 				//Set the friend status to accepted and send a message
 				friendList.acceptFriend(acceptName);
-				PlayerHandler.sendMessage(player,Messages.FRIEND_ACCEPTED_REQUEST(acceptName));
+				PlayerHandler.sendMessage(player, Messages.FRIEND_ACCEPTED_REQUEST(acceptName));
 			} else {
 				PlayerHandler.sendMessage(player, Messages.FRIEND_NO_REQUEST(acceptName));
 			}

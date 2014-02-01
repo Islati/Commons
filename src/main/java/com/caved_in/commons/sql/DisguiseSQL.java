@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisguiseSQL extends SQL{
+public class DisguiseSQL extends SQL {
 
 	private static String dataTable = "disguises";
 	private static String idTag = "ID";
@@ -32,7 +32,7 @@ public class DisguiseSQL extends SQL{
 
 	public DisguiseSQL(SqlConfiguration sqlConfig) {
 		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
-		this.creationStatement = creationStatement.replace("[DB]",sqlConfig.getDatabase());
+		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
 		execute(creationStatement);
 	}
 

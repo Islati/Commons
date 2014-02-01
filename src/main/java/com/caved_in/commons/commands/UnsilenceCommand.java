@@ -2,7 +2,6 @@ package com.caved_in.commons.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.commands.CommandController;
 import com.caved_in.commons.player.PlayerHandler;
 import org.bukkit.command.CommandSender;
 

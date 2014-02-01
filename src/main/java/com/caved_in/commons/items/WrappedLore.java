@@ -1,7 +1,6 @@
 package com.caved_in.commons.items;
 
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +23,8 @@ public class WrappedLore {
 	}
 
 	private void initializeLoreMap(List<String> itemLore) {
-		for(int i = 0; i < itemLore.size(); i++) {
-			this.itemLore.put(i,itemLore.get(i));
+		for (int i = 0; i < itemLore.size(); i++) {
+			this.itemLore.put(i, itemLore.get(i));
 		}
 	}
 

@@ -22,6 +22,7 @@ public class Messages {
 	public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
 	public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance toggle";
 	public static final String MAINTENANCE_MODE_DISABLED = "&aMaintenancemode is now &edisabled&a, to enable it do &e/maintenance on&a or &e/Maintenance toggle";
+	public static final String INVALID_POTION_TYPE = "&cSorry, but that's not a valid potion type.";
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return String.format("&e%s&cis offline", playerName);
@@ -217,7 +218,7 @@ public class Messages {
 	}
 
 	public static String WARP_ALREADY_EXISTS(String warpName) {
-		return String.format("&eThe warp '&c%s&e' already exists",warpName);
+		return String.format("&eThe warp '&c%s&e' already exists", warpName);
 	}
 
 }

@@ -42,15 +42,15 @@ public class WorldHandler {
 	}
 
 	public static boolean setSpawn(World world, int x, int y, int z) {
-		return world.setSpawnLocation(x,y,z);
+		return world.setSpawnLocation(x, y, z);
 	}
 
-	public static boolean setSpawn(String world, int x,int y,int z) {
-		return setSpawn(getWorld(world),x,y,z);
+	public static boolean setSpawn(String world, int x, int y, int z) {
+		return setSpawn(getWorld(world), x, y, z);
 	}
 
 	public static boolean setSpawn(World world, int[] XYZ) {
-		return setSpawn(world,XYZ[0],XYZ[1],XYZ[2]);
+		return setSpawn(world, XYZ[0], XYZ[1], XYZ[2]);
 	}
 
 	public static boolean setSpawn(World world, Location location) {
@@ -58,7 +58,7 @@ public class WorldHandler {
 	}
 
 	public static boolean unloadWorld(String worldName) {
-		return Bukkit.getServer().unloadWorld(getWorld(worldName),false);
+		return Bukkit.getServer().unloadWorld(getWorld(worldName), false);
 	}
 
 	public static boolean loadWorld(String worldName) {

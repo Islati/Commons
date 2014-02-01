@@ -1,6 +1,5 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.commands.CommandController;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

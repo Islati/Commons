@@ -5,8 +5,6 @@ import com.caved_in.commons.config.Formatting.ColorCode;
 import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.location.LocationHandler;
-import com.caved_in.commons.potions.PotionHandler;
-import com.caved_in.commons.potions.PotionType;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warps.Warp;
 import com.caved_in.commons.world.WorldHeight;
@@ -388,8 +386,9 @@ public class PlayerHandler {
 
 	/**
 	 * Teleports the player to the location of the warp
+	 *
 	 * @param player player to teleport
-	 * @param warp warp to teleport the player to
+	 * @param warp   warp to teleport the player to
 	 * @since 1.0
 	 */
 	public static void teleport(Player player, Warp warp) {
@@ -411,8 +410,8 @@ public class PlayerHandler {
 	 * Force all players on the server to chat the message given
 	 *
 	 * @param message message for the players to say
-	 * @since 1.0
 	 * @see #playerChat(org.bukkit.entity.Player, String)
+	 * @since 1.0
 	 */
 	public static void allPlayersChat(String message) {
 		for (Player player : getOnlinePlayers()) {
@@ -458,8 +457,8 @@ public class PlayerHandler {
 	 *
 	 * @param player player to check permissions for
 	 * @return true if they can chat while its silenced (has premium), false otherwise
-	 * @since 1.0
 	 * @see #isPremium(String)
+	 * @since 1.0
 	 */
 	public static boolean canChatWhileSilenced(Player player) {
 		return (isPremium(player.getName()));
@@ -569,24 +568,11 @@ public class PlayerHandler {
 	 *
 	 * @param player       player to give the potion effect to
 	 * @param potionEffect the potion effect in which to give the player
-	 * @since 1.0
 	 * @see com.caved_in.commons.entity.EntityUtility#addPotionEffect(org.bukkit.entity.LivingEntity, org.bukkit.potion.PotionEffect)
+	 * @since 1.0
 	 */
 	public static void addPotionEffect(Player player, PotionEffect potionEffect) {
 		EntityUtility.addPotionEffect(player, potionEffect);
-	}
-
-	/**
-	 * Give this player a potion effect of the given type for a specific duration
-	 *
-	 * @param player          player to give the potion effect to
-	 * @param potionType      effect type to give the player
-	 * @param durationInTicks duration of the potion effect (in ticks. 20 ticks = 1 second)
-	 * @see com.caved_in.commons.entity.EntityUtility#addPotionEffect(org.bukkit.entity.LivingEntity, com.caved_in.commons.potions.PotionType, int)
-	 * @since 1.0
-	 */
-	public static void addPotionEffect(Player player, PotionType potionType, int durationInTicks) {
-		addPotionEffect(player, PotionHandler.getPotionEffect(potionType, durationInTicks));
 	}
 
 	/**
@@ -648,6 +634,7 @@ public class PlayerHandler {
 
 	/**
 	 * Gets the players depth on a 0-based number
+	 *
 	 * @param player player to get the depth of
 	 * @return 0-based y-axis position
 	 * @since 1.0
@@ -658,6 +645,7 @@ public class PlayerHandler {
 
 	/**
 	 * Checks whether or not the player is above sea level
+	 *
 	 * @param player player to check the depth of
 	 * @return true if they're above sea level, false if they're at or below sea level
 	 * @since 1.0
@@ -668,6 +656,7 @@ public class PlayerHandler {
 
 	/**
 	 * Checks whether or not the player is below sea level
+	 *
 	 * @param player player to check the depth of
 	 * @return true if the player is below sea level, false if they're at or above sea level
 	 * @since 1.0
@@ -678,6 +667,7 @@ public class PlayerHandler {
 
 	/**
 	 * Check whether or not the player is at sea level
+	 *
 	 * @param player player to check the depth of
 	 * @return true if they're at sea level, false if they're above or below sea level
 	 * @since 1.0
@@ -689,8 +679,9 @@ public class PlayerHandler {
 	/**
 	 * Replenishes a players food level to the amount given.
 	 * <p>
-	 *     Sets saturation to 10 and exhaustion to 0.
+	 * Sets saturation to 10 and exhaustion to 0.
 	 * </p>
+	 *
 	 * @param player player to feed
 	 * @param amount amount of hunger to restore
 	 * @since 1.0
@@ -704,9 +695,10 @@ public class PlayerHandler {
 	/**
 	 * Replenishes the players food level to full (20).
 	 * <p>
-	 *     The players exhaustion will also be set to 0, along with
-	 *     saturation set to 10
+	 * The players exhaustion will also be set to 0, along with
+	 * saturation set to 10
 	 * </p>
+	 *
 	 * @param player player to feed
 	 * @see #feedPlayer(org.bukkit.entity.Player, int)
 	 * @since 1.0
@@ -717,6 +709,7 @@ public class PlayerHandler {
 
 	/**
 	 * Repair all the items in a players inventory to full durability, excluding their armor.
+	 *
 	 * @param player player to repair the items of
 	 * @see #repairItems(org.bukkit.entity.Player, boolean)
 	 * @since 1.0
@@ -728,10 +721,11 @@ public class PlayerHandler {
 	/**
 	 * Repair all the items in a player inventory to full durability.
 	 * <p>
-	 *     If {@param repairArmor} is true, then the players armor will also
-	 *     be repaired to full.
+	 * If {@param repairArmor} is true, then the players armor will also
+	 * be repaired to full.
 	 * </p>
-	 * @param player player to repair the items of
+	 *
+	 * @param player      player to repair the items of
 	 * @param repairArmor whether or not to repair the armor of the player aswell
 	 * @since 1.0
 	 */
@@ -745,7 +739,7 @@ public class PlayerHandler {
 
 	/**
 	 * Checks whether or not a player has an item in their hand.
-
+	 *
 	 * @param player player to check an item in hand for
 	 * @return true if the player has an item in their hand, and that item isn't AIR, otherwise false
 	 * @since 1.0
@@ -756,6 +750,7 @@ public class PlayerHandler {
 
 	/**
 	 * Gets the players targeted location (on their cursor) of up-to 30 blocks in distance
+	 *
 	 * @param player player to get the target-location of
 	 * @return location that the player's targeting with their cursor; If greater than 30 blocks
 	 * in distance, then returns the location at the cursor 30 blocks away

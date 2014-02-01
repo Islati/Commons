@@ -2,42 +2,64 @@ package com.caved_in.commons.potions;
 
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
 public enum PotionType {
-	//Strength Potions
-	STRENGTH_LVL_1(PotionEffectType.INCREASE_DAMAGE,1),
-	STRENGTH_LVL_2(PotionEffectType.INCREASE_DAMAGE,2),
-	//Speed Potions
-	SPEED_LVL_1(PotionEffectType.SPEED,1),
-	SPEED_LVL_2(PotionEffectType.SPEED,2),
-	SPEED_LVL_3(PotionEffectType.SPEED,3),
-	//Invisibility
-	INVISIBILITY(PotionEffectType.INVISIBILITY,1),
-	//Nausea
-	NAUSEA_LVL_1(PotionEffectType.CONFUSION,1),
-	//Blindness
-	BLINDNESS_LVL_1(PotionEffectType.BLINDNESS,1),
-	BLINDNESS_LVL_2(PotionEffectType.BLINDNESS,2),
-	BLINDNESS_LVL_3(PotionEffectType.BLINDNESS,3),
-	//Jump
-	JUMP_LVL_1(PotionEffectType.JUMP,1),
-	JUMP_LVL_2(PotionEffectType.JUMP,2),
-	//Slow
-	SLOW_LVL_1(PotionEffectType.SLOW,1),
-	SLOW_LVL_2(PotionEffectType.SLOW,2);
+	STRENGTH(PotionEffectType.INCREASE_DAMAGE, "strength", "damage", "power"),
+	INVISIBILITY(PotionEffectType.INVISIBILITY, "invisibility", "invisible", "hidden", "hide"),
+	NAUSEA(PotionEffectType.CONFUSION, "confusion", "nausea", "sickness"),
+	SPEED(PotionEffectType.SPEED, "speed", "fastwalk", "haste"),
+	JUMP(PotionEffectType.JUMP, "jump", "jumping", "bunnyhop"),
+	FAST_DIGGING(PotionEffectType.FAST_DIGGING, "digspeed", "fastdig", "mininghaste", "minerhaste", "minehaste"),
+	SLOW_DIGGING(PotionEffectType.SLOW_DIGGING, "slowdigging", "slowdig", "minedehaste", "slow_digging"),
+	HEAL(PotionEffectType.HEAL, "heal", "healdamage"),
+	HEALTH_BOOST(PotionEffectType.HEALTH_BOOST, "healthboost", "hpbonus", "bonushp", "health_bonus", "increasedhealth", "increasedhp", "increasehp"),
+	DAMAGE_RESISTANCE(PotionEffectType.DAMAGE_RESISTANCE, "damageresistance", "damageresist", "defence", "defbuff", "increasedefense", "defenceincrease"),
+	BLINDNESS(PotionEffectType.BLINDNESS, "blindness", "blind", "sight"),
+	WATER_BREATHING(PotionEffectType.WATER_BREATHING, "respiration", "oxygen", "waterbreathing", "water_breathing", "diverbreath"),
+	FIRE_RESISTANCE(PotionEffectType.FIRE_RESISTANCE, "flamedefense", "fireresistance", "firearmor", "firedef", "flamedef", "protectfire", "fireprotection"),
+	SLOWNESS(PotionEffectType.SLOW, "slow", "slowness"),
+	INSTANT_DAMAGE(PotionEffectType.HARM, "harm", "instantdamage", "hurt"),
+	WEAKNESS(PotionEffectType.WEAKNESS, "weakness", "weak"),
+	POISON(PotionEffectType.POISON, "poison"),
+	WITHER(PotionEffectType.WITHER, "wither", "withereffect"),
+	SATURATION(PotionEffectType.SATURATION, "saturation"),
+	ABSORPTION(PotionEffectType.ABSORPTION, "absorbtion"),
+	NIGHT_VISION(PotionEffectType.NIGHT_VISION, "nightvision", "nighthawk", "nightsee", "nightowl");
+
+	private static Map<String, PotionType> potionTypes = new HashMap<>();
+
+	static {
+		for (PotionType potionType : EnumSet.allOf(PotionType.class)) {
+			for (String identifier : potionType.identifiers) {
+				potionTypes.put(identifier, potionType);
+			}
+		}
+	}
 
 	private PotionEffectType potionEffectType;
-	private int amplification;
+	private String[] identifiers;
 
-	PotionType(PotionEffectType potionEffectType, int amplification) {
+	PotionType(PotionEffectType potionEffectType, String... identifiers) {
 		this.potionEffectType = potionEffectType;
-		this.amplification = amplification;
+		this.identifiers = identifiers;
 	}
 
 	public PotionEffectType getPotionEffectType() {
 		return potionEffectType;
 	}
 
-	public int getAmplification() {
-		return amplification;
+	public String[] getIdentifiers() {
+		return this.identifiers;
+	}
+
+	public static boolean isPotionType(String search) {
+		return potionTypes.containsKey(search.toLowerCase());
+	}
+
+	public static PotionType getPotionType(String search) {
+		return potionTypes.get(search.toLowerCase());
 	}
 }

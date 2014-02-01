@@ -34,13 +34,15 @@ public class PlayerWrapper {
 
 	private ChatColor tagColor = ChatColor.WHITE;
 
-	/** Location the player was before their last teleport */
+	/**
+	 * Location the player was before their last teleport
+	 */
 	private Location preTeleportLocation;
 
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
 	 *
-	 * @param playerName name of the player to be instanced
+	 * @param playerName     name of the player to be instanced
 	 * @param currencyAmount currency the player has
 	 */
 	public PlayerWrapper(String playerName, double currencyAmount) {
@@ -205,7 +207,7 @@ public class PlayerWrapper {
 
 	public void setWalkSpeed(double walkSpeed) {
 		this.walkSpeed = walkSpeed;
-		getPlayer().setWalkSpeed((float)walkSpeed);
+		getPlayer().setWalkSpeed((float) walkSpeed);
 	}
 
 	public double getFlySpeed() {
@@ -214,7 +216,7 @@ public class PlayerWrapper {
 
 	public void setFlySpeed(double flySpeed) {
 		this.flySpeed = flySpeed;
-		getPlayer().setFlySpeed((float)flySpeed);
+		getPlayer().setFlySpeed((float) flySpeed);
 	}
 
 	public boolean isViewingRecipe() {
@@ -233,7 +235,6 @@ public class PlayerWrapper {
 	}
 
 	/**
-	 *
 	 * @param preTeleportLocation
 	 */
 	public void setPreTeleportLocation(Location preTeleportLocation) {

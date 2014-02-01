@@ -13,6 +13,6 @@ public class BackCommand {
 	@CommandController.CommandHandler(name = "back", permission = "tunnels.common.back")
 	public void onBackCommand(Player player, String[] args) {
 		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
-		PlayerHandler.teleport(player,playerWrapper.getPreTeleportLocation());
+		PlayerHandler.teleport(player, playerWrapper.getPreTeleportLocation());
 	}
 }

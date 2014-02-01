@@ -1,6 +1,5 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.commands.CommandController;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.world.WorldHandler;
 import org.bukkit.entity.Player;

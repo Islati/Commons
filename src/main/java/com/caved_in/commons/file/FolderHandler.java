@@ -3,7 +3,9 @@ package com.caved_in.commons.file;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FolderHandler {
 
@@ -32,6 +34,7 @@ public class FolderHandler {
 
 	/**
 	 * Checks if the file exists, ignoring all case
+	 *
 	 * @param fileName
 	 * @return True if it does, false otherwise
 	 */

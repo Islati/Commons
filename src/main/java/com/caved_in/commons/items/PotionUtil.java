@@ -11,9 +11,10 @@ public class PotionUtil {
 
 	/**
 	 * Create a potion effect
+	 *
 	 * @param effectType Type of our potion
-	 * @param Duration how long the effect should/will last for
-	 * @param Strength the strength(amplification) of the potion
+	 * @param Duration   how long the effect should/will last for
+	 * @param Strength   the strength(amplification) of the potion
 	 * @return a potion effect object based on the arguments passed
 	 */
 	public static PotionEffect getPotionEffect(PotionEffectType effectType, int Duration, int Strength) {
@@ -22,10 +23,11 @@ public class PotionUtil {
 
 	/**
 	 * Create a potion effect with a duration between the minimum and maximum range
-	 * @param effectType Type of our potion
+	 *
+	 * @param effectType      Type of our potion
 	 * @param minimumDuration minimum duration the effect can last for
 	 * @param maximumDuration maximum duration the effect can last for
-	 * @param strength the strength(amplification) of the potion
+	 * @param strength        the strength(amplification) of the potion
 	 * @return a potion effect object based on the arguments passed
 	 */
 	public static PotionEffect getPotionEffect(PotionEffectType effectType, int minimumDuration, int maximumDuration, int strength) {

@@ -109,3 +109,5 @@ commands:
       usage: /<command> <name>
    back:
       usage: /<command>
+   potion:
+      usage: /<command> <type> [Level]

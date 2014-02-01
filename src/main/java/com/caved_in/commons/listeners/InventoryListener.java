@@ -25,7 +25,7 @@ public class InventoryListener implements Listener {
 		//Get the inventory that's being clicked
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();
-		Player player = (Player)event.getWhoClicked();
+		Player player = (Player) event.getWhoClicked();
 		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
@@ -47,7 +47,7 @@ public class InventoryListener implements Listener {
 	public void onInventoryClose(InventoryCloseEvent event) {
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();
-		Player player = (Player)event.getPlayer();
+		Player player = (Player) event.getPlayer();
 		//Get the wrapped player data
 		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
 		switch (inventoryType) {

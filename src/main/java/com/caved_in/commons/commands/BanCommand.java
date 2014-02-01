@@ -3,7 +3,6 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.PunishmentType;
-import com.caved_in.commons.commands.CommandController;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.time.TimeHandler;
 import org.apache.commons.lang.StringUtils;
@@ -102,12 +101,12 @@ public class BanCommand {
 						playerName = bPlayer.getName();
 						bPlayer.kickPlayer(banReason);
 						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-						PlayerHandler.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName,bannedBy,banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+						PlayerHandler.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 					} else {
 						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(playerName);
 						if (bPlayer.hasPlayedBefore()) {
 							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-							PlayerHandler.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName,bannedBy,banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+							PlayerHandler.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 						} else {
 							PlayerHandler.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
 						}

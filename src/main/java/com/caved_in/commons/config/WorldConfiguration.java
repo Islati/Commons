@@ -109,7 +109,6 @@ public class WorldConfiguration {
 	}
 
 	/**
-	 *
 	 * @return true if ice spread is disabled, false otherwise
 	 */
 	public boolean isIceSpreadDisabled() {
@@ -117,7 +116,6 @@ public class WorldConfiguration {
 	}
 
 	/**
-	 *
 	 * @return true if snow spread is disabled, false otherwise
 	 */
 	public boolean isSnowSpreadDisabled() {
@@ -125,7 +123,6 @@ public class WorldConfiguration {
 	}
 
 	/**
-	 *
 	 * @return true if mycelium spread is disabled, false otherwise
 	 */
 	public boolean isMyceliumSpreadDisabled() {

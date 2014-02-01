@@ -24,7 +24,7 @@ public class ChatListener implements Listener {
 				return;
 			}
 		}
-		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s",player.getDisplayName(),event.getMessage())));
+		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", player.getDisplayName(), event.getMessage())));
 		/*
 		TODO Optimize this
 		ChatColor playerChatColor = PlayerHandler.getData(playerName).getTagColor();

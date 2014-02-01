@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendSQL extends SQL{
+public class FriendSQL extends SQL {
 	private static String tableName = "friends";
 	private static String playerField = "player";
 	private static String friendField = "Friend";

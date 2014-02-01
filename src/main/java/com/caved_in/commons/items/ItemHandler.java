@@ -501,8 +501,9 @@ public class ItemHandler {
 
 	/**
 	 * Sets an items durability to either full-red or full-orange based on arguments
+	 *
 	 * @param itemStack item stack to change the durability bar on
-	 * @param isRed whether or not we want the bar to be red; if false, the bar will be orange
+	 * @param isRed     whether or not we want the bar to be red; if false, the bar will be orange
 	 */
 	public static void colouredDurability(ItemStack itemStack, boolean isRed) {
 		itemStack.setDurability((short) (isRed ? 1000 : itemStack.getType().getMaxDurability() * 2));
