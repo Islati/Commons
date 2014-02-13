@@ -1,6 +1,6 @@
 name: Tunnels-Common
 main: com.caved_in.commons.Commons
-version: 1.2
+version: 1.2-SNAPSHOT
 description: Commons Library built for easier plugin development and server managment
 author: Brandon
 depend: [PopupMenuAPI]

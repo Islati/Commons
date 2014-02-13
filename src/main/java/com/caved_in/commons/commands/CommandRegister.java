@@ -44,6 +44,7 @@ public class CommandRegister {
 		registerCommand(new WarpCommand());
 		registerCommand(new BackCommand());
 		registerCommand(new WarpsCommand());
+		registerCommand(new PotionCommand());
 
 		/* Punishment / Moderation Commands */
 		registerCommand(new BanCommand());
