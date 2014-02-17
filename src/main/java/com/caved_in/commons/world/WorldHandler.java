@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Entity;
 
 import java.util.UUID;
 
@@ -23,6 +24,14 @@ public class WorldHandler {
 
 	public static World getWorld(UUID worldUUID) {
 		return Bukkit.getWorld(worldUUID);
+	}
+
+	public static World getWorld(Entity entity) {
+		return entity.getWorld();
+	}
+
+	public static String getWorldName(Entity entity) {
+		return getWorld(entity).getName();
 	}
 
 	public static boolean worldExists(String worldName) {

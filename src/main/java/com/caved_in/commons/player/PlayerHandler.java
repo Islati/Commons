@@ -7,6 +7,7 @@ import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.location.LocationHandler;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warps.Warp;
+import com.caved_in.commons.world.WorldHandler;
 import com.caved_in.commons.world.WorldHeight;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,15 +25,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerHandler {
-	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
-	private static Map<String, PlayerWrapper> playerData = new HashMap<String, PlayerWrapper>();
-
 	public static final int DEPTH_EQUILZE_NUMBER = 63;
+	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
+	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
 
-	public static boolean hasData(String Name) {
-		return playerData.containsKey(Name);
+	/**
+	 * Check if a player with the given name has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
+	 * @param playerName name to check if data exists for
+	 * @return true if the player has loaded data, false otherwise
+	 */
+	public static boolean hasData(String playerName) {
+		return playerData.containsKey(playerName);
 	}
 
+	/**
+	 * Check if the player has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
+	 * @param player player to check if data exists for
+	 * @return true if the player has loaded data, false otherwise
+	 */
 	private static boolean hasData(Player player) {
 		return playerData.containsKey(player.getName());
 	}
@@ -758,5 +768,17 @@ public class PlayerHandler {
 	 */
 	public static Location getTargetLocation(Player player) {
 		return LocationHandler.getNormalizedLocation(player.getTargetBlock(null, MAX_BLOCK_TARGET_DISTANCE).getLocation());
+	}
+
+	/**
+	 * Gets the players world name
+	 *
+	 * @param player player to get the name of the world for
+	 * @return name of the players world
+	 * @see {@link com.caved_in.commons.world.WorldHandler#getWorldName(org.bukkit.entity.Entity)}
+	 * @since 1.2
+	 */
+	public static String getWorldName(Player player) {
+		return WorldHandler.getWorldName(player);
 	}
 }
