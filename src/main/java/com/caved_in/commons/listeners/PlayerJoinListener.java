@@ -1,9 +1,11 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.world.WorldHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,13 +22,14 @@ public class PlayerJoinListener implements Listener {
 		//Reset the players walk and fly speeds
 		player.setFlySpeed((float) PlayerWrapper.defaultFlySpeed);
 		player.setWalkSpeed((float) PlayerWrapper.defaultWalkSpeed);
+		WorldConfiguration worldConfig = Commons.getConfiguration().getWorldConfig();
 
-		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
+		if (!worldConfig.isJoinLeaveMessagesEnabled()) {
 			event.setJoinMessage(null);
 		}
 
 		PlayerHandler.addData(player);
-		if (Commons.getConfiguration().getWorldConfig().isCompassMenuEnabled()) {
+		if (worldConfig.isCompassMenuEnabled()) {
 			if (!player.getInventory().contains(Material.COMPASS)) {
 				player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 			}
@@ -34,7 +37,7 @@ public class PlayerJoinListener implements Listener {
 
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (Commons.getConfiguration().getServerName().equalsIgnoreCase("lobby")) {
-			player.teleport(player.getWorld().getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			player.teleport(WorldHandler.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
 		}
 	}
 }

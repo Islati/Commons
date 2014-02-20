@@ -7,8 +7,11 @@ import com.caved_in.commons.player.PlayerWrapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PlayerSQL extends SQL {
+	private Set<String> playersWithData = new HashSet<String>();
 	private static String tableName = "players";
 	private static String playerField = "Name";
 	private static String onlineStatusField = "OnlineStatus";
@@ -44,19 +47,27 @@ public class PlayerSQL extends SQL {
 
 
 	public boolean hasData(String playerName) {
-		PreparedStatement playerDataStatement = prepareStatement(getPlayerDataStatement);
-		boolean hasData = false;
-		try {
-			playerDataStatement.setString(1, playerName);
-			ResultSet playerData = playerDataStatement.executeQuery();
-			hasData = playerData.next();
-			playerData.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(playerDataStatement);
+		if (!playersWithData.contains(playerName)) {
+			PreparedStatement playerDataStatement = prepareStatement(getPlayerDataStatement);
+			boolean hasData = false;
+			try {
+				playerDataStatement.setString(1, playerName);
+				ResultSet playerData = playerDataStatement.executeQuery();
+				hasData = playerData.next();
+				//If the player has data, add it to the cache
+				if (hasData) {
+					playersWithData.add(playerName);
+				}
+				playerData.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(playerDataStatement);
+			}
+			return hasData;
+		} else {
+			return true;
 		}
-		return hasData;
 	}
 
 	public PlayerWrapper getPlayerWrapper(String playerName) {

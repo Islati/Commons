@@ -1,6 +1,6 @@
 package com.caved_in.commons.threading;
 
-public abstract class CallbackTask implements Runnable {
+public class CallbackTask implements Runnable {
 
 	private final Runnable task;
 

@@ -50,6 +50,10 @@ public class WorldHandler {
 		return world.getSpawnLocation();
 	}
 
+	public static Location getSpawn(Entity entity) {
+		return getSpawn(getWorld(entity));
+	}
+
 	public static boolean setSpawn(World world, int x, int y, int z) {
 		return world.setSpawnLocation(x, y, z);
 	}

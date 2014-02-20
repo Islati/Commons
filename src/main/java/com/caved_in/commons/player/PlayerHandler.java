@@ -31,6 +31,7 @@ public class PlayerHandler {
 
 	/**
 	 * Check if a player with the given name has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
+	 *
 	 * @param playerName name to check if data exists for
 	 * @return true if the player has loaded data, false otherwise
 	 */
@@ -40,6 +41,7 @@ public class PlayerHandler {
 
 	/**
 	 * Check if the player has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
+	 *
 	 * @param player player to check if data exists for
 	 * @return true if the player has loaded data, false otherwise
 	 */
@@ -229,6 +231,19 @@ public class PlayerHandler {
 	 */
 	public static String getName(String partialPlayerName) {
 		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : partialPlayerName;
+	}
+
+	/**
+	 * Kicks the player for the reason defined
+	 * <p>
+	 * Calling this method automatically formats for color codes in the kick message
+	 * </p>
+	 *
+	 * @param player player to kick
+	 * @param reason reason to kick the player for
+	 */
+	public static void kickPlayer(Player player, String reason) {
+		player.kickPlayer(StringUtil.formatColorCodes(reason));
 	}
 
 	/**

@@ -9,20 +9,25 @@ import com.caved_in.commons.time.TimeHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BansSQL extends SQL {
 	private static String tableName = "bans";
 	private static String idColumn = "ID";
 	private static String typeColumn = "Type";
 	private static String nameColumn = "Name";
+	private static String getDataStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=?";
 	private static String reasonColumn = "Reason";
 	private static String issuedByColumn = "IssuedBy";
 	private static String timeIssuedColumn = "Issued";
 	private static String expiryColumn = "Expires";
+	private static String insertDataStatement = "INSERT INTO " + tableName + " (" + typeColumn + ", " + nameColumn + ", " + reasonColumn + ", " + issuedByColumn + ", " + timeIssuedColumn + ", " + expiryColumn + ") VALUES (?,?,?,?,?,?)";
 	private static String activeColumn = "Active";
-
+	private static String getActiveStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + activeColumn + "=?";
+	private static String getActiveTypeStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + typeColumn + "=? AND " + activeColumn + "=?";
+	private static String updateIDStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + idColumn + "=?";
+	private static String updateActiveStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + nameColumn + "=?";
+	private Map<String, Boolean> playersWithData = new HashMap<>();
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`bans` (" +
 			"  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT," +
 			"  `Type` text NOT NULL," +
@@ -35,13 +40,6 @@ public class BansSQL extends SQL {
 			"  PRIMARY KEY (`ID`)" +
 			") ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
-	private static String getDataStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=?";
-	private static String insertDataStatement = "INSERT INTO " + tableName + " (" + typeColumn + ", " + nameColumn + ", " + reasonColumn + ", " + issuedByColumn + ", " + timeIssuedColumn + ", " + expiryColumn + ") VALUES (?,?,?,?,?,?)";
-	private static String updateActiveStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + nameColumn + "=?";
-	private static String updateIDStatement = "UPDATE " + tableName + " SET " + activeColumn + "=? WHERE " + idColumn + "=?";
-	private static String getActiveTypeStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + typeColumn + "=? AND " + activeColumn + "=?";
-	private static String getActiveStatement = "SELECT * FROM " + tableName + " WHERE " + nameColumn + "=? AND " + activeColumn + "=?";
-
 	public BansSQL(SqlConfiguration sqlConfig) {
 		super(sqlConfig.getHost(), sqlConfig.getPort(), sqlConfig.getDatabase(), sqlConfig.getUsername(), sqlConfig.getPassword());
 		this.creationStatement = creationStatement.replace("[DB]", sqlConfig.getDatabase());
@@ -49,19 +47,25 @@ public class BansSQL extends SQL {
 	}
 
 	private boolean hasData(String playerName) {
-		//Prepare our statement
-		PreparedStatement preparedStatement = prepareStatement(getDataStatement);
-		boolean hasData = false;
-		try {
-			//Set the search variable to the players name
-			preparedStatement.setString(1, playerName);
-			hasData = preparedStatement.executeQuery().next();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(preparedStatement);
+		boolean hasData = playersWithData.containsKey(playerName);
+		if (!hasData) {
+			//Prepare our statement
+			PreparedStatement preparedStatement = prepareStatement(getDataStatement);
+			try {
+				//Set the search variable to the players name
+				preparedStatement.setString(1, playerName);
+				hasData = preparedStatement.executeQuery().next();
+				if (hasData) {
+					playersWithData.put(playerName,false);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
+			}
 		}
 		return hasData;
+
 	}
 
 	public List<Punishment> getRecords(String playerName) {
@@ -90,8 +94,16 @@ public class BansSQL extends SQL {
 	}
 
 	public boolean hasActiveData(String playerName) {
-		for (Punishment punishment : this.getRecords(playerName)) {
-			if (punishment.isActive()) {
+		if (hasData(playerName)) {
+			if (!playersWithData.get(playerName)) {
+				for (Punishment punishment : this.getRecords(playerName)) {
+					if (punishment.isActive()) {
+						//Cache the active data state
+						playersWithData.put(playerName, true);
+						return true;
+					}
+				}
+			} else {
 				return true;
 			}
 		}
@@ -108,7 +120,7 @@ public class BansSQL extends SQL {
 	}
 
 	public List<Punishment> getActiveRecords(PunishmentType type, String playerName) {
-		List<Punishment> activeRecords = new ArrayList<Punishment>();
+		List<Punishment> activeRecords = new ArrayList<>();
 		for (Punishment record : this.getActiveRecords(playerName)) {
 			if (record.getPunishmentType() == type) {
 				activeRecords.add(record);
@@ -117,9 +129,9 @@ public class BansSQL extends SQL {
 		return activeRecords;
 	}
 
-	public List<Punishment> getActiveRecords(String playerName) {
-		List<Punishment> activeRecords = new ArrayList<Punishment>();
-		for (Punishment punishment : this.getRecords(playerName)) {
+	public Set<Punishment> getActiveRecords(String playerName) {
+		Set<Punishment> activeRecords = new HashSet<>();
+		for (Punishment punishment : getRecords(playerName)) {
 			if (punishment.isActive()) {
 				activeRecords.add(punishment);
 			}
@@ -153,6 +165,8 @@ public class BansSQL extends SQL {
 		} finally {
 			close(preparedStatement);
 		}
+		//Player has active data
+		playersWithData.put(playerName, true);
 		Commons.messageConsole(punishmentType.toString() + " issued by [" + issuedBy + "] for player [" + playerName + "] for \"" + reason + " \" which will expire in " + TimeHandler.getDurationTrimmed(expires));
 	}
 
@@ -166,6 +180,8 @@ public class BansSQL extends SQL {
 				preparedStatement.executeUpdate();
 				pardoned = true;
 				Commons.messageConsole(playerName + " has been pardoned by " + pardonedBy);
+				//Set the active cached data to false
+				playersWithData.put(playerName,false);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -202,6 +218,7 @@ public class BansSQL extends SQL {
 			}
 			//Execute our pool of batch statements
 			pardonStatement.executeBatch();
+			playersWithData.put(playerName,false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
