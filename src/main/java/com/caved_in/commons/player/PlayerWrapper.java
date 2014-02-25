@@ -2,6 +2,7 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.friends.FriendList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -33,6 +34,8 @@ public class PlayerWrapper {
 	private double currencyAmount = 0.0D;
 
 	private ChatColor tagColor = ChatColor.WHITE;
+	
+	private String prefix = "";
 
 	/**
 	 * Location the player was before their last teleport
@@ -54,6 +57,7 @@ public class PlayerWrapper {
 	private void initWrapper() {
 		this.currentServer = Commons.getConfiguration().getServerName();
 		this.lastOnline = System.currentTimeMillis();
+		this.prefix = Commons.playerDatabase.getPrefix(this);
 		//Load the players friends list
 		friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
 	}
@@ -203,6 +207,10 @@ public class PlayerWrapper {
 
 	public double getWalkSpeed() {
 		return walkSpeed;
+	}
+	
+	public String getPrefix() {
+		return prefix;
 	}
 
 	public void setWalkSpeed(double walkSpeed) {
