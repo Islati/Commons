@@ -22,10 +22,7 @@ public class PlayerSQL extends SQL {
 	private static String premiumField = "Premium";
 	private static String prefixField = "Prefix";
 	
-	// SELECT  `Prefix` FROM  `players` WHERE  `Name` =  'Squad_MC'
-	
 	private static String getPlayerPrefix = "SELECT `" + prefixField + "` FROM `" + tableName + "` WHERE `" + playerField + "` =?";
-	
 	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE Name =?";
 	private static String updatePlayerDataStatement = "UPDATE " + tableName + " SET " + playerField + "=?, " + lastSeenField + "=?, " + currencyField + "=?, " +
 			"" + serverField + "=?, " + premiumField + "=?, " + onlineStatusField + "=? WHERE " + playerField + "=?";
