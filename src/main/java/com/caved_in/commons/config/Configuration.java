@@ -19,7 +19,7 @@ public class Configuration {
 	private String serverName = "EDIT THIS";
 	
 	@Element(name = "Enable_NPC")
-	private boolean enableNPC = false;
+	private boolean enableNPC = true;
 
 	//TODO Actually add this to the configuration
 	private String chatFormat = "TODO";
