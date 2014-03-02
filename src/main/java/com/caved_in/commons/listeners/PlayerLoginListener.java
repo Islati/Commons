@@ -1,10 +1,11 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.TunnelsPermissions;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.TunnelsPermissions;
 
 public class PlayerLoginListener implements Listener {
 	@EventHandler
