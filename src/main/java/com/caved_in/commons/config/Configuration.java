@@ -14,9 +14,12 @@ public class Configuration {
 
 	@Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class)
 	private ItemMenuConfiguration itemMenuConfig;
-
+	
 	@Element(name = "Server_Name")
 	private String serverName = "EDIT THIS";
+	
+	@Element(name = "Enable_NPC")
+	private boolean enableNPC = true;
 
 	//TODO Actually add this to the configuration
 	private String chatFormat = "TODO";
@@ -25,12 +28,14 @@ public class Configuration {
 						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
 						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
 						 @Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
+						 @Element(name = "Enable_NPC") boolean enableNPC,
 						 @Element(name = "Server_Name") String serverName) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
 		this.itemMenuConfig = itemMenuConfig;
 		this.serverName = serverName;
+		this.enableNPC = enableNPC;
 	}
 
 	public Configuration() {
@@ -58,5 +63,9 @@ public class Configuration {
 
 	public String getServerName() {
 		return this.serverName;
+	}
+	
+	public boolean getNPCSEnabled() {
+		return this.enableNPC;
 	}
 }
