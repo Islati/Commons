@@ -82,7 +82,6 @@ public class Commons extends JavaPlugin {
         int id = getNextID();
         EntityHuman human = new EntityHuman(location, name, id);
         LOOKUP.put(id, human);
-
         updateNPC(human);
         return human;
     }
@@ -220,10 +219,11 @@ public class Commons extends JavaPlugin {
 	public static Configuration getConfiguration() {
 		return globalConfig;
 	}
-
+	
 	@Override
 	public void onEnable() {
 		/** NPC **/
+		
 		startUp();
 		INSTANCE = this;
 

@@ -62,4 +62,8 @@ public interface NPC {
 
     public <T extends Projectile> T launchProjectile(Class<? extends T> projectile);
 
+	public String getText();
+	
+	public void setText(String text);
+
 }

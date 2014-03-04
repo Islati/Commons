@@ -29,6 +29,8 @@ public class EntityHuman implements NPC {
     private boolean blocking;
 
     private DataWatcher dataWatcher;
+    
+	private String text;
 
     public EntityHuman(Location location, String name, int id) {
         this.location = location;
@@ -251,6 +253,14 @@ public class EntityHuman implements NPC {
         setDataWatcher(dataWatcher);
     }
 
+    public String getText() {
+    	return text;
+    }
+    
+    public void setText(String text) {
+    	this.text = text;
+    }
+    
     /**
      * Needs some testing.
      * @return
