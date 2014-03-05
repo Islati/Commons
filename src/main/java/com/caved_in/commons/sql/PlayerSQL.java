@@ -1,14 +1,15 @@
 package com.caved_in.commons.sql;
 
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.player.PlayerWrapper;
-
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.SqlConfiguration;
+import com.caved_in.commons.player.PlayerWrapper;
 
 public class PlayerSQL extends SQL {
 	private Set<String> playersWithData = new HashSet<String>();
@@ -19,15 +20,20 @@ public class PlayerSQL extends SQL {
 	private static String currencyField = "XP";
 	private static String lastSeenField = "LastOnline";
 	private static String premiumField = "Premium";
-
+	private static String prefixField = "Prefix";
+	
+	// SELECT  `Prefix` FROM  `players` WHERE  `Name` =  'Squad_MC'
+	
+	private static String getPlayerPrefix = "SELECT `" + prefixField + "` FROM `" + tableName + "` WHERE `" + playerField + "` =?";
+	
 	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE Name =?";
 	private static String updatePlayerDataStatement = "UPDATE " + tableName + " SET " + playerField + "=?, " + lastSeenField + "=?, " + currencyField + "=?, " +
 			"" + serverField + "=?, " + premiumField + "=?, " + onlineStatusField + "=? WHERE " + playerField + "=?";
 	private static String insertDefaultsStatement = "INSERT INTO " + tableName + " (" + playerField + ", " + onlineStatusField + ", " + serverField + ", " +
-			"" + premiumField + ", " + currencyField + ", " + lastSeenField + ") VALUES (?, 1, ?, 0, 0, ?)";
+			"" + premiumField + ", " + currencyField + ", " + lastSeenField + ", " + prefixField + ") VALUES (?, 1, ?, 0, 0, ?, ?)";
 	private static String updatePlayerCurrencyStatement = "UPDATE " + tableName + " SET " + currencyField + "=? WHERE " + playerField + "=?";
 	private static String updatePlayerPremiumStatement = "UPDATE " + tableName + " SET " + premiumField + "=? WHERE " + playerField + "=?";
-
+	
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`players` (" +
 			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
 			"  `Name` text NOT NULL," +
@@ -36,6 +42,7 @@ public class PlayerSQL extends SQL {
 			"  `XP` double unsigned NOT NULL," +
 			"  `LastOnline` bigint(20) unsigned NOT NULL," +
 			"  `Premium` tinyint(1) NOT NULL DEFAULT '0'," +
+			"  `Prefix` text NOT NULL," +
 			"  PRIMARY KEY (`ID`)" +
 			") ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 
@@ -140,6 +147,8 @@ public class PlayerSQL extends SQL {
 				preparedStatement.setString(2, Commons.getConfiguration().getServerName());
 				//Set the current time
 				preparedStatement.setLong(3, System.currentTimeMillis());
+				//Set the players prefix
+				preparedStatement.setString(4, "[Member]");
 				dataInserted = preparedStatement.execute();
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -189,5 +198,33 @@ public class PlayerSQL extends SQL {
 			}
 		}
 		return wasUpdated;
+	}
+
+
+	public String getPrefix(PlayerWrapper playerWrapper) {
+		PreparedStatement preparedStatement = prepareStatement(getPlayerPrefix);
+		
+		String playerName = playerWrapper.getName();
+		
+		String tag = "";
+		
+		if (hasData(playerName)) {
+			try {
+				preparedStatement.setString(1, playerName);
+				 ResultSet rs = preparedStatement.executeQuery();
+				
+				if (rs.next()) {
+				    tag = rs.getString(1);
+				}
+			
+			//	tag = playerData.getString("Prefix");
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} finally {
+				close(preparedStatement);
+			}
+		}
+		return tag;
 	}
 }

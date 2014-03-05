@@ -1,14 +1,16 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.Messages;
-import com.caved_in.commons.player.PlayerHandler;
-import com.caved_in.commons.utilities.StringUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
+import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.utilities.StringUtil;
 
 public class ChatListener implements Listener {
 
@@ -24,15 +26,12 @@ public class ChatListener implements Listener {
 				return;
 			}
 		}
-		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", player.getDisplayName(), event.getMessage())));
-		/*
-		TODO Optimize this
-		ChatColor playerChatColor = PlayerHandler.getData(playerName).getTagColor();
-		if (event.getPlayer().isOp()) {
-			event.setFormat(playerChatColor + "[Owner] " + playerDisplayName + ChatColor.RESET + " - " + event.getMessage());
+		
+		if (!PlayerHandler.getData(player).getPrefix().isEmpty()) {
+			ChatColor playerChatColor = PlayerHandler.getData(player).getTagColor();
+			event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s",PlayerHandler.getData(player).getPrefix() + " " + player.getDisplayName(), event.getMessage())));
 		} else {
-			event.setFormat(ChatColor.RESET + playerDisplayName + ChatColor.RESET + " - " + event.getMessage());
+			event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", player.getDisplayName(), event.getMessage())));
 		}
-		*/
 	}
 }
