@@ -1,4 +1,4 @@
-package com.caved_in.commons.config.Formatting;
+package com.caved_in.commons.config.formatting;
 
 import org.bukkit.ChatColor;
 

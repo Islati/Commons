@@ -1,4 +1,4 @@
-package com.caved_in.commons.config.ItemMenu;
+package com.caved_in.commons.config.itemmenu;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
