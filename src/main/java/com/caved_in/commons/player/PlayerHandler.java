@@ -1,14 +1,16 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.Formatting.ColorCode;
+import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.EntityUtility;
 import com.caved_in.commons.items.ItemHandler;
 import com.caved_in.commons.location.LocationHandler;
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warps.Warp;
 import com.caved_in.commons.world.WorldHandler;
 import com.caved_in.commons.world.WorldHeight;
+import net.minecraft.util.io.netty.channel.Channel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -21,10 +23,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerHandler {
+	private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
+
 	public static final int DEPTH_EQUILZE_NUMBER = 63;
 	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
 	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
@@ -795,5 +801,80 @@ public class PlayerHandler {
 	 */
 	public static String getWorldName(Player player) {
 		return WorldHandler.getWorldName(player);
+	}
+
+	/**
+	 * Sends the packet to the players connection.
+	 *
+	 * @param player player to send the packet to
+	 * @param packet packet to send to the player
+	 */
+	public static void sendPacket(Player player, Object packet) {
+		Method sendPacket = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("PlayerConnection"), "sendPacket", ReflectionUtilities.getNMSClass("Packet"));
+		Object playerConnection = getPlayerConnection(player);
+
+		try {
+			sendPacket.invoke(playerConnection, packet);
+		} catch (Exception e) {
+			Commons.messageConsole("Failed to send a packet to: " + player.getName());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Get the EntityPlayer from a player
+	 *
+	 * @param player player to get the EntityPlayer handle of
+	 * @return EntityPlayer handle for the player object
+	 */
+	public static Object playerToEntityPlayer(Player player) {
+		Method getHandle = ReflectionUtilities.getMethod(player.getClass(), "getHandle");
+		try {
+			return getHandle.invoke(player);
+		} catch (Exception e) {
+			Commons.messageConsole("Failed retrieve the NMS Player-Object of:" + player.getName());
+			return null;
+		}
+	}
+
+	/**
+	 * Get the connection instance for the player object
+	 *
+	 * @param player player to get the connection for
+	 * @return connection for the player, or null if none exists
+	 */
+	public static Object getPlayerConnection(Player player) {
+		Object connection = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", playerToEntityPlayer(player));
+		return connection;
+	}
+
+	/**
+	 * Get the network manager for a player
+	 *
+	 * @param player player to get the network manager of
+	 * @return network manager object for the player, or null if unable to retrieve
+	 */
+	public static Object getNetworkManager(Player player) {
+		try {
+			return ReflectionUtilities.getField(getPlayerConnection(player).getClass(), "networkManager").get(getPlayerConnection(player));
+		} catch (IllegalAccessException e) {
+			Commons.messageConsole("Failed to get the NetworkManager of player: " + player.getName());
+			return null;
+		}
+	}
+
+	/**
+	 * Get the network channel of a player
+	 *
+	 * @param player player to get the channel of
+	 * @return {@link net.minecraft.util.io.netty.channel.Channel} which manages the player
+	 */
+	public static Channel getChannel(Player player) {
+		try {
+			return (Channel) channelField.get(getNetworkManager(player));
+		} catch (IllegalAccessException e) {
+			Commons.messageConsole("Failed to get the channel of player: " + player.getName());
+			return null;
+		}
 	}
 }

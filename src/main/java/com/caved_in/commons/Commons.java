@@ -1,171 +1,55 @@
 package com.caved_in.commons;
 
-import java.io.File;
-
-import org.bukkit.*;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
-import org.bukkit.plugin.Plugin;
+import com.caved_in.commons.commands.CommandRegister;
+import com.caved_in.commons.config.Configuration;
+import com.caved_in.commons.config.SqlConfiguration;
+import com.caved_in.commons.config.WorldConfiguration;
+import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.listeners.*;
+import com.caved_in.commons.menus.serverselection.ServerMenuGenerator;
+import com.caved_in.commons.menus.serverselection.ServerMenuWrapper;
+import com.caved_in.commons.npc.NPC;
+import com.caved_in.commons.npc.NpcHandler;
+import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.sql.BansSQL;
+import com.caved_in.commons.sql.DisguiseSQL;
+import com.caved_in.commons.sql.FriendSQL;
+import com.caved_in.commons.sql.PlayerSQL;
+import com.caved_in.commons.threading.RunnableManager;
+import com.caved_in.commons.utilities.StringUtil;
+import com.caved_in.commons.warps.WarpManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import com.caved_in.commons.commands.CommandRegister;
-import com.caved_in.commons.config.*;
-import com.caved_in.commons.items.ItemHandler;
-import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.menus.serverselection.S*;
-import com.caved_in.commons.npc.*;
-import com.caved_in.commons.npc.injector.PlayerInjector;
-import com.caved_in.commons.npc.utils.*;
-import com.caved_in.commons.player.PlayerHandler;
-import com.caved_in.commons.sql.*;
-import com.caved_in.commons.threading.RunnableManager;
-import com.caved_in.commons.utilities.StringUtil;
-import com.caved_in.commons.warps.WarpManager;
-import com.google.common.collect.*;
+import java.io.File;
 
 public class Commons extends JavaPlugin {
 
-	/** NPC Stuff **/
-
-	private static Commons INSTANCE;
-
-	public BiMap<Integer, EntityHuman> LOOKUP = HashBiMap.create();
-	
-	public NPC spawnNPC(Location location, String name) {
-        if(name.length() > 16) {
-            messageConsole("NPC's can't have names longer than 16 characters!");
-            String tmp = name.substring(0, 16);
-            messageConsole("Name: " + name + " has been shortened to: " + tmp);
-            name = tmp;
-        }
-
-        int id = getNextID();
-        EntityHuman human = new EntityHuman(location, name, id);
-        LOOKUP.put(id, human);
-        updateNPC(human);
-        return human;
-    }
-
-    public boolean isNPC(int id) {
-        return LOOKUP.containsKey(id) ? true : false;
-    }
-
-    public NPC getNPC(int id) {
-        if(isNPC(id)) {
-            return LOOKUP.get(id);
-        }
-        messageConsole("Failed to return NPC with id: " + id);
-        return null;
-    }
-
-    int nextID = Integer.MIN_VALUE;
-    protected int getNextID() {
-        int id =+ nextID++;
-        for(World world : Bukkit.getWorlds()) {
-            for(Entity entity : world.getEntities()) {
-                if (entity.getEntityId() != id) {
-                    return id;
-                } else {
-                    return getNextID();
-                }
-            }
-        }
-        return id;
-    }
-
-    public static Commons getInstance() {
-        if(INSTANCE == null) {
-        	messageConsole("INSTANCE is NULL!");
-            return null;
-        }
-        return INSTANCE;
-    }
-
-    public void startUp() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            PlayerInjector.injectPlayer(player);
-        }
-    }
-
-    public void shutdown() {
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            PlayerInjector.uninjectPlayer(player);
-        }
-    }
-
-    public void updatePlayer(Player player) {
-        for(NPC npc : LOOKUP.values()) {
-            if(npc.getLocation().getWorld().equals(player.getWorld())) {
-                PlayerUtil.sendPacket(player, PacketFactory.craftSpawnPacket(npc));
-
-                if(!PacketFactory.craftEquipmentPacket(npc).isEmpty()) {
-                    for(Object packet : PacketFactory.craftEquipmentPacket(npc)) {
-                        PlayerUtil.sendPacket(player, packet);
-                    }
-                }
-
-                if(npc.isSleeping()) {
-                    PlayerUtil.sendPacket(player, PacketFactory.craftSleepPacket(npc));
-                }
-            }
-        }
-    }
-
-    public void updateNPC(NPC npc) {
-        updateNPC(npc, PacketFactory.craftSpawnPacket(npc));
-
-        for(Object packet : PacketFactory.craftEquipmentPacket(npc)) {
-            updateNPC(npc, packet);
-        }
-    }
-
-    public void updateNPC(NPC npc, Object packet) {
-        if(packet == null)
-            return;
-
-        for(Player player : Bukkit.getOnlinePlayers()) {
-            if(player.getWorld().equals(npc.getLocation().getWorld())) {
-                PlayerUtil.sendPacket(player, packet);
-            }
-        }
-    }
-
-    public void despawn(NPC npc) {
-        npc.despawn();
-        LOOKUP.inverse().remove(npc);
-    }
-
-    public void despawn(int id) {
-        LOOKUP.get(id).despawn();
-    }
-
-    public static Commons getCommons(Plugin plugin) {
-        if(INSTANCE == null) {
-            messageConsole("Common NPC-Lib is disabled! Cannot return a valid NPC-Lib!");
-            return null;
-        }
-        return INSTANCE;
-    }
-
-	/** Normal Stuff **/
+	private static Commons plugin;
 
 	public static BansSQL bansDatabase;
 	public static DisguiseSQL disguiseDatabase;
 	public static FriendSQL friendDatabase;
 	public static PlayerSQL playerDatabase;
+
 	public static RunnableManager threadManager;
 	public static ServerMenuWrapper serverMenu;
+
 	public static String WARP_DATA_FOLDER = "plugins/Tunnels-Common/Warps/";
-	private static Commons plugin;
-	private static Configuration globalConfig = new Configuration();
 	private static String PLUGIN_DATA_FOLDER = "plugins/Tunnels-Common/";
 
-	public static Commons getCommons() {
+	private static Configuration globalConfig = new Configuration();
+
+	public static Commons getInstance() {
 		if (plugin == null) {
-			plugin = (Commons) Bukkit.getPluginManager().getPlugin(
-					"Tunnels-Common");
+			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Tunnels-Common");
 		}
 		return plugin;
 	}
@@ -175,25 +59,15 @@ public class Commons extends JavaPlugin {
 	}
 
 	public static boolean reloadConfiguration() {
-		return getCommons().initConfiguration();
+		return getInstance().initConfiguration();
 	}
 
 	public static Configuration getConfiguration() {
 		return globalConfig;
 	}
-	
+
 	@Override
 	public void onEnable() {
-		/** NPC **/
-		
-		startUp();
-		INSTANCE = this;
-
-		for (NPC npc : LOOKUP.values()) {
-			updateNPC(npc);
-		}
-		/** Normal **/
-
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		threadManager = new RunnableManager(this); // New Thread handler
 
@@ -221,6 +95,18 @@ public class Commons extends JavaPlugin {
 		// Register commands
 		CommandRegister.registerCommands();
 
+		//Get the npc handler instance
+		NpcHandler.getInstance();
+
+		NpcHandler npcHandler = NpcHandler.getInstance();
+
+		//Npc Handler startup
+		npcHandler.startUp();
+
+		for (NPC npc : NpcHandler.getInstance().getLookup().values()) {
+			npcHandler.updateNPC(npc);
+		}
+
 		registerListeners(); // Register all our event listeners
 
 		// Load all the warps
@@ -240,22 +126,20 @@ public class Commons extends JavaPlugin {
 			PlayerHandler.addData(player);
 			if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
 				if (!player.getInventory().contains(Material.COMPASS)) {
-					player.getInventory().addItem(
-							ItemHandler.makeItemStack(Material.COMPASS,
-									ChatColor.GREEN + "Server Selector"));
+					player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 				}
 			}
 		}
 	}
 
 	private void registerListeners() {
-		
+
+		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
+
 		if (globalConfig.getNPCSEnabled()) {
 			registerListener(new NPCListener());
 			messageConsole("&aRegistered the NPC Listener");
 		}
-		
-		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
 
 		if (!worldConfig.hasExternalChatHandler()) {
 			registerListener(new ChatListener());
@@ -263,23 +147,17 @@ public class Commons extends JavaPlugin {
 		}
 
 		if (worldConfig.isCompassMenuEnabled()) {
-			serverMenu = new ServerMenuWrapper("Server Selection",
-					ServerMenuGenerator.generateMenuItems(Commons
-							.getConfiguration().getItemMenuConfig()
-							.getXmlItems()));
+			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig().getXmlItems()));
 			registerListener(new CompassListener());
 			messageConsole("&aRegistered the compass-menu listener");
 		}
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
-			registerListener(new LauncherListener()); // Register launch pad
-														// listener if its
-														// enabled
+			registerListener(new LauncherListener()); // Register launch pad listener if its enabled
 			messageConsole("&aRegistered the launch pad listener");
 		}
 
-		if (worldConfig.isIceSpreadDisabled()
-				|| worldConfig.isSnowSpreadDisabled()) {
+		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
 			registerListener(new BlockFormListener());
 			messageConsole("&aRegistered the block spread listener");
 		}
@@ -374,8 +252,7 @@ public class Commons extends JavaPlugin {
 				configSerializer.write(new Configuration(), configFile);
 			}
 
-			globalConfig = configSerializer.read(Configuration.class,
-					configFile);
+			globalConfig = configSerializer.read(Configuration.class, configFile);
 			return true;
 		} catch (Exception Ex) {
 			Ex.printStackTrace();
@@ -385,9 +262,10 @@ public class Commons extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		
-		shutdown();
-		
+
+		NpcHandler npcHandler = NpcHandler.getInstance();
+		npcHandler.shutdown();
+
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
 

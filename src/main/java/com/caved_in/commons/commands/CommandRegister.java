@@ -60,7 +60,7 @@ public class CommandRegister {
 	}
 
 	private static void registerCommand(Object commandHandler) {
-		CommandController.registerCommands(Commons.getCommons(), commandHandler);
+		CommandController.registerCommands(Commons.getInstance(), commandHandler);
 	}
 
 }

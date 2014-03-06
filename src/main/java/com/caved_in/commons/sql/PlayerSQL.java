@@ -1,15 +1,14 @@
 package com.caved_in.commons.sql;
 
-import java.io.InputStream;
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.SqlConfiguration;
+import com.caved_in.commons.player.PlayerWrapper;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.player.PlayerWrapper;
 
 public class PlayerSQL extends SQL {
 	private Set<String> playersWithData = new HashSet<String>();
@@ -21,11 +20,11 @@ public class PlayerSQL extends SQL {
 	private static String lastSeenField = "LastOnline";
 	private static String premiumField = "Premium";
 	private static String prefixField = "Prefix";
-	
+
 	// SELECT  `Prefix` FROM  `players` WHERE  `Name` =  'Squad_MC'
-	
-	private static String getPlayerPrefix = "SELECT `" + prefixField + "` FROM `" + tableName + "` WHERE `" + playerField + "` =?";
-	
+
+	private static String getPlayerPrefix = "SELECT " + prefixField + " FROM " + tableName + " WHERE " + playerField + " =?";
+
 	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE Name =?";
 	private static String updatePlayerDataStatement = "UPDATE " + tableName + " SET " + playerField + "=?, " + lastSeenField + "=?, " + currencyField + "=?, " +
 			"" + serverField + "=?, " + premiumField + "=?, " + onlineStatusField + "=? WHERE " + playerField + "=?";
@@ -33,7 +32,7 @@ public class PlayerSQL extends SQL {
 			"" + premiumField + ", " + currencyField + ", " + lastSeenField + ", " + prefixField + ") VALUES (?, 1, ?, 0, 0, ?, ?)";
 	private static String updatePlayerCurrencyStatement = "UPDATE " + tableName + " SET " + currencyField + "=? WHERE " + playerField + "=?";
 	private static String updatePlayerPremiumStatement = "UPDATE " + tableName + " SET " + premiumField + "=? WHERE " + playerField + "=?";
-	
+
 	private String creationStatement = "CREATE TABLE IF NOT EXISTS `[DB]`.`players` (" +
 			"  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT," +
 			"  `Name` text NOT NULL," +
@@ -203,22 +202,22 @@ public class PlayerSQL extends SQL {
 
 	public String getPrefix(PlayerWrapper playerWrapper) {
 		PreparedStatement preparedStatement = prepareStatement(getPlayerPrefix);
-		
+
 		String playerName = playerWrapper.getName();
-		
+
 		String tag = "";
-		
+
 		if (hasData(playerName)) {
 			try {
 				preparedStatement.setString(1, playerName);
-				 ResultSet rs = preparedStatement.executeQuery();
-				
+				ResultSet rs = preparedStatement.executeQuery();
+
 				if (rs.next()) {
-				    tag = rs.getString(1);
+					tag = rs.getString(1);
 				}
-			
-			//	tag = playerData.getString("Prefix");
-				
+
+				//	tag = playerData.getString("Prefix");
+
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} finally {

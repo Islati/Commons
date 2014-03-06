@@ -1,22 +1,74 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.reflection.ReflectionUtilities;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Damageable;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 public class EntityUtility {
+
+	/*
+	 * Classes for various projectiles, retrieved by getting the NMS class
+	 */
+	public static final Class<?> ENTITY_SNOWBALL = ReflectionUtilities.getNMSClass("EntitySnowBall");
+	public static final Class<?> ENTITY_EGG = ReflectionUtilities.getNMSClass("EntityEgg");
+	public static final Class<?> ENTITY_ENDERPEARL = ReflectionUtilities.getNMSClass("EntityEnderPearl");
+	public static final Class<?> ENTITY_ARROW = ReflectionUtilities.getNMSClass("EntityArrow");
+	public static final Class<?> ENTITY_POTION = ReflectionUtilities.getNMSClass("EntityPotion");
+	public static final Class<?> FIREBALL = ReflectionUtilities.getNMSClass("Fireball");
+	public static final Class<?> ENTITY_SMALL_FIREBALL = ReflectionUtilities.getNMSClass("EntitySmallFireball");
+	public static final Class<?> ENTITY_LARGE_FIREBALL = ReflectionUtilities.getNMSClass("EntityLargeFireball");
+	public static final Class<?> ENTITY_WITHERSKULL = ReflectionUtilities.getNMSClass("EntityWitherSkull");
+
+	private static final Method SET__POSITION_ROTATION = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("Entity"), "setPositionRotation", double.class, double.class, double.class, float.class, float.class);
+
+	private static final Class<?> WORLD = ReflectionUtilities.getNMSClass("World");
+	private static final Method ADD_ENTITY = ReflectionUtilities.getMethod(WORLD, "addEntity", ReflectionUtilities.getNMSClass("Entity"));
+
+	private static final Method GET_BUKKIT_ENTITY = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("Entity"), "getBukkitEntity");
+
+	public static Object getHandle(Entity entity) {
+		return ReflectionUtilities.invokeMethod(ReflectionUtilities.getMethod(entity.getClass(), "getHandle"), entity);
+	}
+
+	public static void setPositionRotation(Object entityHandle, double x, double y, double z, float yaw, float pitch) {
+		ReflectionUtilities.invokeMethod(SET__POSITION_ROTATION, x, y, z, yaw, pitch);
+	}
+
+	public static void addEntity(Object worldhandle, Object entityHandle) {
+		ReflectionUtilities.invokeMethod(ADD_ENTITY, worldhandle, entityHandle);
+	}
+
+	public static Object invokeProjectile(Class<?> clazz, Object world) {
+		if (clazz.isAssignableFrom(ReflectionUtilities.getNMSClass("EntityProjectile")) || world.getClass().isAssignableFrom(ReflectionUtilities.getNMSClass("World"))) {
+			Constructor constructor = ReflectionUtilities.getConstructor(clazz, ReflectionUtilities.getNMSClass("World"));
+			return ReflectionUtilities.invokeConstructor(constructor, world);
+		} else {
+			return null;
+		}
+	}
+
+	public static <T> T getBukkitEntity(Object entityHandle) {
+		if (entityHandle.getClass().isAssignableFrom(ReflectionUtilities.getNMSClass("Entity"))) {
+			return ReflectionUtilities.invokeMethod(GET_BUKKIT_ENTITY, entityHandle);
+		} else {
+			return null;
+		}
+	}
 
 	public static Set<LivingEntity> spawnLivingEntity(EntityType entityType, Location location, int amount) {
 		Set<LivingEntity> entities = new HashSet<>();
@@ -93,9 +145,9 @@ public class EntityUtility {
 	 * This method doesn't check if the slot, or item, are valid items for the slot:
 	 * It forces the items to be in the slot.
 	 *
-	 * @param livingEntity
-	 * @param entityArmorSlot
-	 * @param itemStack
+	 * @param livingEntity    entity to equip
+	 * @param entityArmorSlot slot to change on the entity
+	 * @param itemStack       item to equip the entity with at the armor slot chosen
 	 */
 	public static void setEntityEquipment(LivingEntity livingEntity, EntityArmorSlot entityArmorSlot, ItemStack itemStack) {
 		switch (entityArmorSlot) {
@@ -146,7 +198,8 @@ public class EntityUtility {
 	 */
 	public static void cleanAllEntities(World world) {
 		for (LivingEntity livingEntity : world.getLivingEntities()) {
-			if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof Player)) {
+			//If it's not a citizens NPC and it's not an NPC / Player
+			if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
 				livingEntity.remove();
 			}
 		}
@@ -159,10 +212,10 @@ public class EntityUtility {
 	 * @param entityTypes entityTypes to not remove
 	 */
 	public static void cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
-		List<EntityType> eTypes = Arrays.asList(entityTypes);
+		Set<EntityType> eTypes = Sets.newHashSet(entityTypes);
 		for (LivingEntity livingEntity : world.getLivingEntities()) {
 			if (!eTypes.contains(livingEntity.getType())) {
-				if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof Player)) {
+				if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
 					livingEntity.remove();
 				}
 			}
@@ -198,9 +251,9 @@ public class EntityUtility {
 	}
 
 	/**
-	 * @param world
-	 * @param entityUUID
-	 * @return
+	 * @param world      world of the entity
+	 * @param entityUUID UUID of the entity
+	 * @return the entity with the unique id entered, or if it wasn't found, null
 	 */
 	public static LivingEntity getEntityByUUID(World world, UUID entityUUID) {
 		for (LivingEntity entity : world.getLivingEntities()) {

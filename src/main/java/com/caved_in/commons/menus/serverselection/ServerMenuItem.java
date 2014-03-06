@@ -58,6 +58,6 @@ public class ServerMenuItem extends MenuItem {
 			// Fehler
 		}
 
-		p.sendPluginMessage(Commons.getCommons(), "BungeeCord", b.toByteArray());
+		p.sendPluginMessage(Commons.getInstance(), "BungeeCord", b.toByteArray());
 	}
 }
