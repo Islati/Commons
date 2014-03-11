@@ -1,4 +1,4 @@
-package com.caved_in.commons.menus.warpselection;
+package com.caved_in.commons.menu.warpselection;
 
 import com.caved_in.commons.warps.Warp;
 import me.xhawk87.PopupMenuAPI.MenuItem;

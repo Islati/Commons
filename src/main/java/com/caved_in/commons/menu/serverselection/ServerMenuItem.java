@@ -1,4 +1,4 @@
-package com.caved_in.commons.menus.serverselection;
+package com.caved_in.commons.menu.serverselection;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.utilities.StringUtil;

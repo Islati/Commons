@@ -1,6 +1,6 @@
-package com.caved_in.commons.menus.serverselection;
+package com.caved_in.commons.menu.serverselection;
 
-import com.caved_in.commons.menus.XYMenuItemWrapper;
+import com.caved_in.commons.menu.XYMenuItemWrapper;
 import me.xhawk87.PopupMenuAPI.PopupMenu;
 import me.xhawk87.PopupMenuAPI.PopupMenuAPI;
 

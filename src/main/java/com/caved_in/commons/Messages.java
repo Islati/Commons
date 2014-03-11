@@ -236,4 +236,8 @@ public class Messages {
 		return String.format("Failed to retrieve the packet object for: %s, %s, %s", protocol, sender, id);
 	}
 
+	public static String PLAYER_KICKED(String player, String reason) {
+		return String.format("&e%s &ahas been kicked with the reason being: '&e%s&a'", player, reason);
+	}
+
 }

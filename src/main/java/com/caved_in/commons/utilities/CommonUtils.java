@@ -9,7 +9,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.io.*;
 import java.util.*;
@@ -25,9 +24,6 @@ public class CommonUtils {
 	private static boolean colouredConsole = true;
 
 	private static final Pattern colourPat = Pattern.compile("(?<!&)&(?=[0-9a-fA-Fk-oK-OrR])");
-
-	public static void init(Plugin plugin) {
-	}
 
 	public static void setColouredConsole(boolean coloured) {
 		colouredConsole = coloured;

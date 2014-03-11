@@ -1,4 +1,4 @@
-package com.caved_in.commons.menus;
+package com.caved_in.commons.menu;
 
 public class XYMenuItemWrapper {
 	private int x = 0;

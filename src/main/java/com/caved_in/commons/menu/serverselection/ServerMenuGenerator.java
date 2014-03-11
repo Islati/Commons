@@ -1,7 +1,7 @@
-package com.caved_in.commons.menus.serverselection;
+package com.caved_in.commons.menu.serverselection;
 
 import com.caved_in.commons.config.itemmenu.XmlMenuItem;
-import com.caved_in.commons.menus.XYMenuItemWrapper;
+import com.caved_in.commons.menu.XYMenuItemWrapper;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 

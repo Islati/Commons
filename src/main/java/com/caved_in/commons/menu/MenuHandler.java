@@ -1,4 +1,4 @@
-package com.caved_in.commons.menus;
+package com.caved_in.commons.menu;
 
 public class MenuHandler {
 	public static int getRows(int ItemCount) {

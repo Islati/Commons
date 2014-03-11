@@ -1,4 +1,4 @@
-package com.caved_in.commons.menus;
+package com.caved_in.commons.menu;
 
 import me.xhawk87.PopupMenuAPI.MenuItem;
 import me.xhawk87.PopupMenuAPI.PopupMenu;
