@@ -2,20 +2,28 @@ package com.caved_in.commons.world;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.location.LocationHandler;
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 public class WorldHandler {
+	private static final Method GET_HANDLE = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("CraftWorld"), "getHandle");
+
 	public static void handleWorldWeather(World World) {
 		if (World.hasStorm() && Commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
 			World.setStorm(false);
 			World.setThundering(false);
 		}
+	}
+
+	public static Object getHandle(World world) {
+		return ReflectionUtilities.invokeMethod(GET_HANDLE, world);
 	}
 
 	public static World getWorld(String worldName) {

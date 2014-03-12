@@ -23,6 +23,9 @@ public class Messages {
 	public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance toggle";
 	public static final String MAINTENANCE_MODE_DISABLED = "&aMaintenancemode is now &edisabled&a, to enable it do &e/maintenance on&a or &e/Maintenance toggle";
 	public static final String INVALID_POTION_TYPE = "&cSorry, but that's not a valid potion type.";
+	public static final String NPC_NAME_LIMIT_REACHED = "NPC's can't have names longer than 16 characters!";
+	public static final String FAILED_TO_CREATE_DATAWATCHER = "Failed to create new DataWatcher!";
+	public static final String CANT_CREATE_NULL_PACKETS = "Cannot create a Packet with a NULL handle!";
 
 	public static String PLAYER_OFFLINE(String playerName) {
 		return String.format("&e%s&cis offline", playerName);
@@ -219,6 +222,22 @@ public class Messages {
 
 	public static String WARP_ALREADY_EXISTS(String warpName) {
 		return String.format("&eThe warp '&c%s&e' already exists", warpName);
+	}
+
+	public static String FAILED_TO_GET_NPC_ID(int id) {
+		return String.format("Failed to get the NPC with id [%s]", id);
+	}
+
+	public static String NPC_NAME_SHORTENED(String from, String to) {
+		return String.format("Name '%s' has been shortened to '%s'", from, to);
+	}
+
+	public static String FAILED_TO_RETRIEVE_PACKET(String protocol, String sender, int id) {
+		return String.format("Failed to retrieve the packet object for: %s, %s, %s", protocol, sender, id);
+	}
+
+	public static String PLAYER_KICKED(String player, String reason) {
+		return String.format("&e%s &ahas been kicked with the reason being: '&e%s&a'", player, reason);
 	}
 
 }

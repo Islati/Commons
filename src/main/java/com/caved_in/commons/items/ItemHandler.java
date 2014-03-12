@@ -5,6 +5,7 @@ import com.caved_in.commons.block.BlockHandler;
 import com.caved_in.commons.inventory.InventoryHandler;
 import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -20,10 +21,17 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.Dye;
 import org.bukkit.material.MaterialData;
 
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.Map.Entry;
 
 public class ItemHandler {
+
+	private static final Method TO_NMS = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
+
+	public static Object toNMS(ItemStack stack) {
+		return ReflectionUtilities.invokeMethod(TO_NMS, null, stack);
+	}
 
 	/**
 	 * Check whether or not an item has metadata

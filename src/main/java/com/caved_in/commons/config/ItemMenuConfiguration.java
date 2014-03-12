@@ -1,6 +1,6 @@
 package com.caved_in.commons.config;
 
-import com.caved_in.commons.config.ItemMenu.XmlMenuItem;
+import com.caved_in.commons.config.itemmenu.XmlMenuItem;
 import org.simpleframework.xml.ElementList;
 
 import java.util.ArrayList;
