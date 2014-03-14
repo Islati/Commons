@@ -2,7 +2,6 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.friends.FriendList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -34,7 +33,7 @@ public class PlayerWrapper {
 	private double currencyAmount = 0.0D;
 
 	private ChatColor tagColor = ChatColor.WHITE;
-	
+
 	private String prefix = "";
 
 	/**
@@ -63,7 +62,7 @@ public class PlayerWrapper {
 	}
 
 	private Player getPlayer() {
-		return PlayerHandler.getPlayer(this);
+		return Players.getPlayer(this);
 	}
 
 	/**
@@ -208,7 +207,7 @@ public class PlayerWrapper {
 	public double getWalkSpeed() {
 		return walkSpeed;
 	}
-	
+
 	public String getPrefix() {
 		return prefix;
 	}

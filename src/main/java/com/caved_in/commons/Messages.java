@@ -1,7 +1,7 @@
 package com.caved_in.commons;
 
-import com.caved_in.commons.items.ItemHandler;
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.item.Items;
+import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -108,7 +108,7 @@ public class Messages {
 	}
 
 	public static String TUNNELS_XP_BALANCE(Player player) {
-		return String.format("&aYou have &e%s&a Tunnels XP", (int) PlayerHandler.getData(player).getCurrency());
+		return String.format("&aYou have &e%s&a Tunnels XP", (int) Players.getData(player).getCurrency());
 	}
 
 	public static String INVALID_COMMAND_USAGE(String... requiredArguments) {
@@ -181,11 +181,11 @@ public class Messages {
 	}
 
 	public static String FURNACE_RECIPE(ItemStack smeltResult, ItemStack itemRequired) {
-		return String.format("&e%s&a is produced by smelting &e%s", ItemHandler.getFormattedMaterialName(smeltResult), ItemHandler.getFormattedMaterialName(itemRequired));
+		return String.format("&e%s&a is produced by smelting &e%s", Items.getFormattedMaterialName(smeltResult), Items.getFormattedMaterialName(itemRequired));
 	}
 
 	public static String RECIPE_NOT_FOUND(ItemStack itemStack) {
-		return String.format("&eUnable to find recipe for &c%s", ItemHandler.getFormattedMaterialName(itemStack));
+		return String.format("&eUnable to find recipe for &c%s", Items.getFormattedMaterialName(itemStack));
 	}
 
 	public static String INVALID_MOB_TYPE(String mobType) {

@@ -2,7 +2,7 @@ package com.caved_in.commons.npc.wrappers;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.entity.EntityUtility;
+import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,7 +19,7 @@ public class DataWatcher extends BasicWrapper {
 	public DataWatcher() {
 		Entity fake = Bukkit.getWorlds().get(0).spawnEntity(new Location(Bukkit.getWorlds().get(0), 0, -5, 0), EntityType.CHICKEN);
 		try {
-			setHandle(ReflectionUtilities.getNMSClass("DataWatcher").getDeclaredConstructor(new Class[]{ReflectionUtilities.getNMSClass("Entity")}).newInstance(EntityUtility.getHandle(fake)));
+			setHandle(ReflectionUtilities.getNMSClass("DataWatcher").getDeclaredConstructor(new Class[]{ReflectionUtilities.getNMSClass("Entity")}).newInstance(Entities.getHandle(fake)));
 		} catch (Exception e) {
 			Commons.messageConsole(Messages.FAILED_TO_CREATE_DATAWATCHER);
 			e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.caved_in.commons.menu.warpselection;
 
-import com.caved_in.commons.warps.Warp;
+import com.caved_in.commons.warp.Warp;
 import me.xhawk87.PopupMenuAPI.MenuItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

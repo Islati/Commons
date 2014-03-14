@@ -2,8 +2,8 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,14 +18,14 @@ public class ChatListener implements Listener {
 		Player player = event.getPlayer();
 		//Check if the chat is silenced
 		if (Commons.getConfiguration().getWorldConfig().isChatSilenced()) {
-			if (!PlayerHandler.canChatWhileSilenced(player)) {
+			if (!Players.canChatWhileSilenced(player)) {
 				//Send the player a message saying the chat's silenced
-				PlayerHandler.sendMessage(player, Messages.CHAT_SILENCED);
+				Players.sendMessage(player, Messages.CHAT_SILENCED);
 				event.setCancelled(true);
 				return;
 			}
 		}
-		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
+		PlayerWrapper playerWrapper = Players.getData(player);
 		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", (playerWrapper.getPrefix().isEmpty() ? player.getDisplayName() : playerWrapper.getPrefix() + " " + player.getDisplayName()), event.getMessage())));
 	}
 }

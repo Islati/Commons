@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.player.PlayerHandler;
 import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +26,7 @@ public class InventoryListener implements Listener {
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();
 		Player player = (Player) event.getWhoClicked();
-		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
+		PlayerWrapper playerWrapper = Players.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, don't let them click / manipulate
@@ -49,7 +49,7 @@ public class InventoryListener implements Listener {
 		InventoryType inventoryType = inventory.getType();
 		Player player = (Player) event.getPlayer();
 		//Get the wrapped player data
-		PlayerWrapper playerWrapper = PlayerHandler.getData(player);
+		PlayerWrapper playerWrapper = Players.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, clear the inventory and update the inventory on close

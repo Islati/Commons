@@ -1,6 +1,6 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.commands.CommandMessage;
+import com.caved_in.commons.command.CommandMessage;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

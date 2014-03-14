@@ -1,6 +1,6 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.world.WorldHandler;
+import com.caved_in.commons.world.Worlds;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -10,6 +10,6 @@ public class WorldLoadedListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldLoaded(WorldLoadEvent event) {
-		WorldHandler.handleWorldWeather(event.getWorld());
+		Worlds.handleWorldWeather(event.getWorld());
 	}
 }

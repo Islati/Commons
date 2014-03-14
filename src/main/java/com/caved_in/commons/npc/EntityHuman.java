@@ -1,9 +1,9 @@
 package com.caved_in.commons.npc;
 
-import com.caved_in.commons.entity.EntityUtility;
+import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.npc.wrappers.DataWatcher;
-import com.caved_in.commons.packets.PacketFactory;
-import com.caved_in.commons.world.WorldHandler;
+import com.caved_in.commons.packet.PacketFactory;
+import com.caved_in.commons.world.Worlds;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -279,36 +279,36 @@ public class EntityHuman implements NPC {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Projectile> T launchProjectile(Class<? extends T> projectile) {
-		Object world = WorldHandler.getHandle(getLocation().getWorld());
+		Object world = Worlds.getHandle(getLocation().getWorld());
 		Object entity = null;
 
-		if (EntityUtility.ENTITY_SNOWBALL.isAssignableFrom(projectile)) {
-			entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_SNOWBALL, world);
-		} else if (EntityUtility.ENTITY_EGG.isAssignableFrom(projectile)) {
-			entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_EGG, world);
-		} else if (EntityUtility.ENTITY_ENDERPEARL.isAssignableFrom(projectile)) {
-			entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_ENDERPEARL, world);
-		} else if (EntityUtility.ENTITY_ARROW.isAssignableFrom(projectile)) {
-			entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_ARROW, world);
-		} else if (EntityUtility.ENTITY_POTION.isAssignableFrom(projectile)) {
-			entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_POTION, world);
-		} else if (EntityUtility.FIREBALL.isAssignableFrom(projectile)) {
-			if (EntityUtility.ENTITY_SMALL_FIREBALL.isAssignableFrom(projectile)) {
-				entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_SMALL_FIREBALL, world);
-			} else if (EntityUtility.ENTITY_WITHERSKULL.isAssignableFrom(projectile)) {
-				entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_WITHERSKULL, world);
+		if (Entities.ENTITY_SNOWBALL.isAssignableFrom(projectile)) {
+			entity = Entities.invokeProjectile(Entities.ENTITY_SNOWBALL, world);
+		} else if (Entities.ENTITY_EGG.isAssignableFrom(projectile)) {
+			entity = Entities.invokeProjectile(Entities.ENTITY_EGG, world);
+		} else if (Entities.ENTITY_ENDERPEARL.isAssignableFrom(projectile)) {
+			entity = Entities.invokeProjectile(Entities.ENTITY_ENDERPEARL, world);
+		} else if (Entities.ENTITY_ARROW.isAssignableFrom(projectile)) {
+			entity = Entities.invokeProjectile(Entities.ENTITY_ARROW, world);
+		} else if (Entities.ENTITY_POTION.isAssignableFrom(projectile)) {
+			entity = Entities.invokeProjectile(Entities.ENTITY_POTION, world);
+		} else if (Entities.FIREBALL.isAssignableFrom(projectile)) {
+			if (Entities.ENTITY_SMALL_FIREBALL.isAssignableFrom(projectile)) {
+				entity = Entities.invokeProjectile(Entities.ENTITY_SMALL_FIREBALL, world);
+			} else if (Entities.ENTITY_WITHERSKULL.isAssignableFrom(projectile)) {
+				entity = Entities.invokeProjectile(Entities.ENTITY_WITHERSKULL, world);
 			} else {
 				//ENTITY_LARGE_FIREBALL
-				entity = EntityUtility.invokeProjectile(EntityUtility.ENTITY_LARGE_FIREBALL, world);
+				entity = Entities.invokeProjectile(Entities.ENTITY_LARGE_FIREBALL, world);
 			}
 		}
 
 		Location location = getEyeLocation();
 		Vector direction = location.getDirection().multiply(10);
 
-		EntityUtility.setPositionRotation(entity, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		Entities.setPositionRotation(entity, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 
-		EntityUtility.addEntity(world, entity);
-		return EntityUtility.getBukkitEntity(entity);
+		Entities.addEntity(world, entity);
+		return Entities.getBukkitEntity(entity);
 	}
 }

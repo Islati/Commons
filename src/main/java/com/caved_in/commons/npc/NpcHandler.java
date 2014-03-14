@@ -2,9 +2,9 @@ package com.caved_in.commons.npc;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.packets.PacketFactory;
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.packet.PacketFactory;
 import com.caved_in.commons.player.PlayerInjector;
+import com.caved_in.commons.player.Players;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import org.bukkit.Bukkit;
@@ -86,16 +86,16 @@ public class NpcHandler {
 	public void updatePlayer(Player player) {
 		for (NPC npc : LOOKUP.values()) {
 			if (npc.getLocation().getWorld().equals(player.getWorld())) {
-				PlayerHandler.sendPacket(player, PacketFactory.craftSpawnPacket(npc));
+				Players.sendPacket(player, PacketFactory.craftSpawnPacket(npc));
 
 				if (!PacketFactory.craftEquipmentPacket(npc).isEmpty()) {
 					for (Object packet : PacketFactory.craftEquipmentPacket(npc)) {
-						PlayerHandler.sendPacket(player, packet);
+						Players.sendPacket(player, packet);
 					}
 				}
 
 				if (npc.isSleeping()) {
-					PlayerHandler.sendPacket(player, PacketFactory.craftSleepPacket(npc));
+					Players.sendPacket(player, PacketFactory.craftSleepPacket(npc));
 				}
 			}
 		}
@@ -113,7 +113,7 @@ public class NpcHandler {
 		if (packet != null) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (player.getWorld().equals(npc.getLocation().getWorld())) {
-					PlayerHandler.sendPacket(player, packet);
+					Players.sendPacket(player, packet);
 				}
 			}
 		}

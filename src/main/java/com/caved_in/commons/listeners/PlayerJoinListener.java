@@ -2,10 +2,10 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.WorldConfiguration;
-import com.caved_in.commons.items.ItemHandler;
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.PlayerWrapper;
-import com.caved_in.commons.world.WorldHandler;
+import com.caved_in.commons.player.Players;
+import com.caved_in.commons.world.Worlds;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,16 +29,16 @@ public class PlayerJoinListener implements Listener {
 			event.setJoinMessage(null);
 		}
 
-		PlayerHandler.addData(player);
+		Players.addData(player);
 		if (worldConfig.isCompassMenuEnabled()) {
 			if (!player.getInventory().contains(Material.COMPASS)) {
-				player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
+				player.getInventory().addItem(Items.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 			}
 		}
 
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (Commons.getConfiguration().getServerName().equalsIgnoreCase("lobby")) {
-			player.teleport(WorldHandler.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
 		}
 	}
 }

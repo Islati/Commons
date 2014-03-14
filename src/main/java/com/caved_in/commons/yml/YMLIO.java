@@ -21,7 +21,7 @@ public class YMLIO {
 	public YMLIO(File file) throws FileNotFoundException, IOException, InvalidConfigurationException {
 		this.file = file;
 		if (file.exists()) {
-			this.yml.load(this.file);
+			yml.load(file);
 		}
 	}
 
@@ -30,8 +30,8 @@ public class YMLIO {
 	}
 
 	public boolean get(String path, boolean def) {
-		boolean obj = this.yml.getBoolean(path, def);
-		if (this.force) {
+		boolean obj = yml.getBoolean(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, Boolean.valueOf(obj));
@@ -39,8 +39,8 @@ public class YMLIO {
 	}
 
 	public double get(String path, double def) {
-		double obj = this.yml.getDouble(path, def);
-		if (this.force) {
+		double obj = yml.getDouble(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, Double.valueOf(obj));
@@ -48,8 +48,8 @@ public class YMLIO {
 	}
 
 	public int get(String path, int def) {
-		int obj = this.yml.getInt(path, def);
-		if (this.force) {
+		int obj = yml.getInt(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, Integer.valueOf(obj));
@@ -57,8 +57,8 @@ public class YMLIO {
 	}
 
 	public ItemStack get(String path, ItemStack def) {
-		ItemStack obj = this.yml.getItemStack(path, def);
-		if (this.force) {
+		ItemStack obj = yml.getItemStack(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -66,8 +66,8 @@ public class YMLIO {
 	}
 
 	public long get(String path, long def) {
-		long obj = this.yml.getLong(path, def);
-		if (this.force) {
+		long obj = yml.getLong(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, Long.valueOf(obj));
@@ -75,8 +75,8 @@ public class YMLIO {
 	}
 
 	public Object get(String path, Object def) {
-		Object obj = this.yml.get(path, def);
-		if (this.force) {
+		Object obj = yml.get(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -84,8 +84,8 @@ public class YMLIO {
 	}
 
 	public OfflinePlayer get(String path, OfflinePlayer def) {
-		OfflinePlayer obj = this.yml.getOfflinePlayer(path, def);
-		if (this.force) {
+		OfflinePlayer obj = yml.getOfflinePlayer(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -93,8 +93,8 @@ public class YMLIO {
 	}
 
 	public String get(String path, String def) {
-		String obj = this.yml.getString(path, def);
-		if (this.force) {
+		String obj = yml.getString(path, def);
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -103,8 +103,8 @@ public class YMLIO {
 
 	public Map<String, Object> getAsMap(String path) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if ((this.yml.contains(path)) && (this.yml.isConfigurationSection(path))) {
-			Set<?> keys = this.yml.getConfigurationSection(path).getKeys(false);
+		if ((yml.contains(path)) && (yml.isConfigurationSection(path))) {
+			Set<?> keys = yml.getConfigurationSection(path).getKeys(false);
 			if (keys.size() > 0) {
 				Object[] key = keys.toArray();
 				for (Object element : key) {
@@ -117,8 +117,8 @@ public class YMLIO {
 
 	public List<String> getAsFullPathList(String path) {
 		List<String> list = new ArrayList<String>();
-		if ((this.yml.contains(path)) && (this.yml.isConfigurationSection(path))) {
-			Set<?> keys = this.yml.getConfigurationSection(path).getKeys(false);
+		if ((yml.contains(path)) && (yml.isConfigurationSection(path))) {
+			Set<?> keys = yml.getConfigurationSection(path).getKeys(false);
 			if (keys.size() > 0) {
 				Object[] key = keys.toArray();
 				for (Object element : key) {
@@ -131,8 +131,8 @@ public class YMLIO {
 
 	public List<String> getAsPathList(String path) {
 		List<String> list = new ArrayList<String>();
-		if ((this.yml.contains(path)) && (this.yml.isConfigurationSection(path))) {
-			Set<?> keys = this.yml.getConfigurationSection(path).getKeys(false);
+		if ((yml.contains(path)) && (yml.isConfigurationSection(path))) {
+			Set<?> keys = yml.getConfigurationSection(path).getKeys(false);
 			if (keys.size() > 0) {
 				Object[] key = keys.toArray();
 				for (Object element : key) {
@@ -145,8 +145,8 @@ public class YMLIO {
 
 	public List<Object> getAsValueList(String path) {
 		List<Object> list = new ArrayList<Object>();
-		if ((this.yml.contains(path)) && (this.yml.isConfigurationSection(path))) {
-			Set<?> keys = this.yml.getConfigurationSection(path).getKeys(false);
+		if ((yml.contains(path)) && (yml.isConfigurationSection(path))) {
+			Set<?> keys = yml.getConfigurationSection(path).getKeys(false);
 			if (keys.size() > 0) {
 				Object[] key = keys.toArray();
 				for (Object element : key) {
@@ -158,19 +158,19 @@ public class YMLIO {
 	}
 
 	public boolean getBoolean(String path) {
-		return this.yml.getBoolean(path);
+		return yml.getBoolean(path);
 	}
 
 	public List<Boolean> getBooleanList(String path) {
-		return this.yml.getBooleanList(path);
+		return yml.getBooleanList(path);
 	}
 
 	public List<Boolean> getBooleanList(String path, List<Boolean> def) {
 		List<Boolean> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getBooleanList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -178,15 +178,15 @@ public class YMLIO {
 	}
 
 	public List<Byte> getByteList(String path) {
-		return this.yml.getByteList(path);
+		return yml.getByteList(path);
 	}
 
 	public List<Byte> getByteList(String path, List<Byte> def) {
 		List<Byte> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getByteList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -194,15 +194,15 @@ public class YMLIO {
 	}
 
 	public List<Character> getCharacterList(String path) {
-		return this.yml.getCharacterList(path);
+		return yml.getCharacterList(path);
 	}
 
 	public List<Character> getCharacterList(String path, List<Character> def) {
 		List<Character> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getCharacterList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -210,19 +210,19 @@ public class YMLIO {
 	}
 
 	public double getDouble(String path) {
-		return this.yml.getDouble(path);
+		return yml.getDouble(path);
 	}
 
 	public List<Double> getDoubleList(String path) {
-		return this.yml.getDoubleList(path);
+		return yml.getDoubleList(path);
 	}
 
 	public List<Double> getDoubleList(String path, List<Double> def) {
 		List<Double> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getDoubleList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -230,23 +230,23 @@ public class YMLIO {
 	}
 
 	public File getFile() {
-		return this.file;
+		return file;
 	}
 
 	public FileConfiguration getFileConfiguration() {
-		return this.yml;
+		return yml;
 	}
 
 	public List<Float> getFloatList(String path) {
-		return this.yml.getFloatList(path);
+		return yml.getFloatList(path);
 	}
 
 	public List<Float> getFloatList(String path, List<Float> def) {
 		List<Float> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getFloatList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -254,7 +254,7 @@ public class YMLIO {
 	}
 
 	public String getHeader() {
-		return this.yml.options().header();
+		return yml.options().header();
 	}
 
 	public String getHeader(String def) {
@@ -262,7 +262,7 @@ public class YMLIO {
 		if (str.isEmpty()) {
 			str = def;
 		}
-		if (this.force) {
+		if (force) {
 			str = def;
 		}
 		setHeader(str);
@@ -270,19 +270,19 @@ public class YMLIO {
 	}
 
 	public int getInt(String path) {
-		return this.yml.getInt(path);
+		return yml.getInt(path);
 	}
 
 	public List<Integer> getIntegerList(String path) {
-		return this.yml.getIntegerList(path);
+		return yml.getIntegerList(path);
 	}
 
 	public List<Integer> getIntegerList(String path, List<Integer> def) {
 		List<Integer> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getIntegerList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -290,19 +290,19 @@ public class YMLIO {
 	}
 
 	public ItemStack getItemStack(String path) {
-		return this.yml.getItemStack(path);
+		return yml.getItemStack(path);
 	}
 
 	public List<?> getList(String path) {
-		return this.yml.getList(path);
+		return yml.getList(path);
 	}
 
 	public List<?> getList(String path, List<?> def) {
 		List<?> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getList(path, def);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -310,19 +310,19 @@ public class YMLIO {
 	}
 
 	public long getLong(String path) {
-		return this.yml.getLong(path);
+		return yml.getLong(path);
 	}
 
 	public List<Long> getLongList(String path) {
-		return this.yml.getLongList(path);
+		return yml.getLongList(path);
 	}
 
 	public List<Long> getLongList(String path, List<Long> def) {
 		List<Long> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getLongList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -330,15 +330,15 @@ public class YMLIO {
 	}
 
 	public List<Map<?, ?>> getMapList(String path) {
-		return this.yml.getMapList(path);
+		return yml.getMapList(path);
 	}
 
 	public List<Map<?, ?>> getMapList(String path, List<Map<?, ?>> def) {
 		List<Map<?, ?>> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getMapList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -346,11 +346,11 @@ public class YMLIO {
 	}
 
 	public Object getObject(String path) {
-		return this.yml.get(path);
+		return yml.get(path);
 	}
 
 	public OfflinePlayer getOfflinePlayer(String path) {
-		return this.yml.getOfflinePlayer(path);
+		return yml.getOfflinePlayer(path);
 	}
 
 	public String getPath(String path) {
@@ -362,8 +362,8 @@ public class YMLIO {
 		if (!path.isEmpty()) {
 			pathPrefix = path + ".";
 		}
-		if (this.yml.isConfigurationSection(path)) {
-			Set<?> key = this.yml.getConfigurationSection(path).getKeys(false);
+		if (yml.isConfigurationSection(path)) {
+			Set<?> key = yml.getConfigurationSection(path).getKeys(false);
 			if (key.size() > 0) {
 				Object[] paths = key.toArray();
 				for (Object path2 : paths) {
@@ -384,15 +384,15 @@ public class YMLIO {
 	}
 
 	public List<Short> getShortList(String path) {
-		return this.yml.getShortList(path);
+		return yml.getShortList(path);
 	}
 
 	public List<Short> getShortList(String path, List<Short> def) {
 		List<Short> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getShortList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -400,19 +400,19 @@ public class YMLIO {
 	}
 
 	public String getString(String path) {
-		return this.yml.getString(path);
+		return yml.getString(path);
 	}
 
 	public List<String> getStringList(String path) {
-		return this.yml.getStringList(path);
+		return yml.getStringList(path);
 	}
 
 	public List<String> getStringList(String path, List<String> def) {
 		List<String> obj = def;
-		if (this.yml.contains(path)) {
+		if (yml.contains(path)) {
 			obj = getStringList(path);
 		}
-		if (this.force) {
+		if (force) {
 			obj = def;
 		}
 		set(path, obj);
@@ -424,8 +424,8 @@ public class YMLIO {
 		if (!path.isEmpty()) {
 			pathPrefix = path + ".";
 		}
-		if (this.yml.isConfigurationSection(path)) {
-			Set<?> key = this.yml.getConfigurationSection(path).getKeys(false);
+		if (yml.isConfigurationSection(path)) {
+			Set<?> key = yml.getConfigurationSection(path).getKeys(false);
 			if (key.size() > 0) {
 				Object[] paths = key.toArray();
 				for (Object path2 : paths) {
@@ -442,19 +442,19 @@ public class YMLIO {
 
 	public void save() {
 		try {
-			this.yml.save(this.file);
+			yml.save(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void set(String path, Object obj) {
-		this.yml.set(path, obj);
+		yml.set(path, obj);
 	}
 
 	public void setFileConfiguration(File file, FileConfiguration fileConfig) {
 		this.file = file;
-		this.yml = fileConfig;
+		yml = fileConfig;
 	}
 
 	public void setForceSave(boolean force) {
@@ -462,11 +462,6 @@ public class YMLIO {
 	}
 
 	public void setHeader(String str) {
-		this.yml.options().header(str);
+		yml.options().header(str);
 	}
 }
-
-/*
- * Location: C:\Users\Brandon\Desktop\TotalWar.jar Qualified Name:
- * com.caved_in.Config.YMLIO JD-Core Version: 0.6.2
- */

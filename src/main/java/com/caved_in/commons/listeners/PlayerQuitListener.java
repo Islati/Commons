@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.Players;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -13,7 +13,7 @@ public class PlayerQuitListener implements Listener {
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			event.setQuitMessage(null);
 		}
-		PlayerHandler.removeData(playerName);
+		Players.removeData(playerName);
 		Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
 	}
 }

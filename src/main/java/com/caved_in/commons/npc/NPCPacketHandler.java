@@ -1,9 +1,9 @@
 package com.caved_in.commons.npc;
 
-import com.caved_in.commons.events.Action;
-import com.caved_in.commons.events.NPCClickEvent;
-import com.caved_in.commons.packets.PacketUtil;
-import com.caved_in.commons.packets.protocol.Packet;
+import com.caved_in.commons.event.Action;
+import com.caved_in.commons.event.NPCClickEvent;
+import com.caved_in.commons.packet.PacketUtil;
+import com.caved_in.commons.packet.protocol.Packet;
 import net.minecraft.util.io.netty.channel.ChannelHandlerContext;
 import net.minecraft.util.io.netty.channel.ChannelInboundHandlerAdapter;
 import org.bukkit.Bukkit;

@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.item.Items;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +19,7 @@ public class CompassListener implements Listener {
 		ItemStack itemInHand = player.getItemInHand();
 		if (itemInHand != null && itemInHand.getType() == Material.COMPASS) {
 			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-				if (ItemHandler.getItemName(itemInHand).toLowerCase().contains("server selector")) {
+				if (Items.getItemName(itemInHand).toLowerCase().contains("server selector")) {
 					Commons.serverMenu.getMenu().openMenu(player);
 				}
 			}

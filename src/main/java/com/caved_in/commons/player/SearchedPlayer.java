@@ -13,7 +13,7 @@ public class SearchedPlayer {
 	}
 
 	public Player getPlayer() {
-		return PlayerHandler.getPlayer(playerName);
+		return Players.getPlayer(playerName);
 	}
 
 	public boolean isOnline() {

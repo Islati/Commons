@@ -1,23 +1,23 @@
 package com.caved_in.commons;
 
-import com.caved_in.commons.commands.CommandRegister;
+import com.caved_in.commons.command.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WorldConfiguration;
-import com.caved_in.commons.items.ItemHandler;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menu.serverselection.ServerMenuGenerator;
 import com.caved_in.commons.menu.serverselection.ServerMenuWrapper;
 import com.caved_in.commons.npc.NPC;
 import com.caved_in.commons.npc.NpcHandler;
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sql.BansSQL;
 import com.caved_in.commons.sql.DisguiseSQL;
 import com.caved_in.commons.sql.FriendSQL;
 import com.caved_in.commons.sql.PlayerSQL;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.utilities.StringUtil;
-import com.caved_in.commons.warps.WarpManager;
+import com.caved_in.commons.warp.Warps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -110,7 +110,7 @@ public class Commons extends JavaPlugin {
 		registerListeners(); // Register all our event listeners
 
 		// Load all the warps
-		WarpManager.loadWarps();
+		Warps.loadWarps();
 
 		threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
 			@Override
@@ -123,10 +123,10 @@ public class Commons extends JavaPlugin {
 		}, 36000, 36000); // SQL Keep alive
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			PlayerHandler.addData(player);
+			Players.addData(player);
 			if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
 				if (!player.getInventory().contains(Material.COMPASS)) {
-					player.getInventory().addItem(ItemHandler.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
+					player.getInventory().addItem(Items.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 				}
 			}
 		}
@@ -271,10 +271,10 @@ public class Commons extends JavaPlugin {
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			String playerName = player.getName();
-			PlayerHandler.removeData(playerName);
+			Players.removeData(playerName);
 			disguiseDatabase.deletePlayerDisguiseData(playerName);
 		}
 
-		WarpManager.saveWarps();
+		Warps.saveWarps();
 	}
 }

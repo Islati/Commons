@@ -1,6 +1,6 @@
 package com.caved_in.commons.listeners;
 
-import com.caved_in.commons.player.PlayerHandler;
+import com.caved_in.commons.player.Players;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -14,7 +14,7 @@ public class PlayerTeleportListener implements Listener {
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		if (!event.isCancelled()) {
-			PlayerHandler.getData(event.getPlayer()).setPreTeleportLocation(event.getFrom());
+			Players.getData(event.getPlayer()).setPreTeleportLocation(event.getFrom());
 		}
 	}
 }
