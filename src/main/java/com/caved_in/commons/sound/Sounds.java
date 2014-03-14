@@ -5,7 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Set;
 
 public class Sounds {
 	/**
@@ -92,7 +92,7 @@ public class Sounds {
 	 * @param pitch
 	 */
 	public static void playSoundDistantAtLocation(Location areaLocation, Location soundPlayLocation, double radius, Sound sound, float volume, float pitch) {
-		List<Player> playersInLocation = Locations.getPlayersInRadius(areaLocation, radius);
+		Set<Player> playersInLocation = Locations.getPlayersInRadius(areaLocation, radius);
 		if (playersInLocation.size() > 0) {
 			for (Player player : playersInLocation) {
 				playSoundDistant(player, soundPlayLocation, sound, volume, pitch);

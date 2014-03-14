@@ -7,19 +7,14 @@ import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Locations {
-	/**
-	 * Get all the players within a radius
-	 *
-	 * @param location
-	 * @param radius
-	 * @return
-	 */
-	public static ArrayList<Player> getPlayersInRadius(Location location, double radius) {
-		ArrayList<Player> playerInRadius = new ArrayList<Player>();
+
+	public static Set<Player> getPlayersInRadius(Location location, double radius) {
+		Set<Player> playerInRadius = new HashSet<>();
 		Player[] onlinePlayers = Bukkit.getOnlinePlayers();
 		double radiusSquared = radius * radius;
 		for (Player onlinePlayer : onlinePlayers) {
@@ -30,29 +25,10 @@ public class Locations {
 		return playerInRadius;
 	}
 
-	/**
-	 * Check if a player is within a radius of another location
-	 *
-	 * @param location
-	 * @param radius
-	 * @param player
-	 * @return
-	 */
 	public static boolean isPlayerInRadius(Location location, double radius, Player player) {
-		double radiusSquared = radius * radius;
-		if (player.getLocation().distanceSquared(location) <= radiusSquared) {
-			return true;
-		}
-		return false;
+		return player.getLocation().distanceSquared(location) <= (radius * radius);
 	}
 
-	/**
-	 * Get a random point with a radius of another location
-	 *
-	 * @param locationCenter
-	 * @param radius
-	 * @return
-	 */
 	public static Location getRandomLocation(Location locationCenter, int radius) {
 		Random rand = new Random();
 		double angle = rand.nextDouble() * 360; //Generate a random angle
@@ -62,14 +38,6 @@ public class Locations {
 		return new Location(locationCenter.getWorld(), x, y, z);
 	}
 
-	/**
-	 * Get the X, Y, and Z Coords of a location
-	 * in a literal array, where index:
-	 * <b>0 = X <br/>1 = Y<br/>2 = Z</b>
-	 *
-	 * @param location
-	 * @return
-	 */
 	public static int[] getXYZ(Location location) {
 		int x = (int) location.getX();
 		int y = (int) location.getY();
