@@ -65,6 +65,10 @@ public class Locations {
 		return getLocation(location.getWorld(), location.getX(), location.getY() + 1, location.getZ());
 	}
 
+	public static String getWorldName(Location location) {
+		return location.getWorld().getName();
+	}
+
 	public static boolean isBehind(LivingEntity entityToCheck, LivingEntity entityBehind) {
 		return Math.abs(Math.toDegrees(entityToCheck.getEyeLocation().getDirection().angle(entityBehind.getLocation().getDirection()))) < 45;
 	}

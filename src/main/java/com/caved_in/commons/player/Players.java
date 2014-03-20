@@ -3,6 +3,7 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
@@ -10,11 +11,9 @@ import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
+import com.google.common.collect.Sets;
 import net.minecraft.util.io.netty.channel.Channel;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -25,8 +24,8 @@ import org.bukkit.potion.PotionEffect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 public class Players {
 	private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
@@ -248,7 +247,7 @@ public class Players {
 	 * @param player player to kick
 	 * @param reason reason to kick the player for
 	 */
-	public static void kickPlayer(Player player, String reason) {
+	public static void kick(Player player, String reason) {
 		player.kickPlayer(StringUtil.formatColorCodes(reason));
 	}
 
@@ -258,8 +257,8 @@ public class Players {
 	 * @param reason reason to kick the players for
 	 * @since 1.0
 	 */
-	public static void kickAllPlayers(String reason) {
-		for (Player player : getOnlinePlayers()) {
+	public static void kickAll(String reason) {
+		for (Player player : allPlayers()) {
 			player.kickPlayer(StringUtil.formatColorCodes(reason));
 		}
 	}
@@ -271,15 +270,15 @@ public class Players {
 	 * @param reason     reason to kick the players for
 	 * @since 1.0
 	 */
-	public static void kickAllPlayersWithoutPermission(String permission, String reason) {
+	public static void kickAllWithoutPermission(String permission, String reason) {
 		if (permission != null && !permission.isEmpty()) {
-			for (Player player : getOnlinePlayers()) {
+			for (Player player : allPlayers()) {
 				if (!player.hasPermission(permission)) {
 					player.kickPlayer(StringUtil.formatColorCodes(reason));
 				}
 			}
 		} else {
-			kickAllPlayers(reason);
+			kickAll(reason);
 		}
 	}
 
@@ -290,8 +289,8 @@ public class Players {
 	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
 	 * @since 1.0
 	 */
-	public static void sendMessageToAllPlayers(String... messages) {
-		for (Player player : getOnlinePlayers()) {
+	public static void messageAll(String... messages) {
+		for (Player player : allPlayers()) {
 			sendMessage(player, messages);
 		}
 	}
@@ -303,8 +302,8 @@ public class Players {
 	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
 	 * @since 1.0
 	 */
-	public static void sendMessageToAllPlayers(String message) {
-		for (Player player : getOnlinePlayers()) {
+	public static void messageAll(String message) {
+		for (Player player : allPlayers()) {
 			sendMessage(player, message);
 		}
 	}
@@ -317,7 +316,7 @@ public class Players {
 	 * @see #sendMessage(org.bukkit.command.CommandSender, String...)
 	 * @since 1.0
 	 */
-	public static void sendMessageToAllPlayersWithPermission(String permission, String... messages) {
+	public static void messageAllWithPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.hasPermission(permission)) {
 				sendMessage(player, messages);
@@ -333,7 +332,7 @@ public class Players {
 	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
 	 * @since 1.0
 	 */
-	public static void sendMessageToAllPlayersWithoutPermission(String permission, String message) {
+	public static void messageAllWithoutPermission(String permission, String message) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.hasPermission(permission)) {
 				sendMessage(player, message);
@@ -348,7 +347,7 @@ public class Players {
 	 * @param messages   messages to send to the player
 	 * @since 1.0
 	 */
-	public static void sendMessageToAllPlayersWithoutPermission(String permission, String... messages) {
+	public static void messageAllWithoutPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (!player.hasPermission(permission)) {
 				for (String message : messages) {
@@ -444,8 +443,8 @@ public class Players {
 	 * @see #playerChat(org.bukkit.entity.Player, String)
 	 * @since 1.0
 	 */
-	public static void allPlayersChat(String message) {
-		for (Player player : getOnlinePlayers()) {
+	public static void allChat(String message) {
+		for (Player player : allPlayers()) {
 			playerChat(player, message);
 		}
 	}
@@ -503,10 +502,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static boolean isPremium(String playerName) {
-		if (playerData.containsKey(playerName)) {
-			return playerData.get(playerName).isPremium();
-		}
-		return false;
+		return playerData.containsKey(playerName) && playerData.get(playerName).isPremium();
 	}
 
 	/**
@@ -571,6 +567,52 @@ public class Players {
 		}
 	}
 
+	public static void setArmor(Player player, ArmorSlot armorSlot, ItemStack itemStack) {
+		PlayerInventory inventory = player.getInventory();
+		switch (armorSlot) {
+			case HELMET:
+				inventory.setHelmet(itemStack);
+				break;
+			case CHEST_PLATE:
+				inventory.setChestplate(itemStack);
+				break;
+			case LEGGINGS:
+				inventory.setLeggings(itemStack);
+				break;
+			case BOOTS:
+				inventory.setBoots(itemStack);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public static ItemStack[] getArmor(Player player) {
+		return player.getInventory().getArmorContents();
+	}
+
+	public static ItemStack getArmor(Player player, ArmorSlot armorSlot) {
+		PlayerInventory playerInventory = player.getInventory();
+		ItemStack itemStack = null;
+		switch (armorSlot) {
+			case HELMET:
+				itemStack = playerInventory.getHelmet();
+				break;
+			case CHEST_PLATE:
+				itemStack = playerInventory.getChestplate();
+				break;
+			case LEGGINGS:
+				itemStack = playerInventory.getLeggings();
+				break;
+			case BOOTS:
+				itemStack = playerInventory.getBoots();
+				break;
+			default:
+				break;
+		}
+		return itemStack;
+	}
+
 	/**
 	 * Sets the players armor to the armor itemstacks
 	 *
@@ -578,7 +620,7 @@ public class Players {
 	 * @param armor  itemstack array of the armor we're equipping the player with
 	 * @since 1.0
 	 */
-	public static void setPlayerArmor(Player player, ItemStack[] armor) {
+	public static void setArmor(Player player, ItemStack[] armor) {
 		player.getInventory().setArmorContents(armor);
 	}
 
@@ -610,16 +652,36 @@ public class Players {
 	 * @return amount of players that are currently online
 	 * @since 1.0
 	 */
-	public static int getOnlinePlayersCount() {
-		return Bukkit.getOnlinePlayers().length;
+	public static int getOnlineCount() {
+		return allPlayers().length;
 	}
 
 	/**
 	 * @return an array of players who are currently online
 	 * @since 1.0
 	 */
-	public static Player[] getOnlinePlayers() {
+	public static Player[] allPlayers() {
 		return Bukkit.getOnlinePlayers();
+	}
+
+	public static Collection<Player> allPlayers(World world) {
+		return world.getEntitiesByClass(Player.class);
+	}
+
+	/**
+	 * Get all the online players excluding those who are to be excluded
+	 * @param excludedPlayers names of the players to exclude from the set
+	 * @return set of all players
+	 */
+	public static Set<Player> allPlayersExcept(String... excludedPlayers) {
+		Set<Player> players = new HashSet<>();
+		Set<String> names = Sets.newHashSet(excludedPlayers);
+		for (Player player : allPlayers()) {
+			if (!names.contains(player.getName())) {
+				players.add(player);
+			}
+		}
+		return players;
 	}
 
 	/**
@@ -629,8 +691,8 @@ public class Players {
 	 * @return true if amount is greater or equal to the amount of players online, false otherwise
 	 * @since 1.0
 	 */
-	public static boolean hasOnlineCount(int amount) {
-		return getOnlinePlayersCount() >= amount;
+	public static boolean isOnline(int amount) {
+		return getOnlineCount() >= amount;
 	}
 
 	/**
@@ -653,7 +715,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static WorldHeight getWorldHeight(Player player) {
-		int equalizedDepth = getEquilizedPlayerDepth(player);
+		int equalizedDepth = getEqualizedDepth(player);
 		if (equalizedDepth > 0) {
 			return WorldHeight.ABOVE_SEA_LEVEL;
 		} else if (equalizedDepth < 0) {
@@ -670,7 +732,7 @@ public class Players {
 	 * @return 0-based y-axis position
 	 * @since 1.0
 	 */
-	private static int getEquilizedPlayerDepth(Player player) {
+	private static int getEqualizedDepth(Player player) {
 		return getDepth(player) - DEPTH_EQUILZE_NUMBER;
 	}
 
@@ -682,7 +744,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static boolean isAboveSeaLevel(Player player) {
-		return getEquilizedPlayerDepth(player) > 0;
+		return getEqualizedDepth(player) > 0;
 	}
 
 	/**
@@ -693,7 +755,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static boolean isBelowSeaLevel(Player player) {
-		return getEquilizedPlayerDepth(player) < 0;
+		return getEqualizedDepth(player) < 0;
 	}
 
 	/**
@@ -704,7 +766,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static boolean isAtSeaLevel(Player player) {
-		return getEquilizedPlayerDepth(player) == 0;
+		return getEqualizedDepth(player) == 0;
 	}
 
 	/**
@@ -717,7 +779,7 @@ public class Players {
 	 * @param amount amount of hunger to restore
 	 * @since 1.0
 	 */
-	public static void feedPlayer(Player player, int amount) {
+	public static void feed(Player player, int amount) {
 		player.setFoodLevel(amount);
 		player.setSaturation(10);
 		player.setExhaustion(0);
@@ -731,11 +793,11 @@ public class Players {
 	 * </p>
 	 *
 	 * @param player player to feed
-	 * @see #feedPlayer(org.bukkit.entity.Player, int)
+	 * @see #feed(org.bukkit.entity.Player, int)
 	 * @since 1.0
 	 */
-	public static void feedPlayer(Player player) {
-		feedPlayer(player, 20);
+	public static void feed(Player player) {
+		feed(player, 20);
 	}
 
 	/**
@@ -780,6 +842,20 @@ public class Players {
 	}
 
 	/**
+	 * Check the players inventory for an item with a specific material and name
+	 * Uses a fuzzy search to determine if the item is in their inventory
+	 *
+	 * @param player   player who's inventory we're checking
+	 * @param material The material type were checking for
+	 * @param name     The name we're doing a fuzzy search against for
+	 * @return true if they have the item, false otherwise
+	 * @see com.caved_in.commons.inventory.Inventories#containsItem(org.bukkit.inventory.Inventory, org.bukkit.Material, String)
+	 */
+	public static boolean hasItem(Player player, Material material, String name) {
+		return Inventories.containsItem(player.getInventory(), material, name);
+	}
+
+	/**
 	 * Gets the players targeted location (on their cursor) of up-to 30 blocks in distance
 	 *
 	 * @param player player to get the target-location of
@@ -811,7 +887,7 @@ public class Players {
 	 */
 	public static void sendPacket(Player player, Object packet) {
 		Method sendPacket = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("PlayerConnection"), "sendPacket", ReflectionUtilities.getNMSClass("Packet"));
-		Object playerConnection = getPlayerConnection(player);
+		Object playerConnection = getConnection(player);
 
 		try {
 			sendPacket.invoke(playerConnection, packet);
@@ -827,7 +903,7 @@ public class Players {
 	 * @param player player to get the EntityPlayer handle of
 	 * @return EntityPlayer handle for the player object
 	 */
-	public static Object playerToEntityPlayer(Player player) {
+	public static Object toEntityPlayer(Player player) {
 		Method getHandle = ReflectionUtilities.getMethod(player.getClass(), "getHandle");
 		try {
 			return getHandle.invoke(player);
@@ -843,8 +919,8 @@ public class Players {
 	 * @param player player to get the connection for
 	 * @return connection for the player, or null if none exists
 	 */
-	public static Object getPlayerConnection(Player player) {
-		Object connection = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", playerToEntityPlayer(player));
+	public static Object getConnection(Player player) {
+		Object connection = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", toEntityPlayer(player));
 		return connection;
 	}
 
@@ -856,7 +932,7 @@ public class Players {
 	 */
 	public static Object getNetworkManager(Player player) {
 		try {
-			return ReflectionUtilities.getField(getPlayerConnection(player).getClass(), "networkManager").get(getPlayerConnection(player));
+			return ReflectionUtilities.getField(getConnection(player).getClass(), "networkManager").get(getConnection(player));
 		} catch (IllegalAccessException e) {
 			Commons.messageConsole("Failed to get the NetworkManager of player: " + player.getName());
 			return null;

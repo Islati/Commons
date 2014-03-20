@@ -6,11 +6,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 21/01/14
- * Time: 8:27 PM
- */
 public enum Enchantments {
 	DAMAGE_ALL(Enchantment.DAMAGE_ALL, "damageall", "alldamage", "alldmg", "sharpness", "sharp", "dal"),
 	DAMAGE_ARTHROPODS(Enchantment.DAMAGE_ARTHROPODS, "ardmg", "baneofarthropods", "arthropod", "damagearthropod", "baneofarthropod", "dar"),

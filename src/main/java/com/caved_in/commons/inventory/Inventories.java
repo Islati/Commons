@@ -1,6 +1,8 @@
 package com.caved_in.commons.inventory;
 
 import com.caved_in.commons.block.chest.ChestType;
+import com.caved_in.commons.item.Items;
+import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.entity.Player;
@@ -11,6 +13,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +27,7 @@ public class Inventories {
 		} else if (inventoryHolder.getInventory().getType() == InventoryType.ENDER_CHEST) {
 			return ChestType.ENDER_CHEST;
 		} else {
-			return null;
+			return ChestType.UNKNOWN;
 		}
 	}
 
@@ -35,8 +38,7 @@ public class Inventories {
 	 * @return true if the inventories type is a chest
 	 */
 	public static boolean isChest(Inventory inventory) {
-		ChestType chestType = getChestType(inventory.getHolder());
-		return (chestType != null && chestType == ChestType.SINGLE_CHEST);
+		return isChest(inventory.getHolder());
 	}
 
 	/**
@@ -47,7 +49,18 @@ public class Inventories {
 	 */
 	public static boolean isChest(InventoryHolder inventoryHolder) {
 		ChestType chestType = getChestType(inventoryHolder);
-		return (chestType != null && chestType == ChestType.SINGLE_CHEST);
+		switch (chestType) {
+			case SINGLE_CHEST:
+			case DOUBLE_CHEST:
+			case ENDER_CHEST:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	public static boolean isSingleChest(InventoryHolder inventoryHolder) {
+		return getChestType(inventoryHolder) == ChestType.SINGLE_CHEST;
 	}
 
 	/**
@@ -57,8 +70,7 @@ public class Inventories {
 	 * @return true if the inventorys holder is a double chest
 	 */
 	public static boolean isDoubleChest(InventoryHolder inventoryHolder) {
-		ChestType chestType = getChestType(inventoryHolder);
-		return (chestType != null && chestType == ChestType.DOUBLE_CHEST);
+		return getChestType(inventoryHolder) == ChestType.DOUBLE_CHEST;
 	}
 
 	/**
@@ -68,17 +80,11 @@ public class Inventories {
 	 * @return
 	 */
 	public static Chest getChest(InventoryHolder inventoryHolder) {
-		if (isChest(inventoryHolder)) {
-			return (Chest) inventoryHolder;
-		}
-		return null;
+		return (Chest) inventoryHolder;
 	}
 
 	public static DoubleChest getDoubleChest(InventoryHolder inventoryHolder) {
-		if (isDoubleChest(inventoryHolder)) {
-			return (DoubleChest) inventoryHolder;
-		}
-		return null;
+		return (DoubleChest) inventoryHolder;
 	}
 
 	public static List<ItemStack> getContents(Inventory inventory) {
@@ -110,6 +116,16 @@ public class Inventories {
 		for (Map.Entry<Integer, ItemStack> itemEntry : inventoryItems.entrySet()) {
 			inventoryView.setItem(itemEntry.getKey(), itemEntry.getValue());
 		}
+	}
+
+	public static boolean containsItem(Inventory inventory, Material material, String itemName) {
+		HashMap<Integer, ? extends ItemStack> items = inventory.all(material);
+		for (Map.Entry<Integer, ? extends ItemStack> inventoryItem : items.entrySet()) {
+			if (Items.nameContains(inventoryItem.getValue(), itemName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

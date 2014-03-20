@@ -2,11 +2,19 @@ package com.caved_in.commons.friends;
 
 import com.google.common.collect.Sets;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import static ch.lambdaj.Lambda.*;
+import static org.hamcrest.Matchers.is;
 
 public class FriendList {
 	private String playerName = "";
 	private Map<String, Friend> playerFriends = new HashMap<String, Friend>();
+	private Set<Friend> unacceptedFriends = null;
+	private boolean modified = false;
 
 	public FriendList(String playerName) {
 		this.playerName = playerName;
@@ -14,9 +22,8 @@ public class FriendList {
 
 	public FriendList(String playerName, Collection<Friend> playerFriends) {
 		this.playerName = playerName;
-		for (Friend friend : playerFriends) {
-			this.playerFriends.put(friend.getFriendName(), friend);
-		}
+		//Create an indexed map of playerFriends of the Friend class where the key is the friends name
+		this.playerFriends = index(playerFriends, on(Friend.class).getFriendName());
 	}
 
 	public String getPlayerName() {
@@ -29,14 +36,17 @@ public class FriendList {
 
 	public void addFriend(Friend friendToAdd) {
 		playerFriends.put(friendToAdd.getFriendName(), friendToAdd);
+		modified = true;
 	}
 
 	public void removeFriend(String name) {
 		playerFriends.remove(name);
+		modified = true;
 	}
 
 	public void acceptFriend(String name) {
 		playerFriends.get(name).setAccepted(true);
+		modified = true;
 	}
 
 	public Set<Friend> getFriends() {
@@ -44,11 +54,9 @@ public class FriendList {
 	}
 
 	public Set<Friend> getUnacceptedFriends() {
-		Set<Friend> unacceptedFriends = new HashSet<Friend>();
-		for (Friend friend : getFriends()) {
-			if (!friend.isAccepted()) {
-				unacceptedFriends.add(friend);
-			}
+		if (modified || unacceptedFriends == null) {
+			unacceptedFriends = Sets.newHashSet(select(getFriends(), having(on(Friend.class).isAccepted(), is(true))));
+			modified = false;
 		}
 		return unacceptedFriends;
 	}

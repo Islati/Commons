@@ -32,7 +32,7 @@ public class PlayerJoinListener implements Listener {
 		Players.addData(player);
 		if (worldConfig.isCompassMenuEnabled()) {
 			if (!player.getInventory().contains(Material.COMPASS)) {
-				player.getInventory().addItem(Items.makeItemStack(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
+				player.getInventory().addItem(Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 			}
 		}
 

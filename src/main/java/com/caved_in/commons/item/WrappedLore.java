@@ -11,14 +11,14 @@ public class WrappedLore {
 	private Map<Integer, String> itemLore;
 
 	public WrappedLore(ItemStack itemStack) {
-		initializeLoreMap(Items.getItemLore(itemStack));
+		initializeLoreMap(Items.getLore(itemStack));
 	}
 
 	public WrappedLore(String... itemLore) {
 		initializeLoreMap(Arrays.asList(itemLore));
 	}
 
-	public WrappedLore(ArrayList<String> itemLore) {
+	public WrappedLore(List<String> itemLore) {
 		initializeLoreMap(itemLore);
 	}
 

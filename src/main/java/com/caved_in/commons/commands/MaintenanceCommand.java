@@ -22,7 +22,7 @@ public class MaintenanceCommand {
 			switch (maintainanceHandle.toLowerCase()) {
 				case "on":
 					maintenanceConfiguration.setMaintenanceMode(true);
-					Players.kickAllPlayersWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
+					Players.kickAllWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
 					Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					break;
 				case "off":
@@ -32,7 +32,7 @@ public class MaintenanceCommand {
 				case "toggle":
 					maintenanceConfiguration.toggleMaintenance();
 					if (maintenanceConfiguration.isMaintenanceMode()) {
-						Players.kickAllPlayersWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
+						Players.kickAllWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					} else {
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_DISABLED);

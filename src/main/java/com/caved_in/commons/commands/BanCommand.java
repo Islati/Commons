@@ -101,12 +101,12 @@ public class BanCommand {
 						playerName = bPlayer.getName();
 						bPlayer.kickPlayer(banReason);
 						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-						Players.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+						Players.messageAll(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 					} else {
 						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(playerName);
 						if (bPlayer.hasPlayedBefore()) {
 							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-							Players.sendMessageToAllPlayers(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+							Players.messageAll(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 						} else {
 							Players.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
 						}

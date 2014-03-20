@@ -17,7 +17,7 @@ public class SkullCommand {
 		if (commandArgs.length > 0) {
 			String playerName = commandArgs[0];
 			ItemStack playerSkull = Items.getSkull(playerName);
-			Items.setItemName(playerSkull, playerName + "'s Head");
+			Items.setName(playerSkull, playerName + "'s Head");
 			player.getInventory().addItem(playerSkull);
 		} else {
 			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));

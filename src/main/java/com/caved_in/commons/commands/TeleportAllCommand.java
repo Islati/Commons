@@ -13,7 +13,7 @@ public class TeleportAllCommand {
 	@CommandController.CommandHandler(name = "tpall", usage = "/tpall", permission = "tunnels.common.tpall")
 	public void onTpallCommand(Player player, String[] args) {
 		String playerName = player.getName();
-		for (Player onlinePlayer : Players.getOnlinePlayers()) {
+		for (Player onlinePlayer : Players.allPlayers()) {
 			if (!onlinePlayer.getName().equals(playerName)) {
 				Players.teleport(onlinePlayer, player);
 				Players.sendMessage(onlinePlayer, Messages.TELEPORTED_TO_PLAYER(playerName));

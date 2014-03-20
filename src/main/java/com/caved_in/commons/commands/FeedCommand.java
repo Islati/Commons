@@ -20,7 +20,7 @@ public class FeedCommand {
 			if (Players.isOnline(playerName)) {
 				//Get the player and feed them
 				Player player = Players.getPlayer(playerName);
-				Players.feedPlayer(player);
+				Players.feed(player);
 				//Send messages saying the player requested was fed
 				Players.sendMessage(player, Messages.PLAYER_FED);
 				Players.sendMessage(sender, Messages.PLAYER_FED(playerName));
@@ -29,7 +29,7 @@ public class FeedCommand {
 			}
 		} else {
 			if (sender instanceof Player) {
-				Players.feedPlayer((Player) sender);
+				Players.feed((Player) sender);
 				Players.sendMessage(sender, Messages.PLAYER_FED);
 			} else {
 				Players.sendMessage(sender, Messages.PLAYER_COMMAND_SENDER_REQUIRED);
