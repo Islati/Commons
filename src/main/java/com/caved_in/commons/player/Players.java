@@ -238,6 +238,10 @@ public class Players {
 		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : partialPlayerName;
 	}
 
+	public static UUID getUniqueId(Player player) {
+		return player.getUniqueId();
+	}
+
 	/**
 	 * Kicks the player for the reason defined
 	 * <p>
@@ -432,7 +436,7 @@ public class Players {
 	 * @param message what they'll be saying
 	 * @since 1.0
 	 */
-	public static void playerChat(Player player, String message) {
+	public static void chat(Player player, String message) {
 		player.chat(message);
 	}
 
@@ -440,12 +444,12 @@ public class Players {
 	 * Force all players on the server to chat the message given
 	 *
 	 * @param message message for the players to say
-	 * @see #playerChat(org.bukkit.entity.Player, String)
+	 * @see #chat(org.bukkit.entity.Player, String)
 	 * @since 1.0
 	 */
 	public static void allChat(String message) {
 		for (Player player : allPlayers()) {
-			playerChat(player, message);
+			chat(player, message);
 		}
 	}
 
