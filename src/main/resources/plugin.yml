@@ -111,3 +111,5 @@ commands:
       usage: /<command>
    potion:
       usage: /<command> <type> [Level]
+   debug:
+      usage: /<command>

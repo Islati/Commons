@@ -3,8 +3,9 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.MaintenanceConfiguration;
+import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.config.PremiumConfiguration;
-import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,12 +21,12 @@ public class PlayerLoginListener implements Listener {
 		PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
 		//If maintenance mode is enabled, kick the player if they don't have permissions
 		if (maintenanceConfiguration.isMaintenanceMode()) {
-			if (!event.getPlayer().hasPermission(TunnelsPermissions.MAINTENANCE_WHITELIST)) {
+			if (!Players.hasPermission(player, Permission.MAINTENANCE_WHITELIST)) {
 				event.setKickMessage(maintenanceConfiguration.getKickMessage());
 				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}
 		}
-
+		//If the server is in premium-only mode, check if the player is premium and if not kick them
 		if (premiumConfiguration.isPremiumMode()) {
 			if (!Commons.playerDatabase.getPlayerWrapper(player.getName()).isPremium()) {
 				event.setKickMessage(premiumConfiguration.getKickMessage());

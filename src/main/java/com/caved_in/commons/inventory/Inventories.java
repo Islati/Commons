@@ -104,6 +104,10 @@ public class Inventories {
 		inventory.setContents(items);
 	}
 
+	public static void setItem(Inventory inventory, int slot, ItemStack item) {
+		inventory.setItem(slot, item);
+	}
+
 	public static InventoryView openWorkbench(Player player) {
 		return player.openWorkbench(null, true);
 	}

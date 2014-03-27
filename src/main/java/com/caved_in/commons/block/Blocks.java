@@ -10,15 +10,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.TNTPrimed;
+import org.bukkit.material.MaterialData;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author Brandon Curtis
- * @version 1.0
- * @since 1.0
- */
 public class Blocks {
 
 	/**
@@ -297,13 +293,13 @@ public class Blocks {
 	 * @param block     block to change
 	 * @param blockData blockdata used to update the block
 	 */
-	public static void setBlock(Block block, BlockData blockData) {
+	public static void setBlock(Block block, MaterialData blockData) {
 		//Update the blocks material data
-		block.getState().setData(blockData.getBlockMaterialData());
+		block.getState().setData(blockData);
 		//Update the type
-		block.setType(blockData.getBlockType());
+		block.setType(blockData.getItemType());
 		//Update the byte-data (Positioning, etc)
-		block.setData(blockData.getBlockData());
+		block.setData(block.getData());
 		//Update the block state
 		block.getState().update(true);
 	}
@@ -318,28 +314,6 @@ public class Blocks {
 		block.setType(changeMaterial);
 		block.getState().setType(changeMaterial);
 		block.getState().update(true);
-	}
-
-	/**
-	 * Set blockdata for a specific block
-	 *
-	 * @param blockData blockdata to update at
-	 * @see com.caved_in.commons.block.BlockData
-	 */
-	public static void setBlock(BlockData blockData) {
-		setBlock(blockData.getLocation(), blockData);
-	}
-
-	/**
-	 * Set a block at a specific location to the data in a blockData object
-	 *
-	 * @param location  location of the block
-	 * @param blockData blockdata used to update the block
-	 * @see com.caved_in.commons.block.BlockData
-	 * @see #setBlock(org.bukkit.block.Block, BlockData)
-	 */
-	public static void setBlock(Location location, BlockData blockData) {
-		setBlock(location.getWorld().getBlockAt(location), blockData);
 	}
 
 	/**

@@ -175,10 +175,10 @@ public class CommandController implements CommandExecutor {
 				Object subHandler = subHandlers.get(subCommand.toString());
 				Method subMethod = subMethods.get(subCommand.toString());
 				/*
-                 * If and only if both handler and method exist...
+				 * If and only if both handler and method exist...
                  */
 				if (subHandler != null && subMethod != null) {
-                    /*
+					/*
                      * Reorder the arguments so we don't resend the subcommand
                      */
 					String[] subArgs = new String[args.length - 1];

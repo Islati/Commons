@@ -42,6 +42,10 @@ public class Worlds {
 		return getWorld(entity).getName();
 	}
 
+	public static String getWorldName(Location location) {
+		return location.getWorld().getName();
+	}
+
 	public static boolean worldExists(String worldName) {
 		return Bukkit.getWorld(worldName) != null;
 	}

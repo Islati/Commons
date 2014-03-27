@@ -7,7 +7,9 @@ public class CommandRegister {
 	public static void registerCommands() {
 		registerCommand(new FriendCommands());
 		//Register the individual commands
-		
+
+		registerCommand(new DebugModeCommand());
+
 		/*== Utility Commands ==*/
 		registerCommand(new TeleportHereCommand());
 		registerCommand(new TeleportCommand());

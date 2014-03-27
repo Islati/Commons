@@ -66,6 +66,10 @@ public class Commons extends JavaPlugin {
 		return globalConfig;
 	}
 
+	public static WorldConfiguration getWorldConfig() {
+		return globalConfig.getWorldConfig();
+	}
+
 	@Override
 	public void onEnable() {
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
@@ -187,10 +191,7 @@ public class Commons extends JavaPlugin {
 			messageConsole("&aRegistered the fire-spread listener");
 		}
 
-		if (!worldConfig.isBlockBreakEnabled()) {
-			registerListener(new BlockBreakListener());
-			messageConsole("&aRegistered the block break listener");
-		}
+		registerListener(new BlockBreakListener());
 
 		if (!worldConfig.isItemDropEnabled()) {
 			registerListener(new ItemDropListener());

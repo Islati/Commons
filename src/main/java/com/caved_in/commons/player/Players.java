@@ -1,6 +1,7 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.inventory.Inventories;
@@ -286,6 +287,10 @@ public class Players {
 		}
 	}
 
+	public static void kickAllWithoutPermission(Permission permission, String reason) {
+		kickAllWithoutPermission(permission.toString(), reason);
+	}
+
 	/**
 	 * Sends messages to all online players
 	 *
@@ -328,6 +333,14 @@ public class Players {
 		}
 	}
 
+	public static void messageAllWithPermission(Permission permission, String message) {
+		messageAllWithPermission(permission.toString(), message);
+	}
+
+	public static void messageAllWithPermission(Permission permission, String... messages) {
+		messageAllWithPermission(permission.toString(), messages);
+	}
+
 	/**
 	 * Sends a message to all players <i>without</i> a specific permission
 	 *
@@ -342,6 +355,14 @@ public class Players {
 				sendMessage(player, message);
 			}
 		}
+	}
+
+	public static void messageAllWithoutPermission(Permission permission, String message) {
+		messageAllWithoutPermission(permission.toString(), message);
+	}
+
+	public static void messageAllWithoutPermission(Permission permission, String... messages) {
+		messageAllWithoutPermission(permission.toString(), messages);
 	}
 
 	/**
@@ -464,6 +485,14 @@ public class Players {
 		return player.getAddress().getHostName();
 	}
 
+	public static boolean hasPermission(Player player, String permission) {
+		return player.hasPermission(permission);
+	}
+
+	public static boolean hasPermission(Player player, Permission permission) {
+		return hasPermission(player, permission.toString());
+	}
+
 	/**
 	 * Gets the players chat name-tag color based on their permissions on the server.
 	 * <p>
@@ -555,6 +584,10 @@ public class Players {
 	 */
 	public static void giveItem(Player player, ItemStack itemStack) {
 		player.getInventory().addItem(itemStack);
+	}
+
+	public static void setItem(Player player, int slot, ItemStack item) {
+		Inventories.setItem(player.getInventory(), slot, item);
 	}
 
 	/**
@@ -674,6 +707,7 @@ public class Players {
 
 	/**
 	 * Get all the online players excluding those who are to be excluded
+	 *
 	 * @param excludedPlayers names of the players to exclude from the set
 	 * @return set of all players
 	 */

@@ -1,6 +1,7 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -238,6 +239,10 @@ public class Messages {
 
 	public static String PLAYER_KICKED(String player, String reason) {
 		return String.format("&e%s &ahas been kicked with the reason being: '&e%s&a'", player, reason);
+	}
+
+	public static String PLAYER_DEBUGMODE_CHANGE(PlayerWrapper playerWrapper) {
+		return String.format("&aYou're &e%s&a in debug mode.", playerWrapper.isInDebugMode() ? "now" : "no longer");
 	}
 
 }

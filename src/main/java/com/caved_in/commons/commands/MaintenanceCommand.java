@@ -3,7 +3,7 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.config.MaintenanceConfiguration;
-import com.caved_in.commons.config.TunnelsPermissions;
+import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
@@ -22,7 +22,7 @@ public class MaintenanceCommand {
 			switch (maintainanceHandle.toLowerCase()) {
 				case "on":
 					maintenanceConfiguration.setMaintenanceMode(true);
-					Players.kickAllWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
+					Players.kickAllWithoutPermission(Permission.MAINTENANCE_WHITELIST.toString(), maintenanceConfiguration.getKickMessage());
 					Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					break;
 				case "off":
@@ -32,7 +32,7 @@ public class MaintenanceCommand {
 				case "toggle":
 					maintenanceConfiguration.toggleMaintenance();
 					if (maintenanceConfiguration.isMaintenanceMode()) {
-						Players.kickAllWithoutPermission(TunnelsPermissions.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
+						Players.kickAllWithoutPermission(Permission.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					} else {
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_DISABLED);

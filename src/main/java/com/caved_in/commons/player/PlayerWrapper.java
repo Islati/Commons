@@ -7,16 +7,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-/**
- * User: Brandon
- */
 public class PlayerWrapper {
 	private FriendList friendsList;
 	private boolean inStaffChat = false;
 	private boolean customWalkSpeed = false;
 	private boolean customFlySpeed = false;
 	private boolean viewingRecipe = false;
-
+	/* If the players in debug mode, they'll receive messages when they do practically anything. */
+	private boolean debugMode = false;
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
 
@@ -247,4 +245,14 @@ public class PlayerWrapper {
 	public void setPreTeleportLocation(Location preTeleportLocation) {
 		this.preTeleportLocation = preTeleportLocation;
 	}
+
+	public boolean isInDebugMode() {
+		return debugMode;
+	}
+
+	public void setInDebugMode(boolean value) {
+		debugMode = value;
+	}
+
+
 }

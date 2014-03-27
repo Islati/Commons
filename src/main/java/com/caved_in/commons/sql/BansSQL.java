@@ -56,7 +56,7 @@ public class BansSQL extends SQL {
 				preparedStatement.setString(1, playerName);
 				hasData = preparedStatement.executeQuery().next();
 				if (hasData) {
-					playersWithData.put(playerName,false);
+					playersWithData.put(playerName, false);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -181,7 +181,7 @@ public class BansSQL extends SQL {
 				pardoned = true;
 				Commons.messageConsole(playerName + " has been pardoned by " + pardonedBy);
 				//Set the active cached data to false
-				playersWithData.put(playerName,false);
+				playersWithData.put(playerName, false);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -218,7 +218,7 @@ public class BansSQL extends SQL {
 			}
 			//Execute our pool of batch statements
 			pardonStatement.executeBatch();
-			playersWithData.put(playerName,false);
+			playersWithData.put(playerName, false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

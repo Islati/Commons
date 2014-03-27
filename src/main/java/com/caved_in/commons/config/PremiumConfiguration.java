@@ -1,8 +1,7 @@
 package com.caved_in.commons.config;
 
-import org.simpleframework.xml.Element;
-
 import com.caved_in.commons.utilities.StringUtil;
+import org.simpleframework.xml.Element;
 
 public class PremiumConfiguration {
 
@@ -32,6 +31,7 @@ public class PremiumConfiguration {
 	public void togglePremiumMode() {
 		this.premiumMode = !this.premiumMode;
 	}
+
 	public String getKickMessage() {
 		return StringUtil.formatColorCodes(this.premiumKickMessage);
 	}
