@@ -132,5 +132,15 @@ public class Inventories {
 		return false;
 	}
 
+	public static boolean containsItem(Inventory inventory, ItemStack itemStack) {
+		Map<Integer, ? extends ItemStack> items = inventory.all(itemStack);
+		for (Map.Entry<Integer, ? extends ItemStack> item : items.entrySet()) {
+			if (item.getValue().isSimilar(itemStack)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }

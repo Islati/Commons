@@ -1,6 +1,7 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.Entities;
@@ -109,6 +110,19 @@ public class Players {
 		PlayerWrapper.setTagColor(getNameTagColor(player));
 		Commons.messageConsole("&aLoaded data for " + playerName);
 		playerData.put(playerName, PlayerWrapper);
+	}
+
+	public static void addXp(Player player, int amount) {
+		addXp(player, amount, true);
+	}
+
+	public static void addXp(Player player, int amount, boolean message) {
+		PlayerWrapper playerWrapper = getData(player);
+		playerWrapper.addCurrency(playerWrapper.isPremium() ? ((double) amount) * 2 : (double) amount);
+		updateData(playerWrapper);
+		if (message) {
+			Players.sendMessage(player, Messages.EARNED_EXPERIENCE(amount));
+		}
 	}
 
 	/**
@@ -879,6 +893,10 @@ public class Players {
 		return player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR;
 	}
 
+	public static boolean hasItemInHand(Player player, ItemStack compare) {
+		return player.getItemInHand().isSimilar(compare);
+	}
+
 	/**
 	 * Check the players inventory for an item with a specific material and name
 	 * Uses a fuzzy search to determine if the item is in their inventory
@@ -891,6 +909,10 @@ public class Players {
 	 */
 	public static boolean hasItem(Player player, Material material, String name) {
 		return Inventories.containsItem(player.getInventory(), material, name);
+	}
+
+	public static boolean hasItem(Player player, ItemStack item) {
+		return Inventories.containsItem(player.getInventory(), item);
 	}
 
 	/**

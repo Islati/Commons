@@ -165,6 +165,10 @@ public class Messages {
 		return String.format("&aYou've added &e%s&a tunnels xp to &b%s", amount, playerName);
 	}
 
+	public static String EARNED_EXPERIENCE(int amount) {
+		return String.format("&aYou've earned &o%s&r&a xp!", amount);
+	}
+
 	public static String ITEM_ENCHANTED(String enchantmentName) {
 		return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
 	}
