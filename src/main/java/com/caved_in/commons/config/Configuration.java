@@ -3,6 +3,10 @@ package com.caved_in.commons.config;
 import org.simpleframework.xml.Element;
 
 public class Configuration {
+
+	@Element(name = "Database_Backend")
+	private boolean sqlBackend = false;
+
 	@Element(name = "DatabaseConfig", type = SqlConfiguration.class)
 	private SqlConfiguration sqlConfig;
 
@@ -71,11 +75,15 @@ public class Configuration {
 		return serverName;
 	}
 
+	public PremiumConfiguration getPremiumConfig() {
+		return premiumConfig;
+	}
+
 	public boolean getNPCSEnabled() {
 		return enableNPC;
 	}
 
-	public PremiumConfiguration getPremiumConfig() {
-		return premiumConfig;
+	public boolean hasSqlBackend() {
+		return sqlBackend;
 	}
 }

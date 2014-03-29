@@ -93,23 +93,27 @@ public class Players {
 	public static void addData(Player player) {
 		String playerName = player.getName();
 
-		PlayerWrapper PlayerWrapper;
+		PlayerWrapper playerWrapper;
 
-		if (Commons.playerDatabase.hasData(playerName)) {
-			Commons.messageConsole("&a" + playerName + " has data, attempting to load it.");
-			if (hasData(playerName)) {
-				playerData.remove(playerName);
-				Commons.messageConsole("&aRemoved pre-cached data for " + playerName);
+		if (Commons.hasSqlBackend()) {
+			if (Commons.playerDatabase.hasData(playerName)) {
+				Commons.messageConsole("&a" + playerName + " has data, attempting to load it.");
+				if (hasData(playerName)) {
+					playerData.remove(playerName);
+					Commons.messageConsole("&aRemoved pre-cached data for " + playerName);
+				}
+			} else {
+				Commons.messageConsole("&e" + playerName + " has no data, inserting defaults.");
+				Commons.playerDatabase.insertDefaults(playerName);
+				Commons.messageConsole("&aInserted defaults for " + playerName + ", and loaded the default values");
 			}
+			playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
+			playerWrapper.setTagColor(getNameTagColor(player));
+			Commons.messageConsole("&aLoaded data for " + playerName);
+			playerData.put(playerName, playerWrapper);
 		} else {
-			Commons.messageConsole("&e" + playerName + " has no data, inserting defaults.");
-			Commons.playerDatabase.insertDefaults(playerName);
-			Commons.messageConsole("&aInserted defaults for " + playerName + ", and loaded the default values");
+			playerWrapper = new PlayerWrapper(playerName, 0);
 		}
-		PlayerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
-		PlayerWrapper.setTagColor(getNameTagColor(player));
-		Commons.messageConsole("&aLoaded data for " + playerName);
-		playerData.put(playerName, PlayerWrapper);
 	}
 
 	public static void addXp(Player player, int amount) {
@@ -117,6 +121,10 @@ public class Players {
 	}
 
 	public static void addXp(Player player, int amount, boolean message) {
+		if (!Commons.hasSqlBackend()) {
+			return;
+		}
+
 		PlayerWrapper playerWrapper = getData(player);
 		playerWrapper.addCurrency(playerWrapper.isPremium() ? ((double) amount) * 2 : (double) amount);
 		updateData(playerWrapper);
@@ -134,7 +142,10 @@ public class Players {
 	 */
 	public static void updateData(PlayerWrapper playerWrapper) {
 		playerData.put(playerWrapper.getName(), playerWrapper);
-		Commons.playerDatabase.syncPlayerWrapperData(playerWrapper);
+		//If the commons is being backed
+		if (Commons.hasSqlBackend()) {
+			Commons.playerDatabase.syncPlayerWrapperData(playerWrapper);
+		}
 	}
 
 	/**
@@ -148,6 +159,10 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void removeData(String playerName) {
+		if (!Commons.hasSqlBackend()) {
+			return;
+		}
+
 		if (hasData(playerName)) {
 			Commons.messageConsole("&aPreparing to sync " + playerName + "'s data to database");
 			Commons.playerDatabase.syncPlayerWrapperData(playerData.get(playerName));
@@ -910,14 +925,18 @@ public class Players {
 	 * @param material The material type were checking for
 	 * @param name     The name we're doing a fuzzy search against for
 	 * @return true if they have the item, false otherwise
-	 * @see com.caved_in.commons.inventory.Inventories#containsItem(org.bukkit.inventory.Inventory, org.bukkit.Material, String)
+	 * @see com.caved_in.commons.inventory.Inventories#contains(org.bukkit.inventory.Inventory, org.bukkit.Material, String)
 	 */
 	public static boolean hasItem(Player player, Material material, String name) {
-		return Inventories.containsItem(player.getInventory(), material, name);
+		return Inventories.contains(player.getInventory(), material, name);
 	}
 
 	public static boolean hasItem(Player player, ItemStack item) {
-		return Inventories.containsItem(player.getInventory(), item);
+		return Inventories.contains(player.getInventory(), item);
+	}
+
+	public static boolean hasItem(Player player, Material material) {
+		return Inventories.contains(player.getInventory(), material);
 	}
 
 	/**
@@ -951,7 +970,8 @@ public class Players {
 	 * @param packet packet to send to the player
 	 */
 	public static void sendPacket(Player player, Object packet) {
-		Method sendPacket = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("PlayerConnection"), "sendPacket", ReflectionUtilities.getNMSClass("Packet"));
+		Method sendPacket = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("PlayerConnection"), "sendPacket", ReflectionUtilities.getNMSClass
+				("Packet"));
 		Object playerConnection = getConnection(player);
 
 		try {

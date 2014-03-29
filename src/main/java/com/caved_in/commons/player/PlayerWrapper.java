@@ -54,9 +54,13 @@ public class PlayerWrapper {
 	private void initWrapper() {
 		this.currentServer = Commons.getConfiguration().getServerName();
 		this.lastOnline = System.currentTimeMillis();
-		this.prefix = Commons.playerDatabase.getPrefix(this);
-		//Load the players friends list
-		friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
+		//If there's a back-end database, then pull the players friend list and prefix from it
+		if (Commons.hasSqlBackend()) {
+			this.prefix = Commons.playerDatabase.getPrefix(this);
+			friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
+		} else {
+			friendsList = new FriendList(playerName);
+		}
 	}
 
 	private Player getPlayer() {
@@ -135,16 +139,16 @@ public class PlayerWrapper {
 	 * @return Players current currency amount
 	 */
 	public double getCurrency() {
-		return this.currencyAmount;
+		return currencyAmount;
 	}
 
 	/**
 	 * Set the players amount of currency
 	 *
-	 * @param amountToSet what the players currency is being set to
+	 * @param amount what the players currency is being set to
 	 */
-	public void setCurrency(double amountToSet) {
-		this.currencyAmount = amountToSet;
+	public void setCurrency(double amount) {
+		currencyAmount = amount;
 	}
 
 	/**
@@ -153,7 +157,7 @@ public class PlayerWrapper {
 	 * @return
 	 */
 	public String getServer() {
-		return this.currentServer;
+		return currentServer;
 	}
 
 	/**
@@ -162,7 +166,7 @@ public class PlayerWrapper {
 	 * @return
 	 */
 	public boolean isPremium() {
-		return this.isPremium;
+		return isPremium;
 	}
 
 	/**
@@ -172,6 +176,10 @@ public class PlayerWrapper {
 	 * @return
 	 */
 	public void setPremium(boolean isPremium) {
+		if (!Commons.hasSqlBackend()) {
+			return;
+		}
+
 		this.isPremium = isPremium;
 		Commons.playerDatabase.updatePlayerPremium(this);
 	}

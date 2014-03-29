@@ -18,7 +18,6 @@ public class PlayerLoginListener implements Listener {
 		Player player = event.getPlayer();
 		Configuration configuration = Commons.getConfiguration();
 		MaintenanceConfiguration maintenanceConfiguration = configuration.getMaintenanceConfig();
-		PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
 		//If maintenance mode is enabled, kick the player if they don't have permissions
 		if (maintenanceConfiguration.isMaintenanceMode()) {
 			if (!Players.hasPermission(player, Permission.MAINTENANCE_WHITELIST)) {
@@ -27,10 +26,13 @@ public class PlayerLoginListener implements Listener {
 			}
 		}
 		//If the server is in premium-only mode, check if the player is premium and if not kick them
-		if (premiumConfiguration.isPremiumMode()) {
-			if (!Commons.playerDatabase.getPlayerWrapper(player.getName()).isPremium()) {
-				event.setKickMessage(premiumConfiguration.getKickMessage());
-				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+		if (configuration.hasSqlBackend()) {
+			PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
+			if (premiumConfiguration.isPremiumMode()) {
+				if (!Commons.playerDatabase.getPlayerWrapper(player.getName()).isPremium()) {
+					event.setKickMessage(premiumConfiguration.getKickMessage());
+					event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+				}
 			}
 		}
 	}

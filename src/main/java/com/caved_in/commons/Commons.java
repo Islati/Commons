@@ -34,10 +34,10 @@ public class Commons extends JavaPlugin {
 
 	private static Commons plugin;
 
-	public static BansSQL bansDatabase;
-	public static DisguiseSQL disguiseDatabase;
-	public static FriendSQL friendDatabase;
-	public static PlayerSQL playerDatabase;
+	public static BansSQL bansDatabase = null;
+	public static DisguiseSQL disguiseDatabase = null;
+	public static FriendSQL friendDatabase = null;
+	public static PlayerSQL playerDatabase = null;
 
 	public static RunnableManager threadManager;
 	public static ServerMenuWrapper serverMenu;
@@ -86,21 +86,33 @@ public class Commons extends JavaPlugin {
 
 		initConfiguration(); // Init config
 
-		SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
+		//If the SQL Backend is enabled, then register all the database interfaces
+		if (hasSqlBackend()) {
+			SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
 
-		// Init connection to bans SQL
-		bansDatabase = new BansSQL(sqlConfig);
-		// Init Disguise sql
-		disguiseDatabase = new DisguiseSQL(sqlConfig);
-		// Init friends sql
-		friendDatabase = new FriendSQL(sqlConfig);
-		// Initialize the players sql
-		playerDatabase = new PlayerSQL(sqlConfig);
+			// Init connection to bans SQL
+			bansDatabase = new BansSQL(sqlConfig);
+			// Init Disguise sql
+			disguiseDatabase = new DisguiseSQL(sqlConfig);
+			// Init friends sql
+			friendDatabase = new FriendSQL(sqlConfig);
+			// Initialize the players sql
+			playerDatabase = new PlayerSQL(sqlConfig);
+
+			//Register the "Keep-Alive" thread for databases
+			threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
+				@Override
+				public void run() {
+					bansDatabase.refreshConnection();
+					disguiseDatabase.refreshConnection();
+					friendDatabase.refreshConnection();
+					playerDatabase.refreshConnection();
+				}
+			}, 36000, 36000); // SQL Keep alive
+		}
+
 		// Register commands
 		CommandRegister.registerCommands();
-
-		//Get the npc handler instance
-		NpcHandler.getInstance();
 
 		NpcHandler npcHandler = NpcHandler.getInstance();
 
@@ -116,21 +128,11 @@ public class Commons extends JavaPlugin {
 		// Load all the warps
 		Warps.loadWarps();
 
-		threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
-			@Override
-			public void run() {
-				bansDatabase.refreshConnection();
-				disguiseDatabase.refreshConnection();
-				friendDatabase.refreshConnection();
-				playerDatabase.refreshConnection();
-			}
-		}, 36000, 36000); // SQL Keep alive
-
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Players.addData(player);
-			if (globalConfig.getWorldConfig().isCompassMenuEnabled()) {
-				if (!player.getInventory().contains(Material.COMPASS)) {
-					player.getInventory().addItem(Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
+			if (getWorldConfig().isCompassMenuEnabled()) {
+				if (!Players.hasItem(player, Material.COMPASS)) {
+					Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 				}
 			}
 		}
@@ -151,7 +153,8 @@ public class Commons extends JavaPlugin {
 		}
 
 		if (worldConfig.isCompassMenuEnabled()) {
-			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig().getXmlItems()));
+			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig()
+					.getXmlItems()));
 			registerListener(new CompassListener());
 			messageConsole("&aRegistered the compass-menu listener");
 		}
@@ -228,8 +231,11 @@ public class Commons extends JavaPlugin {
 		registerListener(new CommandPreProcessListener());
 		messageConsole("&aRegistered the command pre-process listener");
 
-		registerListener(new PrePlayerLoginListener());
-		messageConsole("&aRegistered the player pre-login listener");
+		if (hasSqlBackend()) {
+			//Used to handle kicking of banned / temp-banned players
+			registerListener(new PrePlayerLoginListener());
+			messageConsole("&aRegistered the player pre-login listener");
+		}
 
 		registerListener(new PlayerQuitListener());
 		messageConsole("&aRegistered the player Quit listener");
@@ -277,5 +283,9 @@ public class Commons extends JavaPlugin {
 		}
 
 		Warps.saveWarps();
+	}
+
+	public static boolean hasSqlBackend() {
+		return globalConfig.hasSqlBackend();
 	}
 }

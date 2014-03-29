@@ -13,7 +13,11 @@ public class PlayerQuitListener implements Listener {
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			event.setQuitMessage(null);
 		}
+
 		Players.removeData(playerName);
-		Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
+
+		if (Commons.hasSqlBackend()) {
+			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
+		}
 	}
 }

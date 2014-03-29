@@ -122,7 +122,7 @@ public class Inventories {
 		}
 	}
 
-	public static boolean containsItem(Inventory inventory, Material material, String itemName) {
+	public static boolean contains(Inventory inventory, Material material, String itemName) {
 		HashMap<Integer, ? extends ItemStack> items = inventory.all(material);
 		for (Map.Entry<Integer, ? extends ItemStack> inventoryItem : items.entrySet()) {
 			if (Items.nameContains(inventoryItem.getValue(), itemName)) {
@@ -132,7 +132,7 @@ public class Inventories {
 		return false;
 	}
 
-	public static boolean containsItem(Inventory inventory, ItemStack itemStack) {
+	public static boolean contains(Inventory inventory, ItemStack itemStack) {
 		Map<Integer, ? extends ItemStack> items = inventory.all(itemStack);
 		for (Map.Entry<Integer, ? extends ItemStack> item : items.entrySet()) {
 			if (item.getValue().isSimilar(itemStack)) {
@@ -140,6 +140,10 @@ public class Inventories {
 			}
 		}
 		return false;
+	}
+
+	public static boolean contains(Inventory inventory, Material material) {
+		return inventory.contains(material);
 	}
 
 

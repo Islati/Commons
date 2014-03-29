@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 public class BanCommand {
 	@CommandController.CommandHandler(name = "ban", description = "Bans a player permanately, or temporarily across all servers", permission = "tunnels.common.ban", usage = "/ban [Name] [Reason] <Time>")
 	public void onBanCommand(CommandSender sender, String[] args) {
+
 		if (args.length > 0) {
 			String playerName = args[0];
 			if (!Commons.bansDatabase.isBanned(playerName)) {

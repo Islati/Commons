@@ -5,8 +5,20 @@ import com.caved_in.commons.Commons;
 public class CommandRegister {
 
 	public static void registerCommands() {
-		registerCommand(new FriendCommands());
-		//Register the individual commands
+		//Register all the commands that require an SQL Database, if there's a database being used
+		if (Commons.hasSqlBackend()) {
+			registerCommand(new FriendCommands());
+			registerCommand(new TunnelsXPCommand());
+			registerCommand(new NicklistCommand());
+			/* Punishment / Moderation Commands */
+			registerCommand(new BanCommand());
+			registerCommand(new UnbanCommand());
+			registerCommand(new UnsilenceCommand());
+			registerCommand(new AddCurrencyCommand());
+			/* Premium related */
+			registerCommand(new BuyPremiumCommand());
+			registerCommand(new RemovePremiumCommand());
+		}
 
 		registerCommand(new DebugModeCommand());
 
@@ -15,7 +27,6 @@ public class CommandRegister {
 		registerCommand(new TeleportCommand());
 		registerCommand(new TeleportAllCommand());
 		registerCommand(new WorkbenchCommand());
-		registerCommand(new TunnelsXPCommand());
 		registerCommand(new TimeCommand());
 		registerCommand(new SpeedCommand());
 		registerCommand(new SpawnMobCommand());
@@ -26,7 +37,6 @@ public class CommandRegister {
 		registerCommand(new RecipeCommand());
 		registerCommand(new NightCommand());
 		registerCommand(new DayCommand());
-		registerCommand(new NicklistCommand());
 		registerCommand(new MoreCommand());
 		registerCommand(new ItemCommand());
 		registerCommand(new HealCommand());
@@ -47,17 +57,6 @@ public class CommandRegister {
 		registerCommand(new BackCommand());
 		registerCommand(new WarpsCommand());
 		registerCommand(new PotionCommand());
-
-		/* Punishment / Moderation Commands */
-		registerCommand(new BanCommand());
-		registerCommand(new UnbanCommand());
-		registerCommand(new UnsilenceCommand());
-		registerCommand(new AddCurrencyCommand());
-
-		/* Premium related */
-		registerCommand(new BuyPremiumCommand());
-		registerCommand(new RemovePremiumCommand());
-
 
 	}
 
