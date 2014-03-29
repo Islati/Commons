@@ -715,6 +715,11 @@ public class Players {
 		return Bukkit.getOnlinePlayers();
 	}
 
+	public static Player getRandomPlayer() {
+		Player[] players = allPlayers();
+		return players[new Random().nextInt(players.length)];
+	}
+
 	public static Collection<Player> allPlayers(World world) {
 		return world.getEntitiesByClass(Player.class);
 	}

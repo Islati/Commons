@@ -26,7 +26,7 @@ public class TimeCommand {
 				if (args.length > 1) {
 					//Get what they passed, and see if the world exists
 					String worldName = args[1];
-					if (Worlds.worldExists(worldName)) {
+					if (Worlds.exists(worldName)) {
 						world = Worlds.getWorld(worldName);
 					} else {
 						//Send a message saying the world requested doesn't exist

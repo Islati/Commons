@@ -10,12 +10,13 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.UUID;
 
 public class Worlds {
 	private static final Method GET_HANDLE = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("CraftWorld"), "getHandle");
 
-	public static void handleWorldWeather(World World) {
+	public static void handleWeather(World World) {
 		if (World.hasStorm() && Commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
 			World.setStorm(false);
 			World.setThundering(false);
@@ -46,7 +47,7 @@ public class Worlds {
 		return location.getWorld().getName();
 	}
 
-	public static boolean worldExists(String worldName) {
+	public static boolean exists(String worldName) {
 		return Bukkit.getWorld(worldName) != null;
 	}
 
@@ -82,18 +83,26 @@ public class Worlds {
 		return setSpawn(world, Locations.getXYZ(location));
 	}
 
-	public static boolean unloadWorld(String worldName) {
+	public static boolean unload(String worldName) {
 		return Bukkit.getServer().unloadWorld(getWorld(worldName), false);
 	}
 
-	public static boolean loadWorld(String worldName) {
+	public static boolean load(String worldName) {
 		try {
 			Bukkit.getServer().createWorld(new WorldCreator(worldName));
-			return true;
+//			if (exists(worldName)) {
+//				World world = getWorld(worldName);
+//				Location spawnLocation = world.getSpawnLocation();
+//				world.loadChunk(spawnLocation.getBlockX(),spawnLocation.getBlockZ(),true);
+//			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return false;
 		}
+		return exists(worldName);
+	}
+
+	public static List<World> allWorlds() {
+		return Bukkit.getWorlds();
 	}
 
 	public static void setTime(World world, long time) {

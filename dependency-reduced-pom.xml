@@ -62,6 +62,10 @@
                                 <includes>
                                     <include>org.simpleframework:simple-xml:jar:*</include>
                                     <include>commons-io:commons-io:jar:*</include>
+                                    <include>com.googlecode.lambdaj:lambdaj:jar:*</include>
+                                    <include>org.hamcrest:hamcrest-all:jar:*</include>
+                                    <include>org.objenesis:objenesis:jar:*</include>
+                                    <include>cglib:cglib-nodep:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
@@ -77,6 +81,42 @@
                                 </filter>
                                 <filter>
                                     <artifact>commons-io:commons-io:jar:*</artifact>
+                                    <excludes>
+                                        <exclude>templates/**</exclude>
+                                        <exclude>META-INF/*.xml</exclude>
+                                        <exclude>META-INF/*.txt</exclude>
+                                        <exclude>**/LICENSE</exclude>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>com.googlecode.lambdaj:lambdaj:jar:*</artifact>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.hamcrest:hamcrest-all:jar:*</artifact>
+                                    <excludes>
+                                        <exclude>templates/**</exclude>
+                                        <exclude>META-INF/*.xml</exclude>
+                                        <exclude>META-INF/*.txt</exclude>
+                                        <exclude>**/LICENSE</exclude>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.objenesis:objenesis:jar:*</artifact>
+                                    <excludes>
+                                        <exclude>templates/**</exclude>
+                                        <exclude>META-INF/*.xml</exclude>
+                                        <exclude>META-INF/*.txt</exclude>
+                                        <exclude>**/LICENSE</exclude>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </filter>
+                                <filter>
+                                    <artifact>cglib:cglib-nodep:jar:*</artifact>
                                     <excludes>
                                         <exclude>templates/**</exclude>
                                         <exclude>META-INF/*.xml</exclude>
@@ -192,6 +232,31 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.12.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.lambdaj</groupId>
+                <artifactId>lambdaj</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.comphenix.protocol</groupId>
+                <artifactId>ProtocolLib</artifactId>
+                <version>3.1.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
