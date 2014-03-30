@@ -9,6 +9,7 @@ import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
+import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
@@ -961,6 +962,12 @@ public class Players {
 	 */
 	public static String getWorldName(Player player) {
 		return Worlds.getWorldName(player);
+	}
+
+	public static void playSoundAll(Sound sound, int volume, float f) {
+		for(Player p : allPlayers()) {
+			Sounds.playSound(p,sound,volume,f);
+		}
 	}
 
 	/**
