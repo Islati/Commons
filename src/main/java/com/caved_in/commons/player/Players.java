@@ -415,25 +415,38 @@ public class Players {
 	/**
 	 * Sends messages to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
 	 *
-	 * @param commandSender commandsender to send the message to
+	 * @param messageReceiver commandsender to send the message to
 	 * @param messages      messages to send
 	 * @since 1.0
 	 */
-	public static void sendMessage(CommandSender commandSender, String... messages) {
+	public static void sendMessage(CommandSender messageReceiver, String... messages) {
 		for (String message : messages) {
-			sendMessage(commandSender, message);
+			sendMessage(messageReceiver, message);
 		}
 	}
 
 	/**
 	 * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
 	 *
-	 * @param commandSender commandsender to send the message to
+	 * @param messageReceiver commandsender to send the message to
 	 * @param message       message to send
 	 * @since 1.0
 	 */
-	public static void sendMessage(CommandSender commandSender, String message) {
-		commandSender.sendMessage(StringUtil.formatColorCodes(message));
+	public static void sendMessage(CommandSender messageReceiver, String message) {
+		messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
+	}
+
+
+	/**
+	 * Sends a message to the receiver
+	 * @param messageReceiver
+	 * @param message
+	 * @param messageAmount
+	 */
+	public static void sendRepeatedMessage(CommandSender messageReceiver, String message, int messageAmount) {
+		for(int i = 0; i < messageAmount; i++) {
+			sendMessage(messageReceiver,message);
+		}
 	}
 
 	/**

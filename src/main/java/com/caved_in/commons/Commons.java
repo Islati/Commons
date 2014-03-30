@@ -286,6 +286,8 @@ public class Commons extends JavaPlugin {
 	}
 
 	public static boolean hasSqlBackend() {
-		return globalConfig.hasSqlBackend();
+//		return globalConfig.hasSqlBackend();
+		return true;
 	}
+
 }

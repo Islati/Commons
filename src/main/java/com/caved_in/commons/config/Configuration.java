@@ -4,7 +4,7 @@ import org.simpleframework.xml.Element;
 
 public class Configuration {
 
-	@Element(name = "Database_Backend")
+//	@Element(name = "Database_Backend")
 	private boolean sqlBackend = false;
 
 	@Element(name = "DatabaseConfig", type = SqlConfiguration.class)
