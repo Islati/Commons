@@ -1,6 +1,7 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.SqlConfiguration;
 import com.google.common.base.Stopwatch;
 
 import java.sql.*;
@@ -18,6 +19,10 @@ public abstract class SQL {
 		this.password = password;
 		//Initialize our connection
 		initConnection();
+	}
+
+	public SQL(SqlConfiguration sqlConfiguration) {
+		this(sqlConfiguration.getHost(), sqlConfiguration.getPort(), sqlConfiguration.getDatabase(), sqlConfiguration.getUsername(), sqlConfiguration.getPassword());
 	}
 
 	private void initConnection() {
