@@ -25,12 +25,12 @@ public class UnbanCommand {
 			}
 
 			if (Commons.bansDatabase.pardonPlayer(playerToUnban, pardonIssuer)) {
-				Players.sendMessage(sender, Messages.PLAYER_UNBANNED(playerToUnban, pardonIssuer));
+				Players.sendMessage(sender, Messages.playerUnbanned(playerToUnban, pardonIssuer));
 			} else {
-				Players.sendMessage(sender, Messages.PLAYER_NOT_BANNED(playerToUnban));
+				Players.sendMessage(sender, Messages.playerNotBanned(playerToUnban));
 			}
 		} else {
-			Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(sender, Messages.invalidCommandUsage("name"));
 		}
 	}
 }

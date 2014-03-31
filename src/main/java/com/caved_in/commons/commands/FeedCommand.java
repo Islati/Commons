@@ -23,9 +23,9 @@ public class FeedCommand {
 				Players.feed(player);
 				//Send messages saying the player requested was fed
 				Players.sendMessage(player, Messages.PLAYER_FED);
-				Players.sendMessage(sender, Messages.PLAYER_FED(playerName));
+				Players.sendMessage(sender, Messages.playerFed(playerName));
 			} else {
-				Players.sendMessage(sender, Messages.PLAYER_OFFLINE(playerName));
+				Players.sendMessage(sender, Messages.playerOffline(playerName));
 			}
 		} else {
 			if (sender instanceof Player) {

@@ -20,7 +20,7 @@ public class FriendCommands {
 	public void friendsCommand(Player player, String[] args) {
 		if (args.length == 0) {
 			//They issued the command '/friends' so send them a message about the help command
-			Players.sendMessage(player, Messages.PROPER_USAGE("/friends help"));
+			Players.sendMessage(player, Messages.properUsage("/friends help"));
 		}
 	}
 
@@ -34,7 +34,7 @@ public class FriendCommands {
 				page = Integer.parseInt(pageNumber);
 			} else {
 				//The player included a non-numeric page argument; Send an error saying so
-				Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("page number"));
+				Players.sendMessage(player, Messages.invalidCommandUsage("page number"));
 			}
 		}
 		//Send the player the commands help menu
@@ -68,26 +68,26 @@ public class FriendCommands {
 							//Add a new friend to the added players friend list with an un-accepted status
 							Players.getData(addedPlayer).getFriendsList().addFriend(new Friend(addedPlayer.getName(), playerName));
 							//Send the player a message saying they received a friend request
-							Players.sendMessage(addedPlayer, Messages.FRIEND_REQUEST_RECEIVED(playerName));
+							Players.sendMessage(addedPlayer, Messages.friendRequestReceived(playerName));
 						}
 						//Add a friend to users friend list
 						playerFriends.addFriend(new Friend(playerName, playerAddedName, true));
-						Players.sendMessage(player, Messages.FRIEND_REQUEST_SENT(playerAddedName));
+						Players.sendMessage(player, Messages.friendRequestSent(playerAddedName));
 						break;
 					case ALREADY_FRIENDS:
-						Players.sendMessage(player, Messages.FRIEND_ALREADY_EXISTS(addedName));
+						Players.sendMessage(player, Messages.friendAlreadyExists(addedName));
 						break;
 					case ALREADY_PENDING:
-						Players.sendMessage(player, Messages.FRIEND_REQUEST_ALREADY_EXISTS(addedName));
+						Players.sendMessage(player, Messages.friendRequestAlreadyExists(addedName));
 						break;
 					default:
 						break;
 				}
 			} else {
-				Players.sendMessage(player, Messages.FRIEND_ALREADY_EXISTS(addedName));
+				Players.sendMessage(player, Messages.friendAlreadyExists(addedName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("player"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("player"));
 		}
 	}
 
@@ -104,18 +104,18 @@ public class FriendCommands {
 				Commons.friendDatabase.deleteFriendRequest(playerName, friendName);
 				if (Players.isOnline(friendName)) {
 					//Send the player a message saying they were removed from someones friends list
-					Players.sendMessage(Players.getPlayer(friendName), Messages.FRIEND_DELETED_FROM_FRIEND(playerName));
+					Players.sendMessage(Players.getPlayer(friendName), Messages.friendDeletedFriend(playerName));
 					//Remove the friend object from the others players friend list
 					Players.getData(friendName).getFriendsList().removeFriend(playerName);
 				}
 				//Remove the requested name from the players friend list
 				friendList.removeFriend(friendName);
-				Players.sendMessage(player, Messages.FRIEND_DELETED(friendName));
+				Players.sendMessage(player, Messages.friendDeleted(friendName));
 			} else {
-				Players.sendMessage(player, Messages.FRIEND_DOESNT_EXIST(friendName));
+				Players.sendMessage(player, Messages.invalidFriend(friendName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
 		}
 	}
 
@@ -137,7 +137,7 @@ public class FriendCommands {
 				if (StringUtils.isNumeric(pageNumber)) {
 					page = Integer.parseInt(pageNumber);
 				} else {
-					Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("page"));
+					Players.sendMessage(player, Messages.invalidCommandUsage("page"));
 				}
 			}
 			//Show the friend-requests menu
@@ -159,17 +159,17 @@ public class FriendCommands {
 				if (Players.isOnline(denyName)) {
 					//Get their data, and send them a message saying they were rejected
 					Player deniedPlayer = Players.getPlayer(denyName);
-					Players.sendMessage(deniedPlayer, Messages.FRIEND_DENIED_REQUEST(playerName));
+					Players.sendMessage(deniedPlayer, Messages.friendDeniedRequest(playerName));
 					//Remove the request to the player denying from their friends list
 					Players.getData(deniedPlayer).getFriendsList().removeFriend(playerName);
 				}
 				friendList.removeFriend(denyName);
-				Players.sendMessage(player, Messages.FRIEND_REQUEST_DENIED(denyName));
+				Players.sendMessage(player, Messages.friendRequestDenied(denyName));
 			} else {
-				Players.sendMessage(player, Messages.FRIEND_NO_REQUEST(denyName));
+				Players.sendMessage(player, Messages.invalidFriendRequest(denyName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
 		}
 	}
 
@@ -190,16 +190,16 @@ public class FriendCommands {
 					Player acceptedPlayer = Players.getPlayer(acceptName);
 					//Set the friend status to accepted and send a message
 					Players.getData(acceptedPlayer).getFriendsList().acceptFriend(playerName);
-					Players.sendMessage(player, Messages.FRIEND_REQUEST_ACCEPTED(playerName));
+					Players.sendMessage(player, Messages.friendRequestAccepted(playerName));
 				}
 				//Set the friend status to accepted and send a message
 				friendList.acceptFriend(acceptName);
-				Players.sendMessage(player, Messages.FRIEND_ACCEPTED_REQUEST(acceptName));
+				Players.sendMessage(player, Messages.friendRequestAccept(acceptName));
 			} else {
-				Players.sendMessage(player, Messages.FRIEND_NO_REQUEST(acceptName));
+				Players.sendMessage(player, Messages.invalidFriendRequest(acceptName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
 		}
 	}
 
@@ -214,7 +214,7 @@ public class FriendCommands {
 			if (StringUtils.isNumeric(pageArgument)) {
 				page = Integer.parseInt(pageArgument);
 			} else {
-				Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("page number"));
+				Players.sendMessage(player, Messages.invalidCommandUsage("page number"));
 			}
 		}
 		friendsList.sendTo(player, page, 6);

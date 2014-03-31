@@ -21,10 +21,10 @@ public class TeleportPositionCommand {
 			if (StringUtils.isNumeric(xArg) && StringUtils.isNumeric(yArg) && StringUtils.isNumeric(zArg)) {
 				Players.teleport(player, new double[]{Double.parseDouble(xArg), Double.parseDouble(yArg), Double.parseDouble(zArg)});
 			} else {
-				Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("x", "y", "z"));
+				Players.sendMessage(player, Messages.invalidCommandUsage("x", "y", "z"));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("x", "y", "z"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("x", "y", "z"));
 		}
 	}
 }

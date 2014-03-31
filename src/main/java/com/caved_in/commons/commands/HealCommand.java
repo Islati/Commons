@@ -21,7 +21,7 @@ public class HealCommand {
 			if (Players.isOnline(playerArg)) {
 				playerToHeal = Players.getPlayer(playerArg);
 			} else {
-				Players.sendMessage(player, Messages.PLAYER_OFFLINE(playerArg));
+				Players.sendMessage(player, Messages.playerOffline(playerArg));
 			}
 		}
 		//Remove the potion effects on the player

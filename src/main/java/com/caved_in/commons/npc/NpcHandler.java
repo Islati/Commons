@@ -45,7 +45,7 @@ public class NpcHandler {
 		if (name.length() > 16) {
 			Commons.messageConsole(Messages.NPC_NAME_LIMIT_REACHED);
 			String tmp = name.substring(0, 16);
-			Commons.messageConsole(Messages.NPC_NAME_SHORTENED(name, tmp));
+			Commons.messageConsole(Messages.npcNameShortened(name, tmp));
 			name = tmp;
 		}
 
@@ -64,7 +64,7 @@ public class NpcHandler {
 		if (isNPC(id)) {
 			return LOOKUP.get(id);
 		} else {
-			Commons.messageConsole(Messages.FAILED_TO_GET_NPC_ID(id));
+			Commons.messageConsole(Messages.invalidNpcId(id));
 			return null;
 		}
 	}

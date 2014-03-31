@@ -13,20 +13,21 @@ import java.util.Set;
 public class PlayerSQL extends SQL {
 	private Set<String> playersWithData = new HashSet<String>();
 	private static String tableName = "players";
-	private static String playerField = "Name";
-	private static String onlineStatusField = "OnlineStatus";
-	private static String serverField = "Server";
-	private static String currencyField = "XP";
-	private static String lastSeenField = "LastOnline";
-	private static String premiumField = "Premium";
-	private static String prefixField = "Prefix";
+	private static String uuidFielf = "UUID";
+	private static String playerField = "NAME";
+	private static String onlineStatusField = "ONLINE";
+	private static String serverField = "SERVER_NAME";
+	private static String currencyField = "CURRENCY";
+	private static String lastSeenField = "LAST_ONLINE";
+	private static String premiumField = "PREMIUM";
+	private static String prefixField = "PREFIX";
 
 	// SELECT  `Prefix` FROM  `players` WHERE  `Name` =  'Squad_MC'
 
-	private static String getPlayerPrefix = "SELECT " + prefixField + " FROM " + tableName + " WHERE " + playerField + " =?";
+	private static String getPlayerPrefix = "SELECT Prefix FROM players WHERE name =?";
 
-	private static String getPlayerDataStatement = "SELECT * FROM " + tableName + " WHERE Name =?";
-	private static String updatePlayerDataStatement = "UPDATE " + tableName + " SET " + playerField + "=?, " + lastSeenField + "=?, " + currencyField + "=?, " +
+	private static String getPlayerDataStatement = "SELECT * FROM players WHERE name =?";
+	private static String updatePlayerDataStatement = "UPDATE players SET playerField=?, LAST_ONLINE =?, " + currencyField + "=?, " +
 			"" + serverField + "=?, " + premiumField + "=?, " + onlineStatusField + "=? WHERE " + playerField + "=?";
 	private static String insertDefaultsStatement = "INSERT INTO " + tableName + " (" + playerField + ", " + onlineStatusField + ", " + serverField + ", " +
 			"" + premiumField + ", " + currencyField + ", " + lastSeenField + ", " + prefixField + ") VALUES (?, 1, ?, 0, 0, ?, ?)";

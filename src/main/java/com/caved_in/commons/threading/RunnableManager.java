@@ -47,8 +47,8 @@ public class RunnableManager {
 
 	public boolean cancelTask(String name) {
 		if (runningTasks.containsKey(name)) {
-			Bukkit.getScheduler().cancelTask(this.runningTasks.get(name));
-			this.runningTasks.remove(name);
+			Bukkit.getScheduler().cancelTask(runningTasks.get(name));
+			runningTasks.remove(name);
 			return true;
 		}
 		return false;

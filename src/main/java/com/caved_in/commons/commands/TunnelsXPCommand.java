@@ -13,6 +13,6 @@ public class TunnelsXPCommand {
 
 	@CommandController.CommandHandler(name = "xp", usage = "/xp")
 	public void playerXPCommand(Player player, String[] args) {
-		Players.sendMessage(player, Messages.TUNNELS_XP_BALANCE(player));
+		Players.sendMessage(player, Messages.playerXpBalance(player));
 	}
 }

@@ -16,12 +16,12 @@ public class BuyPremiumCommand {
 		if (args.length > 0) {
 			String playerName = args[0];
 			if (!Commons.playerDatabase.updatePlayerPremium(playerName, true)) {
-				Players.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
+				Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
 			} else {
-				Players.sendMessage(sender, Messages.PREMIUM_STATUS_PROMOTED(playerName));
+				Players.sendMessage(sender, Messages.premiumPlayerPromoted(playerName));
 			}
 		} else {
-			Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(sender, Messages.invalidCommandUsage("name"));
 		}
 	}
 }

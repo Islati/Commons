@@ -25,7 +25,7 @@ public class AddCurrencyCommand {
 						PlayerWrapper playerWrapper = Players.getData(playerName);
 						playerWrapper.addCurrency((double) currency);
 						Players.updateData(playerWrapper);
-						Players.sendMessage(sender, Messages.ADDED_XP(playerName, currency));
+						Players.sendMessage(sender, Messages.playerAddedXp(playerName, currency));
 					} else {
 						PlayerWrapper playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
 						if (playerWrapper != null) {
@@ -33,17 +33,17 @@ public class AddCurrencyCommand {
 							Players.updateData(playerWrapper);
 							Commons.messageConsole("Added " + currency + " to " + playerName);
 						} else {
-							Players.sendMessage(sender, Messages.PLAYER_OFFLINE(playerName));
+							Players.sendMessage(sender, Messages.playerOffline(playerName));
 						}
 					}
 				} else {
 					Players.sendMessage(sender, "&c" + currencyAmount + "&e isn't a number.. &o/addcurrency <Player> <Amount>");
 				}
 			} else {
-				Players.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
+				Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
 			}
 		} else {
-			Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("Player", "Amount"));
+			Players.sendMessage(sender, Messages.invalidCommandUsage("Player", "Amount"));
 		}
 	}
 }

@@ -130,7 +130,7 @@ public class Players {
 		playerWrapper.addCurrency(playerWrapper.isPremium() ? ((double) amount) * 2 : (double) amount);
 		updateData(playerWrapper);
 		if (message) {
-			Players.sendMessage(player, Messages.EARNED_EXPERIENCE(amount));
+			Players.sendMessage(player, Messages.playerEarnedExperience(amount));
 		}
 	}
 
@@ -534,6 +534,10 @@ public class Players {
 
 	public static boolean hasPermission(Player player, Permission permission) {
 		return hasPermission(player, permission.toString());
+	}
+
+	public static boolean hasPlayed(String playerName) {
+		return Commons.hasSqlBackend() && Commons.playerDatabase.hasData(playerName);
 	}
 
 	/**

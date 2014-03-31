@@ -16,7 +16,7 @@ public class TeleportAllCommand {
 		for (Player onlinePlayer : Players.allPlayers()) {
 			if (!onlinePlayer.getName().equals(playerName)) {
 				Players.teleport(onlinePlayer, player);
-				Players.sendMessage(onlinePlayer, Messages.TELEPORTED_TO_PLAYER(playerName));
+				Players.sendMessage(onlinePlayer, Messages.playerTeleportedToPlayer(playerName));
 			}
 		}
 	}

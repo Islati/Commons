@@ -23,7 +23,7 @@ public class GamemodeCommand {
 					//Get the player if they're online
 					playerToChange = Players.getPlayer(playerArg);
 				} else {
-					Players.sendMessage(player, Messages.PLAYER_OFFLINE(playerArg));
+					Players.sendMessage(player, Messages.playerOffline(playerArg));
 				}
 			}
 			switch (modeArgument.toLowerCase()) {
@@ -43,7 +43,7 @@ public class GamemodeCommand {
 					playerToChange.setGameMode(GameMode.ADVENTURE);
 					break;
 				default:
-					Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("gamemode"));
+					Players.sendMessage(player, Messages.invalidCommandUsage("gamemode"));
 					return;
 			}
 

@@ -16,6 +16,6 @@ public class DayCommand {
 	public void onDayCommand(Player player, String[] args) {
 		World world = player.getWorld();
 		Worlds.setTimeDay(world);
-		Players.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "day"));
+		Players.sendMessage(player, Messages.timeUpdated(world.getName(), "day"));
 	}
 }

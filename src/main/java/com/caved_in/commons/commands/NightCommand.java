@@ -16,6 +16,6 @@ public class NightCommand {
 	public void onNightCommand(Player player, String[] args) {
 		World world = player.getWorld();
 		Worlds.setTimeNight(world);
-		Players.sendMessage(player, Messages.TIME_CHANGED(world.getName(), "night"));
+		Players.sendMessage(player, Messages.timeUpdated(world.getName(), "night"));
 	}
 }

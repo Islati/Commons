@@ -20,7 +20,7 @@ public class SkullCommand {
 			Items.setName(playerSkull, playerName + "'s Head");
 			player.getInventory().addItem(playerSkull);
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
 		}
 	}
 }

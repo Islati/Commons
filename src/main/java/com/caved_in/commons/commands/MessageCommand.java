@@ -28,10 +28,10 @@ public class MessageCommand {
 					Players.sendMessage(Player, "&cUnable to send a message to &e" + receivingPlayer + "&c, perhaps they're offline?");
 				}
 			} else {
-				Players.sendMessage(Player, Messages.INVALID_COMMAND_USAGE("message"));
+				Players.sendMessage(Player, Messages.invalidCommandUsage("message"));
 			}
 		} else {
-			Players.sendMessage(Player, Messages.INVALID_COMMAND_USAGE("player", "message"));
+			Players.sendMessage(Player, Messages.invalidCommandUsage("player", "message"));
 		}
 	}
 

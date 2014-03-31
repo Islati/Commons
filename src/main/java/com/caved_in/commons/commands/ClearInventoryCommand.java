@@ -22,7 +22,7 @@ public class ClearInventoryCommand {
 				//Assign the player to clear the inventory of
 				player = Players.getPlayer(playerName);
 			} else {
-				Players.sendMessage(commandSender, Messages.PLAYER_OFFLINE(playerName));
+				Players.sendMessage(commandSender, Messages.playerOffline(playerName));
 				return;
 			}
 		} else {
@@ -31,7 +31,7 @@ public class ClearInventoryCommand {
 				//Assign the player variable to the player sending the command
 				player = (Player) commandSender;
 			} else {
-				Players.sendMessage(commandSender, Messages.INVALID_COMMAND_USAGE("name"));
+				Players.sendMessage(commandSender, Messages.invalidCommandUsage("name"));
 				return;
 			}
 		}

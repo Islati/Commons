@@ -39,10 +39,10 @@ public class SpeedCommand {
 				}
 
 				//Send the player a message saying their speed was updated
-				Players.sendMessage(player, Messages.SPEED_UPDATED(player.isFlying(), Integer.parseInt(speedArg)));
+				Players.sendMessage(player, Messages.playerSpeedUpdated(player.isFlying(), Integer.parseInt(speedArg)));
 
 			} else {
-				Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("speed"));
+				Players.sendMessage(player, Messages.invalidCommandUsage("speed"));
 			}
 		} else {
 			//They didn't pass a speed argument, so reset their speeds to default
@@ -53,7 +53,7 @@ public class SpeedCommand {
 				//Default walk speed
 				playerWrapper.setWalkSpeed(PlayerWrapper.defaultWalkSpeed);
 			}
-			Players.sendMessage(player, Messages.SPEED_RESET(player.isFlying()));
+			Players.sendMessage(player, Messages.playerSpeedReset(player.isFlying()));
 		}
 	}
 }

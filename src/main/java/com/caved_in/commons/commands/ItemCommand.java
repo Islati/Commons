@@ -44,7 +44,7 @@ public class ItemCommand {
 						itemID = itemType.getID();
 					} else {
 						//Player entered an item that doesn't exist
-						Players.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemMaterial));
+						Players.sendMessage(player, Messages.invalidItem(itemMaterial));
 						return;
 					}
 				}
@@ -54,7 +54,7 @@ public class ItemCommand {
 					dataValue = Integer.parseInt(itemByte);
 				} else {
 					//They entered an invalid data value
-					Players.sendMessage(player, Messages.INVALID_ITEM_DATA(itemByte));
+					Players.sendMessage(player, Messages.invalidItemData(itemByte));
 					return;
 				}
 			} else {
@@ -69,7 +69,7 @@ public class ItemCommand {
 						itemID = itemType.getID();
 					} else {
 						//No results; Sawwy!
-						Players.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemArgument));
+						Players.sendMessage(player, Messages.invalidItem(itemArgument));
 						return;
 					}
 				}
@@ -81,7 +81,7 @@ public class ItemCommand {
 					//Parse what the player entered and set that to the amount to give them
 					itemAmount = Integer.parseInt(itemAmountArg);
 				} else {
-					Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item", "item amount"));
+					Players.sendMessage(player, Messages.invalidCommandUsage("item", "item amount"));
 					return;
 				}
 			}
@@ -89,9 +89,9 @@ public class ItemCommand {
 			ItemStack itemStack = Items.getMaterialData(itemID, dataValue).toItemStack(itemAmount);
 			//give the player the item :)
 			Players.giveItem(player, itemStack);
-			Players.sendMessage(player, Messages.ITEM_GIVEN_COMMAND(Items.getFormattedMaterialName(itemStack.getType()), itemAmount));
+			Players.sendMessage(player, Messages.playerItemsGiven(Items.getFormattedMaterialName(itemStack.getType()), itemAmount));
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("item"));
 		}
 	}
 }

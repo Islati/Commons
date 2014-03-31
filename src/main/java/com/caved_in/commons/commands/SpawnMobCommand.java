@@ -25,10 +25,10 @@ public class SpawnMobCommand {
 				}
 				Entities.spawnLivingEntity(entityType, Players.getTargetLocation(player), spawnAmount);
 			} else {
-				Players.sendMessage(player, Messages.INVALID_MOB_TYPE(mobArg));
+				Players.sendMessage(player, Messages.invalidMobType(mobArg));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("mob"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("mob"));
 		}
 	}
 }

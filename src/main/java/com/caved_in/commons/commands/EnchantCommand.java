@@ -37,7 +37,7 @@ public class EnchantCommand {
 				if (itemStack != null) {
 					//Check if they enchanted the item successfully, and if so send them a message
 					if (Items.addEnchantment(itemStack, enchantment, enchantmentLevel, true)) {
-						Players.sendMessage(player, Messages.ITEM_ENCHANTED(enchantmentName, enchantmentLevel));
+						Players.sendMessage(player, Messages.itemEnchantmentAdded(enchantmentName, enchantmentLevel));
 					} else {
 						//Send them a message saying it failed
 						Players.sendMessage(player, Messages.FAILED_TO_ENCHANT_ITEM);
@@ -57,16 +57,16 @@ public class EnchantCommand {
 					if (StringUtils.isNumeric(pageArgument)) {
 						page = Integer.parseInt(pageArgument);
 					} else {
-						Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("page number"));
+						Players.sendMessage(player, Messages.invalidCommandUsage("page number"));
 					}
 				}
 				helpScreen.sendTo(player, page, 7);
 			} else {
 				//Send the player a message saying the enchantment doesn't exist
-				Players.sendMessage(player, Messages.ENCHANTMENT_DOESNT_EXIST(enchantmentName));
+				Players.sendMessage(player, Messages.invalidEnchantment(enchantmentName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("enchantment", "level"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("enchantment", "level"));
 			Players.sendMessage(player, "&7Use &o/enchant list&r&7 to get a list of enchantments");
 		}
 	}

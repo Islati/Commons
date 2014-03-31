@@ -19,10 +19,10 @@ public class TeleportHereCommand {
 				Player playerToTeleport = Players.getPlayer(playerName);
 				playerToTeleport.teleport(player, PlayerTeleportEvent.TeleportCause.COMMAND);
 			} else {
-				Players.sendMessage(player, Messages.PLAYER_OFFLINE(playerName));
+				Players.sendMessage(player, Messages.playerOffline(playerName));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
 		}
 	}
 }

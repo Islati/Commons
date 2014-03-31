@@ -39,7 +39,7 @@ public class MaintenanceCommand {
 					}
 					break;
 				default:
-					Players.sendMessage(commandSender, Messages.INVALID_COMMAND_USAGE("status [on/off/toggle]"));
+					Players.sendMessage(commandSender, Messages.invalidCommandUsage("status [on/off/toggle]"));
 					break;
 			}
 		} else {

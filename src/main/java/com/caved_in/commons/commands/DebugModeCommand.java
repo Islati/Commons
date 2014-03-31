@@ -24,20 +24,20 @@ public class DebugModeCommand {
 				case "on":
 				case "true":
 					playerWrapper.setInDebugMode(true);
-					Players.sendMessage(player, Messages.PLAYER_DEBUGMODE_CHANGE(playerWrapper));
+					Players.sendMessage(player, Messages.playerDebugModeChange(playerWrapper));
 					break;
 				case "off":
 				case "false":
 					playerWrapper.setInDebugMode(false);
 					break;
 				default:
-					Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("on/off"));
+					Players.sendMessage(player, Messages.invalidCommandUsage("on/off"));
 					break;
 			}
 		} else {
 			playerWrapper.setInDebugMode(!playerWrapper.isInDebugMode());
 		}
-		Players.sendMessage(player, Messages.PLAYER_DEBUGMODE_CHANGE(playerWrapper));
+		Players.sendMessage(player, Messages.playerDebugModeChange(playerWrapper));
 		Players.updateData(playerWrapper);
 	}
 }

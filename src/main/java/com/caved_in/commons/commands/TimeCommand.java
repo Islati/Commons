@@ -30,12 +30,12 @@ public class TimeCommand {
 						world = Worlds.getWorld(worldName);
 					} else {
 						//Send a message saying the world requested doesn't exist
-						Players.sendMessage(sender, Messages.WORLD_DOESNT_EXIST(worldName));
+						Players.sendMessage(sender, Messages.invalidWorld(worldName));
 						return;
 					}
 				} else {
 					//They didnt include a world argument
-					Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("time", "world"));
+					Players.sendMessage(sender, Messages.invalidCommandUsage("time", "world"));
 					return;
 				}
 			}
@@ -46,15 +46,15 @@ public class TimeCommand {
 				case "night":
 				case "dawn":
 					Worlds.setTime(world, WorldTime.getWorldTime(timeAction));
-					Players.sendMessage(sender, Messages.TIME_CHANGED(world.getName(), timeAction));
+					Players.sendMessage(sender, Messages.timeUpdated(world.getName(), timeAction));
 					break;
 				default:
-					Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("Time [day/night/dawn]"));
+					Players.sendMessage(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
 					break;
 			}
 
 		} else {
-			Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("Time [day/night/dawn]"));
+			Players.sendMessage(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
 		}
 	}
 }

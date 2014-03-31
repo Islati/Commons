@@ -30,7 +30,7 @@ public class PacketUtil {
 
 			return null;
 		} catch (Exception e) {
-			Commons.messageConsole(Messages.FAILED_TO_RETRIEVE_PACKET(protocol.toString(), sender.toString(), id));
+			Commons.messageConsole(Messages.packetRetrieveFail(protocol.toString(), sender.toString(), id));
 			return null;
 		}
 	}

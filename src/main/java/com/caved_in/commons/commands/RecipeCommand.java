@@ -28,7 +28,7 @@ public class RecipeCommand {
 					//Set our itemid to the look-up id
 					itemId = itemType.getID();
 				} else {
-					Players.sendMessage(player, Messages.ITEM_DOESNT_EXIST(itemArg));
+					Players.sendMessage(player, Messages.invalidItem(itemArg));
 					return;
 				}
 			}
@@ -36,17 +36,17 @@ public class RecipeCommand {
 			ItemStack itemStack = Items.makeItemStack(Items.getMaterialById(itemId));
 			//If the recipe failed to show, then send a message saying recipe not found
 			if (!Items.showRecipe(player, itemStack)) {
-				Players.sendMessage(player, Messages.RECIPE_NOT_FOUND(itemStack));
+				Players.sendMessage(player, Messages.invalidRecipe(itemStack));
 			}
 		} else {
 			if (Players.hasItemInHand(player)) {
 				ItemStack playerHandItem = player.getItemInHand();
 				//If the recipe failed to show, then send a message saying recipe not found
 				if (!Items.showRecipe(player, playerHandItem)) {
-					Players.sendMessage(player, Messages.RECIPE_NOT_FOUND(playerHandItem));
+					Players.sendMessage(player, Messages.invalidRecipe(playerHandItem));
 				}
 			} else {
-				Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("item in hand / item name"));
+				Players.sendMessage(player, Messages.invalidCommandUsage("item in hand / item name"));
 			}
 		}
 	}

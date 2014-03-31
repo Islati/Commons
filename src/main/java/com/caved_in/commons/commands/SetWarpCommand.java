@@ -19,12 +19,12 @@ public class SetWarpCommand {
 			String warpName = args[0];
 			if (!Warps.isWarp(warpName)) {
 				Warps.addWarp(new Warp(warpName, player.getLocation()), true);
-				Players.sendMessage(player, WARP_CREATED(warpName));
+				Players.sendMessage(player, warpCreated(warpName));
 			} else {
-				Players.sendMessage(player, WARP_ALREADY_EXISTS(warpName));
+				Players.sendMessage(player, duplicateWarp(warpName));
 			}
 		} else {
-			Players.sendMessage(player, INVALID_COMMAND_USAGE("warp name"));
+			Players.sendMessage(player, invalidCommandUsage("warp name"));
 		}
 	}
 }

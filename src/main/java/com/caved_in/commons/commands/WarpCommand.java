@@ -20,10 +20,10 @@ public class WarpCommand {
 			if (Warps.isWarp(warpArg)) {
 				Warp warp = Warps.getWarp(warpArg);
 				Players.teleport(player, warp);
-				Players.sendMessage(player, Messages.WARPED_TO(warpArg));
+				Players.sendMessage(player, Messages.playerWarpedTo(warpArg));
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("warp name"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("warp name"));
 		}
 	}
 }

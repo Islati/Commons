@@ -44,7 +44,7 @@ public class BanCommand {
 							}
 						}
 					} else {
-						Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("ban reason"));
+						Players.sendMessage(sender, Messages.invalidCommandUsage("ban reason"));
 						return;
 					}
 
@@ -80,13 +80,13 @@ public class BanCommand {
 										}
 										break;
 									} else {
-										Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("time / reason"));
+										Players.sendMessage(sender, Messages.invalidCommandUsage("time / reason"));
 										return;
 									}
 								}
 							}
 							if (timeLength == 0 || timeUnit.equals("")) {
-								Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("time / reason"));
+								Players.sendMessage(sender, Messages.invalidCommandUsage("time / reason"));
 								return;
 							}
 						}
@@ -102,18 +102,20 @@ public class BanCommand {
 						playerName = bPlayer.getName();
 						bPlayer.kickPlayer(banReason);
 						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-						Players.messageAll(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+						Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler
+								.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 					} else {
 						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(playerName);
 						if (bPlayer.hasPlayedBefore()) {
 							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-							Players.messageAll(Messages.PLAYER_BANNED_GLOBAL_MESSAGE(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler.getDurationBreakdown(banExpires - System.currentTimeMillis())));
+							Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler
+									.getDurationBreakdown(banExpires - System.currentTimeMillis())));
 						} else {
-							Players.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
+							Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
 						}
 					}
 				} else {
-					Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("ban reason"));
+					Players.sendMessage(sender, Messages.invalidCommandUsage("ban reason"));
 				}
 			} else {
 				Players.sendMessage(sender, "&e" + playerName + " &cis already banned");

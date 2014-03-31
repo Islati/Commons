@@ -24,7 +24,7 @@ public class PotionCommand {
 					if (StringUtils.isNumeric(levelArg)) {
 						effectLevel = Integer.parseInt(levelArg);
 					} else {
-						Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("amplification"));
+						Players.sendMessage(player, Messages.invalidCommandUsage("amplification"));
 					}
 				}
 				Players.addPotionEffect(player, Potions.getPotionEffect(PotionType.getPotionType(potionArg).getPotionEffectType(), effectLevel, Integer.MAX_VALUE));
@@ -32,7 +32,7 @@ public class PotionCommand {
 				Players.sendMessage(player, Messages.INVALID_POTION_TYPE);
 			}
 		} else {
-			Players.sendMessage(player, Messages.INVALID_COMMAND_USAGE("potion type"));
+			Players.sendMessage(player, Messages.invalidCommandUsage("potion type"));
 		}
 	}
 }

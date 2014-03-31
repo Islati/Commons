@@ -26,10 +26,10 @@ public class TeleportCommand {
 					player.teleport(Players.getPlayer(playerName), PlayerTeleportEvent.TeleportCause.COMMAND);
 				} else {
 					//Player is offline, send the message saying so
-					Players.sendMessage(player, Messages.PLAYER_OFFLINE(playerName));
+					Players.sendMessage(player, Messages.playerOffline(playerName));
 				}
 			} else {
-				Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("player", "target"));
+				Players.sendMessage(sender, Messages.invalidCommandUsage("player", "target"));
 			}
 		} else if (args.length == 2) {
 			String playerOne = args[0];
@@ -40,13 +40,13 @@ public class TeleportCommand {
 				if (Players.isOnline(playerTwo)) {
 					//Teleport the first player to the second
 					Players.teleport(Players.getPlayer(playerOne), Players.getPlayer(playerTwo));
-					Players.sendMessage(sender, Messages.TELEPORTED_TO(playerOne, playerTwo));
+					Players.sendMessage(sender, Messages.playerTeleportedTo(playerOne, playerTwo));
 				} else {
-					Players.sendMessage(sender, Messages.PLAYER_OFFLINE(playerTwo));
+					Players.sendMessage(sender, Messages.playerOffline(playerTwo));
 				}
 
 			} else {
-				Players.sendMessage(sender, Messages.PLAYER_OFFLINE(playerOne));
+				Players.sendMessage(sender, Messages.playerOffline(playerOne));
 			}
 		}
 	}

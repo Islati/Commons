@@ -16,12 +16,12 @@ public class RemovePremiumCommand {
 		if (args.length > 0) {
 			String playerName = args[0];
 			if (!Commons.playerDatabase.updatePlayerPremium(playerName, false)) {
-				Players.sendMessage(sender, Messages.PLAYER_DATA_NOT_FOUND(playerName));
+				Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
 			} else {
-				Players.sendMessage(sender, Messages.PREMIUM_STATUS_DEMOTED(playerName));
+				Players.sendMessage(sender, Messages.premiumPlayerDemoted(playerName));
 			}
 		} else {
-			Players.sendMessage(sender, Messages.INVALID_COMMAND_USAGE("PlayerName"));
+			Players.sendMessage(sender, Messages.invalidCommandUsage("PlayerName"));
 		}
 	}
 }

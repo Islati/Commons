@@ -388,7 +388,7 @@ public class Items {
 	}
 
 	public static void showFurnaceRecipe(Player player, FurnaceRecipe furnaceRecipe) {
-		Players.sendMessage(player, Messages.FURNACE_RECIPE(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
+		Players.sendMessage(player, Messages.recipeFurnace(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
 	}
 
 	public static void showShapelessRecipe(Player player, ShapelessRecipe shapelessRecipe) {
