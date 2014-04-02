@@ -160,16 +160,12 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void removeData(String playerName) {
-		if (!Commons.hasSqlBackend()) {
-			return;
-		}
-
-		if (hasData(playerName)) {
+		if (Commons.hasSqlBackend() && hasData(playerName)) {
 			Commons.messageConsole("&aPreparing to sync " + playerName + "'s data to database");
 			Commons.playerDatabase.syncPlayerWrapperData(playerData.get(playerName));
-			playerData.remove(playerName);
 			Commons.messageConsole("&a" + playerName + "'s data has been synchronized");
 		}
+		playerData.remove(playerName);
 	}
 
 	/**
@@ -225,7 +221,11 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static boolean isOnlineFuzzy(String playerName) {
-		return Bukkit.getPlayer(playerName) != null;
+		return getPlayer(playerName) != null;
+	}
+
+	public static boolean isOnline(UUID uniqueId) {
+		return getPlayer(uniqueId) != null;
 	}
 
 	/**
@@ -236,8 +236,13 @@ public class Players {
 	 * @see Bukkit#getPlayer(String)
 	 * @since 1.0
 	 */
+	@Deprecated
 	public static Player getPlayer(String playerName) {
 		return Bukkit.getPlayer(playerName);
+	}
+
+	public static Player getPlayer(UUID uniqueId) {
+		return Bukkit.getPlayer(uniqueId);
 	}
 
 	/**

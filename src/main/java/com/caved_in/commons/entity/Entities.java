@@ -130,7 +130,7 @@ public class Entities {
 		}
 	}
 
-	public static int getMaxHealth(LivingEntity livingEntity) {
+	public static int getMaxHealth(Damageable livingEntity) {
 		return (int) ((Damageable) livingEntity).getMaxHealth();
 	}
 

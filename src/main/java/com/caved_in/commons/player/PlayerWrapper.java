@@ -7,6 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.UUID;
+
 public class PlayerWrapper {
 	private FriendList friendsList;
 	private boolean inStaffChat = false;
@@ -20,6 +22,8 @@ public class PlayerWrapper {
 
 	public static double defaultWalkSpeed = 0.22;
 	public static double defaultFlySpeed = 0.1;
+
+	private UUID uniqueId;
 
 	private String playerName = "";
 	private String currentServer = "";
@@ -45,10 +49,15 @@ public class PlayerWrapper {
 	 * @param playerName     name of the player to be instanced
 	 * @param currencyAmount currency the player has
 	 */
+	@Deprecated
 	public PlayerWrapper(String playerName, double currencyAmount) {
 		this.playerName = playerName;
 		this.currencyAmount = currencyAmount;
 		initWrapper();
+	}
+
+	public PlayerWrapper(UUID uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 
 	private void initWrapper() {
@@ -218,6 +227,10 @@ public class PlayerWrapper {
 		return prefix;
 	}
 
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
 	public void setWalkSpeed(double walkSpeed) {
 		this.walkSpeed = walkSpeed;
 		getPlayer().setWalkSpeed((float) walkSpeed);
@@ -262,5 +275,7 @@ public class PlayerWrapper {
 		debugMode = value;
 	}
 
-
+	public UUID getUniqueId() {
+		return uniqueId;
+	}
 }

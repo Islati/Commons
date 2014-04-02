@@ -4,11 +4,14 @@ import org.simpleframework.xml.Element;
 
 public class Configuration {
 
-//	@Element(name = "Database_Backend")
+	@Element(name = "Database_Backend")
 	private boolean sqlBackend = false;
 
 	@Element(name = "DatabaseConfig", type = SqlConfiguration.class)
 	private SqlConfiguration sqlConfig;
+
+	@Element(name = "Register_Commands")
+	private boolean registerCommands = true;
 
 	@Element(name = "PremiumConfig", type = PremiumConfiguration.class)
 	private PremiumConfiguration premiumConfig;
@@ -28,16 +31,15 @@ public class Configuration {
 	@Element(name = "Enable_NPC")
 	private boolean enableNPC = true;
 
-	//TODO Actually add this to the configuration
-	private String chatFormat = "TODO";
-
 	public Configuration(@Element(name = "WorldConfig", type = WorldConfiguration.class) WorldConfiguration worldConfig,
 						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
 						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
 						 @Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
 						 @Element(name = "Enable_NPC") boolean enableNPC,
 						 @Element(name = "Server_Name") String serverName,
-						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig) {
+						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
+						 @Element(name = "Database_Backend")boolean sqlBackend,
+						 @Element(name = "Register_Commands")boolean registerCommands) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
@@ -45,6 +47,8 @@ public class Configuration {
 		this.serverName = serverName;
 		this.enableNPC = enableNPC;
 		this.premiumConfig = new PremiumConfiguration();
+		this.sqlBackend = sqlBackend;
+		this.registerCommands = registerCommands;
 	}
 
 	public Configuration() {
@@ -85,5 +89,9 @@ public class Configuration {
 
 	public boolean hasSqlBackend() {
 		return sqlBackend;
+	}
+
+	public boolean registerCommands() {
+		return registerCommands;
 	}
 }

@@ -303,6 +303,12 @@ public class Items {
 		return setName(itemStack, itemName);
 	}
 
+	public static ItemStack makeItem(MaterialData materialData, String name, String... lore) {
+		ItemStack itemStack = materialData.toItemStack();
+		itemStack = setName(itemStack, name);
+		return setLore(itemStack,Arrays.asList(lore));
+	}
+
 	public static ItemStack makeItem(Material material, String itemName, List<String> itemLore) {
 		ItemStack itemStack = makeItem(material, itemName);
 		return setLore(itemStack, itemLore);

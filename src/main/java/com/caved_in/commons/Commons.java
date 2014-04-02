@@ -32,6 +32,9 @@ import java.io.File;
 
 public class Commons extends JavaPlugin {
 
+	//TODO Make a way to poll server info from the database
+	private static int serverId = 0;
+
 	private static Commons plugin;
 
 	public static BansSQL bansDatabase = null;
@@ -70,13 +73,17 @@ public class Commons extends JavaPlugin {
 		return globalConfig.getWorldConfig();
 	}
 
+	public static int getServerId() {
+		return serverId;
+	}
+
 	@Override
 	public void onEnable() {
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		threadManager = new RunnableManager(this); // New Thread handler
 
-		if (!this.getDataFolder().exists()) {
-			this.getDataFolder().mkdir();
+		if (!getDataFolder().exists()) {
+			getDataFolder().mkdir();
 		}
 
 		File warpsFolder = new File(WARP_DATA_FOLDER);
@@ -108,19 +115,24 @@ public class Commons extends JavaPlugin {
 					friendDatabase.refreshConnection();
 					playerDatabase.refreshConnection();
 				}
-			}, 36000, 36000); // SQL Keep alive
+			}, 36000, 36000);
 		}
 
-		// Register commands
-		CommandRegister.registerCommands();
+		//If the commands are to be registered: do so.
+		if (getConfiguration().registerCommands()) {
+			CommandRegister.registerCommands();
+		}
 
-		NpcHandler npcHandler = NpcHandler.getInstance();
+		//If the NPC feature's enabled, then enable it!
+		if (getConfiguration().getNPCSEnabled()) {
+			NpcHandler npcHandler = NpcHandler.getInstance();
 
-		//Npc Handler startup
-		npcHandler.startUp();
+			//Npc Handler startup
+			npcHandler.startUp();
 
-		for (NPC npc : NpcHandler.getInstance().getLookup().values()) {
-			npcHandler.updateNPC(npc);
+			for (NPC npc : NpcHandler.getInstance().getLookup().values()) {
+				npcHandler.updateNPC(npc);
+			}
 		}
 
 		registerListeners(); // Register all our event listeners
@@ -136,6 +148,10 @@ public class Commons extends JavaPlugin {
 				}
 			}
 		}
+	}
+
+	public static void givePlayerCompassMenu(Player player) {
+		return; //TODO: Make this method give the player a compass menu / server selector
 	}
 
 	private void registerListeners() {
@@ -231,6 +247,7 @@ public class Commons extends JavaPlugin {
 		registerListener(new CommandPreProcessListener());
 		messageConsole("&aRegistered the command pre-process listener");
 
+		//If the server is backed by SQL, then push the specific listeners
 		if (hasSqlBackend()) {
 			//Used to handle kicking of banned / temp-banned players
 			registerListener(new PrePlayerLoginListener());
@@ -270,8 +287,10 @@ public class Commons extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
-		NpcHandler npcHandler = NpcHandler.getInstance();
-		npcHandler.shutdown();
+		if (getConfiguration().getNPCSEnabled()) {
+			NpcHandler npcHandler = NpcHandler.getInstance();
+			npcHandler.shutdown();
+		}
 
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
@@ -279,15 +298,16 @@ public class Commons extends JavaPlugin {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			String playerName = player.getName();
 			Players.removeData(playerName);
-			disguiseDatabase.deletePlayerDisguiseData(playerName);
+			if (hasSqlBackend()) {
+				disguiseDatabase.deletePlayerDisguiseData(playerName);
+			}
 		}
 
 		Warps.saveWarps();
 	}
 
 	public static boolean hasSqlBackend() {
-//		return globalConfig.hasSqlBackend();
-		return true;
+		return globalConfig.hasSqlBackend();
 	}
 
 }

@@ -112,7 +112,7 @@ public class FriendCommands {
 				friendList.removeFriend(friendName);
 				Players.sendMessage(player, Messages.friendDeleted(friendName));
 			} else {
-				Players.sendMessage(player, Messages.invalidFriend(friendName));
+				Players.sendMessage(player, Messages.invalidFriendRequest(friendName));
 			}
 		} else {
 			Players.sendMessage(player, Messages.invalidCommandUsage("name"));
