@@ -114,6 +114,7 @@ public class Players {
 			playerData.put(playerName, playerWrapper);
 		} else {
 			playerWrapper = new PlayerWrapper(playerName, 0);
+			playerData.put(playerName,playerWrapper);
 		}
 	}
 

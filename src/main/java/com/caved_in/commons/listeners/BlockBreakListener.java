@@ -35,11 +35,15 @@ public class BlockBreakListener implements Listener {
 	@EventHandler
 	public void onBlockPLace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
+		if (Commons.getConfiguration().getWorldConfig().isBlockBreakEnabled()) {
+			return;
+		}
 		if (!Players.hasPermission(player, Permission.BLOCK_PLACE)) {
 			if (player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);
 			}
 		}
+
 	}
 
 	@EventHandler

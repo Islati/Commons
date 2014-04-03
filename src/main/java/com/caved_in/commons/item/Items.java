@@ -214,6 +214,10 @@ public class Items {
 		return (hasMetadata(itemStack) && getMetadata(itemStack).hasDisplayName());
 	}
 
+	public static boolean hasMaterialData(ItemStack item, int id) {
+		return item.getData().getData() == id;
+	}
+
 	/**
 	 * Check if an items name contains a sequence of text
 	 *
