@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
  * Time: 7:24 PM
  */
 public class AddCurrencyCommand {
-	@CommandController.CommandHandler(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "tunnels.common.currency")
+	@CommandController.CommandHandler(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "common.currency.add")
 	public void addCurrencyCommand(CommandSender sender, String[] commandArgs) {
 		if (commandArgs.length > 1) {
 			String playerName = commandArgs[0];

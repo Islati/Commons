@@ -45,14 +45,17 @@ public class Commons extends JavaPlugin {
 	public static RunnableManager threadManager;
 	public static ServerMenuWrapper serverMenu;
 
-	public static String WARP_DATA_FOLDER = "plugins/Tunnels-Common/Warps/";
-	private static String PLUGIN_DATA_FOLDER = "plugins/Tunnels-Common/";
+	public static String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
+	private static String PLUGIN_DATA_FOLDER = "plugins/Commons/";
 
 	private static Configuration globalConfig = new Configuration();
 
+	//Whether or not the PopupMenuAPI is available
+	private boolean hasPopupApi = false;
+
 	public static Commons getInstance() {
 		if (plugin == null) {
-			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Tunnels-Common");
+			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Commons");
 		}
 		return plugin;
 	}
@@ -90,6 +93,8 @@ public class Commons extends JavaPlugin {
 		if (!warpsFolder.exists()) {
 			warpsFolder.mkdirs();
 		}
+
+		hasPopupApi = getServer().getPluginManager().isPluginEnabled("PopupMenuAPI");
 
 		initConfiguration(); // Init config
 
@@ -150,7 +155,7 @@ public class Commons extends JavaPlugin {
 		}
 	}
 
-	public static void givePlayerCompassMenu(Player player) {
+	private static void givePlayerCompassMenu(Player player) {
 		return; //TODO: Make this method give the player a compass menu / server selector
 	}
 
@@ -168,7 +173,7 @@ public class Commons extends JavaPlugin {
 			messageConsole("&aUsing Tunnels-Common Chat Listener");
 		}
 
-		if (worldConfig.isCompassMenuEnabled()) {
+		if (hasPopupApi && worldConfig.isCompassMenuEnabled()) {
 			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig()
 					.getXmlItems()));
 			registerListener(new CompassListener());

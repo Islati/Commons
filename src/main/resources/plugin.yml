@@ -1,10 +1,9 @@
-name: Tunnels-Common
+name: Commons
 main: com.caved_in.commons.Commons
-version: 1.2-SNAPSHOT
-description: Commons Library built for easier plugin development and server management
-author: Brandon
-depend: [PopupMenuAPI]
-softdepend: [TagAPI]
+version: 1.2.2
+description: An all-in-one plugin to provide features to both server owners, and developers.
+author: Brandon Curtis (TheGamersCave)
+softdepend: [TagAPI,PopupMenuAPI]
 commands:
    buypremium:
       description: Used to add premium (Console only)
@@ -113,3 +112,54 @@ commands:
       usage: /<command> <type> [Level]
    debug:
       usage: /<command>
+permissions:
+   commons.admin.*:
+      description: Gives access to all the administrative commands and tasks within tunnels
+      default: op
+      children:
+        commons.admin: true
+   commons.addcurrency:
+      description: Allows you to use the addcurrency command
+      default: op
+   commons.back:
+      description: Allows you to use the back command
+      default: op
+   commons.ban:
+      description: Allows you to use the ban command
+      default: op
+   commons.buypremium:
+      description: Allows you to use the buypremium command
+      default: op
+   commons.clearinventory:
+      description: Allows you to use the clearinventory command
+      default: op
+#     Make child / parent nodes for clearing the inventories of others
+   commons.day:
+      description: Allows you to use the day command
+      default: op
+   commons.debug:
+      description: Allows you to view 'debug' information when performing events, actions and tasks.
+      default: op
+   commons.enchant:
+      description: Allows you to use the enchant command
+      default: op
+   commons.feed:
+      description: Allows you to use the feed command
+      default: op
+#      Make one so it's either use it on yourself, or others
+   commons.fireworks:
+      description: Allows you to use the fireworks commands
+      default: op
+   commons.fly:
+      description: Allows you to use the fly command, and be in fly mode
+      default: op
+   commons.friends:
+      description: Allows you to use the friends list feature
+      default: true
+      default: op
+   commons.gamemode:
+      description: Allows you to change your gamemode
+      default: op
+   commons.hat:
+      description: I MUST SAY SIR, YOUR TOPHAT LOOKS ABSOLUTELY SPIFFING!
+      default: op
