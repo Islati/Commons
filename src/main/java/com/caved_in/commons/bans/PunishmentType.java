@@ -9,27 +9,28 @@ import java.util.Map;
  * @since 1.0
  */
 public enum PunishmentType {
-	BAN("ban"),
-	MUTE("mute"),
-	WARNING("warning"),
-	FLAG("flag");
+	WARNING("warning", 0),
+	INFRACTION("infraction", 1),
+	MUTE("mute", 2),
+	FLAG("flag", 3),
+	BAN("ban", 4);
 
 	private static Map<String, PunishmentType> punishments = new HashMap<String, PunishmentType>();
+	private static Map<Integer, PunishmentType> punishmentIds = new HashMap<>();
 
 	static {
 		for (PunishmentType punishmentType : EnumSet.allOf(PunishmentType.class)) {
-			for (String identifier : punishmentType.getIdentifiers()) {
-				punishments.put(identifier, punishmentType);
-			}
+			punishmentIds.put(punishmentType.getId(), punishmentType);
+			punishments.put(punishmentType.toString(), punishmentType);
 		}
 	}
 
-	private String[] identifiers;
 	private String identifier;
+	private int id;
 
-	PunishmentType(String... identifiers) {
-		this.identifiers = identifiers;
-		this.identifier = identifiers[0];
+	PunishmentType(String identifier, int id) {
+		this.identifier = identifier;
+		this.id = id;
 	}
 
 	@Override
@@ -37,11 +38,18 @@ public enum PunishmentType {
 		return identifier;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 	public static PunishmentType getPunishmentType(String identifier) {
 		return punishments.get(identifier.toLowerCase());
 	}
 
-	public String[] getIdentifiers() {
-		return identifiers;
+	public static PunishmentType getPunishmentType(int id) {
+		if (!punishmentIds.containsKey(id)) {
+			return null;
+		}
+		return punishmentIds.get(id);
 	}
 }

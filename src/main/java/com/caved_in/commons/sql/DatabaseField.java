@@ -19,7 +19,7 @@ public enum DatabaseField {
 	PLAYER_PREFIX_TABLE("server_prefixes"),
 	PLAYER_NAME_PREFIX("player_prefix"),
 	//Fields related to the premium table
-	PREMIUM_TABLE("server_vipusers"),
+	PREMIUM_TABLE("server_premium"),
 	PREMIUM_STATUS("premium"),
 	// Online status field for the online-status
 	ONLINE_TABLE("server_online"),
@@ -51,6 +51,8 @@ public enum DatabaseField {
 	PUNISHMENT_EXPIRATION_TIME("pun_expires"),
 	PUNISHMENT_REASON("pun_reason"),
 	PUNISHMENT_NAME("pun_name"),
+	PUNISHMENT_TYPE("pun_type"),
+	PUNISHMENT_PARDONED("pardoned"),
 	//Disguises table
 	DISGUISE_TABLE("server_disguises"),
 	DIGUISE_AS("diguise_as"),
@@ -59,7 +61,7 @@ public enum DatabaseField {
 	//Friends Table
 	FRIENDS_TABLE("server_friends"),
 	FRIEND_USER_ID("friend_id"),
-	FRIEND_ACCEPTED("friend_accepted");
+	FRIEND_STATUS("friend_status");
 
 	private String columnName;
 

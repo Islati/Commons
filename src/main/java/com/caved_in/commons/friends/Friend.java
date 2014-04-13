@@ -1,42 +1,44 @@
 package com.caved_in.commons.friends;
 
+import java.util.UUID;
+
 public class Friend {
-	private String friendName = "";
-	private String friendOf = "";
+	private UUID playerId;
+	private UUID friendId;
 	private long lastSeenOnline = 0L;
 	private boolean isAccepted = false;
 
 	/**
 	 * @param player     name of the player who's friend this is
-	 * @param friendName name of the players friend
+	 * @param friend     name of the players friend
 	 * @param isAccepted if the friend is accepted or not
 	 */
-	public Friend(String player, String friendName, boolean isAccepted) {
-		this.friendOf = player;
-		this.friendName = friendName;
+	public Friend(UUID player, UUID friend, boolean isAccepted) {
+		this.playerId = player;
+		this.friendId = friend;
 		this.isAccepted = isAccepted;
 	}
 
 	/**
 	 * Creates a new friend object where the accepted status is defaulted to false
 	 *
-	 * @param player     name of the player who's friend this is
-	 * @param friendName name of the players friend
+	 * @param player name of the player who's friend this is
+	 * @param friend name of the players friend
 	 */
-	public Friend(String player, String friendName) {
-		this(player, friendName, false);
+	public Friend(UUID player, UUID friend) {
+		this(player, friend, false);
 	}
 
-	public String getFriendName() {
-		return this.friendName;
+	public UUID getFriendId() {
+		return friendId;
 	}
 
-	public String getFriendOf() {
-		return this.friendOf;
+	public UUID getPlayerId() {
+		return playerId;
 	}
 
 	public boolean isAccepted() {
-		return this.isAccepted;
+		return isAccepted;
 	}
 
 	public void setAccepted(boolean isAccepted) {

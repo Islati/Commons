@@ -8,5 +8,5 @@ package com.caved_in.commons.sql;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class FriendDataConnector {
+public interface TableConnector {
 }

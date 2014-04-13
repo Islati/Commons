@@ -13,8 +13,9 @@ public class PlayerKickListener implements Listener {
 			event.setLeaveMessage(null);
 		}
 
-		String playerName = event.getPlayer().getName();
-		Players.removeData(playerName);
-		Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
+		Players.removeData(event.getPlayer().getUniqueId());
+//		if (Commons.hasSqlBackend()) {
+//			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
+//		}
 	}
 }

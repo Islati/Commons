@@ -1,7 +1,6 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.friends.FriendList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -10,7 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class PlayerWrapper {
-	private FriendList friendsList;
+	//	private FriendList friendsList;
 	private boolean inStaffChat = false;
 	private boolean customWalkSpeed = false;
 	private boolean customFlySpeed = false;
@@ -23,7 +22,7 @@ public class PlayerWrapper {
 	public static double defaultWalkSpeed = 0.22;
 	public static double defaultFlySpeed = 0.1;
 
-	private UUID uniqueId;
+	private UUID id;
 
 	private String playerName = "";
 	private String currentServer = "";
@@ -56,20 +55,26 @@ public class PlayerWrapper {
 		initWrapper();
 	}
 
-	public PlayerWrapper(UUID uniqueId) {
-		this.uniqueId = uniqueId;
+	public PlayerWrapper(UUID id) {
+		this.id = id;
 	}
 
 	private void initWrapper() {
-		this.currentServer = Commons.getConfiguration().getServerName();
-		this.lastOnline = System.currentTimeMillis();
-		//If there's a back-end database, then pull the players friend list and prefix from it
-		if (Commons.hasSqlBackend()) {
-			this.prefix = Commons.playerDatabase.getPrefix(this);
-			friendsList = Commons.friendDatabase.hasData(playerName) ? new FriendList(playerName, Commons.friendDatabase.getFriends(playerName)) : new FriendList(playerName);
-		} else {
-			friendsList = new FriendList(playerName);
+		currentServer = Commons.getConfiguration().getServerName();
+		lastOnline = System.currentTimeMillis();
+		if (!Commons.hasSqlBackend()) {
+//			friendsList = new FriendList(id);
+			//TODO: Assign default prefix to user
+			return;
 		}
+
+//		prefix = Commons.playerDatabase.getPrefix(this);
+//
+//		if (Commons.friendDatabase.hasData(playerName)) {
+//			friendsList = new FriendList(id, Commons.friendDatabase.getFriends(playerName));
+//		} else {
+//			friendsList = new FriendList(id);
+//		}
 	}
 
 	private Player getPlayer() {
@@ -190,7 +195,7 @@ public class PlayerWrapper {
 		}
 
 		this.isPremium = isPremium;
-		Commons.playerDatabase.updatePlayerPremium(this);
+//		Commons.playerDatabase.updatePlayerPremium(this);
 	}
 
 	public ChatColor getTagColor() {
@@ -201,15 +206,17 @@ public class PlayerWrapper {
 		this.tagColor = tagColor;
 	}
 
-	/**
-	 * Gets the players friends list
-	 *
-	 * @return a FriendList object which contains the players friends; If there are no
-	 * Friend objects, then the friendslist is still returned though with no friend objects
-	 */
-	public FriendList getFriendsList() {
-		return friendsList;
-	}
+
+//	/**
+//	 * Gets the players friends list
+//	 *
+//	 * @return a FriendList object which contains the players friends; If there are no
+//	 * Friend objects, then the friendslist is still returned though with no friend objects
+//	 */
+//	public FriendList getFriendsList() {
+//		return friendsList;
+//	}
+
 
 	public boolean hasCustomWalkSpeed() {
 		return customWalkSpeed;
@@ -275,7 +282,7 @@ public class PlayerWrapper {
 		debugMode = value;
 	}
 
-	public UUID getUniqueId() {
-		return uniqueId;
+	public UUID getId() {
+		return id;
 	}
 }

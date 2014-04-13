@@ -29,7 +29,9 @@ public enum Permission {
 	DEBUG_MODE("common.debugmode"),
 	/* Action-Related Permissions */
 	BLOCK_BREAK("common.block.break"),
-	BLOCK_PLACE("common.block.place");
+	BLOCK_PLACE("common.block.place"),
+	/* Chat related permissions */
+	CHAT_WHILE_SILENCED("common.chat.ignoresilence");
 
 	private static Map<String, Permission> permissions = new HashMap<>();
 

@@ -1,5 +1,6 @@
 package com.caved_in.commons.commands;
 
+import com.caved_in.commons.menu.HelpMenus;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.warp.Warps;
 import org.apache.commons.lang.StringUtils;

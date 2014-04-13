@@ -6,18 +6,20 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.UUID;
+
 public class PlayerQuitListener implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		String playerName = event.getPlayer().getName();
+		UUID playerId = event.getPlayer().getUniqueId();
 		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
 			event.setQuitMessage(null);
 		}
 
-		Players.removeData(playerName);
-
-		if (Commons.hasSqlBackend()) {
-			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
-		}
+		Players.removeData(playerId);
+//
+//		if (Commons.hasSqlBackend()) {
+//			Commons.disguiseDatabase.deletePlayerDisguiseData(playerId);
+//		}
 	}
 }

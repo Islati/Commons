@@ -3,6 +3,7 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.item.Enchantments;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.menu.HelpMenus;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;

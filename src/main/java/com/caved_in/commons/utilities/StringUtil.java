@@ -18,6 +18,7 @@
 
 package com.caved_in.commons.utilities;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
@@ -329,13 +330,13 @@ public class StringUtil {
 	/**
 	 * Scramble text; What else is there?
 	 *
-	 * @param Text
+	 * @param text
 	 * @return
 	 */
-	public static String scrambleText(String Text) {
+	public static String scrambleText(String text) {
 		StringBuilder Scrambled = new StringBuilder();
-		if (Text.contains(" ")) {
-			String[] Words = Text.split(" ");
+		if (text.contains(" ")) {
+			String[] Words = text.split(" ");
 			for (String word : Words) {
 				ArrayList<Character> chars = new ArrayList<Character>(word.length());
 				for (char c : word.toCharArray()) {
@@ -350,8 +351,8 @@ public class StringUtil {
 			}
 			return Scrambled.toString();
 		} else {
-			ArrayList<Character> chars = new ArrayList<Character>(Text.length());
-			for (char c : Text.toCharArray()) {
+			ArrayList<Character> chars = new ArrayList<Character>(text.length());
+			for (char c : text.toCharArray()) {
 				chars.add(c);
 			}
 			Collections.shuffle(chars);
@@ -385,5 +386,25 @@ public class StringUtil {
 			default:
 				return playerName;
 		}
+	}
+
+	/**
+	 * This method uses a region to check case-insensitive equality. This
+	 * means the internal array does not need to be copied like a
+	 * toLowerCase() call would.
+	 *
+	 * @param string String to check
+	 * @param prefix Prefix of string to compare
+	 * @return true if provided string starts with, ignoring case, the prefix
+	 * provided
+	 * @throws NullPointerException     if prefix is null
+	 * @throws IllegalArgumentException if string is null
+	 */
+	public static boolean startsWithIgnoreCase(final String string, final String prefix) throws IllegalArgumentException, NullPointerException {
+		Validate.notNull(string, "Cannot check a null string for a match");
+		if (string.length() < prefix.length()) {
+			return false;
+		}
+		return string.regionMatches(true, 0, prefix, 0, prefix.length());
 	}
 }

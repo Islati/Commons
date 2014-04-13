@@ -9,7 +9,7 @@ public class CommandRegister {
 		if (Commons.hasSqlBackend()) {
 			registerCommand(new FriendCommands());
 			registerCommand(new TunnelsXPCommand());
-			registerCommand(new NicklistCommand());
+//			registerCommand(new NicklistCommand());
 			/* Punishment / Moderation Commands */
 			registerCommand(new BanCommand());
 			registerCommand(new UnbanCommand());

@@ -1,5 +1,7 @@
 package com.caved_in.commons.bans;
 
+import java.util.UUID;
+
 /**
  * @author Brandon Curtis
  * @version 1.0
@@ -12,7 +14,10 @@ public class Punishment implements IPunishment {
 	private long issuedTime;
 	private boolean active;
 	private String reason;
-	private String issuer;
+	private UUID issuer;
+
+	public Punishment() {
+	}
 
 	/**
 	 * Constructs a new punishment object
@@ -24,7 +29,7 @@ public class Punishment implements IPunishment {
 	 * @param reason         the reason for the punishment being issued
 	 * @param issuer         the person / name of who issued the punishment
 	 */
-	public Punishment(PunishmentType punishmentType, long expiry, long issued, boolean isActive, String reason, String issuer) {
+	public Punishment(PunishmentType punishmentType, long expiry, long issued, boolean isActive, String reason, UUID issuer) {
 		this.punishmentType = punishmentType;
 		this.expiryTime = expiry;
 		this.issuedTime = issued;
@@ -43,37 +48,65 @@ public class Punishment implements IPunishment {
 	 * @param reason   the reason for the punishment being issued
 	 * @param issuer   the person / name of who issued the punishment
 	 */
-	public Punishment(String type, long expiry, long issued, boolean isActive, String reason, String issuer) {
+	public Punishment(String type, long expiry, long issued, boolean isActive, String reason, UUID issuer) {
 		this(PunishmentType.getPunishmentType(type), expiry, issued, isActive, reason, issuer);
 	}
 
 	@Override
 	public PunishmentType getPunishmentType() {
-		return this.punishmentType;
+		return punishmentType;
 	}
 
 	@Override
 	public long getExpiryTime() {
-		return this.expiryTime;
+		return expiryTime;
 	}
 
 	@Override
 	public long getIssuedTime() {
-		return this.issuedTime;
+		return issuedTime;
 	}
 
 	@Override
 	public boolean isActive() {
-		return this.active;
+		return active;
 	}
 
 	@Override
 	public String getReason() {
-		return this.reason;
+		return reason;
 	}
 
 	@Override
-	public String getIssuer() {
-		return this.issuer;
+	public UUID getIssuer() {
+		return issuer;
+	}
+
+	public void setPunishmentType(PunishmentType punishmentType) {
+		this.punishmentType = punishmentType;
+	}
+
+	public void setExpiryTime(long expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+
+	public void setIssuedTime(long issuedTime) {
+		this.issuedTime = issuedTime;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public void setIssuer(String issuer) {
+		this.issuer = UUID.fromString(issuer);
+	}
+
+	public void setIssuer(UUID uuid) {
+		issuer = uuid;
 	}
 }

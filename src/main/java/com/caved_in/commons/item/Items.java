@@ -136,11 +136,10 @@ public class Items {
 	}
 
 	public static List<String> getLore(ItemStack itemStack) {
-		if (hasLore(itemStack)) {
-			return getMetadata(itemStack).getLore();
-		} else {
-			return new ArrayList<>();
+		if (!hasLore(itemStack)) {
+			return null;
 		}
+		return getMetadata(itemStack).getLore();
 	}
 
 	public static List<String> getLore(ItemMeta itemMeta) {
@@ -148,8 +147,15 @@ public class Items {
 	}
 
 	public static ItemStack setLore(ItemStack itemStack, List<String> loreLines) {
-		//Set the lore on the itemstacks passed metadata to the lines desired
-		setLore(getMetadata(itemStack), loreLines);
+		ItemMeta itemMeta = getMetadata(itemStack);
+		List<String> lore = new ArrayList<>();
+		for (String line : loreLines) {
+			if (line != null) {
+				lore.add(StringUtil.formatColorCodes(line));
+			}
+		}
+		itemMeta.setLore(lore);
+		setMetadata(itemStack, itemMeta);
 		return itemStack;
 	}
 
@@ -232,8 +238,8 @@ public class Items {
 	public static ItemStack removeFromStack(ItemStack itemStack, int amount) {
 		int itemStackAmount = itemStack.getAmount();
 
-		if (itemStackAmount < amount) {
-			return new ItemStack(Material.AIR);
+		if (itemStackAmount <= amount) {
+			return null;
 		}
 
 		itemStack.setAmount(itemStackAmount - amount);
@@ -310,7 +316,7 @@ public class Items {
 	public static ItemStack makeItem(MaterialData materialData, String name, String... lore) {
 		ItemStack itemStack = materialData.toItemStack();
 		itemStack = setName(itemStack, name);
-		return setLore(itemStack,Arrays.asList(lore));
+		return setLore(itemStack, Arrays.asList(lore));
 	}
 
 	public static ItemStack makeItem(Material material, String itemName, List<String> itemLore) {

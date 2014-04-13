@@ -2,50 +2,47 @@ package com.caved_in.commons.friends;
 
 import com.google.common.collect.Sets;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static ch.lambdaj.Lambda.*;
 import static org.hamcrest.Matchers.is;
 
 public class FriendList {
-	private String playerName = "";
-	private Map<String, Friend> playerFriends = new HashMap<String, Friend>();
+	private UUID playerId;
+	private Map<UUID, Friend> playerFriends = new HashMap<>();
 	private Set<Friend> unacceptedFriends = null;
 	private boolean modified = false;
 
-	public FriendList(String playerName) {
-		this.playerName = playerName;
+	public FriendList(UUID playerId) {
+		this.playerId = playerId;
 	}
 
-	public FriendList(String playerName, Collection<Friend> playerFriends) {
-		this.playerName = playerName;
+	public FriendList(UUID playerId, Collection<Friend> playerFriends) {
+		this.playerId = playerId;
 		//Create an indexed map of playerFriends of the Friend class where the key is the friends name
-		this.playerFriends = index(playerFriends, on(Friend.class).getFriendName());
+		this.playerFriends = index(playerFriends, on(Friend.class).getFriendId());
 	}
 
-	public String getPlayerName() {
-		return this.playerName;
+	public UUID getPlayerId() {
+		return playerId;
 	}
 
-	public boolean isFriendsWith(String name) {
-		return playerFriends.containsKey(name) && playerFriends.get(name).isAccepted();
+	public boolean isFriendsWith(UUID id) {
+		return playerFriends.containsKey(id) && playerFriends.get(id).isAccepted();
 	}
 
 	public void addFriend(Friend friendToAdd) {
-		playerFriends.put(friendToAdd.getFriendName(), friendToAdd);
+		playerFriends.put(friendToAdd.getFriendId(), friendToAdd);
 		modified = true;
 	}
 
-	public void removeFriend(String name) {
-		playerFriends.remove(name);
+	public void removeFriend(UUID id) {
+		playerFriends.remove(id);
 		modified = true;
 	}
 
-	public void acceptFriend(String name) {
-		playerFriends.get(name).setAccepted(true);
+	public void acceptFriend(UUID id) {
+		playerFriends.get(id).setAccepted(true);
 		modified = true;
 	}
 
@@ -61,11 +58,8 @@ public class FriendList {
 		return unacceptedFriends;
 	}
 
-	public boolean hasRequest(String playerName) {
-		return playerFriends.containsKey(playerName) && !playerFriends.get(playerName).isAccepted();
+	public boolean hasRequest(UUID playerId) {
+		return playerFriends.containsKey(playerId) && !playerFriends.get(playerId).isAccepted();
 	}
 
-	public Map<String, Friend> getFriendsMap() {
-		return this.playerFriends;
-	}
 }

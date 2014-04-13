@@ -2,124 +2,80 @@ package com.caved_in.commons.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.threading.callables.BanPlayerCallable;
 import com.caved_in.commons.time.TimeHandler;
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import com.caved_in.commons.time.TimeType;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 7:38 PM
- */
 public class BanCommand {
 	@CommandController.CommandHandler(name = "ban", description = "Bans a player permanately, or temporarily across all servers", permission = "tunnels.common.ban", usage = "/ban [Name] [Reason] <Time>")
-	public void onBanCommand(CommandSender sender, String[] args) {
+	public void onBanCommand(final CommandSender sender, String[] args) {
+		if (args.length < 2) {
+			Players.sendMessage(sender, Messages.invalidCommandUsage("player", "reason", "(optional) t:"));
+			return;
+		}
 
-		if (args.length > 0) {
-			String playerName = args[0];
-			if (!Commons.bansDatabase.isBanned(playerName)) {
-				String banReason = "";
-				String bannedBy = "";
-				int timeArg = 0;
-				long banExpires = 0L;
-				boolean isPermanent = false;
-				if (sender instanceof Player) {
-					bannedBy = ((Player) sender).getName();
-				} else {
-					bannedBy = "Console";
-				}
-				if (args.length >= 1) {
-					if (args[1] != null) {
-						for (int I = 1; I < args.length; I++) {
-							if (!args[I].startsWith("t:")) {
-								banReason += args[I] + " ";
-							} else {
-								timeArg = I;
-								break;
-							}
-						}
-					} else {
-						Players.sendMessage(sender, Messages.invalidCommandUsage("ban reason"));
-						return;
-					}
+		final String playerName = args[0];
+		final boolean banningPlayerIsOnline = Players.isOnline(playerName);
+		final Player banningPlayer = Players.getPlayer(playerName);
+		final String bannerName = sender.getName();
+		final StringBuilder banReason = new StringBuilder();
+		int timeArg = -1;
 
-					if (timeArg != 0) {
-						String timeOrReason = args[timeArg];
-						if (timeOrReason.toLowerCase().contains("t:")) {
-							String timeUnit = "";
-							int timeLength = 0;
-							for (char argChar : StringUtils.substringAfter(timeOrReason.toLowerCase(), "t:").toCharArray()) {
-								if (!Character.isDigit(argChar)) {
-									timeUnit = String.valueOf(argChar);
-									String timeBetween = StringUtils.substringBetween(timeOrReason.toLowerCase(), "t:", timeUnit.toLowerCase());
-									if (StringUtils.isNumeric(timeBetween)) {
-										timeLength = Integer.parseInt(timeBetween);
-										switch (timeUnit) {
-											case "y":
-												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(timeLength, TimeHandler.TimeType.Years));
-												break;
-											case "m":
-												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(timeLength, TimeHandler.TimeType.Months));
-												break;
-											case "w":
-												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(timeLength, TimeHandler.TimeType.Weeks));
-												break;
-											case "d":
-												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(timeLength, TimeHandler.TimeType.Days));
-												break;
-											case "h":
-												banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(timeLength, TimeHandler.TimeType.Hours));
-												break;
-											default:
-												break;
-										}
-										break;
-									} else {
-										Players.sendMessage(sender, Messages.invalidCommandUsage("time / reason"));
-										return;
-									}
-								}
-							}
-							if (timeLength == 0 || timeUnit.equals("")) {
-								Players.sendMessage(sender, Messages.invalidCommandUsage("time / reason"));
-								return;
-							}
-						}
-					}
-
-					if (banExpires == 0L) {
-						banExpires = ((System.currentTimeMillis()) + TimeHandler.getTimeInMilles(10, TimeHandler.TimeType.Years));
-						isPermanent = true;
-					}
-
-					if (Players.isOnline(playerName)) {
-						Player bPlayer = Players.getPlayer(playerName);
-						playerName = bPlayer.getName();
-						bPlayer.kickPlayer(banReason);
-						Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-						Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler
-								.getDurationBreakdown(banExpires - System.currentTimeMillis())));
-					} else {
-						OfflinePlayer bPlayer = Bukkit.getOfflinePlayer(playerName);
-						if (bPlayer.hasPlayedBefore()) {
-							Commons.bansDatabase.insertPunishment(PunishmentType.BAN, playerName, banReason, bannedBy, banExpires);
-							Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannedBy, banReason, isPermanent ? "Never" : TimeHandler
-									.getDurationBreakdown(banExpires - System.currentTimeMillis())));
-						} else {
-							Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
-						}
-					}
-				} else {
-					Players.sendMessage(sender, Messages.invalidCommandUsage("ban reason"));
-				}
-			} else {
-				Players.sendMessage(sender, "&e" + playerName + " &cis already banned");
+		for (int i = 1; i < args.length; i++) {
+			if (StringUtil.startsWithIgnoreCase(args[i], "t:")) {
+				timeArg = i;
+				break;
+			}
+			banReason.append(args[i]);
+			if (i != args.length - 1) {
+				banReason.append(" ");
 			}
 		}
+
+		//If the time argument hasn't been determined, then that determines when the ban expires
+		final boolean isPermanent = timeArg == -1;
+
+		final String unparsedTime = args[timeArg];
+		final long parsedLongTime = TimeHandler.parseStringForDuration(unparsedTime);
+
+		Punishment punishment = new PunishmentBuilder().withType(PunishmentType.BAN).expiresOn(isPermanent ? (System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR)) : (System.currentTimeMillis() + parsedLongTime)).issuedOn(System.currentTimeMillis()).withIssuer(sender.getName()).withReason(banReason.toString()).build();
+
+		ListenableFuture<Boolean> banPlayerFuture;
+
+
+		if (banningPlayerIsOnline) {
+			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(banningPlayer.getUniqueId(), punishment));
+		} else {
+			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(playerName, punishment));
+		}
+
+		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean banned) {
+				if (banned) {
+					if (banningPlayerIsOnline) {
+						Players.kick(banningPlayer, banReason.toString());
+					}
+					Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannerName, banReason.toString(), isPermanent ? "Never" : TimeHandler.getDurationTrimmed(parsedLongTime)));
+				} else {
+					Players.sendMessage(sender, Messages.playerNotBanned(playerName));
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+				throwable.printStackTrace();
+			}
+		});
 	}
 }

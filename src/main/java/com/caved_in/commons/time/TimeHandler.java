@@ -48,20 +48,22 @@ public class TimeHandler {
 
 	public static long getTimeInMilles(int Amount, TimeType Type) {
 		switch (Type) {
-			case Days:
+			case DAY:
 				return (Amount * 86400000);
-			case Hours:
+			case HOUR:
 				return (Amount * 3600000);
-			case Minutes:
+			case MINUTE:
 				return (Amount * 60000);
-			case Months:
+			case MONTH:
 				return ((30 * 86400000) * Amount);
-			case Seconds:
+			case SECOND:
 				return (Amount * 1000);
-			case Weeks:
+			case WEEK:
 				return (7 * 86400000) * Amount;
-			case Years:
+			case YEAR:
 				return (365 * 86400000) * Amount;
+			case MILLESECOND:
+				return 1L;
 			default:
 				return 0L;
 		}
@@ -69,22 +71,39 @@ public class TimeHandler {
 
 	public static long getTimeInTicks(int amount, TimeType type) {
 		switch (type) {
-			case Seconds:
+			case SECOND:
 				return (20 * amount);
-			case Minutes:
+			case MINUTE:
 				return ((20 * 60) * amount);
-			case Hours:
+			case HOUR:
 				return ((20 * 60) * 60) * amount;
 			default:
 				return 0L;
 		}
 	}
 
-	public static int getSecondsFromTicks(long tickAmount) {
-		return (int) (tickAmount / 20);
+	public static long parseStringForDuration(String string) {
+		long millesDuration = 0L;
+		TimeType timeType;
+		StringBuilder sb = new StringBuilder();
+		for (char character : string.toCharArray()) {
+			String s = String.valueOf(character);
+			/*If it's a number that's being parsed then add it to the string builder
+			so we can create a whole number (ie. 1m22d would only equal 1 month 2 days otherwise
+			as it wouldn't concat the string*/
+			if (StringUtils.isNumeric(s)) {
+				sb.append(s);
+			} else if (TimeType.isTimeType(s)) {
+				//Parse the time type and the time amount, then calculate it to a duration in milleseconds
+				timeType = TimeType.getTimeType(s);
+				int timeAmount = Integer.parseInt(sb.toString());
+				millesDuration += getTimeInMilles(timeAmount, timeType);
+			}
+		}
+		return millesDuration;
 	}
 
-	public enum TimeType {
-		Years, Months, Weeks, Days, Hours, Minutes, Seconds
+	public static int getSecondsFromTicks(long tickAmount) {
+		return (int) (tickAmount / 20);
 	}
 }

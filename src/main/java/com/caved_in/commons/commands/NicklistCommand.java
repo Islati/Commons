@@ -1,9 +1,5 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.disguises.Disguise;
-import com.caved_in.commons.menu.HelpScreen;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,7 +10,7 @@ import org.bukkit.entity.Player;
 public class NicklistCommand {
 	@CommandController.CommandHandler(name = "nicklist", permission = "tunnels.common.nicklist")
 	public void getNickListCommand(Player player, String[] args) {
-		HelpScreen HelpScreen = new HelpScreen("Currently Disguised Players");
+		/*HelpScreen HelpScreen = new HelpScreen("Currently Disguised Players");
 		HelpScreen.setHeader(ChatColor.YELLOW + "<name> Page <page> of <maxpage>");
 		HelpScreen.setFormat("<name> is disguised as <desc>");
 		HelpScreen.setFlipColor(ChatColor.GREEN, ChatColor.DARK_GREEN);
@@ -28,5 +24,6 @@ public class NicklistCommand {
 		} else {
 			HelpScreen.sendTo(player, 1, 7);
 		}
+		*/
 	}
 }

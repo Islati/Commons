@@ -15,12 +15,14 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class PlayerTeleportListener implements Listener {
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
-		if (!event.isCancelled()) {
-			Location fromLocation = event.getFrom();
-			Player player = event.getPlayer();
-			if (fromLocation != null && Players.hasData(player.getName())) {
-				Players.getData(event.getPlayer()).setPreTeleportLocation(event.getFrom());
-			}
+		if (event.isCancelled()) {
+			return;
+		}
+
+		Location fromLocation = event.getFrom();
+		Player player = event.getPlayer();
+		if (fromLocation != null && Players.hasData(player.getUniqueId())) {
+			Players.getData(event.getPlayer()).setPreTeleportLocation(event.getFrom());
 		}
 	}
 }

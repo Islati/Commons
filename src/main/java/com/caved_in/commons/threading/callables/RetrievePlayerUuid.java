@@ -1,4 +1,8 @@
-package com.caved_in.commons.sql;
+package com.caved_in.commons.threading.callables;
+
+import com.caved_in.commons.player.Players;
+
+import java.util.concurrent.Callable;
 
 /**
  * ----------------------------------------------------------------------------
@@ -8,5 +12,15 @@ package com.caved_in.commons.sql;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class DisguiseDataConnector {
+public class RetrievePlayerUuid implements Callable<String> {
+	private String playerName;
+
+	public RetrievePlayerUuid(String playerName) {
+		this.playerName = playerName;
+	}
+
+	@Override
+	public String call() throws Exception {
+		return Players.getUUIDFromName(playerName);
+	}
 }

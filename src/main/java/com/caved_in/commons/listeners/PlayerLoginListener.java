@@ -25,15 +25,21 @@ public class PlayerLoginListener implements Listener {
 				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}
 		}
-		//If the server is in premium-only mode, check if the player is premium and if not kick them
-		if (configuration.hasSqlBackend()) {
-			PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
-			if (premiumConfiguration.isPremiumMode()) {
-				if (!Commons.playerDatabase.getPlayerWrapper(player.getName()).isPremium()) {
-					event.setKickMessage(premiumConfiguration.getKickMessage());
-					event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
-				}
-			}
+
+		if (!configuration.hasSqlBackend()) {
+			return;
+		}
+		/*
+		If the server is in premium-only mode check if
+		the player is premium and if not kick them
+		*/
+		PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
+		if (!premiumConfiguration.isPremiumMode()) {
+			return;
+		}
+		if (!Commons.playerDatabase.getPlayerWrapper(player.getUniqueId()).isPremium()) {
+			event.setKickMessage(premiumConfiguration.getKickMessage());
+			event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 		}
 	}
 }

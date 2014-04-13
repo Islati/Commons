@@ -1,5 +1,7 @@
 package com.caved_in.commons.bans;
 
+import java.util.UUID;
+
 /**
  * @author Brandon Curtis
  * @since 1.0
@@ -34,6 +36,6 @@ public interface IPunishment {
 	/**
 	 * @return name of the person who issue the punishment
 	 */
-	public String getIssuer();
+	public UUID getIssuer();
 
 }

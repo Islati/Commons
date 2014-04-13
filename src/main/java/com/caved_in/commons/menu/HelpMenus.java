@@ -1,12 +1,8 @@
-package com.caved_in.commons.commands;
+package com.caved_in.commons.menu;
 
-import com.caved_in.commons.friends.Friend;
-import com.caved_in.commons.menu.HelpScreen;
-import com.caved_in.commons.player.Players;
 import org.bukkit.ChatColor;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Brandon Curtis
@@ -97,12 +93,14 @@ public class HelpMenus {
 		return nicknameHelpsScreen;
 	}
 
+	/*
+
 	public static HelpScreen getFriendsListScreen(Set<Friend> friendsList) {
 		HelpScreen requestScreen = generateHelpScreen("Your friends list", PageDisplay.DEFAULT, ItemFormat.IS, ChatColor.WHITE, ChatColor.WHITE);
 		for (Friend friend : friendsList) {
-			boolean isOnline = Players.isOnline(friend.getFriendName());
+			boolean isOnline = Players.isOnline(friend.getFriendId());
 			ChatColor friendColor = isOnline ? ChatColor.GREEN : ChatColor.RED;
-			requestScreen.setEntry(friendColor + friend.getFriendName() + ChatColor.YELLOW, "currently " + friendColor + (isOnline ? "online" : "offline") + ".");
+			requestScreen.setEntry(friendColor + friend.getFriendId() + ChatColor.YELLOW, "currently " + friendColor + (isOnline ? "online" : "offline") + ".");
 		}
 		return requestScreen;
 	}
@@ -110,7 +108,7 @@ public class HelpMenus {
 	public static HelpScreen getFriendRequestsHelpScreen(Set<Friend> friendsList) {
 		HelpScreen requestScreen = generateHelpScreen("Friend Requests", PageDisplay.DEFAULT, ItemFormat.FRIEND_REQUEST, ChatColor.GREEN, ChatColor.DARK_GREEN);
 		for (Friend friend : friendsList) {
-			requestScreen.setEntry(friend.getFriendName(), "");
+			requestScreen.setEntry(friend.getFriendId(), "");
 		}
 		return requestScreen;
 	}
@@ -127,4 +125,5 @@ public class HelpMenus {
 		friendScreen.setEntry("/friends deny <Username>", "Deny a friend request from this user");
 		return friendScreen;
 	}
+	*/
 }

@@ -2,6 +2,8 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.Entities;
@@ -15,6 +17,7 @@ import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Sets;
+import com.google.gson.Gson;
 import net.minecraft.util.io.netty.channel.Channel;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
@@ -24,49 +27,55 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
+
+import static com.caved_in.commons.Commons.messageConsole;
 
 
 public class Players {
 	private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
-
-	public static final int DEPTH_EQUILZE_NUMBER = 63;
+	public static final String DEFAULT_PREFIX = "Member";
+	public static final int DEPTH_EQUALIZE_NUMBER = 63;
 	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
-	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
+//	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
+
+	private static Map<UUID, PlayerWrapper> playerData = new HashMap<>();
+
+	private static Gson gson = new Gson();
 
 	/**
-	 * Check if a player with the given name has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
+	 * Check if a player has loaded data
 	 *
-	 * @param playerName name to check if data exists for
+	 * @param playerId UUID to check if data exists for
 	 * @return true if the player has loaded data, false otherwise
 	 */
-	public static boolean hasData(String playerName) {
-		return playerData.containsKey(playerName);
-	}
-
-	/**
-	 * Check if the player has a loaded {@link com.caved_in.commons.player.PlayerWrapper}
-	 *
-	 * @param player player to check if data exists for
-	 * @return true if the player has loaded data, false otherwise
-	 */
-	private static boolean hasData(Player player) {
-		return playerData.containsKey(player.getName());
+	public static boolean hasData(UUID playerId) {
+		return playerData.containsKey(playerId);
 	}
 
 	/**
 	 * Gets the playerwrapper instance for a player with the given name
 	 *
-	 * @param playerName name of the player to get the playerwrapper instance for
+	 * @param playerId uuid of the player to get the playerwrapper for
 	 * @return PlayerWrapper for the given player, otherwise null if none exists
 	 * @see com.caved_in.commons.player.PlayerWrapper
 	 * @since 1.0
 	 */
-	public static PlayerWrapper getData(String playerName) {
-		return playerData.get(playerName);
+	public static PlayerWrapper getData(UUID playerId) {
+		return playerData.get(playerId);
 	}
 
 	/**
@@ -78,7 +87,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static PlayerWrapper getData(Player player) {
-		return playerData.get(player.getName());
+		return playerData.get(player.getUniqueId());
 	}
 
 	/**
@@ -91,31 +100,36 @@ public class Players {
 	 * @param player player to initiate the data for
 	 * @since 1.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static void addData(Player player) {
+		UUID playerId = player.getUniqueId();
 		String playerName = player.getName();
 
 		PlayerWrapper playerWrapper;
 
-		if (Commons.hasSqlBackend()) {
-			if (Commons.playerDatabase.hasData(playerName)) {
-				Commons.messageConsole("&a" + playerName + " has data, attempting to load it.");
-				if (hasData(playerName)) {
-					playerData.remove(playerName);
-					Commons.messageConsole("&aRemoved pre-cached data for " + playerName);
-				}
-			} else {
-				Commons.messageConsole("&e" + playerName + " has no data, inserting defaults.");
-				Commons.playerDatabase.insertDefaults(playerName);
-				Commons.messageConsole("&aInserted defaults for " + playerName + ", and loaded the default values");
-			}
-			playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerName);
-			playerWrapper.setTagColor(getNameTagColor(player));
-			Commons.messageConsole("&aLoaded data for " + playerName);
-			playerData.put(playerName, playerWrapper);
-		} else {
+		//If there's no SQL backend for commons, then just load a 'null' / default wrapper
+		if (!Commons.hasSqlBackend()) {
 			playerWrapper = new PlayerWrapper(playerName, 0);
-			playerData.put(playerName,playerWrapper);
+			playerData.put(playerId, playerWrapper);
+			return;
 		}
+
+		//If the player doesn't have data in the database, and the insertion of defaults didnt work send them a message
+		if (!Commons.playerDatabase.hasData(playerId)) {
+			Commons.playerDatabase.insertDefaultData(player);
+		}
+		messageConsole(Messages.playerDataLoadAttempt(playerName));
+		//If the player has any cached data: remove it
+		if (hasData(playerId)) {
+			playerData.remove(playerId);
+			messageConsole(Messages.playerDataRemoveCache(playerName));
+		}
+
+		//Create a player wrapper from the data in the database and load it to the cache
+		playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerId);
+		playerWrapper.setTagColor(getNameTagColor(player));
+		Commons.messageConsole("&aLoaded data for " + playerName);
+		playerData.put(playerId, playerWrapper);
 	}
 
 	public static void addXp(Player player, int amount) {
@@ -143,7 +157,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void updateData(PlayerWrapper playerWrapper) {
-		playerData.put(playerWrapper.getName(), playerWrapper);
+		playerData.put(playerWrapper.getId(), playerWrapper);
 		//If the commons is being backed
 		if (Commons.hasSqlBackend()) {
 			Commons.playerDatabase.syncPlayerWrapperData(playerWrapper);
@@ -157,20 +171,20 @@ public class Players {
 	 * before removing it.
 	 * </p>
 	 *
-	 * @param playerName name of the player to remove the data for
+	 * @param playerId name of the player to remove the data for
 	 * @since 1.0
 	 */
-	public static void removeData(String playerName) {
-		if (Commons.hasSqlBackend() && hasData(playerName)) {
-			Commons.messageConsole("&aPreparing to sync " + playerName + "'s data to database");
-			Commons.playerDatabase.syncPlayerWrapperData(playerData.get(playerName));
-			Commons.messageConsole("&a" + playerName + "'s data has been synchronized");
+	public static void removeData(UUID playerId) {
+		if (Commons.hasSqlBackend() && hasData(playerId)) {
+			Commons.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
+			Commons.playerDatabase.syncPlayerWrapperData(playerData.get(playerId));
+			Commons.messageConsole("&a" + playerId + "'s data has been synchronized");
 		}
-		playerData.remove(playerName);
+		playerData.remove(playerId);
 	}
 
 	/**
-	 * Checks whether or not a player is online whos name is similar to {@param playerName}
+	 * Checks whether or not a player is online who's name is similar to {@param playerName}
 	 *
 	 * @param playerName name of the player to check whether-or-not they're online
 	 * @return true if there's a player online with a similar name, false otherwise
@@ -191,6 +205,7 @@ public class Players {
 	 * @see Bukkit#getPlayerExact(String)
 	 * @since 1.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static boolean isOnlineExact(String playerName) {
 		return Bukkit.getPlayerExact(playerName) != null;
 	}
@@ -221,6 +236,7 @@ public class Players {
 	 * @see Bukkit#getPlayerExact(String)
 	 * @since 1.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static boolean isOnlineFuzzy(String playerName) {
 		return getPlayer(playerName) != null;
 	}
@@ -234,14 +250,27 @@ public class Players {
 	 *
 	 * @param playerName name of the player to get the player-object for
 	 * @return Player whos name matched the name checked for; Null if they're not online/doesn't exist
-	 * @see Bukkit#getPlayer(String)
-	 * @since 1.0
+	 * @since 1.2.2
 	 */
 	@Deprecated
+	@SuppressWarnings("deprecation")
 	public static Player getPlayer(String playerName) {
-		return Bukkit.getPlayer(playerName);
+		for (Player player : allPlayers()) {
+			if (playerName.equalsIgnoreCase(player.getName())) {
+				return player;
+			}
+		}
+		return null;
 	}
 
+	/**
+	 * Gets a player with the correlating unique ID
+	 *
+	 * @param uniqueId id of the player to get
+	 * @return player with the matching id, or null if the player's not online
+	 * @see Bukkit#getPlayer(java.util.UUID)
+	 * @since 1.2.2
+	 */
 	public static Player getPlayer(UUID uniqueId) {
 		return Bukkit.getPlayer(uniqueId);
 	}
@@ -252,10 +281,10 @@ public class Players {
 	 * @param playerWrapper wrapped player object to get the actual player object of
 	 * @return Player that was wrapped by the playerwrapper; null if there is no player online with matching credentials
 	 * @see com.caved_in.commons.player.PlayerWrapper
-	 * @since 1.0
+	 * @since 1.2.2
 	 */
 	public static Player getPlayer(PlayerWrapper playerWrapper) {
-		return getPlayer(playerWrapper.getName());
+		return getPlayer(playerWrapper.getId());
 	}
 
 	/**
@@ -271,12 +300,83 @@ public class Players {
 	 * @see Bukkit#getPlayer(String)
 	 * @since 1.0
 	 */
+	@SuppressWarnings("deprecation")
 	public static String getName(String partialPlayerName) {
-		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : partialPlayerName;
+		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : null;
+	}
+
+	public static String getNameFromUUID(UUID uuid) {
+		return getNameFromUUID(uuid.toString());
+	}
+
+	public static String getNameFromUUID(String uuid) {
+		String name = null;
+		try {
+			URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
+			URLConnection connection = url.openConnection();
+			Scanner jsonScanner = new Scanner(connection.getInputStream(), "UTF-8");
+			String json = jsonScanner.next();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(json);
+			name = (String) ((JSONObject) obj).get("name");
+			jsonScanner.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return name;
+	}
+
+	public static String getUUIDFromName(String name) {
+		try {
+			ProfileData profC = new ProfileData(name);
+			String UUID = null;
+			for (int i = 1; i <= 100; i++) {
+				PlayerProfile[] result = postPlayerProfile(new URL("https://api.mojang.com/profiles/page/" + i), Proxy.NO_PROXY, gson.toJson(profC).getBytes());
+				if (result.length == 0) {
+					break;
+				}
+				UUID = result[0].getId();
+			}
+			return UUID;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private static PlayerProfile[] postPlayerProfile(URL url, Proxy proxy, byte[] bytes) throws IOException {
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
+		connection.setRequestMethod("POST");
+		connection.setRequestProperty("Content-Type", "application/json");
+		connection.setDoInput(true);
+		connection.setDoOutput(true);
+
+		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+		out.write(bytes);
+		out.flush();
+		out.close();
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		StringBuilder response = new StringBuilder();
+		String line;
+		while ((line = reader.readLine()) != null) {
+			response.append(line);
+			response.append('\r');
+		}
+		reader.close();
+		return gson.fromJson(response.toString(), SearchResult.class).getProfiles();
 	}
 
 	public static UUID getUniqueId(Player player) {
 		return player.getUniqueId();
+	}
+
+	@SuppressWarnings("deprecation")
+	public static UUID getUniqueId(String playerName) {
+		if (!isOnline(playerName)) {
+			return null;
+		}
+		return getPlayer(playerName).getUniqueId();
 	}
 
 	/**
@@ -422,7 +522,7 @@ public class Players {
 	 * Sends messages to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
 	 *
 	 * @param messageReceiver commandsender to send the message to
-	 * @param messages      messages to send
+	 * @param messages        messages to send
 	 * @since 1.0
 	 */
 	public static void sendMessage(CommandSender messageReceiver, String... messages) {
@@ -434,24 +534,27 @@ public class Players {
 	/**
 	 * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
 	 *
-	 * @param messageReceiver commandsender to send the message to
-	 * @param message       message to send
+	 * @param messageReceiver receiver of the message
+	 * @param message         message to send
 	 * @since 1.0
 	 */
 	public static void sendMessage(CommandSender messageReceiver, String message) {
-		messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
+		if (message != null) {
+			messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
+		}
 	}
 
 
 	/**
-	 * Sends a message to the receiver
-	 * @param messageReceiver
-	 * @param message
-	 * @param messageAmount
+	 * Sends a message to the receiver a specific number of times;
+	 *
+	 * @param messageReceiver the receiver of this message
+	 * @param message         message to send to the receiver
+	 * @param messageAmount   how many times the message is to be sent
 	 */
 	public static void sendRepeatedMessage(CommandSender messageReceiver, String message, int messageAmount) {
-		for(int i = 0; i < messageAmount; i++) {
-			sendMessage(messageReceiver,message);
+		for (int i = 0; i < messageAmount; i++) {
+			sendMessage(messageReceiver, message);
 		}
 	}
 
@@ -542,8 +645,26 @@ public class Players {
 		return hasPermission(player, permission.toString());
 	}
 
-	public static boolean hasPlayed(String playerName) {
-		return Commons.hasSqlBackend() && Commons.playerDatabase.hasData(playerName);
+	public static boolean hasActivePunishment(UUID uniqueId, PunishmentType type) {
+		Set<Punishment> punishments = Commons.playerDatabase.getActivePunishments(uniqueId);
+		for (Punishment punishment : punishments) {
+			if (type == punishment.getPunishmentType()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean hasActivePunishment(Player player, PunishmentType type) {
+		return hasActivePunishment(player.getUniqueId(), type);
+	}
+
+	public static boolean hasPlayed(UUID playerId) {
+		return isOnline(playerId) || Commons.hasSqlBackend() && Commons.playerDatabase.hasData(playerId);
+	}
+
+	public static boolean hasPlayed(String name) {
+		return isOnline(name) || Commons.hasSqlBackend() && Commons.playerDatabase.hasData(name);
 	}
 
 	/**
@@ -573,22 +694,21 @@ public class Players {
 	 *
 	 * @param player player to check permissions for
 	 * @return true if they can chat while its silenced (has premium), false otherwise
-	 * @see #isPremium(String)
-	 * @since 1.0
+	 * @since 1.2.2
 	 */
 	public static boolean canChatWhileSilenced(Player player) {
-		return (isPremium(player.getName()));
+		return (hasPermission(player, Permission.CHAT_WHILE_SILENCED));
 	}
 
 	/**
 	 * Check whether or not the player is premium
 	 *
-	 * @param playerName name of the player to check the premium status of
-	 * @return true if a player with the requested name has premium, false if they have no data, or are not premium
+	 * @param playerId uuid of the player to check the premium status of
+	 * @return true if the player is premium, false if not.
 	 * @since 1.0
 	 */
-	public static boolean isPremium(String playerName) {
-		return playerData.containsKey(playerName) && playerData.get(playerName).isPremium();
+	public static boolean isPremium(UUID playerId) {
+		return playerData.containsKey(playerId) && playerData.get(playerId).isPremium();
 	}
 
 	/**
@@ -596,11 +716,11 @@ public class Players {
 	 *
 	 * @param player player to check the premium status of
 	 * @return true if they have premium status, false otherwise
-	 * @see #isPremium(String)
+	 * @see #isPremium(java.util.UUID)
 	 * @since 1.0
 	 */
 	public static boolean isPremium(Player player) {
-		return isPremium(player.getName());
+		return isPremium(player.getUniqueId());
 	}
 
 	/**
@@ -769,12 +889,24 @@ public class Players {
 	 * @param excludedPlayers names of the players to exclude from the set
 	 * @return set of all players
 	 */
+	@SuppressWarnings("deprecation")
 	public static Set<Player> allPlayersExcept(String... excludedPlayers) {
 		Set<Player> players = new HashSet<>();
 		Set<String> names = Sets.newHashSet(excludedPlayers);
 		for (Player player : allPlayers()) {
 			if (!names.contains(player.getName())) {
 				players.add(player);
+			}
+		}
+		return players;
+	}
+
+	public static Set<Player> allPlayersExcept(UUID... playerIds) {
+		Set<Player> players = Sets.newHashSet(allPlayers());
+		Set<UUID> uniqueIds = Sets.newHashSet(playerIds);
+		for (Player player : allPlayers()) {
+			if (uniqueIds.contains(player.getUniqueId())) {
+				players.remove(player);
 			}
 		}
 		return players;
@@ -829,7 +961,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	private static int getEqualizedDepth(Player player) {
-		return getDepth(player) - DEPTH_EQUILZE_NUMBER;
+		return getDepth(player) - DEPTH_EQUALIZE_NUMBER;
 	}
 
 	/**
@@ -988,8 +1120,8 @@ public class Players {
 	}
 
 	public static void playSoundAll(Sound sound, int volume, float f) {
-		for(Player p : allPlayers()) {
-			Sounds.playSound(p,sound,volume,f);
+		for (Player p : allPlayers()) {
+			Sounds.playSound(p, sound, volume, f);
 		}
 	}
 
@@ -1035,8 +1167,7 @@ public class Players {
 	 * @return connection for the player, or null if none exists
 	 */
 	public static Object getConnection(Player player) {
-		Object connection = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", toEntityPlayer(player));
-		return connection;
+		return ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", toEntityPlayer(player));
 	}
 
 	/**
@@ -1066,6 +1197,34 @@ public class Players {
 		} catch (IllegalAccessException e) {
 			Commons.messageConsole("Failed to get the channel of player: " + player.getName());
 			return null;
+		}
+	}
+
+	private static class PlayerProfile {
+		private String id;
+
+		public String getId() {
+			return id;
+		}
+	}
+
+	private static class SearchResult {
+		private PlayerProfile[] profiles;
+
+		public PlayerProfile[] getProfiles() {
+			return profiles;
+		}
+	}
+
+	private static class ProfileData {
+
+		@SuppressWarnings("unused")
+		private String name;
+		@SuppressWarnings("unused")
+		private String agent = "minecraft";
+
+		public ProfileData(String name) {
+			this.name = name;
 		}
 	}
 }

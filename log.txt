@@ -1,0 +1,37 @@
+x---------------------------x
+|	[Symbol]   |   [Desc]	|
+|--------------|------------|
+|	    -	   |  Removed 	|
+|---------------------------|
+|		~	   |  Modified 	|
+|---------------------------|
+|		+	   |	Added	|
+x---------------------------x
+
+
+
+April 7'th, 2014:
+	- Removed friends list / friends functionality; Moving it to its own plugins for public release. later.
+	~ Worked on the data connectors classes and more migration to a stable database backend
+
+April 8'th 2014:
+	~ Worked more on the database backend, near finished the players SQL
+
+April 9'th 2014:
+	~ More work on player name -> player uid migration
+	~ Merged DataConnector classes for player-related actions into playerDataConnector
+	+ Updated command configuration to have a map of commands (for enabling / disabling commands within commons)
+	+ Added SetPrefix Command
+	+ Added debugging for command pre-process listener (for players in debug mode)
+
+April 10'th 2014:
+	~ Worked more on database refactoring and fixing bugs within the commands.
+	+ Added new package for callables
+
+April 12'th 2014:
+	- Removed all remnants of old database classes
+	+ Added new callables for ban commands
+	+ Added new callables for retrieving info from mojang servers
+	+ Added new TimeType class
+	~ Updates TimeHandler to have a parsing function, to parse strings for (2d1h10i -> 2 Days, 1 hour, and 10 minutes)
+	+ Created a pardon players callable

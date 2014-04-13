@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 /**
  * ----------------------------------------------------------------------------
@@ -18,12 +19,15 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  * ----------------------------------------------------------------------------
  */
 public class Debugger {
-	public static final String BLOCK_BREAK_MESSAGE = "&9@[%sx,%sy,%sz]: &e#%s &7(%s) &r[%s] (%s/15)";
-	public static final String INVENTORY_CLICK_MESSAGE = "&7[%s / %s] (%s / %s)";
+	private static final String BLOCK_BREAK_MESSAGE = "&9@[%sx,%sy,%sz]: &e#%s &7(%s) &r[%s] (%s/15)";
+	private static final String INVENTORY_CLICK_MESSAGE = "&7[%s / %s] (%s / %s)";
+	private static final String COMMAND_PREPROCESS_MESSAGE = "&7/%s &r has &l%s&r arguments %s&7";
 
 	public static void debugEvent(Player player, Event event) {
 		if (event instanceof BlockBreakEvent) {
 			debugBlockBreakEvent(player, (BlockBreakEvent) event);
+		} else if (event instanceof InventoryClickEvent) {
+			debugInventoryClickEvent(player, (InventoryClickEvent) event);
 		}
 	}
 
@@ -43,5 +47,20 @@ public class Debugger {
 		int slot = event.getSlot();
 		String inventoryMessage = String.format(INVENTORY_CLICK_MESSAGE, slot, rawSlot, clickType, action);
 		Players.sendMessage(player, inventoryMessage);
+	}
+
+	public static void debugCommandPreProcessEvent(Player player, PlayerCommandPreprocessEvent event) {
+		String command = event.getMessage();
+		String addition = "";
+		String[] args = command.split(" ");
+		int argLength = args.length;
+		//Check the arguments and parse them
+		if (argLength > 0) {
+			for (int i = 0; i < argLength; i++) {
+				addition += "[" + i + " -> " + args[i] + "]" + (i == (argLength - 1) ? "" : ", ");
+			}
+		}
+		String message = String.format(COMMAND_PREPROCESS_MESSAGE, command, argLength, addition);
+		Players.sendMessage(player, message);
 	}
 }

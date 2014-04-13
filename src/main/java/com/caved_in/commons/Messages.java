@@ -30,6 +30,28 @@ public class Messages {
 	public static final String FAILED_TO_CREATE_DATAWATCHER = "Failed to create new DataWatcher!";
 	public static final String CANT_CREATE_NULL_PACKETS = "Cannot create a Packet with a NULL handle!";
 
+	public static final String ERROR_RETRIEVING_PLAYER_DATA = "&cThere was an error retrieving the players data";
+
+	public static String playerDataLoadAttempt(String playerName) {
+		return String.format("&e%s&a has data, attempting to load it.", playerName);
+	}
+
+	public static String playerDataLoaded(String playerName) {
+		return String.format("&aLoaded data for &e%s", playerName);
+	}
+
+	public static String playerDataDefaultCreated(String playerName) {
+		return String.format("&aCreated defaults for &e%s", playerName);
+	}
+
+	public static String playerDataRemoveCache(String playerName) {
+		return String.format("&e%s had cached data so it's been removed", playerName);
+	}
+
+	public static String playerNeverPlayed(String playerName) {
+		return invalidPlayer(playerName);
+	}
+
 	public static String playerOffline(String playerName) {
 		return String.format("&e%s&cis offline", playerName);
 	}
@@ -112,6 +134,10 @@ public class Messages {
 
 	public static String playerUnbanned(String playerName, String pardonIssuer) {
 		return String.format("&a%s&e has been unbanned by &a%s", playerName, pardonIssuer);
+	}
+
+	public static String playerPardoned(String playerName) {
+		return String.format("&e%s&a has been pardoned", playerName);
 	}
 
 	public static String playerNotBanned(String playerName) {

@@ -11,6 +11,7 @@ import java.util.Map;
 public class Chat {
 	private static Map<String, ChatMessage> recentChatters = new HashMap<String, ChatMessage>();
 
+
 	/**
 	 * Checks whether a player has a recent chat message
 	 *

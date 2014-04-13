@@ -11,11 +11,10 @@ import com.caved_in.commons.menu.serverselection.ServerMenuWrapper;
 import com.caved_in.commons.npc.NPC;
 import com.caved_in.commons.npc.NpcHandler;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.sql.BansSQL;
-import com.caved_in.commons.sql.DisguiseSQL;
-import com.caved_in.commons.sql.FriendSQL;
-import com.caved_in.commons.sql.PlayerSQL;
+import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.RunnableManager;
+import com.caved_in.commons.threading.executors.BukkitExecutors;
+import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warps;
 import org.bukkit.Bukkit;
@@ -29,6 +28,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
+import java.util.UUID;
 
 public class Commons extends JavaPlugin {
 
@@ -37,18 +37,18 @@ public class Commons extends JavaPlugin {
 
 	private static Commons plugin;
 
-	public static BansSQL bansDatabase = null;
-	public static DisguiseSQL disguiseDatabase = null;
-	public static FriendSQL friendDatabase = null;
-	public static PlayerSQL playerDatabase = null;
-
 	public static RunnableManager threadManager;
+	public static BukkitScheduledExecutorService syncExecutor;
+	public static BukkitScheduledExecutorService asyncExecutor;
 	public static ServerMenuWrapper serverMenu;
 
 	public static String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
 	private static String PLUGIN_DATA_FOLDER = "plugins/Commons/";
 
 	private static Configuration globalConfig = new Configuration();
+
+	//Database connectors
+	public static ServerDatabaseConnector playerDatabase = null;
 
 	//Whether or not the PopupMenuAPI is available
 	private boolean hasPopupApi = false;
@@ -83,8 +83,12 @@ public class Commons extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		threadManager = new RunnableManager(this); // New Thread handler
+		//Create our thread handlers and execution services
+		threadManager = new RunnableManager(this);
+		syncExecutor = BukkitExecutors.newSynchronous(this);
+		asyncExecutor = BukkitExecutors.newAsynchronous(this);
 
+		//Create the default configuration
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdir();
 		}
@@ -101,26 +105,8 @@ public class Commons extends JavaPlugin {
 		//If the SQL Backend is enabled, then register all the database interfaces
 		if (hasSqlBackend()) {
 			SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
-
-			// Init connection to bans SQL
-			bansDatabase = new BansSQL(sqlConfig);
-			// Init Disguise sql
-			disguiseDatabase = new DisguiseSQL(sqlConfig);
-			// Init friends sql
-			friendDatabase = new FriendSQL(sqlConfig);
-			// Initialize the players sql
-			playerDatabase = new PlayerSQL(sqlConfig);
-
-			//Register the "Keep-Alive" thread for databases
-			threadManager.registerSynchRepeatTask("sqlRefresh", new Runnable() {
-				@Override
-				public void run() {
-					bansDatabase.refreshConnection();
-					disguiseDatabase.refreshConnection();
-					friendDatabase.refreshConnection();
-					playerDatabase.refreshConnection();
-				}
-			}, 36000, 36000);
+			//Create the player database connection
+			playerDatabase = new ServerDatabaseConnector(sqlConfig);
 		}
 
 		//If the commands are to be registered: do so.
@@ -280,7 +266,6 @@ public class Commons extends JavaPlugin {
 			if (!configFile.exists()) {
 				configSerializer.write(new Configuration(), configFile);
 			}
-
 			globalConfig = configSerializer.read(Configuration.class, configFile);
 			return true;
 		} catch (Exception Ex) {
@@ -292,6 +277,7 @@ public class Commons extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+
 		if (getConfiguration().getNPCSEnabled()) {
 			NpcHandler npcHandler = NpcHandler.getInstance();
 			npcHandler.shutdown();
@@ -301,11 +287,11 @@ public class Commons extends JavaPlugin {
 		Bukkit.getScheduler().cancelTasks(this);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			String playerName = player.getName();
-			Players.removeData(playerName);
-			if (hasSqlBackend()) {
-				disguiseDatabase.deletePlayerDisguiseData(playerName);
-			}
+			UUID playerId = player.getUniqueId();
+			Players.removeData(playerId);
+//			if (hasSqlBackend()) {
+//				disguiseDatabase.deletePlayerDisguiseData(playerName);
+//			}
 		}
 
 		Warps.saveWarps();

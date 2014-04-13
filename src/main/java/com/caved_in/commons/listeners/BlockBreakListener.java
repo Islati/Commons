@@ -17,14 +17,15 @@ public class BlockBreakListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
+		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
+			return;
+		}
 		Player player = event.getPlayer();
 		PlayerWrapper playerWrapper = Players.getData(player);
 		//If block breaking is disabled
-		if (!Commons.getWorldConfig().isBlockBreakEnabled()) {
-			//If the player doesn't have the permission to break blocks, disable it
-			if (!Players.hasPermission(player, Permission.BLOCK_BREAK)) {
-				event.setCancelled(true);
-			}
+		//If the player doesn't have the permission to break blocks, disable it
+		if (!Players.hasPermission(player, Permission.BLOCK_BREAK)) {
+			event.setCancelled(true);
 		}
 		//If the player's in debug mode, then send them debug info
 		if (playerWrapper.isInDebugMode()) {
@@ -34,6 +35,9 @@ public class BlockBreakListener implements Listener {
 
 	@EventHandler
 	public void onBlockPLace(BlockPlaceEvent event) {
+		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
+			return;
+		}
 		Player player = event.getPlayer();
 		if (Commons.getConfiguration().getWorldConfig().isBlockBreakEnabled()) {
 			return;
@@ -48,6 +52,9 @@ public class BlockBreakListener implements Listener {
 
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent event) {
+		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
+			return;
+		}
 		//Clear all the blocks from the block list to assure they're not removed when exploding
 		event.blockList().clear();
 	}
