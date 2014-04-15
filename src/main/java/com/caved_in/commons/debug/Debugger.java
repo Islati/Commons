@@ -1,14 +1,20 @@
-package com.caved_in.commons.utilities;
+package com.caved_in.commons.debug;
 
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.menu.HelpMenus;
+import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.player.Players;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ----------------------------------------------------------------------------
@@ -19,9 +25,33 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
  * ----------------------------------------------------------------------------
  */
 public class Debugger {
+	private static Map<String, DebugAction> debugActions = new HashMap<>();
 	private static final String BLOCK_BREAK_MESSAGE = "&9@[%sx,%sy,%sz]: &e#%s &7(%s) &r[%s] (%s/15)";
 	private static final String INVENTORY_CLICK_MESSAGE = "&7[%s / %s] (%s / %s)";
 	private static final String COMMAND_PREPROCESS_MESSAGE = "&7/%s &r has &l%s&r arguments %s&7";
+	private static HelpScreen debuggerHelpScreen = null;
+
+	public static void addDebugAction(DebugAction action) {
+		debugActions.put(action.getActionName().toLowerCase(), action);
+	}
+
+	public static boolean isDebugAction(String name) {
+		return debugActions.containsKey(name.toLowerCase());
+	}
+
+	public static DebugAction getDebugAction(String name) {
+		return debugActions.get(name.toLowerCase());
+	}
+
+	public static HelpScreen getDebugMenu() {
+		if (debuggerHelpScreen == null) {
+			debuggerHelpScreen = HelpMenus.generateHelpScreen("Debugger - Actions List", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
+			for (String action : debugActions.keySet()) {
+				debuggerHelpScreen.setEntry("/debug " + action, "");
+			}
+		}
+		return debuggerHelpScreen;
+	}
 
 	public static void debugEvent(Player player, Event event) {
 		if (event instanceof BlockBreakEvent) {

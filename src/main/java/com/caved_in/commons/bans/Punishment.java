@@ -102,10 +102,6 @@ public class Punishment implements IPunishment {
 		this.reason = reason;
 	}
 
-	public void setIssuer(String issuer) {
-		this.issuer = UUID.fromString(issuer);
-	}
-
 	public void setIssuer(UUID uuid) {
 		issuer = uuid;
 	}

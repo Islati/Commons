@@ -15,7 +15,7 @@ public class PunishmentBuilder {
 	private long expiry;
 	private long issued;
 	private String reason;
-	private String issuer;
+	private UUID issuer;
 
 	public PunishmentBuilder() {
 	}
@@ -40,13 +40,8 @@ public class PunishmentBuilder {
 		return this;
 	}
 
-	public PunishmentBuilder withIssuer(String issuer) {
-		this.issuer = issuer;
-		return this;
-	}
-
 	public PunishmentBuilder withIssuer(UUID issuer) {
-		this.issuer = issuer.toString();
+		this.issuer = issuer;
 		return this;
 	}
 

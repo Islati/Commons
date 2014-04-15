@@ -26,7 +26,11 @@ public class Locations {
 	}
 
 	public static boolean isPlayerInRadius(Location location, double radius, Player player) {
-		return player.getLocation().distanceSquared(location) <= (radius * radius);
+		return isEntityInRadius(location, radius, player);
+	}
+
+	public static boolean isEntityInRadius(Location center, double radius, LivingEntity entity) {
+		return center.distanceSquared(entity.getLocation()) <= (radius * radius);
 	}
 
 	public static Location getRandomLocation(Location locationCenter, int radius) {

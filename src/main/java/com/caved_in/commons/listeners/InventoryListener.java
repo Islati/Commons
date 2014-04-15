@@ -1,8 +1,8 @@
 package com.caved_in.commons.listeners;
 
+import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.utilities.Debugger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

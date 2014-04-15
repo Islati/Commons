@@ -2,9 +2,9 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Permission;
+import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.utilities.Debugger;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

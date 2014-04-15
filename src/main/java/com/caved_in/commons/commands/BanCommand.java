@@ -5,6 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.npc.EntityHuman;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.callables.BanPlayerCallable;
 import com.caved_in.commons.time.TimeHandler;
@@ -16,6 +17,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
+import java.util.UUID;
+
 public class BanCommand {
 	@CommandController.CommandHandler(name = "ban", description = "Bans a player permanately, or temporarily across all servers", permission = "tunnels.common.ban", usage = "/ban [Name] [Reason] <Time>")
 	public void onBanCommand(final CommandSender sender, String[] args) {
@@ -24,6 +27,7 @@ public class BanCommand {
 			return;
 		}
 
+		final UUID senderId = (sender instanceof Player) ? ((Player) sender).getUniqueId() : EntityHuman.NPC_UUID;
 		final String playerName = args[0];
 		final boolean banningPlayerIsOnline = Players.isOnline(playerName);
 		final Player banningPlayer = Players.getPlayer(playerName);
@@ -48,7 +52,7 @@ public class BanCommand {
 		final String unparsedTime = args[timeArg];
 		final long parsedLongTime = TimeHandler.parseStringForDuration(unparsedTime);
 
-		Punishment punishment = new PunishmentBuilder().withType(PunishmentType.BAN).expiresOn(isPermanent ? (System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR)) : (System.currentTimeMillis() + parsedLongTime)).issuedOn(System.currentTimeMillis()).withIssuer(sender.getName()).withReason(banReason.toString()).build();
+		Punishment punishment = new PunishmentBuilder().withType(PunishmentType.BAN).expiresOn(isPermanent ? (System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR)) : (System.currentTimeMillis() + parsedLongTime)).issuedOn(System.currentTimeMillis()).withIssuer(senderId).withReason(banReason.toString()).build();
 
 		ListenableFuture<Boolean> banPlayerFuture;
 
@@ -64,7 +68,7 @@ public class BanCommand {
 			public void onSuccess(Boolean banned) {
 				if (banned) {
 					if (banningPlayerIsOnline) {
-						Players.kick(banningPlayer, banReason.toString());
+						Players.kick(banningPlayer, banReason.toString(), true);
 					}
 					Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannerName, banReason.toString(), isPermanent ? "Never" : TimeHandler.getDurationTrimmed(parsedLongTime)));
 				} else {

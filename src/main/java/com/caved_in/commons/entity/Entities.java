@@ -1,6 +1,7 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
@@ -262,5 +263,15 @@ public class Entities {
 			}
 		}
 		return null;
+	}
+
+	public static Set<LivingEntity> getEntitiesNearLocation(Location center, int radius) {
+		Set<LivingEntity> entities = new HashSet<>();
+		for (LivingEntity entity : center.getWorld().getLivingEntities()) {
+			if (Locations.isEntityInRadius(center, radius, entity)) {
+				entities.add(entity);
+			}
+		}
+		return entities;
 	}
 }
