@@ -47,9 +47,6 @@ public enum PunishmentType {
 	}
 
 	public static PunishmentType getPunishmentType(int id) {
-		if (!punishmentIds.containsKey(id)) {
-			return null;
-		}
 		return punishmentIds.get(id);
 	}
 }

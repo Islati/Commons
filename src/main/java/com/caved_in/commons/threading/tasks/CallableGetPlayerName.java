@@ -1,4 +1,4 @@
-package com.caved_in.commons.threading.callables;
+package com.caved_in.commons.threading.tasks;
 
 import com.caved_in.commons.player.Players;
 
@@ -13,10 +13,10 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class RetrievePlayerName implements Callable<String> {
+public class CallableGetPlayerName implements Callable<String> {
 	private UUID uniqueId;
 
-	public RetrievePlayerName(UUID uniqueId) {
+	public CallableGetPlayerName(UUID uniqueId) {
 		this.uniqueId = uniqueId;
 	}
 

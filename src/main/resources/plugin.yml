@@ -112,6 +112,8 @@ commands:
       usage: /<command> <type> [Level]
    debug:
       usage: /<command>
+   slay:
+      usage: /<command> <radius> [kill players (yes/no)]
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

@@ -1,4 +1,4 @@
-package com.caved_in.commons.threading.callables;
+package com.caved_in.commons.threading.tasks;
 
 import com.caved_in.commons.Commons;
 import com.google.common.util.concurrent.FutureCallback;
@@ -16,18 +16,18 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class UpdatePlayerPremium implements Callable<Boolean> {
+public class CallableUpdatePlayerPremium implements Callable<Boolean> {
 	private UUID playerId;
 	private boolean premium;
 	private String playerName;
 	private boolean fetch;
 
-	public UpdatePlayerPremium(UUID playerId, boolean premium) {
+	public CallableUpdatePlayerPremium(UUID playerId, boolean premium) {
 		this.playerId = playerId;
 		this.premium = premium;
 	}
 
-	public UpdatePlayerPremium(String playerName, boolean premium) {
+	public CallableUpdatePlayerPremium(String playerName, boolean premium) {
 		this.playerName = playerName;
 		this.premium = premium;
 		fetch = true;
@@ -38,11 +38,11 @@ public class UpdatePlayerPremium implements Callable<Boolean> {
 		final UUID[] uuid = new UUID[1];
 		final boolean[] success = new boolean[1];
 		if (fetch) {
-			ListenableFuture<String> getPlayerUuid = Commons.asyncExecutor.submit(new RetrievePlayerUuid(playerName));
-			Futures.addCallback(getPlayerUuid, new FutureCallback<String>() {
+			ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(playerName));
+			Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 				@Override
-				public void onSuccess(String s) {
-					uuid[0] = UUID.fromString(s);
+				public void onSuccess(UUID id) {
+					uuid[0] = id;
 					success[0] = true;
 				}
 
@@ -58,7 +58,7 @@ public class UpdatePlayerPremium implements Callable<Boolean> {
 		}
 
 		if (success[0]) {
-			Commons.playerDatabase.updatePlayerPremium(uuid[0], premium);
+			Commons.database.updatePlayerPremium(uuid[0], premium);
 		}
 		return success[0];
 	}

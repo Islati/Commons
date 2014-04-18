@@ -144,6 +144,10 @@ public class Messages {
 		return String.format("&e%s&c is not banned", playerName);
 	}
 
+	public static String entityRemovedEntities(int amount) {
+		return String.format("&eRemoved &c%s&e mobs", amount);
+	}
+
 	public static String itemEnchantmentAdded(String enchantmentName) {
 		return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
 	}

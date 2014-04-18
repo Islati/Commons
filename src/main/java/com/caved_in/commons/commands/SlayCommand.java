@@ -44,10 +44,13 @@ public class SlayCommand {
 		Set<LivingEntity> entities = Entities.getEntitiesNearLocation(player.getLocation(), radius);
 
 		for (LivingEntity entity : entities) {
-			entity.remove();
+			//If we don't want to kill players, and the entity being looped is a player, then skip this entity
+			if (!killPlayers && entity instanceof Player) {
+				continue;
+			}
+			Entities.kill(entity);
 			amountRemoved++;
 		}
-
-		Players.sendMessage(player, "Remobed " + amountRemoved + " entities");
+		Players.sendMessage(player, Messages.entityRemovedEntities(amountRemoved));
 	}
 }

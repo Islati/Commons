@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.*;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -273,5 +274,20 @@ public class Entities {
 			}
 		}
 		return entities;
+	}
+
+	public static void kill(Damageable... damageables) {
+		for (Damageable entity : damageables) {
+			kill(entity);
+		}
+	}
+
+	public static void kill(Damageable damageable) {
+		EntityDamageEvent event = new EntityDamageEvent(damageable, EntityDamageEvent.DamageCause.CUSTOM, Double.MAX_VALUE);
+		Bukkit.getPluginManager().callEvent(event);
+		if (event.isCancelled()) {
+			return;
+		}
+		damageable.setHealth(0.0);
 	}
 }

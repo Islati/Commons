@@ -1,4 +1,4 @@
-package com.caved_in.commons.threading.callables;
+package com.caved_in.commons.threading.tasks;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
@@ -19,13 +19,13 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class PardonPlayerPunishmentsTask implements Callable<Boolean> {
+public class CallablePardonPlayerPunishments implements Callable<Boolean> {
 	private String playerPardonName;
 	private boolean console = false;
 	private UUID callingPlayer;
 	private PunishmentType type;
 
-	public PardonPlayerPunishmentsTask(String playerName, PunishmentType type) {
+	public CallablePardonPlayerPunishments(String playerName, PunishmentType type) {
 		this.playerPardonName = playerName;
 		this.type = type;
 	}
@@ -33,11 +33,15 @@ public class PardonPlayerPunishmentsTask implements Callable<Boolean> {
 	@Override
 	public Boolean call() throws Exception {
 		final boolean[] success = new boolean[1];
-		ListenableFuture<String> getPlayerId = Commons.asyncExecutor.submit(new RetrievePlayerUuid(playerPardonName));
-		Futures.addCallback(getPlayerId, new FutureCallback<String>() {
+		ListenableFuture<UUID> getPlayerId = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(playerPardonName));
+		Futures.addCallback(getPlayerId, new FutureCallback<UUID>() {
 			@Override
-			public void onSuccess(String s) {
-				final UUID uuid = UUID.fromString(s);
+			public void onSuccess(UUID uuid) {
+				if (uuid == null) {
+					Commons.messageConsole("Cant get UUID for player " + playerPardonName);
+					return;
+				}
+
 				if (!Players.hasPlayed(uuid)) {
 					String neverPlayedMessage = Messages.playerNeverPlayed(playerPardonName);
 					if (console) {
@@ -49,8 +53,8 @@ public class PardonPlayerPunishmentsTask implements Callable<Boolean> {
 					return;
 				}
 
-				if (!Players.hasActivePunishment(uuid, PunishmentType.BAN)) {
-					Commons.playerDatabase.pardonActivePunishments(uuid);
+				if (Players.hasActivePunishment(uuid, type)) {
+					Commons.database.pardonActivePunishments(uuid);
 				}
 				success[0] = true;
 			}
@@ -63,6 +67,7 @@ public class PardonPlayerPunishmentsTask implements Callable<Boolean> {
 					Players.sendMessage(Players.getPlayer(callingPlayer), Messages.ERROR_RETRIEVING_PLAYER_DATA);
 				}
 				success[0] = false;
+				Commons.messageConsole(throwable.getMessage());
 			}
 		}, Commons.asyncExecutor);
 		return success[0];

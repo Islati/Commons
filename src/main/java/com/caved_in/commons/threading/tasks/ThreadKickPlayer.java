@@ -12,11 +12,11 @@ import java.util.UUID;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class KickPlayerThread implements Runnable {
+public class ThreadKickPlayer implements Runnable {
 	private UUID id;
 	private String reason;
 
-	public KickPlayerThread(UUID id, String reason) {
+	public ThreadKickPlayer(UUID id, String reason) {
 		this.id = id;
 		this.reason = reason;
 	}

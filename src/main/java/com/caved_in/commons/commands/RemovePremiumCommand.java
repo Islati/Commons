@@ -3,7 +3,7 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.callables.UpdatePlayerPremium;
+import com.caved_in.commons.threading.tasks.CallableUpdatePlayerPremium;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -25,7 +25,7 @@ public class RemovePremiumCommand {
 			return;
 		}
 
-		ListenableFuture<Boolean> updatePremiumStatusFuture = Commons.asyncExecutor.submit(new UpdatePlayerPremium(playerName, false));
+		ListenableFuture<Boolean> updatePremiumStatusFuture = Commons.asyncExecutor.submit(new CallableUpdatePlayerPremium(playerName, false));
 		Futures.addCallback(updatePremiumStatusFuture, new FutureCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean aBoolean) {

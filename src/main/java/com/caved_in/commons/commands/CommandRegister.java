@@ -57,7 +57,7 @@ public class CommandRegister {
 		registerCommand(new BackCommand());
 		registerCommand(new WarpsCommand());
 		registerCommand(new PotionCommand());
-
+		registerCommand(new SlayCommand());
 	}
 
 	private static void registerCommand(Object commandHandler) {

@@ -33,4 +33,5 @@ public class LogicUtil {
 		System.arraycopy(values, 0, rval, array.length, values.length);
 		return rval;
 	}
+
 }

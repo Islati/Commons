@@ -38,19 +38,6 @@ public class Punishment implements IPunishment {
 		this.issuer = issuer;
 	}
 
-	/**
-	 * Constructs a new punishment object based on the punishmenttype inputted via string
-	 *
-	 * @param type     type of the punishment being issued
-	 * @param expiry   when the punishment will expire
-	 * @param issued   when the punishment was issued
-	 * @param isActive whether or not the punishment is active
-	 * @param reason   the reason for the punishment being issued
-	 * @param issuer   the person / name of who issued the punishment
-	 */
-	public Punishment(String type, long expiry, long issued, boolean isActive, String reason, UUID issuer) {
-		this(PunishmentType.getPunishmentType(type), expiry, issued, isActive, reason, issuer);
-	}
 
 	@Override
 	public PunishmentType getPunishmentType() {
