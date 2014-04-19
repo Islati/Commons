@@ -12,8 +12,12 @@ import org.bukkit.event.player.PlayerTeleportEvent;
  * Time: 7:08 PM
  */
 public class TeleportCommand {
-	@CommandController.CommandHandler(name = "tp", permission = "tunnels.common.teleport", aliases = {"teleport"})
+	@CommandController.CommandHandler(name = "tp", permission = "commons.commands.teleport", aliases = {"teleport"})
 	public void onTeleportCommand(CommandSender sender, String[] args) {
+		if (args.length == 0) {
+			Players.sendMessage(sender, Messages.invalidCommandUsage("player", "target"));
+			return;
+		}
 		//Check if the command issuer only entered one name
 		if (args.length == 1) {
 			//Check if the issuer is a player

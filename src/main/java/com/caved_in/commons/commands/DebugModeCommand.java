@@ -17,13 +17,14 @@ import org.bukkit.entity.Player;
  */
 public class DebugModeCommand {
 
-	@CommandController.CommandHandler(name = "debug", permission = "common.debugmode")
+	@CommandController.CommandHandler(name = "debug", permission = "commons.debugmode")
 	public void onDebugModeCommand(Player player, String[] args) {
 		PlayerWrapper playerWrapper = Players.getData(player);
 		if (args.length == 0) {
 			playerWrapper.setInDebugMode(!playerWrapper.isInDebugMode());
 			Players.sendMessage(player, Messages.playerDebugModeChange(playerWrapper));
 			Players.updateData(playerWrapper);
+			return;
 		}
 
 		String action = args[0];

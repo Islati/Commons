@@ -3,7 +3,7 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.config.MaintenanceConfiguration;
-import com.caved_in.commons.config.Permission;
+import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 

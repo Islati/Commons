@@ -1,8 +1,8 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import org.bukkit.GameMode;

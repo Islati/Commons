@@ -1,4 +1,4 @@
-package com.caved_in.commons.config;
+package com.caved_in.commons.permission;
 
 import java.util.EnumSet;
 import java.util.HashMap;

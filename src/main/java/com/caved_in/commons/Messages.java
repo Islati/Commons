@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Messages {
-	public static final String MESSAGE_PREFIX = "[Tunnels Network] ";
+	public static final String MESSAGE_PREFIX = "";
 	public static final String INVENTORY_CLEARED = "&aYour inventory has been cleared";
 	public static final String PLAYER_OFFLINE = "&cThe requested player is offline";
 	public static final String CHAT_SILENCED = "&7Chat is currently silenced, you are only able to chat if you have the required permissions";
@@ -29,6 +29,12 @@ public class Messages {
 	public static final String NPC_NAME_LIMIT_REACHED = "NPC's can't have names longer than 16 characters!";
 	public static final String FAILED_TO_CREATE_DATAWATCHER = "Failed to create new DataWatcher!";
 	public static final String CANT_CREATE_NULL_PACKETS = "Cannot create a Packet with a NULL handle!";
+
+	public static final String NO_TELEPORT_BACK_LOCATION = "&eThere's no going back now...";
+
+	public static final String MESSAGE_REQUIRED = "&cYou must enter a message to reply with";
+
+	public static final String NO_RECENT_MESSAGES = "&cYou haven't received any messages from anybody";
 
 	public static final String ERROR_RETRIEVING_PLAYER_DATA = "&cThere was an error retrieving the players data";
 
