@@ -4,9 +4,6 @@ import com.google.common.collect.Sets;
 
 import java.util.*;
 
-import static ch.lambdaj.Lambda.*;
-import static org.hamcrest.Matchers.is;
-
 public class FriendList {
 	private UUID playerId;
 	private Map<UUID, Friend> playerFriends = new HashMap<>();
@@ -20,7 +17,11 @@ public class FriendList {
 	public FriendList(UUID playerId, Collection<Friend> playerFriends) {
 		this.playerId = playerId;
 		//Create an indexed map of playerFriends of the Friend class where the key is the friends name
-		this.playerFriends = index(playerFriends, on(Friend.class).getFriendId());
+		for (Friend friend : playerFriends) {
+			if (friend.isAccepted()) {
+				addFriend(friend);
+			}
+		}
 	}
 
 	public UUID getPlayerId() {
@@ -52,7 +53,13 @@ public class FriendList {
 
 	public Set<Friend> getUnacceptedFriends() {
 		if (modified || unacceptedFriends == null) {
-			unacceptedFriends = Sets.newHashSet(select(getFriends(), having(on(Friend.class).isAccepted(), is(true))));
+			Set<Friend> friendSet = new HashSet<>();
+			for (Friend friend : getFriends()) {
+				if (friend.isAccepted()) {
+					friendSet.add(friend);
+				}
+			}
+			unacceptedFriends = friendSet;
 			modified = false;
 		}
 		return unacceptedFriends;

@@ -3,8 +3,10 @@ package com.caved_in.commons.commands;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.item.Enchantments;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menu.HelpMenus;
 import com.caved_in.commons.menu.HelpScreen;
+import com.caved_in.commons.menu.ItemFormat;
+import com.caved_in.commons.menu.Menus;
+import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -48,7 +50,7 @@ public class EnchantCommand {
 					Players.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
 				}
 			} else if (enchantmentName.equalsIgnoreCase("list")) {
-				HelpScreen helpScreen = HelpMenus.generateHelpScreen(ChatColor.GOLD + "Enchantments list", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
+				HelpScreen helpScreen = Menus.generateHelpScreen(ChatColor.GOLD + "Enchantments list", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
 				for (Enchantments enchantments : Enchantments.values()) {
 					helpScreen.setEntry(enchantments.getMainAlias(), StringUtil.joinString(enchantments.getAliases(), ", "));
 				}

@@ -2,8 +2,10 @@ package com.caved_in.commons.debug;
 
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.menu.HelpMenus;
 import com.caved_in.commons.menu.HelpScreen;
+import com.caved_in.commons.menu.ItemFormat;
+import com.caved_in.commons.menu.Menus;
+import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.player.Players;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
@@ -45,7 +47,7 @@ public class Debugger {
 
 	public static HelpScreen getDebugMenu() {
 		if (debuggerHelpScreen == null) {
-			debuggerHelpScreen = HelpMenus.generateHelpScreen("Debugger - Actions List", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
+			debuggerHelpScreen = Menus.generateHelpScreen("Debugger - Actions List", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
 			for (String action : debugActions.keySet()) {
 				debuggerHelpScreen.setEntry("/debug " + action, "");
 			}

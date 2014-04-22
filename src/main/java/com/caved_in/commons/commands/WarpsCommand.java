@@ -1,7 +1,9 @@
 package com.caved_in.commons.commands;
 
-import com.caved_in.commons.menu.HelpMenus;
 import com.caved_in.commons.menu.HelpScreen;
+import com.caved_in.commons.menu.ItemFormat;
+import com.caved_in.commons.menu.Menus;
+import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.warp.Warps;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
@@ -16,7 +18,7 @@ public class WarpsCommand {
 	@CommandController.CommandHandler(name = "warps", permission = "tunnels.common.warps")
 	public void onWarpsCommand(Player player, String[] args) {
 		int page = 1;
-		HelpScreen warpsMenu = HelpMenus.generateHelpScreen("Warps / Waypoints", HelpMenus.PageDisplay.DEFAULT, HelpMenus.ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
+		HelpScreen warpsMenu = Menus.generateHelpScreen("Warps / Waypoints", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
 		for (String warp : Warps.getWarps()) {
 			warpsMenu.setEntry(warp, "");
 		}
