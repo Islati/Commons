@@ -31,42 +31,60 @@ import static com.caved_in.commons.sql.DatabaseField.*;
 public class ServerDatabaseConnector extends DatabaseConnector {
 
 	//Player Data Statements
-	private static final String GET_PLAYER_DATA_STATEMENT = "SELECT " + PLAYER_TABLE + "." + PLAYER_CURRENCY + ", " +
-			"" + PLAYER_PREFIX_TABLE + "." + PLAYER_NAME_PREFIX + ", " + PREMIUM_TABLE + "." + PREMIUM_STATUS
-			+ " FROM " + PLAYER_PREFIX_TABLE + ", " + PREMIUM_TABLE + " WHERE " + PLAYER_PREFIX_TABLE + "." + PLAYER_UNIQUE_ID + "=? AND " + PREMIUM_TABLE + "" +
-			"." + PREMIUM_STATUS + "=? AND " + PLAYER_TABLE + "." + PLAYER_UNIQUE_ID + "=?";
-
-	private static final String PLAYER_HAS_DATA_UUID_STATEMENT = "SELECT * FROM " + PLAYER_TABLE + " WHERE " + PLAYER_UNIQUE_ID + "=?";
-	private static final String PLAYER_HAS_DATA_NAME_STATEMENT = "SELECT * FROM " + PLAYER_TABLE + " WHERE " + PLAYER_NAME + "=?";
+	private static final String GET_PLAYER_DATA_STATEMENT = "SELECT server_players.player_money, server_prefixes.player_prefix, server_premium.premium FROM server_players, server_prefixes, server_premium WHERE server_players.player_id=? AND server_prefixes.player_id=? AND server_premium.player_id=?";
+	private static final String PLAYER_HAS_DATA_UUID_STATEMENT = "SELECT * FROM server_players WHERE player_id=?";
+	private static final String PLAYER_HAS_DATA_NAME_STATEMENT = "SELECT * FROM server_players WHERE player_name=?";
 	//Default-data creation statements
-	private static final String INSERT_PLAYER_TABLE_DATA = "INSERT INTO " + PLAYER_TABLE + " (" + PLAYER_UNIQUE_ID + ", " + PLAYER_NAME + ", " + PLAYER_CURRENCY + ") VALUES (?,?,?)";
-	private static final String INSERT_PREMIUM_TABLE_DATA = "INSERT INTO " + PREMIUM_TABLE + " (" + PLAYER_UNIQUE_ID + ", " + PREMIUM_STATUS + ") VALUES (?,?)";
-	private static final String INSERT_PREFIX_TABLE_DATA = "INSERT INTO " + PLAYER_PREFIX_TABLE + " (" + PLAYER_UNIQUE_ID + ", " + PLAYER_NAME_PREFIX + ") VALUES (?,?)";
+	private static final String INSERT_PLAYER_TABLE_DATA = "INSERT INTO server_players (player_id, player_name, player_money) VALUES (?,?,?)";
+	private static final String INSERT_PREMIUM_TABLE_DATA = "INSERT INTO server_premium (player_id,premium) VALUES (?,?)";
+	private static final String INSERT_PREFIX_TABLE_DATA = "INSERT INTO server_prefixes (player_id, player_prefix) VALUES (?,?)";
 
 	//Server connection time
-	private static final String INSERT_SERVER_CONNECTION_DATA = "INSERT INTO " + SERVER_CONNECTION_TABLE + " (" + PLAYER_UNIQUE_ID + ", " + PLAYER_NAME + ", " + PLAYER_IP_ADDRESS + ", " + SERVER_CONNECT_TIME + ") VALUES (?,?,?,?)";
+	private static final String INSERT_SERVER_CONNECTION_DATA = "INSERT INTO server_connections (player_id,player_name, player_ip, connect_time) VALUES (?,?,?,?)";
 
 	//Punishments statements
-	private static String RETRIEVE_ALL_PLAYER_PUNISHMENTS = "SELECT * FROM " + PUNISHMENTS_TABLE + " WHERE " + PLAYER_UNIQUE_ID + "=?";
-	private static String RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS = "SELECT * FROM " + PUNISHMENTS_TABLE + " WHERE " + PLAYER_UNIQUE_ID + "=? AND pardoned=0 AND " + PUNISHMENT_EXPIRATION_TIME + " > ?";
-	private static String RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT = "SELECT Max(pun_expires) as expires, pun_reason, pun_issued, pun_giver_id FROM server_punishments WHERE player_id=? and pun_type=?";
-	private static String PARDON_ACTIVE_PUNISHMENTS = "UPDATE server_punishments SET pardoned=1 WHERE player_id=? AND pardoned=0";
+	private static String RETRIEVE_ALL_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=?";
+	private static String RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=? AND pardoned=0 AND pun_expires > ?";
+	private static String RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT = "SELECT pun_expires, pun_reason, pun_issued, pun_giver_id FROM server_punishments WHERE player_id=? and pun_type=? ORDER BY pun_expires DESC LIMIT 1";
+	private static String PARDON_ACTIVE_PUNISHMENTS = "UPDATE server_punishments SET pardoned=1 WHERE player_id=?";
 	private static String PARDON_ACTIVE_PUNISHMENTS_TYPE = "UPDATE server_punishments SET pardoned=1 WHERE pun_type=? AND player_id=? AND pardoned=0";
 	//Friends table / friends list data statement
-	private static String GET_PLAYER_FRIENDS = "SELECT * FROM " + FRIENDS_TABLE + " WHERE " + PLAYER_UNIQUE_ID + "=?";
-	private static String INSERT_FRIEND_REQUEST = "INSERT INTO " + FRIENDS_TABLE + " (" + PLAYER_UNIQUE_ID + "," + FRIEND_USER_ID + ", " + FRIEND_STATUS + ") VALUES (?,?,?)";
-	private static String UPDATE_FRIEND_REQUEST = "UPDATE " + FRIENDS_TABLE + " SET " + FRIEND_STATUS + "=? WHERE " + PLAYER_UNIQUE_ID + "=? AND " + FRIEND_USER_ID + "=?";
+	private static String GET_PLAYER_FRIENDS = "SELECT * FROM server_friends WHERE player_id=?";
+	private static String INSERT_FRIEND_REQUEST = "INSERT INTO server_friends (player_id,friend_id,friend_status) VALUES (?,?,?)";
+	private static String UPDATE_FRIEND_REQUEST = "UPDATE server_friends SET friend_status=? WHERE player_id=? AND friend_id=?";
 
 	//Online status update query
-	private static final String UPDATE_PLAYER_ONLINE_STATUS = "REPLACE INTO " + ONLINE_TABLE + " SET " + ONLINE_STATUS + "=? AND " + SERVER_ID + "=? WHERE " + PLAYER_UNIQUE_ID + "=?";
+	private static final String UPDATE_PLAYER_ONLINE_STATUS = "REPLACE INTO server_online SET online=? AND svr_id=? WHERE player_id=?";
 
 	//Player premium status update statement
-	private static final String UPDATE_PLAYER_PREMIUM_STATUS = "REPLACE INTO " + PREMIUM_TABLE + " SET " + PLAYER_UNIQUE_ID + "=? AND " + PREMIUM_STATUS + "=? WHERE " + PLAYER_UNIQUE_ID + "=?";
+	private static final String UPDATE_PLAYER_PREMIUM_STATUS = "REPLACE INTO server_premium SET player_id=? AND premium=? WHERE player_id=?";
 
 	private static final String SYNC_PLAYER_DATA = "UPDATE server_players,server_prefixes,server_premium SET server_players.player_name=?, server_players.player_money=?, server_prefixes.player_prefix=?, server_premium.premium=? WHERE server_players.player_id=? AND server_premium.player_id=? AND server_prefixes.player_id=?";
 
+	private static final String[] TABLE_CREATION_STATEMENTS = new String[]{
+			"CREATE TABLE IF NOT EXISTS `server_online` (`player_id` varchar(36) NOT NULL, `online` tinyint(1) NOT NULL, `svr_id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+			"CREATE TABLE IF NOT EXISTS `server_players` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT, `player_id` varchar(36) NOT NULL, `player_name` varchar(16) NOT NULL, `player_money` double NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
+			"CREATE TABLE IF NOT EXISTS `server_prefixes` (`player_id` varchar(36) NOT NULL, `player_prefix` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;"
+	};
+
 	public ServerDatabaseConnector(SqlConfiguration sqlConfiguration) {
 		super(sqlConfiguration);
+		executeCreationStatements();
+	}
+
+	private void executeCreationStatements() {
+		for (String statement : TABLE_CREATION_STATEMENTS) {
+			PreparedStatement preparedStatement = prepareStatement(statement);
+			try {
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(preparedStatement);
+			}
+		}
 	}
 
 	public PlayerWrapper getPlayerWrapper(Player player) {
@@ -109,9 +127,10 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		try {
 			//Assign the first 3 variables in the statement to the unique ID (user id)
 			String uidString = playerId.toString();
-			for (int i = 0; i < 3; i++) {
-				statement.setString(i, uidString);
-			}
+			statement.setString(1, uidString);
+			statement.setString(2, uidString);
+			statement.setString(3, uidString);
+
 			//Execute the query and get the resultset from it
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
@@ -189,7 +208,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
 	public Set<Punishment> getActivePunishments(UUID playerId) {
 		long timeStamp = System.currentTimeMillis();
-		PreparedStatement statement = prepareStatement(RETRIEVE_ALL_PLAYER_PUNISHMENTS);
+		PreparedStatement statement = prepareStatement(RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS);
 		Set<Punishment> punishments = new HashSet<>();
 		try {
 			statement.setString(1, playerId.toString());
@@ -198,8 +217,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			while (resultSet.next()) {
 				//Build the punishment and add it to the set of punishments for the player
 				Punishment punishment = new PunishmentBuilder()
-						.withType(PunishmentType.getPunishmentType(resultSet.getString(PUNISHMENT_TYPE.toString())))
-						.withIssuer(resultSet.getString(PUNISHMENT_ISSUER_UID.toString()))
+						.withType(PunishmentType.getPunishmentType(resultSet.getInt(PUNISHMENT_TYPE.toString())))
+						.withIssuer(UUID.fromString(resultSet.getString(PUNISHMENT_ISSUER_UID.toString())))
 						.withReason(resultSet.getString(PUNISHMENT_REASON.toString()))
 						.issuedOn(resultSet.getLong(PUNISHMENT_ISSUED_TIME.toString()))
 						.expiresOn(resultSet.getLong(PUNISHMENT_EXPIRATION_TIME.toString()))
@@ -222,7 +241,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			statement.setInt(2, type.getId());
 			ResultSet resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				punishment = new PunishmentBuilder().withType(type).withReason(resultSet.getString("pun_reason")).withIssuer(resultSet.getString("pun_giver_id")).issuedOn(resultSet.getLong("pun_issued")).expiresOn(resultSet.getLong("expires")).build();
+				punishment = new PunishmentBuilder().withType(type).withReason(resultSet.getString("pun_reason")).withIssuer(UUID.fromString(resultSet.getString("pun_giver_id"))).issuedOn(resultSet.getLong("pun_issued")).expiresOn(resultSet.getLong("pun_expires")).build();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -237,6 +256,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		try {
 			statement.setString(1, playerId.toString());
 			statement.executeUpdate();
+			Commons.messageConsole("Executed pardon statement for " + playerId.toString());
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
@@ -395,9 +415,10 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			statement.setInt(1, punishmentType.getId());
 			statement.setString(2, playerId.toString());
 			statement.setString(3, giverId);
-			statement.setLong(4, expires);
-			statement.setString(5, reason);
-			statement.setBoolean(6, false);
+			statement.setLong(4, System.currentTimeMillis());
+			statement.setLong(5, expires);
+			statement.setString(6, reason);
+			statement.setBoolean(7, false);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -4,23 +4,24 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
-import com.caved_in.commons.config.Permission;
 import com.caved_in.commons.config.formatting.ColorCode;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
+import com.caved_in.commons.threading.tasks.ThreadKickPlayer;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Sets;
-import com.google.gson.Gson;
 import net.minecraft.util.io.netty.channel.Channel;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -115,8 +116,8 @@ public class Players {
 		}
 
 		//If the player doesn't have data in the database, and the insertion of defaults didnt work send them a message
-		if (!Commons.playerDatabase.hasData(playerId)) {
-			Commons.playerDatabase.insertDefaultData(player);
+		if (!Commons.database.hasData(playerId)) {
+			Commons.database.insertDefaultData(player);
 		}
 		messageConsole(Messages.playerDataLoadAttempt(playerName));
 		//If the player has any cached data: remove it
@@ -126,7 +127,7 @@ public class Players {
 		}
 
 		//Create a player wrapper from the data in the database and load it to the cache
-		playerWrapper = Commons.playerDatabase.getPlayerWrapper(playerId);
+		playerWrapper = Commons.database.getPlayerWrapper(playerId);
 		playerWrapper.setTagColor(getNameTagColor(player));
 		Commons.messageConsole("&aLoaded data for " + playerName);
 		playerData.put(playerId, playerWrapper);
@@ -160,7 +161,7 @@ public class Players {
 		playerData.put(playerWrapper.getId(), playerWrapper);
 		//If the commons is being backed
 		if (Commons.hasSqlBackend()) {
-			Commons.playerDatabase.syncPlayerWrapperData(playerWrapper);
+			Commons.database.syncPlayerWrapperData(playerWrapper);
 		}
 	}
 
@@ -177,7 +178,7 @@ public class Players {
 	public static void removeData(UUID playerId) {
 		if (Commons.hasSqlBackend() && hasData(playerId)) {
 			Commons.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
-			Commons.playerDatabase.syncPlayerWrapperData(playerData.get(playerId));
+			Commons.database.syncPlayerWrapperData(playerData.get(playerId));
 			Commons.messageConsole("&a" + playerId + "'s data has been synchronized");
 		}
 		playerData.remove(playerId);
@@ -326,18 +327,20 @@ public class Players {
 		return name;
 	}
 
-	public static String getUUIDFromName(String name) {
+	public static UUID getUUIDFromName(String name) {
 		try {
 			ProfileData profC = new ProfileData(name);
-			String UUID = null;
+			UUID uuid = null;
 			for (int i = 1; i <= 100; i++) {
 				PlayerProfile[] result = postPlayerProfile(new URL("https://api.mojang.com/profiles/page/" + i), Proxy.NO_PROXY, gson.toJson(profC).getBytes());
 				if (result.length == 0) {
 					break;
 				}
-				UUID = result[0].getId();
+				String id = result[0].getId();
+
+				uuid = UUID.fromString(String.format("%s-%s-%s-%s-%s", id.substring(0, 8), id.substring(8, 12), id.substring(12, 16), id.substring(16, 20), id.substring(20, 32)));
 			}
-			return UUID;
+			return uuid;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -371,14 +374,6 @@ public class Players {
 		return player.getUniqueId();
 	}
 
-	@SuppressWarnings("deprecation")
-	public static UUID getUniqueId(String playerName) {
-		if (!isOnline(playerName)) {
-			return null;
-		}
-		return getPlayer(playerName).getUniqueId();
-	}
-
 	/**
 	 * Kicks the player for the reason defined
 	 * <p>
@@ -392,6 +387,14 @@ public class Players {
 		player.kickPlayer(StringUtil.formatColorCodes(reason));
 	}
 
+
+	public static void kick(Player player, String reason, boolean thread) {
+		if (!thread) {
+			kick(player, reason);
+			return;
+		}
+		Commons.threadManager.runTaskOneTickLater(new ThreadKickPlayer(player.getUniqueId(), reason));
+	}
 	/**
 	 * Kick all players online with a specific reason
 	 *
@@ -646,9 +649,9 @@ public class Players {
 	}
 
 	public static boolean hasActivePunishment(UUID uniqueId, PunishmentType type) {
-		Set<Punishment> punishments = Commons.playerDatabase.getActivePunishments(uniqueId);
+		Set<Punishment> punishments = Commons.database.getActivePunishments(uniqueId);
 		for (Punishment punishment : punishments) {
-			if (type == punishment.getPunishmentType()) {
+			if (punishment.getPunishmentType() == type) {
 				return true;
 			}
 		}
@@ -660,11 +663,19 @@ public class Players {
 	}
 
 	public static boolean hasPlayed(UUID playerId) {
-		return isOnline(playerId) || Commons.hasSqlBackend() && Commons.playerDatabase.hasData(playerId);
+		boolean online = isOnline(playerId);
+		if (Commons.hasSqlBackend() && !online) {
+			return Commons.database.hasData(playerId);
+		}
+		return online;
 	}
 
 	public static boolean hasPlayed(String name) {
-		return isOnline(name) || Commons.hasSqlBackend() && Commons.playerDatabase.hasData(name);
+		boolean online = isOnline(name);
+		if (Commons.hasSqlBackend() && !online) {
+			return Commons.database.hasData(name);
+		}
+		return online;
 	}
 
 	/**

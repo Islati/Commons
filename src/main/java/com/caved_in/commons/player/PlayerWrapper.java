@@ -1,11 +1,18 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.threading.tasks.CallableGetPlayerPunishments;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class PlayerWrapper {
@@ -18,6 +25,8 @@ public class PlayerWrapper {
 	private boolean debugMode = false;
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
+
+	private Set<Punishment> punishments = new HashSet<>();
 
 	public static double defaultWalkSpeed = 0.22;
 	public static double defaultFlySpeed = 0.1;
@@ -57,6 +66,7 @@ public class PlayerWrapper {
 
 	public PlayerWrapper(UUID id) {
 		this.id = id;
+		this.playerName = Players.getPlayer(id).getName();
 	}
 
 	private void initWrapper() {
@@ -68,7 +78,22 @@ public class PlayerWrapper {
 			return;
 		}
 
-//		prefix = Commons.playerDatabase.getPrefix(this);
+		//Create an async future to get the punishments for this player (and load them into the player wrapper instance)
+		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.asyncExecutor.submit(new CallableGetPlayerPunishments(id));
+		Futures.addCallback(punishmentListenable, new FutureCallback<Set<Punishment>>() {
+			@Override
+			public void onSuccess(Set<Punishment> punishmentSet) {
+				punishments = punishmentSet;
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+				throwable.printStackTrace();
+			}
+		});
+
+
+//		prefix = Commons.database.getPrefix(this);
 //
 //		if (Commons.friendDatabase.hasData(playerName)) {
 //			friendsList = new FriendList(id, Commons.friendDatabase.getFriends(playerName));
@@ -195,7 +220,7 @@ public class PlayerWrapper {
 		}
 
 		this.isPremium = isPremium;
-//		Commons.playerDatabase.updatePlayerPremium(this);
+//		Commons.database.updatePlayerPremium(this);
 	}
 
 	public ChatColor getTagColor() {
@@ -285,4 +310,12 @@ public class PlayerWrapper {
 	public UUID getId() {
 		return id;
 	}
+
+	/**
+	 * @return a set of the active punishments the player has
+	 */
+	public Set<Punishment> getPunishments() {
+		return punishments;
+	}
+
 }

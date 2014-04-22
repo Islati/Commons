@@ -4,6 +4,9 @@ import com.caved_in.commons.commands.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WorldConfiguration;
+import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.debug.actions.DebugPlayerSyncData;
+import com.caved_in.commons.debug.actions.DebugTimeHandler;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menu.serverselection.ServerMenuGenerator;
@@ -48,7 +51,7 @@ public class Commons extends JavaPlugin {
 	private static Configuration globalConfig = new Configuration();
 
 	//Database connectors
-	public static ServerDatabaseConnector playerDatabase = null;
+	public static ServerDatabaseConnector database = null;
 
 	//Whether or not the PopupMenuAPI is available
 	private boolean hasPopupApi = false;
@@ -105,8 +108,8 @@ public class Commons extends JavaPlugin {
 		//If the SQL Backend is enabled, then register all the database interfaces
 		if (hasSqlBackend()) {
 			SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
-			//Create the player database connection
-			playerDatabase = new ServerDatabaseConnector(sqlConfig);
+			//Create the database connection
+			database = new ServerDatabaseConnector(sqlConfig);
 		}
 
 		//If the commands are to be registered: do so.
@@ -126,6 +129,9 @@ public class Commons extends JavaPlugin {
 			}
 		}
 
+		//Register the debugger actions and triggers to 'case test' features in-game
+		registerDebugActions();
+
 		registerListeners(); // Register all our event listeners
 
 		// Load all the warps
@@ -143,6 +149,11 @@ public class Commons extends JavaPlugin {
 
 	private static void givePlayerCompassMenu(Player player) {
 		return; //TODO: Make this method give the player a compass menu / server selector
+	}
+
+	private void registerDebugActions() {
+		Debugger.addDebugAction(new DebugPlayerSyncData());
+		Debugger.addDebugAction(new DebugTimeHandler());
 	}
 
 	private void registerListeners() {
@@ -276,24 +287,16 @@ public class Commons extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-
-
 		if (getConfiguration().getNPCSEnabled()) {
 			NpcHandler npcHandler = NpcHandler.getInstance();
 			npcHandler.shutdown();
 		}
-
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
-
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			UUID playerId = player.getUniqueId();
 			Players.removeData(playerId);
-//			if (hasSqlBackend()) {
-//				disguiseDatabase.deletePlayerDisguiseData(playerName);
-//			}
 		}
-
 		Warps.saveWarps();
 	}
 

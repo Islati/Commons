@@ -19,6 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class CommonUtils {
+	private static final Random random = new Random();
 	private static Map<String, ChatColor> prevColours = new HashMap<String, ChatColor>();
 
 	private static boolean colouredConsole = true;
@@ -196,10 +197,14 @@ public class CommonUtils {
 	 * Check against a random integer between 0 and 100 and return if it's less than or equal to
 	 * the inputted percent
 	 *
-	 * @param Percent
+	 * @param chance
 	 * @return
 	 */
-	public static boolean percentCheck(double Percent) {
-		return new Random().nextInt(101) <= Percent;
+	public static boolean percentCheck(double chance) {
+		return random.nextInt(101) <= chance;
+	}
+
+	public static UUID uuidFromUnparsedString(String id) {
+		return UUID.fromString(String.format("%s-%s-%s-%s-%s", id.substring(0, 8), id.substring(8, 12), id.substring(12, 16), id.substring(16, 20), id.substring(20, 32)));
 	}
 }

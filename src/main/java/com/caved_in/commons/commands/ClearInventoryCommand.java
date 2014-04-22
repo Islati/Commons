@@ -38,6 +38,6 @@ public class ClearInventoryCommand {
 		//Clear the players inventory
 		Players.clearInventory(player, true);
 		//Send them a message saying their inventory was cleared
-		Players.sendMessage(player,Messages.INVENTORY_CLEARED);
+		Players.sendMessage(player, Messages.INVENTORY_CLEARED);
 	}
 }

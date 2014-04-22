@@ -38,8 +38,8 @@ public class Configuration {
 						 @Element(name = "Enable_NPC") boolean enableNPC,
 						 @Element(name = "Server_Name") String serverName,
 						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
-						 @Element(name = "Database_Backend")boolean sqlBackend,
-						 @Element(name = "Register_Commands")boolean registerCommands) {
+						 @Element(name = "Database_Backend") boolean sqlBackend,
+						 @Element(name = "Register_Commands") boolean registerCommands) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;

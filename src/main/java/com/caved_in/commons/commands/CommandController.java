@@ -19,7 +19,7 @@ public class CommandController implements CommandExecutor {
 
 	/**
 	 * @author AmoebaMan
-	 * <p/>
+	 * <p>
 	 * All credits go to AmoebaMan for this handling of Commands via Annotations; It's an easier implementation, and allows a skip of the verifications
 	 * that normally come with something like this
 	 */
@@ -179,14 +179,14 @@ public class CommandController implements CommandExecutor {
                  */
 				if (subHandler != null && subMethod != null) {
 					/*
-                     * Reorder the arguments so we don't resend the subcommand
+					 * Reorder the arguments so we don't resend the subcommand
                      */
 					String[] subArgs = new String[args.length - 1];
 					for (int i = 1; i < args.length; i++) {
 						subArgs[i - 1] = args[i];
 					}
-                    /*
-                     * If the method requires a player and the subcommand wasn't sent by one, don't continue
+					/*
+					 * If the method requires a player and the subcommand wasn't sent by one, don't continue
                      */
 					if (subMethod.getParameterTypes()[0].equals(Player.class) && !(sender instanceof Player)) {
 						sender.sendMessage(ChatColor.RED + "This command requires a player sender");

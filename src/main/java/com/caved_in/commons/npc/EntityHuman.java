@@ -3,16 +3,19 @@ package com.caved_in.commons.npc;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.npc.wrappers.DataWatcher;
 import com.caved_in.commons.packet.PacketFactory;
+import com.caved_in.commons.utilities.CommonUtils;
 import com.caved_in.commons.world.Worlds;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
+
+import java.util.UUID;
 
 public class EntityHuman implements NPC {
-
+	//UUID Used by NPC's
+	public static final UUID NPC_UUID = CommonUtils.uuidFromUnparsedString("0b560de49eb543b981b44edd505fa887");
 	private static final double CROUCH_HEIGHT = 1.54;
 	private static final double REGULAR_HEIGHT = 1.62;
 
@@ -39,7 +42,7 @@ public class EntityHuman implements NPC {
 	public EntityHuman(Location location, String name, int id) {
 		this.location = location;
 		this.id = id;
-		this.profile = new GameProfile("NPC", name);
+		this.profile = new GameProfile(NPC_UUID, name);
 		this.itemInHand = new ItemStack(Material.AIR);
 
 		this.dataWatcher = new DataWatcher();
@@ -100,7 +103,7 @@ public class EntityHuman implements NPC {
 
 	@Override
 	public void setName(String name) {
-		profile = new GameProfile("NPC", name);
+		profile = new GameProfile(NPC_UUID, name);
 		npcHandler.updateNPC(this);
 	}
 
@@ -304,8 +307,7 @@ public class EntityHuman implements NPC {
 		}
 
 		Location location = getEyeLocation();
-		Vector direction = location.getDirection().multiply(10);
-
+//		Vector direction = location.getDirection().multiply(10);
 		Entities.setPositionRotation(entity, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 
 		Entities.addEntity(world, entity);
