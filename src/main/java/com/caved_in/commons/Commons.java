@@ -23,9 +23,12 @@ import com.caved_in.commons.warp.Warps;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -304,4 +307,32 @@ public class Commons extends JavaPlugin {
 		return globalConfig.hasSqlBackend();
 	}
 
+	public static void registerListener(Plugin plugin, Listener listener) {
+		plugin.getServer().getPluginManager().registerEvents(listener,plugin);
+	}
+
+	public static void registerListeners(Plugin plugin, Listener... listeners) {
+		PluginManager pl = plugin.getServer().getPluginManager();
+		for(Listener listener : listeners) {
+			pl.registerEvents(listener,plugin);
+		}
+	}
+
+	public static boolean hasDataFolder(Plugin plugin) {
+		return plugin.getDataFolder().exists();
+	}
+
+	public static boolean makeDataFolder(Plugin plugin) {
+		return hasDataFolder(plugin) || plugin.getDataFolder().mkdirs();
+	}
+
+	public static void unregisterHooks(Plugin plugin) {
+		Server server = plugin.getServer();
+		server.getScheduler().cancelTasks(plugin);
+		HandlerList.unregisterAll(plugin);
+	}
+
+	public static boolean bukkitVersionMatches(String versionNumber) {
+		return Bukkit.getVersion().contains(versionNumber);
+	}
 }
