@@ -1,15 +1,11 @@
-package com.caved_in.commons.utilities;
+package com.caved_in.commons.plugin;
 
-/**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
- */
-
+import com.caved_in.commons.utilities.LogUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.Server;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -17,23 +13,51 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 
-public class JARUtil {
+public class Plugins {
 	public enum ExtractWhen {ALWAYS, IF_NOT_EXISTS, IF_NEWER}
 
 	public static final Charset TARGET_ENCODING = Charset.forName("UTF-8");
 	public static final Charset SOURCE_ENCODING = Charset.forName("UTF-8");
 
-	private final Plugin plugin;
+	private static PluginManager pluginManager = Bukkit.getPluginManager();
 
-	public JARUtil(Plugin plugin) {
-		this.plugin = plugin;
+	public static boolean pluginExists(String name) {
+		return pluginManager.isPluginEnabled(name);
 	}
 
-	public void extractResource(String from, File to) {
-		extractResource(from, to, ExtractWhen.IF_NEWER);
+	public static void disablePlugin(Plugin plugin) {
+		pluginManager.disablePlugin(plugin);
 	}
 
-	public void extractResource(String from, File to, ExtractWhen when) {
+	public static boolean hasDataFolder(Plugin plugin) {
+		return plugin.getDataFolder().exists();
+	}
+
+	public static boolean makeDataFolder(Plugin plugin) {
+		return hasDataFolder(plugin) || plugin.getDataFolder().mkdirs();
+	}
+
+	public static void unregisterHooks(Plugin plugin) {
+		Server server = plugin.getServer();
+		server.getScheduler().cancelTasks(plugin);
+		HandlerList.unregisterAll(plugin);
+	}
+
+	public static File getJarFile(Plugin plugin) {
+		URL url = plugin.getClass().getProtectionDomain().getCodeSource().getLocation();
+		try {
+			return new File(url.toURI());
+		} catch (URISyntaxException e) {
+			return null;
+		}
+	}
+
+	public static void extractResource(Plugin plugin, String from, File to) {
+		extractResource(plugin, from, to, ExtractWhen.IF_NEWER);
+	}
+
+
+	public static void extractResource(Plugin plugin, String from, File to, ExtractWhen when) {
 		File of = to;
 		if (to.isDirectory()) {
 			String fname = new File(from).getName();
@@ -43,7 +67,7 @@ public class JARUtil {
 			return;
 		}
 
-		File jarFile = getJarFile();
+		File jarFile = getJarFile(plugin);
 
 		LogUtils.finer("extractResource: file=" + of +
 				", file-last-mod=" + of.lastModified() +
@@ -68,7 +92,7 @@ public class JARUtil {
 		final char[] cbuf = new char[1024];
 		int read;
 		try {
-			final Reader in = new BufferedReader(new InputStreamReader(openResourceNoCache(from), SOURCE_ENCODING));
+			final Reader in = new BufferedReader(new InputStreamReader(openResourceNoCache(plugin, from), SOURCE_ENCODING));
 			final Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(of), TARGET_ENCODING));
 			while ((read = in.read(cbuf)) > 0) {
 				out.write(cbuf, 0, read);
@@ -80,16 +104,7 @@ public class JARUtil {
 		}
 	}
 
-	public File getJarFile() {
-		URL url = plugin.getClass().getProtectionDomain().getCodeSource().getLocation();
-		try {
-			return new File(url.toURI());
-		} catch (URISyntaxException e) {
-			return null;
-		}
-	}
-
-	public InputStream openResourceNoCache(String resource) throws IOException {
+	public static InputStream openResourceNoCache(Plugin plugin, String resource) throws IOException {
 		URL res = plugin.getClass().getResource(resource);
 		if (res == null) {
 			LogUtils.warning("can't find " + resource + " in plugin JAR file"); //$NON-NLS-1$

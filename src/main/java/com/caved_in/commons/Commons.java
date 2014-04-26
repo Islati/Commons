@@ -318,19 +318,7 @@ public class Commons extends JavaPlugin {
 		}
 	}
 
-	public static boolean hasDataFolder(Plugin plugin) {
-		return plugin.getDataFolder().exists();
-	}
 
-	public static boolean makeDataFolder(Plugin plugin) {
-		return hasDataFolder(plugin) || plugin.getDataFolder().mkdirs();
-	}
-
-	public static void unregisterHooks(Plugin plugin) {
-		Server server = plugin.getServer();
-		server.getScheduler().cancelTasks(plugin);
-		HandlerList.unregisterAll(plugin);
-	}
 
 	public static boolean bukkitVersionMatches(String versionNumber) {
 		return Bukkit.getVersion().contains(versionNumber);

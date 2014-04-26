@@ -103,41 +103,38 @@ public class Entities {
 		entity.setCustomName(name);
 	}
 
-	public static void setName(LivingEntity Entity, String Name, boolean Visible) {
-		setName(Entity, Name);
-		Entity.setCustomNameVisible(Visible);
+	public static void setName(LivingEntity entity, String name, boolean isVisible) {
+		setName(entity, name);
+		entity.setCustomNameVisible(isVisible);
 	}
 
-	public static String getDefaultName(LivingEntity Entity) {
-		return getDefaultName(Entity.getType());
+	public static String getDefaultName(LivingEntity entity) {
+		return getDefaultName(entity.getType());
 	}
 
-	public static String getDefaultName(EntityType EntityType) {
-		return WordUtils.capitalizeFully(EntityType.name().toLowerCase().replace("_", " "));
+	public static String getDefaultName(EntityType type) {
+		return WordUtils.capitalizeFully(type.name().toLowerCase().replace("_", " "));
 	}
 
-	public static int getCurrentHealth(LivingEntity Entity) {
-		return (int) ((Damageable) Entity).getHealth();
+	public static double getCurrentHealth(LivingEntity entity) {
+		return entity.getHealth();
 	}
 
-	public static void addPotionEffect(LivingEntity livingEntity, PotionEffect potionEffect) {
-		livingEntity.addPotionEffect(potionEffect);
+	public static void addPotionEffect(LivingEntity entity, PotionEffect effect) {
+		entity.addPotionEffect(effect);
 	}
 
-	public static void setCurrentHealth(LivingEntity livingEntity, int health) {
-		if (health <= ((Damageable) livingEntity).getMaxHealth()) {
-			((Damageable) livingEntity).setHealth((double) health);
-		} else {
-			((Damageable) livingEntity).setHealth(((Damageable) livingEntity).getMaxHealth());
-		}
+	public static void setHealth(LivingEntity entity, double health) {
+		double maxHealth = getMaxHealth(entity);
+		entity.setHealth(health <= maxHealth ? health : maxHealth);
 	}
 
-	public static int getMaxHealth(Damageable livingEntity) {
-		return (int) ((Damageable) livingEntity).getMaxHealth();
+	public static double getMaxHealth(Damageable entity) {
+		return entity.getMaxHealth();
 	}
 
-	public static void setMaxHealth(LivingEntity livingEntity, int health) {
-		((Damageable) livingEntity).setMaxHealth((double) health);
+	public static void setMaxHealth(LivingEntity entity, double health) {
+		entity.setMaxHealth(health);
 	}
 
 	/**
@@ -289,5 +286,19 @@ public class Entities {
 			return;
 		}
 		damageable.setHealth(0.0);
+	}
+
+	public static void removePotionEffects(LivingEntity entity) {
+		for(PotionEffect effect : entity.getActivePotionEffects()) {
+			entity.removePotionEffect(effect.getType());
+		}
+	}
+
+	public static void removeFire(Entity entity) {
+		entity.setFireTicks(0);
+	}
+
+	public static void restoreHealth(LivingEntity entity) {
+		setHealth(entity, getMaxHealth(entity));
 	}
 }

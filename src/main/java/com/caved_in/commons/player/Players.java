@@ -852,9 +852,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void removePotionEffects(Player player) {
-		for (PotionEffect effect : player.getActivePotionEffects()) {
-			player.removePotionEffect(effect.getType());
-		}
+		Entities.removePotionEffects(player);
 	}
 
 	/**
@@ -1037,6 +1035,16 @@ public class Players {
 	 */
 	public static void feed(Player player) {
 		feed(player, 20);
+	}
+
+	public static void heal(Player player) {
+		Players.removePotionEffects(player);
+		removeFire(player);
+
+	}
+
+	public static void removeFire(Player player) {
+		Entities.removeFire(player);
 	}
 
 	/**
