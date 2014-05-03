@@ -1,6 +1,7 @@
 package com.caved_in.commons.time;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DurationFormatUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -68,6 +69,10 @@ public class TimeHandler {
 			}
 		}
 		return millesDuration;
+	}
+
+	public static String timeDurationToWords(long duration) {
+		return DurationFormatUtils.formatDurationWords(duration,true,true);
 	}
 
 	public static int getSecondsFromTicks(long tickAmount) {

@@ -12,6 +12,8 @@ import org.bukkit.entity.Player;
  * Time: 11:48 AM
  */
 public class Effects {
+	public static final int BLOCK_EFFECT_RADIUS = 6;
+
 	/**
 	 * Plays the given effect  at a specific location to all the players within the
 	 * given radius of said location

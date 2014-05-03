@@ -1,5 +1,8 @@
 package com.caved_in.commons.chat;
 
+import com.caved_in.commons.utilities.StringUtil;
+import org.bukkit.Bukkit;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +21,7 @@ public class Chat {
 	 * @param playerName player to check recent messages for
 	 * @return true if there's a recent chat message for this player, false otherwise
 	 */
-	public static boolean hasRecentChatter(String playerName) {
+	public static boolean hasRecentPrivateMessageFrom(String playerName) {
 		return recentChatters.containsKey(playerName);
 	}
 
@@ -28,7 +31,7 @@ public class Chat {
 	 * @param playerFor   player to set the recent chat-message for
 	 * @param chatMessage chatmessage to set for the player
 	 */
-	public static void setRecentChatter(String playerFor, ChatMessage chatMessage) {
+	public static void setRecentPrivateMessageFrom(String playerFor, ChatMessage chatMessage) {
 		recentChatters.put(playerFor, chatMessage);
 	}
 
@@ -38,7 +41,13 @@ public class Chat {
 	 * @param playerFor player to get the recent chatter for
 	 * @return name of the recent chatter; null if none exists
 	 */
-	public static String getRecentChatter(String playerFor) {
+	public static String getMostRecentPrivateMessager(String playerFor) {
 		return recentChatters.get(playerFor).getPlayerSendingMessage();
+	}
+
+	public static void broadcast(String... messages) {
+		for(String message : messages) {
+			Bukkit.broadcastMessage(StringUtil.formatColorCodes(message));
+		}
 	}
 }

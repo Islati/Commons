@@ -5,6 +5,9 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.BlockID;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.threading.tasks.ThreadBlockRegen;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -16,6 +19,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Blocks {
+
+	public static final long BLOCK_REGEN_DELAY = TimeHandler.getTimeInTicks(8, TimeType.SECOND);
 
 	/**
 	 * Set of the item-ids which materials are hollow
@@ -287,6 +292,15 @@ public class Blocks {
 		}
 	}
 
+	public static void scheduleBlockRegen(Block block, boolean effect) {
+		scheduleBlockRegen(block,effect,BLOCK_REGEN_DELAY);
+	}
+
+	public static void scheduleBlockRegen(Block block, boolean effect, long delay) {
+		BlockData blockData = new BlockData(block);
+		Commons.threadManager.runTaskLater(new ThreadBlockRegen(blockData,effect),delay);
+	}
+
 	/**
 	 * Changes the block to the data inside the blockdata instance
 	 *
@@ -355,15 +369,15 @@ public class Blocks {
 	 * @param x        x-Axis coordinate for the blocks location
 	 * @param y        y-Axis coordinate for the blocks location
 	 * @param z        z-Axis coordinate for the blocks location
-	 * @param required id of the block to destroy
+	 * @param blockId id of the block to destroy
 	 */
-	private void checkAndDestroyAround(World world, int x, int y, int z, int required) {
-		checkAndDestroy(world, x, y, z + 1, required);
-		checkAndDestroy(world, x, y, z - 1, required);
-		checkAndDestroy(world, x, y + 1, z, required);
-		checkAndDestroy(world, x, y - 1, z, required);
-		checkAndDestroy(world, x + 1, y, z, required);
-		checkAndDestroy(world, x - 1, y, z, required);
+	private void checkAndDestroyAround(World world, int x, int y, int z, int blockId) {
+		checkAndDestroy(world, x, y, z + 1, blockId);
+		checkAndDestroy(world, x, y, z - 1, blockId);
+		checkAndDestroy(world, x, y + 1, z, blockId);
+		checkAndDestroy(world, x, y - 1, z, blockId);
+		checkAndDestroy(world, x + 1, y, z, blockId);
+		checkAndDestroy(world, x - 1, y, z, blockId);
 	}
 
 	/**
@@ -374,10 +388,10 @@ public class Blocks {
 	 * @param x        x-Axis coordinate for the blocks location
 	 * @param y        y-Axis coordinate for the blocks location
 	 * @param z        z-Axis coordinate for the blocks location
-	 * @param required id of the block to destroy
+	 * @param blockId id of the block to destroy
 	 */
-	private void checkAndDestroy(World world, int x, int y, int z, int required) {
-		if (world.getBlockTypeIdAt(x, y, z) == required) {
+	private void checkAndDestroy(World world, int x, int y, int z, int blockId) {
+		if (world.getBlockTypeIdAt(x, y, z) == blockId) {
 			world.getBlockAt(x, y, z).setTypeId(BlockID.AIR);
 		}
 	}

@@ -456,6 +456,12 @@ public class Players {
 		}
 	}
 
+	public static void messageAll(Collection<Player> players, String... message) {
+		for(Player player : players) {
+			sendMessage(player,message);
+		}
+	}
+
 	/**
 	 * Sends messages to all players <i>with</i> a specific permission
 	 *
@@ -890,6 +896,20 @@ public class Players {
 
 	public static Collection<Player> allPlayers(World world) {
 		return world.getEntitiesByClass(Player.class);
+	}
+
+	private static Collection<PlayerWrapper> allPlayerWrappers() {
+		return playerData.values();
+	}
+
+	public static Set<Player> allPlayersDebugging() {
+		Set<Player> players = new HashSet<>();
+		for(PlayerWrapper playerWrapper : allPlayerWrappers()) {
+			if (playerWrapper.isInDebugMode()) {
+				players.add(getPlayer(playerWrapper));
+			}
+		}
+		return players;
 	}
 
 	/**
