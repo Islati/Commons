@@ -15,6 +15,10 @@ public class CompassListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerInteracted(PlayerInteractEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
+
 		Player player = event.getPlayer();
 		ItemStack itemInHand = player.getItemInHand();
 		if (itemInHand != null && itemInHand.getType() == Material.COMPASS) {
