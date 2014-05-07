@@ -8,6 +8,10 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 public class FoodChangeListener implements Listener {
 	@EventHandler
 	public void onFoodChange(FoodLevelChangeEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
+
 		if (Commons.getWorldConfig().isFoodChangeEnabled()) {
 			return;
 		}

@@ -16,7 +16,7 @@ public class QuickResponseCommand {
 	@CommandController.CommandHandler(name = "r", usage = "/r <Message>"/*, permission = "tunnels.common.message"*/)
 	public void quickRespondMessage(Player player, String[] commandArgs) {
 		String playerName = player.getName();
-		if (!Chat.hasRecentChatter(playerName)) {
+		if (!Chat.hasRecentPrivateMessageFrom(playerName)) {
 			Players.sendMessage(player, Messages.NO_RECENT_MESSAGES);
 			return;
 		}
@@ -26,7 +26,7 @@ public class QuickResponseCommand {
 			return;
 		}
 
-		String playerToSendMessageTo = Chat.getRecentChatter(playerName);
+		String playerToSendMessageTo = Chat.getMostRecentPrivateMessager(playerName);
 		String playerMessage = StringUtil.joinString(commandArgs, " ");
 
 		if (!Players.isOnline(playerToSendMessageTo)) {
@@ -39,6 +39,6 @@ public class QuickResponseCommand {
 
 		Players.sendMessage(playerSendingTo, "&r[&e" + player.getName() + "&b -> &aYou&r] " + playerMessage);
 		Players.sendMessage(player, "&r[&eYou&b -> &a" + playerSendingTo.getName() + "&r] " + playerMessage);
-		Chat.setRecentChatter(playerSendingTo.getName(), new ChatMessage(player.getName(), playerSendingTo.getName()));
+		Chat.setRecentPrivateMessageFrom(playerSendingTo.getName(), new ChatMessage(player.getName(), playerSendingTo.getName()));
 	}
 }

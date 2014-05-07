@@ -38,6 +38,6 @@ public class MessageCommand {
 	private void messagePlayer(Player playerSendingTo, Player playerSendingFrom, String message) {
 		Players.sendMessage(playerSendingTo, "&f[&e" + playerSendingFrom.getDisplayName() + "&b -> &aYou&f] " + message);
 		Players.sendMessage(playerSendingFrom, "&f[&eYou &b-> &a" + playerSendingTo.getDisplayName() + "&f] " + message);
-		Chat.setRecentChatter(playerSendingTo.getName(), new ChatMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
+		Chat.setRecentPrivateMessageFrom(playerSendingTo.getName(), new ChatMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
 	}
 }

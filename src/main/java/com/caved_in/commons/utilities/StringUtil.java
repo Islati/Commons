@@ -18,6 +18,7 @@
 
 package com.caved_in.commons.utilities;
 
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 
@@ -191,7 +192,7 @@ public class StringUtil {
 	 * href="http://www.merriampark.com/ldjava.htm">http://www.merriampark.com/
 	 * ldjava.htm</a>
 	 * </p>
-	 * <p/>
+	 * <p>
 	 * <pre>
 	 * StringUtil.getLevenshteinDistance(null, *)             = IllegalArgumentException
 	 * StringUtil.getLevenshteinDistance(*, null)             = IllegalArgumentException
@@ -406,5 +407,19 @@ public class StringUtil {
 			return false;
 		}
 		return string.regionMatches(true, 0, prefix, 0, prefix.length());
+	}
+
+	public static boolean isNumericAt(String[] strs, int index) {
+		if (strs.length <= index) {
+			return false;
+		}
+		return StringUtils.isNumeric(strs[index]);
+	}
+
+	public static int getNumberAt(String[] strs, int index, int def) {
+		if (!isNumericAt(strs, index)) {
+			return def;
+		}
+		return Integer.parseInt(strs[index]);
 	}
 }

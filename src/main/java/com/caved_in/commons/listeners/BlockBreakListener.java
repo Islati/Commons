@@ -34,7 +34,10 @@ public class BlockBreakListener implements Listener {
 	}
 
 	@EventHandler
-	public void onBlockPLace(BlockPlaceEvent event) {
+	public void onBlockPlace(BlockPlaceEvent event) {
+		if (event.isCancelled()) {
+			return;
+		}
 		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
 			return;
 		}

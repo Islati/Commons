@@ -56,15 +56,22 @@ public class Commons extends JavaPlugin {
 	//Whether or not the PopupMenuAPI is available
 	private boolean hasPopupApi = false;
 
-	public static Commons getInstance() {
+	public static synchronized Commons getInstance() {
 		if (plugin == null) {
 			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Commons");
 		}
 		return plugin;
 	}
 
-	public static void messageConsole(String message) {
-		Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
+	public static void messageConsole(String... messages) {
+		for (String message : messages) {
+			Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
+		}
+	}
+
+	public static void debug(String... message) {
+		Players.messageAll(Players.allPlayersDebugging(), message);
+		messageConsole(message);
 	}
 
 	public static boolean reloadConfiguration() {
@@ -137,18 +144,25 @@ public class Commons extends JavaPlugin {
 		// Load all the warps
 		Warps.loadWarps();
 
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		//Load all the players data
+		for (Player player : Players.allPlayers()) {
 			Players.addData(player);
-			if (getWorldConfig().isCompassMenuEnabled()) {
-				if (!Players.hasItem(player, Material.COMPASS)) {
-					Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
-				}
+		}
+
+		//If the compass menu is enabled give everyone it
+		if (getWorldConfig().isCompassMenuEnabled()) {
+			for (Player player : Players.allPlayers()) {
+				givePlayerCompassMenu(player);
 			}
 		}
 	}
 
 	private static void givePlayerCompassMenu(Player player) {
-		return; //TODO: Make this method give the player a compass menu / server selector
+		if (Players.hasItem(player, Material.COMPASS)) {
+			return;
+		}
+
+		Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
 	}
 
 	private void registerDebugActions() {
@@ -304,4 +318,7 @@ public class Commons extends JavaPlugin {
 		return globalConfig.hasSqlBackend();
 	}
 
+	public static boolean bukkitVersionMatches(String versionNumber) {
+		return Bukkit.getVersion().contains(versionNumber);
+	}
 }

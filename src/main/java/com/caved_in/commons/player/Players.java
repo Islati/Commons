@@ -395,6 +395,7 @@ public class Players {
 		}
 		Commons.threadManager.runTaskOneTickLater(new ThreadKickPlayer(player.getUniqueId(), reason));
 	}
+
 	/**
 	 * Kick all players online with a specific reason
 	 *
@@ -452,6 +453,12 @@ public class Players {
 	 */
 	public static void messageAll(String message) {
 		for (Player player : allPlayers()) {
+			sendMessage(player, message);
+		}
+	}
+
+	public static void messageAll(Collection<Player> players, String... message) {
+		for (Player player : players) {
 			sendMessage(player, message);
 		}
 	}
@@ -852,9 +859,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void removePotionEffects(Player player) {
-		for (PotionEffect effect : player.getActivePotionEffects()) {
-			player.removePotionEffect(effect.getType());
-		}
+		Entities.removePotionEffects(player);
 	}
 
 	/**
@@ -892,6 +897,20 @@ public class Players {
 
 	public static Collection<Player> allPlayers(World world) {
 		return world.getEntitiesByClass(Player.class);
+	}
+
+	private static Collection<PlayerWrapper> allPlayerWrappers() {
+		return playerData.values();
+	}
+
+	public static Set<Player> allPlayersDebugging() {
+		Set<Player> players = new HashSet<>();
+		for (PlayerWrapper playerWrapper : allPlayerWrappers()) {
+			if (playerWrapper.isInDebugMode()) {
+				players.add(getPlayer(playerWrapper));
+			}
+		}
+		return players;
 	}
 
 	/**
@@ -1037,6 +1056,16 @@ public class Players {
 	 */
 	public static void feed(Player player) {
 		feed(player, 20);
+	}
+
+	public static void heal(Player player) {
+		Players.removePotionEffects(player);
+		removeFire(player);
+
+	}
+
+	public static void removeFire(Player player) {
+		Entities.removeFire(player);
 	}
 
 	/**

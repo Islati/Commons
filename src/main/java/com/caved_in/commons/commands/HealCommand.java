@@ -14,21 +14,30 @@ public class HealCommand {
 	@CommandController.CommandHandler(name = "heal", usage = "/heal", permission = "tunnels.common.heal")
 	public void onHealCommand(Player player, String[] args) {
 		Player playerToHeal = player;
+		boolean healOther = false;
+
 		//Check if there was a name passed
 		if (args.length > 0) {
 			String playerArg = args[0];
 			//Assure the player requested is online
 			if (Players.isOnline(playerArg)) {
 				playerToHeal = Players.getPlayer(playerArg);
+				healOther = true;
 			} else {
 				Players.sendMessage(player, Messages.playerOffline(playerArg));
+				return;
 			}
 		}
 		//Remove the potion effects on the player
 		Players.removePotionEffects(playerToHeal);
 		//Heal them to full health
-		Entities.setCurrentHealth(playerToHeal, Entities.getMaxHealth(playerToHeal));
+		Entities.setHealth(playerToHeal, Entities.getMaxHealth(playerToHeal));
 		//Send them a message saying they were healed
-		Players.sendMessage(playerToHeal, Messages.PLAYER_HEALED);
+		if (!healOther) {
+			Players.sendMessage(player, Messages.PLAYER_HEALED);
+		} else {
+			Players.sendMessage(playerToHeal, Messages.PLAYER_HEALED);
+			Players.sendMessage(player, Messages.playerHealed(playerToHeal.getName()));
+		}
 	}
 }

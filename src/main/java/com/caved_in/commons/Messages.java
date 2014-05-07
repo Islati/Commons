@@ -1,8 +1,11 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.world.Worlds;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -37,6 +40,8 @@ public class Messages {
 	public static final String NO_RECENT_MESSAGES = "&cYou haven't received any messages from anybody";
 
 	public static final String ERROR_RETRIEVING_PLAYER_DATA = "&cThere was an error retrieving the players data";
+
+	private static final String YELLOW_INDENT_ARROW = " &e- &r";
 
 	public static String playerDataLoadAttempt(String playerName) {
 		return String.format("&e%s&a has data, attempting to load it.", playerName);
@@ -202,6 +207,17 @@ public class Messages {
 
 	public static String friendRequestAccepted(String playerName) {
 		return String.format("&b%s&a has accepted your friend request!", playerName);
+	}
+
+	public static String[] locationInfo(Location location) {
+		int[] xyz = Locations.getXYZ(location);
+		return new String[]{
+				"&aLocation information:",
+				String.format("%s&aWorld Name: &l%s", YELLOW_INDENT_ARROW, Worlds.getWorldName(location)),
+				String.format("%s&X: &l%s", YELLOW_INDENT_ARROW, xyz[0]),
+				String.format("%s&Y: &l%s", YELLOW_INDENT_ARROW, xyz[1]),
+				String.format("%s&Z: &l%s", YELLOW_INDENT_ARROW, xyz[2]),
+		};
 	}
 
 	public static String recipeFurnace(ItemStack smeltResult, ItemStack itemRequired) {

@@ -1,7 +1,7 @@
 package com.caved_in.commons.warp;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.file.Folders;
+import com.caved_in.commons.file.Folder;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -43,7 +43,7 @@ public class Warps {
 	}
 
 	public static void loadWarps() {
-		Folders folderHandler = new Folders(Commons.WARP_DATA_FOLDER);
+		Folder folderHandler = new Folder(Commons.WARP_DATA_FOLDER);
 		try {
 			//Loop through all the files
 			for (String fileName : folderHandler.getFiles()) {

@@ -1,5 +1,6 @@
 package com.caved_in.commons.menu;
 
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permissible;
@@ -15,15 +16,16 @@ import java.util.List;
  */
 public class HelpScreen {
 
-	private HashMap<String, HelpScreenEntry> entries;
-	private final String NAME;
-	private String header = "<name> Help (<page> / <maxpage>)";
-	private String format = "<name> -> <desc>";
-	private ChatColor c1 = ChatColor.GRAY, c2 = ChatColor.GRAY;
+	private HashMap<String, HelpScreenEntry> helpMenuMap;
+	private final String menuName;
+	private String menuHeader = "<name> Help (<page> / <maxpage>)";
+	private String menuFormat = "<name> -> <desc>";
+	private ChatColor oddItemColor = ChatColor.GRAY;
+	private ChatColor evenItemColor = ChatColor.GRAY;
 
 	public HelpScreen(String name) {
-		NAME = name;
-		entries = new HashMap<>();
+		menuName = name;
+		helpMenuMap = new HashMap<>();
 	}
 
 	/**
@@ -31,32 +33,36 @@ public class HelpScreen {
 	 * description
 	 */
 	public void setFormat(String format) {
-		if (format == null) {
-			format = "";
-		}
-		this.format = format;
+		this.menuFormat = format;
 	}
 
 	/**
 	 * Set the color that the entries will have The color will change for each
 	 * entry
 	 *
-	 * @param c1 The first Color
-	 * @param c2 The second Color
+	 * @param oddItemColor  The first Color
+	 * @param evenItemColor The second Color
 	 */
-	public void setFlipColor(ChatColor c1, ChatColor c2) {
-		this.c1 = c1 == null ? ChatColor.GRAY : c1;
-		this.c2 = c2 == null ? ChatColor.GRAY : c2;
+	public void setFlipColor(ChatColor oddItemColor, ChatColor evenItemColor) {
+		if (oddItemColor == null) {
+			oddItemColor = ChatColor.GRAY;
+		}
+
+		if (evenItemColor == null) {
+			evenItemColor = ChatColor.GRAY;
+		}
+		this.oddItemColor = oddItemColor;
+		this.evenItemColor = evenItemColor;
 	}
 
 	/**
 	 * Set the color that the entries will have The colorwill stay the same for
 	 * all entries
 	 *
-	 * @param c
+	 * @param itemColor
 	 */
-	public void setSimpleColor(ChatColor c) {
-		setFlipColor(c, c);
+	public void setSimpleColor(ChatColor itemColor) {
+		setFlipColor(itemColor, itemColor);
 	}
 
 	/**
@@ -67,21 +73,24 @@ public class HelpScreen {
 		if (header == null) {
 			header = "";
 		}
-		this.header = header;
+		this.menuHeader = header;
 	}
 
 	/**
 	 * @param name        The name that will be displayed
 	 * @param description The description
 	 */
-	public HelpScreenEntry setEntry(String name, String description) {
-		HelpScreenEntry e;
-		entries.put(name.toLowerCase(), e = new HelpScreenEntry(name, description));
-		return e;
+	public void setEntry(String name, String description) {
+		helpMenuMap.put(name.toLowerCase(), new HelpScreenEntry(name, description));
+	}
+
+	public HelpScreen addEntry(String name, String item) {
+		helpMenuMap.put(name.toLowerCase(), new HelpScreenEntry(name, item));
+		return this;
 	}
 
 	public HelpScreenEntry getEntry(String name) {
-		return entries.get(name.toLowerCase());
+		return helpMenuMap.get(name.toLowerCase());
 	}
 
 	/**
@@ -91,7 +100,7 @@ public class HelpScreen {
 	public List<HelpScreenEntry> toSend(Permissible p) {
 		ArrayList<HelpScreenEntry> toSend = new ArrayList<>();
 
-		for (HelpScreenEntry e : entries.values()) {
+		for (HelpScreenEntry e : helpMenuMap.values()) {
 			if (e.isPermitted(p)) {
 				toSend.add(e);
 			}
@@ -106,35 +115,40 @@ public class HelpScreen {
 	 * @param perPage The amount of entries per Page
 	 */
 	public void sendTo(CommandSender s, int page, int perPage) {
-		List<HelpScreenEntry> toSend = toSend(s);
-
-		int maxpage = (int) (toSend.size() / (float) perPage + 0.999);
-
-		int from = (page - 1) * perPage;
-		int to = from + perPage;
-
-		if (from >= toSend.size()) {
-			from = to = 0;
+		List<HelpScreenEntry> helpScreenEntries = toSend(s);
+		//The amount of elements to send
+		int entryAmount = helpScreenEntries.size();
+		//The amount of pages in the help menu
+		int maxPage = (int) (entryAmount / (float) perPage + 0.999);
+		//Position at which to start parsing the list
+		int subListStart = (page - 1) * perPage;
+		//Position to stop parsing the list
+		int subListEnd = subListStart + perPage;
+		if (subListStart >= entryAmount) {
+			subListStart = subListEnd = 0;
 		}
-		if (to > toSend.size()) {
-			to = toSend.size();
+		if (subListEnd > entryAmount) {
+			subListEnd = entryAmount;
 		}
 
-		toSend = from == to || toSend.size() == 0 ? new ArrayList<HelpScreenEntry>() : toSend.subList(from, to);
+		if (subListStart == subListEnd || entryAmount == 0) {
+			helpScreenEntries = new ArrayList<>();
+		} else {
+			helpScreenEntries = helpScreenEntries.subList(subListStart, subListEnd);
+		}
 
-		String[] msg = new String[toSend.size() + 1];
 
-		msg[0] = header.replaceAll("<name>", NAME).replaceAll("<page>", page + "").replaceAll("<maxpage>", maxpage + "");
+		String[] messages = new String[entryAmount + 1];
+
+		messages[0] = menuHeader.replaceAll("<name>", menuName).replaceAll("<page>", page + "").replaceAll("<maxpage>", maxPage + "");
 
 		int i = 1;
 
 		boolean col = false;
-		for (HelpScreenEntry e : toSend) {
-			msg[i++] = ((col = !col) ? c1 : c2) + e.fromFormat(format);
+		for (HelpScreenEntry e : helpScreenEntries) {
+			messages[i++] = ((col = !col) ? oddItemColor : evenItemColor) + e.fromFormat(menuFormat);
 		}
-
-		s.sendMessage(msg);
-
+		s.sendMessage(messages);
 	}
 
 	public class HelpScreenEntry {
@@ -182,7 +196,7 @@ public class HelpScreen {
 		 * @return The phrased format
 		 */
 		public String fromFormat(String format) {
-			return format.replaceAll("<name>", NAME).replaceAll("<desc>", DESC);
+			return StringUtil.formatColorCodes(format.replaceAll("<name>", NAME).replaceAll("<desc>", DESC));
 		}
 
 		@Override

@@ -7,18 +7,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Folders {
+public class Folder {
 
-	private String folderLocation = "";
 	private Map<String, String> filesInFolder = new HashMap<>();
+	private String folderLocation;
+	private File folder;
 
-	public Folders(String folderLocation) {
+	public Folder(String folderLocation) {
+		this.folder = new File(folderLocation);
 		this.folderLocation = folderLocation;
-		initData();
 	}
 
 	private void initData() {
-		for (File folderFile : FileUtils.listFiles(new File(folderLocation), null, false)) {
+		for (File folderFile : FileUtils.listFiles(folder, null, false)) {
 			filesInFolder.put(folderFile.getName(), folderLocation + folderFile.getName());
 		}
 	}

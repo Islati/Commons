@@ -25,6 +25,10 @@ public class Menus {
 		return helpScreen;
 	}
 
+	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor itemColor) {
+		return generateHelpScreen(menuName, pageDisplay, itemFormat, itemColor, itemColor);
+	}
+
 	/**
 	 * Generate a help menu and set the elements in the menu to a map of values and keys
 	 *
@@ -37,10 +41,7 @@ public class Menus {
 	 * @return HelpScreen with the settings provided in parameters
 	 */
 	public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd, Map<String, String> helpItems) {
-		HelpScreen helpScreen = new HelpScreen(menuName);
-		helpScreen.setHeader(pageDisplay.toString());
-		helpScreen.setFormat(itemFormat.toString());
-		helpScreen.setFlipColor(flipColorEven, flipColorOdd);
+		HelpScreen helpScreen = generateHelpScreen(menuName, pageDisplay, itemFormat, flipColorEven, flipColorOdd);
 		for (Map.Entry<String, String> menuItem : helpItems.entrySet()) {
 			helpScreen.setEntry(menuItem.getKey(), menuItem.getValue());
 		}
