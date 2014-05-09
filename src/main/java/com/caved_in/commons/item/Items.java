@@ -16,6 +16,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -538,6 +539,24 @@ public class Items {
 			repairedItems += repairItem(itemStack) ? 1 : 0;
 		}
 		return repairedItems;
+	}
+
+
+	public static boolean isBook(ItemStack itemStack) {
+		return (getMetadata(itemStack) instanceof BookMeta);
+	}
+
+	public static ItemStack makeBook(String title, String author, String... pages) {
+		return makeBook(title, author, Arrays.asList(pages));
+	}
+
+	public static ItemStack makeBook(String title, String author, List<String> pages) {
+		ItemStack book = makeItemStack(Material.WRITTEN_BOOK);
+		BookMeta bookMeta = (BookMeta) getMetadata(book);
+		bookMeta.setTitle(title);
+		bookMeta.setAuthor(author);
+		bookMeta.setPages(pages);
+		return setMetadata(book, bookMeta);
 	}
 
 }

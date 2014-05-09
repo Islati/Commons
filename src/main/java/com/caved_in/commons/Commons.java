@@ -70,7 +70,7 @@ public class Commons extends JavaPlugin {
 	}
 
 	public static void debug(String... message) {
-		Players.messageAll(Players.allPlayersDebugging(), message);
+		Players.messageAll(Players.getAllDebugging(), message);
 		messageConsole(message);
 	}
 

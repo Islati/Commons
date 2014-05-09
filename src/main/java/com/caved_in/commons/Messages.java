@@ -4,10 +4,13 @@ import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Date;
 
 public class Messages {
 	public static final String MESSAGE_PREFIX = "";
@@ -41,7 +44,7 @@ public class Messages {
 
 	public static final String ERROR_RETRIEVING_PLAYER_DATA = "&cThere was an error retrieving the players data";
 
-	private static final String YELLOW_INDENT_ARROW = " &e- &r";
+	public static final String YELLOW_INDENT_ARROW = " &e- &r";
 
 	public static String playerDataLoadAttempt(String playerName) {
 		return String.format("&e%s&a has data, attempting to load it.", playerName);
@@ -234,6 +237,14 @@ public class Messages {
 
 	public static String npcNameShortened(String from, String to) {
 		return String.format("Name '%s' has been shortened to '%s'", from, to);
+	}
+
+	public static String[] exceptionInfo(Exception e) {
+		return new String[]{
+				String.format("&cException Occurred @ &e%s", new Date()),
+				String.format("%s%s", YELLOW_INDENT_ARROW, e.getLocalizedMessage()),
+				String.format("%s%s", YELLOW_INDENT_ARROW, Str.getStackStr(e))
+		};
 	}
 
 	public static String packetRetrieveFail(String protocol, String sender, int id) {

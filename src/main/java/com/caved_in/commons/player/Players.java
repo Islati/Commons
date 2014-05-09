@@ -133,11 +133,11 @@ public class Players {
 		playerData.put(playerId, playerWrapper);
 	}
 
-	public static void addXp(Player player, int amount) {
-		addXp(player, amount, true);
+	public static void giveMoney(Player player, int amount) {
+		giveMoney(player, amount, true);
 	}
 
-	public static void addXp(Player player, int amount, boolean message) {
+	public static void giveMoney(Player player, int amount, boolean message) {
 		if (!Commons.hasSqlBackend()) {
 			return;
 		}
@@ -541,6 +541,10 @@ public class Players {
 		}
 	}
 
+	public static void sendMessage(CommandSender receiver, List<String> messages) {
+		messages.stream().forEach(m -> Players.sendMessage(receiver, m));
+	}
+
 	/**
 	 * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
 	 *
@@ -903,7 +907,7 @@ public class Players {
 		return playerData.values();
 	}
 
-	public static Set<Player> allPlayersDebugging() {
+	public static Set<Player> getAllDebugging() {
 		Set<Player> players = new HashSet<>();
 		for (PlayerWrapper playerWrapper : allPlayerWrappers()) {
 			if (playerWrapper.isInDebugMode()) {

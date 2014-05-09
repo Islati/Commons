@@ -7,6 +7,7 @@ import com.caved_in.commons.menu.ItemFormat;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.utilities.Str;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,5 +96,9 @@ public class Debugger {
 		}
 		String message = String.format(COMMAND_PREPROCESS_MESSAGE, command, argLength, addition);
 		Players.sendMessage(player, message);
+	}
+
+	public static ItemStack createExceptionBook(Exception ex) {
+		return Items.makeBook("Exception: " + ex.getLocalizedMessage(), "Cause: " + ex.getCause().toString(), Str.getStackStr(ex));
 	}
 }

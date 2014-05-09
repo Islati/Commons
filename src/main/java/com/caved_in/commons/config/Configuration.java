@@ -25,6 +25,9 @@ public class Configuration {
 	@Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class)
 	private ItemMenuConfiguration itemMenuConfig;
 
+	@Element(name = "debug-config", type = DebugConfig.class)
+	private DebugConfig debugConfig;
+
 	@Element(name = "Server_Name")
 	private String serverName = "EDIT THIS";
 
@@ -39,7 +42,8 @@ public class Configuration {
 						 @Element(name = "Server_Name") String serverName,
 						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
 						 @Element(name = "Database_Backend") boolean sqlBackend,
-						 @Element(name = "Register_Commands") boolean registerCommands) {
+						 @Element(name = "Register_Commands") boolean registerCommands,
+						 @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
@@ -49,6 +53,7 @@ public class Configuration {
 		this.premiumConfig = new PremiumConfiguration();
 		this.sqlBackend = sqlBackend;
 		this.registerCommands = registerCommands;
+		this.debugConfig = debugConfig;
 	}
 
 	public Configuration() {
@@ -57,6 +62,7 @@ public class Configuration {
 		this.maintenanceConfig = new MaintenanceConfiguration();
 		this.itemMenuConfig = new ItemMenuConfiguration();
 		this.premiumConfig = new PremiumConfiguration();
+		this.debugConfig = new DebugConfig();
 	}
 
 	public MaintenanceConfiguration getMaintenanceConfig() {
@@ -93,5 +99,9 @@ public class Configuration {
 
 	public boolean registerCommands() {
 		return registerCommands;
+	}
+
+	public DebugConfig getDebugConfig() {
+		return debugConfig;
 	}
 }
