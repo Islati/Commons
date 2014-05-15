@@ -12,6 +12,8 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
+import com.caved_in.commons.threading.tasks.CallableNameFetcher;
+import com.caved_in.commons.threading.tasks.CallableUuidFetcher;
 import com.caved_in.commons.threading.tasks.ThreadKickPlayer;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
@@ -28,19 +30,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.net.HttpURLConnection;
-import java.net.Proxy;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.*;
 
 import static com.caved_in.commons.Commons.messageConsole;
@@ -246,6 +238,14 @@ public class Players {
 		return getPlayer(uniqueId) != null;
 	}
 
+	public static OfflinePlayer getOfflinePlayer(UUID id) {
+		return Bukkit.getOfflinePlayer(id);
+	}
+
+	public static OfflinePlayer getOfflinePlayer(String name) {
+		return Bukkit.getOfflinePlayer(name);
+	}
+
 	/**
 	 * Gets an online player based on the name passed.
 	 *
@@ -306,68 +306,16 @@ public class Players {
 		return isOnline(partialPlayerName) ? getPlayer(partialPlayerName).getName() : null;
 	}
 
-	public static String getNameFromUUID(UUID uuid) {
-		return getNameFromUUID(uuid.toString());
+	public static String getNameFromUUID(UUID uuid) throws Exception {
+		return CallableNameFetcher.getNameFromUUID(uuid);
 	}
 
-	public static String getNameFromUUID(String uuid) {
-		String name = null;
-		try {
-			URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid);
-			URLConnection connection = url.openConnection();
-			Scanner jsonScanner = new Scanner(connection.getInputStream(), "UTF-8");
-			String json = jsonScanner.next();
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(json);
-			name = (String) ((JSONObject) obj).get("name");
-			jsonScanner.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return name;
+	public static String getNameFromUUID(String uuid) throws Exception {
+		return getNameFromUUID(UUID.fromString(uuid));
 	}
 
-	public static UUID getUUIDFromName(String name) {
-		try {
-			ProfileData profC = new ProfileData(name);
-			UUID uuid = null;
-			for (int i = 1; i <= 100; i++) {
-				PlayerProfile[] result = postPlayerProfile(new URL("https://api.mojang.com/profiles/page/" + i), Proxy.NO_PROXY, gson.toJson(profC).getBytes());
-				if (result.length == 0) {
-					break;
-				}
-				String id = result[0].getId();
-
-				uuid = UUID.fromString(String.format("%s-%s-%s-%s-%s", id.substring(0, 8), id.substring(8, 12), id.substring(12, 16), id.substring(16, 20), id.substring(20, 32)));
-			}
-			return uuid;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private static PlayerProfile[] postPlayerProfile(URL url, Proxy proxy, byte[] bytes) throws IOException {
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-		connection.setRequestMethod("POST");
-		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setDoInput(true);
-		connection.setDoOutput(true);
-
-		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-		out.write(bytes);
-		out.flush();
-		out.close();
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		StringBuilder response = new StringBuilder();
-		String line;
-		while ((line = reader.readLine()) != null) {
-			response.append(line);
-			response.append('\r');
-		}
-		reader.close();
-		return gson.fromJson(response.toString(), SearchResult.class).getProfiles();
+	public static UUID getUUIDFromName(String name) throws Exception {
+		return CallableUuidFetcher.getUUIDOf(name);
 	}
 
 	public static UUID getUniqueId(Player player) {
@@ -453,13 +401,19 @@ public class Players {
 	 */
 	public static void messageAll(String message) {
 		for (Player player : allPlayers()) {
+			if (player == null) {
+				continue;
+			}
 			sendMessage(player, message);
 		}
 	}
 
-	public static void messageAll(Collection<Player> players, String... message) {
-		for (Player player : players) {
-			sendMessage(player, message);
+	public static void messageAll(Set<Player> receivers, String... messages) {
+		for (Player player : receivers) {
+			if (player == null) {
+				continue;
+			}
+			sendMessage(player, messages);
 		}
 	}
 
@@ -473,6 +427,9 @@ public class Players {
 	 */
 	public static void messageAllWithPermission(String permission, String... messages) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player == null) {
+				continue;
+			}
 			if (player.hasPermission(permission)) {
 				sendMessage(player, messages);
 			}
@@ -542,7 +499,9 @@ public class Players {
 	}
 
 	public static void sendMessage(CommandSender receiver, List<String> messages) {
-		messages.stream().forEach(m -> Players.sendMessage(receiver, m));
+		for (String message : messages) {
+			sendMessage(receiver, message);
+		}
 	}
 
 	/**
@@ -553,9 +512,10 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void sendMessage(CommandSender messageReceiver, String message) {
-		if (message != null) {
-			messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
+		if (messageReceiver == null || message == null) {
+			return;
 		}
+		messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
 	}
 
 
@@ -909,10 +869,22 @@ public class Players {
 
 	public static Set<Player> getAllDebugging() {
 		Set<Player> players = new HashSet<>();
-		for (PlayerWrapper playerWrapper : allPlayerWrappers()) {
-			if (playerWrapper.isInDebugMode()) {
-				players.add(getPlayer(playerWrapper));
+		for (PlayerWrapper wrapper : playerData.values()) {
+			if (!wrapper.isOnline() || !wrapper.isInDebugMode()) {
+				continue;
 			}
+			players.add(getPlayer(wrapper));
+		}
+		return players;
+	}
+
+	public static Set<Player> getPlayers(Collection<UUID> ids) {
+		Set<Player> players = new HashSet<>();
+		for (UUID id : ids) {
+			if (!isOnline(id)) {
+				continue;
+			}
+			players.add(getPlayer(id));
 		}
 		return players;
 	}
@@ -1241,34 +1213,6 @@ public class Players {
 		} catch (IllegalAccessException e) {
 			Commons.messageConsole("Failed to get the channel of player: " + player.getName());
 			return null;
-		}
-	}
-
-	private static class PlayerProfile {
-		private String id;
-
-		public String getId() {
-			return id;
-		}
-	}
-
-	private static class SearchResult {
-		private PlayerProfile[] profiles;
-
-		public PlayerProfile[] getProfiles() {
-			return profiles;
-		}
-	}
-
-	private static class ProfileData {
-
-		@SuppressWarnings("unused")
-		private String name;
-		@SuppressWarnings("unused")
-		private String agent = "minecraft";
-
-		public ProfileData(String name) {
-			this.name = name;
 		}
 	}
 }

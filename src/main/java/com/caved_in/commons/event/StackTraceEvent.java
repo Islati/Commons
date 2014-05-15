@@ -58,4 +58,8 @@ public class StackTraceEvent extends Event {
 			debuggingPlayers.forEach(p -> Players.sendMessage(p, stackMessages));
 		}
 	}
+
+	public static void handle(Exception e) {
+		handle(new StackTraceEvent(e));
+	}
 }

@@ -135,7 +135,6 @@ permissions:
    commons.clearinventory:
       description: Allows you to use the clearinventory command
       default: op
-#     Make child / parent nodes for clearing the inventories of others
    commons.day:
       description: Allows you to use the day command
       default: op
@@ -148,7 +147,6 @@ permissions:
    commons.feed:
       description: Allows you to use the feed command
       default: op
-#      Make one so it's either use it on yourself, or others
    commons.fireworks:
       description: Allows you to use the fireworks commands
       default: op

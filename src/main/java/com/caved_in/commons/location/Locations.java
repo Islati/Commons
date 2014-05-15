@@ -69,6 +69,14 @@ public class Locations {
 		return getLocation(location.getWorld(), location.getX(), location.getY() + 1, location.getZ());
 	}
 
+	public static Location getRoundedCompassLocation(Location location, int round) {
+		int x = location.getBlockX();
+		int z = location.getBlockZ();
+		z = Math.round(z / round) * round;
+		x = Math.round(x / round) * round;
+		return new Location(location.getWorld(), x, 0.0, z);
+	}
+
 	public static String getWorldName(Location location) {
 		return location.getWorld().getName();
 	}

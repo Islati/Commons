@@ -31,6 +31,8 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.UUID;
 
 public class Commons extends JavaPlugin {
@@ -64,6 +66,10 @@ public class Commons extends JavaPlugin {
 	}
 
 	public static void messageConsole(String... messages) {
+		messageConsole(Arrays.asList(messages));
+	}
+
+	public static void messageConsole(Collection<String> messages) {
 		for (String message : messages) {
 			Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
 		}
@@ -72,6 +78,10 @@ public class Commons extends JavaPlugin {
 	public static void debug(String... message) {
 		Players.messageAll(Players.getAllDebugging(), message);
 		messageConsole(message);
+	}
+
+	public static void debug(Collection<String> messages) {
+		messages.forEach(com.caved_in.commons.Commons::debug);
 	}
 
 	public static boolean reloadConfiguration() {

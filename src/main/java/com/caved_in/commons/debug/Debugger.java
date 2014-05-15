@@ -99,6 +99,6 @@ public class Debugger {
 	}
 
 	public static ItemStack createExceptionBook(Exception ex) {
-		return Items.makeBook("Exception: " + ex.getLocalizedMessage(), "Cause: " + ex.getCause().toString(), Str.getStackStr(ex));
+		return Items.makeBook("Exception: " + ex.getMessage(), Str.getStackStr(ex));
 	}
 }

@@ -223,6 +223,10 @@ public class Messages {
 		};
 	}
 
+	public static String locationCoords(Location loc) {
+		return String.format("(%sx,%sy,%sz)", loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+	}
+
 	public static String recipeFurnace(ItemStack smeltResult, ItemStack itemRequired) {
 		return String.format("&e%s&a is produced by smelting &e%s", Items.getFormattedMaterialName(smeltResult), Items.getFormattedMaterialName(itemRequired));
 	}
@@ -253,6 +257,10 @@ public class Messages {
 
 	public static String properUsage(String usage) {
 		return String.format("&ePlease use &a%s", usage);
+	}
+
+	public static String permissionRequired(String permissionNode) {
+		return String.format("&eYou don't have the permission required &7(%s)&e to perform this action", permissionNode);
 	}
 
 	public static String timeUpdated(String worldName, String time) {

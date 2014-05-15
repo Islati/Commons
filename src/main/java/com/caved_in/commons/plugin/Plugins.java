@@ -30,6 +30,23 @@ public class Plugins {
 		pluginManager.disablePlugin(plugin);
 	}
 
+	public static boolean enablePlugin(String name) {
+		Plugin plugin = pluginManager.getPlugin(name);
+		if (plugin == null || pluginManager.isPluginEnabled(name)) {
+			return false;
+		}
+		pluginManager.enablePlugin(plugin);
+		return true;
+	}
+
+	public static Plugin getPlugin(String name) {
+		if (!pluginExists(name)) {
+			return null;
+		}
+
+		return pluginManager.getPlugin(name);
+	}
+
 	public static boolean hasDataFolder(Plugin plugin) {
 		return plugin.getDataFolder().exists();
 	}
