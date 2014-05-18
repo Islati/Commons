@@ -273,6 +273,10 @@ public class Entities {
 		return entities;
 	}
 
+	public static void damage(Damageable damageable, double dmg) {
+		damageable.damage(dmg);
+	}
+
 	public static void kill(Damageable... damageables) {
 		for (Damageable entity : damageables) {
 			kill(entity);

@@ -22,10 +22,7 @@ import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class StringUtil {
 	/**
@@ -373,6 +370,14 @@ public class StringUtil {
 	 */
 	public static String formatColorCodes(String str) {
 		return ChatColor.translateAlternateColorCodes('&', str);
+	}
+
+	public static List<String> formatColorCodes(List<String> list) {
+		List<String> converted = new ArrayList<>();
+		for (String s : list) {
+			converted.add(formatColorCodes(s));
+		}
+		return converted;
 	}
 
 	public static String getTrimmedPlayerName(String playerName) {

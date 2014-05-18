@@ -4,6 +4,7 @@ import com.caved_in.commons.location.Locations;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 /**
@@ -44,5 +45,18 @@ public class Effects {
 
 	public static void playBlockEffect(Player player, Location location, Effect effect, Material blockType) {
 		player.playEffect(location, effect, blockType.getId());
+	}
+
+	public static void strikeLightning(Location loc, boolean damage) {
+		World world = loc.getWorld();
+		if (damage) {
+			world.strikeLightning(loc);
+		} else {
+			world.strikeLightningEffect(loc);
+		}
+	}
+
+	public static void playBleedEffect(Player player) {
+		playBlockBreakEffect(player.getLocation(), BLOCK_EFFECT_RADIUS, Material.REDSTONE);
 	}
 }
