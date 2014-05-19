@@ -39,6 +39,12 @@ public class Debugger {
 		debugActions.put(action.getActionName().toLowerCase(), action);
 	}
 
+	public static void addDebugAction(DebugAction... actions) {
+		for (DebugAction action : actions) {
+			debugActions.put(action.getActionName().toLowerCase(), action);
+		}
+	}
+
 	public static boolean isDebugAction(String name) {
 		return debugActions.containsKey(name.toLowerCase());
 	}

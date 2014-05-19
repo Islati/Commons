@@ -45,6 +45,7 @@ public class DebugModeCommand {
 				Players.sendMessage(player, Messages.playerDebugModeChange(playerWrapper));
 				break;
 			case "list":
+			case "?":
 				int page = 1;
 				if (args.length > 1) {
 					if (!StringUtils.isNumeric(args[1])) {

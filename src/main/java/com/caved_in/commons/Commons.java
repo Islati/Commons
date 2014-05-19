@@ -5,6 +5,7 @@ import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.debug.actions.DebugHandItem;
 import com.caved_in.commons.debug.actions.DebugPlayerSyncData;
 import com.caved_in.commons.debug.actions.DebugTimeHandler;
 import com.caved_in.commons.item.Items;
@@ -176,8 +177,11 @@ public class Commons extends JavaPlugin {
 	}
 
 	private void registerDebugActions() {
-		Debugger.addDebugAction(new DebugPlayerSyncData());
-		Debugger.addDebugAction(new DebugTimeHandler());
+		Debugger.addDebugAction(
+				new DebugPlayerSyncData(),
+				new DebugHandItem(),
+				new DebugTimeHandler()
+		);
 	}
 
 	private void registerListeners() {

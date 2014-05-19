@@ -5,8 +5,10 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.Str;
+import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -168,6 +170,22 @@ public class Messages {
 
 	public static String itemEnchantmentAdded(String enchantmentName, int level) {
 		return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
+	}
+
+	public static String[] itemInfo(ItemStack itemStack) {
+		String itemLore = StringUtil.joinString(Items.getLore(itemStack), String.format("\n%s%s", YELLOW_INDENT_ARROW, YELLOW_INDENT_ARROW), 0);
+		String itemName = Items.getName(itemStack);
+		Material type = itemStack.getType();
+		short durability = itemStack.getDurability();
+		int amount = itemStack.getAmount();
+		return new String[]{
+				String.format("&e[--&6Item Information&e--]"),
+				String.format("%sItem Name: %s", YELLOW_INDENT_ARROW, itemName),
+				String.format("%sItem Type: %s", YELLOW_INDENT_ARROW, type.name()),
+				String.format("%sItem Durability: %s", YELLOW_INDENT_ARROW, durability),
+				String.format("%sItem Amount: %s", YELLOW_INDENT_ARROW, amount),
+				String.format("%sItem Lore: %s", YELLOW_INDENT_ARROW, itemLore)
+		};
 	}
 
 

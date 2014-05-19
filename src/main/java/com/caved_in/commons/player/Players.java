@@ -379,6 +379,10 @@ public class Players {
 		kickAllWithoutPermission(permission.toString(), reason);
 	}
 
+	public static void messageOps(String... messages) {
+		messageAll(onlineOperators(), messages);
+	}
+
 	/**
 	 * Sends messages to all online players
 	 *
@@ -852,6 +856,16 @@ public class Players {
 	 */
 	public static Player[] allPlayers() {
 		return Bukkit.getOnlinePlayers();
+	}
+
+	public static Set<Player> onlineOperators() {
+		Set<Player> players = new HashSet<>();
+		for (Player player : allPlayers()) {
+			if (player.isOp()) {
+				players.add(player);
+			}
+		}
+		return players;
 	}
 
 	public static Player getRandomPlayer() {

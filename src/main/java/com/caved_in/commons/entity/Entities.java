@@ -3,6 +3,8 @@ package com.caved_in.commons.entity;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
@@ -275,6 +277,14 @@ public class Entities {
 
 	public static void damage(Damageable damageable, double dmg) {
 		damageable.damage(dmg);
+	}
+
+	public static void burn(Damageable damageable, int fireTicks) {
+		damageable.setFireTicks(fireTicks);
+	}
+
+	public static void burn(Damageable damageable, int amt, TimeType timeType) {
+		damageable.setFireTicks((int) TimeHandler.getTimeInTicks(amt, timeType));
 	}
 
 	public static void kill(Damageable... damageables) {

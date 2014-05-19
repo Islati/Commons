@@ -1,5 +1,6 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.inventory.Inventories;
@@ -26,8 +27,37 @@ import org.bukkit.material.MaterialData;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Items {
+
+	public static final ItemStack[] DIAMOND_ARMOR = new ItemStack[]{
+			makeItem(Material.DIAMOND_HELMET),
+			makeItem(Material.DIAMOND_CHESTPLATE),
+			makeItem(Material.DIAMOND_LEGGINGS),
+			makeItem(Material.DIAMOND_BOOTS)
+	};
+
+	public static final ItemStack[] GOLD_ARMOR = new ItemStack[]{
+			makeItem(Material.GOLD_HELMET),
+			makeItem(Material.GOLD_CHESTPLATE),
+			makeItem(Material.GOLD_LEGGINGS),
+			makeItem(Material.GOLD_BOOTS)
+	};
+
+	public static final ItemStack[] IRON_ARMOR = new ItemStack[]{
+			makeItem(Material.IRON_HELMET),
+			makeItem(Material.IRON_CHESTPLATE),
+			makeItem(Material.IRON_LEGGINGS),
+			makeItem(Material.IRON_BOOTS)
+	};
+
+	public static final ItemStack[] LEATHER_ARMOR = new ItemStack[]{
+			makeItem(Material.LEATHER_HELMET),
+			makeItem(Material.LEATHER_CHESTPLATE),
+			makeItem(Material.LEATHER_LEGGINGS),
+			makeItem(Material.LEATHER_BOOTS)
+	};
 
 	private static final Method TO_NMS = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
 
@@ -111,7 +141,13 @@ public class Items {
 		//Boolean statements; Woo! Our newItemLore = the current items lore, if it has lore; otherwise a blank arraylist
 		List<String> newItemLore = hasLore(itemMeta) ? getLore(itemMeta) : new ArrayList<String>();
 		//Add all the lines passed to this method to the items current lore
-		newItemLore.addAll(loreLines);
+		for (String line : loreLines) {
+			if (line == null) {
+				continue;
+			}
+
+			newItemLore.add(StringUtil.formatColorCodes(line));
+		}
 		itemMeta = setLore(itemMeta, newItemLore);
 		return setMetadata(itemStack, itemMeta);
 	}
@@ -161,7 +197,7 @@ public class Items {
 	}
 
 	public static ItemMeta setLore(ItemMeta itemMeta, List<String> loreLines) {
-		itemMeta.setLore(loreLines);
+		itemMeta.setLore(loreLines.stream().map(StringUtil::formatColorCodes).collect(Collectors.toList()));
 		return itemMeta;
 	}
 
@@ -174,11 +210,21 @@ public class Items {
 	 */
 	public static boolean loreContains(ItemStack itemStack, String text) {
 		if (!hasLore(itemStack)) {
+			Commons.debug("Item has no lore");
 			return false;
 		}
+		Commons.debug("Item has lore");
+
 
 		List<String> itemLore = getLore(itemStack);
+		int i = 0;
 		for (String s : itemLore) {
+			i++;
+			if (s == null || s.isEmpty()) {
+				Commons.debug("Item has lore @ Line [" + i + "]");
+				continue;
+			}
+			Commons.debug("Lore Line [" + i + "]: " + s);
 			if (s.toLowerCase().contains(text.toLowerCase())) {
 				return true;
 			}
@@ -290,7 +336,7 @@ public class Items {
 	 * @param material Material to create the itemstack with
 	 * @return a new item stack of the given material
 	 */
-	public static ItemStack makeItemStack(Material material) {
+	public static ItemStack makeItem(Material material) {
 		return new ItemStack(material);
 	}
 
@@ -310,7 +356,7 @@ public class Items {
 	 * @return Itemstack with the material and name
 	 */
 	public static ItemStack makeItem(Material material, String itemName) {
-		ItemStack itemStack = makeItemStack(material);
+		ItemStack itemStack = makeItem(material);
 		return setName(itemStack, itemName);
 	}
 
@@ -551,7 +597,7 @@ public class Items {
 	}
 
 	public static ItemStack makeBook(String title, String author, List<String> pages) {
-		ItemStack book = makeItemStack(Material.WRITTEN_BOOK);
+		ItemStack book = makeItem(Material.WRITTEN_BOOK);
 		BookMeta bookMeta = (BookMeta) getMetadata(book);
 		bookMeta.setTitle(title);
 		bookMeta.setAuthor(author);

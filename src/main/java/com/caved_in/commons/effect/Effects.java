@@ -7,13 +7,10 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 26/11/13
- * Time: 11:48 AM
- */
 public class Effects {
 	public static final int BLOCK_EFFECT_RADIUS = 6;
+
+	public static final int BLEED_EFFECT_RADIUS = 10;
 
 	/**
 	 * Plays the given effect  at a specific location to all the players within the
@@ -57,6 +54,13 @@ public class Effects {
 	}
 
 	public static void playBleedEffect(Player player) {
-		playBlockBreakEffect(player.getLocation(), BLOCK_EFFECT_RADIUS, Material.REDSTONE);
+		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE);
 	}
+
+	public static void explode(Location location, float power, boolean setFire, boolean breakBlocks) {
+		World world = location.getWorld();
+		int[] xyz = Locations.getXYZ(location);
+		world.createExplosion(xyz[0], xyz[1], xyz[2], power, setFire, breakBlocks);
+	}
+
 }

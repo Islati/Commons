@@ -33,7 +33,7 @@ public class RecipeCommand {
 				}
 			}
 			//Get an itemstack for the item in our recipe
-			ItemStack itemStack = Items.makeItemStack(Items.getMaterialById(itemId));
+			ItemStack itemStack = Items.makeItem(Items.getMaterialById(itemId));
 			//If the recipe failed to show, then send a message saying recipe not found
 			if (!Items.showRecipe(player, itemStack)) {
 				Players.sendMessage(player, Messages.invalidRecipe(itemStack));
