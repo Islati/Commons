@@ -45,7 +45,6 @@ public class Chunks {
 		chunkDataMap.remove(getChunkCords(chunk));
 	}
 
-
 	public static int[] getChunkCords(Chunk chunk) {
 		return new int[]{chunk.getX(), chunk.getZ()};
 	}

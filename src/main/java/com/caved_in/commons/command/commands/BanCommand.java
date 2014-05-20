@@ -6,7 +6,6 @@ import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.npc.EntityHuman;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.CallableBanPlayer;
 import com.caved_in.commons.time.TimeHandler;
@@ -29,7 +28,7 @@ public class BanCommand {
 			return;
 		}
 
-		final UUID senderId = (sender instanceof Player) ? ((Player) sender).getUniqueId() : EntityHuman.NPC_UUID;
+		final UUID senderId = (sender instanceof Player) ? ((Player) sender).getUniqueId() : UUID.randomUUID();
 		final String playerName = args[0];
 		final boolean banningPlayerIsOnline = Players.isOnline(playerName);
 		final Player banningPlayer = Players.getPlayer(playerName);

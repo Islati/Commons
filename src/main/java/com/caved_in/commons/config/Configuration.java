@@ -31,14 +31,14 @@ public class Configuration {
 	@Element(name = "Server_Name")
 	private String serverName = "EDIT THIS";
 
-	@Element(name = "Enable_NPC")
+	@Element(name = "Enable_NPC", required = false)
 	private boolean enableNPC = true;
 
 	public Configuration(@Element(name = "WorldConfig", type = WorldConfiguration.class) WorldConfiguration worldConfig,
 						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
 						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
 						 @Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
-						 @Element(name = "Enable_NPC") boolean enableNPC,
+						 @Element(name = "Enable_NPC", required = false) boolean enableNPC,
 						 @Element(name = "Server_Name") String serverName,
 						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
 						 @Element(name = "Database_Backend") boolean sqlBackend,

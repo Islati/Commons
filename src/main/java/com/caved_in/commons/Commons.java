@@ -12,8 +12,6 @@ import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menu.serverselection.ServerMenuGenerator;
 import com.caved_in.commons.menu.serverselection.ServerMenuWrapper;
-import com.caved_in.commons.npc.NPC;
-import com.caved_in.commons.npc.NpcHandler;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.RunnableManager;
@@ -135,18 +133,6 @@ public class Commons extends JavaPlugin {
 			CommandRegister.registerCommands();
 		}
 
-		//If the NPC feature's enabled, then enable it!
-		if (getConfiguration().getNPCSEnabled()) {
-			NpcHandler npcHandler = NpcHandler.getInstance();
-
-			//Npc Handler startup
-			npcHandler.startUp();
-
-			for (NPC npc : NpcHandler.getInstance().getLookup().values()) {
-				npcHandler.updateNPC(npc);
-			}
-		}
-
 		//Register the debugger actions and triggers to 'case test' features in-game
 		registerDebugActions();
 
@@ -187,11 +173,6 @@ public class Commons extends JavaPlugin {
 	private void registerListeners() {
 
 		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
-
-		if (globalConfig.getNPCSEnabled()) {
-			registerListener(new NPCListener());
-			messageConsole("&aRegistered the NPC Listener");
-		}
 
 		if (!worldConfig.hasExternalChatHandler()) {
 			registerListener(new ChatListener());
@@ -315,10 +296,7 @@ public class Commons extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		if (getConfiguration().getNPCSEnabled()) {
-			NpcHandler npcHandler = NpcHandler.getInstance();
-			npcHandler.shutdown();
-		}
+//
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
 		for (Player player : Bukkit.getOnlinePlayers()) {
