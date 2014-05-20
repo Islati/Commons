@@ -1,6 +1,6 @@
 package com.caved_in.commons;
 
-import com.caved_in.commons.commands.CommandRegister;
+import com.caved_in.commons.command.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WorldConfiguration;

@@ -330,6 +330,10 @@ public class Blocks {
 		block.getState().update(true);
 	}
 
+	public static void setBlock(Location location, Material material) {
+		setBlock(getBlockAt(location), material);
+	}
+
 	/**
 	 * Check whether or not a block is an ore.
 	 *
