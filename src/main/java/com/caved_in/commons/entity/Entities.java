@@ -5,6 +5,7 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.warp.Warp;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 public class Entities {
@@ -243,12 +245,7 @@ public class Entities {
 	}
 
 	public static void removeEntitySafely(final LivingEntity entity) {
-		Commons.threadManager.runTaskOneTickLater(new Runnable() {
-			@Override
-			public void run() {
-				entity.remove();
-			}
-		});
+		Commons.threadManager.runTaskOneTickLater(entity::remove);
 	}
 
 	/**
@@ -266,53 +263,109 @@ public class Entities {
 	}
 
 	public static Set<LivingEntity> getEntitiesNearLocation(Location center, int radius) {
-		Set<LivingEntity> entities = new HashSet<>();
+		/*Set<LivingEntity> entities = new HashSet<>();
 		for (LivingEntity entity : center.getWorld().getLivingEntities()) {
 			if (Locations.isEntityInRadius(center, radius, entity)) {
 				entities.add(entity);
 			}
-		}
-		return entities;
+		}*/
+
+		return center.getWorld().getLivingEntities().stream().filter(entity -> Locations.isEntityInRadius(center, radius, entity)).collect(Collectors.toSet());
 	}
 
-	public static void damage(Damageable damageable, double dmg) {
-		damageable.damage(dmg);
+	public static void damage(Damageable target, double damage) {
+		target.damage(damage);
 	}
 
-	public static void burn(Damageable damageable, int fireTicks) {
-		damageable.setFireTicks(fireTicks);
+	public static void burn(Damageable target, int fireTicks) {
+		target.setFireTicks(fireTicks);
 	}
 
-	public static void burn(Damageable damageable, int amt, TimeType timeType) {
-		damageable.setFireTicks((int) TimeHandler.getTimeInTicks(amt, timeType));
+	/**
+	 * Burns the target for a specific duration.
+	 *
+	 * @param target   target to burn
+	 * @param amount   how long the target should burn; used with timeType to specify duration.
+	 * @param timeType the unit of time used to determine how long the target burns for.
+	 */
+	public static void burn(Damageable target, int amount, TimeType timeType) {
+		target.setFireTicks((int) TimeHandler.getTimeInTicks(amount, timeType));
 	}
 
-	public static void kill(Damageable... damageables) {
-		for (Damageable entity : damageables) {
+	/**
+	 * For each target passed, an entity damage event with max damage is created; if the event isn't cancelled the
+	 * target is killed.
+	 *
+	 * @param targets targets to kill.
+	 * @see #kill(org.bukkit.entity.Damageable)
+	 */
+	public static void kill(Damageable... targets) {
+		for (Damageable entity : targets) {
 			kill(entity);
 		}
 	}
 
-	public static void kill(Damageable damageable) {
-		EntityDamageEvent event = new EntityDamageEvent(damageable, EntityDamageEvent.DamageCause.CUSTOM, Double.MAX_VALUE);
+	/**
+	 * Creates an entity damage event with max damage, if the event isn't cancelled the target is killed.
+	 *
+	 * @param target target to kill
+	 */
+	public static void kill(Damageable target) {
+		EntityDamageEvent event = new EntityDamageEvent(target, EntityDamageEvent.DamageCause.CUSTOM, Double.MAX_VALUE);
 		Bukkit.getPluginManager().callEvent(event);
 		if (event.isCancelled()) {
 			return;
 		}
-		damageable.setHealth(0.0);
+		target.setHealth(0.0);
 	}
 
+	/**
+	 * Remove all the active potion effects from the living entity
+	 *
+	 * @param entity entity to remove the potion effects from
+	 */
 	public static void removePotionEffects(LivingEntity entity) {
 		for (PotionEffect effect : entity.getActivePotionEffects()) {
 			entity.removePotionEffect(effect.getType());
 		}
 	}
 
+	/**
+	 * Stop the entity from burning
+	 *
+	 * @param entity entity to stop burning
+	 * @see org.bukkit.entity.Entity#setFireTicks(int)
+	 */
 	public static void removeFire(Entity entity) {
 		entity.setFireTicks(0);
 	}
 
-	public static void restoreHealth(LivingEntity entity) {
-		setHealth(entity, getMaxHealth(entity));
+	/**
+	 * Restore the living entity health back to max.
+	 *
+	 * @param livingEntity the entity to heal.
+	 */
+	public static void restoreHealth(LivingEntity livingEntity) {
+		setHealth(livingEntity, getMaxHealth(livingEntity));
+	}
+
+	/**
+	 * Teleport the entity to the target location
+	 *
+	 * @param entity         entity to teleport
+	 * @param targetLocation the location to bring the entity to
+	 */
+	public static void teleport(Entity entity, Location targetLocation) {
+		entity.teleport(targetLocation);
+	}
+
+	/**
+	 * Teleport the entity to the target warp
+	 *
+	 * @param entity the entity to teleport
+	 * @param warp   the warp to bring the entity to
+	 */
+	public static void teleport(Entity entity, Warp warp) {
+		teleport(entity, warp.getLocation());
 	}
 }

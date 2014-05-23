@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu.serverselection;
+package com.caved_in.commons.menu.menus.serverselection;
 
 import com.caved_in.commons.config.itemmenu.XmlMenuItem;
 import com.caved_in.commons.menu.XYMenuItemWrapper;

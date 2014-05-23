@@ -29,6 +29,10 @@ public class FireworkEffectPlayer {
 	private Method nms_world_broadcastEntityEffect = null;
 	private Method firework_getHandle = null;
 
+	public void playFirework(Location loc, FireworkEffect fe) throws Exception {
+		playFirework(loc.getWorld(), loc, fe);
+	}
+
 	/**
 	 * Play a pretty firework at the location with the FireworkEffect when
 	 * called

@@ -3,70 +3,74 @@ package com.caved_in.commons.config;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root
+@Root(name = "world-config")
 public class WorldConfiguration {
-	@Element
+	@Element(name = "disable-weather")
 	private boolean disableWeather = true;
 
-	@Element
+	@Element(name = "disable-lightning")
 	private boolean disableLightning = true;
 
-	@Element
+	@Element(name = "disable-thunder")
 	private boolean disableThunder = true;
 
-	@Element
+	@Element(name = "disable-ice-accumulation")
 	private boolean disableIceAccumulation = true;
 
-	@Element
+	@Element(name = "disable-snow-accumulation")
 	private boolean disableSnowAccumulation = true;
 
-	@Element
+	@Element(name = "disable-mycelium-spread")
 	private boolean disableMyceliumSpread = true;
 
-	@Element
+	@Element(name = "disable-fire-spread")
 	private boolean disableFireSpread = true;
 
-	@Element
+	@Element(name = "launchpad-pressure-plates")
 	private boolean launchpadPressurePlates = false;
 
-	@Element
+	@Element(name = "enable-server-compass-menu")
 	private boolean enableCompassMenu = false;
 
-	@Element
-	private boolean enableJoinLeaveMessages = false;
+	@Element(name = "enable-join-messages")
+	private boolean enableJoinMessages = true;
 
-	@Element
-	private boolean enableBlockBreak = false;
+	@Element(name = "enable-leave-messages")
+	private boolean enableLeaveMessages = true;
 
-	@Element
-	private boolean enableItemPickup = false;
+	@Element(name = "enable-block-break")
+	private boolean enableBlockBreak = true;
 
-	@Element
-	private boolean enableItemDrop = false;
+	@Element(name = "enable-item-pickup")
+	private boolean enableItemPickup = true;
 
-	@Element
-	private boolean enableFoodChange = false;
+	@Element(name = "enable-item-drop")
+	private boolean enableItemDrop = true;
 
-	@Element(name = "externalChatHandler")
-	private boolean externalChatHandler = false;
+	@Element(name = "enable-food-change")
+	private boolean enableFoodChange = true;
+
+	@Element(name = "external-chat-plugin")
+	private boolean externalChatHandler = true;
 
 	private boolean silenceChat = false;
 
-	public WorldConfiguration(@Element(name = "disableWeather") boolean disableWeather,
-							  @Element(name = "disableLightning") boolean disableLightning,
-							  @Element(name = "disableThunder") boolean disableThunder,
-							  @Element(name = "disableIceAccumulation") boolean disableIceAccumulation,
-							  @Element(name = "disableSnowAccumulation") boolean disableSnowAccumulation,
-							  @Element(name = "disableMyceliumSpread") boolean disableMyceliumSpread,
-							  @Element(name = "launchpadPressurePlates") boolean launchpadPressurePlates,
-							  @Element(name = "enableCompassMenu") boolean enableCompassMenu,
-							  @Element(name = "enableJoinLeaveMessages") boolean enableJoinLeaveMessages,
-							  @Element(name = "externalChatHandler") boolean externalChatHandler,
-							  @Element(name = "enableBlockBreak") boolean enableBlockBreak,
-							  @Element(name = "enableItemPickup") boolean enableItemPickup,
-							  @Element(name = "enableItemDrop") boolean enableItemDrop,
-							  @Element(name = "enableFoodChange") boolean enableFoodChange,
-							  @Element(name = "disableFireSpread") boolean disableFireSpread
+	public WorldConfiguration(@Element(name = "disable-weather") boolean disableWeather,
+							  @Element(name = "disable-lightning") boolean disableLightning,
+							  @Element(name = "disable-thunder") boolean disableThunder,
+							  @Element(name = "disable-ice-accumulation") boolean disableIceAccumulation,
+							  @Element(name = "disable-snow-accumulation") boolean disableSnowAccumulation,
+							  @Element(name = "disable-mycelium-spread") boolean disableMyceliumSpread,
+							  @Element(name = "launchpad-pressure-plates") boolean launchpadPressurePlates,
+							  @Element(name = "enable-server-compass-menu") boolean enableCompassMenu,
+							  @Element(name = "enable-join-messages") boolean enableJoinMessages,
+							  @Element(name = "enable-leave-messages") boolean enableLeaveMessages,
+							  @Element(name = "external-chat-plugin") boolean externalChatHandler,
+							  @Element(name = "enable-block-break") boolean enableBlockBreak,
+							  @Element(name = "enable-item-pickup") boolean enableItemPickup,
+							  @Element(name = "enable-item-drop") boolean enableItemDrop,
+							  @Element(name = "enable-food-change") boolean enableFoodChange,
+							  @Element(name = "disable-fire-spread") boolean disableFireSpread
 	) {
 		this.disableIceAccumulation = disableIceAccumulation;
 		this.disableWeather = disableWeather;
@@ -76,7 +80,8 @@ public class WorldConfiguration {
 		this.disableThunder = disableThunder;
 		this.launchpadPressurePlates = launchpadPressurePlates;
 		this.enableCompassMenu = enableCompassMenu;
-		this.enableJoinLeaveMessages = enableJoinLeaveMessages;
+		this.enableJoinMessages = enableJoinMessages;
+		this.enableLeaveMessages = enableLeaveMessages;
 		this.externalChatHandler = externalChatHandler;
 		this.enableBlockBreak = enableBlockBreak;
 		this.enableItemDrop = enableItemDrop;
@@ -148,10 +153,19 @@ public class WorldConfiguration {
 	}
 
 	/**
-	 * @return true if join / leave messages are enabled, false otherwise
+	 * @return true if join messages are enabled, false otherwise
 	 */
-	public boolean isJoinLeaveMessagesEnabled() {
-		return this.enableJoinLeaveMessages;
+	public boolean hasJoinMessages() {
+		return enableJoinMessages;
+	}
+
+	/**
+	 * Whether or not leave messages are enabled
+	 *
+	 * @return
+	 */
+	public boolean hasLeaveMessages() {
+		return enableLeaveMessages;
 	}
 
 	/**

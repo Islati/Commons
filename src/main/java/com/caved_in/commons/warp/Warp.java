@@ -1,7 +1,9 @@
 package com.caved_in.commons.warp;
 
+import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -69,5 +71,9 @@ public class Warp {
 
 	public String getName() {
 		return name;
+	}
+
+	public void bring(Entity entity) {
+		Entities.teleport(entity, location);
 	}
 }

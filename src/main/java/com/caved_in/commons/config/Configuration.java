@@ -4,53 +4,48 @@ import org.simpleframework.xml.Element;
 
 public class Configuration {
 
-	@Element(name = "Database_Backend")
+	@Element(name = "mysql-backend")
 	private boolean sqlBackend = false;
 
-	@Element(name = "DatabaseConfig", type = SqlConfiguration.class)
+	@Element(name = "database-config", type = SqlConfiguration.class)
 	private SqlConfiguration sqlConfig;
 
-	@Element(name = "Register_Commands")
+	@Element(name = "register-commands")
 	private boolean registerCommands = true;
 
-	@Element(name = "PremiumConfig", type = PremiumConfiguration.class)
+	@Element(name = "premium-config", type = PremiumConfiguration.class)
 	private PremiumConfiguration premiumConfig;
 
-	@Element(name = "WorldConfig", type = WorldConfiguration.class)
+	@Element(name = "world-config", type = WorldConfiguration.class)
 	private WorldConfiguration worldConfig;
 
-	@Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class)
+	@Element(name = "maintenance-config", type = MaintenanceConfiguration.class)
 	private MaintenanceConfiguration maintenanceConfig;
 
-	@Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class)
+	@Element(name = "item-menu-config", type = ItemMenuConfiguration.class)
 	private ItemMenuConfiguration itemMenuConfig;
 
 	@Element(name = "debug-config", type = DebugConfig.class)
 	private DebugConfig debugConfig;
 
-	@Element(name = "Server_Name")
+	@Element(name = "server-name")
 	private String serverName = "EDIT THIS";
 
-	@Element(name = "Enable_NPC", required = false)
-	private boolean enableNPC = true;
-
-	public Configuration(@Element(name = "WorldConfig", type = WorldConfiguration.class) WorldConfiguration worldConfig,
-						 @Element(name = "DatabaseConfig", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
-						 @Element(name = "MaintenanceConfig", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
-						 @Element(name = "Item_Menu_Config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
-						 @Element(name = "Enable_NPC", required = false) boolean enableNPC,
-						 @Element(name = "Server_Name") String serverName,
-						 @Element(name = "PremiumConfig", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
-						 @Element(name = "Database_Backend") boolean sqlBackend,
-						 @Element(name = "Register_Commands") boolean registerCommands,
+	public Configuration(@Element(name = "world-config", type = WorldConfiguration.class) WorldConfiguration worldConfig,
+						 @Element(name = "database-config", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
+						 @Element(name = "maintenance-config", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
+						 @Element(name = "item-menu-config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
+						 @Element(name = "server-name") String serverName,
+						 @Element(name = "premium-config", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
+						 @Element(name = "mysql-backend") boolean sqlBackend,
+						 @Element(name = "register-commands") boolean registerCommands,
 						 @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
 		this.itemMenuConfig = itemMenuConfig;
 		this.serverName = serverName;
-		this.enableNPC = enableNPC;
-		this.premiumConfig = new PremiumConfiguration();
+		this.premiumConfig = premiumConfig;
 		this.sqlBackend = sqlBackend;
 		this.registerCommands = registerCommands;
 		this.debugConfig = debugConfig;
@@ -87,10 +82,6 @@ public class Configuration {
 
 	public PremiumConfiguration getPremiumConfig() {
 		return premiumConfig;
-	}
-
-	public boolean getNPCSEnabled() {
-		return enableNPC;
 	}
 
 	public boolean hasSqlBackend() {

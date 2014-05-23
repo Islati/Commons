@@ -1,5 +1,6 @@
 package com.caved_in.commons.effect;
 
+import com.caved_in.commons.location.Locations;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -7,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Random;
 
 public enum ParticleEffects {
 
@@ -48,6 +50,8 @@ public enum ParticleEffects {
 
 	private String name;
 	private int id;
+	public static final int PARTICLE_RADIUS = 10;
+	private static final Random random = new Random();
 
 	ParticleEffects(String name, int id) {
 		this.name = name;
@@ -111,12 +115,16 @@ public enum ParticleEffects {
 	public static void sendToLocation(ParticleEffects effect, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) {
 		try {
 			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
-			for (Player player : Bukkit.getOnlinePlayers()) {
+			for (Player player : Locations.getPlayersInRadius(location, PARTICLE_RADIUS)) {
 				sendPacket(player, packet);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void sendToLocation(ParticleEffects effects, Location loc, int count) {
+		sendToLocation(effects, loc, random.nextFloat(), random.nextFloat(), random.nextFloat(), random.nextFloat(), count);
 	}
 
 	private static Object createPacket(ParticleEffects effect, Location location, float offsetX, float offsetY,

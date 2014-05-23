@@ -10,8 +10,8 @@ import com.caved_in.commons.debug.actions.DebugPlayerSyncData;
 import com.caved_in.commons.debug.actions.DebugTimeHandler;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.menu.serverselection.ServerMenuGenerator;
-import com.caved_in.commons.menu.serverselection.ServerMenuWrapper;
+import com.caved_in.commons.menu.menus.serverselection.ServerMenuGenerator;
+import com.caved_in.commons.menu.menus.serverselection.ServerMenuWrapper;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.RunnableManager;
@@ -269,7 +269,7 @@ public class Commons extends JavaPlugin {
 		messageConsole("&aRegistered the player Quit listener");
 
 		registerListener(new InventoryListener());
-		messageConsole("&aRegistered the inventory listener");
+		messageConsole("&aRegistered the inventory listener & ItemMenu Listeners");
 
 		registerListener(new PlayerTeleportListener());
 		messageConsole("&aRegistered the player teleport listener");

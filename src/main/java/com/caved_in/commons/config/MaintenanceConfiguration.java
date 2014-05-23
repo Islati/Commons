@@ -4,15 +4,15 @@ import com.caved_in.commons.utilities.StringUtil;
 import org.simpleframework.xml.Element;
 
 public class MaintenanceConfiguration {
-	@Element(name = "maintenance_motd")
+	@Element(name = "maintenance-motd")
 	private String maintenanceModeMOTD = "&aThis server is currently undergoing maintenance";
 
-	@Element(name = "maintenance_kick_message")
-	private String maintenanceKickMessage = "&cThis server is currently undergoing maintenance; Sorry for the inconvienance";
+	@Element(name = "maintenance-kick-message")
+	private String maintenanceKickMessage = "&cThis server is currently undergoing maintenance; Sorry for the inconvenience";
 
 	private boolean maintenanceMode = false;
 
-	public MaintenanceConfiguration(@Element(name = "maintenance_motd") String maintenanceMOTD, @Element(name = "maintenance_kick_message") String maintenanceKickMessage) {
+	public MaintenanceConfiguration(@Element(name = "maintenance-motd") String maintenanceMOTD, @Element(name = "maintenance-kick-message") String maintenanceKickMessage) {
 		this.maintenanceModeMOTD = maintenanceMOTD;
 		this.maintenanceKickMessage = maintenanceKickMessage;
 	}

@@ -25,7 +25,7 @@ public class PlayerJoinListener implements Listener {
 		player.setWalkSpeed((float) PlayerWrapper.defaultWalkSpeed);
 		WorldConfiguration worldConfig = Commons.getConfiguration().getWorldConfig();
 
-		if (!worldConfig.isJoinLeaveMessagesEnabled()) {
+		if (!worldConfig.hasJoinMessages()) {
 			event.setJoinMessage(null);
 		}
 

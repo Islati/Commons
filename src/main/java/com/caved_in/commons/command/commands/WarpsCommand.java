@@ -15,7 +15,7 @@ public class WarpsCommand {
 	public void onWarpsCommand(Player player, String[] args) {
 		int page = 1;
 		HelpScreen warpsMenu = Menus.generateHelpScreen("Warps / Waypoints", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
-		for (String warp : Warps.getWarps()) {
+		for (String warp : Warps.getWarpNames()) {
 			warpsMenu.setEntry(warp, "");
 		}
 		if (args.length > 0) {

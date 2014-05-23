@@ -1,6 +1,9 @@
 package com.caved_in.commons.menu;
 
+import com.caved_in.commons.Commons;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 
 import java.util.Map;
 
@@ -55,6 +58,29 @@ public class Menus {
 		nicknameHelpsScreen.setEntry("/nick <Name>", "Disguise yourself as another player");
 		nicknameHelpsScreen.setEntry("/nick <player> <Name>", "Disguise another player");
 		return nicknameHelpsScreen;
+	}
+
+	public static ItemMenu createMenu(String title, int rows) {
+		return new ItemMenu(title, rows);
+	}
+
+	public static ItemMenu cloneMenu(ItemMenu menu) {
+		return menu.clone();
+	}
+
+	public static void removeMenu(ItemMenu menu) {
+		for (HumanEntity viewer : menu.getInventory().getViewers()) {
+			if (viewer instanceof Player) {
+				menu.closeMenu((Player) viewer);
+			} else {
+				viewer.closeInventory();
+			}
+		}
+	}
+
+	public static void switchMenu(final Player player, ItemMenu fromMenu, ItemMenu toMenu) {
+		fromMenu.closeMenu(player);
+		Commons.threadManager.runTaskOneTickLater(() -> toMenu.openMenu(player));
 	}
 
 	/*

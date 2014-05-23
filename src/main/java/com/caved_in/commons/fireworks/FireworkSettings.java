@@ -70,7 +70,7 @@ public class FireworkSettings {
 		}
 	}
 
-	public FireworkEffect randomFireworkEffect() {
+	public static FireworkEffect randomFireworkEffect() {
 		return FireworkEffect.builder().with(randomType()).withColor(randomColor()).withFade(randomColor()).trail(randomBoolean()).flicker(randomBoolean()).build();
 	}
 }

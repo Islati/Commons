@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ItemMenuConfiguration {
-	@ElementList(name = "menuItems")
+	@ElementList(name = "menu-items")
 	private List<XmlMenuItem> menuItems = new ArrayList<XmlMenuItem>();
 
-	public ItemMenuConfiguration(@ElementList(name = "menuItems", type = XmlMenuItem.class) List<XmlMenuItem> menuItems) {
+	public ItemMenuConfiguration(@ElementList(name = "menu-items", type = XmlMenuItem.class) List<XmlMenuItem> menuItems) {
 		this.menuItems = menuItems;
 	}
 

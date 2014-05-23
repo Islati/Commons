@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 public class PlayerKickListener implements Listener {
 	@EventHandler
 	public void onPlayerKicked(PlayerKickEvent event) {
-		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
+		if (!Commons.getConfiguration().getWorldConfig().hasJoinMessages()) {
 			event.setLeaveMessage(null);
 		}
 

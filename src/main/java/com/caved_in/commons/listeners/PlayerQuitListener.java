@@ -12,7 +12,7 @@ public class PlayerQuitListener implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		UUID playerId = event.getPlayer().getUniqueId();
-		if (!Commons.getConfiguration().getWorldConfig().isJoinLeaveMessagesEnabled()) {
+		if (!Commons.getConfiguration().getWorldConfig().hasJoinMessages()) {
 			event.setQuitMessage(null);
 		}
 

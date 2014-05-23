@@ -32,6 +32,9 @@ public class ItemBuilder {
 		this.amount = amount;
 	}
 
+	public ItemBuilder() {
+	}
+
 	public ItemBuilder amount(int amount) {
 		this.amount = amount;
 		return this;
@@ -44,6 +47,11 @@ public class ItemBuilder {
 
 	public ItemBuilder withLore(String... lore) {
 		Collections.addAll(this.lore, lore);
+		return this;
+	}
+
+	public ItemBuilder withLore(List<String> lore) {
+		this.lore.addAll(lore);
 		return this;
 	}
 

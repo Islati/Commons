@@ -65,6 +65,10 @@ public class Items {
 		return ReflectionUtilities.invokeMethod(TO_NMS, null, stack);
 	}
 
+	public static boolean hasEnchants(ItemStack itemStack) {
+		return hasMetadata(itemStack) && getMetadata(itemStack).hasEnchants();
+	}
+
 	/**
 	 * Check whether or not an item has metadata
 	 *
@@ -342,6 +346,10 @@ public class Items {
 
 	public static Material getItemTypeMaterial(ItemType itemType) {
 		return getMaterialById(itemType.getID());
+	}
+
+	public static boolean isType(ItemStack itemStack, Material material) {
+		return itemStack != null && material == itemStack.getType();
 	}
 
 	public static Material getMaterialById(int id) {
