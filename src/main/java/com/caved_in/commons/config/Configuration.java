@@ -28,6 +28,9 @@ public class Configuration {
 	@Element(name = "debug-config", type = DebugConfig.class)
 	private DebugConfig debugConfig;
 
+	@Element(name = "warp-config", type = WarpConfig.class)
+	private WarpConfig
+
 	@Element(name = "server-name")
 	private String serverName = "EDIT THIS";
 
