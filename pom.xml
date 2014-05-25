@@ -6,13 +6,6 @@
     <version>1.3.0-RELEASE</version>
 
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ftp</artifactId>
-                <version>1.0-alpha-6</version>
-            </extension>
-        </extensions>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -254,12 +247,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <distributionManagement>
-        <repository>
-            <id>maven-repo</id>
-            <url>ftp://www.repo.caved.in/var/www/html</url>
-        </repository>
-    </distributionManagement>
-
 </project>
