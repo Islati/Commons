@@ -32,31 +32,31 @@ import java.util.stream.Collectors;
 public class Items {
 
 	public static final ItemStack[] DIAMOND_ARMOR = new ItemStack[]{
-			makeItem(Material.DIAMOND_HELMET),
-			makeItem(Material.DIAMOND_CHESTPLATE),
+			makeItem(Material.DIAMOND_BOOTS),
 			makeItem(Material.DIAMOND_LEGGINGS),
-			makeItem(Material.DIAMOND_BOOTS)
+			makeItem(Material.DIAMOND_CHESTPLATE),
+			makeItem(Material.DIAMOND_HELMET),
 	};
 
 	public static final ItemStack[] GOLD_ARMOR = new ItemStack[]{
-			makeItem(Material.GOLD_HELMET),
-			makeItem(Material.GOLD_CHESTPLATE),
+			makeItem(Material.GOLD_BOOTS),
 			makeItem(Material.GOLD_LEGGINGS),
-			makeItem(Material.GOLD_BOOTS)
+			makeItem(Material.GOLD_CHESTPLATE),
+			makeItem(Material.GOLD_HELMET)
 	};
 
 	public static final ItemStack[] IRON_ARMOR = new ItemStack[]{
-			makeItem(Material.IRON_HELMET),
-			makeItem(Material.IRON_CHESTPLATE),
+			makeItem(Material.IRON_BOOTS),
 			makeItem(Material.IRON_LEGGINGS),
-			makeItem(Material.IRON_BOOTS)
+			makeItem(Material.IRON_CHESTPLATE),
+			makeItem(Material.IRON_HELMET)
 	};
 
 	public static final ItemStack[] LEATHER_ARMOR = new ItemStack[]{
-			makeItem(Material.LEATHER_HELMET),
-			makeItem(Material.LEATHER_CHESTPLATE),
+			makeItem(Material.LEATHER_BOOTS),
 			makeItem(Material.LEATHER_LEGGINGS),
-			makeItem(Material.LEATHER_BOOTS)
+			makeItem(Material.LEATHER_CHESTPLATE),
+			makeItem(Material.LEATHER_HELMET)
 	};
 
 	private static final Method TO_NMS = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
