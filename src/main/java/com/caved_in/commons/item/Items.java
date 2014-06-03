@@ -1,6 +1,5 @@
 package com.caved_in.commons.item;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.inventory.Inventories;
@@ -214,21 +213,17 @@ public class Items {
 	 */
 	public static boolean loreContains(ItemStack itemStack, String text) {
 		if (!hasLore(itemStack)) {
-			Commons.debug("Item has no lore");
 			return false;
 		}
-		Commons.debug("Item has lore");
-
 
 		List<String> itemLore = getLore(itemStack);
 		int i = 0;
 		for (String s : itemLore) {
 			i++;
+			//If the line of lore is blank then skip it
 			if (s == null || s.isEmpty()) {
-				Commons.debug("Item has lore @ Line [" + i + "]");
 				continue;
 			}
-			Commons.debug("Lore Line [" + i + "]: " + s);
 			if (s.toLowerCase().contains(text.toLowerCase())) {
 				return true;
 			}
@@ -332,6 +327,44 @@ public class Items {
 
 	public static boolean addEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel) {
 		return addEnchantment(itemStack, enchantment, enchantmentLevel, false);
+	}
+
+	public static boolean hasSameEnchantments(ItemStack item, ItemStack compareItem) {
+		if (!Items.hasEnchants(item) || !Items.hasEnchants(compareItem)) {
+			return false;
+		}
+
+		Map<Enchantment, Integer> enchantments = item.getEnchantments();
+		Map<Enchantment, Integer> checkEnchants = compareItem.getEnchantments();
+		if (enchantments.size() != checkEnchants.size()) {
+			return false;
+		}
+		for (Map.Entry<Enchantment, Integer> enchantmentEntry : checkEnchants.entrySet()) {
+			Enchantment enchantment = enchantmentEntry.getKey();
+			if (enchantments.containsKey(enchantment) && enchantments.get(enchantment).equals(enchantmentEntry.getValue())) {
+				continue;
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Filter a collection of items where the enchantments match that of the item param.
+	 *
+	 * @param item         the item we wish to match enchantments against
+	 * @param itemsToCheck items to search for matching enchantments on
+	 * @return an arraylist of the items that have enchantments similar to the item param.
+	 */
+	public static List<ItemStack> findSimilarEnchantedItems(ItemStack item, Collection<ItemStack> itemsToCheck) {
+		List<ItemStack> items = new ArrayList<>();
+		for (ItemStack itemStack : itemsToCheck) {
+			if (hasSameEnchantments(item, itemStack)) {
+				items.add(itemStack);
+			}
+		}
+
+		return items;
 	}
 
 	/**
@@ -595,6 +628,9 @@ public class Items {
 		return repairedItems;
 	}
 
+	public static boolean isAir(ItemStack itemStack) {
+		return itemStack == null || itemStack.getType() == Material.AIR;
+	}
 
 	public static boolean isBook(ItemStack itemStack) {
 		return (getMetadata(itemStack) instanceof BookMeta);

@@ -10,40 +10,57 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Root(name = "Player")
 public class PlayerWrapper {
 	//	private FriendList friendsList;
+	@Element(name = "in-staff-chat")
 	private boolean inStaffChat = false;
+
+	@Element(name = "has-custom-walk-speed")
 	private boolean customWalkSpeed = false;
+
+	@Element(name = "has-custom-fly-speed")
 	private boolean customFlySpeed = false;
+
 	private boolean viewingRecipe = false;
 	/* If the players in debug mode, they'll receive messages when they do practically anything. */
+	@Element(name = "debug-mode")
 	private boolean debugMode = false;
+
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
 
 	private Set<Punishment> punishments = new HashSet<>();
 
-	public static double defaultWalkSpeed = 0.22;
-	public static double defaultFlySpeed = 0.1;
+	public static final double defaultWalkSpeed = 0.22;
+	public static final double defaultFlySpeed = 0.1;
 
 	private UUID id;
 
+	@Element(name = "player-name")
 	private String playerName = "";
+
 	private String currentServer = "";
 
+	@Element(name = "last-online")
 	private long lastOnline = 0L;
 
+	@Element(name = "is-premium")
 	private boolean isPremium = false;
 
+	@Element(name = "currency-amount")
 	private double currencyAmount = 0.0D;
 
 	private ChatColor tagColor = ChatColor.WHITE;
 
+	@Element(name = "prefix")
 	private String prefix = "";
 
 	/**

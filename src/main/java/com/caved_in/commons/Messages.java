@@ -9,10 +9,12 @@ import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Date;
+import java.util.Map;
 
 public class Messages {
 	public static final String MESSAGE_PREFIX = "";
@@ -47,6 +49,12 @@ public class Messages {
 	public static final String ERROR_RETRIEVING_PLAYER_DATA = "&cThere was an error retrieving the players data";
 
 	public static final String YELLOW_INDENT_ARROW = " &e- &r";
+
+	public static final String HAT_EQUIPPED = "&aEnjoy your hat!";
+
+	public static final String HAT_UNEQUIPPED = "&7*Poof* &e&oYour hat vanishes";
+
+	public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
 	public static String playerDataLoadAttempt(String playerName) {
 		return String.format("&e%s&a has data, attempting to load it.", playerName);
@@ -173,8 +181,15 @@ public class Messages {
 	}
 
 	public static String[] itemInfo(ItemStack itemStack) {
-		String itemLore = StringUtil.joinString(Items.getLore(itemStack), String.format("\n%s%s", YELLOW_INDENT_ARROW, YELLOW_INDENT_ARROW), 0);
+		String itemLore = "&7No Lore";
+		if (Items.hasLore(itemStack)) {
+			itemLore = StringUtil.joinString(Items.getLore(itemStack), String.format("\n%s%s", YELLOW_INDENT_ARROW, YELLOW_INDENT_ARROW), 0);
+		}
 		String itemName = Items.getName(itemStack);
+		String enchantments = "&7No Enchantments";
+		if (Items.hasEnchants(itemStack)) {
+			enchantments = itemEnchantments(itemStack);
+		}
 		Material type = itemStack.getType();
 		short durability = itemStack.getDurability();
 		int amount = itemStack.getAmount();
@@ -182,10 +197,24 @@ public class Messages {
 				String.format("&e[--&6Item Information&e--]"),
 				String.format("%sItem Name: %s", YELLOW_INDENT_ARROW, itemName),
 				String.format("%sItem Type: %s", YELLOW_INDENT_ARROW, type.name()),
+				String.format("%sItem Enchantments: %s", YELLOW_INDENT_ARROW, enchantments),
 				String.format("%sItem Durability: %s", YELLOW_INDENT_ARROW, durability),
 				String.format("%sItem Amount: %s", YELLOW_INDENT_ARROW, amount),
 				String.format("%sItem Lore: %s", YELLOW_INDENT_ARROW, itemLore)
 		};
+	}
+
+	public static String itemEnchantments(ItemStack itemStack, String format) {
+		Map<Enchantment, Integer> itemEnchants = itemStack.getEnchantments();
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Map.Entry<Enchantment, Integer> entry : itemEnchants.entrySet()) {
+			stringBuilder.append(String.format("&e%s&o&7(lvl%s)&r", entry.getKey().getName(), String.valueOf(entry.getValue()))).append(", ");
+		}
+		return stringBuilder.toString();
+	}
+
+	public static String itemEnchantments(ItemStack itemStack) {
+		return itemEnchantments(itemStack, "&e%s&o&7(lvl%i)&r");
 	}
 
 

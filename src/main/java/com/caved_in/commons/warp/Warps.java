@@ -1,18 +1,22 @@
 package com.caved_in.commons.warp;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.file.Folder;
+import com.google.common.collect.Lists;
+import net.minecraft.util.org.apache.commons.io.FileUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Warps {
+	public static int pages = 0;
+	private static boolean initialized = false;
+	private static boolean updated = false;
 	private static Map<String, Warp> warps = new HashMap<String, Warp>();
 	private static Serializer serializer = new Persister();
+
+	private static Map<Integer, List<Warp>> warpPages = new HashMap<>();
 
 	/**
 	 * Check whether or not a warp with the given name exists.
@@ -31,6 +35,28 @@ public class Warps {
 	 */
 	public static void addWarp(Warp warp) {
 		warps.put(warp.getName(), warp);
+		setUpdated(true);
+		Commons.debug("Added warp " + warp.getName());
+	}
+
+	private static void initWarpPages() {
+		List<List<Warp>> warpLists = Lists.partition(new ArrayList<>(warps.values()), 52);
+		int i = 1;
+		for (List<Warp> pages : warpLists) {
+			warpPages.put(i, pages);
+			i += 1;
+		}
+	}
+
+	public static List<Warp> getWarpsPage(int page) {
+		if (isUpdated()) {
+			initWarpPages();
+		}
+		return warpPages.get(page);
+	}
+
+	public static int getWarpPagesCount() {
+		return warpPages.size();
 	}
 
 	/**
@@ -69,18 +95,18 @@ public class Warps {
 	 * Load all the warps into memory.
 	 */
 	public static void loadWarps() {
-		Folder folderHandler = new Folder(Commons.WARP_DATA_FOLDER);
-		try {
-			//Loop through all the files
-			for (String fileName : folderHandler.getFiles()) {
-				//Load the warp into an object
-				Warp warp = serializer.read(Warp.class, new File(fileName));
-				//Add the warp to the list, but don't save the file
-				addWarp(warp);
+		Commons.debug("Loading warps");
+		Collection<File> warpFiles = FileUtils.listFiles(new File(Commons.WARP_DATA_FOLDER), null, false);
+		//Loop through all the files and load warps
+		for (File file : warpFiles) {
+			try {
+				addWarp(serializer.read(Warp.class, file));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		Commons.debug("Warps Loaded, initializing pages!");
+		initWarpPages();
 	}
 
 	/**
@@ -102,5 +128,21 @@ public class Warps {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static List<Warp> getWarps() {
+		return Lists.newArrayList(warps.values());
+	}
+
+	public static int getWarpCount() {
+		return warps.size();
+	}
+
+	public static boolean isUpdated() {
+		return updated;
+	}
+
+	public static void setUpdated(boolean updated) {
+		Warps.updated = updated;
 	}
 }

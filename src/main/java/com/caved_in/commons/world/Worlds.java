@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -123,5 +124,21 @@ public class Worlds {
 
 	public static void setTimeDay(World world) {
 		setTime(world, WorldTime.DAY);
+	}
+
+	public static void dropItem(World world, Location location, ItemStack item, boolean natural) {
+		if (natural) {
+			world.dropItemNaturally(location, item);
+		} else {
+			world.dropItem(location, item);
+		}
+	}
+
+	public static void dropItem(Entity entity, ItemStack item, boolean natural) {
+		dropItem(entity.getWorld(), entity.getLocation(), item, natural);
+	}
+
+	public static void dropItemNaturally(Entity entity, ItemStack item) {
+		dropItem(entity, item, true);
 	}
 }

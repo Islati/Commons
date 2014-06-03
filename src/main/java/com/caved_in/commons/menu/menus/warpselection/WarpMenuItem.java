@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.warpselection;
 
+import com.caved_in.commons.menu.MenuItem;
 import com.caved_in.commons.warp.Warp;
-import me.xhawk87.PopupMenuAPI.MenuItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
@@ -9,7 +9,7 @@ import org.bukkit.material.MaterialData;
 import java.util.Arrays;
 
 public class WarpMenuItem extends MenuItem {
-	private static MaterialData warpIcon = new MaterialData(Material.PAPER);
+	private static MaterialData warpIcon = new MaterialData(Material.COMPASS);
 
 	private Warp warp;
 
@@ -22,5 +22,6 @@ public class WarpMenuItem extends MenuItem {
 	@Override
 	public void onClick(Player player) {
 		warp.bring(player);
+		getMenu().closeMenu(player);
 	}
 }

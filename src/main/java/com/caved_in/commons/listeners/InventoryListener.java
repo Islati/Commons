@@ -8,6 +8,7 @@ import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -20,38 +21,43 @@ import java.util.List;
 
 public class InventoryListener implements Listener {
 
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onMenuClick(InventoryClickEvent event) {
+		//Get the inventory that's being clicked
+		Inventory inventory = event.getInventory();
+		Player player = (Player) event.getWhoClicked();
+
+		InventoryHolder holder = inventory.getHolder();
+		if (!(holder instanceof ItemMenu)) {
+			return;
+		}
+		event.setCancelled(true);
+		ItemMenu menu = (ItemMenu) holder;
+		//If the player is clicking outside the menu, and it closes when clicking outside, then close it!
+		if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
+			if (menu.exitOnClickOutside()) {
+				menu.closeMenu(player);
+			}
+		}
+		int index = event.getRawSlot();
+		//if the players selecting within bounds of the inventory, then act accordingly
+		if (index < inventory.getSize()) {
+			menu.selectMenuItem(player, index);
+		} else {
+			//If they're gonna mess with their inventory, they don't need a menu open.
+			if (menu.exitOnClickOutside()) {
+				menu.closeMenu(player);
+			}
+		}
+
+	}
+
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
 		//Get the inventory that's being clicked
 		Inventory inventory = event.getInventory();
 		InventoryType inventoryType = inventory.getType();
 		Player player = (Player) event.getWhoClicked();
-
-		/*
-		Handle all the clicks passed to item-menus.
-		 */
-		InventoryHolder holder = inventory.getHolder();
-		if (holder instanceof ItemMenu) {
-			ItemMenu menu = (ItemMenu) holder;
-			//If the player is clicking outside the menu, and it closes when clicking outside, then close it!
-			if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
-				if (menu.exitOnClickOutside()) {
-					menu.closeMenu(player);
-				}
-			} else {
-				int index = event.getRawSlot();
-				//if the players selecting within bounds of the inventory, then act accordingly
-				if (index < inventory.getSize()) {
-					menu.selectMenuItem(player, index);
-				} else {
-					if (menu.exitOnClickOutside()) {
-						menu.closeMenu(player);
-					}
-				}
-			}
-			event.setCancelled(true);
-		}
-
 		if (event.isCancelled()) {
 			return;
 		}

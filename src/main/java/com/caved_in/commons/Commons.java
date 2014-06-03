@@ -3,6 +3,7 @@ package com.caved_in.commons;
 import com.caved_in.commons.command.CommandRegister;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
+import com.caved_in.commons.config.WarpConfig;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.DebugHandItem;
@@ -54,9 +55,6 @@ public class Commons extends JavaPlugin {
 	//Database connectors
 	public static ServerDatabaseConnector database = null;
 
-	//Whether or not the PopupMenuAPI is available
-	private boolean hasPopupApi = false;
-
 	public static synchronized Commons getInstance() {
 		if (plugin == null) {
 			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Commons");
@@ -95,6 +93,10 @@ public class Commons extends JavaPlugin {
 		return globalConfig.getWorldConfig();
 	}
 
+	public static WarpConfig getWarpConfig() {
+		return globalConfig.getWarpConfig();
+	}
+
 	public static int getServerId() {
 		return serverId;
 	}
@@ -116,8 +118,6 @@ public class Commons extends JavaPlugin {
 		if (!warpsFolder.exists()) {
 			warpsFolder.mkdirs();
 		}
-
-		hasPopupApi = getServer().getPluginManager().isPluginEnabled("PopupMenuAPI");
 
 		initConfiguration(); // Init config
 
@@ -176,103 +176,107 @@ public class Commons extends JavaPlugin {
 
 		if (!worldConfig.hasExternalChatHandler()) {
 			registerListener(new ChatListener());
-			messageConsole("&aUsing Tunnels-Common Chat Listener");
+			debug("&aUsing Commons Chat Listener");
 		}
 
-		if (hasPopupApi && worldConfig.isCompassMenuEnabled()) {
+		if (worldConfig.isCompassMenuEnabled()) {
 			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig()
 					.getXmlItems()));
 			registerListener(new CompassListener());
-			messageConsole("&aRegistered the compass-menu listener");
+			debug("&aRegistered the compass-menu listener");
 		}
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
 			registerListener(new LauncherListener()); // Register launch pad listener if its enabled
-			messageConsole("&aRegistered the launch pad listener");
+			debug("&aRegistered the launch pad listener");
 		}
 
 		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
 			registerListener(new BlockFormListener());
-			messageConsole("&aRegistered the block spread listener");
+			debug("&aRegistered the block spread listener");
 		}
 
 		if (worldConfig.isMyceliumSpreadDisabled()) {
 			registerListener(new BlockSpreadListener());
-			messageConsole("&aRegistered the mycelium spread listener");
+			debug("&aRegistered the mycelium spread listener");
 		}
 
 		if (worldConfig.isThunderDisabled()) {
 			registerListener(new ThungerChangeListener());
-			messageConsole("&aRegistered the thunder listener");
+			debug("&aRegistered the thunder listener");
 		}
 
 		if (worldConfig.isWeatherDisabled()) {
 			registerListener(new WeatherChangeListener());
-			messageConsole("&aRegistered the Weather-Change listener");
+			debug("&aRegistered the Weather-Change listener");
 		}
 
 		if (worldConfig.isLightningDisabled()) {
 			registerListener(new LightningStrikeListener());
-			messageConsole("&aRegistered the lightning listener");
+			debug("&aRegistered the lightning listener");
 		}
 
 		if (worldConfig.isFireSpreadDisabled()) {
 			registerListener(new FireSpreadListener());
-			messageConsole("&aRegistered the fire-spread listener");
+			debug("&aRegistered the fire-spread listener");
 		}
 
+		debug("&aRegistered the block-break listener");
 		registerListener(new BlockBreakListener());
+
+		debug("&aRegistered the creeper explode listener");
+		registerListener(new EntityExplodeListener());
 
 		if (!worldConfig.isItemDropEnabled()) {
 			registerListener(new ItemDropListener());
-			messageConsole("&aRegistered the item-drop listener");
+			debug("&aRegistered the item-drop listener");
 		}
 
 		if (!worldConfig.isItemPickupEnabled()) {
 			registerListener(new ItemPickupListener());
-			messageConsole("&aRegistered the item-pickup listener");
+			debug("&aRegistered the item-pickup listener");
 		}
 
 		if (!worldConfig.isFoodChangeEnabled()) {
 			registerListener(new FoodChangeListener());
-			messageConsole("&aRegistered the food change listener");
+			debug("&aRegistered the food change listener");
 		}
 
 		// Events that'll be registered regardless of the configuration
 
 		registerListener(new WorldLoadedListener());
-		messageConsole("&aRegistered the World-Load listener");
+		debug("&aRegistered the World-Load listener");
 
 		registerListener(new ServerPingListener());
-		messageConsole("&aRegistered the Server Ping listener");
+		debug("&aRegistered the Server Ping listener");
 
 		registerListener(new PlayerLoginListener());
-		messageConsole("&aRegistered the player Login listener");
+		debug("&aRegistered the player Login listener");
 
 		registerListener(new PlayerJoinListener());
-		messageConsole("&aRegistered the player join listener");
+		debug("&aRegistered the player join listener");
 
 		registerListener(new PlayerKickListener());
-		messageConsole("&aRegistered the player kick listener");
+		debug("&aRegistered the player kick listener");
 
 		registerListener(new CommandPreProcessListener());
-		messageConsole("&aRegistered the command pre-process listener");
+		debug("&aRegistered the command pre-process listener");
 
 		//If the server is backed by SQL, then push the specific listeners
 		if (hasSqlBackend()) {
 			//Used to handle kicking of banned / temp-banned players
 			registerListener(new PrePlayerLoginListener());
-			messageConsole("&aRegistered the player pre-login listener");
+			debug("&aRegistered the player pre-login listener");
 		}
 
 		registerListener(new PlayerQuitListener());
-		messageConsole("&aRegistered the player Quit listener");
+		debug("&aRegistered the player Quit listener");
 
 		registerListener(new InventoryListener());
-		messageConsole("&aRegistered the inventory listener & ItemMenu Listeners");
+		debug("&aRegistered the inventory listener & ItemMenu Listeners");
 
 		registerListener(new PlayerTeleportListener());
-		messageConsole("&aRegistered the player teleport listener");
+		debug("&aRegistered the player teleport listener");
 	}
 
 	private void registerListener(Listener listener) {
