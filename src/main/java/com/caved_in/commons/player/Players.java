@@ -745,6 +745,19 @@ public class Players {
 		player.getInventory().addItem(itemStack);
 	}
 
+	public static boolean giveItem(Player player, ItemStack itemStack, boolean drop) {
+		PlayerInventory inventory = player.getInventory();
+		if (inventory.firstEmpty() == -1) {
+			if (drop) {
+				Worlds.dropItem(player, itemStack, false);
+				return true;
+			}
+			return false;
+		}
+		inventory.addItem(itemStack);
+		return true;
+	}
+
 	public static void setItem(Player player, int slot, ItemStack item) {
 		Inventories.setItem(player.getInventory(), slot, item);
 	}
@@ -1101,6 +1114,14 @@ public class Players {
 
 	public static boolean hasItemInHand(Player player, ItemStack compare) {
 		return player.getItemInHand().isSimilar(compare);
+	}
+
+	public static boolean handIsEmpty(Player player) {
+		return !hasItemInHand(player);
+	}
+
+	public static void clearHand(Player player) {
+		player.setItemInHand(null);
 	}
 
 	/**

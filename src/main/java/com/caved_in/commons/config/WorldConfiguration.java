@@ -53,6 +53,9 @@ public class WorldConfiguration {
 	@Element(name = "external-chat-plugin")
 	private boolean externalChatHandler = true;
 
+	@Element(name = "creeper-explode-fireworks")
+	private boolean creeperFireworks = true;
+
 	private boolean silenceChat = false;
 
 	public WorldConfiguration(@Element(name = "disable-weather") boolean disableWeather,
@@ -208,5 +211,14 @@ public class WorldConfiguration {
 	 */
 	public boolean isFireSpreadDisabled() {
 		return disableFireSpread;
+	}
+
+	/**
+	 * Whether or not creepers should display fireworks when they die.
+	 *
+	 * @return
+	 */
+	public boolean isCreeperFireworks() {
+		return creeperFireworks;
 	}
 }

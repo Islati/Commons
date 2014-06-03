@@ -1,5 +1,6 @@
 package com.caved_in.commons.menu;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -7,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,13 @@ public class ItemMenu implements InventoryHolder {
 	private Map<Integer, MenuItem> items = new HashMap<>();
 	private boolean exitOnClickOutside = true;
 
-	private Map<MenuBehaviourType, List<MenuBehaviour>> menuActions = new HashMap<>();
+	private Map<MenuBehaviourType, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
 
 	public ItemMenu(String title, int rows) {
 		this.title = title;
 		this.rows = rows;
+		menuActions.put(MenuBehaviourType.OPEN, Lists.newArrayList());
+		menuActions.put(MenuBehaviourType.CLOSE, Lists.newArrayList());
 	}
 
 	@Override
@@ -36,11 +39,6 @@ public class ItemMenu implements InventoryHolder {
 	}
 
 	public void addBehaviour(MenuBehaviourType type, MenuBehaviour behaviour) {
-		if (!menuActions.containsKey(type)) {
-			menuActions.put(type, Arrays.asList(behaviour));
-			return;
-		}
-
 		menuActions.get(type).add(behaviour);
 	}
 
@@ -48,16 +46,10 @@ public class ItemMenu implements InventoryHolder {
 		if (behaviours == null || behaviours.size() == 0) {
 			return;
 		}
-
-		if (!menuActions.containsKey(type)) {
-			menuActions.put(type, behaviours);
-			return;
-		}
-
 		menuActions.get(type).addAll(behaviours);
 	}
 
-	public void setBehaviours(Map<MenuBehaviourType, List<MenuBehaviour>> behaviours) {
+	public void setBehaviours(Map<MenuBehaviourType, ArrayList<MenuBehaviour>> behaviours) {
 		this.menuActions = behaviours;
 	}
 
@@ -114,6 +106,13 @@ public class ItemMenu implements InventoryHolder {
 			return;
 		}
 		player.openInventory(inventory);
+
+		List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.OPEN);
+		if (behaviours.size() > 0) {
+			for (MenuBehaviour behaviour : behaviours) {
+				behaviour.doAction(player);
+			}
+		}
 	}
 
 	public void closeMenu(Player player) {
@@ -124,6 +123,12 @@ public class ItemMenu implements InventoryHolder {
 
 		inventory.getViewers().remove(player);
 		player.closeInventory();
+		List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.CLOSE);
+		if (behaviours.size() > 0) {
+			for (MenuBehaviour behaviour : behaviours) {
+				behaviour.doAction(player);
+			}
+		}
 	}
 
 	public void switchMenu(Player player, ItemMenu toMenu) {

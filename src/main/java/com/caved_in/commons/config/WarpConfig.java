@@ -6,7 +6,11 @@ import org.simpleframework.xml.Root;
 @Root(name = "warp-config")
 public class WarpConfig {
 	@Element(name = "enable-warps-menu")
-	private boolean warpsMenu;
+	private boolean warpsMenu = true;
+
+	public WarpConfig() {
+
+	}
 
 	public WarpConfig(@Element(name = "enable-warps-menu") boolean warpsMenu) {
 		this.warpsMenu = warpsMenu;

@@ -123,13 +123,17 @@ public class Inventories {
 	}
 
 	public static boolean contains(Inventory inventory, Material material, String itemName) {
+		return getSlotOf(inventory, material, itemName) != -1;
+	}
+
+	public static Integer getSlotOf(Inventory inventory, Material material, String itemName) {
 		HashMap<Integer, ? extends ItemStack> items = inventory.all(material);
 		for (Map.Entry<Integer, ? extends ItemStack> inventoryItem : items.entrySet()) {
 			if (Items.nameContains(inventoryItem.getValue(), itemName)) {
-				return true;
+				return inventoryItem.getKey();
 			}
 		}
-		return false;
+		return -1;
 	}
 
 	public static boolean contains(Inventory inventory, ItemStack itemStack) {
@@ -140,6 +144,10 @@ public class Inventories {
 			}
 		}
 		return false;
+	}
+
+	public static void clearSlot(Inventory inventory, int slot) {
+		inventory.setItem(slot, null);
 	}
 
 	public static boolean contains(Inventory inventory, Material material) {

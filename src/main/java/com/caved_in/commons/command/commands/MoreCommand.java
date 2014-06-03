@@ -14,7 +14,7 @@ public class MoreCommand {
 			return;
 		}
 		ItemStack playerHandItem = player.getItemInHand();
-		playerHandItem.setAmount(playerHandItem.getMaxStackSize());
+		playerHandItem.setAmount(64);
 		player.setItemInHand(playerHandItem);
 	}
 }

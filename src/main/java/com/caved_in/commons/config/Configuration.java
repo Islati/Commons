@@ -29,7 +29,7 @@ public class Configuration {
 	private DebugConfig debugConfig;
 
 	@Element(name = "warp-config", type = WarpConfig.class)
-	private WarpConfig
+	private WarpConfig warpConfig;
 
 	@Element(name = "server-name")
 	private String serverName = "EDIT THIS";
@@ -42,7 +42,8 @@ public class Configuration {
 						 @Element(name = "premium-config", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
 						 @Element(name = "mysql-backend") boolean sqlBackend,
 						 @Element(name = "register-commands") boolean registerCommands,
-						 @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig) {
+						 @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig,
+						 @Element(name = "warp-config", type = WarpConfig.class) WarpConfig warpConfig) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
@@ -52,6 +53,7 @@ public class Configuration {
 		this.sqlBackend = sqlBackend;
 		this.registerCommands = registerCommands;
 		this.debugConfig = debugConfig;
+		this.warpConfig = warpConfig;
 	}
 
 	public Configuration() {
@@ -61,6 +63,7 @@ public class Configuration {
 		this.itemMenuConfig = new ItemMenuConfiguration();
 		this.premiumConfig = new PremiumConfiguration();
 		this.debugConfig = new DebugConfig();
+		this.warpConfig = new WarpConfig();
 	}
 
 	public MaintenanceConfiguration getMaintenanceConfig() {
@@ -97,5 +100,9 @@ public class Configuration {
 
 	public DebugConfig getDebugConfig() {
 		return debugConfig;
+	}
+
+	public WarpConfig getWarpConfig() {
+		return warpConfig;
 	}
 }

@@ -7,13 +7,9 @@ import com.caved_in.commons.world.Worlds;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 7:11 PM
- */
+
 public class DayCommand {
-	@Command(name = "day", permission = "tunnels.common.time")
+	@Command(name = "day", permission = "commons.command.time")
 	public void onDayCommand(Player player, String[] args) {
 		World world = player.getWorld();
 		Worlds.setTimeDay(world);
