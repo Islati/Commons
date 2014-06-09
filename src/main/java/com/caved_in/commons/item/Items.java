@@ -7,6 +7,7 @@ import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -52,13 +53,37 @@ public class Items {
 	};
 
 	public static final ItemStack[] LEATHER_ARMOR = new ItemStack[]{
-			makeItem(Material.LEATHER_BOOTS),
 			makeItem(Material.LEATHER_LEGGINGS),
 			makeItem(Material.LEATHER_CHESTPLATE),
+			makeItem(Material.LEATHER_BOOTS),
 			makeItem(Material.LEATHER_HELMET)
 	};
 
+	private static Set<Material> armorMaterials = Sets.newHashSet(
+			Material.LEATHER_BOOTS,
+			Material.LEATHER_CHESTPLATE,
+			Material.LEATHER_HELMET,
+			Material.LEATHER_LEGGINGS,
+			Material.GOLD_BOOTS,
+			Material.GOLD_CHESTPLATE,
+			Material.GOLD_HELMET,
+			Material.GOLD_LEGGINGS,
+			Material.IRON_BOOTS,
+			Material.IRON_CHESTPLATE,
+			Material.IRON_HELMET,
+			Material.IRON_LEGGINGS,
+			Material.DIAMOND_BOOTS,
+			Material.DIAMOND_CHESTPLATE,
+			Material.DIAMOND_HELMET,
+			Material.DIAMOND_LEGGINGS
+	);
+
 	private static final Method TO_NMS = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("inventory.CraftItemStack"), "asNMSCopy", ItemStack.class);
+
+	static {
+		armorMaterials = Sets.newHashSet();
+		Collections.addAll(armorMaterials);
+	}
 
 	public static Object toNMS(ItemStack stack) {
 		return ReflectionUtilities.invokeMethod(TO_NMS, null, stack);
@@ -66,6 +91,10 @@ public class Items {
 
 	public static boolean hasEnchants(ItemStack itemStack) {
 		return hasMetadata(itemStack) && getMetadata(itemStack).hasEnchants();
+	}
+
+	public static boolean hasEnchantments(ItemStack item) {
+		return hasEnchants(item);
 	}
 
 	/**
@@ -111,7 +140,6 @@ public class Items {
 		if (!hasLore(itemStack)) {
 			return null;
 		}
-
 		try {
 			return getLore(itemStack).get(line);
 		} catch (IndexOutOfBoundsException ex) {
@@ -385,6 +413,22 @@ public class Items {
 		return itemStack != null && material == itemStack.getType();
 	}
 
+	public static boolean isArmor(ItemStack itemStack) {
+		return isArmor(itemStack.getType());
+	}
+
+	public static boolean isArmor(Material material) {
+		return armorMaterials.contains(material);
+	}
+
+	public static boolean isWeapon(ItemStack itemStack) {
+		return WeaponType.isItemWeapon(itemStack);
+	}
+
+	public static boolean isWeapon(Material material) {
+		return WeaponType.isMaterialWeapon(material);
+	}
+
 	public static Material getMaterialById(int id) {
 		return Material.getMaterial(id);
 	}
@@ -410,6 +454,10 @@ public class Items {
 	public static ItemStack makeItem(Material material, String itemName, List<String> itemLore) {
 		ItemStack itemStack = makeItem(material, itemName);
 		return setLore(itemStack, itemLore);
+	}
+
+	public static ItemStack makeItem(Material material, int dataVal) {
+		return getMaterialData(material, dataVal).toItemStack();
 	}
 
 	public static ItemStack makeLeatherItem(Material material, String itemName, List<String> itemLore, Map<Enchantment, Integer> enchantments, Color itemColor) {
@@ -647,6 +695,10 @@ public class Items {
 		bookMeta.setAuthor(author);
 		bookMeta.setPages(pages);
 		return setMetadata(book, bookMeta);
+	}
+
+	public static int getDataValue(ItemStack item) {
+		return item.getData().getData();
 	}
 
 }

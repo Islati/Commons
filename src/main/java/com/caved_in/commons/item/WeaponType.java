@@ -51,4 +51,12 @@ public enum WeaponType {
 		WeaponType type = weaponTypes.get(material);
 		return type == weaponType;
 	}
+
+	public static boolean isMaterialWeapon(Material material) {
+		return weaponTypes.containsKey(material);
+	}
+
+	public static boolean isItemWeapon(ItemStack itemStack) {
+		return isMaterialWeapon(itemStack.getType());
+	}
 }

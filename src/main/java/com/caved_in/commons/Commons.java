@@ -6,9 +6,7 @@ import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WarpConfig;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
-import com.caved_in.commons.debug.actions.DebugHandItem;
-import com.caved_in.commons.debug.actions.DebugPlayerSyncData;
-import com.caved_in.commons.debug.actions.DebugTimeHandler;
+import com.caved_in.commons.debug.actions.*;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menu.menus.serverselection.ServerMenuGenerator;
@@ -47,8 +45,9 @@ public class Commons extends JavaPlugin {
 	public static BukkitScheduledExecutorService asyncExecutor;
 	public static ServerMenuWrapper serverMenu;
 
-	public static String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
-	private static String PLUGIN_DATA_FOLDER = "plugins/Commons/";
+	public static final String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
+	public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
+	public static final String DEBUG_DATA_FOLDER = "plugins/Commons/Debug/";
 
 	private static Configuration globalConfig = new Configuration();
 
@@ -119,6 +118,11 @@ public class Commons extends JavaPlugin {
 			warpsFolder.mkdirs();
 		}
 
+		File debugFolder = new File(DEBUG_DATA_FOLDER);
+		if (!debugFolder.exists()) {
+			debugFolder.mkdirs();
+		}
+
 		initConfiguration(); // Init config
 
 		//If the SQL Backend is enabled, then register all the database interfaces
@@ -166,6 +170,8 @@ public class Commons extends JavaPlugin {
 		Debugger.addDebugAction(
 				new DebugPlayerSyncData(),
 				new DebugHandItem(),
+				new DebugHandItemSerialize(),
+				new DebugItemDeserialize(),
 				new DebugTimeHandler()
 		);
 	}

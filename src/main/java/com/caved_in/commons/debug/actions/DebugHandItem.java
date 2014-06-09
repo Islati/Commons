@@ -11,7 +11,7 @@ public class DebugHandItem implements DebugAction {
 	@Override
 	public void doAction(Player player) {
 		if (!Players.hasItemInHand(player)) {
-			Players.sendMessage(player, "You require an item in your hand to use this debug action");
+			Players.sendMessage(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
 			return;
 		}
 

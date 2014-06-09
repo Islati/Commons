@@ -56,6 +56,8 @@ public class Messages {
 
 	public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
+	public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an item in your hand to use this debug action";
+
 	public static String playerDataLoadAttempt(String playerName) {
 		return String.format("&e%s&a has data, attempting to load it.", playerName);
 	}
@@ -370,4 +372,5 @@ public class Messages {
 	public static String invalidPlayer(String playerName) {
 		return String.format("&c%s&e has not played on this server, sorry.", playerName);
 	}
+
 }

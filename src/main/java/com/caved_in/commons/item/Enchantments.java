@@ -42,6 +42,10 @@ public enum Enchantments {
 				enchantments.put(alias, enchant.enchantment);
 			}
 		}
+
+		for (Enchantment enchant : Enchantment.values()) {
+			enchantments.put(enchant.getName(), enchant);
+		}
 	}
 
 	private Enchantment enchantment;
@@ -69,7 +73,7 @@ public enum Enchantments {
 	}
 
 	public static boolean isEnchantment(String name) {
-		return enchantments.containsKey(name);
+		return enchantments.containsKey(name) || Enchantment.getByName(name) != null;
 	}
 
 }
