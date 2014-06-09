@@ -17,11 +17,14 @@ public class XmlItemStack {
 	@Element(name = "item-id")
 	private int id;
 
-	@Element(name = "data-value", required = false)
-	private int dataVal;
-
 	@Element(name = "item-name", required = false)
 	private String itemName;
+
+	@Element(name = "item-amount", required = false)
+	private int amount;
+
+	@Element(name = "data-value", required = false)
+	private int dataVal;
 
 	@ElementList(name = "lore", entry = "line", required = false)
 	private List<String> lore;
@@ -31,12 +34,13 @@ public class XmlItemStack {
 
 	private ItemStack itemStack;
 
-	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments) {
+	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments) {
 		this.id = id;
 		this.dataVal = dataVal;
 		this.itemName = itemName;
 		this.lore = lore;
 		this.enchantments = enchantments;
+		this.amount = amount;
 	}
 
 	public XmlItemStack(ItemStack item) {
@@ -63,6 +67,13 @@ public class XmlItemStack {
 			}
 		}
 		//Clone the item!
+
+		int itemAmount = itemStack.getAmount();
+
+		if (itemAmount > 1) {
+			amount = itemAmount;
+		}
+
 		itemStack = item.clone();
 	}
 
@@ -89,6 +100,10 @@ public class XmlItemStack {
 					Enchantment enchant = enchantment.getEnchantment();
 					Items.addEnchantment(itemStack, enchantment.getEnchantment(), enchantment.getLevel());
 				}
+			}
+
+			if (amount > 1) {
+				itemStack.setAmount(amount);
 			}
 		}
 		return itemStack;
