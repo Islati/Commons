@@ -116,6 +116,8 @@ commands:
       usage: /<command> <radius> [kill players (yes/no)]
    armor:
       usage: /<command> <type>
+   rename:
+      usage: /<command> <item name>
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

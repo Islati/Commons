@@ -8,10 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ItemMenu implements InventoryHolder {
 
@@ -110,7 +107,7 @@ public class ItemMenu implements InventoryHolder {
 		List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.OPEN);
 		if (behaviours.size() > 0) {
 			for (MenuBehaviour behaviour : behaviours) {
-				behaviour.doAction(player);
+				behaviour.doAction(this, player);
 			}
 		}
 	}
@@ -126,7 +123,7 @@ public class ItemMenu implements InventoryHolder {
 		List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.CLOSE);
 		if (behaviours.size() > 0) {
 			for (MenuBehaviour behaviour : behaviours) {
-				behaviour.doAction(player);
+				behaviour.doAction(this, player);
 			}
 		}
 	}
@@ -149,6 +146,14 @@ public class ItemMenu implements InventoryHolder {
 	public void updateMenu() {
 		//For every player viewing the menu, update their inventory.
 		getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(entity -> ((Player) entity).updateInventory());
+	}
+
+	public Map<Integer, MenuItem> getIndexedMenuItems() {
+		return items;
+	}
+
+	public Collection<MenuItem> getMenuItems() {
+		return items.values();
 	}
 
 	public boolean exitOnClickOutside() {

@@ -89,6 +89,10 @@ public class Entities {
 		return (LivingEntity) location.getWorld().spawnEntity(location, entityType);
 	}
 
+	public static TNTPrimed spawnPrimedTnt(Location location) {
+		return location.getWorld().spawn(location, TNTPrimed.class);
+	}
+
 	public static ChatColor getHealthBarColor(double enemyHealthPercentage) {
 		ChatColor healthBarColor = ChatColor.GREEN;
 		if (enemyHealthPercentage >= 35 && enemyHealthPercentage <= 65) {

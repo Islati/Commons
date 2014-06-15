@@ -2,6 +2,7 @@ package com.caved_in.commons.inventory;
 
 import com.caved_in.commons.block.chest.ChestType;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.utilities.ArrayUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -144,6 +145,14 @@ public class Inventories {
 			}
 		}
 		return false;
+	}
+
+	public static void shuffleContents(Inventory inventory) {
+		ItemStack[] contents = inventory.getContents();
+		ArrayUtils.shuffleArray(contents);
+		for (int i = 0; i < contents.length; i++) {
+			inventory.setItem(i, contents[i]);
+		}
 	}
 
 	public static void clearSlot(Inventory inventory, int slot) {

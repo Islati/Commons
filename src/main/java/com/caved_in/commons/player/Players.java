@@ -720,6 +720,17 @@ public class Players {
 		clearInventory(player, true);
 	}
 
+	public static void setInventory(Player player, Map<Integer, ItemStack> itemMap, boolean clearInventory) {
+		if (clearInventory) {
+			clearInventory(player, true);
+		}
+
+		PlayerInventory inventory = player.getInventory();
+		for (Map.Entry<Integer, ItemStack> itemEntry : itemMap.entrySet()) {
+			inventory.setItem(itemEntry.getKey(), itemEntry.getValue());
+		}
+	}
+
 	/**
 	 * Clear the players entire inventory, and optionally their armor slots.
 	 *
@@ -731,6 +742,18 @@ public class Players {
 		player.getInventory().clear();
 		if (clearArmor) {
 			player.getInventory().setArmorContents(new ItemStack[]{null, null, null, null});
+		}
+	}
+
+	public static void dropInventory(Player player) {
+		ItemStack[] inventoryContents = player.getInventory().getContents();
+		Players.clearInventory(player);
+
+		for (ItemStack item : inventoryContents) {
+			if (item == null) {
+				continue;
+			}
+			Worlds.dropItemNaturally(player, item);
 		}
 	}
 

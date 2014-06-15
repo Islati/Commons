@@ -510,6 +510,12 @@ public class Items {
 		return dye;
 	}
 
+	public static ItemStack makeItemAmount(Material material, int amount) {
+		ItemStack itemStack = makeItem(material);
+		itemStack.setAmount(amount);
+		return itemStack;
+	}
+
 	public static MaterialData getMaterialDataFromString(String idDatavalue) {
 		MaterialData materialData;
 		if (idDatavalue.contains(":")) {

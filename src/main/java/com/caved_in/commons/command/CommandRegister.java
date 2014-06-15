@@ -60,6 +60,7 @@ public class CommandRegister {
 		registerCommand(new PotionCommand());
 		registerCommand(new SlayCommand());
 		registerCommand(new ArmorCommand());
+		registerCommand(new RenameCommand());
 	}
 
 	private static void registerCommand(Object commandHandler) {

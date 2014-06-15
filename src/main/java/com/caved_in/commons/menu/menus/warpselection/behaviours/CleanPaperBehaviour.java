@@ -2,6 +2,7 @@ package com.caved_in.commons.menu.menus.warpselection.behaviours;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.menu.ItemMenu;
 import com.caved_in.commons.menu.MenuCloseBehaviour;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class CleanPaperBehaviour implements MenuCloseBehaviour {
 	}
 
 	@Override
-	public void doAction(final Player player) {
+	public void doAction(ItemMenu menu, final Player player) {
 		Commons.threadManager.runTaskOneTickLater(() -> {
 			PlayerInventory inventory = player.getInventory();
 			for (String name : itemNames) {

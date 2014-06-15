@@ -92,7 +92,7 @@ public class InventoryListener implements Listener {
 			ItemMenu menu = (ItemMenu) holder;
 			List<MenuBehaviour> openBehaviours = menu.getBehaviours(MenuBehaviourType.OPEN);
 			if (openBehaviours != null) {
-				openBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(player));
+				openBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(menu, player));
 			}
 		}
 	}
@@ -107,7 +107,7 @@ public class InventoryListener implements Listener {
 			ItemMenu menu = (ItemMenu) holder;
 			List<MenuBehaviour> closeBehaviours = menu.getBehaviours(MenuBehaviourType.CLOSE);
 			if (closeBehaviours != null) {
-				closeBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(player));
+				closeBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(menu, player));
 			}
 		}
 		//Get the wrapped player data
