@@ -24,7 +24,7 @@ public class CompassListener implements Listener {
 		if (itemInHand != null && itemInHand.getType() == Material.COMPASS) {
 			if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				if (Items.getName(itemInHand).toLowerCase().contains("server selector")) {
-					Commons.serverMenu.getMenu().openMenu(player);
+					Commons.serverMenu.openMenu(player);
 				}
 			}
 		}

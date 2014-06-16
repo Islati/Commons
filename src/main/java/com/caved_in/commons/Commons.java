@@ -9,8 +9,7 @@ import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.menu.menus.serverselection.ServerMenuGenerator;
-import com.caved_in.commons.menu.menus.serverselection.ServerMenuWrapper;
+import com.caved_in.commons.menu.menus.serverselection.ServerSelectionMenu;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.RunnableManager;
@@ -43,7 +42,7 @@ public class Commons extends JavaPlugin {
 	public static RunnableManager threadManager;
 	public static BukkitScheduledExecutorService syncExecutor;
 	public static BukkitScheduledExecutorService asyncExecutor;
-	public static ServerMenuWrapper serverMenu;
+	public static ServerSelectionMenu serverMenu;
 
 	public static final String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
 	public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
@@ -187,8 +186,7 @@ public class Commons extends JavaPlugin {
 		}
 
 		if (worldConfig.isCompassMenuEnabled()) {
-			serverMenu = new ServerMenuWrapper("Server Selection", ServerMenuGenerator.generateMenuItems(Commons.getConfiguration().getItemMenuConfig()
-					.getXmlItems()));
+			serverMenu = new ServerSelectionMenu("Server Selection", Commons.getConfiguration().getItemMenuConfig().getXmlItems());
 			registerListener(new CompassListener());
 			debug("&aRegistered the compass-menu listener");
 		}

@@ -1,5 +1,8 @@
-package com.caved_in.commons.config.itemmenu;
+package com.caved_in.commons.config;
 
+import com.caved_in.commons.menu.menus.serverselection.ServerMenuItem;
+import org.bukkit.Material;
+import org.bukkit.material.MaterialData;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -14,30 +17,32 @@ public class XmlMenuItem {
 	@Attribute(name = "x")
 	private int itemX = 0;
 
-	@Attribute(name = "item_id")
+	@Attribute(name = "item-id")
 	private String itemIconID = "0";
 
-	@Attribute(name = "display_name")
+	@Attribute(name = "display-name")
 	private String itemName = "";
 
-	@Element(name = "server_to_join")
-	private String bungeeServerToJoin = "";
+	@Element(name = "server-to-join")
+	private String serverToJoin = "";
 
-	@ElementList(name = "lore", inline = true)
-	private List<String> itemLore = new ArrayList<String>();
+	@ElementList(name = "lore", inline = true, required = false)
+	private List<String> itemLore = new ArrayList<>();
+
+	private ServerMenuItem menuItem;
 
 	public XmlMenuItem(@Attribute(name = "y") int itemY,
 					   @Attribute(name = "x") int itemX,
 					   @Attribute(name = "item_id") String itemIconID,
 					   @Attribute(name = "display_name") String itemName,
-					   @ElementList(name = "lore", inline = true) List<String> itemLore,
+					   @ElementList(name = "lore", inline = true, required = false) List<String> itemLore,
 					   @Element(name = "server_to_join") String bungeeServer) {
 		this.itemY = itemY;
 		this.itemX = itemX;
 		this.itemIconID = itemIconID;
 		this.itemName = itemName;
 		this.itemLore = itemLore;
-		this.bungeeServerToJoin = bungeeServer;
+		this.serverToJoin = bungeeServer;
 	}
 
 	public XmlMenuItem() {
@@ -85,10 +90,31 @@ public class XmlMenuItem {
 	}
 
 	public String getBungeeServer() {
-		return this.bungeeServerToJoin;
+		return this.serverToJoin;
 	}
 
 	public void setBungeeServer(String itemCommand) {
-		this.bungeeServerToJoin = itemCommand;
+		this.serverToJoin = itemCommand;
+	}
+
+	public ServerMenuItem getMenuItem() {
+		if (menuItem == null) {
+			String itemIconData = getItemIconID();
+			MaterialData materialData = null;
+			if (itemIconData.contains(":")) {
+				String[] itemSplit = itemIconData.split(":");
+				if (itemSplit.length > 1) {
+					int itemID = Integer.parseInt(itemSplit[0]);
+					int itemDataValue = Integer.parseInt(itemSplit[1]);
+					materialData = new MaterialData(Material.getMaterial(itemID), (byte) itemDataValue);
+				} else {
+					materialData = new MaterialData(Material.getMaterial(Integer.parseInt(itemSplit[0])));
+				}
+			} else {
+				materialData = new MaterialData(Material.getMaterial(Integer.parseInt(itemIconData)));
+			}
+			menuItem = new ServerMenuItem(getItemName(), materialData, getItemLore(), getBungeeServer());
+		}
+		return menuItem;
 	}
 }

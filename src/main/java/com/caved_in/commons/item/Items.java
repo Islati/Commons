@@ -707,4 +707,8 @@ public class Items {
 		return item.getData().getData();
 	}
 
+	public static DyeColor getRandomDyeColor() {
+		DyeColor[] dyeColors = DyeColor.values();
+		return dyeColors[new Random().nextInt(dyeColors.length)];
+	}
 }

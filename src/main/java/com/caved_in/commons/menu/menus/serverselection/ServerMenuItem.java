@@ -1,8 +1,8 @@
 package com.caved_in.commons.menu.menus.serverselection;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.menu.MenuItem;
 import com.caved_in.commons.utilities.StringUtil;
-import me.xhawk87.PopupMenuAPI.MenuItem;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
@@ -44,7 +44,7 @@ public class ServerMenuItem extends MenuItem {
 
 	@Override
 	public void onClick(Player player) {
-		teleportServer(player, this.commandToExecute);
+		teleportServer(player, commandToExecute);
 	}
 
 	private void teleportServer(Player p, String server) {

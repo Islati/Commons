@@ -1,6 +1,7 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.time.TimeHandler;
@@ -91,6 +92,29 @@ public class Entities {
 
 	public static TNTPrimed spawnPrimedTnt(Location location) {
 		return location.getWorld().spawn(location, TNTPrimed.class);
+	}
+
+	public static Zombie spawnZombie(Location location, boolean isBaby, boolean isVillager) {
+		Zombie zombie = (Zombie) spawnLivingEntity(EntityType.ZOMBIE, location);
+		zombie.setBaby(isBaby);
+		zombie.setVillager(isVillager);
+		return zombie;
+	}
+
+	public static PigZombie spawnPigZombie(Location location, boolean isBaby) {
+		PigZombie pigZombie = (PigZombie) spawnLivingEntity(EntityType.PIG_ZOMBIE, location);
+		pigZombie.setBaby(isBaby);
+		return pigZombie;
+	}
+
+	public static Zombie spawnBabyZombie(Location location, boolean isVillager) {
+		return spawnZombie(location, true, isVillager);
+	}
+
+	public static Sheep spawnRainbowSheep(Location location) {
+		Sheep sheep = (Sheep) spawnLivingEntity(EntityType.SHEEP, location);
+		sheep.setColor(Items.getRandomDyeColor());
+		return sheep;
 	}
 
 	public static ChatColor getHealthBarColor(double enemyHealthPercentage) {

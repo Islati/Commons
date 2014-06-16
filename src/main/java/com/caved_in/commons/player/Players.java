@@ -397,6 +397,25 @@ public class Players {
 	}
 
 	/**
+	 * Increase the players level
+	 *
+	 * @param player player to increase the level of
+	 * @param amount the amount to increase the players level by
+	 */
+	public static void addLevel(Player player, int amount) {
+		player.setLevel(player.getLevel() + amount);
+	}
+
+	/**
+	 * Increase the players level by one.
+	 *
+	 * @param player the player to increase the level of
+	 */
+	public static void addLevel(Player player) {
+		addLevel(player, 1);
+	}
+
+	/**
 	 * Sends a message to all online players.
 	 *
 	 * @param message message to send
@@ -920,10 +939,9 @@ public class Players {
 	public static Set<Player> getAllDebugging() {
 		Set<Player> players = new HashSet<>();
 		for (PlayerWrapper wrapper : playerData.values()) {
-			if (!wrapper.isOnline() || !wrapper.isInDebugMode()) {
-				continue;
+			if (wrapper.isOnline() && wrapper.isInDebugMode()) {
+				players.add(getPlayer(wrapper));
 			}
-			players.add(getPlayer(wrapper));
 		}
 		return players;
 	}

@@ -120,7 +120,7 @@ public class PlayerWrapper {
 	}
 
 	private Player getPlayer() {
-		return Players.getPlayer(this);
+		return Players.getPlayer(id);
 	}
 
 	/**
