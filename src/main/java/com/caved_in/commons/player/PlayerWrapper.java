@@ -19,7 +19,20 @@ import java.util.UUID;
 
 @Root(name = "Player")
 public class PlayerWrapper {
+	@Element(name = "player-name")
+	private String playerName = "";
+
+	@Element(name = "last-online")
+	private long lastOnline = 0L;
+
+	@Element(name = "is-premium")
+	private boolean isPremium = false;
 	//	private FriendList friendsList;
+
+	/* If the players in debug mode, they'll receive messages when they do practically anything. */
+	@Element(name = "debug-mode")
+	private boolean debugMode = false;
+
 	@Element(name = "in-staff-chat")
 	private boolean inStaffChat = false;
 
@@ -30,9 +43,6 @@ public class PlayerWrapper {
 	private boolean customFlySpeed = false;
 
 	private boolean viewingRecipe = false;
-	/* If the players in debug mode, they'll receive messages when they do practically anything. */
-	@Element(name = "debug-mode")
-	private boolean debugMode = false;
 
 	private double walkSpeed = 0.22;
 	private double flySpeed = 0.1;
@@ -44,16 +54,7 @@ public class PlayerWrapper {
 
 	private UUID id;
 
-	@Element(name = "player-name")
-	private String playerName = "";
-
 	private String currentServer = "";
-
-	@Element(name = "last-online")
-	private long lastOnline = 0L;
-
-	@Element(name = "is-premium")
-	private boolean isPremium = false;
 
 	@Element(name = "currency-amount")
 	private double currencyAmount = 0.0D;
@@ -89,6 +90,7 @@ public class PlayerWrapper {
 	private void initWrapper() {
 		currentServer = Commons.getConfiguration().getServerName();
 		lastOnline = System.currentTimeMillis();
+		id = Players.getPlayer(playerName).getUniqueId();
 		if (!Commons.hasSqlBackend()) {
 //			friendsList = new FriendList(id);
 			//TODO: Assign default prefix to user
@@ -109,6 +111,21 @@ public class PlayerWrapper {
 			}
 		});
 
+//Create an async future to get the UUID of the player
+		/*
+		ListenableFuture<UUID> playerIdListenable = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(getName()));
+		Futures.addCallback(playerIdListenable, new FutureCallback<UUID>() {
+			@Override
+			public void onSuccess(UUID uuid) {
+				id = uuid;
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+				throwable.printStackTrace();
+			}
+		});
+		*/
 
 //		prefix = Commons.database.getPrefix(this);
 //
@@ -138,7 +155,7 @@ public class PlayerWrapper {
 	 * @return true if the player is online, false otherwise
 	 */
 	public boolean isOnline() {
-		return Bukkit.getPlayer(this.getName()) != null;
+		return Bukkit.getPlayer(id) != null;
 	}
 
 	/**
@@ -248,7 +265,6 @@ public class PlayerWrapper {
 		this.tagColor = tagColor;
 	}
 
-
 //	/**
 //	 * Gets the players friends list
 //	 *
@@ -334,5 +350,4 @@ public class PlayerWrapper {
 	public Set<Punishment> getPunishments() {
 		return punishments;
 	}
-
 }

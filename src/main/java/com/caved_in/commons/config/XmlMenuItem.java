@@ -1,15 +1,18 @@
 package com.caved_in.commons.config;
 
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.menu.menus.serverselection.ServerMenuItem;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Root(name = "menu-item")
 public class XmlMenuItem {
 	@Attribute(name = "y")
 	private int itemY = 0;
@@ -33,10 +36,10 @@ public class XmlMenuItem {
 
 	public XmlMenuItem(@Attribute(name = "y") int itemY,
 					   @Attribute(name = "x") int itemX,
-					   @Attribute(name = "item_id") String itemIconID,
-					   @Attribute(name = "display_name") String itemName,
+					   @Attribute(name = "item-id") String itemIconID,
+					   @Attribute(name = "display-name") String itemName,
 					   @ElementList(name = "lore", inline = true, required = false) List<String> itemLore,
-					   @Element(name = "server_to_join") String bungeeServer) {
+					   @Element(name = "server-to-join") String bungeeServer) {
 		this.itemY = itemY;
 		this.itemX = itemX;
 		this.itemIconID = itemIconID;
@@ -46,7 +49,9 @@ public class XmlMenuItem {
 	}
 
 	public XmlMenuItem() {
-
+		itemIconID = String.valueOf(Material.DIAMOND_SWORD.getId());
+		itemName = "Example Item";
+		serverToJoin = "lobby";
 	}
 
 	public int getY() {
@@ -100,19 +105,7 @@ public class XmlMenuItem {
 	public ServerMenuItem getMenuItem() {
 		if (menuItem == null) {
 			String itemIconData = getItemIconID();
-			MaterialData materialData = null;
-			if (itemIconData.contains(":")) {
-				String[] itemSplit = itemIconData.split(":");
-				if (itemSplit.length > 1) {
-					int itemID = Integer.parseInt(itemSplit[0]);
-					int itemDataValue = Integer.parseInt(itemSplit[1]);
-					materialData = new MaterialData(Material.getMaterial(itemID), (byte) itemDataValue);
-				} else {
-					materialData = new MaterialData(Material.getMaterial(Integer.parseInt(itemSplit[0])));
-				}
-			} else {
-				materialData = new MaterialData(Material.getMaterial(Integer.parseInt(itemIconData)));
-			}
+			MaterialData materialData = Items.getMaterialDataFromString(itemIconData);
 			menuItem = new ServerMenuItem(getItemName(), materialData, getItemLore(), getBungeeServer());
 		}
 		return menuItem;

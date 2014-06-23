@@ -57,6 +57,14 @@ public class Effects {
 		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE);
 	}
 
+	public static void playEffect(Location location, Effect effect, int data, int radius) {
+		location.getWorld().playEffect(location, effect, data, radius);
+	}
+
+	public static void playEffect(Location location, Effect effect) {
+		playEffect(location, effect, 1, BLEED_EFFECT_RADIUS);
+	}
+
 	public static void explode(Location location, float power, boolean setFire, boolean breakBlocks) {
 		World world = location.getWorld();
 		int[] xyz = Locations.getXYZ(location);

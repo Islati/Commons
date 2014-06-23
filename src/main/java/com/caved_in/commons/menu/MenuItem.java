@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class MenuItem {
@@ -17,6 +18,10 @@ public abstract class MenuItem {
 	private MaterialData icon;
 	private String text;
 	private List<String> descriptions = new ArrayList<>();
+
+	public MenuItem() {
+		this("", DEFAULT_ICON);
+	}
 
 	public MenuItem(String text) {
 		this(text, DEFAULT_ICON);
@@ -61,12 +66,24 @@ public abstract class MenuItem {
 		return icon;
 	}
 
+	public void setIcon(MaterialData data) {
+		icon = data;
+	}
+
 	public String getText() {
 		return text;
 	}
 
+	public void setText(String text) {
+		this.text = StringUtil.formatColorCodes(text);
+	}
+
 	public void setDescriptions(List<String> lines) {
 		descriptions = StringUtil.formatColorCodes(lines);
+	}
+
+	public void setDescriptions(String... lines) {
+		descriptions = Arrays.asList(lines);
 	}
 
 	public void addDescriptions(String line) {

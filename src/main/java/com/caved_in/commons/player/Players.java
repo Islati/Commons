@@ -1187,6 +1187,18 @@ public class Players {
 		return Inventories.contains(player.getInventory(), material);
 	}
 
+	public static void hidePlayers(Player player) {
+		for (Player p : allPlayers()) {
+			player.hidePlayer(p);
+		}
+	}
+
+	public static void unhidePlayers(Player player) {
+		for (Player p : allPlayers()) {
+			player.showPlayer(p);
+		}
+	}
+
 	/**
 	 * Gets the players targeted location (on their cursor) of up-to 30 blocks in distance
 	 *

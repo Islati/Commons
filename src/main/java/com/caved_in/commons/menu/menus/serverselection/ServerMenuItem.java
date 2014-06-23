@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ServerMenuItem extends MenuItem {
 
-	private List<String> itemLore;
+	private List<String> itemLore = new ArrayList<>();
 	private String commandToExecute = "lobby";
 
 	/**
@@ -26,8 +26,10 @@ public class ServerMenuItem extends MenuItem {
 	public ServerMenuItem(String text, MaterialData icon, List<String> itemLore, String commandToExecute) {
 		super(StringUtil.formatColorCodes(text), icon);
 		List<String> loreSet = new ArrayList<String>();
-		for (String lore : itemLore) {
-			loreSet.add(StringUtil.formatColorCodes(lore));
+		if (itemLore != null) {
+			for (String lore : itemLore) {
+				loreSet.add(StringUtil.formatColorCodes(lore));
+			}
 		}
 		this.itemLore = loreSet;
 		this.setDescriptions(loreSet);

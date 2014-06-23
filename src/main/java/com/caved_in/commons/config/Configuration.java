@@ -105,4 +105,12 @@ public class Configuration {
 	public WarpConfig getWarpConfig() {
 		return warpConfig;
 	}
+
+	public void setSqlBackend(boolean sqlBackend) {
+		this.sqlBackend = sqlBackend;
+	}
+
+	public void setRegisterCommands(boolean registerCommands) {
+		this.registerCommands = registerCommands;
+	}
 }

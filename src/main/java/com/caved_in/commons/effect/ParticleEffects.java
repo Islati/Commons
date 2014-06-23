@@ -12,6 +12,7 @@ import java.util.Random;
 
 public enum ParticleEffects {
 
+	NONE("none", -1),
 	HUGE_EXPLODE("hugeexplosion", 0),
 	LARGE_EXPLODE("largeexplode", 1),
 	FIREWORK_SPARK("fireworksSpark", 2),
@@ -91,6 +92,10 @@ public enum ParticleEffects {
 	 */
 	public static void sendToPlayer(ParticleEffects effect, Player player, Location location, float offsetX, float offsetY,
 									float offsetZ, float speed, int count) {
+		if (effect == ParticleEffects.NONE) {
+			return;
+		}
+
 		try {
 			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
 			sendPacket(player, packet);
@@ -113,6 +118,10 @@ public enum ParticleEffects {
 	 * @param count    The count of effects
 	 */
 	public static void sendToLocation(ParticleEffects effect, Location location, float offsetX, float offsetY, float offsetZ, float speed, int count) {
+		if (effect == ParticleEffects.NONE) {
+			return;
+		}
+
 		try {
 			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
 			for (Player player : Locations.getPlayersInRadius(location, PARTICLE_RADIUS)) {
@@ -129,6 +138,7 @@ public enum ParticleEffects {
 
 	private static Object createPacket(ParticleEffects effect, Location location, float offsetX, float offsetY,
 									   float offsetZ, float speed, int count) throws Exception {
+
 		if (count <= 0) {
 			count = 1;
 		}

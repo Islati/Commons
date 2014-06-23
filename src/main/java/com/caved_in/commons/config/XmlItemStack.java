@@ -97,7 +97,6 @@ public class XmlItemStack {
 
 			if (enchantments != null && enchantments.size() > 0) {
 				for (XmlEnchantment enchantment : enchantments) {
-					Enchantment enchant = enchantment.getEnchantment();
 					Items.addEnchantment(itemStack, enchantment.getEnchantment(), enchantment.getLevel());
 				}
 			}
