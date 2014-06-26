@@ -1,6 +1,8 @@
 package com.caved_in.commons.effect;
 
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -8,6 +10,9 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public enum ParticleEffects {
@@ -53,6 +58,19 @@ public enum ParticleEffects {
 	private int id;
 	public static final int PARTICLE_RADIUS = 10;
 	private static final Random random = new Random();
+
+	private static final Map<String, ParticleEffects> PARTICLE_EFFECTS_MAP = new HashMap<>();
+
+	static {
+		for (ParticleEffects effect : EnumSet.allOf(ParticleEffects.class)) {
+			PARTICLE_EFFECTS_MAP.put(effect.getName(), effect);
+			PARTICLE_EFFECTS_MAP.put(effect.name(), effect);
+		}
+	}
+
+	public static ParticleEffects getEffect(String name) {
+		return PARTICLE_EFFECTS_MAP.get(name);
+	}
 
 	ParticleEffects(String name, int id) {
 		this.name = name;
@@ -125,6 +143,11 @@ public enum ParticleEffects {
 		try {
 			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
 			for (Player player : Locations.getPlayersInRadius(location, PARTICLE_RADIUS)) {
+				//If the player has other players hidden, we don't want to see their particles, either!
+				PlayerWrapper wrapper = Players.getData(player);
+				if (wrapper.isHidingOtherPlayers()) {
+					continue;
+				}
 				sendPacket(player, packet);
 			}
 		} catch (Exception e) {
@@ -138,6 +161,10 @@ public enum ParticleEffects {
 
 	private static Object createPacket(ParticleEffects effect, Location location, float offsetX, float offsetY,
 									   float offsetZ, float speed, int count) throws Exception {
+
+		if (effect == ParticleEffects.NONE) {
+			return null;
+		}
 
 		if (count <= 0) {
 			count = 1;

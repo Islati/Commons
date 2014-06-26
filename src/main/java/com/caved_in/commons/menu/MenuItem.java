@@ -83,7 +83,7 @@ public abstract class MenuItem {
 	}
 
 	public void setDescriptions(String... lines) {
-		descriptions = Arrays.asList(lines);
+		descriptions = StringUtil.formatColorCodes(Arrays.asList(lines));
 	}
 
 	public void addDescriptions(String line) {
@@ -94,7 +94,7 @@ public abstract class MenuItem {
 		ItemStack itemStack = new ItemStack(getIcon().getItemType(), getNumber(), getIcon().getData());
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.setLore(descriptions);
-		meta.setDisplayName(getText());
+		meta.setDisplayName(StringUtil.formatColorCodes(getText()));
 		itemStack.setItemMeta(meta);
 		return itemStack;
 //		return new ItemBuilder().withName(getText()).amount(number).withLore(descriptions).withMaterialData(getIcon()).toItemStack();

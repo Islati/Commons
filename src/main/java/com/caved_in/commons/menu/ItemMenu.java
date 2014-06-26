@@ -1,5 +1,6 @@
 package com.caved_in.commons.menu;
 
+import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,7 +22,7 @@ public class ItemMenu implements InventoryHolder {
 	private Map<MenuBehaviourType, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
 
 	public ItemMenu(String title, int rows) {
-		this.title = title;
+		this.title = StringUtil.formatColorCodes(title);
 		this.rows = rows;
 		menuActions.put(MenuBehaviourType.OPEN, Lists.newArrayList());
 		menuActions.put(MenuBehaviourType.CLOSE, Lists.newArrayList());

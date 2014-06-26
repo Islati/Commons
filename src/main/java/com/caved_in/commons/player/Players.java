@@ -4,7 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
-import com.caved_in.commons.config.formatting.ColorCode;
+import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
@@ -932,7 +932,7 @@ public class Players {
 		return world.getEntitiesByClass(Player.class);
 	}
 
-	private static Collection<PlayerWrapper> allPlayerWrappers() {
+	public static Collection<PlayerWrapper> allPlayerWrappers() {
 		return playerData.values();
 	}
 
@@ -1191,12 +1191,14 @@ public class Players {
 		for (Player p : allPlayers()) {
 			player.hidePlayer(p);
 		}
+		getData(player).setHidingOtherPlayers(true);
 	}
 
 	public static void unhidePlayers(Player player) {
 		for (Player p : allPlayers()) {
 			player.showPlayer(p);
 		}
+		getData(player).setHidingOtherPlayers(false);
 	}
 
 	/**

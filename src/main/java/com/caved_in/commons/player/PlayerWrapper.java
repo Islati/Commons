@@ -42,6 +42,9 @@ public class PlayerWrapper {
 	@Element(name = "has-custom-fly-speed")
 	private boolean customFlySpeed = false;
 
+	@Element(name = "hiding-other-players")
+	private boolean hidingOtherPlayers = false;
+
 	private boolean viewingRecipe = false;
 
 	private double walkSpeed = 0.22;
@@ -136,7 +139,7 @@ public class PlayerWrapper {
 //		}
 	}
 
-	private Player getPlayer() {
+	public Player getPlayer() {
 		return Players.getPlayer(id);
 	}
 
@@ -349,5 +352,13 @@ public class PlayerWrapper {
 	 */
 	public Set<Punishment> getPunishments() {
 		return punishments;
+	}
+
+	public boolean isHidingOtherPlayers() {
+		return hidingOtherPlayers;
+	}
+
+	public void setHidingOtherPlayers(boolean hidingOtherPlayers) {
+		this.hidingOtherPlayers = hidingOtherPlayers;
 	}
 }
