@@ -93,10 +93,12 @@ public class Sounds {
 	 */
 	public static void playSoundDistantAtLocation(Location areaLocation, Location soundPlayLocation, double radius, Sound sound, float volume, float pitch) {
 		Set<Player> playersInLocation = Locations.getPlayersInRadius(areaLocation, radius);
-		if (playersInLocation.size() > 0) {
-			for (Player player : playersInLocation) {
-				playSoundDistant(player, soundPlayLocation, sound, volume, pitch);
-			}
+		if (playersInLocation.size() == 0) {
+			return;
+		}
+
+		for (Player player : playersInLocation) {
+			playSoundDistant(player, soundPlayLocation, sound, volume, pitch);
 		}
 	}
 }

@@ -27,6 +27,10 @@ public class XmlLocation extends Location {
 
 	private Location location = null;
 
+	public XmlLocation fromLocation(Location loc) {
+		return new XmlLocation(loc);
+	}
+
 	public XmlLocation(Location location) {
 		super(location.getWorld(), location.getX(), location.getY(), location.getZ());
 		worldName = Worlds.getWorldName(location);

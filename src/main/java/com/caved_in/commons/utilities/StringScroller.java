@@ -11,7 +11,7 @@ import java.util.List;
  * @author Chinwe
  */
 public class StringScroller {
-	private static final char COLOUR_CHAR = '§';
+	private static final char COLOUR_CHAR = '&';
 	private int position;
 	private List<String> list = new ArrayList<>();
 	private ChatColor colour = ChatColor.RESET;
@@ -21,7 +21,7 @@ public class StringScroller {
 	 * @param message      The String to scroll
 	 * @param width        The width of the window to scroll across (i.e. 16 for signs)
 	 * @param spaceBetween The amount of spaces between each repetition
-	 * @param colourChar   The colour code character you're using (i.e. & or §)
+	 * @param colourChar   The colour code character you're using (i.e. & or ï¿½)
 	 */
 	public StringScroller(String message, int width, int spaceBetween, char colourChar) {
 		// Validation
@@ -46,8 +46,8 @@ public class StringScroller {
 			spaceBetween = 0;
 		}
 
-		// Change to §
-		if (colourChar != '§') {
+		// Change to &
+		if (colourChar != '&') {
 			message = ChatColor.translateAlternateColorCodes(colourChar, message);
 		}
 

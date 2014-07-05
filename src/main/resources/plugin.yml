@@ -118,6 +118,8 @@ commands:
       usage: /<command> <type>
    rename:
       usage: /<command> <item name>
+   blocktext:
+      usage: /<command> <item-data> <text>...
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

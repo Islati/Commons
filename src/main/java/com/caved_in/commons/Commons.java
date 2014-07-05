@@ -305,10 +305,9 @@ public class Commons extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-//
 		HandlerList.unregisterAll(this);
 		Bukkit.getScheduler().cancelTasks(this);
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : Players.allPlayers()) {
 			UUID playerId = player.getUniqueId();
 			Players.removeData(playerId);
 		}

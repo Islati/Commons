@@ -174,12 +174,6 @@
             <groupId>org.simpleframework</groupId>
             <artifactId>simple-xml</artifactId>
         </dependency>
-        <!--The only "dependancy" for this plugin; The PopupmenuAPI, used for,
-            well, menus! -->
-        <dependency>
-            <groupId>me.xhawk87</groupId>
-            <artifactId>PopupMenuAPI</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.kitteh</groupId>
             <artifactId>tagapi</artifactId>
@@ -225,11 +219,7 @@
                 <artifactId>tagapi</artifactId>
                 <version>RELEASE</version>
             </dependency>
-            <dependency>
-                <groupId>me.xhawk87</groupId>
-                <artifactId>PopupMenuAPI</artifactId>
-                <version>0.2.1</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>

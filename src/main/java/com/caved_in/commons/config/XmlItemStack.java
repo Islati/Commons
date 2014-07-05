@@ -34,6 +34,10 @@ public class XmlItemStack {
 
 	private ItemStack itemStack;
 
+	public static XmlItemStack fromItem(ItemStack item) {
+		return new XmlItemStack(item);
+	}
+
 	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments) {
 		this.id = id;
 		this.dataVal = dataVal;

@@ -433,7 +433,14 @@ public enum Letter {
 					{false, false, true},
 					{false, true, true},
 					{false, false, false},
-					{false, true, false},});
+					{false, true, false},}),
+	LETTER_EXCLAMATION('!', new boolean[][]{
+			{false, true, false},
+			{false, true, false},
+			{false, true, false},
+			{false, false, false},
+			{false, true, false}
+	});
 
 	private char character;
 	private int height;

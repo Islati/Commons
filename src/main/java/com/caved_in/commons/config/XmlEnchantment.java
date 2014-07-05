@@ -12,6 +12,10 @@ public class XmlEnchantment {
 	@Attribute(name = "level")
 	private int level;
 
+	public static XmlEnchantment fromEnchant(Enchantment enchantment, int level) {
+		return new XmlEnchantment(enchantment, level);
+	}
+
 	public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level) {
 		this.level = level;
 		this.enchantName = enchantName;

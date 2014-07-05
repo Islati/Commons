@@ -2,12 +2,14 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
+import com.caved_in.commons.exceptions.InvalidMaterialName;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -504,6 +506,21 @@ public class Items {
 		return Material.valueOf(string.toUpperCase().replaceAll(" ", "_"));
 	}
 
+	/**
+	 * Retrieve a material by its name, or commonly known alias
+	 *
+	 * @param search name of the material to search for
+	 * @return material with a name or alias matching the search
+	 * @throws InvalidMaterialName if no material has a name or alias matching the search
+	 */
+	public static Material getMaterialByName(String search) throws InvalidMaterialName {
+		ItemType itemType = ItemType.lookup(search);
+		if (itemType == null) {
+			throw new InvalidMaterialName(search + " is not a valid material name.");
+		}
+		return getMaterialById(itemType.getID());
+	}
+
 	public static Dye getDye(DyeColor dyeColor) {
 		Dye dye = new Dye();
 		dye.setColor(dyeColor);
@@ -516,17 +533,52 @@ public class Items {
 		return itemStack;
 	}
 
-	public static MaterialData getMaterialDataFromString(String idDatavalue) {
-		MaterialData materialData;
+	public static MaterialData getMaterialDataFromString(String idDatavalue) throws InvalidMaterialName {
+		String[] materialSplit = null;
+		boolean wordsUsed = false;
+		//If there's a data-value attached, parse it
 		if (idDatavalue.contains(":")) {
-			String[] materialSplit = idDatavalue.split(":");
-			int materialId = Integer.parseInt(materialSplit[0]);
-			int dataValue = Integer.parseInt(materialSplit[1]);
-			materialData = new MaterialData(Material.getMaterial(materialId), (byte) dataValue);
+			materialSplit = idDatavalue.split(":");
+			//Assure both the numbers are numbers, otherwise return null material data
+			if (!StringUtils.isNumeric(materialSplit[0]) || !StringUtils.isNumeric(materialSplit[1])) {
+				wordsUsed = true;
+			}
+			//If no words were used, then retrieve the material data via ID
+			if (!wordsUsed) {
+				int materialId = Integer.parseInt(materialSplit[0]);
+				int dataValue = Integer.parseInt(materialSplit[1]);
+				return new MaterialData(Material.getMaterial(materialId), (byte) dataValue);
+			}
 		} else {
-			materialData = new MaterialData(Material.getMaterial(Integer.parseInt(idDatavalue)));
+			if (!StringUtils.isNumeric(idDatavalue)) {
+				wordsUsed = true;
+			}
+			//If no words were used, then retrieve the material data via ID
+			if (!wordsUsed) {
+				return new MaterialData(Material.getMaterial(Integer.parseInt(idDatavalue)));
+			}
 		}
-		return materialData;
+
+		ItemType itemType;
+
+		if (materialSplit == null || materialSplit.length == 0) {
+			itemType = ItemType.lookup(idDatavalue);
+			if (itemType == null) {
+				return null;
+			}
+			return new MaterialData(itemType.getID());
+		}
+
+		itemType = ItemType.lookup(materialSplit[0]);
+		String dataName = materialSplit[1];
+		if (itemType == null) {
+			return null;
+		}
+
+		int itemId = itemType.getID();
+		Material itemMaterial = getMaterialById(itemId);
+		//Use the extra-items class to search for the given item and datavalue
+		return ExtraItems.getItem(itemMaterial, dataName);
 	}
 
 	public static MaterialData getMaterialData(int itemID, int dataValue) {

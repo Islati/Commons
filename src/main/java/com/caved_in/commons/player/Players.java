@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.inventory.Inventories;
@@ -449,10 +450,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void messageAllWithPermission(String permission, String... messages) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player == null) {
-				continue;
-			}
+		for (Player player : allPlayers()) {
 			if (player.hasPermission(permission)) {
 				sendMessage(player, messages);
 			}
@@ -476,7 +474,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void messageAllWithoutPermission(String permission, String message) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : allPlayers()) {
 			if (player.hasPermission(permission)) {
 				sendMessage(player, message);
 			}
@@ -499,7 +497,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void messageAllWithoutPermission(String permission, String... messages) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : allPlayers()) {
 			if (!player.hasPermission(permission)) {
 				for (String message : messages) {
 					sendMessage(player, message);
@@ -1228,6 +1226,50 @@ public class Players {
 	public static void playSoundAll(Sound sound, int volume, float f) {
 		for (Player p : allPlayers()) {
 			Sounds.playSound(p, sound, volume, f);
+		}
+	}
+
+	/**
+	 * Get the cardinal compass direction of a player.
+	 *
+	 * @param player
+	 * @return
+	 */
+	public static Direction getCardinalDirection(Player player) {
+		double rot = (player.getLocation().getYaw() - 90) % 360;
+		if (rot < 0) {
+			rot += 360.0;
+		}
+		return getDirection(rot);
+	}
+
+	/**
+	 * Converts a rotation to a cardinal direction.
+	 *
+	 * @param rot
+	 * @return
+	 */
+	private static Direction getDirection(double rot) {
+		if (0 <= rot && rot < 22.5) {
+			return Direction.NORTH;
+		} else if (22.5 <= rot && rot < 67.5) {
+			return Direction.NORTHEAST;
+		} else if (67.5 <= rot && rot < 112.5) {
+			return Direction.EAST;
+		} else if (112.5 <= rot && rot < 157.5) {
+			return Direction.SOUTHEAST;
+		} else if (157.5 <= rot && rot < 202.5) {
+			return Direction.SOUTH;
+		} else if (202.5 <= rot && rot < 247.5) {
+			return Direction.SOUTHWEST;
+		} else if (247.5 <= rot && rot < 292.5) {
+			return Direction.WEST;
+		} else if (292.5 <= rot && rot < 337.5) {
+			return Direction.NORTHWEST;
+		} else if (337.5 <= rot && rot < 360.0) {
+			return Direction.NORTH;
+		} else {
+			return null;
 		}
 	}
 

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class HelpScreen {
 
-	private HashMap<String, HelpScreenEntry> helpMenuMap;
+	private HashMap<String, HelpScreenEntry> helpMenuMap = new HashMap<>();
 	private final String menuName;
 	private String menuHeader = "<name> Help (<page> / <maxpage>)";
 	private String menuFormat = "<name> -> <desc>";
@@ -25,7 +25,6 @@ public class HelpScreen {
 
 	public HelpScreen(String name) {
 		menuName = name;
-		helpMenuMap = new HashMap<>();
 	}
 
 	/**
@@ -81,11 +80,25 @@ public class HelpScreen {
 	 * @param description The description
 	 */
 	public void setEntry(String name, String description) {
-		helpMenuMap.put(name.toLowerCase(), new HelpScreenEntry(name, description));
+		HelpScreenEntry entry = new HelpScreenEntry(name, description);
+		helpMenuMap.put(name.toLowerCase(), entry);
+	}
+
+	public void setEntry(String name, String description, String... permissions) {
+		HelpScreenEntry entry = new HelpScreenEntry(name, description);
+		entry.setPermissions(permissions);
+		helpMenuMap.put(name.toLowerCase(), entry);
 	}
 
 	public HelpScreen addEntry(String name, String item) {
 		helpMenuMap.put(name.toLowerCase(), new HelpScreenEntry(name, item));
+		return this;
+	}
+
+	public HelpScreen addEntry(String name, String item, String... permissions) {
+		HelpScreenEntry entry = new HelpScreenEntry(name, item);
+		entry.setPermissions(permissions);
+		helpMenuMap.put(name.toLowerCase(), entry);
 		return this;
 	}
 
@@ -170,7 +183,7 @@ public class HelpScreen {
 		 *
 		 * @param perms The permissions
 		 */
-		public void setPerms(String... perms) {
+		public void setPermissions(String... perms) {
 			this.perms = perms;
 		}
 

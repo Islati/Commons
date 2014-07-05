@@ -415,10 +415,7 @@ public class StringUtil {
 	}
 
 	public static boolean isNumericAt(String[] strs, int index) {
-		if (strs.length <= index) {
-			return false;
-		}
-		return StringUtils.isNumeric(strs[index]);
+		return strs.length > index && StringUtils.isNumeric(strs[index]);
 	}
 
 	public static int getNumberAt(String[] strs, int index, int def) {

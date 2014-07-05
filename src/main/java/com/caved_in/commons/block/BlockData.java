@@ -156,4 +156,18 @@ public class BlockData {
 	public byte getLightFromBlocks() {
 		return lightFromBlocks;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Block) {
+			Block block = (Block) o;
+			return getWorld().equals(block.getWorld()) && getX() == block.getX() && getY() == block.getY() && getZ() == block.getZ() && getId() == block.getTypeId();
+		}
+
+		if (o instanceof BlockData) {
+			BlockData blockData = (BlockData) o;
+			return blockData.getWorld().equals(getWorld()) && blockData.getId() == getId() && blockData.getX() == getX() && blockData.getZ() == getZ() && blockData.getY() == getY();
+		}
+		return false;
+	}
 }

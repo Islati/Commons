@@ -154,12 +154,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.xhawk87</groupId>
-            <artifactId>PopupMenuAPI</artifactId>
-            <version>0.2.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.kitteh</groupId>
             <artifactId>tagapi</artifactId>
             <version>RELEASE</version>
@@ -210,11 +204,6 @@
                 <groupId>org.kitteh</groupId>
                 <artifactId>tagapi</artifactId>
                 <version>RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>me.xhawk87</groupId>
-                <artifactId>PopupMenuAPI</artifactId>
-                <version>0.2.1</version>
             </dependency>
             <dependency>
                 <groupId>com.github.github</groupId>
