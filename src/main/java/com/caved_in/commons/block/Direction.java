@@ -27,6 +27,25 @@ public enum Direction {
 		return null;
 	}
 
+	public static Direction getRightOf(Direction dir) {
+		switch (dir) {
+			case NORTH:
+			case NORTHEAST:
+			case NORTHWEST:
+				return EAST;
+			case EAST:
+				return SOUTH;
+			case SOUTH:
+			case SOUTHWEST:
+			case SOUTHEAST:
+				return WEST;
+			case WEST:
+				return NORTH;
+			default:
+				return null;
+		}
+	}
+
 	public int getX() {
 		return x;
 	}

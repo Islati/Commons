@@ -88,6 +88,10 @@ public class Worlds {
 		return Bukkit.getServer().unloadWorld(getWorld(worldName), false);
 	}
 
+	public static boolean unload(World world) {
+		return Bukkit.getServer().unloadWorld(world, false);
+	}
+
 	public static boolean load(String worldName) {
 		try {
 			Bukkit.getServer().createWorld(new WorldCreator(worldName));
@@ -140,5 +144,18 @@ public class Worlds {
 
 	public static void dropItemNaturally(Entity entity, ItemStack item) {
 		dropItem(entity, item, true);
+	}
+
+	public static World getDefaultWorld() {
+		return Bukkit.getWorlds().get(0);
+	}
+
+	public static void rollback(World world) {
+		boolean save = world.isAutoSave();
+		String worldName = world.getName();
+		world.setAutoSave(false);
+		unload(world);
+		load(worldName);
+		world.setAutoSave(save);
 	}
 }

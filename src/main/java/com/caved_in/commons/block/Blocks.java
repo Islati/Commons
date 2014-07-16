@@ -6,16 +6,19 @@ import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.BlockID;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.threading.tasks.ThreadBlockRegen;
+import com.caved_in.commons.threading.tasks.ThreadBlocksRegen;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.material.MaterialData;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Blocks {
@@ -301,6 +304,10 @@ public class Blocks {
 		Commons.threadManager.runTaskLater(new ThreadBlockRegen(blockData, effect), delay);
 	}
 
+	public static void scheduleBlockRegen(List<Block> blocks, boolean effect, int secondsDelay) {
+		Commons.threadManager.runTaskLater(new ThreadBlocksRegen(blocks, effect), TimeHandler.getTimeInTicks(secondsDelay, TimeType.SECOND));
+	}
+
 	/**
 	 * Changes the block to the data inside the blockdata instance
 	 *
@@ -405,8 +412,8 @@ public class Blocks {
 	 *
 	 * @param location location to spawn tnt
 	 */
-	public static void spawnTNT(Location location) {
-		location.getWorld().spawn(location, TNTPrimed.class);
+	public static TNTPrimed spawnTNT(Location location) {
+		return (TNTPrimed) location.getWorld().spawnEntity(location, EntityType.PRIMED_TNT);
 	}
 
 	/**

@@ -54,7 +54,13 @@ public class Effects {
 	}
 
 	public static void playBleedEffect(Player player) {
-		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE);
+		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE_WIRE);
+	}
+
+	public static void playBleedEffect(Player player, int intensity) {
+		for (int i = 0; i < intensity; i++) {
+			playBleedEffect(player);
+		}
 	}
 
 	public static void playEffect(Location location, Effect effect, int data, int radius) {

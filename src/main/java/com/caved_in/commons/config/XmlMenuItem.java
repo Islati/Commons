@@ -1,6 +1,6 @@
 package com.caved_in.commons.config;
 
-import com.caved_in.commons.exceptions.InvalidMaterialName;
+import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.menu.menus.serverselection.ServerMenuItem;
 import org.bukkit.Material;
@@ -109,8 +109,8 @@ public class XmlMenuItem {
 			MaterialData materialData = null;
 			try {
 				materialData = Items.getMaterialDataFromString(itemIconData);
-			} catch (InvalidMaterialName invalidMaterialName) {
-				invalidMaterialName.printStackTrace();
+			} catch (InvalidMaterialNameException invalidMaterialNameException) {
+				invalidMaterialNameException.printStackTrace();
 				return null;
 			}
 			menuItem = new ServerMenuItem(getItemName(), materialData, getItemLore(), getBungeeServer());

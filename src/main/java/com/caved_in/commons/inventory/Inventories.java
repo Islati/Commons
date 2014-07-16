@@ -3,6 +3,8 @@ package com.caved_in.commons.inventory;
 import com.caved_in.commons.block.chest.ChestType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.ArrayUtils;
+import com.caved_in.commons.utilities.StringUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
@@ -165,6 +167,10 @@ public class Inventories {
 
 	public static int getRows(int ItemCount) {
 		return ((int) Math.ceil(ItemCount / 9.0D));
+	}
+
+	public static Inventory makeInventory(String title, int rows) {
+		return Bukkit.getServer().createInventory(null, rows * 9, StringUtil.formatColorCodes(title));
 	}
 
 }

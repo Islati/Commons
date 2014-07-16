@@ -78,4 +78,8 @@ public class TimeHandler {
 	public static int getSecondsFromTicks(long tickAmount) {
 		return (int) (tickAmount / 20);
 	}
+
+	public static String getDurationBreakdown(long time) {
+		return DurationFormatUtils.formatDurationWords(time, true, true);
+	}
 }

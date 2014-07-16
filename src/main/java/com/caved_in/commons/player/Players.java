@@ -35,6 +35,7 @@ import org.bukkit.potion.PotionEffect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static com.caved_in.commons.Commons.messageConsole;
 
@@ -432,7 +433,7 @@ public class Players {
 		}
 	}
 
-	public static void messageAll(Set<Player> receivers, String... messages) {
+	public static void messageAll(Collection<Player> receivers, String... messages) {
 		for (Player player : receivers) {
 			if (player == null) {
 				continue;
@@ -812,7 +813,7 @@ public class Players {
 	 */
 	public static void giveItem(Player player, ItemStack... items) {
 		for (ItemStack itemStack : items) {
-			giveItem(player, itemStack);
+			giveItem(player, itemStack, true);
 		}
 	}
 
@@ -909,6 +910,10 @@ public class Players {
 	 */
 	public static Player[] allPlayers() {
 		return Bukkit.getOnlinePlayers();
+	}
+
+	public static Stream<Player> stream() {
+		return Stream.of(allPlayers());
 	}
 
 	public static Set<Player> onlineOperators() {
@@ -1100,10 +1105,16 @@ public class Players {
 		feed(player, 20);
 	}
 
+	/**
+	 * Heal the player to full health, remove any potion effects they have, and clear them from all
+	 * ticking damages.
+	 *
+	 * @param player player to heal
+	 */
 	public static void heal(Player player) {
 		Players.removePotionEffects(player);
 		removeFire(player);
-
+		Entities.setHealth(player, Entities.getMaxHealth(player));
 	}
 
 	public static void removeFire(Player player) {
@@ -1223,10 +1234,14 @@ public class Players {
 		return Worlds.getWorldName(player);
 	}
 
-	public static void playSoundAll(Sound sound, int volume, float f) {
+	public static void playSoundAll(Sound sound, float volume, float pitch) {
 		for (Player p : allPlayers()) {
-			Sounds.playSound(p, sound, volume, f);
+			Sounds.playSound(p, sound, volume, pitch);
 		}
+	}
+
+	public static void playSoundAll(Sound sound, int volume) {
+		playSoundAll(sound,volume,1.0f);
 	}
 
 	/**
@@ -1241,6 +1256,22 @@ public class Players {
 			rot += 360.0;
 		}
 		return getDirection(rot);
+	}
+
+	public static Direction getDirection(Player player) {
+		int dirCode = Math.round(player.getLocation().getYaw() / 90f);
+		switch (dirCode) {
+			case 0:
+				return Direction.SOUTH;
+			case 1:
+				return Direction.WEST;
+			case 2:
+				return Direction.NORTH;
+			case 3:
+				return Direction.EAST;
+			default:
+				return Direction.SOUTH;
+		}
 	}
 
 	/**

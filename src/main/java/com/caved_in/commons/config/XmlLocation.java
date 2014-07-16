@@ -27,7 +27,7 @@ public class XmlLocation extends Location {
 
 	private Location location = null;
 
-	public XmlLocation fromLocation(Location loc) {
+	public static XmlLocation fromLocation(Location loc) {
 		return new XmlLocation(loc);
 	}
 

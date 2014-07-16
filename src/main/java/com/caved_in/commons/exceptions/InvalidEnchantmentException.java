@@ -1,12 +1,12 @@
 package com.caved_in.commons.exceptions;
 
-public class InvalidEnchantment extends Exception {
+public class InvalidEnchantmentException extends Exception {
 	private static final String exceptionMessage = "%s isn't a valid enchantment";
 
-	public InvalidEnchantment() {
+	public InvalidEnchantmentException() {
 	}
 
-	public InvalidEnchantment(String message) {
+	public InvalidEnchantmentException(String message) {
 		super(String.format(exceptionMessage, message));
 	}
 

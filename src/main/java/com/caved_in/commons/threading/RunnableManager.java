@@ -1,7 +1,9 @@
 package com.caved_in.commons.threading;
 
+import com.caved_in.commons.Commons;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashMap;
 
@@ -13,13 +15,13 @@ public class RunnableManager {
 		this.plugin = Plugin;
 	}
 
-	public void registerSynchRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
+	public void registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
 		if (!runningTasks.containsKey(name)) {
 			runningTasks.put(name, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks));
 		}
 	}
 
-	public void registerASynchRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
+	public void registerAsyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
 		if (!runningTasks.containsKey(name)) {
 			runningTasks.put(name, plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks));
 		}
@@ -29,7 +31,7 @@ public class RunnableManager {
 		plugin.getServer().getScheduler().runTask(this.plugin, task);
 	}
 
-	public void runTaskAsynch(Runnable task) {
+	public void runTaskAsync(Runnable task) {
 		plugin.getServer().getScheduler().runTaskAsynchronously(plugin, task);
 	}
 
@@ -41,7 +43,7 @@ public class RunnableManager {
 		plugin.getServer().getScheduler().runTaskLater(plugin, task, 1);
 	}
 
-	public void runTaskLaterAsynch(Runnable task, long delay) {
+	public void runTaskLaterAsync(Runnable task, long delay) {
 		plugin.getServer().getScheduler().runTaskLaterAsynchronously(plugin, task, delay);
 	}
 
@@ -52,6 +54,16 @@ public class RunnableManager {
 			return true;
 		}
 		return false;
+	}
+
+	public void cancelTasks() {
+		BukkitScheduler scheduler = Bukkit.getScheduler();
+		for (Integer i : runningTasks.values()) {
+			if (scheduler.isCurrentlyRunning(i) || scheduler.isQueued(i)) {
+				scheduler.cancelTask(i);
+				Commons.debug("Cancelled task " + i + " from executing / continuing execution.");
+			}
+		}
 	}
 
 }

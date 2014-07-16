@@ -2,7 +2,7 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
-import com.caved_in.commons.exceptions.InvalidMaterialName;
+import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.PlayerWrapper;
 import com.caved_in.commons.player.Players;
@@ -511,12 +511,12 @@ public class Items {
 	 *
 	 * @param search name of the material to search for
 	 * @return material with a name or alias matching the search
-	 * @throws InvalidMaterialName if no material has a name or alias matching the search
+	 * @throws com.caved_in.commons.exceptions.InvalidMaterialNameException if no material has a name or alias matching the search
 	 */
-	public static Material getMaterialByName(String search) throws InvalidMaterialName {
+	public static Material getMaterialByName(String search) throws InvalidMaterialNameException {
 		ItemType itemType = ItemType.lookup(search);
 		if (itemType == null) {
-			throw new InvalidMaterialName(search + " is not a valid material name.");
+			throw new InvalidMaterialNameException(search + " is not a valid material name.");
 		}
 		return getMaterialById(itemType.getID());
 	}
@@ -533,7 +533,7 @@ public class Items {
 		return itemStack;
 	}
 
-	public static MaterialData getMaterialDataFromString(String idDatavalue) throws InvalidMaterialName {
+	public static MaterialData getMaterialDataFromString(String idDatavalue) throws InvalidMaterialNameException {
 		String[] materialSplit = null;
 		boolean wordsUsed = false;
 		//If there's a data-value attached, parse it
@@ -564,7 +564,7 @@ public class Items {
 		if (materialSplit == null || materialSplit.length == 0) {
 			itemType = ItemType.lookup(idDatavalue);
 			if (itemType == null) {
-				return null;
+				throw new InvalidMaterialNameException(Messages.invalidItem(idDatavalue));
 			}
 			return new MaterialData(itemType.getID());
 		}
@@ -572,10 +572,15 @@ public class Items {
 		itemType = ItemType.lookup(materialSplit[0]);
 		String dataName = materialSplit[1];
 		if (itemType == null) {
-			return null;
+			throw new InvalidMaterialNameException(Messages.invalidItem(idDatavalue));
+		}
+		int itemId = itemType.getID();
+
+		//If they're combining names and numbers, then parse it accordingly
+		if (StringUtils.isNumeric(dataName)) {
+			return getMaterialData(itemId, Integer.parseInt(dataName));
 		}
 
-		int itemId = itemType.getID();
 		Material itemMaterial = getMaterialById(itemId);
 		//Use the extra-items class to search for the given item and datavalue
 		return ExtraItems.getItem(itemMaterial, dataName);

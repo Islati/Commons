@@ -1,6 +1,7 @@
 package com.caved_in.commons.menu;
 
 import com.caved_in.commons.utilities.StringUtil;
+import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permissible;
@@ -128,40 +129,58 @@ public class HelpScreen {
 	 * @param perPage The amount of entries per Page
 	 */
 	public void sendTo(CommandSender s, int page, int perPage) {
-		List<HelpScreenEntry> helpScreenEntries = toSend(s);
-		//The amount of elements to send
+		//Create a list of lists (the pages of the help menu)
+		List<List<HelpScreenEntry>> helpScreenPages = Lists.partition(toSend(s), perPage);
+		//Get the page of entries we desire
+		List<HelpScreenEntry> helpScreenEntries = helpScreenPages.get(page - 1);
 		int entryAmount = helpScreenEntries.size();
-		//The amount of pages in the help menu
-		int maxPage = (int) (entryAmount / (float) perPage + 0.999);
-		//Position at which to start parsing the list
-		int subListStart = (page - 1) * perPage;
-		//Position to stop parsing the list
-		int subListEnd = subListStart + perPage;
-		if (subListStart >= entryAmount) {
-			subListStart = subListEnd = 0;
-		}
-		if (subListEnd > entryAmount) {
-			subListEnd = entryAmount;
-		}
-
-		if (subListStart == subListEnd || entryAmount == 0) {
-			helpScreenEntries = new ArrayList<>();
-		} else {
-			helpScreenEntries = helpScreenEntries.subList(subListStart, subListEnd);
-		}
-
-
 		String[] messages = new String[entryAmount + 1];
 
-		messages[0] = menuHeader.replaceAll("<name>", menuName).replaceAll("<page>", page + "").replaceAll("<maxpage>", maxPage + "");
+		//Set the header of the message
+		messages[0] = menuHeader.replaceAll("<name>", menuName).replaceAll("<page>", page + "").replaceAll("<maxpage>", helpScreenPages.size() + "");
 
 		int i = 1;
-
 		boolean col = false;
+		//Loop through all the entries and format them accordingly
 		for (HelpScreenEntry e : helpScreenEntries) {
 			messages[i++] = ((col = !col) ? oddItemColor : evenItemColor) + e.fromFormat(menuFormat);
 		}
 		s.sendMessage(messages);
+//
+//		List<HelpScreenEntry> helpScreenEntries = toSend(s);
+//		//The amount of elements to send
+//		int entryAmount = helpScreenEntries.size();
+//		//The amount of pages in the help menu
+//		int maxPage = (int) (entryAmount / (float) perPage + 0.999);
+//		//Position at which to start parsing the list
+//		int subListStart = (page - 1) * perPage;
+//		//Position to stop parsing the list
+//		int subListEnd = subListStart + perPage;
+//		if (subListStart >= entryAmount) {
+//			subListStart = subListEnd = 0;
+//		}
+//		if (subListEnd > entryAmount) {
+//			subListEnd = entryAmount;
+//		}
+//
+//		if (subListStart == subListEnd || entryAmount == 0) {
+//			helpScreenEntries = new ArrayList<>();
+//		} else {
+//			helpScreenEntries = helpScreenEntries.subList(subListStart, subListEnd);
+//		}
+//
+//
+//		String[] messages = new String[entryAmount + 1];
+//
+//		messages[0] = menuHeader.replaceAll("<name>", menuName).replaceAll("<page>", page + "").replaceAll("<maxpage>", maxPage + "");
+//
+//		int i = 1;
+//
+//		boolean col = false;
+//		for (HelpScreenEntry e : helpScreenEntries) {
+//			messages[i++] = ((col = !col) ? oddItemColor : evenItemColor) + e.fromFormat(menuFormat);
+//		}
+//		s.sendMessage(messages);
 	}
 
 	public class HelpScreenEntry {

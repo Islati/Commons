@@ -372,6 +372,14 @@ public class StringUtil {
 		return ChatColor.translateAlternateColorCodes('&', str);
 	}
 
+	public static String colorize(String str) {
+		return formatColorCodes(str);
+	}
+
+	public static List<String> colorize(List<String> strings) {
+		return formatColorCodes(strings);
+	}
+
 	public static List<String> formatColorCodes(List<String> list) {
 		List<String> converted = new ArrayList<>();
 		for (String s : list) {

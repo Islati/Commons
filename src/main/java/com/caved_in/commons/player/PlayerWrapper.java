@@ -88,6 +88,7 @@ public class PlayerWrapper {
 	public PlayerWrapper(UUID id) {
 		this.id = id;
 		this.playerName = Players.getPlayer(id).getName();
+		initWrapper();
 	}
 
 	private void initWrapper() {
@@ -105,6 +106,9 @@ public class PlayerWrapper {
 		Futures.addCallback(punishmentListenable, new FutureCallback<Set<Punishment>>() {
 			@Override
 			public void onSuccess(Set<Punishment> punishmentSet) {
+				if (punishmentSet == null) {
+					return;
+				}
 				punishments = punishmentSet;
 			}
 

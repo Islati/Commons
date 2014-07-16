@@ -2,7 +2,6 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
@@ -29,10 +28,9 @@ public class HealCommand {
 				return;
 			}
 		}
-		//Remove the potion effects on the player
-		Players.removePotionEffects(playerToHeal);
-		//Heal them to full health
-		Entities.setHealth(playerToHeal, Entities.getMaxHealth(playerToHeal));
+
+		//Heal them of all ailments and restore their health
+		Players.heal(playerToHeal);
 		//Send them a message saying they were healed
 		if (!healOther) {
 			Players.sendMessage(player, Messages.PLAYER_HEALED);

@@ -3,7 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Letter;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.exceptions.InvalidMaterialName;
+import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
@@ -24,11 +24,11 @@ public class BlockTextCommand {
 		MaterialData materialData = null;
 		try {
 			materialData = Items.getMaterialDataFromString(itemArg);
-		} catch (InvalidMaterialName invalidMaterialName) {
-			Players.sendMessage(player, ChatColor.RED + invalidMaterialName.getMessage());
+		} catch (InvalidMaterialNameException invalidMaterialNameException) {
+			Players.sendMessage(player, ChatColor.RED + invalidMaterialNameException.getMessage());
 			return;
 		}
 		String text = StringUtil.joinString(args, " ", 1);
-		Letter.drawString(text, materialData.getItemType(), materialData.getData(), Players.getTargetLocation(player), Players.getCardinalDirection(player));
+		Letter.drawString(text, materialData.getItemType(), materialData.getData(), Players.getTargetLocation(player), Players.getDirection(player));
 	}
 }

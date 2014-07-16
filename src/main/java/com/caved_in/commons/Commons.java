@@ -172,7 +172,8 @@ public class Commons extends JavaPlugin {
 				new DebugHandItemSerialize(),
 				new DebugItemDeserialize(),
 				new DebugTimeHandler(),
-				new DebugDropInventory()
+				new DebugDropInventory(),
+				new DebugPlayerDirection()
 		);
 	}
 

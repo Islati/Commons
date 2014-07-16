@@ -62,7 +62,9 @@ public class XmlItemStack {
 			itemName = Items.getFormattedMaterialName(item);
 		}
 
-		lore = Items.getLore(item);
+		if (Items.hasLore(item)) {
+			lore = Items.getLore(item);
+		}
 		//If the item has enchantments, then add them to be serialized
 		if (Items.hasEnchants(item)) {
 			enchantments = new ArrayList<>();
@@ -72,7 +74,7 @@ public class XmlItemStack {
 		}
 		//Clone the item!
 
-		int itemAmount = itemStack.getAmount();
+		int itemAmount = item.getAmount();
 
 		if (itemAmount > 1) {
 			amount = itemAmount;

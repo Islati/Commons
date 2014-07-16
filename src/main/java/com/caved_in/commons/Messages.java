@@ -1,5 +1,6 @@
 package com.caved_in.commons;
 
+import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.PlayerWrapper;
@@ -80,6 +81,14 @@ public class Messages {
 
 	public static String playerOffline(String playerName) {
 		return String.format("&e%s&cis offline", playerName);
+	}
+
+	public static String playerFacingDirection(Direction dir) {
+		return String.format("&aYou're facing &e%s", dir.name());
+	}
+
+	public static String playerFacingDirection(Player player) {
+		return playerFacingDirection(Players.getDirection(player));
 	}
 
 	public static String premiumPlayerPromoted(String playerName) {
