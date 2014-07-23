@@ -17,20 +17,20 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class CallableBanPlayer implements Callable<Boolean> {
+public class BanPlayerCallable implements Callable<Boolean> {
 	private String playerName;
 	private UUID playerId;
 	private boolean lookup = false;
 	private boolean error = false;
 	private Punishment punishment;
 
-	public CallableBanPlayer(String playerName, Punishment punishment) {
+	public BanPlayerCallable(String playerName, Punishment punishment) {
 		this.playerName = playerName;
 		this.punishment = punishment;
 		lookup = true;
 	}
 
-	public CallableBanPlayer(UUID playerId, Punishment punishment) {
+	public BanPlayerCallable(UUID playerId, Punishment punishment) {
 		this.playerId = playerId;
 		this.punishment = punishment;
 	}
@@ -42,7 +42,7 @@ public class CallableBanPlayer implements Callable<Boolean> {
 			return true;
 		}
 
-		ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(playerName));
+		ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerName));
 		Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID playerId) {

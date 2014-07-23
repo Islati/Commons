@@ -61,7 +61,7 @@ public class Fireworks {
 		return colors;
 	}
 
-	public static boolean randomBoolean() {
+	private static boolean randomBoolean() {
 		return random.nextBoolean();
 	}
 

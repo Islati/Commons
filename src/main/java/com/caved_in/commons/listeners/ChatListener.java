@@ -2,7 +2,7 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
@@ -25,7 +25,7 @@ public class ChatListener implements Listener {
 				return;
 			}
 		}
-		PlayerWrapper playerWrapper = Players.getData(player);
-		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", (playerWrapper.getPrefix().isEmpty() ? player.getDisplayName() : playerWrapper.getPrefix() + " " + player.getDisplayName()), event.getMessage())));
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		event.setFormat(StringUtil.formatColorCodes(String.format("&r%s - %s", (minecraftPlayer.getPrefix().isEmpty() ? player.getDisplayName() : minecraftPlayer.getPrefix() + " " + player.getDisplayName()), event.getMessage())));
 	}
 }

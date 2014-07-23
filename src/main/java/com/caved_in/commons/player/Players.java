@@ -13,9 +13,10 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
-import com.caved_in.commons.threading.tasks.CallableNameFetcher;
-import com.caved_in.commons.threading.tasks.CallableUuidFetcher;
-import com.caved_in.commons.threading.tasks.ThreadKickPlayer;
+import com.caved_in.commons.threading.tasks.DelayedSoundMessageThread;
+import com.caved_in.commons.threading.tasks.KickPlayerThread;
+import com.caved_in.commons.threading.tasks.NameFetcherCallable;
+import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
@@ -47,7 +48,7 @@ public class Players {
 	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
 //	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
 
-	private static Map<UUID, PlayerWrapper> playerData = new HashMap<>();
+	private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
 
 	private static Gson gson = new Gson();
 
@@ -66,10 +67,10 @@ public class Players {
 	 *
 	 * @param playerId uuid of the player to get the playerwrapper for
 	 * @return PlayerWrapper for the given player, otherwise null if none exists
-	 * @see com.caved_in.commons.player.PlayerWrapper
+	 * @see MinecraftPlayer
 	 * @since 1.0
 	 */
-	public static PlayerWrapper getData(UUID playerId) {
+	public static MinecraftPlayer getData(UUID playerId) {
 		return playerData.get(playerId);
 	}
 
@@ -78,15 +79,15 @@ public class Players {
 	 *
 	 * @param player player to get the wrapped data for
 	 * @return PlayerWrapper for the given player, otherwise null if none exists
-	 * @see com.caved_in.commons.player.PlayerWrapper
+	 * @see MinecraftPlayer
 	 * @since 1.0
 	 */
-	public static PlayerWrapper getData(Player player) {
+	public static MinecraftPlayer getData(Player player) {
 		return playerData.get(player.getUniqueId());
 	}
 
 	/**
-	 * Loads a {@link com.caved_in.commons.player.PlayerWrapper} for the given player.
+	 * Loads a {@link MinecraftPlayer} for the given player.
 	 * <p>
 	 * If no data exists in the database for the given player, default data will be inserted
 	 * into the database and an object will be returned based on the default data.
@@ -100,12 +101,12 @@ public class Players {
 		UUID playerId = player.getUniqueId();
 		String playerName = player.getName();
 
-		PlayerWrapper playerWrapper;
+		MinecraftPlayer minecraftPlayer;
 
 		//If there's no SQL backend for commons, then just load a 'null' / default wrapper
 		if (!Commons.hasSqlBackend()) {
-			playerWrapper = new PlayerWrapper(playerName, 0);
-			playerData.put(playerId, playerWrapper);
+			minecraftPlayer = new MinecraftPlayer(playerName, 0);
+			playerData.put(playerId, minecraftPlayer);
 			return;
 		}
 
@@ -121,10 +122,10 @@ public class Players {
 		}
 
 		//Create a player wrapper from the data in the database and load it to the cache
-		playerWrapper = Commons.database.getPlayerWrapper(playerId);
-		playerWrapper.setTagColor(getNameTagColor(player));
+		minecraftPlayer = Commons.database.getPlayerWrapper(playerId);
+		minecraftPlayer.setTagColor(getNameTagColor(player));
 		Commons.messageConsole("&aLoaded data for " + playerName);
-		playerData.put(playerId, playerWrapper);
+		playerData.put(playerId, minecraftPlayer);
 	}
 
 	public static void giveMoney(Player player, int amount) {
@@ -136,9 +137,9 @@ public class Players {
 			return;
 		}
 
-		PlayerWrapper playerWrapper = getData(player);
-		playerWrapper.addCurrency(playerWrapper.isPremium() ? ((double) amount) * 2 : (double) amount);
-		updateData(playerWrapper);
+		MinecraftPlayer minecraftPlayer = getData(player);
+		minecraftPlayer.addCurrency(minecraftPlayer.isPremium() ? ((double) amount) * 2 : (double) amount);
+		updateData(minecraftPlayer);
 		if (message) {
 			Players.sendMessage(player, Messages.playerEarnedExperience(amount));
 		}
@@ -147,20 +148,20 @@ public class Players {
 	/**
 	 * Synchronizes the playerwrapper object to their corresponding database entry
 	 *
-	 * @param playerWrapper wrapped player data to synchronize to the database
-	 * @see com.caved_in.commons.player.PlayerWrapper
+	 * @param minecraftPlayer wrapped player data to synchronize to the database
+	 * @see MinecraftPlayer
 	 * @since 1.0
 	 */
-	public static void updateData(PlayerWrapper playerWrapper) {
-		playerData.put(playerWrapper.getId(), playerWrapper);
+	public static void updateData(MinecraftPlayer minecraftPlayer) {
+		playerData.put(minecraftPlayer.getId(), minecraftPlayer);
 		//If the commons is being backed
 		if (Commons.hasSqlBackend()) {
-			Commons.database.syncPlayerWrapperData(playerWrapper);
+			Commons.database.syncPlayerWrapperData(minecraftPlayer);
 		}
 	}
 
 	/**
-	 * Removes the {@link com.caved_in.commons.player.PlayerWrapper} object for a player.
+	 * Removes the {@link MinecraftPlayer} object for a player.
 	 * <p>
 	 * Calling this method will synchronize the playerwrapper data to the database
 	 * before removing it.
@@ -175,6 +176,9 @@ public class Players {
 			Commons.database.syncPlayerWrapperData(playerData.get(playerId));
 			Commons.messageConsole("&a" + playerId + "'s data has been synchronized");
 		}
+
+		MinecraftPlayer wrapper = getData(playerId);
+		wrapper.dispose();
 		playerData.remove(playerId);
 	}
 
@@ -279,15 +283,15 @@ public class Players {
 	}
 
 	/**
-	 * Gets a player based on the {@link com.caved_in.commons.player.PlayerWrapper} passed
+	 * Gets a player based on the {@link MinecraftPlayer} passed
 	 *
-	 * @param playerWrapper wrapped player object to get the actual player object of
+	 * @param minecraftPlayer wrapped player object to get the actual player object of
 	 * @return Player that was wrapped by the playerwrapper; null if there is no player online with matching credentials
-	 * @see com.caved_in.commons.player.PlayerWrapper
+	 * @see MinecraftPlayer
 	 * @since 1.2.2
 	 */
-	public static Player getPlayer(PlayerWrapper playerWrapper) {
-		return getPlayer(playerWrapper.getId());
+	public static Player getPlayer(MinecraftPlayer minecraftPlayer) {
+		return getPlayer(minecraftPlayer.getId());
 	}
 
 	/**
@@ -309,7 +313,7 @@ public class Players {
 	}
 
 	public static String getNameFromUUID(UUID uuid) throws Exception {
-		return CallableNameFetcher.getNameFromUUID(uuid);
+		return NameFetcherCallable.getNameFromUUID(uuid);
 	}
 
 	public static String getNameFromUUID(String uuid) throws Exception {
@@ -317,7 +321,7 @@ public class Players {
 	}
 
 	public static UUID getUUIDFromName(String name) throws Exception {
-		return CallableUuidFetcher.getUUIDOf(name);
+		return UuidFetcherCallable.getUUIDOf(name);
 	}
 
 	public static UUID getUniqueId(Player player) {
@@ -343,7 +347,7 @@ public class Players {
 			kick(player, reason);
 			return;
 		}
-		Commons.threadManager.runTaskOneTickLater(new ThreadKickPlayer(player.getUniqueId(), reason));
+		Commons.threadManager.runTaskOneTickLater(new KickPlayerThread(player.getUniqueId(), reason));
 	}
 
 	/**
@@ -396,6 +400,19 @@ public class Players {
 		for (Player player : allPlayers()) {
 			sendMessage(player, messages);
 		}
+	}
+
+	public static void messageAllExcept(String message, Player... exceptions) {
+		UUID[] playerIds = getIdArray(exceptions);
+		messageAll(allPlayersExcept(playerIds), message);
+	}
+
+	private static UUID[] getIdArray(Player[] players) {
+		UUID[] ids = new UUID[players.length - 1];
+		for (int i = 0; i < ids.length; i++) {
+			ids[i] = players[i].getUniqueId();
+		}
+		return ids;
 	}
 
 	/**
@@ -524,6 +541,12 @@ public class Players {
 		for (String message : messages) {
 			sendMessage(receiver, message);
 		}
+	}
+
+	public static void sendSoundedMessage(Player receiver, Sound sound, int secondsDelay, String... messages) {
+		DelayedSoundMessageThread messageThread = new DelayedSoundMessageThread(receiver, sound, secondsDelay, messages);
+		int taskId = Commons.threadManager.registerSyncRepeatTask(receiver.getName() + " message thread for " + System.currentTimeMillis(), messageThread, 0, 20L);
+		messageThread.setTaskId(taskId);
 	}
 
 	/**
@@ -935,13 +958,13 @@ public class Players {
 		return world.getEntitiesByClass(Player.class);
 	}
 
-	public static Collection<PlayerWrapper> allPlayerWrappers() {
+	public static Collection<MinecraftPlayer> allPlayerWrappers() {
 		return playerData.values();
 	}
 
 	public static Set<Player> getAllDebugging() {
 		Set<Player> players = new HashSet<>();
-		for (PlayerWrapper wrapper : playerData.values()) {
+		for (MinecraftPlayer wrapper : playerData.values()) {
 			if (wrapper.isOnline() && wrapper.isInDebugMode()) {
 				players.add(getPlayer(wrapper));
 			}
@@ -1196,6 +1219,22 @@ public class Players {
 		return Inventories.contains(player.getInventory(), material);
 	}
 
+	public static void hidePlayers(Player player, Collection<Player> targets) {
+		targets.forEach(player::hidePlayer);
+	}
+
+	public static void unhidePlayers(Player player, Collection<Player> targets) {
+		targets.forEach(player::showPlayer);
+	}
+
+	public static void hidePlayer(Collection<Player> players, Player target) {
+		players.forEach(p -> p.hidePlayer(target));
+	}
+
+	public static void unhidePlayer(Collection<Player> players, Player target) {
+		players.forEach(p -> p.showPlayer(target));
+	}
+
 	public static void hidePlayers(Player player) {
 		for (Player p : allPlayers()) {
 			player.hidePlayer(p);
@@ -1203,11 +1242,14 @@ public class Players {
 		getData(player).setHidingOtherPlayers(true);
 	}
 
-	public static void unhidePlayers(Player player) {
-		for (Player p : allPlayers()) {
-			player.showPlayer(p);
-		}
-		getData(player).setHidingOtherPlayers(false);
+	public static void showNameTag(Player player) {
+		MinecraftPlayer wrapper = getData(player);
+		wrapper.showName();
+	}
+
+	public static void hideNameTag(Player player) {
+		MinecraftPlayer wrapper = getData(player);
+		wrapper.hideName();
 	}
 
 	/**
@@ -1241,7 +1283,7 @@ public class Players {
 	}
 
 	public static void playSoundAll(Sound sound, int volume) {
-		playSoundAll(sound,volume,1.0f);
+		playSoundAll(sound, volume, 1.0f);
 	}
 
 	/**

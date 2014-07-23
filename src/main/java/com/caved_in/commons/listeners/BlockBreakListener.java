@@ -3,7 +3,7 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.permission.Permission;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -20,14 +20,14 @@ public class BlockBreakListener implements Listener {
 			return;
 		}
 		Player player = event.getPlayer();
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		//If block breaking is disabled
 		//If the player doesn't have the permission to break blocks, disable it
 		if (!Players.hasPermission(player, Permission.BLOCK_BREAK)) {
 			event.setCancelled(true);
 		}
 		//If the player's in debug mode, then send them debug info
-		if (playerWrapper.isInDebugMode()) {
+		if (minecraftPlayer.isInDebugMode()) {
 			Debugger.debugBlockBreakEvent(player, event);
 		}
 	}

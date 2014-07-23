@@ -7,7 +7,7 @@ import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.friends.FriendStatus;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
@@ -87,7 +87,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		}
 	}
 
-	public PlayerWrapper getPlayerWrapper(Player player) {
+	public MinecraftPlayer getPlayerWrapper(Player player) {
 		return getPlayerWrapper(player.getUniqueId());
 	}
 
@@ -121,8 +121,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		return playerHasData;
 	}
 
-	public PlayerWrapper getPlayerWrapper(UUID playerId) {
-		PlayerWrapper playerWrapper = null;
+	public MinecraftPlayer getPlayerWrapper(UUID playerId) {
+		MinecraftPlayer minecraftPlayer = null;
 		PreparedStatement statement = prepareStatement(GET_PLAYER_DATA_STATEMENT);
 		try {
 			//Assign the first 3 variables in the statement to the unique ID (user id)
@@ -139,28 +139,28 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 				String playerPrefix = resultSet.getString(2);
 				boolean playerPremium = resultSet.getBoolean(3);
 				//Create a new player wrapper and assign the variables pulled from the database
-				playerWrapper = new PlayerWrapper(playerId);
-				playerWrapper.setCurrency(playerCurrency);
-				playerWrapper.setPremium(playerPremium);
-				playerWrapper.setPrefix(playerPrefix);
+				minecraftPlayer = new MinecraftPlayer(playerId);
+				minecraftPlayer.setCurrency(playerCurrency);
+				minecraftPlayer.setPremium(playerPremium);
+				minecraftPlayer.setPrefix(playerPrefix);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
 			close(statement);
 		}
-		return playerWrapper;
+		return minecraftPlayer;
 	}
 
-	public boolean syncPlayerWrapperData(PlayerWrapper playerWrapper) {
+	public boolean syncPlayerWrapperData(MinecraftPlayer minecraftPlayer) {
 		boolean status = false;
 		PreparedStatement statement = prepareStatement(SYNC_PLAYER_DATA);
 		try {
-			statement.setString(1, playerWrapper.getName());
-			statement.setDouble(2, playerWrapper.getCurrency());
-			statement.setString(3, playerWrapper.getPrefix());
-			statement.setBoolean(4, playerWrapper.isPremium());
-			String uuid = playerWrapper.getId().toString();
+			statement.setString(1, minecraftPlayer.getName());
+			statement.setDouble(2, minecraftPlayer.getCurrency());
+			statement.setString(3, minecraftPlayer.getPrefix());
+			statement.setBoolean(4, minecraftPlayer.isPremium());
+			String uuid = minecraftPlayer.getId().toString();
 			statement.setString(5, uuid);
 			statement.setString(6, uuid);
 			statement.setString(7, uuid);
@@ -388,8 +388,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		return dataUpdated;
 	}
 
-	public boolean updateOnlineStatus(PlayerWrapper playerWrapper, boolean isOnline) {
-		return updateOnlineStatus(playerWrapper.getId(), isOnline);
+	public boolean updateOnlineStatus(MinecraftPlayer minecraftPlayer, boolean isOnline) {
+		return updateOnlineStatus(minecraftPlayer.getId(), isOnline);
 	}
 
 	public boolean updatePlayerPremium(UUID playerId, boolean premium) {

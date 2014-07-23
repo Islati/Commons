@@ -6,6 +6,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
 
+import java.util.UUID;
+
 public class PlayerKickListener implements Listener {
 	@EventHandler
 	public void onPlayerKicked(PlayerKickEvent event) {
@@ -13,7 +15,8 @@ public class PlayerKickListener implements Listener {
 			event.setLeaveMessage(null);
 		}
 
-		Players.removeData(event.getPlayer().getUniqueId());
+		UUID playerId = event.getPlayer().getUniqueId();
+		Players.removeData(playerId);
 //		if (Commons.hasSqlBackend()) {
 //			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
 //		}

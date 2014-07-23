@@ -5,7 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.CallablePardonPlayerPunishments;
+import com.caved_in.commons.threading.tasks.PardonPlayerPunishmentsCallable;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -22,7 +22,7 @@ public class UnbanCommand {
 
 		final String playerToUnban = args[0];
 		String pardonIssuer = "";
-		CallablePardonPlayerPunishments pardonPlayerCallable = new CallablePardonPlayerPunishments(playerToUnban, PunishmentType.BAN);
+		PardonPlayerPunishmentsCallable pardonPlayerCallable = new PardonPlayerPunishmentsCallable(playerToUnban, PunishmentType.BAN);
 
 		if (sender instanceof Player) {
 			pardonIssuer = sender.getName();

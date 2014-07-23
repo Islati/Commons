@@ -5,14 +5,15 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.BlockID;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.threading.tasks.ThreadBlockRegen;
-import com.caved_in.commons.threading.tasks.ThreadBlocksRegen;
+import com.caved_in.commons.threading.tasks.BlockRegenThread;
+import com.caved_in.commons.threading.tasks.BlocksRegenThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.material.MaterialData;
@@ -301,11 +302,11 @@ public class Blocks {
 
 	public static void scheduleBlockRegen(Block block, boolean effect, long delay) {
 		BlockData blockData = new BlockData(block);
-		Commons.threadManager.runTaskLater(new ThreadBlockRegen(blockData, effect), delay);
+		Commons.threadManager.runTaskLater(new BlockRegenThread(blockData, effect), delay);
 	}
 
 	public static void scheduleBlockRegen(List<Block> blocks, boolean effect, int secondsDelay) {
-		Commons.threadManager.runTaskLater(new ThreadBlocksRegen(blocks, effect), TimeHandler.getTimeInTicks(secondsDelay, TimeType.SECOND));
+		Commons.threadManager.runTaskLater(new BlocksRegenThread(blocks, effect), TimeHandler.getTimeInTicks(secondsDelay, TimeType.SECOND));
 	}
 
 	/**
@@ -448,6 +449,30 @@ public class Blocks {
 	public static Block getBlockBelow(Block block) {
 		int[] xyz = Locations.getXYZ(block.getLocation());
 		return block.getWorld().getBlockAt(xyz[0], xyz[1] + 1, xyz[2]);
+	}
+
+	public static Block getNearestEmptySpace(Block b, int maxradius) {
+		BlockFace[] faces = {BlockFace.UP, BlockFace.NORTH, BlockFace.EAST};
+		BlockFace[][] orth = {{BlockFace.NORTH, BlockFace.EAST}, {BlockFace.UP, BlockFace.EAST}, {BlockFace.NORTH, BlockFace.UP}};
+		for (int r = 0; r <= maxradius; r++) {
+			for (int s = 0; s < 6; s++) {
+				BlockFace f = faces[s % 3];
+				BlockFace[] o = orth[s % 3];
+				if (s >= 3) {
+					f = f.getOppositeFace();
+				}
+				Block c = b.getRelative(f, r);
+				for (int x = -r; x <= r; x++) {
+					for (int y = -r; y <= r; y++) {
+						Block a = c.getRelative(o[0], x).getRelative(o[1], y);
+						if (a.getTypeId() == 0 && a.getRelative(BlockFace.UP).getTypeId() == 0) {
+							return a;
+						}
+					}
+				}
+			}
+		}
+		return null;// no empty space within a cube of (2*(maxradius+1))^3
 	}
 
 }

@@ -28,7 +28,7 @@ public class ReflectionUtilities {
 		try {
 			return Class.forName(name);
 		} catch (ClassNotFoundException e) {
-			Commons.messageConsole("Could not find class: " + name + "!");
+			Commons.debug("Could not find class: " + name + "!");
 		}
 		return null;
 	}

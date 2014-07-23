@@ -1,13 +1,16 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.entity.nms.NametagEntity;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.warp.Warp;
+import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Sets;
+import net.minecraft.server.v1_7_R4.EntityTypes;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,11 +22,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 
 public class Entities {
@@ -290,15 +292,36 @@ public class Entities {
 		return null;
 	}
 
-	public static Set<LivingEntity> getEntitiesNearLocation(Location center, int radius) {
-		/*Set<LivingEntity> entities = new HashSet<>();
+	public static Set<LivingEntity> getLivingEntitiesNearLocation(Location center, int radius) {
+		Set<LivingEntity> entities = new HashSet<>();
 		for (LivingEntity entity : center.getWorld().getLivingEntities()) {
 			if (Locations.isEntityInRadius(center, radius, entity)) {
 				entities.add(entity);
 			}
-		}*/
+		}
+		return entities;
+//		return center.getWorld().getLivingEntities().stream().filter(entity -> Locations.isEntityInRadius(center, radius, entity)).collect(Collectors.toSet());
+	}
 
-		return center.getWorld().getLivingEntities().stream().filter(entity -> Locations.isEntityInRadius(center, radius, entity)).collect(Collectors.toSet());
+	public static Set<Entity> getEntitiesNearLocation(Location center, int radius) {
+		Set<Entity> entities = new HashSet<>();
+		for (Entity entity : center.getWorld().getEntities()) {
+			if (Locations.isEntityInRadius(center, radius, entity)) {
+				entities.add(entity);
+			}
+		}
+		return entities;
+	}
+
+	public static Set<Item> getDroppedItemsNearLocation(Location center, int radius) {
+		Set<Entity> entities = getEntitiesNearLocation(center, radius);
+		Set<Item> items = new HashSet<>();
+		for (Entity entity : entities) {
+			if (entity instanceof Item) {
+				items.add((Item) entity);
+			}
+		}
+		return items;
 	}
 
 	public static void damage(Damageable target, double damage) {
@@ -395,5 +418,63 @@ public class Entities {
 	 */
 	public static void teleport(Entity entity, Warp warp) {
 		teleport(entity, warp.getLocation());
+	}
+
+	public static void registerCustomEntity(Class<? extends net.minecraft.server.v1_7_R4.Entity> entityClass, String name, int id) {
+		try {
+			List<Map> dataMaps = new ArrayList<>();
+			for (Field f : EntityTypes.class.getDeclaredFields()) {
+				if (f.getType().getSimpleName().equals(Map.class.getSimpleName())) {
+					f.setAccessible(true);
+
+					dataMaps.add((Map) f.get(null));
+
+				}
+			}
+
+			if (dataMaps.get(2).containsKey(id)) {
+				dataMaps.get(0).remove(name);
+				dataMaps.get(2).remove(id);
+			}
+
+			Method method = EntityTypes.class.getDeclaredMethod("a", new Class[]{Class.class, String.class, Integer.TYPE});
+			method.setAccessible(true);
+			method.invoke(null, entityClass, name, id);
+		} catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void cleanNameTagEntities() {
+		int count = 0;
+		for (World world : Worlds.allWorlds()) {
+			for (Entity entity : world.getEntities()) {
+				if (entity instanceof NametagEntity) {
+					entity.remove();
+					count++;
+				}
+			}
+		}
+		Commons.debug("Cleaned up " + count + " nametagentities");
+	}
+
+	public static void pullEntityToLocation(final Entity e, Location loc) {
+		Location entityLoc = e.getLocation();
+
+		entityLoc.setY(entityLoc.getY() + 0.5);
+		e.teleport(entityLoc);
+
+		double g = -0.08;
+		double d = loc.distance(entityLoc);
+		double t = d;
+		double v_x = (1.0 + 0.07 * t) * (loc.getX() - entityLoc.getX()) / t;
+		double v_y = (1.0 + 0.03 * t) * (loc.getY() - entityLoc.getY()) / t - 0.5 * g * t;
+		double v_z = (1.0 + 0.07 * t) * (loc.getZ() - entityLoc.getZ()) / t;
+
+		org.bukkit.util.Vector v = e.getVelocity();
+		v.setX(v_x);
+		v.setY(v_y);
+		v.setZ(v_z);
+		e.setVelocity(v);
 	}
 }

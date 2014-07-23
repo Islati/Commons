@@ -3,7 +3,6 @@ package com.caved_in.commons.threading.tasks;
 import com.caved_in.commons.player.Players;
 
 import java.util.UUID;
-import java.util.concurrent.Callable;
 
 /**
  * ----------------------------------------------------------------------------
@@ -13,15 +12,17 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class CallableGetPlayerUuid implements Callable<UUID> {
-	private String playerName;
+public class KickPlayerThread implements Runnable {
+	private UUID id;
+	private String reason;
 
-	public CallableGetPlayerUuid(String playerName) {
-		this.playerName = playerName;
+	public KickPlayerThread(UUID id, String reason) {
+		this.id = id;
+		this.reason = reason;
 	}
 
 	@Override
-	public UUID call() throws Exception {
-		return Players.getUUIDFromName(playerName);
+	public void run() {
+		Players.kick(Players.getPlayer(id), reason);
 	}
 }

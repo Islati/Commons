@@ -2,7 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -31,10 +31,10 @@ public class AddCurrencyCommand {
 		}
 
 		Player player = Players.getPlayer(playerName);
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		amount = NumberUtils.toInt(currencyAmount);
-		playerWrapper.addCurrency(amount);
-		Players.updateData(playerWrapper);
+		minecraftPlayer.addCurrency(amount);
+		Players.updateData(minecraftPlayer);
 
 		Players.sendMessage(sender, Messages.playerAddedXp(playerName, amount));
 	}

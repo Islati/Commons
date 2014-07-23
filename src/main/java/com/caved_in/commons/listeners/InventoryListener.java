@@ -4,7 +4,7 @@ import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.menu.ItemMenu;
 import com.caved_in.commons.menu.MenuBehaviour;
 import com.caved_in.commons.menu.MenuBehaviourType;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -62,11 +62,11 @@ public class InventoryListener implements Listener {
 			return;
 		}
 
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, don't let them click / manipulate
-				if (playerWrapper.isViewingRecipe()) {
+				if (minecraftPlayer.isViewingRecipe()) {
 					event.setCancelled(true);
 				}
 				break;
@@ -78,7 +78,7 @@ public class InventoryListener implements Listener {
 				break;
 		}
 
-		if (playerWrapper.isInDebugMode()) {
+		if (minecraftPlayer.isInDebugMode()) {
 			Debugger.debugInventoryClickEvent(player, event);
 		}
 	}
@@ -111,12 +111,12 @@ public class InventoryListener implements Listener {
 			}
 		}
 		//Get the wrapped player data
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, clear the inventory and update the inventory on close
-				if (playerWrapper.isViewingRecipe()) {
-					playerWrapper.setViewingRecipe(false);
+				if (minecraftPlayer.isViewingRecipe()) {
+					minecraftPlayer.setViewingRecipe(false);
 					inventory.clear();
 					player.updateInventory();
 				}

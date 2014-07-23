@@ -11,12 +11,12 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-public class CallableNameFetcher implements Callable<Map<UUID, String>> {
+public class NameFetcherCallable implements Callable<Map<UUID, String>> {
 	private static final String PROFILE_URL = "https://sessionserver.mojang.com/session/minecraft/profile/";
 	private final JSONParser jsonParser = new JSONParser();
 	private final List<UUID> uuids;
 
-	public CallableNameFetcher(Set<UUID> uuids) {
+	public NameFetcherCallable(Set<UUID> uuids) {
 		this.uuids = ImmutableList.copyOf(uuids);
 	}
 
@@ -41,6 +41,6 @@ public class CallableNameFetcher implements Callable<Map<UUID, String>> {
 	}
 
 	public static String getNameFromUUID(UUID ids) throws Exception {
-		return new CallableNameFetcher(Sets.newHashSet(ids)).call().get(ids);
+		return new NameFetcherCallable(Sets.newHashSet(ids)).call().get(ids);
 	}
 }

@@ -144,6 +144,12 @@ public class ItemMenu implements InventoryHolder {
 		return clone;
 	}
 
+	public List<Player> getViewers() {
+		List<Player> viewers = new ArrayList<>();
+		getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(p -> viewers.add((Player) p));
+		return viewers;
+	}
+
 	public void updateMenu() {
 		//For every player viewing the menu, update their inventory.
 		getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(entity -> ((Player) entity).updateInventory());
@@ -159,5 +165,9 @@ public class ItemMenu implements InventoryHolder {
 
 	public boolean exitOnClickOutside() {
 		return exitOnClickOutside;
+	}
+
+	public void clearMenuItems() {
+		items.clear();
 	}
 }

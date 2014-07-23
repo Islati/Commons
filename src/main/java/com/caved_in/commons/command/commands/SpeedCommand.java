@@ -2,7 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class SpeedCommand {
 	@Command(name = "speed", permission = "commons.command.speed")
 	public void onSpeedCommand(Player player, String[] args) {
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		if (args.length > 0) {
 			String speedArg = args[0];
 			if (StringUtils.isNumeric(speedArg)) {
@@ -24,13 +24,13 @@ public class SpeedCommand {
 				}
 				//If they're flying, set their fly speed; if not, their walk speed
 				if (player.isFlying()) {
-					double fSpeed = (speed + (PlayerWrapper.defaultWalkSpeed * 10)) / 10;
-					playerWrapper.setFlySpeed(fSpeed);
+					double fSpeed = (speed + (MinecraftPlayer.defaultWalkSpeed * 10)) / 10;
+					minecraftPlayer.setFlySpeed(fSpeed);
 					Players.sendMessage(player, "" + player.getFlySpeed());
 
 				} else {
-					double fSpeed = (speed + (PlayerWrapper.defaultWalkSpeed * 10)) / 10;
-					playerWrapper.setWalkSpeed(fSpeed);
+					double fSpeed = (speed + (MinecraftPlayer.defaultWalkSpeed * 10)) / 10;
+					minecraftPlayer.setWalkSpeed(fSpeed);
 					Players.sendMessage(player, "" + player.getWalkSpeed());
 				}
 
@@ -44,10 +44,10 @@ public class SpeedCommand {
 			//They didn't pass a speed argument, so reset their speeds to default
 			if (player.isFlying()) {
 				//Default fly speed
-				playerWrapper.setFlySpeed(PlayerWrapper.defaultFlySpeed);
+				minecraftPlayer.setFlySpeed(MinecraftPlayer.defaultFlySpeed);
 			} else {
 				//Default walk speed
-				playerWrapper.setWalkSpeed(PlayerWrapper.defaultWalkSpeed);
+				minecraftPlayer.setWalkSpeed(MinecraftPlayer.defaultWalkSpeed);
 			}
 			Players.sendMessage(player, Messages.playerSpeedReset(player.isFlying()));
 		}

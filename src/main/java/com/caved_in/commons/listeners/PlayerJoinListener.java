@@ -3,7 +3,7 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.ChatColor;
@@ -21,8 +21,8 @@ public class PlayerJoinListener implements Listener {
 		Player player = event.getPlayer();
 
 		//Reset the players walk and fly speeds
-		player.setFlySpeed((float) PlayerWrapper.defaultFlySpeed);
-		player.setWalkSpeed((float) PlayerWrapper.defaultWalkSpeed);
+		player.setFlySpeed((float) MinecraftPlayer.defaultFlySpeed);
+		player.setWalkSpeed((float) MinecraftPlayer.defaultWalkSpeed);
 		WorldConfiguration worldConfig = Commons.getConfiguration().getWorldConfig();
 
 		if (!worldConfig.hasJoinMessages()) {

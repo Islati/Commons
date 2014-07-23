@@ -3,6 +3,7 @@ package com.caved_in.commons.plugin;
 import com.caved_in.commons.utilities.LogUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -142,5 +143,9 @@ public class Plugins {
 		for (Listener listener : listeners) {
 			pl.registerEvents(listener, plugin);
 		}
+	}
+
+	public static void callEvent(Event e) {
+		Bukkit.getServer().getPluginManager().callEvent(e);
 	}
 }

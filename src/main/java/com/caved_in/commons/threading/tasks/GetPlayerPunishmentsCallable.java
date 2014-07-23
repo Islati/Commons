@@ -1,8 +1,11 @@
 package com.caved_in.commons.threading.tasks;
 
-import com.caved_in.commons.player.Players;
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.bans.Punishment;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
 /**
  * ----------------------------------------------------------------------------
@@ -12,17 +15,15 @@ import java.util.UUID;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class ThreadKickPlayer implements Runnable {
-	private UUID id;
-	private String reason;
+public class GetPlayerPunishmentsCallable implements Callable<Set<Punishment>> {
+	private UUID playerId;
 
-	public ThreadKickPlayer(UUID id, String reason) {
-		this.id = id;
-		this.reason = reason;
+	public GetPlayerPunishmentsCallable(UUID playerId) {
+		this.playerId = playerId;
 	}
 
 	@Override
-	public void run() {
-		Players.kick(Players.getPlayer(id), reason);
+	public Set<Punishment> call() throws Exception {
+		return Commons.database.getActivePunishments(playerId);
 	}
 }

@@ -16,18 +16,18 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class CallableUpdatePlayerPremium implements Callable<Boolean> {
+public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
 	private UUID playerId;
 	private boolean premium;
 	private String playerName;
 	private boolean fetch;
 
-	public CallableUpdatePlayerPremium(UUID playerId, boolean premium) {
+	public UpdatePlayerPremiumCallable(UUID playerId, boolean premium) {
 		this.playerId = playerId;
 		this.premium = premium;
 	}
 
-	public CallableUpdatePlayerPremium(String playerName, boolean premium) {
+	public UpdatePlayerPremiumCallable(String playerName, boolean premium) {
 		this.playerName = playerName;
 		this.premium = premium;
 		fetch = true;
@@ -38,7 +38,7 @@ public class CallableUpdatePlayerPremium implements Callable<Boolean> {
 		final UUID[] uuid = new UUID[1];
 		final boolean[] success = new boolean[1];
 		if (fetch) {
-			ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(playerName));
+			ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerName));
 			Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 				@Override
 				public void onSuccess(UUID id) {

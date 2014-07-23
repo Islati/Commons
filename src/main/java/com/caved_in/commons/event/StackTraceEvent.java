@@ -24,7 +24,7 @@ public class StackTraceEvent extends Event {
 
 	@Override
 	public HandlerList getHandlers() {
-		return null;
+		return handler;
 	}
 
 	public static HandlerList getHandlerList() {

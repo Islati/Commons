@@ -4,7 +4,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.Inventories;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
@@ -611,7 +611,7 @@ public class Items {
 		List<ItemStack> recipeIngredients = shapelessRecipe.getIngredientList();
 		//Create a map for the recipes items
 		Map<Integer, ItemStack> recipeItems = new HashMap<>();
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 
 		//Put each item in their respective spot
 		for (int i = 0; i < recipeIngredients.size(); i++) {
@@ -622,7 +622,7 @@ public class Items {
 		InventoryView inventoryView = Inventories.openWorkbench(player);
 		//Set the items in our inventory
 		Inventories.setViewItems(inventoryView, recipeItems);
-		playerWrapper.setViewingRecipe(true);
+		minecraftPlayer.setViewingRecipe(true);
 	}
 
 	public static void showShapedRecipe(Player player, ShapedRecipe shapedRecipe) {
@@ -632,7 +632,7 @@ public class Items {
 		String[] recipeShape = shapedRecipe.getShape();
 		//Create a new list used to create the inventory
 		Map<Integer, ItemStack> itemRecipe = new HashMap<>();
-		PlayerWrapper playerWrapper = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		player.closeInventory();
 		//Loop through all the items of the shapes (row 1, 2, and 3)
 		for (int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
@@ -651,7 +651,7 @@ public class Items {
 		InventoryView inventoryView = Inventories.openWorkbench(player);
 		//Set the item recipe
 		Inventories.setViewItems(inventoryView, itemRecipe);
-		playerWrapper.setViewingRecipe(true);
+		minecraftPlayer.setViewingRecipe(true);
 	}
 
 	public static boolean showRecipe(Player player, ItemStack itemStack, int recipeNumber) {

@@ -9,15 +9,15 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThreadBlocksRegen implements Runnable {
+public class BlocksRegenThread implements Runnable {
 	private List<List<BlockData>> blockCollections;
 	private boolean playEffect = true;
 
-	public ThreadBlocksRegen(List<BlockData> blockCollection) {
+	public BlocksRegenThread(List<BlockData> blockCollection) {
 		this.blockCollections = Lists.partition(blockCollection, 5);
 	}
 
-	public ThreadBlocksRegen(List<Block> blocks, boolean playEffect) {
+	public BlocksRegenThread(List<Block> blocks, boolean playEffect) {
 		List<BlockData> blockDataList = new ArrayList<>();
 		blocks.forEach(b -> blockDataList.add(new BlockData(b)));
 		this.playEffect = playEffect;

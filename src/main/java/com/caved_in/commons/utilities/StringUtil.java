@@ -25,6 +25,9 @@ import org.bukkit.ChatColor;
 import java.util.*;
 
 public class StringUtil {
+
+	public static String NEWLINE_SPLIT_REGEX = "\\r?\\n";
+
 	/**
 	 * Trim a string if it is longer than a certain length.
 	 *
@@ -431,5 +434,9 @@ public class StringUtil {
 			return def;
 		}
 		return Integer.parseInt(strs[index]);
+	}
+
+	public static String[] splitOnNewline(String s) {
+		return s.split(NEWLINE_SPLIT_REGEX);
 	}
 }

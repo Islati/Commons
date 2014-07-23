@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.debug.Debugger;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,8 +13,8 @@ public class CommandPreProcessListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onCommandPreProcess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		PlayerWrapper playerWrapper = Players.getData(player);
-		if (playerWrapper.isInDebugMode()) {
+		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		if (minecraftPlayer.isInDebugMode()) {
 			Debugger.debugCommandPreProcessEvent(player, event);
 		}
 	}

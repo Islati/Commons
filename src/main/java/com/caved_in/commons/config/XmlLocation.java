@@ -32,21 +32,14 @@ public class XmlLocation extends Location {
 	}
 
 	public XmlLocation(Location location) {
-		super(location.getWorld(), location.getX(), location.getY(), location.getZ());
+		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 		worldName = Worlds.getWorldName(location);
 		x = location.getX();
 		y = location.getY();
 		z = location.getZ();
+		pitch = location.getPitch();
+		yaw = location.getYaw();
 	}
-
-	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
-		super(Worlds.getWorld(worldName), x, y, z);
-		this.worldName = worldName;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
-
 
 	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
 		super(Worlds.getWorld(worldName), x, y, z, pitch, yaw);
@@ -89,7 +82,7 @@ public class XmlLocation extends Location {
 
 	public Location getLocation() {
 		if (location == null) {
-			location = new Location(Worlds.getWorld(worldName), x, y, z, pitch, yaw);
+			location = new Location(Worlds.getWorld(worldName), x, y, z, yaw, pitch);
 		}
 		return location;
 	}

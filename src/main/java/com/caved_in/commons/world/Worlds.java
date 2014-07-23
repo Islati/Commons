@@ -3,6 +3,9 @@ package com.caved_in.commons.world;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
+import com.caved_in.commons.threading.tasks.ClearDroppedItemsThread;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -157,5 +160,13 @@ public class Worlds {
 		unload(world);
 		load(worldName);
 		world.setAutoSave(save);
+	}
+
+	public static void clearDroppedItems(Location loc, int radius) {
+		Commons.threadManager.runTaskNow(new ClearDroppedItemsThread(loc, radius));
+	}
+
+	public static void clearDroppedItems(Location loc, int radius, int delay, TimeType duration) {
+		Commons.threadManager.runTaskLater(new ClearDroppedItemsThread(loc, radius), TimeHandler.getTimeInTicks(delay, duration));
 	}
 }

@@ -4,12 +4,12 @@ import com.caved_in.commons.block.BlockData;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.effect.Effects;
 
-public class ThreadBlockRegen implements Runnable {
+public class BlockRegenThread implements Runnable {
 	private BlockData blockData;
 	private boolean playEffect = false;
 
 
-	public ThreadBlockRegen(BlockData blockData, boolean playEffect) {
+	public BlockRegenThread(BlockData blockData, boolean playEffect) {
 		this.blockData = blockData;
 		this.playEffect = playEffect;
 	}

@@ -1,9 +1,7 @@
 package com.caved_in.commons.threading.tasks;
 
-import com.caved_in.commons.Commons;
-import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.player.Players;
 
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
@@ -15,15 +13,15 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class CallableGetPlayerPunishments implements Callable<Set<Punishment>> {
-	private UUID playerId;
+public class GetPlayerNameCallable implements Callable<String> {
+	private UUID uniqueId;
 
-	public CallableGetPlayerPunishments(UUID playerId) {
-		this.playerId = playerId;
+	public GetPlayerNameCallable(UUID uniqueId) {
+		this.uniqueId = uniqueId;
 	}
 
 	@Override
-	public Set<Punishment> call() throws Exception {
-		return Commons.database.getActivePunishments(playerId);
+	public String call() throws Exception {
+		return Players.getNameFromUUID(uniqueId);
 	}
 }

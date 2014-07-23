@@ -13,19 +13,19 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.concurrent.Callable;
 
-public class CallableUuidFetcher implements Callable<Map<String, UUID>> {
+public class UuidFetcherCallable implements Callable<Map<String, UUID>> {
 	private static final double PROFILES_PER_REQUEST = 100;
 	private static final String PROFILE_URL = "https://api.mojang.com/profiles/minecraft";
 	private final JSONParser jsonParser = new JSONParser();
 	private final List<String> names;
 	private final boolean rateLimiting;
 
-	public CallableUuidFetcher(List<String> names, boolean rateLimiting) {
+	public UuidFetcherCallable(List<String> names, boolean rateLimiting) {
 		this.names = ImmutableList.copyOf(names);
 		this.rateLimiting = rateLimiting;
 	}
 
-	public CallableUuidFetcher(List<String> names) {
+	public UuidFetcherCallable(List<String> names) {
 		this(names, true);
 	}
 
@@ -41,7 +41,7 @@ public class CallableUuidFetcher implements Callable<Map<String, UUID>> {
 				JSONObject jsonProfile = (JSONObject) profile;
 				String id = (String) jsonProfile.get("id");
 				String name = (String) jsonProfile.get("name");
-				UUID uuid = CallableUuidFetcher.getUUID(id);
+				UUID uuid = UuidFetcherCallable.getUUID(id);
 				uuidMap.put(name, uuid);
 			}
 			if (rateLimiting && i != requests - 1) {
@@ -91,6 +91,6 @@ public class CallableUuidFetcher implements Callable<Map<String, UUID>> {
 	}
 
 	public static UUID getUUIDOf(String name) throws Exception {
-		return new CallableUuidFetcher(Arrays.asList(name)).call().get(name);
+		return new UuidFetcherCallable(Arrays.asList(name)).call().get(name);
 	}
 }

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.3.0-RELEASE</version>
+    <version>1.4.0-RELEASE</version>
 
     <build>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>12.0</version>
+            <version>10.0.1</version>
         </dependency>
         <!--Apache commonsIO 2.4 -->
         <dependency>
@@ -189,7 +189,7 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>3.1.0</version>
+            <version>3.4.0</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -197,7 +197,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>12.0</version>
+                <version>10.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.bukkit</groupId>
@@ -233,7 +233,7 @@
             <dependency>
                 <groupId>com.comphenix.protocol</groupId>
                 <artifactId>ProtocolLib</artifactId>
-                <version>3.1.0</version>
+                <version>3.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

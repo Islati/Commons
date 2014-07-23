@@ -15,7 +15,6 @@ public class PlayerQuitListener implements Listener {
 		if (!Commons.getConfiguration().getWorldConfig().hasJoinMessages()) {
 			event.setQuitMessage(null);
 		}
-
 		Players.removeData(playerId);
 //
 //		if (Commons.hasSqlBackend()) {

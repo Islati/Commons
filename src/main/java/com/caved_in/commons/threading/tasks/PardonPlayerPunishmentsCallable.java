@@ -19,13 +19,13 @@ import java.util.concurrent.Callable;
  * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
  * ----------------------------------------------------------------------------
  */
-public class CallablePardonPlayerPunishments implements Callable<Boolean> {
+public class PardonPlayerPunishmentsCallable implements Callable<Boolean> {
 	private String playerPardonName;
 	private boolean console = false;
 	private UUID callingPlayer;
 	private PunishmentType type;
 
-	public CallablePardonPlayerPunishments(String playerName, PunishmentType type) {
+	public PardonPlayerPunishmentsCallable(String playerName, PunishmentType type) {
 		this.playerPardonName = playerName;
 		this.type = type;
 	}
@@ -33,7 +33,7 @@ public class CallablePardonPlayerPunishments implements Callable<Boolean> {
 	@Override
 	public Boolean call() throws Exception {
 		final boolean[] success = new boolean[1];
-		ListenableFuture<UUID> getPlayerId = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(playerPardonName));
+		ListenableFuture<UUID> getPlayerId = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerPardonName));
 		Futures.addCallback(getPlayerId, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID uuid) {

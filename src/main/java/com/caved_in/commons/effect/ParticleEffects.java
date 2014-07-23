@@ -1,7 +1,7 @@
 package com.caved_in.commons.effect;
 
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -144,7 +144,7 @@ public enum ParticleEffects {
 			Object packet = createPacket(effect, location, offsetX, offsetY, offsetZ, speed, count);
 			for (Player player : Locations.getPlayersInRadius(location, PARTICLE_RADIUS)) {
 				//If the player has other players hidden, we don't want to see their particles, either!
-				PlayerWrapper wrapper = Players.getData(player);
+				MinecraftPlayer wrapper = Players.getData(player);
 				if (wrapper.isHidingOtherPlayers()) {
 					continue;
 				}

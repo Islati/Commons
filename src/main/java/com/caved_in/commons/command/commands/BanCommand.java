@@ -7,7 +7,7 @@ import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.CallableBanPlayer;
+import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.google.common.util.concurrent.FutureCallback;
@@ -58,9 +58,9 @@ public class BanCommand {
 
 
 		if (banningPlayerIsOnline) {
-			banPlayerFuture = Commons.asyncExecutor.submit(new CallableBanPlayer(banningPlayer.getUniqueId(), punishment));
+			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(banningPlayer.getUniqueId(), punishment));
 		} else {
-			banPlayerFuture = Commons.asyncExecutor.submit(new CallableBanPlayer(playerName, punishment));
+			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(playerName, punishment));
 		}
 
 		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {

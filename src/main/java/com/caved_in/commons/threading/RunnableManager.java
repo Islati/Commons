@@ -6,25 +6,30 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RunnableManager {
 	private JavaPlugin plugin;
 	private HashMap<String, Integer> runningTasks = new HashMap<String, Integer>();
 
+	private Map<Integer, Runnable> runnableIds = new HashMap<>();
+
 	public RunnableManager(JavaPlugin Plugin) {
 		this.plugin = Plugin;
 	}
 
-	public void registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-		if (!runningTasks.containsKey(name)) {
-			runningTasks.put(name, plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks));
-		}
+	public int registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
+		int taskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+		runningTasks.put(name, taskId);
+		runnableIds.put(taskId, task);
+		return taskId;
 	}
 
-	public void registerAsyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-		if (!runningTasks.containsKey(name)) {
-			runningTasks.put(name, plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks));
-		}
+	public int registerAsyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
+		int taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+		runningTasks.put(name, taskId);
+		runnableIds.put(taskId, task);
+		return taskId;
 	}
 
 	public void runTaskNow(Runnable task) {
@@ -56,6 +61,10 @@ public class RunnableManager {
 		return false;
 	}
 
+	public void cancelTask(int taskId) {
+		plugin.getServer().getScheduler().cancelTask(taskId);
+	}
+
 	public void cancelTasks() {
 		BukkitScheduler scheduler = Bukkit.getScheduler();
 		for (Integer i : runningTasks.values()) {
@@ -65,5 +74,4 @@ public class RunnableManager {
 			}
 		}
 	}
-
 }

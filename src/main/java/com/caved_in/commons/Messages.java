@@ -3,7 +3,7 @@ package com.caved_in.commons;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.player.PlayerWrapper;
+import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.utilities.StringUtil;
@@ -147,8 +147,8 @@ public class Messages {
 		return String.format("&e%s &ahas been kicked with the reason being: '&e%s&a'", player, reason);
 	}
 
-	public static String playerDebugModeChange(PlayerWrapper playerWrapper) {
-		return String.format("&aYou're &e%s&a in debug mode.", playerWrapper.isInDebugMode() ? "now" : "no longer");
+	public static String playerDebugModeChange(MinecraftPlayer minecraftPlayer) {
+		return String.format("&aYou're &e%s&a in debug mode.", minecraftPlayer.isInDebugMode() ? "now" : "no longer");
 	}
 
 	public static String playerFed(String playerName) {
@@ -177,6 +177,10 @@ public class Messages {
 
 	public static String playerNotBanned(String playerName) {
 		return String.format("&e%s&c is not banned", playerName);
+	}
+
+	public static String playerSmited(Player target, Player smiter) {
+		return String.format("&e&l%s&r&e has been smited by &6%s", target.getName(), smiter.getName());
 	}
 
 	public static String entityRemovedEntities(int amount) {
