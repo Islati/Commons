@@ -6,8 +6,12 @@ import com.caved_in.commons.threading.executors.BukkitExecutors;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 public abstract class BukkitPlugin extends JavaPlugin {
+
+	private Serializer serializer = new Persister();
 
 	private BukkitScheduledExecutorService syncExecuter;
 
@@ -65,6 +69,11 @@ public abstract class BukkitPlugin extends JavaPlugin {
 	public BukkitScheduledExecutorService getAsyncExecuter() {
 		return asyncExecuter;
 	}
+
+	public Serializer getSerializer() {
+		return serializer;
+	}
+
 
 	public RunnableManager getThreadManager() {
 		return threadManager;

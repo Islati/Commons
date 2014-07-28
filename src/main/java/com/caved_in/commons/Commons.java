@@ -7,8 +7,6 @@ import com.caved_in.commons.config.WarpConfig;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
-import com.caved_in.commons.entity.Entities;
-import com.caved_in.commons.entity.nms.NametagEntity;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.menu.menus.serverselection.ServerSelectionMenu;
@@ -124,8 +122,6 @@ public class Commons extends JavaPlugin {
 			debugFolder.mkdirs();
 		}
 
-		registerCustomEntities();
-
 		initConfiguration(); // Init config
 
 		//If the SQL Backend is enabled, then register all the database interfaces
@@ -167,10 +163,6 @@ public class Commons extends JavaPlugin {
 		}
 
 		Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
-	}
-
-	private void registerCustomEntities() {
-		Entities.registerCustomEntity(NametagEntity.class, "NametagBat", 65);
 	}
 
 	private void registerDebugActions() {

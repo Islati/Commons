@@ -62,6 +62,7 @@ public class CommandRegister {
 		registerCommand(new ArmorCommand());
 		registerCommand(new RenameCommand());
 		registerCommand(new BlockTextCommand());
+		registerCommand(new IdCommand());
 	}
 
 	private static void registerCommand(Object commandHandler) {

@@ -1,7 +1,7 @@
-package com.caved_in.commons.event;
+package com.caved_in.commons.plugin.game.event;
 
-import com.caved_in.commons.gadget.Gadget;
-import com.caved_in.commons.gadget.Gadgets;
+import com.caved_in.commons.plugin.game.gadget.Gadget;
+import com.caved_in.commons.plugin.game.gadget.Gadgets;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

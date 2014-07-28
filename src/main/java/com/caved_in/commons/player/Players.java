@@ -1197,6 +1197,15 @@ public class Players {
 		player.setItemInHand(null);
 	}
 
+	public static void removeFromHand(Player player, int amount) {
+		if (!Players.hasItemInHand(player)) {
+			return;
+		}
+
+		ItemStack hand = Items.removeFromStack(player.getItemInHand(), amount);
+		player.setItemInHand(hand);
+	}
+
 	/**
 	 * Check the players inventory for an item with a specific material and name
 	 * Uses a fuzzy search to determine if the item is in their inventory
@@ -1242,15 +1251,6 @@ public class Players {
 		getData(player).setHidingOtherPlayers(true);
 	}
 
-	public static void showNameTag(Player player) {
-		MinecraftPlayer wrapper = getData(player);
-		wrapper.showName();
-	}
-
-	public static void hideNameTag(Player player) {
-		MinecraftPlayer wrapper = getData(player);
-		wrapper.hideName();
-	}
 
 	/**
 	 * Gets the players targeted location (on their cursor) of up-to 30 blocks in distance

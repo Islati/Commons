@@ -120,6 +120,8 @@ commands:
       usage: /<command> <item name>
    blocktext:
       usage: /<command> <item-data> <text>...
+   id:
+      usage: /<command> [item name]
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

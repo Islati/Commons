@@ -64,6 +64,6 @@ public class Cooldown {
 
 		double playerTime = cooldowns.get(player.getUniqueId());
 		long currentTime = System.currentTimeMillis() / 1000L;
-		return (currentTime / playerTime) < cooldownTime;
+		return (currentTime - playerTime) < cooldownTime;
 	}
 }

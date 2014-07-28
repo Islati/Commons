@@ -1,4 +1,4 @@
-package com.caved_in.commons.gadget;
+package com.caved_in.commons.plugin.game.gadget;
 
 import com.caved_in.commons.menu.ItemMenu;
 import org.bukkit.entity.Player;

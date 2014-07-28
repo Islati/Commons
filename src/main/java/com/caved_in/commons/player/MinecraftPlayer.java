@@ -2,7 +2,6 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.bans.Punishment;
-import com.caved_in.commons.entity.nms.NametagEntity;
 import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -73,8 +72,6 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 */
 	private Location preTeleportLocation;
 
-	private NametagEntity nametagEntity;
-
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
 	 *
@@ -95,8 +92,8 @@ public class MinecraftPlayer implements PlayerWrapper {
 	}
 
 	public void dispose() {
-		nametagEntity.die();
-		nametagEntity = null;
+//		nametagEntity.die();
+//		nametagEntity = null;
 		punishments = null;
 	}
 
@@ -375,22 +372,5 @@ public class MinecraftPlayer implements PlayerWrapper {
 
 	public void setHidingOtherPlayers(boolean hidingOtherPlayers) {
 		this.hidingOtherPlayers = hidingOtherPlayers;
-	}
-
-	public boolean isNameHidden() {
-		return nametagEntity != null;
-	}
-
-	public void hideName() {
-		nametagEntity = new NametagEntity(getPlayer());
-	}
-
-	public void showName() {
-		if (!isNameHidden()) {
-			return;
-		}
-
-		nametagEntity.die();
-		nametagEntity = null;
 	}
 }

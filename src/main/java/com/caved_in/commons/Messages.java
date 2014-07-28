@@ -195,6 +195,14 @@ public class Messages {
 		return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
 	}
 
+	public static String itemId(ItemStack item) {
+		return String.format("&eThe id for &o%s&r&e is &a%s", Items.getName(item), item.getTypeId());
+	}
+
+	public static String itemId(String name, Material material) {
+		return String.format("&eThe id for &o%s&r&e is &a%s", name, material.getId());
+	}
+
 	public static String[] itemInfo(ItemStack itemStack) {
 		String itemLore = "&7No Lore";
 		if (Items.hasLore(itemStack)) {
@@ -211,13 +219,15 @@ public class Messages {
 		return new String[]{
 				String.format("&e[--&6Item Information&e--]"),
 				String.format("%sItem Name: %s", YELLOW_INDENT_ARROW, itemName),
+				String.format("%sItem ID: %s", YELLOW_INDENT_ARROW, type.getId()),
 				String.format("%sItem Type: %s", YELLOW_INDENT_ARROW, type.name()),
 				String.format("%sItem Enchantments: %s", YELLOW_INDENT_ARROW, enchantments),
 				String.format("%sItem Durability: %s", YELLOW_INDENT_ARROW, durability),
 				String.format("%sItem Amount: %s", YELLOW_INDENT_ARROW, amount),
-				String.format("%sItem Lore: %s", YELLOW_INDENT_ARROW, itemLore)
+				String.format("%sItem Lore: %s", YELLOW_INDENT_ARROW, itemLore),
 		};
 	}
+
 
 	public static String itemEnchantments(ItemStack itemStack, String format) {
 		Map<Enchantment, Integer> itemEnchants = itemStack.getEnchantments();

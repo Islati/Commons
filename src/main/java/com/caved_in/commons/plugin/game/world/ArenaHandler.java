@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 
 public interface ArenaHandler {
 
+	public Arena getArena(String worldName);
+
 	public void addArena(Arena arena);
 
 	public void cycleArena();

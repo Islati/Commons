@@ -1,9 +1,19 @@
 package com.caved_in.commons.plugin.game;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.plugin.game.clause.ServerShutdownClause;
+import com.caved_in.commons.plugin.game.gadget.Gadget;
+import com.caved_in.commons.plugin.game.gadget.Gadgets;
+import com.caved_in.commons.plugin.game.world.Arena;
+import com.caved_in.commons.plugin.game.world.ArenaManager;
+import com.caved_in.commons.world.Worlds;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.event.HandlerList;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
+import java.io.File;
 import java.util.*;
 
 public abstract class MiniGame extends CraftGame {
@@ -19,6 +29,10 @@ public abstract class MiniGame extends CraftGame {
 	private boolean registeredStateListeners = false;
 
 	private boolean gameOver = false;
+
+	private boolean autoSave = true;
+
+	private ArenaManager arenaManager;
 
 	public boolean hasStateBeenActive(int id) {
 		return isActiveState(id) || isActiveState(id);
@@ -46,8 +60,17 @@ public abstract class MiniGame extends CraftGame {
 		}
 	}
 
+	public void registerGadgets(Gadget... gadgets) {
+		for (Gadget gadget : gadgets) {
+			Gadgets.registerGadget(gadget);
+		}
+	}
+
 	public void onEnable() {
 		super.onEnable();
+		arenaManager = new ArenaManager(this);
+		arenaManager.addArena(Worlds.getDefaultWorld());
+		loadArenas();
 		startup();
 	}
 
@@ -88,14 +111,30 @@ public abstract class MiniGame extends CraftGame {
 
 		GameState gameState = getActiveState();
 
+		/* If the active game state hasn't already been setup, then do so*/
+		if (!gameState.isSetup()) {
+			gameState.setup();
+		}
+
+		/* Check if we're able to switch states (conditions have been met)
+		* and if not, then halt execution!
+		*/
 		if (!getActiveState().switchState()) {
 			return;
 		}
 
+		/* Call the destroy method for the gamestate, or what happens when it's "Shut down" */
+		gameState.destroy();
+
+		/* Get and set the next active state */
 		GameState nextState = getNextState();
 		setActiveState(nextState);
 
-		//If we're not using external listeners
+		/*
+		If the plugin isn't using exclusively external listeners, then
+		unregister all the state listeners from the active state and register
+		them for the next state.
+		 */
 		if (!hasExternalListeners()) {
 			HandlerList.unregisterAll(gameState);
 			//Get the next game state, and then
@@ -152,5 +191,62 @@ public abstract class MiniGame extends CraftGame {
 
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
+	}
+
+	public File getArenaFolder() {
+		return new File("plugins/" + getName() + "/Arenas/");
+	}
+
+	public void loadArenas() {
+		File arenaFolder = getArenaFolder();
+		if (!arenaFolder.exists()) {
+			arenaFolder.mkdirs();
+		}
+
+		Serializer serializer = new Persister();
+		Collection<File> arenas = FileUtils.listFiles(arenaFolder, null, false);
+
+		if (arenas.isEmpty()) {
+			Commons.debug("No arenas loaded for " + getName());
+			return;
+		}
+
+		for (File file : arenas) {
+			try {
+				Arena arena = serializer.read(Arena.class, file);
+				arenaManager.addArena(arena);
+				Commons.debug("Loaded arena " + arena.getArenaName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public ArenaManager getArenaManager() {
+		return arenaManager;
+	}
+
+	public Arena getActiveArena() {
+		return arenaManager.getActiveArena();
+	}
+
+	public void saveArena(Arena arena) {
+		Serializer serializer = new Persister();
+		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".xml");
+		try {
+			serializer.write(arena, arenaFile);
+			Commons.debug("Saved " + arena.getArenaName() + " to " + arenaFile.getPath());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean autoSave() {
+		return autoSave;
+	}
+
+	public void setAutoSave(boolean autoSave) {
+		this.autoSave = autoSave;
 	}
 }

@@ -145,6 +145,10 @@ public class Worlds {
 		dropItem(entity.getWorld(), entity.getLocation(), item, natural);
 	}
 
+	public static void dropItem(Location location, ItemStack itemStack) {
+		dropItem(location.getWorld(), location, itemStack, true);
+	}
+
 	public static void dropItemNaturally(Entity entity, ItemStack item) {
 		dropItem(entity, item, true);
 	}
