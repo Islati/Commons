@@ -3,6 +3,7 @@ package com.caved_in.commons.plugin.game.world;
 import com.caved_in.commons.config.XmlLocation;
 import com.caved_in.commons.plugin.game.MiniGame;
 import com.caved_in.commons.plugin.game.event.ArenaModifiedEvent;
+import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -69,7 +70,7 @@ public class Arena implements GameArena {
 
 	@Override
 	public String getArenaName() {
-		return null;
+		return arenaName;
 	}
 
 	@Override
@@ -83,12 +84,16 @@ public class Arena implements GameArena {
 	}
 
 	@Override
-	public List<Location> spawnLocations() {
+	public List<Location> getSpawnLocations() {
 		List<Location> locs = new ArrayList<>();
 		for (XmlLocation loc : spawns) {
 			locs.add(loc.getLocation());
 		}
 		return locs;
+	}
+
+	public int getSpawnCount() {
+		return spawns.size();
 	}
 
 	@Override
@@ -145,7 +150,7 @@ public class Arena implements GameArena {
 	}
 
 	public Location getRandomSpawn() {
-		return hasSpawns() ? spawns.get(random.nextInt(spawns.size())) : Worlds.getSpawn(getWorld());
+		return ListUtils.getRandom(getSpawnLocations());
 	}
 
 	public boolean isStormy() {
@@ -163,5 +168,10 @@ public class Arena implements GameArena {
 
 	public void setGame(MiniGame game) {
 		this.game = game;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("Arena Name: %s\nWorld Name: %s\nSpawn Amount: %s", getArenaName(), getWorldName(), getSpawnLocations().size());
 	}
 }

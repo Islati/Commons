@@ -11,6 +11,7 @@ import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.permission.Permission;
+import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.threading.tasks.DelayedSoundMessageThread;
@@ -145,6 +146,22 @@ public class Players {
 		}
 	}
 
+	public static int getMoney(Player player) {
+		if (!Commons.hasSqlBackend()) {
+			return 0;
+		}
+
+		return getData(player).getCurrency();
+	}
+
+	public static void removeMoney(Player player, int amount) {
+		if (!Commons.hasSqlBackend()) {
+			return;
+		}
+
+		getData(player).removeCurrency(amount);
+	}
+
 	/**
 	 * Synchronizes the playerwrapper object to their corresponding database entry
 	 *
@@ -158,6 +175,14 @@ public class Players {
 		if (Commons.hasSqlBackend()) {
 			Commons.database.syncPlayerWrapperData(minecraftPlayer);
 		}
+	}
+
+	public static void updateData(Player player) {
+		if (!Commons.hasSqlBackend()) {
+			return;
+		}
+
+		Commons.database.syncPlayerWrapperData(getData(player));
 	}
 
 	/**
@@ -619,6 +644,18 @@ public class Players {
 	 */
 	public static void teleport(Player player, Warp warp) {
 		teleport(player, warp.getLocation());
+	}
+
+	public static void teleportToSpawn(Player player, World world) {
+		teleport(player, Worlds.getSpawn(world));
+	}
+
+	public static void teleportToSpawn(Player player, Arena arena) {
+		teleportToSpawn(player, arena.getWorld());
+	}
+
+	public static void teleportAllToSpawn(Arena arena) {
+		stream().forEach(p -> teleportToSpawn(p, arena));
 	}
 
 	/**
@@ -1249,6 +1286,13 @@ public class Players {
 			player.hidePlayer(p);
 		}
 		getData(player).setHidingOtherPlayers(true);
+	}
+
+	public static void unhidePlayers(Player player) {
+		for (Player p : allPlayers()) {
+			player.showPlayer(p);
+		}
+		getData(player).setHidingOtherPlayers(false);
 	}
 
 

@@ -128,7 +128,7 @@ public class ReflectionUtilities {
 		} catch (InstantiationException e) {
 			Commons.messageConsole("Failed to instantiate constructor: " + constructor.getName());
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("failed to access constructor: " + constructor.getName());
+			Commons.messageConsole("Failed to access constructor: " + constructor.getName());
 		} catch (InvocationTargetException e) {
 			Commons.messageConsole("Failed to invoke constructor: " + constructor.getName());
 		}

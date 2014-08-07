@@ -60,7 +60,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	private String currentServer = "";
 
 	@Element(name = "currency-amount")
-	private double currencyAmount = 0.0D;
+	private int currencyAmount = 0;
 
 	private ChatColor tagColor = ChatColor.WHITE;
 
@@ -79,7 +79,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 * @param currencyAmount currency the player has
 	 */
 	@Deprecated
-	public MinecraftPlayer(String playerName, double currencyAmount) {
+	public MinecraftPlayer(String playerName, int currencyAmount) {
 		this.playerName = playerName;
 		this.currencyAmount = currencyAmount;
 		initWrapper();
@@ -195,7 +195,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 * @param amountToAdd how much currency to add to the player
 	 * @return The players currency after having <i>amountToAdd</i> added to it
 	 */
-	public double addCurrency(double amountToAdd) {
+	public int addCurrency(double amountToAdd) {
 		currencyAmount += amountToAdd;
 		return currencyAmount;
 	}
@@ -206,7 +206,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 * @param amountToRemove how much currency to remove from the player
 	 * @return The players currency after having <i>amountToRemove</i> from it
 	 */
-	public double removeCurrency(double amountToRemove) {
+	public int removeCurrency(double amountToRemove) {
 		currencyAmount -= amountToRemove;
 		return currencyAmount;
 	}
@@ -224,7 +224,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	/**
 	 * @return Players current currency amount
 	 */
-	public double getCurrency() {
+	public int getCurrency() {
 		return currencyAmount;
 	}
 
@@ -233,7 +233,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 *
 	 * @param amount what the players currency is being set to
 	 */
-	public void setCurrency(double amount) {
+	public void setCurrency(int amount) {
 		currencyAmount = amount;
 	}
 

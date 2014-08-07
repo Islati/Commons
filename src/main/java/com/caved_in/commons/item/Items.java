@@ -106,6 +106,10 @@ public class Items {
 	 * @return true if the item has metadata, false otherwise
 	 */
 	public static boolean hasMetadata(ItemStack itemStack) {
+		if (itemStack == null) {
+			return false;
+		}
+
 		return itemStack.hasItemMeta();
 	}
 

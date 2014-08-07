@@ -21,11 +21,12 @@ public interface ArenaHandler {
 
 	public void removeArena(Arena arena);
 
-	default public void teleportAllToArena() {
-		Players.stream().forEach(p -> teleportToRandomSpawn(p, getActiveArena()));
-	}
+	public boolean hasArenas();
 
 	public static void teleportToRandomSpawn(Player player, Arena arena) {
+		if (player == null || arena == null) {
+			return;
+		}
 		Players.teleport(player, arena.getRandomSpawn());
 	}
 }

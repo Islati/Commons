@@ -13,6 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.Date;
 import java.util.Map;
@@ -327,6 +328,10 @@ public class Messages {
 		return String.format("Failed to retrieve the packet object for: %s, %s, %s", protocol, sender, id);
 	}
 
+	public static String potionInfo(PotionEffect effect) {
+		return String.format("&ePotion Type: &6%s\n&eLevel: &6%s", effect.getType().getName(), effect.getAmplifier());
+	}
+
 	public static String properUsage(String usage) {
 		return String.format("&ePlease use &a%s", usage);
 	}
@@ -343,8 +348,8 @@ public class Messages {
 		String[] requiredArgs = requiredArguments.clone();
 		String returnString = "&cThis command requires the following arguments: ";
 		if (requiredArgs.length > 0) {
-			for (int I = 0; I < requiredArgs.length; I++) {
-				returnString += "&e[" + requiredArgs[I] + "]&r" + (I < (requiredArgs.length - 1) ? ", " : "");
+			for (int i = 0; i < requiredArgs.length; i++) {
+				returnString += "&e[" + requiredArgs[i] + "]&r" + (i < (requiredArgs.length - 1) ? ", " : "");
 			}
 			return returnString;
 		} else {

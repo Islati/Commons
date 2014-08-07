@@ -2,6 +2,7 @@ package com.caved_in.commons.plugin.game.world;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.game.MiniGame;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.base.Strings;
@@ -95,6 +96,7 @@ public class ArenaManager implements ArenaHandler {
 		arenaWorld.setWeatherDuration(6000);
 
 		arena.setGame(game);
+
 		Worlds.setTimeDay(arenaWorld);
 	}
 
@@ -124,11 +126,16 @@ public class ArenaManager implements ArenaHandler {
 		} while (activeArena.equalsIgnoreCase(randomArena));
 
 		activeArena = randomArena;
+		Players.teleportAllToSpawn(getActiveArena());
 	}
 
 	@Override
 	public void setActiveArena(Arena arena) {
 		activeArena = arena.getWorldName();
+	}
+
+	public void setActiveArena(String world) {
+		activeArena = world;
 	}
 
 	@Override
@@ -161,7 +168,21 @@ public class ArenaManager implements ArenaHandler {
 		arenas.remove(arena.getWorldName());
 	}
 
+	@Override
+	public boolean hasArenas() {
+		return !arenas.isEmpty();
+	}
+
 	public void addSpawnToActiveArena(Location loc) {
 		getActiveArena().addSpawn(loc);
+	}
+
+	public void teleportAllToArena() {
+		Players.stream().forEach(p -> Players.teleport(p, getActiveArena().getRandomSpawn()));
+	}
+
+
+	public boolean isArena(String name) {
+		return arenas.containsKey(name);
 	}
 }

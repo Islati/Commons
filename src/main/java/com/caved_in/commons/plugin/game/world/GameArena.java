@@ -16,7 +16,7 @@ public interface GameArena {
 
 	public World getWorld();
 
-	public List<Location> spawnLocations();
+	public List<Location> getSpawnLocations();
 
 	public boolean isEnabled();
 

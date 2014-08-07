@@ -154,8 +154,14 @@ public class Entities {
 		return entity.getHealth();
 	}
 
-	public static void addPotionEffect(LivingEntity entity, PotionEffect effect) {
-		entity.addPotionEffect(effect);
+	public static void addPotionEffect(LivingEntity entity, PotionEffect... effects) {
+		for (PotionEffect effect : effects) {
+			entity.addPotionEffect(effect);
+		}
+	}
+
+	public static void addPotionEffects(LivingEntity entity, Collection<PotionEffect> effects) {
+		entity.addPotionEffects(effects);
 	}
 
 	public static void setHealth(LivingEntity entity, double health) {

@@ -6,14 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class TickCooldown {
+public class PlayerTicker extends BasicTicker {
 
 	private Map<UUID, Integer> calls = new HashMap<>();
 
-	private int invocationAllow;
-
-	public TickCooldown(int ticksUntilAllow) {
-		this.invocationAllow = ticksUntilAllow;
+	public PlayerTicker(int allowAmount) {
+		super(allowAmount);
 	}
 
 	private int getAmount(Player player) {
@@ -34,7 +32,7 @@ public class TickCooldown {
 	}
 
 	public boolean allow(Player player) {
-		if (getAmount(player) >= invocationAllow) {
+		if (getAmount(player) >= allowAmount()) {
 			reset(player);
 			return true;
 		}

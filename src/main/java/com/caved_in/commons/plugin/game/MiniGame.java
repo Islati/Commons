@@ -34,77 +34,41 @@ public abstract class MiniGame extends CraftGame {
 
 	private ArenaManager arenaManager;
 
-	public boolean hasStateBeenActive(int id) {
-		return isActiveState(id) || isActiveState(id);
-	}
-
-	public boolean isActiveState(int id) {
-		return activeState == id;
-	}
-
-	public boolean isAfterState(int id) {
-		return activeState > id;
-	}
-
-	public boolean isBeforeState(int id) {
-		return activeState < id;
-	}
-
-	public void registerShutdownClauses(ServerShutdownClause... clauses) {
-		Collections.addAll(shutdownClauses, clauses);
-	}
-
-	public void registerGameStates(GameState... states) {
-		for (GameState state : states) {
-			registerGameState(state);
-		}
-	}
-
-	public void registerGadgets(Gadget... gadgets) {
-		for (Gadget gadget : gadgets) {
-			Gadgets.registerGadget(gadget);
-		}
-	}
-
 	public void onEnable() {
 		super.onEnable();
 		arenaManager = new ArenaManager(this);
-		arenaManager.addArena(Worlds.getDefaultWorld());
 		loadArenas();
+		if (!arenaManager.hasArenas()) {
+			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
+		}
 		startup();
 	}
 
 	@Override
 	public void onDisable() {
 		super.onDisable();
+		if (arenaManager.hasArenas()) {
+			saveArenas();
+		}
 		shutdown();
 	}
 
-	public void registerGameState(GameState state) {
-		gameStates.put(state.id(), state);
-	}
-
-	public void setExternalListeners(boolean value) {
-		this.externalListeners = value;
-	}
-
-	public boolean hasExternalListeners() {
-		return externalListeners;
-	}
-
-	protected GameState getActiveState() {
-		if (activeState == -1) {
-			activeState = gameStates.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin();
+	public void update() {
+		GameState activeState = getActiveState();
+		//If there were no listeners registered when supposed to be
+		if (!hasExternalListeners() && !registeredStateListeners) {
+			Plugins.registerListeners(this, activeState);
+			registeredStateListeners = true;
 		}
-		return gameStates.get(activeState);
-	}
 
-	protected void setActiveState(GameState state) {
-		activeState = state.id();
-	}
+		activeState.update();
 
-	protected GameState getNextState() {
-		return gameStates.get(getActiveState().nextState());
+		switchStates();
+
+
+		if (!shutdownClauses.isEmpty() && doShutdown()) {
+			onDisable();
+		}
 	}
 
 	protected void switchStates() {
@@ -157,31 +121,62 @@ public abstract class MiniGame extends CraftGame {
 		return false;
 	}
 
-	public abstract void startup();
+	public void registerGameState(GameState state) {
+		gameStates.put(state.id(), state);
+	}
 
-	public abstract void shutdown();
+	public void setExternalListeners(boolean value) {
+		this.externalListeners = value;
+	}
 
-	public abstract String getVersion();
+	public boolean hasExternalListeners() {
+		return externalListeners;
+	}
 
-	public abstract String getAuthor();
-
-	public abstract void initConfig();
-
-	public void update() {
-		GameState activeState = getActiveState();
-		//If there were no listeners registered when supposed to be
-		if (!hasExternalListeners() && !registeredStateListeners) {
-			Plugins.registerListeners(this, activeState);
-			registeredStateListeners = true;
+	protected GameState getActiveState() {
+		if (activeState == -1) {
+			activeState = gameStates.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin();
 		}
+		return gameStates.get(activeState);
+	}
 
-		activeState.update();
+	protected void setActiveState(GameState state) {
+		activeState = state.id();
+	}
 
-		switchStates();
+	protected GameState getNextState() {
+		return gameStates.get(getActiveState().nextState());
+	}
 
+	public boolean hasStateBeenActive(int id) {
+		return isActiveState(id) || isActiveState(id);
+	}
 
-		if (!shutdownClauses.isEmpty() && doShutdown()) {
-			onDisable();
+	public boolean isActiveState(int id) {
+		return activeState == id;
+	}
+
+	public boolean isAfterState(int id) {
+		return activeState > id;
+	}
+
+	public boolean isBeforeState(int id) {
+		return activeState < id;
+	}
+
+	public void registerShutdownClauses(ServerShutdownClause... clauses) {
+		Collections.addAll(shutdownClauses, clauses);
+	}
+
+	public void registerGameStates(GameState... states) {
+		for (GameState state : states) {
+			registerGameState(state);
+		}
+	}
+
+	public void registerGadgets(Gadget... gadgets) {
+		for (Gadget gadget : gadgets) {
+			Gadgets.registerGadget(gadget);
 		}
 	}
 
@@ -215,7 +210,7 @@ public abstract class MiniGame extends CraftGame {
 			try {
 				Arena arena = serializer.read(Arena.class, file);
 				arenaManager.addArena(arena);
-				Commons.debug("Loaded arena " + arena.getArenaName());
+				Commons.debug("Loaded arena " + arena.toString());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -236,10 +231,14 @@ public abstract class MiniGame extends CraftGame {
 		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".xml");
 		try {
 			serializer.write(arena, arenaFile);
-			Commons.debug("Saved " + arena.getArenaName() + " to " + arenaFile.getPath());
+			Commons.debug("Saved " + arena.toString() + " to " + arenaFile.getPath());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void saveArenas() {
+		getArenaManager().getArenas().forEach(this::saveArena);
 	}
 
 	public boolean autoSave() {
@@ -249,4 +248,14 @@ public abstract class MiniGame extends CraftGame {
 	public void setAutoSave(boolean autoSave) {
 		this.autoSave = autoSave;
 	}
+
+	public abstract void startup();
+
+	public abstract void shutdown();
+
+	public abstract String getVersion();
+
+	public abstract String getAuthor();
+
+	public abstract void initConfig();
 }
