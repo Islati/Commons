@@ -18,7 +18,7 @@ import java.util.Set;
 public class DebugItemDeserialize implements DebugAction {
 
 	@Override
-	public void doAction(Player player) {
+	public void doAction(Player player, String... args) {
 		Serializer serializer = new Persister();
 		File debugFolder = new File(Commons.DEBUG_DATA_FOLDER);
 		if (!debugFolder.exists()) {

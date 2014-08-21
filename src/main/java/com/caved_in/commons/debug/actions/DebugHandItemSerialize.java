@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class DebugHandItemSerialize implements DebugAction {
 
 	@Override
-	public void doAction(Player player) {
+	public void doAction(Player player, String... args) {
 		if (!Players.hasItemInHand(player)) {
 			Players.sendMessage(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
 			return;

@@ -18,6 +18,14 @@ public class Cooldown {
 		this.cooldownTime = seconds;
 	}
 
+	public void removeCooldown(Player player) {
+		if (!cooldowns.containsKey(player.getUniqueId())) {
+			return;
+		}
+
+		cooldowns.remove(player.getUniqueId());
+	}
+
 	/**
 	 * Set a player on cooldown.
 	 *

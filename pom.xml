@@ -87,42 +87,6 @@
                                         <exclude>**/*.java</exclude>
                                     </excludes>
                                 </filter>
-                                <filter>
-                                    <artifact>com.googlecode.lambdaj:lambdaj:jar:*</artifact>
-                                    <excludes>
-                                        <exclude>**/*.java</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>org.hamcrest:hamcrest-all:jar:*</artifact>
-                                    <excludes>
-                                        <exclude>templates/**</exclude>
-                                        <exclude>META-INF/*.xml</exclude>
-                                        <exclude>META-INF/*.txt</exclude>
-                                        <exclude>**/LICENSE</exclude>
-                                        <exclude>**/*.java</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>org.objenesis:objenesis:jar:*</artifact>
-                                    <excludes>
-                                        <exclude>templates/**</exclude>
-                                        <exclude>META-INF/*.xml</exclude>
-                                        <exclude>META-INF/*.txt</exclude>
-                                        <exclude>**/LICENSE</exclude>
-                                        <exclude>**/*.java</exclude>
-                                    </excludes>
-                                </filter>
-                                <filter>
-                                    <artifact>cglib:cglib-nodep:jar:*</artifact>
-                                    <excludes>
-                                        <exclude>templates/**</exclude>
-                                        <exclude>META-INF/*.xml</exclude>
-                                        <exclude>META-INF/*.txt</exclude>
-                                        <exclude>**/LICENSE</exclude>
-                                        <exclude>**/*.java</exclude>
-                                    </excludes>
-                                </filter>
                             </filters>
                         </configuration>
                     </execution>

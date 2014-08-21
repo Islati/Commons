@@ -5,11 +5,13 @@ import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -59,6 +61,34 @@ public class Messages {
 	public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
 	public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an item in your hand to use this debug action";
+
+	public static String arenaAdded(String world) {
+		return String.format("&aThe world '&e%s'&a has been added as an arena!", world);
+	}
+
+	public static String arenaAdded(World world) {
+		return arenaAdded(world.getName());
+	}
+
+	public static String arenaAddError(String world) {
+		return String.format("&cThere was an error while adding the arena '&e%s&c'", world);
+	}
+
+	public static String arenaAddError(World world) {
+		return arenaAdded(world.getName());
+	}
+
+	public static String arenaAlreadyExists(String world) {
+		return String.format("&cArena '&e%s'&c already exists", world);
+	}
+
+	public static String arenaAlreadyExists(World world) {
+		return arenaAlreadyExists(world.getName());
+	}
+
+	public static String arenaSpawnAdded(Arena arena, Location loc) {
+		return String.format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
+	}
 
 	public static String playerDataLoadAttempt(String playerName) {
 		return String.format("&e%s&a has data, attempting to load it.", playerName);

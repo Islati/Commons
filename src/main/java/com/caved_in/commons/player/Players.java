@@ -7,6 +7,8 @@ import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.inventory.ArmorInventory;
+import com.caved_in.commons.inventory.ArmorSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
@@ -14,10 +16,11 @@ import com.caved_in.commons.permission.Permission;
 import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
-import com.caved_in.commons.threading.tasks.DelayedSoundMessageThread;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
@@ -441,6 +444,35 @@ public class Players {
 	}
 
 	/**
+	 * Set the players level.
+	 *
+	 * @param player player to change the level of
+	 * @param lvl    level to set the player
+	 */
+	public static void setLevel(Player player, int lvl) {
+		player.setLevel(lvl);
+	}
+
+	/**
+	 * Remove the given amount of levels from the player.
+	 *
+	 * @param player player to remove the levels from.
+	 * @param amount the amount of levels to decrease by
+	 */
+	public static void removeLevel(Player player, int amount) {
+		player.setLevel(player.getLevel() - amount);
+	}
+
+	/**
+	 * Decrease the players level by 1.
+	 *
+	 * @param player player to decrease the level of.
+	 */
+	public static void removeLevel(Player player) {
+		removeLevel(player, 1);
+	}
+
+	/**
 	 * Increase the players level
 	 *
 	 * @param player player to increase the level of
@@ -568,10 +600,48 @@ public class Players {
 		}
 	}
 
-	public static void sendSoundedMessage(Player receiver, Sound sound, int secondsDelay, String... messages) {
-		DelayedSoundMessageThread messageThread = new DelayedSoundMessageThread(receiver, sound, secondsDelay, messages);
-		int taskId = Commons.threadManager.registerSyncRepeatTask(receiver.getName() + " message thread for " + System.currentTimeMillis(), messageThread, 0, 20L);
-		messageThread.setTaskId(taskId);
+	public static void sendSoundedMessage(Player receiver, Sound sound, int delay, String... messages) {
+		int index = 1;
+		for (String message : messages) {
+			Commons.threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
+			index += 1;
+		}
+	}
+
+	public static void sendDelayedMessage(Player receiver, int delay, final String... messages) {
+		int index = 1;
+		for (String message : messages) {
+			Commons.threadManager.runTaskLater(new DelayedMessage(receiver, message), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
+			index += 1;
+		}
+	}
+
+	/**
+	 * Delayed message, used to send a player a message after a specific duration of time, and in order.
+	 */
+	private static class DelayedMessage implements Runnable {
+
+		private String message;
+		private Sound sound = null;
+		private UUID receiverId;
+
+		public DelayedMessage(Player player, String message) {
+			this.receiverId = player.getUniqueId();
+			this.message = StringUtil.colorize(message);
+		}
+
+		public DelayedMessage(Player player, String message, Sound sound) {
+			this(player, message);
+			this.sound = sound;
+		}
+
+		@Override
+		public void run() {
+			Players.sendMessage(Players.getPlayer(receiverId), message);
+			if (sound != null) {
+				Sounds.playSound(Players.getPlayer(receiverId), sound);
+			}
+		}
 	}
 
 	/**
@@ -864,6 +934,41 @@ public class Players {
 	}
 
 	/**
+	 * Changes the active slot a player has selected on their hotbar. (Between 0 & 8)
+	 *
+	 * @param player player to switch slots of
+	 * @param slot   slot to switch the player to.
+	 */
+	public static void setHotbarSelection(Player player, int slot) {
+		if (slot > 8) {
+			return;
+		}
+
+		player.getInventory().setHeldItemSlot(slot);
+	}
+
+	/**
+	 * Sets an item in the players hotbar to the item given
+	 *
+	 * @param player player to give the item to
+	 * @param item   item to set in slot
+	 * @param slot   slot to change
+	 */
+	public static void setHotbarItem(Player player, ItemStack item, int slot) {
+		if (slot > 8) {
+			return;
+		}
+
+		setItem(player, slot, item);
+	}
+
+	public static void setHotbarContents(Player player, ItemStack... items) {
+		for (int i = 0; i < items.length; i++) {
+			setHotbarItem(player,items[i],i);
+		}
+	}
+
+	/**
 	 * Places items into the players inventory without calling an update method
 	 *
 	 * @param player player to give the items to
@@ -878,12 +983,16 @@ public class Players {
 	}
 
 	public static void setArmor(Player player, ArmorSlot armorSlot, ItemStack itemStack) {
+		if (itemStack == null || armorSlot == null) {
+			return;
+		}
+
 		PlayerInventory inventory = player.getInventory();
 		switch (armorSlot) {
 			case HELMET:
 				inventory.setHelmet(itemStack);
 				break;
-			case CHEST_PLATE:
+			case CHEST:
 				inventory.setChestplate(itemStack);
 				break;
 			case LEGGINGS:
@@ -892,15 +1001,30 @@ public class Players {
 			case BOOTS:
 				inventory.setBoots(itemStack);
 				break;
+			case WEAPON:
+				inventory.setItemInHand(itemStack);
+				break;
 			default:
 				break;
 		}
 	}
 
+	/**
+	 * Get the items a player has equipped.
+	 *
+	 * @param player player to get the armor of
+	 * @return
+	 */
 	public static ItemStack[] getArmor(Player player) {
 		return player.getInventory().getArmorContents();
 	}
 
+	/**
+	 * Get the equipped armor of a player in a specific slot.
+	 * @param player player to get the armor of.
+	 * @param armorSlot which armor slot to get the armor from.
+	 * @return the item equipped in the given slot, or null if none's equipped
+	 */
 	public static ItemStack getArmor(Player player, ArmorSlot armorSlot) {
 		PlayerInventory playerInventory = player.getInventory();
 		ItemStack itemStack = null;
@@ -908,7 +1032,7 @@ public class Players {
 			case HELMET:
 				itemStack = playerInventory.getHelmet();
 				break;
-			case CHEST_PLATE:
+			case CHEST:
 				itemStack = playerInventory.getChestplate();
 				break;
 			case LEGGINGS:
@@ -917,6 +1041,9 @@ public class Players {
 			case BOOTS:
 				itemStack = playerInventory.getBoots();
 				break;
+			case WEAPON:
+				itemStack = playerInventory.getItemInHand();
+				break;
 			default:
 				break;
 		}
@@ -924,7 +1051,7 @@ public class Players {
 	}
 
 	/**
-	 * Sets the players armor to the armor itemstacks
+	 * Sets the players armor.
 	 *
 	 * @param player player to set armor on
 	 * @param armor  itemstack array of the armor we're equipping the player with
@@ -935,7 +1062,18 @@ public class Players {
 	}
 
 	/**
-	 * Removes all the potion effects from this player
+	 * Equip the player with armor.
+	 *
+	 * @param player player to parent.
+	 * @param armor  armor-inventory to assign to the player
+	 */
+	public static void setArmor(Player player, ArmorInventory armor) {
+		for (Map.Entry<ArmorSlot, ItemStack> entry : armor.getArmor().entrySet()) {
+			Players.setArmor(player, entry.getKey(), entry.getValue());
+		}
+	}
+	/**
+	 * Removes all the potion effects from the player
 	 *
 	 * @param player player to remove the potion effects from
 	 * @since 1.0
@@ -949,7 +1087,6 @@ public class Players {
 	 *
 	 * @param player       player to give the potion effect to
 	 * @param potionEffect the potion effect in which to give the player
-	 * @see com.caved_in.commons.entity.Entities#addPotionEffect(org.bukkit.entity.LivingEntity, org.bukkit.potion.PotionEffect)
 	 * @since 1.0
 	 */
 	public static void addPotionEffect(Player player, PotionEffect potionEffect) {
@@ -1389,6 +1526,7 @@ public class Players {
 			return null;
 		}
 	}
+
 
 	/**
 	 * Sends the packet to the players connection.

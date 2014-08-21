@@ -31,8 +31,10 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class Commons extends JavaPlugin {
+	private static Logger logger;
 
 	//TODO Make a way to poll server info from the database
 	private static int serverId = 0;
@@ -72,7 +74,9 @@ public class Commons extends JavaPlugin {
 
 	public static void debug(String... message) {
 		Players.messageAll(Players.getAllDebugging(), message);
-		messageConsole(message);
+		for (String m : message) {
+			logger.info(m);
+		}
 	}
 
 	public static void debug(Collection<String> messages) {
@@ -101,6 +105,9 @@ public class Commons extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		//Assign the logger instance
+		logger = getLogger();
+
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		//Create our thread handlers and execution services
 		threadManager = new RunnableManager(this);
@@ -173,7 +180,10 @@ public class Commons extends JavaPlugin {
 				new DebugItemDeserialize(),
 				new DebugTimeHandler(),
 				new DebugDropInventory(),
-				new DebugPlayerDirection()
+				new DebugPlayerDirection(),
+				new DebugDelayedMessage(),
+				new DebugArmorBuilder(),
+				new DebugCreatureBuilder()
 		);
 	}
 

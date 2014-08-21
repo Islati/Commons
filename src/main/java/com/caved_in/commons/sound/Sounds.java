@@ -76,7 +76,6 @@ public class Sounds {
 	 * @param volume
 	 * @param pitch
 	 */
-	@Deprecated
 	public static void playSoundForPlayersAtLocation(Location location, Sound sound, float volume, float pitch) {
 		location.getWorld().playSound(location, sound, volume, pitch);
 	}

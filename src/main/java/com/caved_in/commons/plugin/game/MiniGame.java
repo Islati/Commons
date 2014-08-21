@@ -3,8 +3,6 @@ package com.caved_in.commons.plugin.game;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.plugin.game.clause.ServerShutdownClause;
-import com.caved_in.commons.plugin.game.gadget.Gadget;
-import com.caved_in.commons.plugin.game.gadget.Gadgets;
 import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.plugin.game.world.ArenaManager;
 import com.caved_in.commons.world.Worlds;
@@ -171,12 +169,6 @@ public abstract class MiniGame extends CraftGame {
 	public void registerGameStates(GameState... states) {
 		for (GameState state : states) {
 			registerGameState(state);
-		}
-	}
-
-	public void registerGadgets(Gadget... gadgets) {
-		for (Gadget gadget : gadgets) {
-			Gadgets.registerGadget(gadget);
 		}
 	}
 

@@ -32,16 +32,16 @@ public class ArenaManager implements ArenaHandler {
 		return arenas.get(worldName);
 	}
 
-	public void addArena(String worldName) {
+	public boolean addArena(String worldName) {
 		if (arenas.containsKey(worldName)) {
 			Commons.debug("Cannot add " + worldName + " as an arena with that name already exists");
-			return;
+			return false;
 		}
 
 		File worldFolder = new File(worldName);
 		if (!worldFolder.exists() || !worldFolder.isDirectory()) {
 			Commons.debug("No world found with name " + worldName);
-			return;
+			return false;
 		}
 
 		//Create a new arena for the given world
@@ -52,18 +52,19 @@ public class ArenaManager implements ArenaHandler {
 
 		Arena arena = new Arena(Worlds.getWorld(worldName));
 		addArena(arena);
+		return true;
 	}
 
-	public void addArena(World world) {
+	public boolean addArena(World world) {
 		if (arenas.containsKey(world.getName())) {
-			return;
+			return false;
 		}
 
-		addArena(new Arena(world));
+		return addArena(new Arena(world));
 	}
 
 	@Override
-	public void addArena(Arena arena) {
+	public boolean addArena(Arena arena) {
 		arenas.put(arena.getWorldName(), arena);
 
 		if (arena.isLobby() && lobby == null) {
@@ -83,6 +84,7 @@ public class ArenaManager implements ArenaHandler {
 		}
 
 		arena.getGame().saveArena(arena);
+		return true;
 	}
 
 	private void initializeArena(Arena arena) {

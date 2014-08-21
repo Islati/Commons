@@ -7,7 +7,7 @@ public interface ArenaHandler {
 
 	public Arena getArena(String worldName);
 
-	public void addArena(Arena arena);
+	public boolean addArena(Arena arena);
 
 	public void cycleArena();
 

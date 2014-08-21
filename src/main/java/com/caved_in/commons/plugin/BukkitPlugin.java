@@ -1,6 +1,10 @@
 package com.caved_in.commons.plugin;
 
 import com.caved_in.commons.command.CommandController;
+import com.caved_in.commons.debug.DebugAction;
+import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.plugin.game.gadget.Gadget;
+import com.caved_in.commons.plugin.game.gadget.Gadgets;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.executors.BukkitExecutors;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
@@ -60,6 +64,16 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
 	public void registerListeners(Listener... listeners) {
 		Plugins.registerListeners(this, listeners);
+	}
+
+	public void registerGadgets(Gadget... gadgets) {
+		for (Gadget gadget : gadgets) {
+			Gadgets.registerGadget(gadget);
+		}
+	}
+
+	public void registerDebugActions(DebugAction... actions) {
+		Debugger.addDebugAction(actions);
 	}
 
 	public BukkitScheduledExecutorService getSyncExecuter() {

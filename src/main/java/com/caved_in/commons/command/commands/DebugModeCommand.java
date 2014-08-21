@@ -8,6 +8,8 @@ import com.caved_in.commons.player.Players;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public class DebugModeCommand {
 
 	@Command(name = "debug", permission = "commons.debugmode")
@@ -22,7 +24,11 @@ public class DebugModeCommand {
 
 		String action = args[0];
 		if (Debugger.isDebugAction(action)) {
-			Debugger.getDebugAction(action).doAction(player);
+			String[] debugArgs = new String[0];
+			if (args.length > 1) {
+				debugArgs = Arrays.copyOfRange(args, 1, args.length);
+			}
+			Debugger.getDebugAction(action).doAction(player, debugArgs);
 			return;
 		}
 

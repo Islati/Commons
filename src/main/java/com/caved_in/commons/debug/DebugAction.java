@@ -8,7 +8,7 @@ public interface DebugAction {
 	 *
 	 * @param player
 	 */
-	public void doAction(Player player);
+	public void doAction(Player player, String... args);
 
 	public String getActionName();
 }

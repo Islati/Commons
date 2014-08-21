@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class DebugPlayerDirection implements DebugAction {
 	@Override
-	public void doAction(Player player) {
+	public void doAction(Player player, String... args) {
 		Players.sendMessage(player, Messages.playerFacingDirection(player));
 	}
 

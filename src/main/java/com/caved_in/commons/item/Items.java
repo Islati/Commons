@@ -451,10 +451,15 @@ public class Items {
 		return setName(itemStack, itemName);
 	}
 
+	@Deprecated
 	public static ItemStack makeItem(MaterialData materialData, String name, String... lore) {
 		ItemStack itemStack = materialData.toItemStack();
 		itemStack = setName(itemStack, name);
 		return setLore(itemStack, Arrays.asList(lore));
+	}
+
+	public static ItemStack makeItem(String name, Material material, String... lore) {
+		return makeItem(material, name, Arrays.asList(lore));
 	}
 
 	public static ItemStack makeItem(Material material, String itemName, List<String> itemLore) {
