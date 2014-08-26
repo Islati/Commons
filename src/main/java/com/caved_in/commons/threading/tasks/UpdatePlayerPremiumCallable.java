@@ -38,7 +38,7 @@ public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
 		final UUID[] uuid = new UUID[1];
 		final boolean[] success = new boolean[1];
 		if (fetch) {
-			ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerName));
+			ListenableFuture<UUID> getPlayerUuid = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerUuidCallable(playerName));
 			Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 				@Override
 				public void onSuccess(UUID id) {

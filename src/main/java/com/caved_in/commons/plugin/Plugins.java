@@ -148,4 +148,8 @@ public class Plugins {
 	public static void callEvent(Event e) {
 		Bukkit.getServer().getPluginManager().callEvent(e);
 	}
+
+	public static boolean hasProtocolLib() {
+		return pluginExists("ProtocolLib");
+	}
 }

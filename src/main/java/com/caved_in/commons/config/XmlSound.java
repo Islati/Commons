@@ -4,6 +4,9 @@ import org.bukkit.Sound;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
+/**
+ * Serializable wrapper for sounds.
+ */
 @Root(name = "sound")
 public class XmlSound {
 	@Attribute(name = "name")

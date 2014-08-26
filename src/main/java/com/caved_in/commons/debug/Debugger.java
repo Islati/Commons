@@ -21,12 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
+ * Used to process and debug information from within minecraft.
  */
 public class Debugger {
 	private static Map<String, DebugAction> debugActions = new HashMap<>();
@@ -35,24 +30,49 @@ public class Debugger {
 	private static final String COMMAND_PREPROCESS_MESSAGE = "&7/%s &r has &l%s&r arguments %s&7";
 	private static HelpScreen debuggerHelpScreen = null;
 
+	/**
+	 * Register a debug action.
+	 *
+	 * @param action action to register.
+	 */
 	public static void addDebugAction(DebugAction action) {
 		debugActions.put(action.getActionName().toLowerCase(), action);
 	}
 
+	/**
+	 * Register debug action(s).
+	 *
+	 * @param actions action(s) to register.
+	 */
 	public static void addDebugAction(DebugAction... actions) {
 		for (DebugAction action : actions) {
 			debugActions.put(action.getActionName().toLowerCase(), action);
 		}
 	}
 
+	/**
+	 * Check if a debug action exists via name.
+	 *
+	 * @param name name to search.
+	 * @return true if an action exists with the given name, false otherwise.
+	 */
 	public static boolean isDebugAction(String name) {
 		return debugActions.containsKey(name.toLowerCase());
 	}
 
+	/**
+	 * Get a debug action by its name.
+	 *
+	 * @param name name of the action to retrieve.
+	 * @return the corresponding debug action if it exists; null otherwise.
+	 */
 	public static DebugAction getDebugAction(String name) {
 		return debugActions.get(name.toLowerCase());
 	}
 
+	/**
+	 * @return a helpscreen containing entries of all the currently-registered debug actions.
+	 */
 	public static HelpScreen getDebugMenu() {
 		if (debuggerHelpScreen == null) {
 			debuggerHelpScreen = Menus.generateHelpScreen("Debugger - Actions List", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
@@ -63,6 +83,13 @@ public class Debugger {
 		return debuggerHelpScreen;
 	}
 
+	/**
+	 * Handle the debugging of an event.
+	 * <b>Currently only the BlockBreakEvent and InventoryClickEvent are handled.</b>
+	 *
+	 * @param player player to send the debug information to
+	 * @param event  event to debug.
+	 */
 	public static void debugEvent(Player player, Event event) {
 		if (event instanceof BlockBreakEvent) {
 			debugBlockBreakEvent(player, (BlockBreakEvent) event);

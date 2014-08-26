@@ -302,11 +302,11 @@ public class Blocks {
 
 	public static void scheduleBlockRegen(Block block, boolean effect, long delay) {
 		BlockData blockData = new BlockData(block);
-		Commons.threadManager.runTaskLater(new BlockRegenThread(blockData, effect), delay);
+		Commons.getInstance().getThreadManager().runTaskLater(new BlockRegenThread(blockData, effect), delay);
 	}
 
 	public static void scheduleBlockRegen(List<Block> blocks, boolean effect, int secondsDelay) {
-		Commons.threadManager.runTaskLater(new BlocksRegenThread(blocks, effect), TimeHandler.getTimeInTicks(secondsDelay, TimeType.SECOND));
+		Commons.getInstance().getThreadManager().runTaskLater(new BlocksRegenThread(blocks, effect), TimeHandler.getTimeInTicks(secondsDelay, TimeType.SECOND));
 	}
 
 	/**

@@ -3,8 +3,10 @@ package com.caved_in.commons.plugin;
 import com.caved_in.commons.command.CommandController;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
-import com.caved_in.commons.plugin.game.gadget.Gadget;
-import com.caved_in.commons.plugin.game.gadget.Gadgets;
+import com.caved_in.commons.game.gadget.Gadget;
+import com.caved_in.commons.game.gadget.Gadgets;
+import com.caved_in.commons.item.ItemMessage;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.executors.BukkitExecutors;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
@@ -12,6 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BukkitPlugin extends JavaPlugin {
 
@@ -23,10 +28,16 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
 	private RunnableManager threadManager;
 
+	private ItemMessage itemMessage;
+
+	private Logger logger;
+
 	public void onEnable() {
 		threadManager = new RunnableManager(this);
 		syncExecuter = BukkitExecutors.newSynchronous(this);
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
+		itemMessage = new ItemMessage(this);
+		logger = getLogger();
 
 		//If the game doesn't have a data folder then make one
 		if (!Plugins.hasDataFolder(this)) {
@@ -91,5 +102,16 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
 	public RunnableManager getThreadManager() {
 		return threadManager;
+	}
+
+	public ItemMessage getItemMessage() {
+		return itemMessage;
+	}
+
+	public void debug(String... message) {
+		Players.messageAll(Players.getAllDebugging(), message);
+		for (String m : message) {
+			logger.log(Level.INFO, m);
+		}
 	}
 }

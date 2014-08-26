@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ *
+ */
 public enum ExtraItems {
 	COARSE_DIRT(Material.DIRT, 1, "coarse", "corse", "course"),
 	PODZOL(Material.DIRT, 2, "podzol", "podsol", "posol", "potsoul"),

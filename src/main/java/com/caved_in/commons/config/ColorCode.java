@@ -7,6 +7,9 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Minecraft colors attached with permissions; Used to color the name-tags and titles of players (internally)
+ */
 public enum ColorCode {
 	BLACK("commons.color.black", ChatColor.BLACK),
 	DARK_BLUE("commons.color.darkblue", ChatColor.DARK_BLUE),

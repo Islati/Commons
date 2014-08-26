@@ -1,11 +1,12 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.block.Direction;
+import com.caved_in.commons.game.gadget.Gadget;
+import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
@@ -88,6 +89,10 @@ public class Messages {
 
 	public static String arenaSpawnAdded(Arena arena, Location loc) {
 		return String.format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
+	}
+
+	public static String gadgetExpired(Gadget gadget) {
+		return String.format("&eThe '&6%s&e' gadget has degraded fully.", Items.getName(gadget.getItem()));
 	}
 
 	public static String playerDataLoadAttempt(String playerName) {

@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class RunnableManager {
 	private JavaPlugin plugin;
@@ -66,11 +67,12 @@ public class RunnableManager {
 	}
 
 	public void cancelTasks() {
+		Logger logger = Commons.getInstance().getLogger();
 		BukkitScheduler scheduler = Bukkit.getScheduler();
 		for (Integer i : runningTasks.values()) {
 			if (scheduler.isCurrentlyRunning(i) || scheduler.isQueued(i)) {
 				scheduler.cancelTask(i);
-				Commons.debug("Cancelled task " + i + " from executing / continuing execution.");
+				logger.info("Cancelled task " + i + " from executing / continuing execution.");
 			}
 		}
 	}

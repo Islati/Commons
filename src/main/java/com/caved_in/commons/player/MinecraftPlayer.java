@@ -108,7 +108,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 		}
 
 		//Create an async future to get the punishments for this player (and load them into the player wrapper instance)
-		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.asyncExecutor.submit(new GetPlayerPunishmentsCallable(id));
+		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerPunishmentsCallable(id));
 		Futures.addCallback(punishmentListenable, new FutureCallback<Set<Punishment>>() {
 			@Override
 			public void onSuccess(Set<Punishment> punishmentSet) {

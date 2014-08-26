@@ -7,26 +7,34 @@ import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.game.gadget.Gadget;
+import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.inventory.ArmorInventory;
 import com.caved_in.commons.inventory.ArmorSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.permission.Permission;
-import com.caved_in.commons.plugin.game.world.Arena;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
+import com.caved_in.commons.threading.RunnableManager;
+import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import net.minecraft.util.io.netty.channel.Channel;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
@@ -356,6 +364,72 @@ public class Players {
 		return player.getUniqueId();
 	}
 
+	public static void ban(Player player, Punishment punishment) {
+		String playerName = player.getName();
+		if (!Commons.hasSqlBackend()) {
+			player.setBanned(true);
+			Players.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			return;
+		}
+
+		ListenableFuture<Boolean> banPlayerFuture = Commons.getInstance().getAsyncExecuter().submit(new BanPlayerCallable(player.getUniqueId(), punishment));
+		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean banned) {
+				if (banned) {
+					Players.kick(player, punishment.getReason(), true);
+					Players.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+				} else {
+					Players.messageAll(Players.onlineOperators(), Messages.playerNotBanned(playerName));
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+				throwable.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * Issue a ban for the given player.
+	 * If Commons is setup to use a database the ban will be handled through the async executor,
+	 * otherwise bukkits method will be used.
+	 *
+	 * @param player     name of the player to ban
+	 * @param punishment punishment to apply to the player
+	 */
+	public static void ban(String player, Punishment punishment) {
+		if (!Commons.hasSqlBackend()) {
+			if (!Players.isOnline(player)) {
+				return;
+			}
+			Players.getPlayer(player).setBanned(true);
+			Players.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			return;
+		}
+
+		ListenableFuture<Boolean> banPlayerFuture = Commons.getInstance().getAsyncExecuter().submit(new BanPlayerCallable(player, punishment));
+		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
+			@Override
+			public void onSuccess(Boolean banned) {
+				if (banned) {
+					if (Players.isOnline(player)) {
+						Players.kick(Players.getPlayer(player), punishment.getReason(), true);
+					}
+					Players.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+				} else {
+					Players.messageAll(Players.onlineOperators(), Messages.playerNotBanned(player));
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+				throwable.printStackTrace();
+			}
+		});
+	}
+
 	/**
 	 * Kicks the player for the reason defined
 	 * <p>
@@ -375,7 +449,7 @@ public class Players {
 			kick(player, reason);
 			return;
 		}
-		Commons.threadManager.runTaskOneTickLater(new KickPlayerThread(player.getUniqueId(), reason));
+		Commons.getInstance().getThreadManager().runTaskOneTickLater(new KickPlayerThread(player.getUniqueId(), reason));
 	}
 
 	/**
@@ -600,18 +674,35 @@ public class Players {
 		}
 	}
 
+	/**
+	 * Send the player
+	 *
+	 * @param receiver
+	 * @param sound
+	 * @param delay
+	 * @param messages
+	 */
 	public static void sendSoundedMessage(Player receiver, Sound sound, int delay, String... messages) {
 		int index = 1;
+		RunnableManager threadManager = Commons.getInstance().getThreadManager();
 		for (String message : messages) {
-			Commons.threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
+			threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
 			index += 1;
 		}
 	}
 
+	/**
+	 * Send the player a set of messages, with the given delay (in seconds) between each message.
+	 *
+	 * @param receiver player receiving the message(s).
+	 * @param delay    delay between each message being received.
+	 * @param messages messages to send to the player.
+	 */
 	public static void sendDelayedMessage(Player receiver, int delay, final String... messages) {
 		int index = 1;
+		RunnableManager threadManager = Commons.getInstance().getThreadManager();
 		for (String message : messages) {
-			Commons.threadManager.runTaskLater(new DelayedMessage(receiver, message), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
+			threadManager.runTaskLater(new DelayedMessage(receiver, message), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
 			index += 1;
 		}
 	}
@@ -716,14 +807,31 @@ public class Players {
 		teleport(player, warp.getLocation());
 	}
 
+	/**
+	 * Teleport the player to the spawn of the given world.
+	 *
+	 * @param player player to teleport.
+	 * @param world  world to teleport the player to.
+	 */
 	public static void teleportToSpawn(Player player, World world) {
 		teleport(player, Worlds.getSpawn(world));
 	}
 
+	/**
+	 * Teleport the player to the spawn of the given arena.
+	 *
+	 * @param player player to teleport.
+	 * @param arena  arena to teleport the player to.
+	 */
 	public static void teleportToSpawn(Player player, Arena arena) {
 		teleportToSpawn(player, arena.getWorld());
 	}
 
+	/**
+	 * Teleport all players to the spawn of the given arena.
+	 *
+	 * @param arena arena to teleport all players to.
+	 */
 	public static void teleportAllToSpawn(Arena arena) {
 		stream().forEach(p -> teleportToSpawn(p, arena));
 	}
@@ -763,15 +871,40 @@ public class Players {
 		return player.getAddress().getHostName();
 	}
 
+	/**
+	 * Check if the player has a specific permission node.
+	 *
+	 * @param player     player to check permission for.
+	 * @param permission permission to check for.
+	 * @return true if the player has the given permission, false otherwise.
+	 */
 	public static boolean hasPermission(Player player, String permission) {
 		return player.hasPermission(permission);
 	}
 
+	/**
+	 * Check if the player has a specific permission node.
+	 *
+	 * @param player     player to check permissions for.
+	 * @param permission permission to check for.
+	 * @return true if the player has the given permission, false otherwise.
+	 */
 	public static boolean hasPermission(Player player, Permission permission) {
 		return hasPermission(player, permission.toString());
 	}
 
+	/**
+	 * Check if the given id has any punishments of the given type active.
+	 *
+	 * @param uniqueId id to search for.
+	 * @param type     type of punishment to search for.
+	 * @return true if the id has any active punishments of the desired type, false if the database feature of commons is disabled or the player has no punishments of the type specified.
+	 */
 	public static boolean hasActivePunishment(UUID uniqueId, PunishmentType type) {
+		if (!Commons.hasSqlBackend()) {
+			return false;
+		}
+
 		Set<Punishment> punishments = Commons.database.getActivePunishments(uniqueId);
 		for (Punishment punishment : punishments) {
 			if (punishment.getPunishmentType() == type) {
@@ -781,10 +914,23 @@ public class Players {
 		return false;
 	}
 
+	/**
+	 * Check if the player has any active punishments of the given type.
+	 *
+	 * @param player player to check.
+	 * @param type   type of punishment to search for.
+	 * @return true if the player has a punishment of the given type, false otherwise.
+	 */
 	public static boolean hasActivePunishment(Player player, PunishmentType type) {
 		return hasActivePunishment(player.getUniqueId(), type);
 	}
 
+	/**
+	 * Check if a player with the given UUID has played before.
+	 *
+	 * @param playerId id to search for.
+	 * @return true if there was data in the database with the given uuid, or a player with the id is currently online; false otherwise.
+	 */
 	public static boolean hasPlayed(UUID playerId) {
 		boolean online = isOnline(playerId);
 		if (Commons.hasSqlBackend() && !online) {
@@ -793,6 +939,12 @@ public class Players {
 		return online;
 	}
 
+	/**
+	 * Check whether or not a player of the given name has played on the server before.
+	 *
+	 * @param name name of the player to check for.
+	 * @return true if the player has played before and their data resides in the database, or they're currently online; False otherwise.
+	 */
 	public static boolean hasPlayed(String name) {
 		boolean online = isOnline(name);
 		if (Commons.hasSqlBackend() && !online) {
@@ -868,6 +1020,13 @@ public class Players {
 		clearInventory(player, true);
 	}
 
+	/**
+	 * Set the contents of the players inventory.
+	 *
+	 * @param player         the player to set the inventory on.
+	 * @param itemMap        map of indices and the items to set to said index.
+	 * @param clearInventory whether or not to clear the players inventory. If not, current items may be overriden.
+	 */
 	public static void setInventory(Player player, Map<Integer, ItemStack> itemMap, boolean clearInventory) {
 		if (clearInventory) {
 			clearInventory(player, true);
@@ -893,6 +1052,11 @@ public class Players {
 		}
 	}
 
+	/**
+	 * Force the player to drop their inventories contents.
+	 *
+	 * @param player player to drop the inventory of.
+	 */
 	public static void dropInventory(Player player) {
 		ItemStack[] inventoryContents = player.getInventory().getContents();
 		Players.clearInventory(player);
@@ -916,6 +1080,14 @@ public class Players {
 		player.getInventory().addItem(itemStack);
 	}
 
+	/**
+	 * Give the player an item, optionally dropping it if they have no free room in their inventory.
+	 *
+	 * @param player    player to give the item to.
+	 * @param itemStack item to give to the player.,
+	 * @param drop      whether or not to drop the item if there's no free space.
+	 * @return true if the player received the item, false if there was no free space and the item wasn't dropped.
+	 */
 	public static boolean giveItem(Player player, ItemStack itemStack, boolean drop) {
 		PlayerInventory inventory = player.getInventory();
 		if (inventory.firstEmpty() == -1) {
@@ -929,6 +1101,13 @@ public class Players {
 		return true;
 	}
 
+	/**
+	 * Set the item at a specific slot in the players inventory.
+	 *
+	 * @param player player to operate on.
+	 * @param slot   slot to assign the item to.
+	 * @param item   item to put in the given slot.
+	 */
 	public static void setItem(Player player, int slot, ItemStack item) {
 		Inventories.setItem(player.getInventory(), slot, item);
 	}
@@ -962,9 +1141,15 @@ public class Players {
 		setItem(player, slot, item);
 	}
 
+	/**
+	 * Set the contents of a players hotbar.
+	 *
+	 * @param player player to change the hotbar of.
+	 * @param items  items to set the players hotbar to.
+	 */
 	public static void setHotbarContents(Player player, ItemStack... items) {
 		for (int i = 0; i < items.length; i++) {
-			setHotbarItem(player,items[i],i);
+			setHotbarItem(player, items[i], i);
 		}
 	}
 
@@ -982,6 +1167,13 @@ public class Players {
 		}
 	}
 
+	/**
+	 * Set the armor in a specific slot for the given player.
+	 *
+	 * @param player    player to change the armor of.
+	 * @param armorSlot slot to assign the armor to.
+	 * @param itemStack item to assign as armor in the given slot.
+	 */
 	public static void setArmor(Player player, ArmorSlot armorSlot, ItemStack itemStack) {
 		if (itemStack == null || armorSlot == null) {
 			return;
@@ -1013,7 +1205,7 @@ public class Players {
 	 * Get the items a player has equipped.
 	 *
 	 * @param player player to get the armor of
-	 * @return
+	 * @return the items a player has equipped.
 	 */
 	public static ItemStack[] getArmor(Player player) {
 		return player.getInventory().getArmorContents();
@@ -1021,9 +1213,10 @@ public class Players {
 
 	/**
 	 * Get the equipped armor of a player in a specific slot.
-	 * @param player player to get the armor of.
+	 *
+	 * @param player    player to get the armor of.
 	 * @param armorSlot which armor slot to get the armor from.
-	 * @return the item equipped in the given slot, or null if none's equipped
+	 * @return the item equipped in the given slot, or null if none is equipped.
 	 */
 	public static ItemStack getArmor(Player player, ArmorSlot armorSlot) {
 		PlayerInventory playerInventory = player.getInventory();
@@ -1072,6 +1265,7 @@ public class Players {
 			Players.setArmor(player, entry.getKey(), entry.getValue());
 		}
 	}
+
 	/**
 	 * Removes all the potion effects from the player
 	 *
@@ -1109,10 +1303,18 @@ public class Players {
 		return Bukkit.getOnlinePlayers();
 	}
 
+	/**
+	 * @return Lambda stream of all the currently online players.
+	 */
 	public static Stream<Player> stream() {
 		return Stream.of(allPlayers());
 	}
 
+	/**
+	 * Get a set of all the online operators.
+	 *
+	 * @return a hashset of all the currently online operators.
+	 */
 	public static Set<Player> onlineOperators() {
 		Set<Player> players = new HashSet<>();
 		for (Player player : allPlayers()) {
@@ -1123,19 +1325,36 @@ public class Players {
 		return players;
 	}
 
+
+	/**
+	 * Retrieve a random player of those currently online.
+	 *
+	 * @return a random online player.
+	 */
 	public static Player getRandomPlayer() {
-		Player[] players = allPlayers();
-		return players[new Random().nextInt(players.length)];
+		return ArrayUtils.getRandom(allPlayers());
 	}
 
+	/**
+	 * Retrieve all the players in a specific world.
+	 *
+	 * @param world world to search for players in.
+	 * @return a collection of all players in the given world.
+	 */
 	public static Collection<Player> allPlayers(World world) {
 		return world.getEntitiesByClass(Player.class);
 	}
 
+	/**
+	 * @return a collection of all the player wrappers used by commons.
+	 */
 	public static Collection<MinecraftPlayer> allPlayerWrappers() {
 		return playerData.values();
 	}
 
+	/**
+	 * @return a set of all players who's currently in debug mode.
+	 */
 	public static Set<Player> getAllDebugging() {
 		Set<Player> players = new HashSet<>();
 		for (MinecraftPlayer wrapper : playerData.values()) {
@@ -1146,6 +1365,12 @@ public class Players {
 		return players;
 	}
 
+	/**
+	 * Get a collection of players by their UUIDs.
+	 *
+	 * @param ids ids of players ot retrieve
+	 * @return a set of players whos is one of the specified ids.
+	 */
 	public static Set<Player> getPlayers(Collection<UUID> ids) {
 		Set<Player> players = new HashSet<>();
 		for (UUID id : ids) {
@@ -1175,6 +1400,12 @@ public class Players {
 		return players;
 	}
 
+	/**
+	 * Retrieve a set of players except those who's UUID matches one of those specified.
+	 *
+	 * @param playerIds id's of players to exclude.
+	 * @return all players except those with excluded uuids.
+	 */
 	public static Set<Player> allPlayersExcept(UUID... playerIds) {
 		Set<Player> players = Sets.newHashSet(allPlayers());
 		Set<UUID> uniqueIds = Sets.newHashSet(playerIds);
@@ -1314,6 +1545,11 @@ public class Players {
 		Entities.setHealth(player, Entities.getMaxHealth(player));
 	}
 
+	/**
+	 * Stop the player from burning.
+	 *
+	 * @param player player to stop the fire on.
+	 */
 	public static void removeFire(Player player) {
 		Entities.removeFire(player);
 	}
@@ -1359,18 +1595,42 @@ public class Players {
 		return player.getItemInHand() != null && player.getItemInHand().getType() != Material.AIR;
 	}
 
+	/**
+	 * Check if the player has the given item in their hand.
+	 *
+	 * @param player  player to check the hand of.
+	 * @param compare item to check for.
+	 * @return true if the given item matches the item in the players hand, false otherwise.
+	 */
 	public static boolean hasItemInHand(Player player, ItemStack compare) {
 		return player.getItemInHand().isSimilar(compare);
 	}
 
+	/**
+	 * Check if the player is holding any items.
+	 *
+	 * @param player player to check.
+	 * @return true if the player has nothing in their hand, false otherwise.
+	 */
 	public static boolean handIsEmpty(Player player) {
 		return !hasItemInHand(player);
 	}
 
+	/**
+	 * Remove the item the player has in their hand/
+	 *
+	 * @param player player to clear the hand of.
+	 */
 	public static void clearHand(Player player) {
 		player.setItemInHand(null);
 	}
 
+	/**
+	 * Remove a specific amount of items from the stack the player's holding.
+	 *
+	 * @param player player to take the items from.
+	 * @param amount amount of items take from the stack.
+	 */
 	public static void removeFromHand(Player player, int amount) {
 		if (!Players.hasItemInHand(player)) {
 			return;
@@ -1394,30 +1654,84 @@ public class Players {
 		return Inventories.contains(player.getInventory(), material, name);
 	}
 
+	/**
+	 * Check if the player has any items in their inventory matching the given item.
+	 *
+	 * @param player player to check.
+	 * @param item   item to search for.
+	 * @return true if the player has an item matching the given item, false otherwise.
+	 */
 	public static boolean hasItem(Player player, ItemStack item) {
 		return Inventories.contains(player.getInventory(), item);
 	}
 
+	/**
+	 * Check if the player has any items of the given material in their inventory.
+	 *
+	 * @param player   player to check.
+	 * @param material material to search for.
+	 * @return true if any items match the given material, false otherwise.
+	 */
 	public static boolean hasItem(Player player, Material material) {
 		return Inventories.contains(player.getInventory(), material);
 	}
 
+	/**
+	 * Check if the player has the gadget in their inventory.
+	 *
+	 * @param player player to check.
+	 * @param gadget gadget to search for on the player.
+	 * @return true if the player has the gadget in their inventory, false otherwise.
+	 */
+	public static boolean hasGadget(Player player, Gadget gadget) {
+		return Players.hasItem(player, gadget.getItem());
+	}
+
+	/**
+	 * Hide a collection of players for the target player.
+	 *
+	 * @param player  player to hide the others for.
+	 * @param targets players to hide from the target player.
+	 */
 	public static void hidePlayers(Player player, Collection<Player> targets) {
 		targets.forEach(player::hidePlayer);
 	}
 
+	/**
+	 * Unhide a collection of players from the target player.
+	 *
+	 * @param player  player to hide others for.
+	 * @param targets players to unhide for the target player.
+	 */
 	public static void unhidePlayers(Player player, Collection<Player> targets) {
 		targets.forEach(player::showPlayer);
 	}
 
+	/**
+	 * Hide the target player from a collection of players.
+	 *
+	 * @param players players to operate on.
+	 * @param target  player to hide for the other players.
+	 */
 	public static void hidePlayer(Collection<Player> players, Player target) {
 		players.forEach(p -> p.hidePlayer(target));
 	}
 
+
+	/**
+	 * Unhide the target player from a collection of players
+	 *
+	 * @param players players to operate on.
+	 */
 	public static void unhidePlayer(Collection<Player> players, Player target) {
 		players.forEach(p -> p.showPlayer(target));
 	}
 
+	/**
+	 * Hide all players from view for the player.
+	 *
+	 * @param player player to hide others for.
+	 */
 	public static void hidePlayers(Player player) {
 		for (Player p : allPlayers()) {
 			player.hidePlayer(p);
@@ -1425,6 +1739,11 @@ public class Players {
 		getData(player).setHidingOtherPlayers(true);
 	}
 
+	/**
+	 * Make all players on the server visible to the player.
+	 *
+	 * @param player player to unhide others for.
+	 */
 	public static void unhidePlayers(Player player) {
 		for (Player p : allPlayers()) {
 			player.showPlayer(p);
@@ -1457,12 +1776,25 @@ public class Players {
 		return Worlds.getWorldName(player);
 	}
 
+	/**
+	 * Play a sound for all online players with a specific volume and pitch.
+	 *
+	 * @param sound  sound to play.
+	 * @param volume volume to play the sound at.
+	 * @param pitch  pitch to play the sound at.
+	 */
 	public static void playSoundAll(Sound sound, float volume, float pitch) {
 		for (Player p : allPlayers()) {
 			Sounds.playSound(p, sound, volume, pitch);
 		}
 	}
 
+	/**
+	 * Play the sound at the given volume for all online players.
+	 *
+	 * @param sound  sound to play.
+	 * @param volume volume to play the sound at.
+	 */
 	public static void playSoundAll(Sound sound, int volume) {
 		playSoundAll(sound, volume, 1.0f);
 	}
@@ -1470,8 +1802,8 @@ public class Players {
 	/**
 	 * Get the cardinal compass direction of a player.
 	 *
-	 * @param player
-	 * @return
+	 * @param player player to get the direction of.
+	 * @return The direction the player's facing. (North(e,w),South(e,w),East, West)
 	 */
 	public static Direction getCardinalDirection(Player player) {
 		double rot = (player.getLocation().getYaw() - 90) % 360;
@@ -1481,6 +1813,12 @@ public class Players {
 		return getDirection(rot);
 	}
 
+	/**
+	 * Retrieve the direction the player is facing. Does <b>not</b> return the cardinal direction.
+	 *
+	 * @param player player to get the direction of.
+	 * @return Direction the player's facing (North/South/East/West)
+	 */
 	public static Direction getDirection(Player player) {
 		int dirCode = Math.round(player.getLocation().getYaw() / 90f);
 		switch (dirCode) {

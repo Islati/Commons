@@ -36,7 +36,7 @@ public class Warps {
 	public static void addWarp(Warp warp) {
 		warps.put(warp.getName(), warp);
 		setUpdated(true);
-		Commons.debug("Added warp " + warp.getName());
+		Commons.getInstance().debug("Added warp " + warp.getName());
 	}
 
 	private static void initWarpPages() {
@@ -95,7 +95,7 @@ public class Warps {
 	 * Load all the warps into memory.
 	 */
 	public static void loadWarps() {
-		Commons.debug("Loading warps");
+		Commons.getInstance().debug("Loading warps");
 		Collection<File> warpFiles = FileUtils.listFiles(new File(Commons.WARP_DATA_FOLDER), null, false);
 		//Loop through all the files and load warps
 		for (File file : warpFiles) {
@@ -105,7 +105,7 @@ public class Warps {
 				e.printStackTrace();
 			}
 		}
-		Commons.debug("Warps Loaded, initializing pages!");
+		Commons.getInstance().debug("Warps Loaded, initializing pages!");
 		initWarpPages();
 	}
 

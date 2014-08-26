@@ -59,7 +59,7 @@ class CallableTask<T> extends RunnableAbstractFuture<T> {
 			public long getDelay(TimeUnit unit) {
 				long current = System.nanoTime();
 
-				// Calculate the correct delay
+				// Calculate the correct canUse
 				if (current < startTime || !isPeriodic()) {
 					return unit.convert(startTime - current, TimeUnit.NANOSECONDS);
 				} else {

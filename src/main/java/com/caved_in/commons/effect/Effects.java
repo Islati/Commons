@@ -40,10 +40,24 @@ public class Effects {
 		}
 	}
 
+	/**
+	 * Plays the effect for a single player, at a specific location.
+	 *
+	 * @param player    player who'll see the effect.
+	 * @param location  location to play the block break effect
+	 * @param effect    effect to play
+	 * @param blockType material to assign to the effect.
+	 */
 	public static void playBlockEffect(Player player, Location location, Effect effect, Material blockType) {
 		player.playEffect(location, effect, blockType.getId());
 	}
 
+	/**
+	 * Strike lightning at a specific location.
+	 *
+	 * @param loc    location to strike with lightning
+	 * @param damage whether or not to apply damage.
+	 */
 	public static void strikeLightning(Location loc, boolean damage) {
 		World world = loc.getWorld();
 		if (damage) {
@@ -53,24 +67,57 @@ public class Effects {
 		}
 	}
 
+	/**
+	 * Make it look like the player is bleeding.
+	 *
+	 * @param player player to make bleed!
+	 */
 	public static void playBleedEffect(Player player) {
 		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE_WIRE);
 	}
 
+	/**
+	 * Make it look like the player's bleeding.
+	 *
+	 * @param player    player to make bleed!
+	 * @param intensity the amount of times to play the effect (the greater the value, the more intense it'll be)
+	 */
 	public static void playBleedEffect(Player player, int intensity) {
 		for (int i = 0; i < intensity; i++) {
 			playBleedEffect(player);
 		}
 	}
 
+	/**
+	 * Play a(n) effect at a specific location viewed by everyone within a defined radius.
+	 *
+	 * @param location location to play the effect
+	 * @param effect   effect to play
+	 * @param data     data to attach to the effect
+	 * @param radius   radius to search for players
+	 */
 	public static void playEffect(Location location, Effect effect, int data, int radius) {
 		location.getWorld().playEffect(location, effect, data, radius);
 	}
 
+	/**
+	 * Play a(n) effect at a specific location viewed by everyone within a 10 block radius.
+	 *
+	 * @param location location to play the effect
+	 * @param effect   effect to play
+	 */
 	public static void playEffect(Location location, Effect effect) {
 		playEffect(location, effect, 1, BLEED_EFFECT_RADIUS);
 	}
 
+	/**
+	 * Create an explosion at a specific location.
+	 *
+	 * @param location    location to make the explosion at.
+	 * @param power       power behind the explosion.
+	 * @param setFire     whether or not to burn things afterwards.
+	 * @param breakBlocks whether or not blocks will break due to the explosion.
+	 */
 	public static void explode(Location location, float power, boolean setFire, boolean breakBlocks) {
 		World world = location.getWorld();
 		int[] xyz = Locations.getXYZ(location);

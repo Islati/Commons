@@ -1,6 +1,6 @@
 package com.caved_in.commons.inventory;
 
-import com.caved_in.commons.block.chest.ChestType;
+import com.caved_in.commons.block.ChestType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;

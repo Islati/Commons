@@ -49,7 +49,7 @@ public class DelayedSoundMessageThread implements Runnable {
 	@Override
 	public void run() {
 		if (messageIndex >= finalIndex) {
-			Commons.threadManager.cancelTask(taskId);
+			Commons.getInstance().getThreadManager().cancelTask(taskId);
 			return;
 		}
 
@@ -64,7 +64,7 @@ public class DelayedSoundMessageThread implements Runnable {
 			messageCooldown.setOnCooldown(player);
 			messageIndex++;
 		} catch (IndexOutOfBoundsException e) {
-			Commons.debug("Uh oh! Message index[" + messageIndex + "] doesn't exist!\n" + StringUtil.joinString(messages, "\n"));
+			Commons.getInstance().debug("Uh oh! Message index[" + messageIndex + "] doesn't exist!\n" + StringUtil.joinString(messages, "\n"));
 		}
 	}
 }

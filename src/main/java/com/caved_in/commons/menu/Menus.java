@@ -80,7 +80,7 @@ public class Menus {
 
 	public static void switchMenu(final Player player, ItemMenu fromMenu, ItemMenu toMenu) {
 		fromMenu.closeMenu(player);
-		Commons.threadManager.runTaskOneTickLater(() -> toMenu.openMenu(player));
+		Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> toMenu.openMenu(player));
 	}
 
 	/*

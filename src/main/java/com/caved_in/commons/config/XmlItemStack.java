@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Serializable wrapper for ItemStacks.
+ */
 @Root(name = "itemstack")
 public class XmlItemStack {
 	@Element(name = "item-id")

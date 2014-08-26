@@ -13,6 +13,9 @@ import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Serializable item menu, used to create the 'server-selection-menu' in Commons.
+ */
 @Root(name = "menu-item")
 public class XmlMenuItem {
 	@Attribute(name = "y")

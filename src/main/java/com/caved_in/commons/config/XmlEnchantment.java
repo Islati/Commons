@@ -4,6 +4,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
+/**
+ * Serializable wrapper for item enchantments.
+ */
 @Root(name = "enchantment")
 public class XmlEnchantment {
 	@Attribute(name = "name")

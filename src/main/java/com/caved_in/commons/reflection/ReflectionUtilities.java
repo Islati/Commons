@@ -21,30 +21,45 @@ public class ReflectionUtilities {
 	}
 
 	/**
-	 * Class stuff
+	 * Retrieve a class.
+	 * @param name name of the class to retrieve
+	 * @return the class if found, otherwise null.
 	 */
-
 	public static Class getClass(String name) {
 		try {
 			return Class.forName(name);
 		} catch (ClassNotFoundException e) {
-			Commons.debug("Could not find class: " + name + "!");
+			Commons.getInstance().debug("Could not find class: " + name + "!");
 		}
 		return null;
 	}
 
+	/**
+	 * Retrieve a(n) NMS class.
+	 *
+	 * @param className name of the class to retrieve
+	 * @return the class if found, otherwise null
+	 */
 	public static Class getNMSClass(String className) {
 		return getClass(NMS_PATH + "." + className);
 	}
 
+	/**
+	 * Retrieve a(n) Craft Bukkit class
+	 * @param className name of the class to retrieve
+	 * @return the class if found, otherwise null
+	 */
 	public static Class getCBClass(String className) {
 		return getClass(CB_PATH + "." + className);
 	}
 
 	/**
-	 * Field stuff
+	 * Retrieve a field by its name.
+	 * If the field is by default inaccessible then change it to allow access.
+	 * @param clazz class to retrieve the field from
+	 * @param fieldName name of the field to retrieve.
+	 * @return the field if found, otherwise null.
 	 */
-
 	public static Field getField(Class<?> clazz, String fieldName) {
 		try {
 			Field field = clazz.getDeclaredField(fieldName);

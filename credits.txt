@@ -1,0 +1,23 @@
+Throughout the creation of Commons, various classes from different authors have been included, and
+as I see more incredible pieces that I feel will ease & aid the development of plugins with commons, I'll
+keep adding them!
+
+- Codename_B:
+  * https://forums.bukkit.org/members/codename_b.39980/
+
+  Contributions:
+  	FireWorkEffectPlayer - https://forums.bukkit.org/threads/util-fireworkeffectplayer-v1-0.119424/
+
+- Sk89q:
+  * http://forums.bukkit.org/members/sk89q.26/
+
+  Contributions:
+  	ItemID class - https://github.com/sk89q/WorldEdit/tree/master/src/main/java/com/sk89q/worldedit/blocks
+  	BlockID class - https://github.com/sk89q/WorldEdit/tree/master/src/main/java/com/sk89q/worldedit/blocks
+	ItemType class - https://github.com/sk89q/WorldEdit/tree/master/src/main/java/com/sk89q/worldedit/blocks
+
+- desht:
+  * https://forums.bukkit.org/members/desht.36011/
+
+  Contributions:
+  	ItemMessage - https://forums.bukkit.org/threads/itemmessage-use-item-metadata-to-create-popup-messages.167979/

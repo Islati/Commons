@@ -38,4 +38,5 @@ public interface IPunishment {
 	 */
 	public UUID getIssuer();
 
+
 }

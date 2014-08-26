@@ -23,6 +23,10 @@ public class ItemBuilder {
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
 
+	public static ItemBuilder of(Material material) {
+		return new ItemBuilder(material);
+	}
+
 	public ItemBuilder(Material material) {
 		this.material = material;
 	}
@@ -40,41 +44,41 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemBuilder withName(String name) {
+	public ItemBuilder name(String name) {
 		this.name = StringUtil.formatColorCodes(name);
 		return this;
 	}
 
-	public ItemBuilder withLore(String... lore) {
+	public ItemBuilder lore(String... lore) {
 		Collections.addAll(this.lore, lore);
 		return this;
 	}
 
-	public ItemBuilder withLore(List<String> lore) {
+	public ItemBuilder lore(List<String> lore) {
 		this.lore.addAll(lore);
 		return this;
 	}
 
-	public ItemBuilder withDurability(short durability) {
+	public ItemBuilder durability(short durability) {
 		this.durability = durability;
 		return this;
 	}
 
-	public ItemBuilder withEnchantment(Enchantment enchantment, int level) {
-		return withEnchantment(enchantment, level, true);
+	public ItemBuilder enchantment(Enchantment enchantment, int level) {
+		return enchantment(enchantment, level, true);
 	}
 
-	public ItemBuilder withEnchantment(Enchantment enchantment, int level, boolean glow) {
+	public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
 		enchantments.add(new EnchantWrapper(enchantment, level, glow));
 		return this;
 	}
 
-	public ItemBuilder withMaterialData(MaterialData materialData) {
+	public ItemBuilder materialData(MaterialData materialData) {
 		this.materialData = materialData;
 		return this;
 	}
 
-	public ItemStack toItemStack() {
+	public ItemStack item() {
 		ItemStack itemStack = new ItemStack(material, amount);
 		ItemMeta itemMeta = itemStack.getItemMeta();
 		//If the name for the builders been set then set the name on the item

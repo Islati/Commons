@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AddCurrencyCommand {
-	@Command(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "common.currency.add")
+	@Command(name = "addcurrency", usage = "/addcurrency <Player> <Amount>", permission = "commons.command.addcurrency")
 	public void addCurrencyCommand(CommandSender sender, String[] args) {
 		if (args.length < 2) {
 			Players.sendMessage(sender, Messages.invalidCommandUsage("Player", "Amount"));

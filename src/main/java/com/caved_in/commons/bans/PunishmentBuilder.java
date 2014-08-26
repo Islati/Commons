@@ -1,21 +1,18 @@
 package com.caved_in.commons.bans;
 
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
+
 import java.util.UUID;
 
-/**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
- */
 public class PunishmentBuilder {
 	private PunishmentType type;
 	private long expiry;
 	private long issued;
 	private String reason;
 	private UUID issuer;
+
+	private boolean forever = false;
 
 	public PunishmentBuilder() {
 	}
@@ -42,6 +39,14 @@ public class PunishmentBuilder {
 
 	public PunishmentBuilder withIssuer(UUID issuer) {
 		this.issuer = issuer;
+		return this;
+	}
+
+	public PunishmentBuilder permanent(boolean val) {
+		this.forever = val;
+		if (val) {
+			return expiresOn(System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR));
+		}
 		return this;
 	}
 

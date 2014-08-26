@@ -31,7 +31,7 @@ public class BuyPremiumCommand {
 			return;
 		}
 
-		ListenableFuture<Boolean> updatePremiumStatusFuture = Commons.asyncExecutor.submit(new UpdatePlayerPremiumCallable(playerName, true));
+		ListenableFuture<Boolean> updatePremiumStatusFuture = Commons.getInstance().getAsyncExecuter().submit(new UpdatePlayerPremiumCallable(playerName, true));
 		Futures.addCallback(updatePremiumStatusFuture, new FutureCallback<Boolean>() {
 			@Override
 			public void onSuccess(Boolean aBoolean) {

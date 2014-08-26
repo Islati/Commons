@@ -1,19 +1,13 @@
 package com.caved_in.commons.command.commands;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
@@ -31,8 +25,6 @@ public class BanCommand {
 		final UUID senderId = (sender instanceof Player) ? ((Player) sender).getUniqueId() : UUID.randomUUID();
 		final String playerName = args[0];
 		final boolean banningPlayerIsOnline = Players.isOnline(playerName);
-		final Player banningPlayer = Players.getPlayer(playerName);
-		final String bannerName = sender.getName();
 		final StringBuilder banReason = new StringBuilder();
 		int timeArg = -1;
 
@@ -52,34 +44,13 @@ public class BanCommand {
 
 		final String unparsedTime = isPermanent ? null : args[timeArg];
 		final long parsedLongTime = isPermanent ? 0L : TimeHandler.parseStringForDuration(unparsedTime);
-		Punishment punishment = new PunishmentBuilder().withType(PunishmentType.BAN).expiresOn(isPermanent ? (System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR)) : (System.currentTimeMillis() + parsedLongTime)).issuedOn(System.currentTimeMillis()).withIssuer(senderId).withReason(banReason.toString()).build();
-
-		ListenableFuture<Boolean> banPlayerFuture;
-
+		Punishment punishment = new PunishmentBuilder().withType(PunishmentType.BAN).permanent(isPermanent).expiresOn(isPermanent ? (System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR)) : (System.currentTimeMillis() + parsedLongTime)).issuedOn(System.currentTimeMillis()).withIssuer(senderId).withReason(banReason.toString()).build();
 
 		if (banningPlayerIsOnline) {
-			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(banningPlayer.getUniqueId(), punishment));
+			Players.ban(Players.getPlayer(playerName), punishment);
 		} else {
-			banPlayerFuture = Commons.asyncExecutor.submit(new BanPlayerCallable(playerName, punishment));
+			Players.ban(playerName, punishment);
 		}
 
-		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
-			@Override
-			public void onSuccess(Boolean banned) {
-				if (banned) {
-					if (banningPlayerIsOnline) {
-						Players.kick(banningPlayer, banReason.toString(), true);
-					}
-					Players.messageAll(Messages.playerBannedGlobalMessage(playerName, bannerName, banReason.toString(), isPermanent ? "Never" : DurationFormatUtils.formatDurationWords(parsedLongTime, true, true)));
-				} else {
-					Players.sendMessage(sender, Messages.playerNotBanned(playerName));
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
 	}
 }

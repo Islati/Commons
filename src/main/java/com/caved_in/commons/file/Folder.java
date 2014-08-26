@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A simple wrapper around a folder structure.
+ */
 public class Folder {
 
 	private Map<String, String> filesInFolder = new HashMap<>();

@@ -32,7 +32,7 @@ public class UnbanCommand {
 			pardonPlayerCallable.setConsole(true);
 		}
 
-		ListenableFuture<Boolean> pardonPlayerListener = Commons.asyncExecutor.submit(pardonPlayerCallable);
+		ListenableFuture<Boolean> pardonPlayerListener = Commons.getInstance().getAsyncExecuter().submit(pardonPlayerCallable);
 		final boolean console = pardonIssuer.equalsIgnoreCase("Console");
 		final Player player = console ? null : (Player) sender;
 		Futures.addCallback(pardonPlayerListener, new FutureCallback<Boolean>() {

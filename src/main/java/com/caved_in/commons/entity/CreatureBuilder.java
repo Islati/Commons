@@ -10,6 +10,11 @@ import org.bukkit.entity.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Create and spawn entities with ease in both syntax and code-flow.
+ *
+ * @author TheGamersCave (Brandon Curtis)
+ */
 public class CreatureBuilder {
 	/* Type of the mob we're spawning */
 	private EntityType type;
@@ -264,6 +269,13 @@ public class CreatureBuilder {
 		return entity;
 	}
 
+	/**
+	 * Spawn creature(s) at a specific location.
+	 *
+	 * @param location location to spawn the creature(s) at.
+	 * @param amount   amount of creatures to spawn
+	 * @return a set containing all the creatures spawned.
+	 */
 	public Set<LivingEntity> spawn(Location location, int amount) {
 		Set<LivingEntity> entities = new HashSet<>();
 		for (int i = 0; i < amount; i++) {
@@ -272,6 +284,12 @@ public class CreatureBuilder {
 		return entities;
 	}
 
+	/**
+	 * Create a new creature builder instance.
+	 *
+	 * @param type type of entity to build.
+	 * @return a new creature builder instance with the type defined.
+	 */
 	public static CreatureBuilder of(EntityType type) {
 		return new CreatureBuilder(type);
 	}

@@ -42,7 +42,7 @@ public class BanPlayerCallable implements Callable<Boolean> {
 			return true;
 		}
 
-		ListenableFuture<UUID> getPlayerUuid = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerName));
+		ListenableFuture<UUID> getPlayerUuid = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerUuidCallable(playerName));
 		Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID playerId) {

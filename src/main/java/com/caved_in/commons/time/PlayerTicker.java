@@ -14,7 +14,7 @@ public class PlayerTicker extends BasicTicker {
 		super(allowAmount);
 	}
 
-	private int getAmount(Player player) {
+	public int getTickCount(Player player) {
 		UUID id = player.getUniqueId();
 		if (!calls.containsKey(id)) {
 			return 0;
@@ -28,11 +28,11 @@ public class PlayerTicker extends BasicTicker {
 	}
 
 	public void tick(Player player) {
-		setAmount(player, getAmount(player) + 1);
+		setAmount(player, getTickCount(player) + 1);
 	}
 
 	public boolean allow(Player player) {
-		if (getAmount(player) >= allowAmount()) {
+		if (getTickCount(player) >= allowAmount()) {
 			reset(player);
 			return true;
 		}
@@ -42,5 +42,9 @@ public class PlayerTicker extends BasicTicker {
 
 	public void reset(Player player) {
 		calls.put(player.getUniqueId(), 0);
+	}
+
+	public void clear(Player player) {
+		calls.remove(player.getUniqueId());
 	}
 }

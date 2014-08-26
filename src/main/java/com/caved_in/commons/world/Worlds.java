@@ -167,10 +167,10 @@ public class Worlds {
 	}
 
 	public static void clearDroppedItems(Location loc, int radius) {
-		Commons.threadManager.runTaskNow(new ClearDroppedItemsThread(loc, radius));
+		Commons.getInstance().getThreadManager().runTaskNow(new ClearDroppedItemsThread(loc, radius));
 	}
 
 	public static void clearDroppedItems(Location loc, int radius, int delay, TimeType duration) {
-		Commons.threadManager.runTaskLater(new ClearDroppedItemsThread(loc, radius), TimeHandler.getTimeInTicks(delay, duration));
+		Commons.getInstance().getThreadManager().runTaskLater(new ClearDroppedItemsThread(loc, radius), TimeHandler.getTimeInTicks(delay, duration));
 	}
 }

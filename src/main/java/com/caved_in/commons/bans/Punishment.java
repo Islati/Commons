@@ -1,5 +1,8 @@
 package com.caved_in.commons.bans;
 
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
+
 import java.util.UUID;
 
 /**
@@ -15,6 +18,8 @@ public class Punishment implements IPunishment {
 	private boolean active;
 	private String reason;
 	private UUID issuer;
+
+	public boolean permanent = false;
 
 	public Punishment() {
 	}
@@ -91,5 +96,16 @@ public class Punishment implements IPunishment {
 
 	public void setIssuer(UUID uuid) {
 		issuer = uuid;
+	}
+
+	public boolean isPermanent() {
+		return permanent;
+	}
+
+	public void setPermanent(boolean val) {
+		this.permanent = val;
+		if (val) {
+			expiryTime = System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR);
+		}
 	}
 }

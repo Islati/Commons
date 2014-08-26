@@ -97,7 +97,7 @@ public abstract class MenuItem {
 		meta.setDisplayName(StringUtil.formatColorCodes(getText()));
 		itemStack.setItemMeta(meta);
 		return itemStack;
-//		return new ItemBuilder().withName(getText()).amount(number).withLore(descriptions).withMaterialData(getIcon()).toItemStack();
+//		return new ItemBuilder().name(getText()).amount(number).lore(descriptions).materialData(getIcon()).item();
 	}
 
 	public abstract void onClick(Player player);

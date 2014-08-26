@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Brandon Curtis
- * @version 1.0
- * @since 1.0
+ * Used to handle private messaging and message broadcasting.
  */
 public class Chat {
 	private static Map<String, ChatMessage> recentChatters = new HashMap<String, ChatMessage>();
@@ -45,6 +43,11 @@ public class Chat {
 		return recentChatters.get(playerFor).getPlayerSendingMessage();
 	}
 
+	/**
+	 * Broadcast the messages passed, automagically formatting all color codes.
+	 *
+	 * @param messages
+	 */
 	public static void broadcast(String... messages) {
 		for (String message : messages) {
 			Bukkit.broadcastMessage(StringUtil.formatColorCodes(message));

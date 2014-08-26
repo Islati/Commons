@@ -8,6 +8,9 @@ import org.simpleframework.xml.Root;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Serializable wrapper for inventories.
+ */
 @Root(name = "inventory")
 public class XmlInventory {
 	@ElementMap(name = "items", key = "slot", value = "item", valueType = XmlItemStack.class)

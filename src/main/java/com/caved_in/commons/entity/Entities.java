@@ -26,14 +26,17 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-
+/**
+ * Simplifies both tedious and complex actions related to Entities.
+ */
 public class Entities {
 
 	/**
 	 * Spawn entities of the given type at the specified location
+	 *
 	 * @param entityType type of entity to spawn
-	 * @param location location at which to spawn the entities
-	 * @param amount amount of entities to spawn
+	 * @param location   location at which to spawn the entities
+	 * @param amount     amount of entities to spawn
 	 * @return a set of the entities which were spawned
 	 */
 	public static Set<LivingEntity> spawnLivingEntity(EntityType entityType, Location location, int amount) {
@@ -58,6 +61,7 @@ public class Entities {
 
 	/**
 	 * Spawn primed tnt at a specific location.
+	 *
 	 * @param location location at which to spawn tnt.
 	 * @return the primed tnt.
 	 */
@@ -67,8 +71,9 @@ public class Entities {
 
 	/**
 	 * Spawn a zombie at a specific location.
-	 * @param location location to spawn the zombie at.
-	 * @param isBaby whether or not the zombie is a baby.
+	 *
+	 * @param location   location to spawn the zombie at.
+	 * @param isBaby     whether or not the zombie is a baby.
 	 * @param isVillager whether or not the zombie is a villager.
 	 * @return the zombie that was spawned.
 	 */
@@ -81,8 +86,9 @@ public class Entities {
 
 	/**
 	 * Spawn a zombie pigman at a specific location.
+	 *
 	 * @param location location to spawn the pig zombie at.
-	 * @param isBaby whether or not the pig zombie is a baby.
+	 * @param isBaby   whether or not the pig zombie is a baby.
 	 * @return the pig zombie that was spawned.
 	 */
 	public static PigZombie spawnPigZombie(Location location, boolean isBaby) {
@@ -93,7 +99,8 @@ public class Entities {
 
 	/**
 	 * Spawn a baby zombie at a specific location
-	 * @param location location at which to spawn the baby zombie.
+	 *
+	 * @param location   location at which to spawn the baby zombie.
 	 * @param isVillager whether or not the baby zombie is a villager
 	 * @return the baby zombie that was spawned.
 	 */
@@ -115,6 +122,7 @@ public class Entities {
 
 	/**
 	 * Get the color for a health bar based on the percentage of health an entity has.
+	 *
 	 * @param enemyHealthPercentage percent of remaining health the entity has.
 	 * @return green if they have 66% or more remaining, yellow if it's between 35% and 65%, and red if it's below 35%.
 	 */
@@ -130,6 +138,7 @@ public class Entities {
 
 	/**
 	 * Get the color for a health bar based on the percentage of health an entity has.
+	 *
 	 * @param entity entity to get the health bar color for.
 	 * @return green if they have 66% or more remaining, yellow if it's between 35% and 65%, and red if it's below 35%.
 	 */
@@ -139,8 +148,9 @@ public class Entities {
 
 	/**
 	 * Set the name of an entity.
+	 *
 	 * @param entity entity the change the name on
-	 * @param name name to give the entity
+	 * @param name   name to give the entity
 	 */
 	public static void setName(LivingEntity entity, String name) {
 		entity.setCustomName(name);
@@ -148,8 +158,9 @@ public class Entities {
 
 	/**
 	 * Set the name of an entity.
-	 * @param entity the entity to (re)name
-	 * @param name name to give the entity
+	 *
+	 * @param entity    the entity to (re)name
+	 * @param name      name to give the entity
 	 * @param isVisible whether or not the name is visible
 	 */
 	public static void setName(LivingEntity entity, String name, boolean isVisible) {
@@ -159,6 +170,7 @@ public class Entities {
 
 	/**
 	 * Get the entities name (derived from their type), fully formatted and capitalized properly.
+	 *
 	 * @param entity the entity to get the name of
 	 * @return the entities name fully formatted and capitalized properly.
 	 */
@@ -168,6 +180,7 @@ public class Entities {
 
 	/**
 	 * Get the type of an entity fully formatted and capitalized.
+	 *
 	 * @param type type which to parse.
 	 * @return type of the entity fully formatted and capitalized.
 	 */
@@ -177,6 +190,7 @@ public class Entities {
 
 	/**
 	 * Get the current health of an entity
+	 *
 	 * @param entity entity to get the health of
 	 * @return the amount of health the entity has
 	 */
@@ -186,7 +200,8 @@ public class Entities {
 
 	/**
 	 * Apply potion effects to an entity
-	 * @param entity entity to apply the potion effects to
+	 *
+	 * @param entity  entity to apply the potion effects to
 	 * @param effects effects to apply to the entity
 	 */
 	public static void addPotionEffect(LivingEntity entity, PotionEffect... effects) {
@@ -197,7 +212,8 @@ public class Entities {
 
 	/**
 	 * Apply a collection of potion effects to an entity
-	 * @param entity entity to apply the potion effects to
+	 *
+	 * @param entity  entity to apply the potion effects to
 	 * @param effects effects to apply to the entity
 	 */
 	public static void addPotionEffects(LivingEntity entity, Collection<PotionEffect> effects) {
@@ -206,6 +222,7 @@ public class Entities {
 
 	/**
 	 * Set the health of an entity within the range of 0 and their maximum health.
+	 *
 	 * @param entity the entity to set the health of.
 	 * @param health value to change their health to.
 	 */
@@ -216,6 +233,7 @@ public class Entities {
 
 	/**
 	 * Get the maximum health of an entity.
+	 *
 	 * @param entity entity to get the health of.
 	 * @return the entities maximum health.
 	 */
@@ -225,6 +243,7 @@ public class Entities {
 
 	/**
 	 * Change the maximum health for an entity.
+	 *
 	 * @param entity entity to set the maximum health for.
 	 * @param health value to change their health to.
 	 */
@@ -239,9 +258,9 @@ public class Entities {
 	 * This method doesn't check if the slot, or item, are valid items for the slot:
 	 * It forces the items to be in the slot.
 	 *
-	 * @param entity    entity to parent
-	 * @param slot slot to change on the entity
-	 * @param item       item to parent the entity with at the armor slot chosen
+	 * @param entity entity to parent
+	 * @param slot   slot to change on the entity
+	 * @param item   item to parent the entity with at the armor slot chosen
 	 */
 	public static void setEquipment(LivingEntity entity, ArmorSlot slot, ItemStack item) {
 		EntityEquipment inv = entity.getEquipment();
@@ -362,10 +381,11 @@ public class Entities {
 
 	/**
 	 * Force an entity to be removed safely, by spawning a thread to remove them one tick later.
+	 *
 	 * @param entity entity to remove safely.
 	 */
 	public static void removeEntitySafely(final LivingEntity entity) {
-		Commons.threadManager.runTaskOneTickLater(entity::remove);
+		Commons.getInstance().getThreadManager().runTaskOneTickLater(entity::remove);
 	}
 
 	/**
@@ -384,6 +404,7 @@ public class Entities {
 
 	/**
 	 * Get all living entities within a radius of the location
+	 *
 	 * @param center location at which to search
 	 * @param radius radius to scan around the location.
 	 * @return a set of living entities which were near the location
@@ -400,6 +421,7 @@ public class Entities {
 
 	/**
 	 * Get all entities within a radius of the location
+	 *
 	 * @param center location at which to search
 	 * @param radius radius to scan around the location.
 	 * @return a set of entities around the location center
@@ -442,6 +464,7 @@ public class Entities {
 
 	/**
 	 * Get all the items on the ground within a radius around the location.
+	 *
 	 * @param center location at which to search for items
 	 * @param radius radius to scan around the location.
 	 * @return a set of items that were found on the ground. If none were found, an empty hashset is returned.
@@ -483,6 +506,7 @@ public class Entities {
 
 	/**
 	 * Damage the entity by a specific amount
+	 *
 	 * @param target target to damage
 	 * @param damage amount of damage to deal
 	 */
@@ -492,7 +516,8 @@ public class Entities {
 
 	/**
 	 * Burn the entity for a specific amount of ticks.
-	 * @param target target to burn/
+	 *
+	 * @param target    target to burn/
 	 * @param fireTicks amount of ticks the fire will last.
 	 */
 	public static void burn(Damageable target, int fireTicks) {
@@ -589,7 +614,8 @@ public class Entities {
 
 	/**
 	 * Pull an entity to a location, as if they were metals under a magnet.
-	 * @param e entity to pull
+	 *
+	 * @param e   entity to pull
 	 * @param loc location to bring the entity towards.
 	 */
 	public static void pullEntityToLocation(final Entity e, Location loc) {

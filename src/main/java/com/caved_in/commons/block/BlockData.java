@@ -14,9 +14,7 @@ import org.bukkit.material.MaterialData;
 import java.util.Collection;
 
 /**
- * @author Brandon Curtis
- * @version 1.0
- * @since 1.0
+ * Used to cache the properties of a Block without storing the Block itself.
  */
 public class BlockData {
 
@@ -48,6 +46,9 @@ public class BlockData {
 		liquid = block.isLiquid();
 	}
 
+	/**
+	 * @return the block associated with this block data.
+	 */
 	public Block getBlock() {
 		return location.getBlock();
 	}
@@ -56,58 +57,104 @@ public class BlockData {
 		materialData = new MaterialData(material);
 	}
 
+	/**
+	 * @return the blocks material data (material, and state)
+	 */
 	public MaterialData getMaterialData() {
 		return materialData;
 	}
 
+	/**
+	 * @return the type of material the block is.
+	 */
 	public Material getType() {
 		return materialData.getItemType();
 	}
 
+	/**
+	 * @return the material ID for the block.
+	 */
 	public int getTypeId() {
 		return materialData.getItemTypeId();
 	}
 
+	/**
+	 * @return The light level the block provides.
+	 */
 	public byte getLightLevel() {
 		return lightLevel;
 	}
 
+	/**
+	 * @return the amount of light around this block
+	 */
 	public byte getLightFromSky() {
 		return lightFromSky;
 	}
 
+	/**
+	 * @return the world in which the block resides.
+	 */
 	public World getWorld() {
 		return location.getWorld();
 	}
 
+	/**
+	 * @return X-Coordinate of the blocks location.
+	 */
 	public int getX() {
 		return location.getBlockX();
 	}
 
+	/**
+	 * @return Y-Coordinate of the blocks location.
+	 */
 	public int getY() {
 		return location.getBlockY();
 	}
 
+	/**
+	 * @return Z-Coordinate of the blocks location.
+	 */
 	public int getZ() {
 		return location.getBlockZ();
 	}
 
+	/**
+	 * @return a byte representing the blocks state.
+	 */
 	public byte getData() {
 		return blockByte;
 	}
 
+	/**
+	 * @return the location of the block.
+	 */
 	public Location getLocation() {
 		return location;
 	}
 
+	/**
+	 * @return the chunk which contains this block.
+	 */
 	public Chunk getChunk() {
 		return location.getChunk();
 	}
 
+	/**
+	 * Set the state of the block
+	 *
+	 * @param b data to assign to the blocks state.
+	 */
 	public void setData(byte b) {
 		this.blockByte = b;
 	}
 
+	/**
+	 * Change the blocks type.
+	 *
+	 * @param material material to change the block to.
+	 */
 	public void setType(Material material) {
 		this.material = material;
 		updateMaterialData();

@@ -28,7 +28,7 @@ public class CleanPaperBehaviour implements MenuCloseBehaviour {
 
 	@Override
 	public void doAction(ItemMenu menu, final Player player) {
-		Commons.threadManager.runTaskOneTickLater(() -> {
+		Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> {
 			PlayerInventory inventory = player.getInventory();
 			for (String name : itemNames) {
 				int slot = Inventories.getSlotOf(inventory, PAPER, name);

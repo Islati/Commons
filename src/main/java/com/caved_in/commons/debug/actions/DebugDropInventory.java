@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class DebugDropInventory implements DebugAction {
 	@Override
 	public void doAction(Player player, String... args) {
-		Commons.debug("Dropping inventory of " + player.getName());
+		Commons.getInstance().debug("Dropping inventory of " + player.getName());
 		Players.dropInventory(player);
 	}
 

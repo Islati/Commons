@@ -5,6 +5,9 @@ import org.bukkit.Location;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+/**
+ * Serializable wrapper for Locations. Extends location class so it can be passed to methods without calling getLocation()
+ */
 @Root(name = "location")
 public class XmlLocation extends Location {
 	@Element(name = "world")

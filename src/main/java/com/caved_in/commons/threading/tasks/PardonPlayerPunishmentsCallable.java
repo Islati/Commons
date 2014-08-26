@@ -33,7 +33,7 @@ public class PardonPlayerPunishmentsCallable implements Callable<Boolean> {
 	@Override
 	public Boolean call() throws Exception {
 		final boolean[] success = new boolean[1];
-		ListenableFuture<UUID> getPlayerId = Commons.asyncExecutor.submit(new GetPlayerUuidCallable(playerPardonName));
+		ListenableFuture<UUID> getPlayerId = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerUuidCallable(playerPardonName));
 		Futures.addCallback(getPlayerId, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID uuid) {
@@ -69,7 +69,7 @@ public class PardonPlayerPunishmentsCallable implements Callable<Boolean> {
 				success[0] = false;
 				Commons.messageConsole(throwable.getMessage());
 			}
-		}, Commons.asyncExecutor);
+		}, Commons.getInstance().getAsyncExecuter());
 		return success[0];
 	}
 

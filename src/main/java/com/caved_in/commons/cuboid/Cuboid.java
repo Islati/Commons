@@ -1,23 +1,38 @@
 package com.caved_in.commons.cuboid;
 
+import com.caved_in.commons.world.Worlds;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * This class is a region/cuboid from one location to another. It can be used for blocks protection and things like WorldEdit.
  *
- * @author desht (Original code), KingFaris10 (Editor of code)
+ * @author desht (Original code), KingFaris10 (Editor), TheGamersCave (Editor)
  */
 public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable {
-	protected final String worldName;
-	protected final int x1, y1, z1;
-	protected final int x2, y2, z2;
+	@Attribute(name = "world-name")
+	private String worldName;
+	@Element(name = "x-1")
+	private int x1;
+	@Element(name = "y-1")
+	private int y1;
+	@Element(name = "z-1")
+	private int z1;
+	@Element(name = "x-2")
+	private int x2;
+	@Element(name = "y-2")
+	private int y2;
+	@Element(name = "z-2")
+	private int z2;
 
 	/**
 	 * Construct a Cuboid given two Location objects which represent any two corners of the Cuboid.
@@ -127,6 +142,10 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		return map;
 	}
 
+	public Stream<Block> stream() {
+		return getBlocks().stream();
+	}
+
 	/**
 	 * Get the Location of the lower northeast corner of the Cuboid (minimum XYZ co-ordinates).
 	 *
@@ -168,8 +187,8 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		int x1 = this.getUpperX() + 1;
 		int y1 = this.getUpperY() + 1;
 		int z1 = this.getUpperZ() + 1;
-		return new Location(this.getWorld(), this.getLowerX() + (x1 - this.getLowerX()) / 2.0, this.getLowerY() + (y1 - this.getLowerY()) / 2.0,
-				this.getLowerZ() + (z1 - this.getLowerZ()) / 2.0);
+		return new Location(getWorld(), getLowerX() + (x1 - getLowerX()) / 2.0, getLowerY() + (y1 - getLowerY()) / 2.0,
+				getLowerZ() + (z1 - getLowerZ()) / 2.0);
 	}
 
 	/**
@@ -179,9 +198,10 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 * @throws IllegalStateException if the world is not loaded
 	 */
 	public World getWorld() {
+
 		World world = Bukkit.getWorld(this.worldName);
 		if (world == null) {
-			throw new IllegalStateException("World '" + this.worldName + "' is not loaded");
+			Worlds.load(worldName);
 		}
 		return world;
 	}

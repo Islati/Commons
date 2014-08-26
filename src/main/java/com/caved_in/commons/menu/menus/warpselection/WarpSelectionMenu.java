@@ -32,7 +32,7 @@ public class WarpSelectionMenu extends ItemMenu {
 	public static WarpSelectionMenu getMenu(int page) {
 		if (!warpMenus.containsKey(page) || Warps.isUpdated()) {
 			warpMenus.put(page, new WarpSelectionMenu(page));
-			Commons.debug(String.format("Added menu #%s to menus map", page));
+			Commons.getInstance().debug((String.format("Added menu #%s to menus map", page)));
 			Warps.setUpdated(false);
 		}
 

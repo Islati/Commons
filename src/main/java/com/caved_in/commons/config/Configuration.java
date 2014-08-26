@@ -2,6 +2,9 @@ package com.caved_in.commons.config;
 
 import org.simpleframework.xml.Element;
 
+/**
+ * Commons configuration.
+ */
 public class Configuration {
 
 	@Element(name = "mysql-backend")

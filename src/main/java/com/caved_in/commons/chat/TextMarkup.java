@@ -2,6 +2,11 @@ package com.caved_in.commons.chat;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Convert color-coded text to minecrafts new HTML format.
+ *
+ * @author desht (https://forums.bukkit.org/members/desht.36011/)
+ */
 public class TextMarkup {
 	private enum MarkupType {
 		COLOUR,
