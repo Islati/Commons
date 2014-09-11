@@ -36,7 +36,11 @@ public abstract class BukkitPlugin extends JavaPlugin {
 		threadManager = new RunnableManager(this);
 		syncExecuter = BukkitExecutors.newSynchronous(this);
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
-		itemMessage = new ItemMessage(this);
+
+		if (Plugins.hasProtocolLib()) {
+			itemMessage = new ItemMessage(this);
+		}
+
 		logger = getLogger();
 
 		//If the game doesn't have a data folder then make one

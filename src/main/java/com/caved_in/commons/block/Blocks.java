@@ -169,6 +169,16 @@ public class Blocks {
 	}
 
 	/**
+	 * Check whether or not a block at a specific location is a solid or not.
+	 *
+	 * @param loc location to check if the block is solid.
+	 * @return true if the block is a solid block, false if it's hollow, air, or liquid (Not solid).
+	 */
+	public static boolean isSolid(Location loc) {
+		return getBlockAt(loc).getType().isSolid();
+	}
+
+	/**
 	 * Check whether or not a block is hollow
 	 *
 	 * @param block block to check

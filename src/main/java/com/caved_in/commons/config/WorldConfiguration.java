@@ -138,9 +138,9 @@ public class WorldConfiguration {
 	}
 
 	/**
-	 * Whether or not this server has "launch-pad" pressure plates
+	 * Whether or not this server has "shoot-pad" pressure plates
 	 *
-	 * @return true if pressure plates are launch-pads, false otherwise
+	 * @return true if pressure plates are shoot-pads, false otherwise
 	 */
 	public boolean hasLaunchpadPressurePlates() {
 		return this.launchpadPressurePlates;

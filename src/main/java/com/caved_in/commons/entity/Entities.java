@@ -20,10 +20,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -403,6 +400,58 @@ public class Entities {
 	}
 
 	/**
+	 * Get all the living-entities within a bounding box centered around the given entity.
+	 *
+	 * @param entity entity to operate around.
+	 * @param x      half the size of the box along the x axis.
+	 * @param y      half the size of the box along the y axis.
+	 * @param z      half the size of the box along the z axis.
+	 * @return set of nearby living-entities
+	 */
+	public static Set<LivingEntity> getLivingEntitiesNear(Entity entity, double x, double y, double z) {
+		Set<LivingEntity> entities = new HashSet<>();
+		entity.getNearbyEntities(x, y, z).stream().filter(e -> e instanceof LivingEntity).forEach(e -> entities.add((LivingEntity) e));
+		return entities;
+	}
+
+	/**
+	 * Get all the living entities within a bounding box centered around the given entity.
+	 *
+	 * @param entity entity to operate around.
+	 * @param radius half the size of the box along all axis.
+	 * @return set of all nearby living entities.
+	 */
+	public static Set<LivingEntity> getLivingEntitiesNear(Entity entity, double radius) {
+		return getLivingEntitiesNear(entity, radius, radius, radius);
+	}
+
+	/**
+	 * Select all the living entities of the given types within a bounding box centered around the given entity.
+	 *
+	 * @param entity entity to operate around.
+	 * @param x      half the size of the box along the x axis.
+	 * @param y      half the size of the box along the y axis.
+	 * @param z      half the size of the box along the z axis.
+	 * @param types  type(s) of entities to search for.
+	 * @return set of all nearby entities whose type is of those given.
+	 */
+	public static Set<Entity> selectEntitiesNear(Entity entity, double x, double y, double z, EntityType... types) {
+		Set<Entity> entities = new HashSet<>();
+
+		List<Entity> nearby = entity.getNearbyEntities(z, y, z);
+
+		//If the types are null, they want all the entities near the location!
+		if (types == null || types.length == 0) {
+			entities = Sets.newHashSet(nearby);
+			return entities;
+		}
+
+		Set<EntityType> typeSet = Sets.newHashSet(types);
+		entities = nearby.stream().filter(e -> typeSet.contains(e.getType())).collect(Collectors.toSet());
+		return entities;
+	}
+
+	/**
 	 * Get all living entities within a radius of the location
 	 *
 	 * @param center location at which to search
@@ -512,6 +561,10 @@ public class Entities {
 	 */
 	public static void damage(Damageable target, double damage) {
 		target.damage(damage);
+	}
+
+	public static void damage(Damageable target, double damage, LivingEntity damager) {
+		target.damage(damage, damager);
 	}
 
 	/**

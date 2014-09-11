@@ -63,6 +63,10 @@ public class Messages {
 
 	public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an item in your hand to use this debug action";
 
+	public static final String GADGET_RELOADED = "&7Your gadget's been reloaded.";
+
+	public static final String ERROR_RELOADING_GADGET = "&7Failed to reload your gadget.";
+
 	public static String arenaAdded(String world) {
 		return String.format("&aThe world '&e%s'&a has been added as an arena!", world);
 	}
@@ -93,6 +97,10 @@ public class Messages {
 
 	public static String gadgetExpired(Gadget gadget) {
 		return String.format("&eThe '&6%s&e' gadget has degraded fully.", Items.getName(gadget.getItem()));
+	}
+
+	public static String gadgetReloaded(Gadget item) {
+		return String.format("&7&l'&r&7%s&r&7&l' has been reloaded", Items.getName(item.getItem()));
 	}
 
 	public static String playerDataLoadAttempt(String playerName) {

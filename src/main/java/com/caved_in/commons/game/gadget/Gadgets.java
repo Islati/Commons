@@ -25,6 +25,10 @@ public class Gadgets {
 		return getGadget(item) != null;
 	}
 
+	public static boolean isGadget(int id) {
+		return gadgets.containsKey(id);
+	}
+
 	public static Gadget getGadget(ItemStack item) {
 		for (Gadget gadget : gadgets.values()) {
 			if (gadget.getItem().isSimilar(item)) {

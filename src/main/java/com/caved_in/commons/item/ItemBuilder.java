@@ -1,5 +1,6 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.properties.PropertiesBuilder;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -22,6 +23,8 @@ public class ItemBuilder {
 
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
+
+	private static PropertiesBuilder builder;
 
 	public static ItemBuilder of(Material material) {
 		return new ItemBuilder(material);

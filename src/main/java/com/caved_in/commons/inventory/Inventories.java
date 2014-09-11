@@ -172,5 +172,4 @@ public class Inventories {
 	public static Inventory makeInventory(String title, int rows) {
 		return Bukkit.getServer().createInventory(null, rows * 9, StringUtil.formatColorCodes(title));
 	}
-
 }

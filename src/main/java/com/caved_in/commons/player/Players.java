@@ -8,9 +8,11 @@ import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.gadget.Gadget;
+import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.inventory.ArmorInventory;
 import com.caved_in.commons.inventory.ArmorSlot;
+import com.caved_in.commons.inventory.Hotbar;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
@@ -1154,6 +1156,16 @@ public class Players {
 	}
 
 	/**
+	 * Set the contents of a players hotbar
+	 *
+	 * @param player player to change the hotbar of.
+	 * @param hotbar hotbar to set for the player.
+	 */
+	public static void setHotbar(Player player, Hotbar hotbar) {
+		hotbar.assign(player);
+	}
+
+	/**
 	 * Places items into the players inventory without calling an update method
 	 *
 	 * @param player player to give the items to
@@ -1685,6 +1697,16 @@ public class Players {
 	 */
 	public static boolean hasGadget(Player player, Gadget gadget) {
 		return Players.hasItem(player, gadget.getItem());
+	}
+
+	/**
+	 * Check whether or not the player has a gadget in their hand.
+	 *
+	 * @param player player to check for gadgets.
+	 * @return true if the item in the players hand is a gadget, false otherwise.
+	 */
+	public static boolean hasGadgetInHand(Player player) {
+		return Gadgets.isGadget(player.getItemInHand());
 	}
 
 	/**

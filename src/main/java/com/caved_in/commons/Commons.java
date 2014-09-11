@@ -95,7 +95,8 @@ public class Commons extends BukkitPlugin {
 				new DebugPlayerDirection(),
 				new DebugDelayedMessage(),
 				new DebugArmorBuilder(),
-				new DebugCreatureBuilder()
+				new DebugCreatureBuilder(),
+				new DebugFishCannon()
 		);
 	}
 
@@ -115,8 +116,8 @@ public class Commons extends BukkitPlugin {
 		debug("&aRegistered Gadget Listener");
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
-			registerListeners(new LauncherListener()); // Register launch pad listener if its enabled
-			debug("&aRegistered the launch pad listener");
+			registerListeners(new LauncherListener()); // Register shoot pad listener if its enabled
+			debug("&aRegistered the shoot pad listener");
 		}
 
 		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {

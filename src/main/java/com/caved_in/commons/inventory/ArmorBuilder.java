@@ -58,6 +58,8 @@ public class ArmorBuilder {
 	}
 
 	public ArmorInventory toInventory() {
-		return new ArmorInventory(armor);
+		ArmorInventory inv = new ArmorInventory();
+		armor.entrySet().forEach(e -> inv.setItem(e.getKey(), e.getValue()));
+		return inv;
 	}
 }

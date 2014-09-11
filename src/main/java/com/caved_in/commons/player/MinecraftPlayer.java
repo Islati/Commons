@@ -3,13 +3,13 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -18,10 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Root(name = "Player")
-public class MinecraftPlayer implements PlayerWrapper {
-	@Element(name = "player-name")
-	private String playerName = "";
-
+public class MinecraftPlayer extends User {
 	@Element(name = "last-online")
 	private long lastOnline = 0L;
 
@@ -55,8 +52,6 @@ public class MinecraftPlayer implements PlayerWrapper {
 	public static final double defaultWalkSpeed = 0.22;
 	public static final double defaultFlySpeed = 0.1;
 
-	private UUID id;
-
 	private String currentServer = "";
 
 	@Element(name = "currency-amount")
@@ -66,6 +61,9 @@ public class MinecraftPlayer implements PlayerWrapper {
 
 	@Element(name = "prefix")
 	private String prefix = "";
+
+	/* Whether or not the player is currently reloading a gun */
+	private long reloadEnd = 0;
 
 	/**
 	 * Location the player was before their last teleport
@@ -80,16 +78,17 @@ public class MinecraftPlayer implements PlayerWrapper {
 	 */
 	@Deprecated
 	public MinecraftPlayer(String playerName, int currencyAmount) {
-		this.playerName = playerName;
+		setName(playerName);
 		this.currencyAmount = currencyAmount;
 		initWrapper();
 	}
 
 	public MinecraftPlayer(UUID id) {
-		this.id = id;
-		this.playerName = Players.getPlayer(id).getName();
+		setId(id);
+		setName(Players.getPlayer(id).getName());
 		initWrapper();
 	}
+
 
 	public void dispose() {
 //		nametagEntity.die();
@@ -100,7 +99,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 	private void initWrapper() {
 		currentServer = Commons.getConfiguration().getServerName();
 		lastOnline = System.currentTimeMillis();
-		id = Players.getPlayer(playerName).getUniqueId();
+		setId(Players.getPlayer(getName()).getUniqueId());
 		if (!Commons.hasSqlBackend()) {
 //			friendsList = new FriendList(id);
 			//TODO: Assign default prefix to user
@@ -108,7 +107,7 @@ public class MinecraftPlayer implements PlayerWrapper {
 		}
 
 		//Create an async future to get the punishments for this player (and load them into the player wrapper instance)
-		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerPunishmentsCallable(id));
+		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerPunishmentsCallable(getId()));
 		Futures.addCallback(punishmentListenable, new FutureCallback<Set<Punishment>>() {
 			@Override
 			public void onSuccess(Set<Punishment> punishmentSet) {
@@ -147,28 +146,6 @@ public class MinecraftPlayer implements PlayerWrapper {
 //		} else {
 //			friendsList = new FriendList(id);
 //		}
-	}
-
-	public Player getPlayer() {
-		return Players.getPlayer(id);
-	}
-
-	/**
-	 * Players username
-	 *
-	 * @return the players username
-	 */
-	public String getName() {
-		return this.playerName;
-	}
-
-	/**
-	 * Whether or not the player is online
-	 *
-	 * @return true if the player is online, false otherwise
-	 */
-	public boolean isOnline() {
-		return Bukkit.getPlayer(id) != null;
 	}
 
 	/**
@@ -353,12 +330,6 @@ public class MinecraftPlayer implements PlayerWrapper {
 		debugMode = value;
 	}
 
-
-	@Override
-	public UUID getId() {
-		return id;
-	}
-
 	/**
 	 * @return a set of the active punishments the player has
 	 */
@@ -372,5 +343,13 @@ public class MinecraftPlayer implements PlayerWrapper {
 
 	public void setHidingOtherPlayers(boolean hidingOtherPlayers) {
 		this.hidingOtherPlayers = hidingOtherPlayers;
+	}
+
+	public boolean isReloading() {
+		return reloadEnd > System.currentTimeMillis();
+	}
+
+	public void setReloading(int durationSeconds) {
+		this.reloadEnd = System.currentTimeMillis() + TimeHandler.getTimeInMilles(durationSeconds, TimeType.SECOND);
 	}
 }

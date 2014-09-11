@@ -1,7 +1,9 @@
 package com.caved_in.commons.game.event;
 
+import com.caved_in.commons.game.gadget.BaseGun;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
+import com.caved_in.commons.plugin.Plugins;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -58,6 +60,13 @@ public class GadgetUseEvent extends Event implements Cancellable {
 		Player player = e.getPlayer();
 		Gadget gadget = e.getGadget();
 		if (player == null || gadget == null) {
+			return;
+		}
+
+		if (gadget instanceof BaseGun) {
+			LauncherFireEvent event = new LauncherFireEvent(player, (BaseGun) gadget);
+			Plugins.callEvent(event);
+			LauncherFireEvent.handle(event);
 			return;
 		}
 

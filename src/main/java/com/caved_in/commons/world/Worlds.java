@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
@@ -133,24 +134,24 @@ public class Worlds {
 		setTime(world, WorldTime.DAY);
 	}
 
-	public static void dropItem(World world, Location location, ItemStack item, boolean natural) {
+	public static Item dropItem(World world, Location location, ItemStack item, boolean natural) {
 		if (natural) {
-			world.dropItemNaturally(location, item);
+			return world.dropItemNaturally(location, item);
 		} else {
-			world.dropItem(location, item);
+			return world.dropItem(location, item);
 		}
 	}
 
-	public static void dropItem(Entity entity, ItemStack item, boolean natural) {
-		dropItem(entity.getWorld(), entity.getLocation(), item, natural);
+	public static Item dropItem(Entity entity, ItemStack item, boolean natural) {
+		return dropItem(entity.getWorld(), entity.getLocation(), item, natural);
 	}
 
-	public static void dropItem(Location location, ItemStack itemStack) {
-		dropItem(location.getWorld(), location, itemStack, true);
+	public static Item dropItem(Location location, ItemStack itemStack) {
+		return dropItem(location.getWorld(), location, itemStack, true);
 	}
 
-	public static void dropItemNaturally(Entity entity, ItemStack item) {
-		dropItem(entity, item, true);
+	public static Item dropItemNaturally(Entity entity, ItemStack item) {
+		return dropItem(entity, item, true);
 	}
 
 	public static World getDefaultWorld() {

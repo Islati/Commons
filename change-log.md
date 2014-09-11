@@ -1,3 +1,65 @@
+September 11'th
+===============
+- Gave each player seperate ammo counts. derp, was supposed to have that last time.
+
+September 10'th
+================
+- Added cooldown between shots for guns
+- Added bullet spread for guns
+- Created interfaces for bullet actions, allowing the same characteristics to be applied to different guns
+- Renamed ProjectileLauncher to Gun
+- Renamed ItemProjectile to Bullet
+- Created CreatureHitAction
+- Created BlockHitAction
+- Created BulletActions
+- Created Vectors package work utilities. So far only contains the method to retrieve bullet-spread for vectors.
+- Created BulletHitBlockEvent
+- Created BulletHitCreatureEvent
+- Added cluster shots to guns
+- Added adjustable reload speeds to guns
+- Created the FishCannon easter-egg gun, you'll only ever know of it by using /debug fish_cannon ;)
+- Created guns api
+- Wrote new events for guns and bullets
+
+September 8'th
+================
+- Finished Projectiles. WOOOOO
+- Wrote test implementation for projectiles.
+
+September 4'th
+================
+
+Additions
+----------
+- Finished hotbar implementation.
+- Wrote methods in Players to assign the new hotbar implementation to players
+- Wrote ProjectileCreationException
+- Wrote ItemProjectile class
+- Wrote ProjectileBuilder class
+- Wrote PropertiesBuilder and PropertiesItem interfaces
+- Wrote ItemOperation interface
+
+September 3'rd
+================
+
+Additions
+-----------
+- New Hotbar class; Serializable hotbar that's assignable to players
+- Entities: getLivingEntitiesNear(Entity, double, double, double)
+- Entities: selectEntitiesNear(Entity, double, double, double, EntityType...)
+
+Reductions
+-----------
+- Removed WrappedPlayer class, better to use the User class.
+
+September 2'nd
+================
+
+Additions
+-----------
+- Created User class: Basic, abstract implementation of PlayerWrapper
+- Began projectile package, used to create throwable items.
+
 August 26'th
 ================
 
