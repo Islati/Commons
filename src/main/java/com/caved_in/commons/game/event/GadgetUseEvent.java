@@ -1,8 +1,8 @@
 package com.caved_in.commons.game.event;
 
-import com.caved_in.commons.game.gadget.BaseGun;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
+import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.plugin.Plugins;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

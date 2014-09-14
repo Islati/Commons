@@ -1,3 +1,14 @@
+September 14'th
+===============
+- Added methods for direction (vector subtraction), and subtraction to Vectors.
+- Updated CreatureHitAction and BlockHitAction to both take a player argument
+- Moved Bullet*Events to game.events package
+- Moved BaseGun to guns package
+- Created BulletProperties class, containing information specific to the bullets being fired.
+- Created FancyBullet, which is followed by a trail of particles (UN-TESTED)
+- Created XmlPotionEffect 
+- Fixed bug with ItemBuilders not translating color-codes in lore
+
 September 11'th
 ===============
 - Gave each player seperate ammo counts. derp, was supposed to have that last time.

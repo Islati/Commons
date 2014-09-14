@@ -1,11 +1,9 @@
 package com.caved_in.commons.debug.gadget;
 
-import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.effect.ParticleEffects;
-import com.caved_in.commons.game.gadget.BaseGun;
+import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.guns.BulletActions;
-import com.caved_in.commons.game.guns.GunProperties;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
@@ -24,8 +22,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class FishCannon extends BaseGun {
-	private GunProperties properties = new GunProperties();
-
 	private int id;
 
 	public FishCannon(int id) {
@@ -36,13 +32,12 @@ public class FishCannon extends BaseGun {
 	}
 
 	private void initProperties() {
-		properties.ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo").item());
-		attributes(properties);
+		attributes().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo").item()).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
+		bulletAttributes().damage(10).delayBetweenRounds(1).speed(5).effect(ParticleEffects.SLIME);
 	}
 
 	@Override
 	public void onFire(Player shooter) {
-		ParticleEffects.sendToLocation(ParticleEffects.DRIP_WATER, shooter.getEyeLocation(), NumberUtil.getRandomInRange(3, 10));
 	}
 
 	private static class FishCannonAction implements BulletActions {
@@ -56,7 +51,7 @@ public class FishCannon extends BaseGun {
 		}
 
 		@Override
-		public void onHit(LivingEntity damaged) {
+		public void onHit(Player player, LivingEntity damaged) {
 			Location hitLoc = damaged.getLocation();
 
 			Effects.explode(hitLoc, 1.0f, false, false);
@@ -73,10 +68,8 @@ public class FishCannon extends BaseGun {
 		}
 
 		@Override
-		public void onHit(Block block) {
+		public void onHit(Player player, Block block) {
 			ParticleEffects.sendToLocation(ParticleEffects.CLOUD, block.getLocation(), NumberUtil.getRandomInRange(1, 3));
-			Blocks.breakBlock(block, false, true);
-			Blocks.scheduleBlockRegen(block, true);
 		}
 	}
 

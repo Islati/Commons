@@ -1,7 +1,5 @@
-package com.caved_in.commons.game.gadget;
+package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.game.guns.BulletActions;
-import com.caved_in.commons.game.guns.GunProperties;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -17,9 +15,13 @@ public interface Gun {
 
 	public GunProperties attributes();
 
+	public BulletProperties bulletAttributes();
+
 	public void attributes(GunProperties attributes);
 
 	public boolean reload(Player player);
 
 	public boolean needsReload(Player player);
+
+	public double damage();
 }

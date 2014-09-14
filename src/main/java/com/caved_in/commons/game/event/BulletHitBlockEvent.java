@@ -1,4 +1,4 @@
-package com.caved_in.commons.event;
+package com.caved_in.commons.game.event;
 
 import com.caved_in.commons.game.guns.Bullet;
 import org.bukkit.block.Block;
@@ -56,6 +56,6 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 			return;
 		}
 
-		e.projectile.getGun().getBulletActions().onHit(e.getBlock());
+		e.projectile.getGun().getBulletActions().onHit(e.getShooter(), e.getBlock());
 	}
 }

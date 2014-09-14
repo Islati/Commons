@@ -1,14 +1,11 @@
-package com.caved_in.commons.game.gadget;
+package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
-import com.caved_in.commons.game.guns.BulletActions;
-import com.caved_in.commons.game.guns.BulletBuilder;
-import com.caved_in.commons.game.guns.GunProperties;
-import com.caved_in.commons.item.Items;
+import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.TimeHandler;
@@ -21,12 +18,14 @@ import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 
 @Root(name = "projectile-gun")
 public abstract class BaseGun extends ItemGadget implements Gun {
 	private static final Commons commons = Commons.getInstance();
+	private static final Random random = new Random();
 
 	@Element(name = "gun", type = XmlItemStack.class)
 	private XmlItemStack gun;
@@ -34,7 +33,9 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	@Element(name = "attributes", type = GunProperties.class)
 	private GunProperties properties = new GunProperties();
 
-	private String baseName;
+	@Element(name = "bullet-attributes", type = BulletProperties.class)
+	private BulletProperties bullets = new BulletProperties();
+
 
 	private Map<UUID, Integer> ammoCounts = new HashMap<>();
 
@@ -48,13 +49,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		super(gun.getItemStack());
 		this.gun = gun;
 		this.properties = properties;
-		baseName = Items.getName(gun.getItemStack());
 	}
 
 	public BaseGun(ItemStack item) {
 		super(item);
 		gun = XmlItemStack.fromItem(item);
-		baseName = Items.getName(item);
 	}
 
 	private void initBuilder() {
@@ -62,7 +61,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 			return;
 		}
 
-		builder = new BulletBuilder(properties.ammunition()).damage(properties.damage()).power(properties.bulletSpeed).gun(this);
+		builder = new BulletBuilder(properties.ammunition()).damage(damage()).power(bullets.speed).gun(this);
 	}
 
 	@Override
@@ -71,7 +70,6 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		//If the player's on cooldown from using this gun, then don't let them shoot.
 		if (isOnCooldown(holder)) {
-			commons.debug(holder.getName() + " is on cooldown for another " + TimeHandler.getDurationBreakdown(shootDelays.get(holder.getUniqueId()) - System.currentTimeMillis()) + "!");
 			return;
 		}
 
@@ -98,35 +96,28 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 			for (int i = 0; i < properties.roundsPerShot; i++) {
 				try {
 					builder.shoot();
-//					builder.spread(holder.getLocation(),properties.bulletSpread).shoot();
 				} catch (ProjectileCreationException e) {
 					e.printStackTrace();
 				}
 			}
-			commons.debug("Shot a cluster of " + properties.roundsPerShot + " bullets for " + holder.getName());
 		} else {
 			//Because we're not using cluster shot, we're going to delay the time between each shot, so it looks like burst fire.
 			for (int i = 0; i < properties.roundsPerShot; i++) {
 				//Schedule each bullet to be fired with the given delay, otherwise they'd be in a cluster.
 				Commons.getInstance().getThreadManager().runTaskLater(() -> {
 					try {
-						builder.shoot();
 						//Apply new spread to the projectile gun, and then shoot that m'fucka to space and back.
-//						builder.spread(holder.getLocation(), properties.bulletSpread).shoot();
+						builder.shoot();
 					} catch (ProjectileCreationException e) {
 						e.printStackTrace();
 					}
-				}, i * properties.bulletDelay);
+				}, i * bullets.delay);
 			}
-
-			commons.debug("Shot " + properties.roundsPerShot + " bullets for " + holder.getName());
 		}
 
 
 		//Set the player on cooldown from using this weapon.
 		addCooldown(holder);
-
-		commons.debug("Set " + holder.getName() + " on cooldown for " + properties.shotDelay + "ms");
 
 		//Handle the on-shoot of the gun, what the item's meant to do.
 		onFire(holder);
@@ -210,8 +201,8 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	}
 
 	public void damage(LivingEntity damaged, Player shooter) {
-		Entities.damage(damaged, properties.bulletDamage * properties.roundsPerShot, shooter);
-		actions.onHit(damaged);
+		Entities.damage(damaged, damage(), shooter);
+		actions.onHit(shooter, damaged);
 	}
 
 
@@ -245,5 +236,16 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		ammoCounts.put(player.getUniqueId(), amt);
 	}
 
+	@Override
 	public abstract void onFire(Player shooter);
+
+	@Override
+	public double damage() {
+		return bullets.damage + (bullets.damage * random.nextDouble());
+	}
+
+	@Override
+	public BulletProperties bulletAttributes() {
+		return bullets;
+	}
 }

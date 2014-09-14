@@ -2,12 +2,12 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.entity.Entities;
-import com.caved_in.commons.event.BulletHitBlockEvent;
-import com.caved_in.commons.event.BulletHitCreatureEvent;
-import com.caved_in.commons.game.gadget.Gun;
+import com.caved_in.commons.game.event.BulletHitBlockEvent;
+import com.caved_in.commons.game.event.BulletHitCreatureEvent;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.time.BasicTicker;
+import com.caved_in.commons.vector.Vectors;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,6 +26,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 
 public class Bullet extends BukkitRunnable implements Metadatable {
+	private static final double BULLET_SCAN_RADIUS = 1.5;
 	private static final Commons commons = Commons.getInstance();
 
 	private static final int PICKUP_DELAY = 999999;
@@ -36,7 +37,7 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 	private double damage;
 	private Gun gun;
 
-	private BasicTicker ticker = new BasicTicker(60);
+	private BasicTicker ticker = new BasicTicker(10);
 
 
 	public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
@@ -47,11 +48,15 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 		this.shooter = shooter.getUniqueId();
 		this.gun = gun;
 
-		Location eyeLocation = shooter.getEyeLocation();
-		eyeLocation.setY(eyeLocation.getY() - 0.7);
+		Location loc = shooter.getLocation().add(0, 1, 0);
+//		loc.setY(0.05);
 
-		Item droppedItem = Worlds.dropItem(eyeLocation/*.add(0,0.5,0)*/, item);
-		droppedItem.setVelocity(eyeLocation.getDirection().multiply(force));
+		Item droppedItem = Worlds.dropItem(loc/*.add(0,0.5,0)*/, item);
+//		droppedItem.setVelocity(loc.getDirection().normalize().multiply(force));
+
+		/* New method of shooting & shits */
+		Vector direction = Vectors.direction(shooter.getLocation(), Players.getTargetLocation(shooter)).multiply(force);
+		droppedItem.setVelocity(direction);
 		droppedItem.setPickupDelay(PICKUP_DELAY);
 		this.item = droppedItem;
 		this.damage = damage;
@@ -101,13 +106,19 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 			return;
 		}
 
-		Set<LivingEntity> entities = Entities.getLivingEntitiesNear(item, 1);
+		if (item.isOnGround()) {
+			cancel();
+			item.remove();
+		}
+
+		Set<LivingEntity> entities = Entities.getLivingEntitiesNear(item, BULLET_SCAN_RADIUS);
 
 		//If we've got no entities near us, no use to check!
 		if (entities.size() == 0) {
 			if (!ticker.allow()) {
 				ticker.tick();
 			} else {
+				item.remove();
 				cancel();
 			}
 			return;
@@ -139,5 +150,9 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 
 	public Gun getGun() {
 		return gun;
+	}
+
+	protected Item getItem() {
+		return item;
 	}
 }

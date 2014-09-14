@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.config.XmlItemStack;
-import com.caved_in.commons.game.gadget.Gun;
 import com.caved_in.commons.item.Items;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,21 +14,6 @@ public class GunProperties {
 	 */
 	@Element(name = "clip-size")
 	public int clipSize = 20;
-
-	/**
-	 * How much damage each bullet does.
-	 */
-	@Element(name = "bullet-damage")
-	public double bulletDamage = 2;
-
-	@Element(name = "bullet-speed")
-	public double bulletSpeed = 6.5;
-
-	@Element(name = "bullet-spread")
-	public double bulletSpread = 0.0;
-
-	@Element(name = "bullet-delay-ticks")
-	public long bulletDelay = 2l;
 
 	@Element(name = "shoot-delay-millis")
 	public long shotDelay = 1500l;
@@ -61,12 +45,8 @@ public class GunProperties {
 		this.parent = parent;
 	}
 
-	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "bullet-damage") double bulletDamage, @Element(name = "bullet-speed") double bulletSpeed, @Element(name = "bullet-spread") double bulletSpread, @Element(name = "bullet-delay-ticks") long bulletDelay, @Element(name = "shoot-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot) {
+	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "shoot-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot) {
 		this.clipSize = clipSize;
-		this.bulletDamage = bulletDamage;
-		this.bulletSpeed = bulletSpeed;
-		this.bulletSpread = bulletSpread;
-		this.bulletDelay = bulletDelay;
 		this.shotDelay = shotDelay;
 		this.reloadSpeed = reloadSpeed;
 		this.roundsPerShot = roundsPerShot;
@@ -76,26 +56,6 @@ public class GunProperties {
 
 	public GunProperties clipSize(int size) {
 		this.clipSize = size;
-		return this;
-	}
-
-	public GunProperties bulletDamage(double damage) {
-		this.bulletDamage = damage;
-		return this;
-	}
-
-	public GunProperties bulletSpread(double amount) {
-		this.bulletSpread = amount;
-		return this;
-	}
-
-	public GunProperties bulletDelay(long ticks) {
-		this.bulletDelay = ticks;
-		return this;
-	}
-
-	public GunProperties bulletSpeed(double val) {
-		this.bulletSpeed = val;
 		return this;
 	}
 
@@ -122,10 +82,6 @@ public class GunProperties {
 	public GunProperties clusterShot(boolean val) {
 		this.clusterShot = val;
 		return this;
-	}
-
-	public double damage() {
-		return bulletDamage * roundsPerShot;
 	}
 
 	public ItemStack ammunition() {

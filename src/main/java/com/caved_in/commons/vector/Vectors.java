@@ -22,4 +22,12 @@ public class Vectors {
 		return new Vector(x, y, z);
 	}
 
+	public static Vector subtract(Location from, Location to) {
+		return to.toVector().subtract(from.toVector());
+	}
+
+	public static Vector direction(Location from, Location to) {
+		return subtract(from, to).normalize();
+	}
+
 }

@@ -1,7 +1,7 @@
 package com.caved_in.commons.game.guns;
 
+import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
-import com.caved_in.commons.game.gadget.Gun;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.vector.Vectors;
 import org.bukkit.Location;
@@ -22,8 +22,19 @@ public class BulletBuilder {
 
 	private boolean hasLauncher = true;
 
+	private ParticleEffects effect;
+
+	public static BulletBuilder from(BulletProperties properties) {
+		return new BulletBuilder(properties);
+	}
+
 	public BulletBuilder() {
 
+	}
+
+	public BulletBuilder(BulletProperties properties) {
+		this.force = properties.speed;
+		this.damage = properties.damage;
 	}
 
 	public BulletBuilder(ItemStack type) {
@@ -65,6 +76,11 @@ public class BulletBuilder {
 		return this;
 	}
 
+	public BulletBuilder trail(ParticleEffects effect) {
+		this.effect = effect;
+		return this;
+	}
+
 	public BulletBuilder spread(Vector vector) {
 		this.spread = vector;
 		return this;
@@ -87,6 +103,10 @@ public class BulletBuilder {
 
 		if (type == null || type.getType() == Material.AIR) {
 			throw new ProjectileCreationException("Projectiles require a type");
+		}
+
+		if (effect != null) {
+			return new FancyBullet(shooter, gun, type, force, damage, spread, effect);
 		}
 
 		return new Bullet(shooter, gun, type, force, damage, spread);

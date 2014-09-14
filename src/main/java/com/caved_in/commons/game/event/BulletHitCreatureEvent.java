@@ -1,4 +1,4 @@
-package com.caved_in.commons.event;
+package com.caved_in.commons.game.event;
 
 import com.caved_in.commons.game.guns.Bullet;
 import org.bukkit.entity.LivingEntity;
