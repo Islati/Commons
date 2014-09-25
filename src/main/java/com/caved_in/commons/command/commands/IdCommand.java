@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class IdCommand {
-	@Command(name = "id", permission = "commons.commands.id")
+	@Command(name = "id", permission = "commons.command.id")
 	public void onIdCommand(Player player, String[] args) {
 		if (args.length < 1) {
 			if (!Players.hasItemInHand(player)) {

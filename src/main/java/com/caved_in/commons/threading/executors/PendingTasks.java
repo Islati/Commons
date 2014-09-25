@@ -23,7 +23,7 @@ class PendingTasks {
 	}
 
 	// Every pending task
-	private Set<CancelableFuture> pending = new HashSet<CancelableFuture>();
+	private Set<CancelableFuture> pending = new HashSet<>();
 	private final Object pendingLock = new Object();
 
 	// Handle arbitrary cancelation
@@ -69,35 +69,32 @@ class PendingTasks {
 
 	private void beginCancellationTask() {
 		if (cancellationTask == null) {
-			cancellationTask = scheduler.runTaskTimer(plugin, new Runnable() {
-				@Override
-				public void run() {
-					// Check for cancellations
-					synchronized (pendingLock) {
-						boolean changed = false;
+			cancellationTask = scheduler.runTaskTimer(plugin, () -> {
+				// Check for cancellations
+				synchronized (pendingLock) {
+					boolean changed = false;
 
-						for (Iterator<CancelableFuture> it = pending.iterator(); it.hasNext(); ) {
-							CancelableFuture future = it.next();
+					for (Iterator<CancelableFuture> it = pending.iterator(); it.hasNext(); ) {
+						CancelableFuture future = it.next();
 
-							// Remove cancelled tasks
-							if (future.isTaskCancelled()) {
-								future.cancel();
-								it.remove();
-								changed = true;
-							}
-						}
-
-						// Notify waiting threads
-						if (changed) {
-							pendingLock.notifyAll();
+						// Remove cancelled tasks
+						if (future.isTaskCancelled()) {
+							future.cancel();
+							it.remove();
+							changed = true;
 						}
 					}
 
-					// Stop if we are out of tasks
-					if (isTerminated()) {
-						cancellationTask.cancel();
-						cancellationTask = null;
+					// Notify waiting threads
+					if (changed) {
+						pendingLock.notifyAll();
 					}
+				}
+
+				// Stop if we are out of tasks
+				if (isTerminated()) {
+					cancellationTask.cancel();
+					cancellationTask = null;
 				}
 			}, 1, 1);
 		}

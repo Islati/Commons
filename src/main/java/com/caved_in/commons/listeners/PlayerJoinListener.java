@@ -2,12 +2,10 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.WorldConfiguration;
-import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import com.caved_in.commons.world.Worlds;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,20 +19,19 @@ public class PlayerJoinListener implements Listener {
 		Player player = event.getPlayer();
 
 		//Reset the players walk and fly speeds
-		player.setFlySpeed((float) MinecraftPlayer.defaultFlySpeed);
-		player.setWalkSpeed((float) MinecraftPlayer.defaultWalkSpeed);
+		player.setFlySpeed((float) MinecraftPlayer.DEFAULT_FLY_SPEED);
+		player.setWalkSpeed((float) MinecraftPlayer.DEFAULT_WALK_SPEED);
 		WorldConfiguration worldConfig = Commons.getConfiguration().getWorldConfig();
 
 		if (!worldConfig.hasJoinMessages()) {
 			event.setJoinMessage(null);
 		}
 
+		//Initialize the wrapped player data
 		Players.addData(player);
-		if (worldConfig.isCompassMenuEnabled()) {
-			if (!Players.hasItem(player, Material.COMPASS)) {
-				Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
-			}
-		}
+
+		//Update the player's online status in our data-base!
+		Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
 
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (Commons.getConfiguration().getServerName().equalsIgnoreCase("lobby")) {

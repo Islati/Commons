@@ -2,7 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.item.Items;
+import com.caved_in.commons.item.ArmorSet;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
@@ -19,20 +19,14 @@ public class ArmorCommand {
 		}
 
 		String armorArg = args[0];
-		PlayerInventory inventory = player.getInventory();
-		switch (armorArg.toLowerCase()) {
-			case "leather":
-				inventory.setArmorContents(Items.LEATHER_ARMOR);
-				break;
-			case "iron":
-				inventory.setArmorContents(Items.IRON_ARMOR);
-				break;
-			case "gold":
-				inventory.setArmorContents(Items.GOLD_ARMOR);
-				break;
-			case "diamond":
-				inventory.setArmorContents(Items.DIAMOND_ARMOR);
-				break;
+
+		ArmorSet set = ArmorSet.getSetByName(armorArg);
+		if (set == null) {
+			Players.sendMessage(player, Messages.invalidArmorSet(armorArg));
+			return;
 		}
+
+		PlayerInventory inventory = player.getInventory();
+		inventory.setArmorContents(set.getArmor());
 	}
 }

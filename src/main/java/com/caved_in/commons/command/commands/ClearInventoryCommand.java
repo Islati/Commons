@@ -2,16 +2,23 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ClearInventoryCommand {
-	@Command(name = "ci", usage = "/ci [player]", permission = "tunnels.common.clearinventory", aliases = {"clearinventory", "clearinv"})
+	@Command(name = "ci", usage = "/ci [player]", permission = "commons.clearinventory", aliases = {"clearinventory", "clearinv"})
 	public void onClearInventoryCommand(CommandSender commandSender, String[] args) {
-		//Check if we've got a player using this command
 		Player player = null;
+
 		if (args.length > 0) {
+			//If the player doesn't have the permission to clear the inventory of someone else, then they can't clear it!
+			if (!commandSender.hasPermission(Perms.CLEAR_INVENTORY_OTHER)) {
+				Players.sendMessage(commandSender, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
+				return;
+			}
+
 			String playerName = args[0];
 			//Check if there's a player online with the name in our argument
 			if (Players.isOnline(playerName)) {
@@ -21,17 +28,17 @@ public class ClearInventoryCommand {
 				Players.sendMessage(commandSender, Messages.playerOffline(playerName));
 				return;
 			}
-		} else {
-			//Check if the commandsender is a player
-			if (commandSender instanceof Player) {
-				//Assign the player variable to the player sending the command
-				player = (Player) commandSender;
-			} else {
-				Players.sendMessage(commandSender, Messages.invalidCommandUsage("name"));
-				return;
-			}
 		}
-		//Clear the players inventory
+
+		//If the command-sender isn't a player, we're not clearing the inventory or someone else and the arguments are less than 1,
+		//then they's not doing it right.
+		if (player == null && !(commandSender instanceof Player)) {
+			Players.sendMessage(commandSender, Messages.invalidCommandUsage("name"));
+			return;
+		}
+
+		player = (Player) commandSender;
+		//Clear the players inventory through the Players Class
 		Players.clearInventory(player, true);
 		//Send them a message saying their inventory was cleared
 		Players.sendMessage(player, Messages.INVENTORY_CLEARED);

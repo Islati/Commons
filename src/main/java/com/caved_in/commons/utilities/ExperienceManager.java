@@ -38,7 +38,7 @@ public class ExperienceManager {
 	 */
 	public ExperienceManager(Player player) {
 		Validate.notNull(player, "Player cannot be null");
-		this.player = new WeakReference<Player>(player);
+		this.player = new WeakReference<>(player);
 		this.playerName = player.getName();
 	}
 
@@ -174,8 +174,7 @@ public class ExperienceManager {
 	public int getCurrentExp() {
 		Player player = getPlayer();
 		int lvl = player.getLevel();
-		int cur = getXpForLevel(lvl) + (int) Math.round(getXpNeededToLevelUp(lvl) * player.getExp());
-		return cur;
+		return getXpForLevel(lvl) + Math.round(getXpNeededToLevelUp(lvl) * player.getExp());
 	}
 
 	/**

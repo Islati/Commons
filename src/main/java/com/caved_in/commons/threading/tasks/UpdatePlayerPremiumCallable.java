@@ -1,30 +1,26 @@
 package com.caved_in.commons.threading.tasks;
 
 import com.caved_in.commons.Commons;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
+import com.caved_in.commons.player.Players;
 
+import java.sql.SQLException;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
- */
 public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
+	private static final Logger logger = Commons.getInstance().getLogger();
+
 	private UUID playerId;
 	private boolean premium;
 	private String playerName;
-	private boolean fetch;
+	private boolean fetch = false;
 
 	public UpdatePlayerPremiumCallable(UUID playerId, boolean premium) {
 		this.playerId = playerId;
 		this.premium = premium;
+		fetch = false;
 	}
 
 	public UpdatePlayerPremiumCallable(String playerName, boolean premium) {
@@ -35,31 +31,18 @@ public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
 
 	@Override
 	public Boolean call() throws Exception {
-		final UUID[] uuid = new UUID[1];
-		final boolean[] success = new boolean[1];
+		boolean success;
 		if (fetch) {
-			ListenableFuture<UUID> getPlayerUuid = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerUuidCallable(playerName));
-			Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
-				@Override
-				public void onSuccess(UUID id) {
-					uuid[0] = id;
-					success[0] = true;
-				}
-
-				@Override
-				public void onFailure(Throwable throwable) {
-					throwable.printStackTrace();
-					success[0] = false;
-				}
-			});
-		} else {
-			uuid[0] = playerId;
-			success[0] = true;
+			playerId = Players.getUUIDFromName(playerName);
 		}
 
-		if (success[0]) {
-			Commons.database.updatePlayerPremium(uuid[0], premium);
+		try {
+			Commons.database.updatePlayerPremium(playerId, premium);
+			success = true;
+		} catch (SQLException e) {
+			success = false;
+			logger.log(Level.SEVERE, e.getMessage(), e.getCause());
 		}
-		return success[0];
+		return success;
 	}
 }

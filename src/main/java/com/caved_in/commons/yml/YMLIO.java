@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -18,7 +17,7 @@ public class YMLIO {
 
 	private boolean force = false;
 
-	public YMLIO(File file) throws FileNotFoundException, IOException, InvalidConfigurationException {
+	public YMLIO(File file) throws IOException, InvalidConfigurationException {
 		this.file = file;
 		if (file.exists()) {
 			yml.load(file);

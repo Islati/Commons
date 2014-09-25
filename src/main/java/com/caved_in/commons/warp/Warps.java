@@ -13,7 +13,7 @@ public class Warps {
 	public static int pages = 0;
 	private static boolean initialized = false;
 	private static boolean updated = false;
-	private static Map<String, Warp> warps = new HashMap<String, Warp>();
+	private static Map<String, Warp> warps = new HashMap<>();
 	private static Serializer serializer = new Persister();
 
 	private static Map<Integer, List<Warp>> warpPages = new HashMap<>();
@@ -25,7 +25,12 @@ public class Warps {
 	 * @return true if a warp with the given name exists, false otherwise.
 	 */
 	public static boolean isWarp(String name) {
-		return warps.containsKey(name);
+		for (String warpName : warps.keySet()) {
+			if (name.equalsIgnoreCase(warpName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -79,7 +84,12 @@ public class Warps {
 	 * @return if a warp with the given name exists it's returned, otherwise null.
 	 */
 	public static Warp getWarp(String warpName) {
-		return warps.get(warpName);
+		for (Warp warp : warps.values()) {
+			if (warp.getName().equalsIgnoreCase(warpName)) {
+				return warp;
+			}
+		}
+		return null;
 	}
 
 	/**

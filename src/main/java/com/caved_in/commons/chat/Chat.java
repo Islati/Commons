@@ -10,7 +10,7 @@ import java.util.Map;
  * Used to handle private messaging and message broadcasting.
  */
 public class Chat {
-	private static Map<String, ChatMessage> recentChatters = new HashMap<String, ChatMessage>();
+	private static Map<String, ChatMessage> recentChatters = new HashMap<>();
 
 
 	/**

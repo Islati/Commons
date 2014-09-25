@@ -17,38 +17,42 @@ import org.bukkit.inventory.ItemStack;
 public class RecipeCommand {
 	@Command(name = "recipe", permission = "commons.command.recipe")
 	public void onItemRecipeCommand(Player player, String[] args) {
-		if (args.length > 0) {
-			String itemArg = args[0];
-			int itemId = 0;
-			//If they entered an item id parse it
-			if (StringUtils.isNumeric(itemArg)) {
-				itemId = Integer.parseInt(itemArg);
-			} else {
-				ItemType itemType = ItemType.lookup(itemArg);
-				if (itemType != null) {
-					//Set our itemid to the look-up id
-					itemId = itemType.getID();
-				} else {
-					Players.sendMessage(player, Messages.invalidItem(itemArg));
-					return;
-				}
+		if (args.length == 0) {
+			if (!Players.hasItemInHand(player)) {
+				Players.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+				return;
 			}
-			//Get an itemstack for the item in our recipe
-			ItemStack itemStack = Items.makeItem(Items.getMaterialById(itemId));
-			//If the recipe failed to show, then send a message saying recipe not found
-			if (!Items.showRecipe(player, itemStack)) {
-				Players.sendMessage(player, Messages.invalidRecipe(itemStack));
+
+			ItemStack hand = player.getItemInHand();
+
+			boolean shownRecipe = Items.showRecipe(player, hand);
+
+			if (!shownRecipe) {
+				Players.sendMessage(player, Messages.invalidRecipe(hand));
 			}
-		} else {
-			if (Players.hasItemInHand(player)) {
-				ItemStack playerHandItem = player.getItemInHand();
-				//If the recipe failed to show, then send a message saying recipe not found
-				if (!Items.showRecipe(player, playerHandItem)) {
-					Players.sendMessage(player, Messages.invalidRecipe(playerHandItem));
-				}
-			} else {
-				Players.sendMessage(player, Messages.invalidCommandUsage("item in hand / item name"));
-			}
+			return;
 		}
+
+		String itemArg = args[0];
+		int itemId = 0;
+
+		if (!StringUtils.isNumeric(itemArg)) {
+			ItemType type = ItemType.lookup(itemArg);
+			if (type == null) {
+				Players.sendMessage(player, Messages.invalidItem(itemArg));
+				return;
+			}
+			itemId = type.getID();
+		} else {
+			itemId = Integer.parseInt(itemArg);
+		}
+
+		ItemStack item = Items.makeItem(Items.getMaterialById(itemId));
+
+		boolean shown = Items.showRecipe(player, item);
+		if (!shown) {
+			Players.sendMessage(player, Messages.invalidRecipe(item));
+		}
+
 	}
 }

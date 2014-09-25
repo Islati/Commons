@@ -22,6 +22,7 @@ public abstract class User implements PlayerWrapper {
 	public User(@Element(name = "name") String name, @Element(name = "uuid") String uid) {
 		this.name = name;
 		this.uid = uid;
+		id = UUID.fromString(this.uid);
 	}
 
 	public User() {
@@ -34,6 +35,7 @@ public abstract class User implements PlayerWrapper {
 
 	public void setId(UUID id) {
 		this.id = id;
+		uid = id.toString();
 	}
 
 	@Override

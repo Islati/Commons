@@ -2,6 +2,8 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.location.PreTeleportLocation;
+import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
@@ -33,24 +35,20 @@ public class MinecraftPlayer extends User {
 	@Element(name = "in-staff-chat")
 	private boolean inStaffChat = false;
 
-	@Element(name = "has-custom-walk-speed")
-	private boolean customWalkSpeed = false;
-
-	@Element(name = "has-custom-fly-speed")
-	private boolean customFlySpeed = false;
-
 	@Element(name = "hiding-other-players")
 	private boolean hidingOtherPlayers = false;
 
 	private boolean viewingRecipe = false;
 
+	@Element(name = "walk-speed")
 	private double walkSpeed = 0.22;
+	@Element(name = "fly-speed")
 	private double flySpeed = 0.1;
 
 	private Set<Punishment> punishments = new HashSet<>();
 
-	public static final double defaultWalkSpeed = 0.22;
-	public static final double defaultFlySpeed = 0.1;
+	public static final double DEFAULT_WALK_SPEED = 0.22;
+	public static final double DEFAULT_FLY_SPEED = 0.1;
 
 	private String currentServer = "";
 
@@ -68,7 +66,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Location the player was before their last teleport
 	 */
-	private Location preTeleportLocation;
+	private PreTeleportLocation preTeleportLocation;
 
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
@@ -267,11 +265,11 @@ public class MinecraftPlayer extends User {
 
 
 	public boolean hasCustomWalkSpeed() {
-		return customWalkSpeed;
+		return walkSpeed != DEFAULT_WALK_SPEED;
 	}
 
 	public boolean hasCustomFlySpeed() {
-		return customFlySpeed;
+		return flySpeed != DEFAULT_FLY_SPEED;
 	}
 
 	public double getWalkSpeed() {
@@ -311,15 +309,12 @@ public class MinecraftPlayer extends User {
 	/**
 	 * @return the players location prior to their most recent teleport
 	 */
-	public Location getPreTeleportLocation() {
+	public PreTeleportLocation getPreTeleportLocation() {
 		return preTeleportLocation;
 	}
 
-	/**
-	 * @param preTeleportLocation
-	 */
-	public void setPreTeleportLocation(Location preTeleportLocation) {
-		this.preTeleportLocation = preTeleportLocation;
+	public void setPreTeleportLocation(Location loc, PreTeleportType teleportType) {
+		this.preTeleportLocation = new PreTeleportLocation(loc, teleportType);
 	}
 
 	public boolean isInDebugMode() {

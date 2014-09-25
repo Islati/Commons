@@ -4,17 +4,12 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.config.MaintenanceConfiguration;
-import com.caved_in.commons.permission.Permission;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 8:12 PM
- */
 public class MaintenanceCommand {
-	@Command(name = "maintenance", usage = "maintainance [on/off/toggle]", permission = "commons.command.maintenance")
+	@Command(name = "maintenance", usage = "maintenance [on/off/toggle]", permission = "commons.maintenance.toggle")
 	public void maintainanceToggleCommand(CommandSender commandSender, String[] commandArgs) {
 		MaintenanceConfiguration maintenanceConfiguration = Commons.getConfiguration().getMaintenanceConfig();
 		if (commandArgs.length > 0) {
@@ -23,7 +18,7 @@ public class MaintenanceCommand {
 			switch (maintainanceHandle.toLowerCase()) {
 				case "on":
 					maintenanceConfiguration.setMaintenanceMode(true);
-					Players.kickAllWithoutPermission(Permission.MAINTENANCE_WHITELIST.toString(), maintenanceConfiguration.getKickMessage());
+					Players.kickAllWithoutPermission(Perms.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
 					Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					break;
 				case "off":
@@ -33,7 +28,7 @@ public class MaintenanceCommand {
 				case "toggle":
 					maintenanceConfiguration.toggleMaintenance();
 					if (maintenanceConfiguration.isMaintenanceMode()) {
-						Players.kickAllWithoutPermission(Permission.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
+						Players.kickAllWithoutPermission(Perms.MAINTENANCE_WHITELIST, maintenanceConfiguration.getKickMessage());
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_ENABLED);
 					} else {
 						Players.sendMessage(commandSender, Messages.MAINTENANCE_MODE_DISABLED);

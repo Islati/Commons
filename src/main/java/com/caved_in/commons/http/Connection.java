@@ -13,24 +13,25 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-public class Connection implements Serializable {
+class Connection implements Serializable {
 	static final long serialVersionUID = 1L;
 
-	String domain, referer;
-	Map<String, String> cookies;
+	private String domain;
+	private String referer;
+	private Map<String, String> cookies;
 
 	//Google chrome User Agent
-	static String rpUseragent = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
-	static String rpAcceptText = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-	static String rpAcceptPng = "image/png,image/*;q=0.8,*/*;q=0.5";
-	static String rpAcceptLanguage = "en-us,en;q=0.5";
-	static String rpAcceptEncoding = "gzip, deflate";
-	static String rpAcceptCharset = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-	static String rpKeepAlive = "300";
-	static String rpConnection = "keep-alive";
-	static String rpContentType = "application/x-www-form-urlencoded";
+	private static String rpUseragent = "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
+	private static String rpAcceptText = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+	private static String rpAcceptPng = "image/png,image/*;q=0.8,*/*;q=0.5";
+	private static String rpAcceptLanguage = "en-us,en;q=0.5";
+	private static String rpAcceptEncoding = "gzip, deflate";
+	private static String rpAcceptCharset = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+	private static String rpKeepAlive = "300";
+	private static String rpConnection = "keep-alive";
+	private static String rpContentType = "application/x-www-form-urlencoded";
 
-	public Connection(String domain, Map<String, String> cookies, String referer) {
+	private Connection(String domain, Map<String, String> cookies, String referer) {
 		this.domain = domain;
 		this.cookies = cookies;
 		this.referer = referer;
@@ -114,7 +115,7 @@ public class Connection implements Serializable {
 		return cookies.containsKey(key);
 	}
 
-	public String getCookieString() {
+	String getCookieString() {
 		StringBuilder sb = new StringBuilder();
 
 		for (String s : cookies.keySet()) {

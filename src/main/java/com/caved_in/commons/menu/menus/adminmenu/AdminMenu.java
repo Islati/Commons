@@ -2,6 +2,7 @@ package com.caved_in.commons.menu.menus.adminmenu;
 
 import com.caved_in.commons.menu.ItemMenu;
 
+@SuppressWarnings("WeakerAccess")
 public class AdminMenu extends ItemMenu {
 	private static AdminMenu instance;
 

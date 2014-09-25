@@ -135,12 +135,14 @@ public class ItemMenu implements InventoryHolder {
 
 	@Override
 	protected ItemMenu clone() {
+
 		ItemMenu clone = new ItemMenu(title, rows);
 		clone.setExitOnClickOutside(exitOnClickOutside);
 		clone.setBehaviours(menuActions);
 		for (Map.Entry<Integer, MenuItem> itemEntry : items.entrySet()) {
 			clone.addMenuItem(itemEntry.getValue(), itemEntry.getKey());
 		}
+
 		return clone;
 	}
 

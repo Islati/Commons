@@ -27,7 +27,7 @@ public class Pages {
 	 */
 	public String[] getStringsToSend(int page) {
 		int startIndex = this.itemsPerPage * (Math.abs(page) - 1);
-		LinkedList<String> list = new LinkedList<String>();
+		LinkedList<String> list = new LinkedList<>();
 		if (page <= this.getPages()) {
 			for (int i = startIndex; i < (startIndex + this.itemsPerPage); i++) {
 				if (this.data.length > i) {

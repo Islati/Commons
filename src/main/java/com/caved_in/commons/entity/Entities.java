@@ -679,10 +679,9 @@ public class Entities {
 
 		double g = -0.08;
 		double d = loc.distance(entityLoc);
-		double t = d;
-		double v_x = (1.0 + 0.07 * t) * (loc.getX() - entityLoc.getX()) / t;
-		double v_y = (1.0 + 0.03 * t) * (loc.getY() - entityLoc.getY()) / t - 0.5 * g * t;
-		double v_z = (1.0 + 0.07 * t) * (loc.getZ() - entityLoc.getZ()) / t;
+		double v_x = (1.0 + 0.07 * d) * (loc.getX() - entityLoc.getX()) / d;
+		double v_y = (1.0 + 0.03 * d) * (loc.getY() - entityLoc.getY()) / d - 0.5 * g * d;
+		double v_z = (1.0 + 0.07 * d) * (loc.getZ() - entityLoc.getZ()) / d;
 
 		org.bukkit.util.Vector v = e.getVelocity();
 		v.setX(v_x);

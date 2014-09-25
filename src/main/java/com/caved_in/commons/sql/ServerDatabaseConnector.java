@@ -20,14 +20,6 @@ import java.util.UUID;
 
 import static com.caved_in.commons.sql.DatabaseField.*;
 
-/**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
- */
 public class ServerDatabaseConnector extends DatabaseConnector {
 
 	//Player Data Statements
@@ -44,20 +36,22 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
 	//Punishments statements
 	private static String RETRIEVE_ALL_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=?";
-	private static String RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=? AND pardoned=0 AND pun_expires > ?";
-	private static String RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT = "SELECT pun_expires, pun_reason, pun_issued, pun_giver_id FROM server_punishments WHERE player_id=? and pun_type=? ORDER BY pun_expires DESC LIMIT 1";
-	private static String PARDON_ACTIVE_PUNISHMENTS = "UPDATE server_punishments SET pardoned=1 WHERE player_id=?";
-	private static String PARDON_ACTIVE_PUNISHMENTS_TYPE = "UPDATE server_punishments SET pardoned=1 WHERE pun_type=? AND player_id=? AND pardoned=0";
+	private static final String RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=? AND pardoned=0 AND pun_expires > ?";
+	private static final String RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT = "SELECT pun_expires, pun_reason, pun_issued, pun_giver_id FROM server_punishments WHERE player_id=? and pun_type=? ORDER BY pun_expires DESC LIMIT 1";
+	private static final String PARDON_ACTIVE_PUNISHMENTS = "UPDATE server_punishments SET pardoned=1 WHERE player_id=?";
+	private static final String PARDON_ACTIVE_PUNISHMENTS_TYPE = "UPDATE server_punishments SET pardoned=1 WHERE pun_type=? AND player_id=? AND pardoned=0";
 	//Friends table / friends list data statement
-	private static String GET_PLAYER_FRIENDS = "SELECT * FROM server_friends WHERE player_id=?";
-	private static String INSERT_FRIEND_REQUEST = "INSERT INTO server_friends (player_id,friend_id,friend_status) VALUES (?,?,?)";
-	private static String UPDATE_FRIEND_REQUEST = "UPDATE server_friends SET friend_status=? WHERE player_id=? AND friend_id=?";
+	private static final String GET_PLAYER_FRIENDS = "SELECT * FROM server_friends WHERE player_id=?";
+	private static final String INSERT_FRIEND_REQUEST = "INSERT INTO server_friends (player_id,friend_id,friend_status) VALUES (?,?,?)";
+	private static final String UPDATE_FRIEND_REQUEST = "UPDATE server_friends SET friend_status=? WHERE player_id=? AND friend_id=?";
 
 	//Online status update query
-	private static final String UPDATE_PLAYER_ONLINE_STATUS = "REPLACE INTO server_online SET online=? AND svr_id=? WHERE player_id=?";
+	private static final String UPDATE_PLAYER_ONLINE_STATUS = "UPDATE server_online SET online=? AND svr_id=? WHERE player_id=?";
+	private static final String GET_PLAYER_ONLINE_STATUS = "SELECT * FROM server_online WHERE player_id=?";
+	private static final String INSERT_ONLINE_STATUS = "INSERT INTO server_online (player_id, online, svr_id) VALUES (?,?,?)";
 
 	//Player premium status update statement
-	private static final String UPDATE_PLAYER_PREMIUM_STATUS = "REPLACE INTO server_premium SET player_id=? AND premium=? WHERE player_id=?";
+	private static final String UPDATE_PLAYER_PREMIUM_STATUS = "UPDATE server_premium SET premium=? WHERE player_id=?";
 
 	private static final String SYNC_PLAYER_DATA = "UPDATE server_players,server_prefixes,server_premium SET server_players.player_name=?, server_players.player_money=?, server_prefixes.player_prefix=?, server_premium.premium=? WHERE server_players.player_id=? AND server_premium.player_id=? AND server_prefixes.player_id=?";
 
@@ -65,8 +59,9 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			"CREATE TABLE IF NOT EXISTS `server_online` (`player_id` varchar(36) NOT NULL, `online` tinyint(1) NOT NULL, `svr_id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_players` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT, `player_id` varchar(36) NOT NULL, `player_name` varchar(16) NOT NULL, `player_money` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
 			"CREATE TABLE IF NOT EXISTS `server_prefixes` (`player_id` varchar(36) NOT NULL, `player_prefix` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
-			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL DEFAULT '0') ENGINE=InnoDB DEFAULT CHARSET=latin1;",
-			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;"
+			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;",
+			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,`svr_name` text CHARACTER SET utf8 NOT NULL,`svr_ip` text CHARACTER SET utf8 NOT NULL,`svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100',PRIMARY KEY (`svr_id`),UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;"
 	};
 
 	public ServerDatabaseConnector(SqlConfiguration sqlConfiguration) {
@@ -104,6 +99,21 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			close(statement);
 		}
 		return playerHasData;
+	}
+
+	public boolean hasOnlineStatusData(UUID id) {
+		PreparedStatement statement = prepareStatement(GET_PLAYER_ONLINE_STATUS);
+		boolean hasOnlineData = false;
+		try {
+			statement.setString(1, id.toString());
+			ResultSet results = statement.executeQuery();
+			hasOnlineData = results.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(statement);
+		}
+		return hasOnlineData;
 	}
 
 	public boolean hasData(String playerName) {
@@ -371,6 +381,26 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 	}
 
 	public boolean updateOnlineStatus(UUID uniqueId, boolean isOnline) {
+		//If the player doesn't have any data for them being online, then we're going to insert the default data for em.
+		if (!hasOnlineStatusData(uniqueId)) {
+			PreparedStatement insertStatement = prepareStatement(INSERT_ONLINE_STATUS);
+			boolean inserted = false;
+			try {
+				insertStatement.setString(1, uniqueId.toString());
+				insertStatement.setBoolean(2, isOnline);
+				insertStatement.setInt(3, Commons.getServerId());
+				insertStatement.execute();
+				inserted = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(insertStatement);
+			}
+			return inserted;
+		}
+
+		//On the other hand, if the player happens to have data, then we're going to just execute an update statement :)
+
 		boolean dataUpdated = false;
 		PreparedStatement statement = prepareStatement(UPDATE_PLAYER_ONLINE_STATUS);
 		try {
@@ -378,7 +408,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			statement.setBoolean(1, isOnline);
 			statement.setInt(2, Commons.getServerId());
 			statement.setString(3, uniqueId.toString());
-			statement.executeUpdate();
+			statement.execute();
 			dataUpdated = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -392,21 +422,16 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		return updateOnlineStatus(minecraftPlayer.getId(), isOnline);
 	}
 
-	public boolean updatePlayerPremium(UUID playerId, boolean premium) {
+	public void updatePlayerPremium(UUID playerId, boolean premium) throws SQLException {
 		PreparedStatement statement = prepareStatement(UPDATE_PLAYER_PREMIUM_STATUS);
 		String uniqueId = playerId.toString();
-		boolean status = false;
 		try {
-			statement.setString(1, uniqueId);
-			statement.setBoolean(2, premium);
-			statement.setString(3, uniqueId);
-			status = statement.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			statement.setBoolean(1, premium);
+			statement.setString(2, uniqueId);
+			statement.executeUpdate();
 		} finally {
 			close(statement);
 		}
-		return status;
 	}
 
 	public void insertPlayerBan(PunishmentType punishmentType, UUID playerId, String giverId, String reason, long expires) {

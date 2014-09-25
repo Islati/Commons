@@ -55,9 +55,9 @@ public class Items {
 	};
 
 	public static final ItemStack[] LEATHER_ARMOR = new ItemStack[]{
+			makeItem(Material.LEATHER_BOOTS),
 			makeItem(Material.LEATHER_LEGGINGS),
 			makeItem(Material.LEATHER_CHESTPLATE),
-			makeItem(Material.LEATHER_BOOTS),
 			makeItem(Material.LEATHER_HELMET)
 	};
 
@@ -176,7 +176,7 @@ public class Items {
 		//Get the metadata for our item
 		ItemMeta itemMeta = getMetadata(itemStack);
 		//Boolean statements; Woo! Our newItemLore = the current items lore, if it has lore; otherwise a blank arraylist
-		List<String> newItemLore = hasLore(itemMeta) ? getLore(itemMeta) : new ArrayList<String>();
+		List<String> newItemLore = hasLore(itemMeta) ? getLore(itemMeta) : new ArrayList<>();
 		//Add all the lines passed to this method to the items current lore
 		for (String line : loreLines) {
 			if (line == null) {
@@ -543,34 +543,32 @@ public class Items {
 	}
 
 	public static MaterialData getMaterialDataFromString(String idDatavalue) throws InvalidMaterialNameException {
+		//If it's just a number, then parse it and return!S
+		if (StringUtils.isNumeric(idDatavalue)) {
+			return new MaterialData(Material.getMaterial(Integer.parseInt(idDatavalue)));
+		}
+
 		String[] materialSplit = null;
-		boolean wordsUsed = false;
 		//If there's a data-value attached, parse it
 		if (idDatavalue.contains(":")) {
 			materialSplit = idDatavalue.split(":");
 			//Assure both the numbers are numbers, otherwise return null material data
-			if (!StringUtils.isNumeric(materialSplit[0]) || !StringUtils.isNumeric(materialSplit[1])) {
-				wordsUsed = true;
-			}
-			//If no words were used, then retrieve the material data via ID
-			if (!wordsUsed) {
+			boolean firstNumeric = StringUtils.isNumeric(materialSplit[0]);
+			boolean secondNumeric = StringUtils.isNumeric(materialSplit[1]);
+
+			//If both elements are numeric, then parse them!
+			if (firstNumeric && secondNumeric) {
 				int materialId = Integer.parseInt(materialSplit[0]);
 				int dataValue = Integer.parseInt(materialSplit[1]);
 				return new MaterialData(Material.getMaterial(materialId), (byte) dataValue);
-			}
-		} else {
-			if (!StringUtils.isNumeric(idDatavalue)) {
-				wordsUsed = true;
-			}
-			//If no words were used, then retrieve the material data via ID
-			if (!wordsUsed) {
-				return new MaterialData(Material.getMaterial(Integer.parseInt(idDatavalue)));
 			}
 		}
 
 		ItemType itemType;
 
-		if (materialSplit == null || materialSplit.length == 0) {
+		//If no data-value was given, and it's a word, then look er' up and see
+		//if its material data
+		if (materialSplit == null) {
 			itemType = ItemType.lookup(idDatavalue);
 			if (itemType == null) {
 				throw new InvalidMaterialNameException(Messages.invalidItem(idDatavalue));
@@ -674,7 +672,7 @@ public class Items {
 			return false;
 		}
 
-		if (recipeNumber > 0 && (recipeNumber < recipeCount)) {
+		if (recipeNumber >= 0 && (recipeNumber < recipeCount)) {
 			//Get the recipe requested for the item requested
 			Recipe recipe = recipes.get(recipeNumber);
 			//Get the wrapped player data

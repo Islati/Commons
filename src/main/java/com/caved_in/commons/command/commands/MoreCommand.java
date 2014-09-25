@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class MoreCommand {
-	@Command(name = "more", usage = "/more", permission = "commons.commands.more")
+	@Command(name = "more", usage = "/more", permission = "commons.command.more")
 	public void onMoreCommand(Player player, String[] args) {
 		if (!Players.hasItemInHand(player)) {
 			Players.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);

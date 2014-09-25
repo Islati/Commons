@@ -1,8 +1,12 @@
 package com.caved_in.commons.listeners;
 
+import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
+import com.caved_in.commons.config.CommandConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,11 +15,39 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandPreProcessListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onCommandPreProcess(PlayerCommandPreprocessEvent event) {
-		Player player = event.getPlayer();
+	public void onCommandPreProcess(PlayerCommandPreprocessEvent e) {
+		Player player = e.getPlayer();
+
+		String command = e.getMessage();
+
+		CommandConfiguration config = Commons.getConfiguration().getCommandConfig();
+
+		//Check if they're using a bukkit command, and bukkit commands are disabled.
+		if (StringUtil.startsWithIgnoreCase(command, "/bukkit:") && config.disableBukkitCommands()) {
+			e.setCancelled(true);
+			Players.sendMessage(player, Messages.COMMAND_DISABLED);
+			return;
+		}
+
+		//Check if they're using the /pl or /plugins command, and it's disabled
+		switch (command) {
+			case "/pl":
+			case "/plugins":
+			case "/plugin":
+				if (config.disablePluginsCommand()) {
+					e.setCancelled(true);
+					Players.sendMessage(player, Messages.COMMAND_DISABLED);
+					return;
+				}
+				break;
+			default:
+				break;
+		}
+
 		MinecraftPlayer minecraftPlayer = Players.getData(player);
+
 		if (minecraftPlayer.isInDebugMode()) {
-			Debugger.debugCommandPreProcessEvent(player, event);
+			Debugger.debugCommandPreProcessEvent(player, e);
 		}
 	}
 }

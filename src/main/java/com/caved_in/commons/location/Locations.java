@@ -32,7 +32,7 @@ public class Locations {
 		return center.distanceSquared(entity.getLocation()) <= (radius * radius);
 	}
 
-	public static Location getRandomLocation(Location locationCenter, int radius) {
+	public static Location getRandomLocation(Location locationCenter, double radius) {
 		Random rand = new Random();
 		double angle = rand.nextDouble() * 360; //Generate a random angle
 		double x = locationCenter.getX() + (rand.nextDouble() * radius * Math.cos(Math.toRadians(angle)));
@@ -77,7 +77,7 @@ public class Locations {
 	}
 
 	public static List<Location> getParticlesCircle(Location center, float radius, float distanceBetweenParticles) {
-		List<Location> locs = new ArrayList<Location>();
+		List<Location> locs = new ArrayList<>();
 		for (float i = 0F; i < 360F; ) {
 			locs.add(new Location(center.getWorld(), center.getX() + Math.cos((double) i) / radius, center.getY(), center.getZ() + Math.sin((double) i) / radius));
 			i = i + distanceBetweenParticles;
@@ -86,7 +86,7 @@ public class Locations {
 	}
 
 	public static List<Location> getSpiral(Location center, Float degrees, double centerRadius, float radius, float distanceBetweenParticles) {
-		List<Location> locs = new ArrayList<Location>();
+		List<Location> locs = new ArrayList<>();
 		for (float i = 0F; i < degrees; ) {
 			locs.add(new Location(center.getWorld(), center.getX() + Math.sin((double) i) / radius, center.getY() + i / centerRadius, center.getZ() + Math.cos((double) i) / radius));
 			i = i + distanceBetweenParticles;
@@ -126,7 +126,7 @@ public class Locations {
 	}
 
 	public static List<Location> getPlain(Location position1, Location position2) {
-		List<Location> plain = new ArrayList<Location>();
+		List<Location> plain = new ArrayList<>();
 		if (position1 == null) {
 			return plain;
 		}

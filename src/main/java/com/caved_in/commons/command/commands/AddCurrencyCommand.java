@@ -20,6 +20,8 @@ public class AddCurrencyCommand {
 		String playerName = args[0];
 		String currencyAmount = args[1];
 		int amount = 0;
+
+
 		if (!Players.isOnline(playerName)) {
 			Players.sendMessage(sender, Messages.playerOffline(playerName));
 			return;

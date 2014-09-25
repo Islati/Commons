@@ -7,13 +7,8 @@ import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 8:28 PM
- */
 public class MessageCommand {
-	@Command(name = "msg", usage = "/msg <player> <msg> to send a player a message", aliases = {"m", "tell", "t", "whisper"}/*permission = "tunnels.common.message"*/)
+	@Command(name = "msg", usage = "/msg <player> <msg> to send a player a message", aliases = {"m", "tell", "t", "whisper"}, permission = "commons.messages.send")
 	public void onMessageCommand(Player Player, String[] args) {
 		if (args.length > 0) {
 			String receivingPlayer = args[0];

@@ -4,7 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.MaintenanceConfiguration;
 import com.caved_in.commons.config.PremiumConfiguration;
-import com.caved_in.commons.permission.Permission;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +20,7 @@ public class PlayerLoginListener implements Listener {
 		MaintenanceConfiguration maintenanceConfiguration = configuration.getMaintenanceConfig();
 		//If maintenance mode is enabled, kick the player if they don't have permissions
 		if (maintenanceConfiguration.isMaintenanceMode()) {
-			if (!Players.hasPermission(player, Permission.MAINTENANCE_WHITELIST)) {
+			if (!Players.hasPermission(player, Perms.MAINTENANCE_WHITELIST)) {
 				event.setKickMessage(maintenanceConfiguration.getKickMessage());
 				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}

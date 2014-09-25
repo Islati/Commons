@@ -4,12 +4,9 @@ import com.google.common.collect.MapMaker;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import org.bukkit.event.Event;
-import org.bukkit.event.EventException;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
-import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
@@ -23,8 +20,8 @@ class PluginDisabledListener implements Listener {
 	private static ConcurrentMap<Plugin, PluginDisabledListener> listeners = new MapMaker().weakKeys().makeMap();
 
 	// Objects that must be disabled
-	private Set<Future<?>> futures = Collections.newSetFromMap(new WeakHashMap<Future<?>, Boolean>());
-	private Set<ExecutorService> services = Collections.newSetFromMap(new WeakHashMap<ExecutorService, Boolean>());
+	private Set<Future<?>> futures = Collections.newSetFromMap(new WeakHashMap<>());
+	private Set<ExecutorService> services = Collections.newSetFromMap(new WeakHashMap<>());
 	private Object setLock = new Object();
 
 	// The plugin we're looking for
@@ -50,12 +47,9 @@ class PluginDisabledListener implements Listener {
 
 			if (result == null) {
 				// Register listener - we can't use the normal method as the plugin might not be enabled yet
-				BukkitFutures.registerEventExecutor(plugin, PluginDisableEvent.class, EventPriority.NORMAL, new EventExecutor() {
-					@Override
-					public void execute(Listener listener, Event event) throws EventException {
-						if (event instanceof PluginDisableEvent) {
-							created.onPluginDisabled((PluginDisableEvent) event);
-						}
+				BukkitFutures.registerEventExecutor(plugin, PluginDisableEvent.class, EventPriority.NORMAL, (listener, event) -> {
+					if (event instanceof PluginDisableEvent) {
+						created.onPluginDisabled((PluginDisableEvent) event);
 					}
 				});
 

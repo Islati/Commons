@@ -19,11 +19,11 @@ public class CommandController implements CommandExecutor {
 	 * All credits go to AmoebaMan for this handling of Commands via Annotations; It's an easier implementation, and allows a skip of the verifications
 	 * that normally come with something like this
 	 */
-	private final static HashMap<org.bukkit.command.Command, Object> handlers = new HashMap<org.bukkit.command.Command, Object>();
-	private final static HashMap<org.bukkit.command.Command, Method> methods = new HashMap<org.bukkit.command.Command, Method>();
-	private final static HashMap<String, SubCommand> subCommands = new HashMap<String, SubCommand>();
-	private final static HashMap<String, Object> subHandlers = new HashMap<String, Object>();
-	private final static HashMap<String, Method> subMethods = new HashMap<String, Method>();
+	private final static HashMap<org.bukkit.command.Command, Object> handlers = new HashMap<>();
+	private final static HashMap<org.bukkit.command.Command, Method> methods = new HashMap<>();
+	private final static HashMap<String, SubCommand> subCommands = new HashMap<>();
+	private final static HashMap<String, Object> subHandlers = new HashMap<>();
+	private final static HashMap<String, Method> subMethods = new HashMap<>();
 
 	/**
 	 * Registers all command handlers and subcommand handlers in a class, matching them with their corresponding commands and subcommands registered to the specified plugin.
@@ -142,9 +142,11 @@ public class CommandController implements CommandExecutor {
 					 * Reorder the arguments so we don't resend the subcommand
                      */
 					String[] subArgs = new String[args.length - 1];
-					for (int i = 1; i < args.length; i++) {
-						subArgs[i - 1] = args[i];
-					}
+//					for (int i = 1; i < args.length; i++) {
+//						subArgs[i - 1] = args[i];
+//					}
+
+					System.arraycopy(args, 1, subArgs, 0, args.length - 1);
 					/*
 					 * If the method requires a player and the subcommand wasn't sent by one, don't continue
                      */
@@ -153,13 +155,13 @@ public class CommandController implements CommandExecutor {
 						return true;
 					}
 					/*
-                     * If the method requires a console and the subcommand wasn't sent by one, don't continue
+					 * If the method requires a console and the subcommand wasn't sent by one, don't continue
                      */
 					if (subMethod.getParameterTypes()[0].equals(ConsoleCommandSender.class) && !(sender instanceof ConsoleCommandSender)) {
 						sender.sendMessage(ChatColor.RED + "This command requires a console sender");
 						return true;
 					}
-                    /*
+					/*
                      * If a permission is attached to this subcommand and the sender doens't have it, don't continue
                      */
 					if (!subCommand.permission.isEmpty() && !sender.hasPermission(subCommand.permission)) {

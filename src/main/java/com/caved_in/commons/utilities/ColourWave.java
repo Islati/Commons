@@ -12,7 +12,7 @@ public class ColourWave {
 
 	public ColourWave(String str) {
 		this.str = str;
-		this.colours = new ArrayList<Colour>();
+		this.colours = new ArrayList<>();
 	}
 
 	public ChatColor getLastColour() {

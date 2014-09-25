@@ -37,6 +37,7 @@ public class XmlPotionEffect {
 	public XmlPotionEffect(PotionEffect effect) {
 		this.alias = effect.getType().getName();
 		this.level = effect.getAmplifier();
+		this.duration = effect.getDuration();
 	}
 
 	public boolean isValid() {
@@ -45,5 +46,13 @@ public class XmlPotionEffect {
 
 	public PotionEffect getPotionEffect() {
 		return potionEffect;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 }

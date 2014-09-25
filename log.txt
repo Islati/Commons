@@ -1,14 +1,170 @@
-x---------------------------x
-|	[Symbol]   |   [Desc]	|
-|--------------|------------|
-|	    -	   |  Removed 	|
-|---------------------------|
-|		~	   |  Modified 	|
-|---------------------------|
-|		+	   |	Added	|
-x---------------------------x
+---- Key ----
+ - = Removed
+ ~ = Modified
+ + = Added
+-------------
+
+September 23'rd, 2014:
+	+ Created the PreTeleportLocation extension to regular locations. Can be used as a Location as it's derived from that.
+	+ Created the BaseLocation class
+	+ Added options to /fw.
+		- /fw <amount> <delay>
+	~ Cleaned up code for potion Command, wrote idea for menu to create potions.~ Cleaned up Recipe command, saved 10 lines.
+	~ Cleaned up hat command code, saved 5 lines.
+	~ Fully implemented permissions for the /back feature.
+	~ Fixed the Recipes not being Shown
+	~ Fixed /buypremium and /removepremium not working.
+	~ Reduced complexity of logic in the UpdatePlayerPremiumCallable
+	
+September 22'nd, 2014:
+	~ Added permissions to using the /back command
+	~ Updated /armor command to use the new ArmorSet enum for set-searching.
+
+September 20'th, 2014:
+	~ Fixed the leather-armor array in Items.java; Everything should appear in the right slot now.
+	~ Began Writing documentation for all the commands and permissions.
+	+ Created a player death listener to set the pre-teleport-location when they die.
+
+September 18'th, 2014:
+	~ Updated updateOnlineStatus method in ServerDatabaseConnector to insert default statuses if there's no existing data for them.
+	~
+
+September 17'th, 2014:
+	+ Added checks to CommandPreProcessListener to see if the player's using a disabled command.
+	+ Added disablePluginsCommand to commandConfig
+	+ Added disableBukkitCommands to commandConfig
+	+ Created the UpdatedOnlineStatusThread to perform the status-update for players.
+	~ Updated PlayerJoinEvent to set players status in the online-status database table
+	~ Updated PlayerQuitEvent and PlayerKickEvent to toggle players status in the online-status table.
+	- Deleted and removed all code for ItemMenuConfiguration
+	- Removed XmlItemMenu (used in ItemMenuConfiguration)
 
 
+September 14'th, 2014:
+	+ Added methods for direction (vector subtraction), and subtraction to Vectors.
+	+ Created BulletProperties class, containing information specific to the bullets being fired.
+    + Created FancyBullet, which is followed by a trail of particles (UN-TESTED)
+    + Created XmlPotionEffect
+	~ Updated CreatureHitAction and BlockHitAction to both take a player argument
+	~ Moved Bullet*Events to game.events package
+	~ Moved BaseGun to guns package
+	~ Fixed bug with ItemBuilders not translating color-codes in lore
+
+September 11'th, 2014:
+	~ Gave each player seperate ammo counts. derp, was supposed to have that last time.
+
+September 10'th, 2014:
+	~ Added bullet spread for guns
+	+ interfaces for bullet actions, allowing the same characteristics to be applied to different guns
+	+ CreatureHitAction; Single-method interface which takes a player and a livingentity argument.
+	+ BlockHitAction; Single-method interface which takes a player and block argument. Can be used to create some cool-io stuff.
+	+ BulletActions used to assign characteristics as to what the bullet does.
+	+ Vectors package work utilities. So far only contains the method to retrieve bullet-spread for vectors.
+	+ BulletHitBlockEvent (Called whenever a bullet hits a block.
+	+ BulletHitCreatureEvent (Called whenever a bullet hits a creature [Living entity])
+	+ the FishCannon easter-egg gun, you'll only ever know of it by using /debug fish_cannon ;)
+	+ Guns API, used to create guns, projectile-launchers, and neat-o gadgets!
+	+ Wrote new events for guns and bullets
+	~ Added cooldown between shots for guns
+	~ Added adjustable reload speeds to guns
+	~ Added cluster shots to guns
+	~ Renamed ProjectileLauncher to Gun
+	~ Renamed ItemProjectile to Bullet
+
+
+September 8'th,2014:
+	~ Finished Projectiles. WOOOOO
+	- Wrote test implementation for projectiles.
+
+September 4'th,2014:
+	+ ProjectileCreationException
+	+ ItemProjectile class
+	+ ProjectileBuilder class
+	+ PropertiesBuilder and PropertiesItem interfaces
+	+ ItemOperation interface
+	~ methods in Players to assign the new hotbar implementation to players
+	~ Finished hotbar implementation.
+
+September 3'rd, 2014:
+	+ New Hotbar class; Serializable hotbar that's assignable to players
+	+ Entities: getLivingEntitiesNear(Entity, double, double, double)
+	+ Entities: selectEntitiesNear(Entity, double, double, double, EntityType...)
+	- Removed WrappedPlayer class, better to use the User class.
+
+September 2'nd, 2014:
+	+ Created User class: Basic, abstract implementation of PlayerWrapper
+	+ Began projectile package, used to create throwable items.
+
+August 26'th, 2014:
+	+ Documented block & chat package along with all classes in each
+	+ Documented ColorCode class
+	+ Documented all Xml Wrapper classes (XmlEnchantment, XmlInventory, XmlItemStack, XmlLocation, XmlMenuItem, XmlPotionEffects, XmlSound)
+	+ Documented cuboid package and all contained classes.
+	+ Documented Debugger and DebugAction
+	+ Documented effect package and all contained classes.
+	+ Documented entity package and all contained classes.
+	+ Created two ban methods in Players: ban(Player, Punishment) and ban(String, Punishment)
+	+ Documented Players class
+	+ Added ItemMessage to BukkitPlugin for plugins to use.
+	+ Added debug method and logger creation to BukkitPlugin
+	- Removed the 'packet' package
+	- Remove the 'disguise' package
+	- Removed the 'Action' class from event package.
+	- Renamed the DataHandler class to TextFile
+	- Removed debug method from static context
+	- Removed executors and handlers from static-view in Commons
+	~ Moved the Tag class to be nested inside TextFile
+	~ Moved the ChestType class from block.chest.ChestType to block.ChestType
+	~ Refactored the ban command to use the new Players.ban(String / Player, Punishment)
+
+August 25th, 2014:
+	+ Added the clear(Player) method to PlayerTicker
+	+ Created LimitedGadget class, which is a gadget limited by it's amount of uses
+	+ Added the remove(Inventory, ItemStack) method to Inventories
+	+ Added the removeItem(Player, ItemStack) method to Players
+	+ Added the hasGadget(Player, Gadget) method to Players
+	~ Moved the Game API from commons.plugin.game to commons.game for Commons 1.5
+
+August 22'nd, 2014:
+	+ Created Cuboids class, with basic world-edit like functionality.
+	+ Made cuboid class serializable from an xml interface
+	+ Created block replace data object, which holds information about block manipulation. (What chance a block has to be replaced when using it in an action).
+	~ Refactored ItemBuilder to have a much simpler naming scheme.
+
+August 21'st, 2014:
+	+ CreatureBuilder class, a builder class to easily spawn and customize creatures
+	+ ArmorInventory class, a wrapper around EntityEquipment, used in conjunction with Entities / Players to easily assign equipment.
+	+ ArmorBuilder class, a builder interface for the ArmorInventory wrapper.
+	+ Added registerDebugActions method to BukkitPlugin class
+	+ Added some Javadocs to Players
+	+ Created DebugCreatureBuilder
+	+ Created DebugArmorBuilder
+	- Removed EntityArmorSlot and moved calls globally to ArmorSlot
+
+August 20'th, 2014:
+	+ Javadocs for Entities class & methods
+	~ renamed Entities.spawnRainbowSheep to spawnRandomSheep
+
+August 18'th, 2014:
+	+ Added messages for actions regarding arenas (Loading, adding, etc)
+	~ Changed the addArena method in ArenaHandler to return a boolean.
+
+August 14'th, 2014:
+	+ Added 'filterCollection' method to Entities
+	+ Added 'reduceCollection' method to Entities
+	+ Added 'selectEntitiesNearLocation' method to Entities
+	+ Added 'selectLivingEntitiesNearLocation' method to Entities
+	+ Added 'setHotbarSelection' method to Players
+	+ Added 'setHotbarItem' method to Players
+	+ Added 'setHotbarContents' method to Players
+	- Removed 'getHandle' method from Entities
+	- Removed 'setPositionRotation' method from Entities
+	- Removed 'addEntity' method from Entities
+	- Removed 'invokeProjectile' method from Entities
+	- Removed 'getBukkitEntity' method from Entities
+	~ I deprecated Items.makeItem(Material, String, String...) as it wouldn't compile due to how var-args work.
+	~ Moved 'registerGadgets' method from Subclass MiniGame to super-class BukkitPlugin
+	~ Removed deprication on Sounds.playSoundForPlayersAtLocation
 
 April 7'th, 2014:
 	- Removed friends list / friends functionality; Moving it to its own plugins for public release. later.

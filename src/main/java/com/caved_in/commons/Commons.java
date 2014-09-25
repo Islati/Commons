@@ -9,7 +9,6 @@ import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.menu.menus.serverselection.ServerSelectionMenu;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
@@ -26,17 +25,10 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 public class Commons extends BukkitPlugin {
-	private static Logger logger;
-
-	//TODO Make a way to poll server info from the database
-	private static int serverId = 0;
-
 	private static Commons plugin;
 
-	public static ServerSelectionMenu serverMenu;
 
 	public static final String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
 	public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
@@ -81,7 +73,7 @@ public class Commons extends BukkitPlugin {
 	}
 
 	public static int getServerId() {
-		return serverId;
+		return 0;
 	}
 
 	private void registerDebugActions() {
@@ -107,13 +99,6 @@ public class Commons extends BukkitPlugin {
 			registerListeners(new ChatListener());
 			debug("&aUsing Commons Chat Listener");
 		}
-
-		if (worldConfig.isCompassMenuEnabled()) {
-			serverMenu = new ServerSelectionMenu("Server Selection", Commons.getConfiguration().getItemMenuConfig().getXmlItems());
-		}
-
-		registerListeners(new PlayerInteractListener());
-		debug("&aRegistered Gadget Listener");
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
 			registerListeners(new LauncherListener()); // Register shoot pad listener if its enabled
@@ -150,12 +135,6 @@ public class Commons extends BukkitPlugin {
 			debug("&aRegistered the fire-spread listener");
 		}
 
-		debug("&aRegistered the block-break listener");
-		registerListeners(new BlockBreakListener());
-
-		debug("&aRegistered the creeper explode listener");
-		registerListeners(new EntityExplodeListener());
-
 		if (!worldConfig.isItemDropEnabled()) {
 			registerListeners(new ItemDropListener());
 			debug("&aRegistered the item-drop listener");
@@ -171,26 +150,6 @@ public class Commons extends BukkitPlugin {
 			debug("&aRegistered the food change listener");
 		}
 
-		// Events that'll be registered regardless of the configuration
-
-		registerListeners(new WorldLoadedListener());
-		debug("&aRegistered the World-Load listener");
-
-		registerListeners(new ServerPingListener());
-		debug("&aRegistered the Server Ping listener");
-
-		registerListeners(new PlayerLoginListener());
-		debug("&aRegistered the player Login listener");
-
-		registerListeners(new PlayerJoinListener());
-		debug("&aRegistered the player join listener");
-
-		registerListeners(new PlayerKickListener());
-		debug("&aRegistered the player kick listener");
-
-		registerListeners(new CommandPreProcessListener());
-		debug("&aRegistered the command pre-process listener");
-
 		//If the server is backed by SQL, then push the specific listeners
 		if (hasSqlBackend()) {
 			//Used to handle kicking of banned / temp-banned players
@@ -198,14 +157,23 @@ public class Commons extends BukkitPlugin {
 			debug("&aRegistered the player pre-login listener");
 		}
 
-		registerListeners(new PlayerQuitListener());
-		debug("&aRegistered the player Quit listener");
-
-		registerListeners(new InventoryListener());
-		debug("&aRegistered the inventory listener & ItemMenu Listeners");
-
-		registerListeners(new PlayerTeleportListener());
-		debug("&aRegistered the player teleport listener");
+		registerListeners(
+				//Used for gadgets, interaction restriction, etc.
+				new PlayerInteractListener(),
+				//Used
+				new BlockBreakPlaceListener(),
+				new EntityExplodeListener(),
+				new WorldLoadedListener(),
+				new ServerPingListener(),
+				new PlayerLoginListener(),
+				new PlayerJoinListener(),
+				new PlayerKickListener(),
+				new InventoryListener(),
+				new PlayerTeleportListener(),
+				new PlayerQuitListener(),
+				new CommandPreProcessListener(),
+				new PlayerDeathListener()
+		);
 	}
 
 	public void startup() {
@@ -246,12 +214,6 @@ public class Commons extends BukkitPlugin {
 			Players.addData(player);
 		}
 
-		//If the compass menu is enabled give everyone it
-		if (getWorldConfig().isCompassMenuEnabled()) {
-			for (Player player : Players.allPlayers()) {
-				givePlayerCompassMenu(player);
-			}
-		}
 	}
 
 	@Override

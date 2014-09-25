@@ -12,8 +12,6 @@ public class PunishmentBuilder {
 	private String reason;
 	private UUID issuer;
 
-	private boolean forever = false;
-
 	public PunishmentBuilder() {
 	}
 
@@ -43,7 +41,6 @@ public class PunishmentBuilder {
 	}
 
 	public PunishmentBuilder permanent(boolean val) {
-		this.forever = val;
 		if (val) {
 			return expiresOn(System.currentTimeMillis() + TimeHandler.getTimeInMilles(10, TimeType.YEAR));
 		}

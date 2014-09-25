@@ -277,7 +277,7 @@ public class PastebinReporter {
 
 		private String HEADER;
 		private char NEW_LINE = '\n';
-		private List<String> TEXT = new ArrayList<String>();
+		private List<String> TEXT = new ArrayList<>();
 
 		public Paste() {
 			INSTANCE = this;
@@ -296,13 +296,7 @@ public class PastebinReporter {
 			this();
 			try {
 				if (async) {
-					Runnable runnable = new Runnable() {
-						@Override
-						public void run() {
-							scanFile(file);
-						}
-					};
-
+					Runnable runnable = () -> scanFile(file);
 					new Thread(runnable).start();
 				} else {
 					scanFile(file);

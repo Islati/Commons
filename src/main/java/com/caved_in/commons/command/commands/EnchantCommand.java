@@ -22,7 +22,8 @@ import org.bukkit.inventory.ItemStack;
  * Time: 7:11 PM
  */
 public class EnchantCommand {
-	@Command(name = "enchant", permission = "tunnels.common.enchant")
+	//TODO Create permissions restricting all of the enchantments and levels.
+	@Command(name = "enchant", permission = "commons.command.enchant")
 	public void onEnchantCommand(Player player, String[] args) {
 		//Check if an enchantment name was passed
 		if (args.length > 0) {

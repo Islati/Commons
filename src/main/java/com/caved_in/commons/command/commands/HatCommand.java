@@ -16,6 +16,8 @@ public class HatCommand {
 	public void onHatCommand(Player player, String[] args) {
 		PlayerInventory inventory = player.getInventory();
 
+		//If the player has no arguments, then check if they have an item in their hand or if they\
+		//already have a hat.
 		if (args.length == 0) {
 			//If they're wearing a helmet, remove it and give it back to them.
 			if (!Items.isAir(inventory.getHelmet())) {
@@ -32,6 +34,7 @@ public class HatCommand {
 				return;
 			}
 		}
+
 
 		if (args.length == 1) {
 			Material hatMaterial;

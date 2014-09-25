@@ -28,7 +28,7 @@ abstract class AbstractBukkitService
 	@Override
 	protected <T> RunnableAbstractFuture<T> newTaskFor(final Callable<T> callable) {
 		validateState();
-		return new CallableTask<T>(callable);
+		return new CallableTask<>(callable);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ abstract class AbstractBukkitService
 		long ticks = toTicks(delay, unit);
 
 		// Construct future task and Bukkit task
-		CallableTask<V> task = new CallableTask<V>(callable);
+		CallableTask<V> task = new CallableTask<>(callable);
 		BukkitTask bukkitTask = getLaterTask(task, ticks);
 
 		tasks.add(bukkitTask, task);

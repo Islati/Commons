@@ -6,63 +6,51 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 6:49 PM
- */
+import java.util.HashMap;
+import java.util.Map;
+
 public class GamemodeCommand {
+	private static Map<String, GameMode> modeAliases = new HashMap<String, GameMode>() {{
+		put("0", GameMode.SURVIVAL);
+		put("s", GameMode.SURVIVAL);
+		put("survival", GameMode.SURVIVAL);
+		put("1", GameMode.CREATIVE);
+		put("c", GameMode.CREATIVE);
+		put("creative", GameMode.CREATIVE);
+		put("build", GameMode.CREATIVE);
+		put("2", GameMode.ADVENTURE);
+		put("a", GameMode.ADVENTURE);
+		put("adventure", GameMode.ADVENTURE);
+	}};
+
 	@Command(name = "gm", usage = "/gm <0/1/survival/creative> to switch gamemodes", permission = "commons.command.gamemode")
 	public void onGamemodeCommand(Player player, String[] args) {
-		if (args.length >= 1) {
-			String modeArgument = args[0];
-			Player playerToChange = player;
-			//Check if an argument to change the mode of an opposite player is included
-			if (args.length >= 2) {
-				String playerArg = args[1];
-				if (Players.isOnline(playerArg)) {
-					//Get the player if they're online
-					playerToChange = Players.getPlayer(playerArg);
-				} else {
-					Players.sendMessage(player, Messages.playerOffline(playerArg));
-				}
-			}
-			switch (modeArgument.toLowerCase()) {
-				case "0":
-				case "s":
-				case "survival":
-					playerToChange.setGameMode(GameMode.SURVIVAL);
-					break;
-				case "1":
-				case "creative":
-				case "c":
-					playerToChange.setGameMode(GameMode.CREATIVE);
-					break;
-				case "a":
-				case "adventure":
-				case "2":
-					playerToChange.setGameMode(GameMode.ADVENTURE);
-					break;
-				default:
-					Players.sendMessage(player, Messages.invalidCommandUsage("gamemode"));
-					return;
+		//If the player didn't include a target, or mode argument then cycle their game-mode.
+		if (args.length == 0) {
+			Players.cycleGameMode(player);
+			return;
+		}
+
+		String mode = args[0];
+		Player target = player;
+
+		if (args.length >= 2) {
+			String targetPlayerName = args[1];
+			//If the target player's not online, then quit while we're ahead!
+			if (!Players.isOnline(targetPlayerName)) {
+				Players.sendMessage(player, Messages.playerOffline(targetPlayerName));
+				return;
 			}
 
-		} else {
-			switch (player.getGameMode()) {
-				case SURVIVAL:
-					player.setGameMode(GameMode.CREATIVE);
-					break;
-				case CREATIVE:
-					player.setGameMode(GameMode.ADVENTURE);
-					break;
-				case ADVENTURE:
-					player.setGameMode(GameMode.SURVIVAL);
-					break;
-				default:
-					player.setGameMode(GameMode.SURVIVAL);
-					break;
-			}
+			target = Players.getPlayer(targetPlayerName);
 		}
+
+		mode = mode.toLowerCase();
+		if (!modeAliases.containsKey(mode)) {
+			Players.sendMessage(player, Messages.invalidCommandUsage("gamemode"));
+			return;
+		}
+
+		target.setGameMode(modeAliases.get(mode));
 	}
 }

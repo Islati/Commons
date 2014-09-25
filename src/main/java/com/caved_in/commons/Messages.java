@@ -1,10 +1,12 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.block.Direction;
+import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.Str;
@@ -57,7 +59,7 @@ public class Messages {
 
 	public static final String HAT_EQUIPPED = "&aEnjoy your hat!";
 
-	public static final String HAT_UNEQUIPPED = "&7*Poof* &e&oYour hat vanishes";
+	public static final String HAT_UNEQUIPPED = "&7*Poof* &e&oYou're no longer wearing a hat!";
 
 	public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
@@ -66,6 +68,10 @@ public class Messages {
 	public static final String GADGET_RELOADED = "&7Your gadget's been reloaded.";
 
 	public static final String ERROR_RELOADING_GADGET = "&7Failed to reload your gadget.";
+
+	public static final String COMMAND_DISABLED = "&cSorry, this command is disabled.";
+
+	private static final String INSUFFICIENT_PERMISSION_MESSAGE = "&cYou don't have the required permissions to %s.";
 
 	public static String arenaAdded(String world) {
 		return String.format("&aThe world '&e%s'&a has been added as an arena!", world);
@@ -93,6 +99,10 @@ public class Messages {
 
 	public static String arenaSpawnAdded(Arena arena, Location loc) {
 		return String.format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
+	}
+
+	public static String cuboidDescription(Cuboid cuboid) {
+		return String.format("Cuboid: %s,%s,%s,%s => %s,%s,%s", cuboid.getWorldName(), cuboid.getLowerX(), cuboid.getLowerY(), cuboid.getLowerZ(), cuboid.getUpperX(), cuboid.getUpperY(), cuboid.getUpperZ());
 	}
 
 	public static String gadgetExpired(Gadget gadget) {
@@ -231,6 +241,34 @@ public class Messages {
 		return String.format("&eRemoved &c%s&e mobs", amount);
 	}
 
+	public static String insufficientPreTeleportPermissions(PreTeleportLocation loc) {
+		String action = "";
+		switch (loc.getType()) {
+			case END_PORTAL:
+				action = "teleport back after entering the end";
+				break;
+			case ENDER_PEARL:
+				action = "teleport back after throwing an ender pearl";
+				break;
+			case NETHER_PORTAL:
+				action = "teleport back after entering the nether.";
+				break;
+			case DEATH:
+				action = "teleport back on death";
+				break;
+			case WARP:
+				action = "teleport back after warping";
+				break;
+			default:
+				break;
+		}
+		return String.format(INSUFFICIENT_PERMISSION_MESSAGE, action);
+	}
+
+	public static String invalidArmorSet(String name) {
+		return String.format("&e%s&c is not a valid type of armor-set.", name);
+	}
+
 	public static String itemEnchantmentAdded(String enchantmentName) {
 		return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
 	}
@@ -244,7 +282,7 @@ public class Messages {
 	}
 
 	public static String itemId(String name, Material material) {
-		return String.format("&eThe id for &o%s&r&e is &a%s", name, material.getId());
+		return String.format("&aThe id for &e&o%s&r&e is &a%s.", name, material.getId());
 	}
 
 	public static String[] itemInfo(ItemStack itemStack) {

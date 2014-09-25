@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class BlockTextCommand {
-	@Command(name = "blocktext", permission = "commons.commands.blocktext")
+	@Command(name = "blocktext", permission = "commons.command.blocktext")
 	public void onBlockTextCommand(Player player, String[] args) {
 		//Use letter class to draw text
 		if (args.length < 2) {

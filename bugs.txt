@@ -1,0 +1,56 @@
+---- Key ----
+[X] = Resolved Bug.
+[O] = Unresolved Bug.
+-------------
+
+Bugs:
+	"":
+		
+
+   	"Recipe's not displaying properly":
+   		Recipes would not display, and instead said invalid recipe
+
+   		[Resolution]:
+   			In the showRecipe(player, itemstack, recipeNum) method I changed the > 0 check to a >= 0, because the first element in the list would be 0, not 1. This was causing recipes to not show.
+
+   	'BuyPremium Command - Constant database error':
+   		The buy-premium command constantly complains there's a database error.
+
+   		[Resoultion]:
+   			Simplified the logic behind the asyncronous task execution,re-wrote the sql statements used in handling the adding and removing, and removed the boolean return from updatePlayerPremium in the server database connector, along with made it throw an exception to be handled from the callable.
+	
+	'Ban Command - Time Argument':
+		For the longest time, when banning a player, after
+		the t: argument it would no longer take the ban message.
+
+		[Resolution]:
+			Replaced the for-loops 'break;' statement
+			with a 'continue;' statement. It doesn't kill
+			the loop that way ;)
+
+	
+
+
+
+
+
+	#  OFFICIAL QUALITY ASSURANCE FORMAT #
+	#  (For Bug-Searching and QA Testing) #
+	
+	# Title the bug as a summary of the description, like such.
+	'Armor Command - Leather Option':
+		When I performed the '/armor leather' command, I checked my inventory and
+		some items were in invalid armor slots.
+
+		* Boots Were in the Chestplate slot.
+		* Chestplate was in the leggings slot.
+		* Leggings were in the boots slot.
+
+		# THIS PART BELOW WILL BE WRITTEN BY THE
+		DEVELOPER WHO FIXES THIS PARTICULAR BUG. THE
+		BUG-TESTER WON'T INCLUDE THIS BIT WHEN SUBMITTING A BUG.
+
+		[Resolution]:
+			Adjusted the armor slots in Items.java.
+
+

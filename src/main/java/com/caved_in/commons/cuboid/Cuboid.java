@@ -1,5 +1,6 @@
 package com.caved_in.commons.cuboid;
 
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -140,6 +141,10 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		map.put("y2", this.y2);
 		map.put("z2", this.z2);
 		return map;
+	}
+
+	public String getWorldName() {
+		return worldName;
 	}
 
 	public Stream<Block> stream() {
@@ -411,10 +416,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 * @return true if the Location is within this Cuboid, false otherwise
 	 */
 	public boolean contains(Location l) {
-		if (!this.worldName.equals(l.getWorld().getName())) {
-			return false;
-		}
-		return this.contains(l.getBlockX(), l.getBlockY(), l.getBlockZ());
+		return worldName.equals(l.getWorld().getName()) && contains(l.getBlockX(), l.getBlockY(), l.getBlockZ());
 	}
 
 	/**
@@ -618,7 +620,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 
 	@Override
 	public String toString() {
-		return new String("Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2 + "," + this.y2 + "," + this.z2);
+		return Messages.cuboidDescription(this);
 	}
 
 	public class CuboidIterator implements Iterator<Block> {

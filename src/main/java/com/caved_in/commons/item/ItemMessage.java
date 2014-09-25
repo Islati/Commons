@@ -213,7 +213,7 @@ public class ItemMessage {
 		private int iterations;
 
 		public NamerTask(Player player, MessageRecord rec) {
-			this.playerRef = new WeakReference<Player>(player);
+			this.playerRef = new WeakReference<>(player);
 			this.iterations = Math.max(1, (rec.getDuration() * 20) / interval);
 			this.slot = player.getInventory().getHeldItemSlot();
 			this.message = rec.getMessage();

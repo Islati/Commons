@@ -20,7 +20,7 @@ import java.util.zip.ZipInputStream;
 
 public class CommonUtils {
 	private static final Random random = new Random();
-	private static Map<String, ChatColor> prevColours = new HashMap<String, ChatColor>();
+	private static Map<String, ChatColor> prevColours = new HashMap<>();
 
 	private static boolean colouredConsole = true;
 
@@ -109,8 +109,8 @@ public class CommonUtils {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new IllegalArgumentException("You must specify all of x,y,z" + s + ".");
 		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("Invalid number in " + arglist);
 		}
-		throw new IllegalArgumentException("Invalid number in " + arglist);
 	}
 
 	public static String parseColourSpec(String spec) {

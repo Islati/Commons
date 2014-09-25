@@ -3,11 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.command.Command;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 6:50 PM
- */
+
 public class NicklistCommand {
 	@Command(name = "nicklist", permission = "commons.command.nicklist")
 	public void getNickListCommand(Player player, String[] args) {

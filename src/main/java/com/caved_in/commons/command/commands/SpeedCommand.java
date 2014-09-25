@@ -24,12 +24,12 @@ public class SpeedCommand {
 				}
 				//If they're flying, set their fly speed; if not, their walk speed
 				if (player.isFlying()) {
-					double fSpeed = (speed + (MinecraftPlayer.defaultWalkSpeed * 10)) / 10;
+					double fSpeed = (speed + (MinecraftPlayer.DEFAULT_WALK_SPEED * 10)) / 10;
 					minecraftPlayer.setFlySpeed(fSpeed);
 					Players.sendMessage(player, "" + player.getFlySpeed());
 
 				} else {
-					double fSpeed = (speed + (MinecraftPlayer.defaultWalkSpeed * 10)) / 10;
+					double fSpeed = (speed + (MinecraftPlayer.DEFAULT_WALK_SPEED * 10)) / 10;
 					minecraftPlayer.setWalkSpeed(fSpeed);
 					Players.sendMessage(player, "" + player.getWalkSpeed());
 				}
@@ -44,10 +44,10 @@ public class SpeedCommand {
 			//They didn't pass a speed argument, so reset their speeds to default
 			if (player.isFlying()) {
 				//Default fly speed
-				minecraftPlayer.setFlySpeed(MinecraftPlayer.defaultFlySpeed);
+				minecraftPlayer.setFlySpeed(MinecraftPlayer.DEFAULT_FLY_SPEED);
 			} else {
 				//Default walk speed
-				minecraftPlayer.setWalkSpeed(MinecraftPlayer.defaultWalkSpeed);
+				minecraftPlayer.setWalkSpeed(MinecraftPlayer.DEFAULT_WALK_SPEED);
 			}
 			Players.sendMessage(player, Messages.playerSpeedReset(player.isFlying()));
 		}

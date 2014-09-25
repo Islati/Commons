@@ -29,9 +29,6 @@ public class WorldConfiguration {
 	@Element(name = "launchpad-pressure-plates")
 	private boolean launchpadPressurePlates = false;
 
-	@Element(name = "enable-server-compass-menu")
-	private boolean enableCompassMenu = false;
-
 	@Element(name = "enable-join-messages")
 	private boolean enableJoinMessages = true;
 
@@ -53,8 +50,8 @@ public class WorldConfiguration {
 	@Element(name = "external-chat-plugin")
 	private boolean externalChatHandler = true;
 
-	@Element(name = "creeper-explode-fireworks")
-	private boolean creeperFireworks = true;
+	@Element(name = "explosion-fireworks")
+	private boolean explosionFireworks = true;
 
 	private boolean silenceChat = false;
 
@@ -65,7 +62,6 @@ public class WorldConfiguration {
 							  @Element(name = "disable-snow-accumulation") boolean disableSnowAccumulation,
 							  @Element(name = "disable-mycelium-spread") boolean disableMyceliumSpread,
 							  @Element(name = "launchpad-pressure-plates") boolean launchpadPressurePlates,
-							  @Element(name = "enable-server-compass-menu") boolean enableCompassMenu,
 							  @Element(name = "enable-join-messages") boolean enableJoinMessages,
 							  @Element(name = "enable-leave-messages") boolean enableLeaveMessages,
 							  @Element(name = "external-chat-plugin") boolean externalChatHandler,
@@ -73,7 +69,8 @@ public class WorldConfiguration {
 							  @Element(name = "enable-item-pickup") boolean enableItemPickup,
 							  @Element(name = "enable-item-drop") boolean enableItemDrop,
 							  @Element(name = "enable-food-change") boolean enableFoodChange,
-							  @Element(name = "disable-fire-spread") boolean disableFireSpread
+							  @Element(name = "disable-fire-spread") boolean disableFireSpread,
+							  @Element(name = "explosion-fireworks") boolean explosionFireworks
 	) {
 		this.disableIceAccumulation = disableIceAccumulation;
 		this.disableWeather = disableWeather;
@@ -82,7 +79,6 @@ public class WorldConfiguration {
 		this.disableSnowAccumulation = disableSnowAccumulation;
 		this.disableThunder = disableThunder;
 		this.launchpadPressurePlates = launchpadPressurePlates;
-		this.enableCompassMenu = enableCompassMenu;
 		this.enableJoinMessages = enableJoinMessages;
 		this.enableLeaveMessages = enableLeaveMessages;
 		this.externalChatHandler = externalChatHandler;
@@ -91,6 +87,7 @@ public class WorldConfiguration {
 		this.enableItemPickup = enableItemPickup;
 		this.enableFoodChange = enableFoodChange;
 		this.disableFireSpread = disableFireSpread;
+		this.explosionFireworks = explosionFireworks;
 	}
 
 	public WorldConfiguration() {
@@ -144,15 +141,6 @@ public class WorldConfiguration {
 	 */
 	public boolean hasLaunchpadPressurePlates() {
 		return this.launchpadPressurePlates;
-	}
-
-	/**
-	 * Check whether or not the menu for server-selection via compass is enabled
-	 *
-	 * @return true if the compass menu is enabled, false otherwise
-	 */
-	public boolean isCompassMenuEnabled() {
-		return this.enableCompassMenu;
 	}
 
 	/**
@@ -218,7 +206,7 @@ public class WorldConfiguration {
 	 *
 	 * @return
 	 */
-	public boolean isCreeperFireworks() {
-		return creeperFireworks;
+	public boolean hasExplosionFireworks() {
+		return explosionFireworks;
 	}
 }

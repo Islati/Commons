@@ -1,10 +1,7 @@
 package com.caved_in.commons.utilities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class MultiMap<A, B, C> implements Cloneable, Iterable<A>, Serializable {
 
@@ -117,7 +114,7 @@ public class MultiMap<A, B, C> implements Cloneable, Iterable<A>, Serializable {
 	}
 
 	public MultiMapResource<A, B, C> getResource(A key) {
-		return new MultiMapResource<A, B, C>(key, this);
+		return new MultiMapResource<>(key, this);
 	}
 
 	public MultiMapResource<A, B, C> getResource(int index) {
@@ -185,6 +182,91 @@ public class MultiMap<A, B, C> implements Cloneable, Iterable<A>, Serializable {
 		for (A cc : c.keySet()) {
 			this.put(cc, (B) c.get(cc).get(0), (C) c.get(cc).get(1));
 		}
+	}
+
+
+	public class MultiMapIterator<A, B, C> implements Iterator<A> {
+
+		private MultiMap<A, B, C> mapBase = null;
+		private A currentlyObject = null;
+		private int index = 0, lastIndex;
+
+		public MultiMapIterator(MultiMap<A, B, C> mapBase) {
+			this.mapBase = mapBase.clone();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return (index < mapBase.size());
+		}
+
+		@Override
+		public A next() {
+			A object = mapBase.getKey(index);
+			currentlyObject = object;
+
+			lastIndex = index;
+			index++;
+
+			return object;
+		}
+
+		public A getCurrently() {
+			return currentlyObject;
+		}
+
+		public MultiMapResource<A, B, C> getResource() {
+			return mapBase.getResource(currentlyObject);
+		}
+
+		@Override
+		public void remove() {
+			mapBase.remove(lastIndex);
+		}
+
+	}
+
+	public static enum MultiMapType {
+
+		NORMAL,
+		CLONE
+
+	}
+
+
+	public static class MultiMapResource<A, B, C> {
+
+		private A key = null;
+		private B firstValue = null;
+		private C secondValue = null;
+
+		private int index;
+
+		public MultiMapResource(A key, MultiMap<A, B, C> map) {
+			this.key = key;
+			this.firstValue = map.getFirstValue(key);
+			this.secondValue = map.getSecondValue(key);
+
+			this.index = map.getIndex(key);
+		}
+
+
+		public A getKey() {
+			return key;
+		}
+
+		public B getFirstValue() {
+			return firstValue;
+		}
+
+		public C getSecondValue() {
+			return secondValue;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
 	}
 
 }

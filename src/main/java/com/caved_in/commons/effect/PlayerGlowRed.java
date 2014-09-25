@@ -119,32 +119,35 @@ public class PlayerGlowRed {
 			effectThread = new BukkitRunnable() {
 				@Override
 				public void run() {
-					// loop through the player list
 					for (String name : players) {
 						try {
-							// get the player by name
 							Player p = plugin.getServer().getPlayerExact(name);
-							if (p != null) {
-								// get the EntityPlayer
-								Object nms_entity = getHandle.invoke(p);
-								// create a new packet instance
-								Object packet = packetPlayOutAnimation.newInstance(nms_entity, 1);
 
-								// loop through all players in the same world
-								for (Player pl : p.getWorld().getPlayers()) {
-									//Assure we're not sending the packet to the player themself
-									if (!pl.getName().equals(p.getName())) {
-										//
-										if (pl.getLocation().distance(p.getLocation()) <= packetRange) {
-											// preparing to send packet, getting EntityPlayer.
-											Object nms_player = getHandle.invoke(pl);
-											// get the players connection
-											Object nms_connection = playerConnection.get(nms_player);
-											// send the packet
-											sendPacket.invoke(nms_connection, packet);
-										}
-									}
+							if (p == null) {
+								continue;
+							}
+
+							Object nms_entity = getHandle.invoke(p);
+							// create a new packet instance
+							Object packet = packetPlayOutAnimation.newInstance(nms_entity, 1);
+
+							// loop through all players in the same world
+							for (Player pl : p.getWorld().getPlayers()) {
+								//Assure we're not sending the packet to the player themself
+
+								if (pl.getName().equals(p.getName())) {
+									continue;
 								}
+
+								if (pl.getLocation().distance(p.getLocation()) > packetRange) {
+									continue;
+								}
+
+								Object nms_player = getHandle.invoke(pl);
+								// get the players connection
+								Object nms_connection = playerConnection.get(nms_player);
+								// send the packet
+								sendPacket.invoke(nms_connection, packet);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();

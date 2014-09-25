@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  * Time: 7:12 PM
  */
 public class FeedCommand {
-	@Command(name = "feed", permission = "tunnels.common.feed")
+	@Command(name = "feed", permission = "commons.command.feed")
 	public void onFeedCommand(CommandSender sender, String[] args) {
 		//Check if they entered a player name as an argument
 		if (args.length > 0) {

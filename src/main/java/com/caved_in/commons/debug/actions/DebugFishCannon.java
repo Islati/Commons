@@ -28,6 +28,7 @@ public class DebugFishCannon implements DebugAction {
 		gadgetId = id;
 		if (!Gadgets.isGadget(id)) {
 			Gadgets.registerGadget(new FishCannon(id));
+			registered = true;
 		}
 		Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
 	}

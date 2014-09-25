@@ -15,6 +15,7 @@ import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Root(name = "arena")
 public class Arena implements GameArena {
@@ -85,10 +86,7 @@ public class Arena implements GameArena {
 
 	@Override
 	public List<Location> getSpawnLocations() {
-		List<Location> locs = new ArrayList<>();
-		for (XmlLocation loc : spawns) {
-			locs.add(loc.getLocation());
-		}
+		List<Location> locs = spawns.stream().map(XmlLocation::getLocation).collect(Collectors.toList());
 		return locs;
 	}
 

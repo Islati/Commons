@@ -22,7 +22,7 @@ public class LogFile {
 		}
 
 		this.file = file;
-		this.log = new ArrayList<String>();
+		this.log = new ArrayList<>();
 		this.autosave = false;
 		this.header = null;
 	}
@@ -97,7 +97,7 @@ public class LogFile {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			bufferedReader.readLine();
 
-			log = new ArrayList<String>();
+			log = new ArrayList<>();
 			String line = "";
 
 			while ((line = bufferedReader.readLine()) != null) {
@@ -117,7 +117,7 @@ public class LogFile {
 	}
 
 	public List<String> getLog() {
-		List<String> clonelog = new ArrayList<String>();
+		List<String> clonelog = new ArrayList<>();
 		clonelog.addAll(log);
 		return clonelog;
 	}

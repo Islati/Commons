@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class RunnableManager {
 	private JavaPlugin plugin;
-	private HashMap<String, Integer> runningTasks = new HashMap<String, Integer>();
+	private HashMap<String, Integer> runningTasks = new HashMap<>();
 
 	private Map<Integer, Runnable> runnableIds = new HashMap<>();
 

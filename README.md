@@ -1,6 +1,11 @@
-Commons
-=======
+Commons - Everything you'll need for Bukkit
+==========
 
-Open source library to help ease Bukkit plugin development
+During the release of Minecraft 1.5.X and having made plenty of Bukkit plugins, I always
+wanted a library that contained all the 'boiler-plate' work possible, so I could focus
+more on core plugin development. I wanted an all in one library with power, flexibility, fluency,
+and verbosity.. None existed, so I created *commons*.
 
-[![Build Status](http://repo.caved.in:8080/buildStatus/icon?job=Commons)](http://repo.caved.in:8080/job/Commons/)
+Package List
+--------
+

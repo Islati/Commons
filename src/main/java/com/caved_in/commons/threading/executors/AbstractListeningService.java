@@ -113,8 +113,8 @@ abstract class AbstractListeningService implements ListeningExecutorService {
 		if (ntasks == 0) {
 			throw new IllegalArgumentException();
 		}
-		List<Future<T>> futures = new ArrayList<Future<T>>(ntasks);
-		ExecutorCompletionService<T> ecs = new ExecutorCompletionService<T>(this);
+		List<Future<T>> futures = new ArrayList<>(ntasks);
+		ExecutorCompletionService<T> ecs = new ExecutorCompletionService<>(this);
 
 		// For efficiency, especially in executors with limited
 		// parallelism, check to see if previously submitted tasks are
@@ -202,7 +202,7 @@ abstract class AbstractListeningService implements ListeningExecutorService {
 		if (tasks == null) {
 			throw new NullPointerException();
 		}
-		List<Future<T>> futures = new ArrayList<Future<T>>(tasks.size());
+		List<Future<T>> futures = new ArrayList<>(tasks.size());
 		boolean done = false;
 		try {
 			for (Callable<T> t : tasks) {
@@ -237,7 +237,7 @@ abstract class AbstractListeningService implements ListeningExecutorService {
 			throw new NullPointerException();
 		}
 		long nanos = unit.toNanos(timeout);
-		List<Future<T>> futures = new ArrayList<Future<T>>(tasks.size());
+		List<Future<T>> futures = new ArrayList<>(tasks.size());
 		boolean done = false;
 		try {
 			for (Callable<T> t : tasks) {

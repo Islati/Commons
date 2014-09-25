@@ -5,13 +5,11 @@ import com.caved_in.commons.plugin.BukkitPlugin;
 
 public abstract class CraftGame extends BukkitPlugin implements GameCore {
 
-	private GameUpdateThread updateThread;
-
 	@Override
 	public void onEnable() {
 		super.onEnable();
-		//Create the core update thread and begin
-		updateThread = new GameUpdateThread(this);
+		//Create the core update thread and begin running it immediately, with the desired delay.
+		GameUpdateThread updateThread = new GameUpdateThread(this);
 		getThreadManager().registerSyncRepeatTask("Game Update", updateThread, 0, tickDelay());
 	}
 

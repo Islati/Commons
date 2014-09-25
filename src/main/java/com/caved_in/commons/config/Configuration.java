@@ -16,6 +16,9 @@ public class Configuration {
 	@Element(name = "register-commands")
 	private boolean registerCommands = true;
 
+	@Element(name = "command-config", type = CommandConfiguration.class)
+	private CommandConfiguration commandConfig;
+
 	@Element(name = "premium-config", type = PremiumConfiguration.class)
 	private PremiumConfiguration premiumConfig;
 
@@ -24,9 +27,6 @@ public class Configuration {
 
 	@Element(name = "maintenance-config", type = MaintenanceConfiguration.class)
 	private MaintenanceConfiguration maintenanceConfig;
-
-	@Element(name = "item-menu-config", type = ItemMenuConfiguration.class)
-	private ItemMenuConfiguration itemMenuConfig;
 
 	@Element(name = "debug-config", type = DebugConfig.class)
 	private DebugConfig debugConfig;
@@ -40,33 +40,33 @@ public class Configuration {
 	public Configuration(@Element(name = "world-config", type = WorldConfiguration.class) WorldConfiguration worldConfig,
 						 @Element(name = "database-config", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
 						 @Element(name = "maintenance-config", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
-						 @Element(name = "item-menu-config", type = ItemMenuConfiguration.class) ItemMenuConfiguration itemMenuConfig,
 						 @Element(name = "server-name") String serverName,
 						 @Element(name = "premium-config", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
 						 @Element(name = "mysql-backend") boolean sqlBackend,
 						 @Element(name = "register-commands") boolean registerCommands,
 						 @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig,
-						 @Element(name = "warp-config", type = WarpConfig.class) WarpConfig warpConfig) {
+						 @Element(name = "warp-config", type = WarpConfig.class) WarpConfig warpConfig,
+						 @Element(name = "command-config", type = CommandConfiguration.class) CommandConfiguration commandConfig) {
 		this.worldConfig = worldConfig;
 		this.sqlConfig = sqlConfig;
 		this.maintenanceConfig = maintenanceConfig;
-		this.itemMenuConfig = itemMenuConfig;
 		this.serverName = serverName;
 		this.premiumConfig = premiumConfig;
 		this.sqlBackend = sqlBackend;
 		this.registerCommands = registerCommands;
 		this.debugConfig = debugConfig;
 		this.warpConfig = warpConfig;
+		this.commandConfig = commandConfig;
 	}
 
 	public Configuration() {
 		this.worldConfig = new WorldConfiguration();
 		this.sqlConfig = new SqlConfiguration();
 		this.maintenanceConfig = new MaintenanceConfiguration();
-		this.itemMenuConfig = new ItemMenuConfiguration();
 		this.premiumConfig = new PremiumConfiguration();
 		this.debugConfig = new DebugConfig();
 		this.warpConfig = new WarpConfig();
+		this.commandConfig = new CommandConfiguration();
 	}
 
 	public MaintenanceConfiguration getMaintenanceConfig() {
@@ -75,10 +75,6 @@ public class Configuration {
 
 	public WorldConfiguration getWorldConfig() {
 		return worldConfig;
-	}
-
-	public ItemMenuConfiguration getItemMenuConfig() {
-		return itemMenuConfig;
 	}
 
 	public SqlConfiguration getSqlConfig() {
@@ -115,5 +111,9 @@ public class Configuration {
 
 	public void setRegisterCommands(boolean registerCommands) {
 		this.registerCommands = registerCommands;
+	}
+
+	public CommandConfiguration getCommandConfig() {
+		return commandConfig;
 	}
 }

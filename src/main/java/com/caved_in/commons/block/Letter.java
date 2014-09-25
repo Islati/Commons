@@ -536,7 +536,7 @@ public enum Letter {
 	}
 
 	public static List<Letter> fromString(String string) {
-		List<Letter> letters = new ArrayList<Letter>();
+		List<Letter> letters = new ArrayList<>();
 		for (char character : string.toCharArray()) {
 			Letter l = fromCharacter(character);
 			if (l != null) {

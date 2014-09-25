@@ -15,7 +15,7 @@ public class EntityExplodeListener implements Listener {
 		}
 
 		WorldConfiguration worldConfig = Commons.getWorldConfig();
-		if (worldConfig.isCreeperFireworks()) {
+		if (worldConfig.hasExplosionFireworks()) {
 			Fireworks.playRandomFirework(event.getLocation());
 		}
 

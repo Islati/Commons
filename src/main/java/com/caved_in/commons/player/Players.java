@@ -16,7 +16,7 @@ import com.caved_in.commons.inventory.Hotbar;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.permission.Permission;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.threading.RunnableManager;
@@ -485,7 +485,7 @@ public class Players {
 		}
 	}
 
-	public static void kickAllWithoutPermission(Permission permission, String reason) {
+	public static void kickAllWithoutPermission(Perms permission, String reason) {
 		kickAllWithoutPermission(permission.toString(), reason);
 	}
 
@@ -608,11 +608,11 @@ public class Players {
 		}
 	}
 
-	public static void messageAllWithPermission(Permission permission, String message) {
+	public static void messageAllWithPermission(Perms permission, String message) {
 		messageAllWithPermission(permission.toString(), message);
 	}
 
-	public static void messageAllWithPermission(Permission permission, String... messages) {
+	public static void messageAllWithPermission(Perms permission, String... messages) {
 		messageAllWithPermission(permission.toString(), messages);
 	}
 
@@ -630,14 +630,6 @@ public class Players {
 				sendMessage(player, message);
 			}
 		}
-	}
-
-	public static void messageAllWithoutPermission(Permission permission, String message) {
-		messageAllWithoutPermission(permission.toString(), message);
-	}
-
-	public static void messageAllWithoutPermission(Permission permission, String... messages) {
-		messageAllWithoutPermission(permission.toString(), messages);
 	}
 
 	/**
@@ -891,7 +883,7 @@ public class Players {
 	 * @param permission permission to check for.
 	 * @return true if the player has the given permission, false otherwise.
 	 */
-	public static boolean hasPermission(Player player, Permission permission) {
+	public static boolean hasPermission(Player player, Perms permission) {
 		return hasPermission(player, permission.toString());
 	}
 
@@ -985,7 +977,7 @@ public class Players {
 	 * @since 1.2.2
 	 */
 	public static boolean canChatWhileSilenced(Player player) {
-		return (hasPermission(player, Permission.CHAT_WHILE_SILENCED));
+		return (hasPermission(player, Perms.BYPASS_CHAT_SILENCE));
 	}
 
 	/**
@@ -1009,6 +1001,28 @@ public class Players {
 	 */
 	public static boolean isPremium(Player player) {
 		return isPremium(player.getUniqueId());
+	}
+
+	/**
+	 * Cycle the players gamemode. Order is Survival -> Creative, Creative -> Adventure, Adventure -> Survival.
+	 *
+	 * @param player player to cycle the game-mode of.
+	 */
+	public static void cycleGameMode(Player player) {
+		switch (player.getGameMode()) {
+			case SURVIVAL:
+				player.setGameMode(GameMode.CREATIVE);
+				break;
+			case CREATIVE:
+				player.setGameMode(GameMode.ADVENTURE);
+				break;
+			case ADVENTURE:
+				player.setGameMode(GameMode.SURVIVAL);
+				break;
+			default:
+				player.setGameMode(GameMode.SURVIVAL);
+				break;
+		}
 	}
 
 	/**

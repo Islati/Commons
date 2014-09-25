@@ -339,7 +339,7 @@ public class StringUtil {
 		if (text.contains(" ")) {
 			String[] Words = text.split(" ");
 			for (String word : Words) {
-				ArrayList<Character> chars = new ArrayList<Character>(word.length());
+				ArrayList<Character> chars = new ArrayList<>(word.length());
 				for (char c : word.toCharArray()) {
 					chars.add(c);
 				}
@@ -352,7 +352,7 @@ public class StringUtil {
 			}
 			return Scrambled.toString();
 		} else {
-			ArrayList<Character> chars = new ArrayList<Character>(text.length());
+			ArrayList<Character> chars = new ArrayList<>(text.length());
 			for (char c : text.toCharArray()) {
 				chars.add(c);
 			}

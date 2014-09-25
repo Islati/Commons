@@ -1,23 +1,28 @@
 package com.caved_in.commons.config;
 
-import org.simpleframework.xml.ElementMap;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.simpleframework.xml.Element;
 
 public class CommandConfiguration {
 
-	@ElementMap(name = "commands", entry = "command", key = "name", attribute = true, inline = true)
-	private Map<String, Boolean> commandsMap = new HashMap<>();
+	@Element(name = "disable-bukkit-commands")
+	private boolean disableBukkitCommands = true;
 
-	public CommandConfiguration(@ElementMap(name = "commands", entry = "command", key = "name", attribute = true, inline = true) Map<String, Boolean> commandsMap) {
-		this.commandsMap = commandsMap;
+	@Element(name = "disable-plugins-command")
+	private boolean disablePluginsCommand = true;
+
+	public CommandConfiguration(@Element(name = "disable-bukkit-commands") boolean disableBukkitCommands, @Element(name = "disable-plugins-command") boolean disablePluginsCommand) {
+		this.disableBukkitCommands = disableBukkitCommands;
+		this.disablePluginsCommand = disablePluginsCommand;
 	}
 
-	public boolean isCommandEnabled(String command) {
-		if (!commandsMap.containsKey(command)) {
-			return false;
-		}
-		return commandsMap.get(command);
+	public CommandConfiguration() {
+	}
+
+	public boolean disableBukkitCommands() {
+		return disableBukkitCommands;
+	}
+
+	public boolean disablePluginsCommand() {
+		return disablePluginsCommand;
 	}
 }

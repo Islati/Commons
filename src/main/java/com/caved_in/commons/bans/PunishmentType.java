@@ -15,7 +15,7 @@ public enum PunishmentType {
 	FLAG("flag", 3),
 	BAN("ban", 4);
 
-	private static Map<String, PunishmentType> punishments = new HashMap<String, PunishmentType>();
+	private static Map<String, PunishmentType> punishments = new HashMap<>();
 	private static Map<Integer, PunishmentType> punishmentIds = new HashMap<>();
 
 	static {
