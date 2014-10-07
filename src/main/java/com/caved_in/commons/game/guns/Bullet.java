@@ -2,6 +2,7 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.game.event.BulletHitBlockEvent;
 import com.caved_in.commons.game.event.BulletHitCreatureEvent;
 import com.caved_in.commons.player.Players;
@@ -39,6 +40,12 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 
 	private BasicTicker ticker = new BasicTicker(10);
 
+	private BulletDamageEntityClause damageConditions = null;
+
+	public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread, BulletDamageEntityClause damageConditions) {
+		this(Players.getPlayer(shooter), gun, item, force, damage, spread);
+		this.damageConditions = damageConditions;
+	}
 
 	public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
 		this(Players.getPlayer(shooter), gun, item, force, damage, spread);
@@ -124,8 +131,14 @@ public class Bullet extends BukkitRunnable implements Metadatable {
 			return;
 		}
 
+		Player player = getShooter();
+
 		for (LivingEntity entity : entities) {
 			if (entity.getUniqueId().equals(shooter)) {
+				continue;
+			}
+
+			if (damageConditions != null && !damageConditions.damage(player, entity)) {
 				continue;
 			}
 

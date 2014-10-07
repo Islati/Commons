@@ -1,32 +1,30 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.item.ArmorSet;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.PlayerInventory;
 
 /**
  * User: brandon
  */
 public class ArmorCommand {
-	@Command(name = "armor", permission = "commons.command.armor")
-	public void onArmorCommand(Player player, String[] args) {
-		if (args.length == 0) {
-			Players.sendMessage(player, Messages.invalidCommandUsage("armor type [leather, iron, gold, diamond]"));
-			return;
-		}
 
-		String armorArg = args[0];
-
-		ArmorSet set = ArmorSet.getSetByName(armorArg);
+	@Command(
+			identifier = "armor",
+			onlyPlayers = true,
+			description = "Equip yourself with a full set of armor!",
+			permissions = {"commons.command.armor"}
+	)
+	public void armorCommand(Player sender, @Arg(name = "armor_type") String armorType) {
+		ArmorSet set = ArmorSet.getSetByName(armorType);
 		if (set == null) {
-			Players.sendMessage(player, Messages.invalidArmorSet(armorArg));
+			Players.sendMessage(sender, Messages.invalidArmorSet(armorType));
 			return;
 		}
 
-		PlayerInventory inventory = player.getInventory();
-		inventory.setArmorContents(set.getArmor());
+		Players.setArmor(sender, set.getArmor());
 	}
 }

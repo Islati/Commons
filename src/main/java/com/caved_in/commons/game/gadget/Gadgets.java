@@ -1,5 +1,7 @@
 package com.caved_in.commons.game.gadget;
 
+import com.caved_in.commons.game.guns.BaseGun;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import org.bukkit.Location;
@@ -31,8 +33,13 @@ public class Gadgets {
 
 	public static Gadget getGadget(ItemStack item) {
 		for (Gadget gadget : gadgets.values()) {
-			if (gadget.getItem().isSimilar(item)) {
-//				Commons.debug("Gadget (" + gadget.id() + ") exists as Item " + StringUtil.joinString(Messages.itemInfo(item), "\n"));
+			if (gadget instanceof BaseGun) {
+
+				BaseGun gun = (BaseGun) gadget;
+				if (Items.nameContains(item, gun.getItemName())) {
+					return gun;
+				}
+			} else if (gadget.getItem().isSimilar(item)) {
 				return gadget;
 			}
 		}

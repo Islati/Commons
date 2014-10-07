@@ -1,5 +1,6 @@
 package com.caved_in.commons.config;
 
+import com.caved_in.commons.location.BaseLocation;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.simpleframework.xml.Element;
@@ -9,7 +10,7 @@ import org.simpleframework.xml.Root;
  * Serializable wrapper for Locations. Extends location class so it can be passed to methods without calling getLocation()
  */
 @Root(name = "location")
-public class XmlLocation extends Location {
+public class XmlLocation extends BaseLocation {
 	@Element(name = "world")
 	private String worldName;
 
@@ -35,7 +36,7 @@ public class XmlLocation extends Location {
 	}
 
 	public XmlLocation(Location location) {
-		super(location.getWorld(), location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+		super(location);
 		worldName = Worlds.getWorldName(location);
 		x = location.getX();
 		y = location.getY();
@@ -83,6 +84,7 @@ public class XmlLocation extends Location {
 		return yaw;
 	}
 
+	@Deprecated
 	public Location getLocation() {
 		if (location == null) {
 			location = new Location(Worlds.getWorld(worldName), x, y, z, yaw, pitch);

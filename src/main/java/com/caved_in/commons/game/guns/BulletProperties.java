@@ -2,6 +2,7 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.config.XmlParticleEffect;
 import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import org.simpleframework.xml.Element;
 
 public class BulletProperties {
@@ -22,6 +23,8 @@ public class BulletProperties {
 
 	@Element(name = "particles", required = false, type = XmlParticleEffect.class)
 	private XmlParticleEffect effect;
+
+	public BulletDamageEntityClause damageCondition;
 
 	private Gun parent;
 
@@ -67,6 +70,11 @@ public class BulletProperties {
 
 	public BulletProperties effect(ParticleEffects effect) {
 		this.effect = XmlParticleEffect.of(effect);
+		return this;
+	}
+
+	public BulletProperties damageCondition(BulletDamageEntityClause damageCondition) {
+		this.damageCondition = damageCondition;
 		return this;
 	}
 

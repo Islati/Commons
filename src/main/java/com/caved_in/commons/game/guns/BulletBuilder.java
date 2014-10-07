@@ -2,6 +2,7 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
+import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.vector.Vectors;
 import org.bukkit.Location;
@@ -20,6 +21,8 @@ public class BulletBuilder {
 	private double damage = 0;
 	private Gun gun;
 
+	private BulletDamageEntityClause damageConditions;
+
 	private boolean hasLauncher = true;
 
 	private ParticleEffects effect;
@@ -35,6 +38,7 @@ public class BulletBuilder {
 	public BulletBuilder(BulletProperties properties) {
 		this.force = properties.speed;
 		this.damage = properties.damage;
+		this.damageConditions = properties.damageCondition;
 	}
 
 	public BulletBuilder(ItemStack type) {

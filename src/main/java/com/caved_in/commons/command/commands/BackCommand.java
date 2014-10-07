@@ -9,8 +9,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class BackCommand {
-	@Command(name = "back", permission = "commons.command.back")
-	public void onBackCommand(Player player, String[] args) {
+
+	@Command(identifier = "back", onlyPlayers = true, permissions = {"commons.command.back"})
+	public void onBackCommand(Player player) {
 		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		Location location = minecraftPlayer.getPreTeleportLocation();
 

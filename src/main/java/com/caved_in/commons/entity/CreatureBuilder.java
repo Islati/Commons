@@ -202,7 +202,7 @@ public class CreatureBuilder {
 	}
 
 	/**
-	 * Spawn the creature at a specific location with the attributes acquired via the builder
+	 * Spawn the creature at a specific location with the properties acquired via the builder
 	 *
 	 * @param location location to spawn the creature at.
 	 * @return the creature builder.

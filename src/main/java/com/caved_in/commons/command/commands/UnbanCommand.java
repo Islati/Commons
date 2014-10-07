@@ -3,6 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.PardonPlayerPunishmentsCallable;
@@ -13,16 +14,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UnbanCommand {
-	@Command(name = "unban", description = "Unban / pardon a user from their ban", permission = "commons.command.unban", usage = "/unban [Name]", aliases = {"pardon"})
-	public void onUnbanCommand(CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			Players.sendMessage(sender, Messages.invalidCommandUsage("name"));
-			return;
-		}
+	@Command(onlyPlayers = false, identifier = "unban", description = "Unban / pardon a user from their ban", permissions = "commons.command.unban")
+	public void onUnbanCommand(CommandSender sender, @Arg(name = "player") String name) {
 
-		final String playerToUnban = args[0];
 		String pardonIssuer = "";
-		PardonPlayerPunishmentsCallable pardonPlayerCallable = new PardonPlayerPunishmentsCallable(playerToUnban, PunishmentType.BAN);
+		PardonPlayerPunishmentsCallable pardonPlayerCallable = new PardonPlayerPunishmentsCallable(name, PunishmentType.BAN);
 
 		if (sender instanceof Player) {
 			pardonIssuer = sender.getName();
@@ -40,10 +36,10 @@ public class UnbanCommand {
 			public void onSuccess(Boolean aBoolean) {
 				if (aBoolean) {
 					if (console) {
-						Commons.messageConsole(Messages.playerPardoned(playerToUnban));
+						Commons.messageConsole(Messages.playerPardoned(name));
 						return;
 					}
-					Players.sendMessage(player, Messages.playerPardoned(playerToUnban));
+					Players.sendMessage(player, Messages.playerPardoned(name));
 				} else {
 					if (console) {
 						Commons.messageConsole(Messages.ERROR_RETRIEVING_PLAYER_DATA);

@@ -20,13 +20,17 @@ public class SqlConfiguration {
 	@Element(name = "MySqlPassword")
 	private String mySqlPassword = "password";
 
+	@Element(name = "track-online-status", required = false)
+	private boolean trackPlayerOnlineStatus = false;
+
 	public SqlConfiguration(@Element(name = "MySqlHost") String mySqlHost, @Element(name = "MySqlPort") String mySqlPort, @Element(name = "Database") String mySqlDatabase,
-							@Element(name = "MySqlUsername") String mySqlUsername, @Element(name = "MySqlPassword") String mySqlPassword) {
+							@Element(name = "MySqlUsername") String mySqlUsername, @Element(name = "MySqlPassword") String mySqlPassword, @Element(name = "track-online-status", required = false) boolean trackOnlineStatus) {
 		this.mySqlHost = mySqlHost;
 		this.mySqlPort = mySqlPort;
 		this.mySqlDatabaseName = mySqlDatabase;
 		this.mySqlUsername = mySqlUsername;
 		this.mySqlPassword = mySqlPassword;
+		this.trackPlayerOnlineStatus = trackOnlineStatus;
 	}
 
 	public SqlConfiguration() {
@@ -50,5 +54,9 @@ public class SqlConfiguration {
 
 	public String getPassword() {
 		return this.mySqlPassword;
+	}
+
+	public boolean trackPlayerOnlineStatus() {
+		return trackPlayerOnlineStatus;
 	}
 }

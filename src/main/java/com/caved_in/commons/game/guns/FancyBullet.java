@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -12,6 +13,11 @@ public class FancyBullet extends Bullet {
 
 	public FancyBullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread, ParticleEffects effect) {
 		super(shooter, gun, item, force, damage, spread);
+		this.effect = effect;
+	}
+
+	public FancyBullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread, ParticleEffects effect, BulletDamageEntityClause damageConditions) {
+		super(shooter, gun, item, force, damage, spread, damageConditions);
 		this.effect = effect;
 	}
 

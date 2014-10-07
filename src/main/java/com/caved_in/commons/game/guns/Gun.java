@@ -13,11 +13,11 @@ public interface Gun {
 
 	public void setBulletActions(BulletActions actions);
 
-	public GunProperties attributes();
+	public GunProperties properties();
 
-	public BulletProperties bulletAttributes();
+	public BulletProperties bulletProperties();
 
-	public void attributes(GunProperties attributes);
+	public void properties(GunProperties attributes);
 
 	public boolean reload(Player player);
 

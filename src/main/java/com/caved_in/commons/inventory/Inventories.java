@@ -139,14 +139,18 @@ public class Inventories {
 		return -1;
 	}
 
-	public static boolean contains(Inventory inventory, ItemStack itemStack) {
-		Map<Integer, ? extends ItemStack> items = inventory.all(itemStack);
+	public static Integer getSlotOf(Inventory inventory, ItemStack searchItem) {
+		Map<Integer, ? extends ItemStack> items = inventory.all(searchItem);
 		for (Map.Entry<Integer, ? extends ItemStack> item : items.entrySet()) {
-			if (item.getValue().isSimilar(itemStack)) {
-				return true;
+			if (item.getValue().isSimilar(searchItem)) {
+				return item.getKey();
 			}
 		}
-		return false;
+		return -1;
+	}
+
+	public static boolean contains(Inventory inventory, ItemStack itemStack) {
+		return getSlotOf(inventory, itemStack) != -1;
 	}
 
 	public static void shuffleContents(Inventory inventory) {

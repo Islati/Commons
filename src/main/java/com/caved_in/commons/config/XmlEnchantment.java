@@ -15,13 +15,17 @@ public class XmlEnchantment {
 	@Attribute(name = "level")
 	private int level;
 
+	@Attribute(name = "glow", required = false)
+	private boolean glow = true;
+
 	public static XmlEnchantment fromEnchant(Enchantment enchantment, int level) {
 		return new XmlEnchantment(enchantment, level);
 	}
 
-	public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level) {
+	public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level, @Attribute(name = "glow", required = false) boolean glow) {
 		this.level = level;
 		this.enchantName = enchantName;
+		this.glow = glow;
 	}
 
 	public XmlEnchantment(Enchantment enchantment, int level) {
@@ -35,5 +39,9 @@ public class XmlEnchantment {
 
 	public int getLevel() {
 		return level;
+	}
+
+	public boolean hasGlow() {
+		return glow;
 	}
 }

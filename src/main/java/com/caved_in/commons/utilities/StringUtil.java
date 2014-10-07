@@ -23,8 +23,11 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class StringUtil {
+
+	private static final Pattern STRIP_COLOR_PATTERN = Pattern.compile("(?i)" + String.valueOf('&') + "[0-9A-FK-OR]");
 
 	public static String NEWLINE_SPLIT_REGEX = "\\r?\\n";
 
@@ -381,6 +384,14 @@ public class StringUtil {
 
 	public static List<String> colorize(List<String> strings) {
 		return formatColorCodes(strings);
+	}
+
+	public static String stripColor(String input) {
+		if (input == null) {
+			return null;
+		}
+
+		return STRIP_COLOR_PATTERN.matcher(input).replaceAll("");
 	}
 
 	public static List<String> formatColorCodes(List<String> list) {

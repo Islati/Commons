@@ -16,6 +16,7 @@ public class Configuration {
 	@Element(name = "register-commands")
 	private boolean registerCommands = true;
 
+
 	@Element(name = "command-config", type = CommandConfiguration.class)
 	private CommandConfiguration commandConfig;
 

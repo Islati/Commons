@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 
 
 public class SetSpawnCommand {
-	@Command(name = "setspawn", usage = "/setspawn", permission = "commons.command.setspawn")
-	public void setSpawnCommand(Player player, String[] commandArgs) {
+	@Command(identifier = "setspawn", permissions = {"commons.command.setspawn"})
+	public void setSpawnCommand(Player player) {
 		if (Worlds.setSpawn(player.getWorld(), player.getLocation())) {
 			Players.sendMessage(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
 		} else {

@@ -1,11 +1,10 @@
 package com.caved_in.commons.command.commands;
 
-import com.caved_in.commons.command.Command;
 import org.bukkit.entity.Player;
 
 
 public class NicklistCommand {
-	@Command(name = "nicklist", permission = "commons.command.nicklist")
+	//	@Command(name = "nicklist", permission = "commons.command.nicklist")
 	public void getNickListCommand(Player player, String[] args) {
 		/*HelpScreen HelpScreen = new HelpScreen("Currently Disguised Players");
 		HelpScreen.setHeader(ChatColor.YELLOW + "<name> Page <page> of <maxpage>");

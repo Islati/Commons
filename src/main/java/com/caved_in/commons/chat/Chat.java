@@ -1,7 +1,9 @@
 package com.caved_in.commons.chat;
 
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,5 +54,9 @@ public class Chat {
 		for (String message : messages) {
 			Bukkit.broadcastMessage(StringUtil.formatColorCodes(message));
 		}
+	}
+
+	public static void message(CommandSender sender, String... messages) {
+		Players.sendMessage(sender, messages);
 	}
 }

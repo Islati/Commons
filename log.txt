@@ -4,6 +4,30 @@
  + = Added
 -------------
 
+October 7'th, 2014 (Build 1.6-RELEASE):
+	+ Updated all commands to use the new methodcommand implementation
+	+ 
+
+October 2nd, 2014 (Build 1.6-ALPHA):
+	- Removed old command library, implemented MethodCommand.
+	~ Began updating commands to match the new library.
+	+ Wrote ArgumentHandlers for MinecraftPlayer, MaterialData, Enchantment, Material, and ItemStack.
+
+October 1'st, 2014 (Build 1.5.1):
+	~ Made XmlLocation extend BaseLocation
+	+ Created CyclicPotion, randomizes the duration of the effect.
+
+September 29'th, 2014 (Build 1.5.1-Alpha):
+	+ Added the option to have reload messages on guns.
+	+ Began working on a display for ammo on the guns.
+	+ If players are in debug mode and are using a gun, they should see their ammo count in their items name!
+	+ Players.isDebugging(Player) to check if a player is in debug mode or not.
+	+ Method to StringUtil stripColor
+	~ Made Items.getName remove formatting from item name
+	+ Optionally display ammo count.
+	+ Created DamageEntityClause
+	+ Created BulletDamageEntityClause
+
 September 23'rd, 2014:
 	+ Created the PreTeleportLocation extension to regular locations. Can be used as a Location as it's derived from that.
 	+ Created the BaseLocation class

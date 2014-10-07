@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import org.bukkit.event.EventHandler;
@@ -10,6 +11,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.UUID;
 
 public class PlayerQuitListener implements Listener {
+	private Configuration config;
+
+	public PlayerQuitListener() {
+
+	}
+
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		UUID playerId = event.getPlayer().getUniqueId();

@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root(name = "guns-attributes")
+@Root(name = "guns-properties")
 public class GunProperties {
 	/**
 	 * The size of our launchers clip. After 20 shots, they'll need to reload.
@@ -21,6 +21,18 @@ public class GunProperties {
 	@Element(name = "reload-speed-seconds")
 	public int reloadSpeed = 5;
 
+	@Element(name = "reload-message")
+	public boolean reloadMessage = true;
+
+	@Element(name = "display-ammo")
+	public boolean displayAmmo = true;
+
+	/**
+	 * What ammunition to use for the guns. By default it's flint.
+	 */
+	@Element(name = "ammunition", type = XmlItemStack.class)
+	private XmlItemStack ammunition = XmlItemStack.fromItem(Items.makeItem(Material.FLINT));
+
 	/**
 	 * How many bullets each shot takes.
 	 */
@@ -29,12 +41,6 @@ public class GunProperties {
 
 	@Element(name = "cluster-shot")
 	public boolean clusterShot = false;
-
-	/**
-	 * What ammunition to use for the guns. By default it's flint.
-	 */
-	@Element(name = "ammunition", type = XmlItemStack.class)
-	private XmlItemStack ammunition = XmlItemStack.fromItem(Items.makeItem(Material.FLINT));
 
 	private Gun parent;
 
@@ -45,13 +51,15 @@ public class GunProperties {
 		this.parent = parent;
 	}
 
-	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "shoot-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot) {
+	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "shoot-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo) {
 		this.clipSize = clipSize;
 		this.shotDelay = shotDelay;
 		this.reloadSpeed = reloadSpeed;
 		this.roundsPerShot = roundsPerShot;
 		this.ammunition = ammunition;
 		this.clusterShot = clusterShot;
+		this.reloadMessage = reloadMessage;
+		this.displayAmmo = displayAmmo;
 	}
 
 	public GunProperties clipSize(int size) {
@@ -81,6 +89,16 @@ public class GunProperties {
 
 	public GunProperties clusterShot(boolean val) {
 		this.clusterShot = val;
+		return this;
+	}
+
+	public GunProperties reloadMessage(boolean val) {
+		this.reloadMessage = val;
+		return this;
+	}
+
+	public GunProperties displayAmmo(boolean val) {
+		this.displayAmmo = val;
 		return this;
 	}
 

@@ -14,7 +14,7 @@ import org.bukkit.material.MaterialData;
 import java.util.Collection;
 
 /**
- * Used to cache the attributes of a Block without storing the Block itself.
+ * Used to cache the properties of a Block without storing the Block itself.
  */
 public class BlockData {
 

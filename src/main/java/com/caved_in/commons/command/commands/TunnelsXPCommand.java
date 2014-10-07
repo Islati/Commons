@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 
 public class TunnelsXPCommand {
 
-	@Command(name = "xp", usage = "/xp")
-	public void playerXPCommand(Player player, String[] args) {
+	@Command(identifier = "xp")
+	public void playerXPCommand(Player player) {
 		Players.sendMessage(player, Messages.playerXpBalance(player));
 	}
 }

@@ -5,8 +5,8 @@ import com.caved_in.commons.inventory.Inventories;
 import org.bukkit.entity.Player;
 
 public class WorkbenchCommand {
-	@Command(name = "workbench", permission = "commons.command.workbench", aliases = {"wb", "wbench"})
-	public void onWorkbenchCommand(Player player, String[] args) {
+	@Command(identifier = "workbench", permissions = "commons.command.workbench")
+	public void onWorkbenchCommand(Player player) {
 		Inventories.openWorkbench(player);
 	}
 }

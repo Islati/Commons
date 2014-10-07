@@ -1,6 +1,6 @@
 package com.caved_in.commons.plugin;
 
-import com.caved_in.commons.command.CommandController;
+import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.game.gadget.Gadget;
@@ -32,7 +32,11 @@ public abstract class BukkitPlugin extends JavaPlugin {
 
 	private Logger logger;
 
+	private CommandHandler commandHandler;
+
 	public void onEnable() {
+		commandHandler = new CommandHandler(this);
+
 		threadManager = new RunnableManager(this);
 		syncExecuter = BukkitExecutors.newSynchronous(this);
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
@@ -72,9 +76,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
 	public abstract void initConfig();
 
 	public void registerCommands(Object... commands) {
-		for (Object command : commands) {
-			CommandController.registerCommands(this, command);
-		}
+		commandHandler.registerCommands(commands);
 	}
 
 	public void registerListeners(Listener... listeners) {

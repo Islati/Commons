@@ -3,6 +3,7 @@ package com.caved_in.commons.reflection;
 import com.caved_in.commons.Commons;
 import org.bukkit.Bukkit;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +23,7 @@ public class ReflectionUtilities {
 
 	/**
 	 * Retrieve a class.
+	 *
 	 * @param name name of the class to retrieve
 	 * @return the class if found, otherwise null.
 	 */
@@ -46,6 +48,7 @@ public class ReflectionUtilities {
 
 	/**
 	 * Retrieve a(n) Craft Bukkit class
+	 *
 	 * @param className name of the class to retrieve
 	 * @return the class if found, otherwise null
 	 */
@@ -56,7 +59,8 @@ public class ReflectionUtilities {
 	/**
 	 * Retrieve a field by its name.
 	 * If the field is by default inaccessible then change it to allow access.
-	 * @param clazz class to retrieve the field from
+	 *
+	 * @param clazz     class to retrieve the field from
 	 * @param fieldName name of the field to retrieve.
 	 * @return the field if found, otherwise null.
 	 */
@@ -160,5 +164,15 @@ public class ReflectionUtilities {
 		Field field = instance.getClass().getDeclaredField(fieldName);
 		field.setAccessible(true);
 		return field.get(instance);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Annotation> T getAnnotation(Class<T> clazz, Method method, int parameterIndex) {
+		for (Annotation annotation : method.getParameterAnnotations()[parameterIndex]) {
+			if (annotation.annotationType() == clazz) {
+				return (T) annotation;
+			}
+		}
+		return null;
 	}
 }

@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 
 
 public class DayCommand {
-	@Command(name = "day", permission = "commons.command.time")
-	public void onDayCommand(Player player, String[] args) {
+	@Command(identifier = "day", permissions = "commons.command.time")
+	public void onDayCommand(Player player) {
 		World world = player.getWorld();
 		Worlds.setTimeDay(world);
 		Players.sendMessage(player, Messages.timeUpdated(world.getName(), "day"));

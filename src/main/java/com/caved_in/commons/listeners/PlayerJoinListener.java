@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
@@ -14,6 +15,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class PlayerJoinListener implements Listener {
+	private Configuration config;
+	boolean trackOnline = false;
+
+	public PlayerJoinListener() {
+		config = Commons.getConfiguration();
+		trackOnline = config.getSqlConfig().trackPlayerOnlineStatus();
+	}
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
@@ -31,10 +40,13 @@ public class PlayerJoinListener implements Listener {
 		Players.addData(player);
 
 		//Update the player's online status in our data-base!
-		Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
+
+		if (trackOnline) {
+			Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
+		}
 
 		//If the players in the lobby, teleport them to the spawn when they join
-		if (Commons.getConfiguration().getServerName().equalsIgnoreCase("lobby")) {
+		if (config.getServerName().equalsIgnoreCase("lobby")) {
 			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
 		}
 	}

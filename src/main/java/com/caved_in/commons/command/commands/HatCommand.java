@@ -1,25 +1,21 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.item.ItemType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 
 public class HatCommand {
-	@Command(name = "hat", usage = "/hat <ItemID/ItemName> to place an item on your head (overwriting your current item); /hat to remove it", permission = "tunnels.common.hat")
-	public void onHatCommand(Player player, String[] args) {
+	@Command(identifier = "hat", permissions = {"commons.command.hat"})
+	public void hatCommand(Player player, @Arg(name = "hat-item", def = "0") ItemStack hat) {
 		PlayerInventory inventory = player.getInventory();
-
-		//If the player has no arguments, then check if they have an item in their hand or if they\
-		//already have a hat.
-		if (args.length == 0) {
-			//If they're wearing a helmet, remove it and give it back to them.
+		if (hat == null || hat.getType() == Material.AIR) {
 			if (!Items.isAir(inventory.getHelmet())) {
 				Players.giveItem(player, inventory.getHelmet(), true);
 				inventory.setHelmet(null);
@@ -35,27 +31,7 @@ public class HatCommand {
 			}
 		}
 
-
-		if (args.length == 1) {
-			Material hatMaterial;
-			int hatId;
-			String hatArg = args[0];
-			if (StringUtils.isNumeric(hatArg)) {
-				hatId = Integer.parseInt(hatArg);
-			} else {
-				ItemType itemType = ItemType.lookup(hatArg);
-				if (itemType == null) {
-					Players.sendMessage(player, Messages.invalidItem(hatArg));
-					return;
-				}
-
-				hatId = itemType.getID();
-
-			}
-
-			hatMaterial = Material.getMaterial(hatId);
-			inventory.setHelmet(Items.makeItem(hatMaterial));
-			Players.sendMessage(player, Messages.HAT_EQUIPPED);
-		}
+		inventory.setHelmet(hat);
+		Players.sendMessage(player, Messages.HAT_EQUIPPED);
 	}
 }

@@ -293,7 +293,7 @@ public class Items {
 		if (!hasName(itemStack)) {
 			return itemStack.getType().toString().toLowerCase();
 		}
-		return getMetadata(itemStack).getDisplayName();
+		return StringUtil.stripColor(itemStack.getItemMeta().getDisplayName());
 	}
 
 	public static boolean hasName(ItemStack itemStack) {
@@ -312,7 +312,7 @@ public class Items {
 	 * @return true if the item name contains the text, false otherwise
 	 */
 	public static boolean nameContains(ItemStack item, String text) {
-		return (getName(item).toLowerCase().contains(text.toLowerCase()));
+		return StringUtil.startsWithIgnoreCase(getName(item), text);
 	}
 
 	public static ItemStack removeFromStack(ItemStack itemStack, int amount) {

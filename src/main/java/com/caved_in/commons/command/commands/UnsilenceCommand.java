@@ -7,8 +7,8 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
 public class UnsilenceCommand {
-	@Command(name = "unsilence", permission = "commons.command.silence")
-	public void unsilenceLobbyCommand(CommandSender sender, String[] args) {
+	@Command(identifier = "unsilence", permissions = "commons.command.silence", onlyPlayers = false)
+	public void unsilenceLobbyCommand(CommandSender sender) {
 		Commons.getConfiguration().getWorldConfig().setChatSilenced(false);
 		Players.messageAll(Messages.CHAT_UNSILENCED);
 	}

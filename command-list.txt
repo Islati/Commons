@@ -1,0 +1,422 @@
+#	COMMANDS LIST FOR COMMONS 	#
+AddCurrency:
+	Usage: /addcurrency <Player> <Amount>
+    Permission: commons.command.addcurrency
+	Description: Give the sp  ecified the given amount of server-currency. (Tunnels XP, in this case).
+
+Armor:
+	Usage: 
+		- /armor <leather, iron, gold, diamond> [player] 
+	Permission: 
+		- commons.command.armor
+	Description: 
+		Give yourself (or another player) a full set of the desired armor.
+
+Back:
+	Usage: 
+		- /back
+	Permissions:
+		- commons.command.back
+		- commons.back.endportal
+		- commons.back.enderpearl
+		- commons.back.netherportal
+		- commons.back.death
+		- commons.back.warp
+	
+	Description:
+		Teleport yourself to the location you were at before your most recent teleport (or death, warp, etc).
+
+Ban:
+	Usage:
+		- /ban t:100d21h Ban Reason
+	Permissions:
+		- commons.command.ban
+
+	Description:
+		Place a permanent or temporary ban on on a player.
+
+Blocktext:
+	Usage: 
+		- /blocktext <id / id:data> <Text>
+	Permissions:
+		- commons.command.blocktext
+	Description:
+		Write text with blocks where you're pointing your cursor! (NOTE: THERE IS NO WAY TO REVERSE THESE CHANGES.)
+
+Buypremium:
+	Usage:
+		- /buypremium <playerName>
+	Permissions:
+		- commons.command.buypremium
+
+	Description:
+		Give a user premium status.
+
+Ci:
+	Aliases:
+		- clearinventory
+		- clearinv
+	Usage:
+		- /ci [player]
+	Permissions:
+		- commons.clearinventory
+		- commons.clearinventory.other
+
+	Description:
+		Clear the inventory of yourself, or another place.
+
+Day:
+	Usage:
+		- /day
+	Permissions:
+		- commons.command.time
+
+	Description:
+		Change the time in your current world to day.
+
+Debug:
+	Usages:
+		- /debug (Toggles mode)
+		- /debug list (Lists all registered debug-actions.)
+		- /debug <action name>
+
+	Permissions:
+		- commons.debugmode
+
+	Description:
+		Debug mode is mainly used to debug code by programmers. For info about how the debugger works, visit HTTP://WWW.PLACEHOLDERLINK.COM
+
+Enchant:
+	Usages: 
+		- /enchant <name> <level>
+		- /enchant list
+
+	Permissions:
+		- commons.command.enchant
+
+	Description:
+		Apply the given enchantment and its level to the item held in your hand.
+
+Feed:
+	Usage: /feed [name]
+	
+	Permissions:
+		- commons.command.feed
+
+	Description:
+		Restore yourself or another player to full hunger.
+
+Fw:
+	Usage: /fw [amount] [tickDelay]
+
+	Permissions:
+		- commons.command.fireworks
+
+	Description:
+		Create your very own fireworks display!
+
+Fly:
+	Usage: /fly
+
+	Permissions:
+		- commons.command.fly
+
+	Description:
+		Toggle your own fly mode either on or off.
+
+Gm:
+	Usages:
+		- /gm 0,1,2,s,c,a
+
+	Permissions:
+		- commons.command.gamemode
+
+	Description:
+		Change, set, or toggle your or another players gamemode.
+
+Potion:
+	Usages:
+		- /potion <type> [amplification]
+	Permissions:
+		- commons.command.potion
+	Description:
+		Apply the specified potion effect to yourself.
+
+Night:
+	Usages:
+		- /night
+	Permissions:
+		- commons.command.time
+	Description:
+		Change the time of your current world to night.
+
+More:
+	Usages:
+		- /more
+	Permissions:
+		- commons.command.more
+	Description:
+		Give yourself more of the item you're holding.
+
+Msg:
+	Usages:
+		- msg <player> <message*>
+	Permissions:
+		- commons.messages
+	Description:
+		Send a private message to another player.
+
+Maintenance:
+	Usages:
+		- /maintenance [on/off/toggle]
+	Permissions:
+		- commons.maintenance.toggle
+		- commons.maintenance.join
+
+	Description:
+		Toggle the server in or out of maintenance mode. When in maintenance mode, only players with the permission commons.maintenance.join are able to join.
+
+Item:
+	Aliases:
+		- i
+		- item
+	Usages:
+		- /item <itemName, id, etc> <amount>
+	Permissions:
+		- commons.command.item
+	Description:
+		Give yourself the item specified.
+
+Id:
+	Usages:
+		- /id [name]
+		- /id
+	Permissions:
+		- commons.command.id
+	Description:
+		Look up / retrieve the id for the item either in your hand, or named via command.
+
+Heal:
+	Usages:
+		- /heal [player]
+	Permissions:
+		- commons.command.heal
+	Description:
+		Heal yourself or another player to full health, remove all potion effects, burns, and other ailments.
+
+Hat:
+	Usages:
+		- /hat [item]
+	Permissions:
+		- commons.command.hat
+	Description:
+		Give yourself the fanciest of hats!
+
+R:
+	Usage:
+		- /r HEY! THIS IS ME REPLYING TO YOUR PM!
+	Permissions:
+		- commons.messages
+	Description:
+		Respond to your most-recent private message.
+
+Recipe:
+	Usages:
+		- /Recipe       [While holding an item in hand]
+		- /recipe [id/name/id:data]
+	Permissions:
+		- commons.command.recipe
+	Description:
+		View the ingredients and layout required to craft a specific item.
+
+Removepremium:
+	Usages:
+		- /removepremium <name>
+	Permissions:
+		- commons.command.removepremium
+	Description:
+		Used to remove premium status from a player.
+
+Rename:
+	Usages:
+		- /rename <name*>
+	Permissions:
+		- commons.command.rename
+	Description:
+		Rename the item you're holding.
+
+Repair:
+	Usages:
+		- /repair [all]
+	Permissions:
+		- commons.command.repair
+	Description:
+		Repair some, or all of your items.
+
+Setspawn:
+	Usages:
+		- /setspawn
+	Permissions:
+		- commons.command.setspawn
+	Description:
+		Set the spawn point of the world you're currently in.
+
+Setwarp:
+	Usages:
+		- /setwarp <name*>
+	Permissions:
+		- commons.command.setwarp
+	Description:
+		Set a warp to a point in the world.
+
+Silence:
+	Usages:
+		- /silence
+	Permissions:
+		- commons.command.silence
+	Description:
+		Silence the chat! Bypassable with permissions & integrated features (ie. User has Premium status)
+
+Skull:
+	Usages:
+		- /skull [name]
+	Permissions:
+		- commons.command.skull
+	Description:
+		Get the skull of a player.
+
+Slay:
+	Usages:
+		- /slay <radius>
+		- /slay <radius> [yes]
+	Permissions:
+		- commons.command.slay
+	Description:
+		Slay all the mobs (players are optional, must have the yes/true parameter if slaying players)
+
+Spawn:
+	Usages:
+		- /spawn
+	Permissions:
+		- commons.command.spawn
+	Description:
+		Teleport to the spawn of your current world.
+
+Spawnmob:
+	Usages:
+		- /spawnmob creeper 10
+	Permissions:
+		- commons.command.spawnmob
+	Description:
+		Used to spawn mobs at your cursor location.
+
+Speed:
+	Usages:
+		- /speed
+		- /speed 4
+	Permissions:
+		- commons.command.speed
+	Description:
+		Change your walk/fly speed.
+
+Tphere:
+	Aliases:
+		- tphere
+		- bring
+	Usages:
+		- /tphere [name]
+		- /bring [name]
+	Permissions:
+		- commons.command.tphere
+
+	Description:
+		Teleport another player to your current location.
+
+Teleport:
+	Aliases:
+		- tphere
+		- teleport
+	Usages:
+		- /tp <player>
+		- /tp <player> <target>
+	Permissions:
+		- commons.command.teleport
+	Description:
+		Teleport yourself (or another player) to a target player.
+
+tpall:
+	Usages:
+		- /tpall
+	Permissions:
+		- commons.command.tpall
+	Description:
+		Teleport everyone on the server to your location.
+
+tppos:
+	Usages:
+		- /tppos <x> <y> <z>
+	Permissions:
+		- commons.command.tppos
+	Description:
+		Teleport yourself to specific co-ordinates in your world.
+
+Time:
+	Usages:
+		- /time day
+		- /time night
+		- /time dawn
+	Permissions:
+		- commons.command.time
+	Description:
+		Change the time in your current world.
+
+XP:
+	Usages:
+		- /xp
+	Description:
+		View your current amount of tunnels-xp. Used exclusively for commons in tunnels.
+
+Unban:
+	Aliases:
+		- /pardon
+		- /unban
+	Usages:
+		- /unban <player>
+		- /pardon <player>
+	Permissions:
+		- commons.command.unban
+	Description:
+		Pardon a player from their ban.
+
+Unsilence:
+	Usages:
+		- /unsilence
+	Permissions:
+		- commons.command.silence
+	Description:
+		Unsilence the chat, allowing everyone to speak again.
+
+Warp:
+	Usages:
+		- /warp
+	Permissions:
+		- commons.command.warp
+	Description:
+		Warp yourself to an archived location.
+
+Warps:
+	Usages:
+		- /warps
+	Permissions:
+		- commons.command.warps
+	Description:
+		View a menu of all the warps, in either an inventory menu, or a text-menu, depending on if the option is enabled in commons config.
+
+Workbench:
+	Usages:
+		- /wb
+		- /wbench
+	Permissions:
+		- commons.command.workbench
+	Description:
+		Open a workbench to craft in.

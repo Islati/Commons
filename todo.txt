@@ -1,0 +1,25 @@
+Armor Command - Slot Specific Armors.
+=======================================
+	Add flags for individual armor pieces and accept material as params for /armor
+	
+	Example:
+
+		Diamond helmet, Iron Chestplate, No pants or boots: "/armor -h diamond -c iron"
+
+		Leather suit with diamond boots: "/armor -hcl leather -b diamond"
+
+BlockText Command - Create a way to roll-back / undo.
+=====================================================
+	Design and implement a way to roll-back the placement of block-text, and assure that terrain isn't mangled in the process.
+
+
+Event Clause System
+=====================================================
+
+Subscribe to events! Example:
+
+	When (EntityDamageEvent)
+		and (entity is Pig)
+		then {
+			EXPLODE PIG
+		}

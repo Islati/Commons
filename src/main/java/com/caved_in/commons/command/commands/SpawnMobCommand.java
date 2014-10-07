@@ -1,35 +1,19 @@
 package com.caved_in.commons.command.commands;
 
-import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.player.Players;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 7:14 PM
- */
 public class SpawnMobCommand {
-	@Command(name = "spawnmob", permission = "commons.command.spawnmob")
-	public void onSpawnMobCommand(Player player, String[] args) {
-		if (args.length > 0) {
-			String mobArg = args[0];
-			EntityType entityType = Entities.getTypeByName(mobArg);
-			if (entityType != EntityType.UNKNOWN) {
-				int spawnAmount = 1;
-				if (args.length > 1 && StringUtils.isNumeric(args[1])) {
-					spawnAmount = Integer.parseInt(args[1]);
-				}
-				Entities.spawnLivingEntity(entityType, Players.getTargetLocation(player), spawnAmount);
-			} else {
-				Players.sendMessage(player, Messages.invalidMobType(mobArg));
-			}
-		} else {
-			Players.sendMessage(player, Messages.invalidCommandUsage("mob"));
+	@Command(identifier = "spawnmob", permissions = "commons.command.spawnmob")
+	public void onSpawnMobCommand(Player player, @Arg(name = "mob type") EntityType type, @Arg(name = "amount") int amount) {
+		if (type == null) {
+			return;
 		}
+
+		Entities.spawnLivingEntity(type, Players.getTargetLocation(player), amount);
 	}
 }

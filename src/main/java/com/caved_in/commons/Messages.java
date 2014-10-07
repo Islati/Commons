@@ -5,6 +5,7 @@ import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.location.Coords;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.player.MinecraftPlayer;
@@ -71,7 +72,10 @@ public class Messages {
 
 	public static final String COMMAND_DISABLED = "&cSorry, this command is disabled.";
 
+	public static final String CANT_AS_CONSOLE = "You can't do this as console";
+
 	private static final String INSUFFICIENT_PERMISSION_MESSAGE = "&cYou don't have the required permissions to %s.";
+
 
 	public static String arenaAdded(String world) {
 		return String.format("&aThe world '&e%s'&a has been added as an arena!", world);
@@ -111,6 +115,10 @@ public class Messages {
 
 	public static String gadgetReloaded(Gadget item) {
 		return String.format("&7&l'&r&7%s&r&7&l' has been reloaded", Items.getName(item.getItem()));
+	}
+
+	public static String gunNameAmmoFormat(String name, int ammo) {
+		return String.format("%s &r&d<&f%s&d>", name, ammo);
 	}
 
 	public static String playerDataLoadAttempt(String playerName) {
@@ -161,6 +169,14 @@ public class Messages {
 		return String.format("&eYou've been teleported to &a%S", description);
 	}
 
+	public static String playerTeleportedTo(double[] xyz) {
+		return playerTeleportedTo(new Coords(xyz));
+	}
+
+	public static String playerTeleportedTo(Coords xyz) {
+		return String.format("&eYou've been teleported to &a%sx,%sy,%sz", xyz.getX(), xyz.getY(), xyz.getZ());
+	}
+
 	public static String playerXpBalance(Player player) {
 		return String.format("&aYou have &e%s&a Tunnels XP", (int) Players.getData(player).getCurrency());
 	}
@@ -190,7 +206,7 @@ public class Messages {
 	}
 
 	public static String playerSpeedUpdated(boolean isFlying, double speed) {
-		return String.format("&aYou've set your &e%s&a speed to &e%s&a; to reset it to default use &e/speed", isFlying ? "fly" : "walk", speed);
+		return String.format("&aYou've set your &e%s&a speed to &e%s", isFlying ? "fly" : "walk", speed);
 	}
 
 	public static String playerSpeedReset(boolean isFlying) {
@@ -378,7 +394,11 @@ public class Messages {
 	}
 
 	public static String locationCoords(Location loc) {
-		return String.format("(%sx,%sy,%sz)", loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+		return locationCoords("(%sx,%sy,%sz)", loc);
+	}
+
+	public static String locationCoords(String format, Location loc) {
+		return String.format(format, loc.getX(), loc.getY(), loc.getZ());
 	}
 
 	public static String recipeFurnace(ItemStack smeltResult, ItemStack itemRequired) {

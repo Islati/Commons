@@ -175,7 +175,7 @@ public class PastebinReporter {
 		public static final ReportFormat ProFTPd = new ReportFormat("proftpd");
 		public static final ReportFormat Progress = new ReportFormat("progress");
 		public static final ReportFormat Prolog = new ReportFormat("prolog");
-		public static final ReportFormat Properties = new ReportFormat("attributes");
+		public static final ReportFormat Properties = new ReportFormat("properties");
 		public static final ReportFormat ProvideX = new ReportFormat("providex");
 		public static final ReportFormat PureBasic = new ReportFormat("purebasic");
 		public static final ReportFormat PyCon = new ReportFormat("pycon");

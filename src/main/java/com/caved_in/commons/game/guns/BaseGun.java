@@ -6,6 +6,8 @@ import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.ItemGadget;
+import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.TimeHandler;
@@ -30,10 +32,10 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	@Element(name = "gun", type = XmlItemStack.class)
 	private XmlItemStack gun;
 
-	@Element(name = "attributes", type = GunProperties.class)
+	@Element(name = "properties", type = GunProperties.class)
 	private GunProperties properties = new GunProperties();
 
-	@Element(name = "bullet-attributes", type = BulletProperties.class)
+	@Element(name = "bullet-properties", type = BulletProperties.class)
 	private BulletProperties bullets = new BulletProperties();
 
 
@@ -45,7 +47,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	private BulletActions actions;
 
-	public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "attributes", type = GunProperties.class) GunProperties properties) {
+	public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties) {
 		super(gun.getItemStack());
 		this.gun = gun;
 		this.properties = properties;
@@ -81,11 +83,17 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 			}
 		}
 
-		setAmmo(holder, getAmmo(holder) - properties.roundsPerShot);
+		int roundsToShoot = getRoundsToShoot(holder);
+
+		boolean scheduleReload = false;
 
 		//We need to shoot atleast one bullet.
-		if (properties.roundsPerShot <= 0) {
-			properties.roundsPerShot = 1;
+		if (roundsToShoot < properties.roundsPerShot) {
+			scheduleReload = true;
+		}
+
+		if (!scheduleReload) {
+			setAmmo(holder, getAmmo(holder) - roundsToShoot);
 		}
 
 		//Assign the shooter to the builder, used in the vector calculations.
@@ -93,7 +101,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		if (properties.clusterShot) {
 			//Cluster shot means it's like a shotgun, where the bullets / items all come out at once.
-			for (int i = 0; i < properties.roundsPerShot; i++) {
+			for (int i = 0; i < roundsToShoot; i++) {
 				try {
 					builder.shoot();
 				} catch (ProjectileCreationException e) {
@@ -102,7 +110,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 			}
 		} else {
 			//Because we're not using cluster shot, we're going to delay the time between each shot, so it looks like burst fire.
-			for (int i = 0; i < properties.roundsPerShot; i++) {
+			for (int i = 0; i < roundsToShoot; i++) {
 				//Schedule each bullet to be fired with the given delay, otherwise they'd be in a cluster.
 				Commons.getInstance().getThreadManager().runTaskLater(() -> {
 					try {
@@ -121,12 +129,13 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		//Handle the on-shoot of the gun, what the item's meant to do.
 		onFire(holder);
+
+		if (scheduleReload || getAmmo(holder) == 0) {
+			reload(holder);
+		}
 	}
 
 	public boolean reload(final Player player) {
-		if (!needsReload(player)) {
-			return false;
-		}
 
 		UUID id = player.getUniqueId();
 
@@ -142,7 +151,10 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		//Reload according to the guns reload speed!
 		commons.getThreadManager().runTaskLater(() -> {
 			if (ammoCounts.containsKey(id)) {
-				Players.sendMessage(player, Messages.gadgetReloaded(this));
+				//If this gun has reload messages, then send the message saying the gun was reloaded.
+				if (properties.reloadMessage) {
+					Players.sendMessage(player, Messages.gadgetReloaded(this));
+				}
 			}
 
 			setAmmo(player, properties.clipSize);
@@ -167,7 +179,14 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	public boolean needsReload(Player player) {
 		UUID id = player.getUniqueId();
-		return ammoCounts.containsKey(id) && ammoCounts.get(id) <= 0;
+
+		if (!ammoCounts.containsKey(id)) {
+			return false;
+		}
+
+		int ammoCount = ammoCounts.get(id);
+
+		return ammoCount <= 0;
 		/*
 		ItemStack item = getItem();
 		if (!Players.hasItemInHand(player,item)) {
@@ -216,11 +235,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		this.actions = actions;
 	}
 
-	public GunProperties attributes() {
+	public GunProperties properties() {
 		return properties;
 	}
 
-	public void attributes(GunProperties properties) {
+	public void properties(GunProperties properties) {
 		this.properties = properties;
 	}
 
@@ -234,6 +253,22 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	public void setAmmo(Player player, int amt) {
 		ammoCounts.put(player.getUniqueId(), amt);
+
+		if (properties.displayAmmo) {
+			giveGunAmmoCount(player);
+		}
+	}
+
+	private void giveGunAmmoCount(Player player) {
+		int slot = Inventories.getSlotOf(player.getInventory(), gun.getMaterial(), gun.getItemName());
+
+		if (slot == -1) {
+			commons.debug("Unable to get slot of " + Items.getName(getItem()) + " on player " + player.getName());
+			return;
+		}
+
+		ItemStack item = Players.getItem(player, slot);
+		Items.setName(item, Messages.gunNameAmmoFormat(gun.getItemName(), getAmmo(player)));
 	}
 
 	@Override
@@ -241,11 +276,27 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	@Override
 	public double damage() {
-		return bullets.damage + (bullets.damage * random.nextDouble());
+		return bullets.damage + (bullets.damage * random.nextDouble()) - (bullets.damage * random.nextDouble());
 	}
 
 	@Override
-	public BulletProperties bulletAttributes() {
+	public BulletProperties bulletProperties() {
 		return bullets;
+	}
+
+	private int getRoundsToShoot(Player player) {
+		int ammoCount = getAmmo(player);
+
+		int shots = properties.roundsPerShot;
+
+		if (ammoCount < shots) {
+			return shots - ammoCount;
+		}
+
+		return shots;
+	}
+
+	public String getItemName() {
+		return gun.getItemName();
 	}
 }

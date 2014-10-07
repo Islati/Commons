@@ -2,6 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
@@ -12,14 +13,8 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.command.CommandSender;
 
 public class BuyPremiumCommand {
-	@Command(name = "buypremium", description = "Used to give users premium", permission = "commons.command.buypremium")
-	public void buyPlayerPremium(final CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			Players.sendMessage(sender, Messages.invalidCommandUsage("name"));
-			return;
-		}
-
-		final String playerName = args[0];
+	@Command(identifier = "buypremium", description = "Used to give users premium", permissions = "commons.command.buypremium")
+	public void buyPlayerPremium(CommandSender sender, @Arg(name = "player") String playerName) {
 		Players.sendMessage(sender, "&ePlease wait while we search for this players info");
 		//If the player's online, then get the unique ID of the player
 

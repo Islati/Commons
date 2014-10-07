@@ -2,6 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdatePlayerPremiumCallable;
@@ -11,16 +12,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.command.CommandSender;
 
 public class RemovePremiumCommand {
-	@Command(name = "removepremium", description = "Used by the console to remove premium from players", permission = "commons.command.removepremium")
-	public void removePlayerPremium(final CommandSender sender, String[] args) {
-		if (args.length == 0) {
-			Players.sendMessage(sender, Messages.invalidCommandUsage("name"));
-			return;
-		}
-		final String playerName = args[0];
+	@Command(identifier = "removepremium", description = "Used by the console to remove premium from players", permissions = "commons.command.removepremium", onlyPlayers = false)
+	public void removePlayerPremium(final CommandSender sender, @Arg(name = "player") String playerName) {
 		Players.sendMessage(sender, "&ePlease wait while we search for this players info");
 		//If the player's online, then get the unique ID of the player
-
 		if (!Players.hasPlayed(playerName)) {
 			Players.sendMessage(sender, Messages.invalidPlayerData(playerName));
 			return;

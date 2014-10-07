@@ -1,9 +1,9 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.player.Players;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -12,29 +12,17 @@ import org.bukkit.entity.Player;
  * Time: 7:12 PM
  */
 public class FeedCommand {
-	@Command(name = "feed", permission = "commons.command.feed")
-	public void onFeedCommand(CommandSender sender, String[] args) {
-		//Check if they entered a player name as an argument
-		if (args.length > 0) {
-			String playerName = args[0];
-			//Check if the player name they entered is online
-			if (Players.isOnline(playerName)) {
-				//Get the player and feed them
-				Player player = Players.getPlayer(playerName);
-				Players.feed(player);
-				//Send messages saying the player requested was fed
-				Players.sendMessage(player, Messages.PLAYER_FED);
-				Players.sendMessage(sender, Messages.playerFed(playerName));
-			} else {
-				Players.sendMessage(sender, Messages.playerOffline(playerName));
-			}
-		} else {
-			if (sender instanceof Player) {
-				Players.feed((Player) sender);
-				Players.sendMessage(sender, Messages.PLAYER_FED);
-			} else {
-				Players.sendMessage(sender, Messages.PLAYER_COMMAND_SENDER_REQUIRED);
-			}
+	@Command(identifier = "feed", permissions = "commons.command.feed")
+	public void feedCommand(Player player, @Arg(name = "player", def = "?sender") Player target) {
+		Players.feed(target);
+
+		//If the player fed themselves we want to give them a unique message
+		if (target.equals(player)) {
+			Players.sendMessage(player, "&aYou've fully fed yourself! &eMmmmm!");
+			return;
 		}
+
+		Players.sendMessage(target, Messages.PLAYER_FED);
+		Players.sendMessage(player, Messages.playerFed(target.getName()));
 	}
 }

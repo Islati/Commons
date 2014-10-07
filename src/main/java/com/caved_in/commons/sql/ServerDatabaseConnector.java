@@ -381,6 +381,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 	}
 
 	public boolean updateOnlineStatus(UUID uniqueId, boolean isOnline) {
+
 		//If the player doesn't have any data for them being online, then we're going to insert the default data for em.
 		if (!hasOnlineStatusData(uniqueId)) {
 			PreparedStatement insertStatement = prepareStatement(INSERT_ONLINE_STATUS);

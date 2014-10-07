@@ -47,6 +47,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -1118,6 +1119,18 @@ public class Players {
 	}
 
 	/**
+	 * Get an item at a specific slot in the players inventory.
+	 *
+	 * @param player player to get the item from.
+	 * @param slot   slot to get the item in.
+	 * @return the item that's at the given slot in the players inventory, potentially null or Material.AIR
+	 */
+	@Nullable
+	public static ItemStack getItem(Player player, int slot) {
+		return player.getInventory().getItem(slot);
+	}
+
+	/**
 	 * Set the item at a specific slot in the players inventory.
 	 *
 	 * @param player player to operate on.
@@ -1389,6 +1402,16 @@ public class Players {
 			}
 		}
 		return players;
+	}
+
+	/**
+	 * Check whether or not a player is in debug mode.
+	 *
+	 * @param player player to check.
+	 * @return true if the player's in debug mode, false otherwise.
+	 */
+	public static boolean isDebugging(Player player) {
+		return getData(player).isInDebugMode();
 	}
 
 	/**

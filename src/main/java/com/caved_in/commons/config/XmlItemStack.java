@@ -116,4 +116,28 @@ public class XmlItemStack {
 		}
 		return itemStack;
 	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public int getDataVal() {
+		return dataVal;
+	}
+
+	public List<String> getLore() {
+		return lore;
+	}
+
+	public Material getMaterial() {
+		return getItemStack().getType();
+	}
 }

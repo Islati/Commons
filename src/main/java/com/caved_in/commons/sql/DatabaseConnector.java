@@ -9,20 +9,12 @@ import java.sql.*;
 public abstract class DatabaseConnector implements TableConnector {
 
 	private Connection sqlConnection = null;
-	private String host, port, database, username, password;
-
-	public DatabaseConnector(String host, String port, String database, String username, String password) {
-		this.host = host;
-		this.port = port;
-		this.database = database;
-		this.username = username;
-		this.password = password;
-		//Initialize our connection
-		initConnection();
-	}
+	private SqlConfiguration config;
 
 	public DatabaseConnector(SqlConfiguration sqlConfiguration) {
-		this(sqlConfiguration.getHost(), sqlConfiguration.getPort(), sqlConfiguration.getDatabase(), sqlConfiguration.getUsername(), sqlConfiguration.getPassword());
+		this.config = sqlConfiguration;
+		initConnection();
+
 	}
 
 	private void initConnection() {
@@ -31,9 +23,9 @@ public abstract class DatabaseConnector implements TableConnector {
 			Commons.messageConsole("Attempting to establish a connection the MySQL server!");
 			stopwatch.start();
 			Class.forName("com.mysql.jdbc.Driver");
-			sqlConnection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", username, password);
+			sqlConnection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + ":" + config.getPort() + "/" + config.getDatabase() + "?autoReconnect=true", config.getUsername(), config.getPassword());
 			stopwatch.stop();
-			Commons.messageConsole("Connection to MySQL server established! (" + host + ":" + port + ")");
+			Commons.messageConsole("Connection to MySQL server established! (" + config.getHost() + ":" + config.getPort() + ")");
 			Commons.messageConsole("Connection took " + stopwatch + "ms!");
 		} catch (SQLException e) {
 			Commons.messageConsole("Could not connect to MySQL server! because: " + e.getMessage());
@@ -117,5 +109,9 @@ public abstract class DatabaseConnector implements TableConnector {
 			closed[i] = close(statements[i]);
 		}
 		return closed;
+	}
+
+	public SqlConfiguration getConfig() {
+		return config;
 	}
 }

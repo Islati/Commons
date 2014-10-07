@@ -1,6 +1,6 @@
 package com.caved_in.commons;
 
-import com.caved_in.commons.command.CommandRegister;
+import com.caved_in.commons.command.commands.*;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WarpConfig;
@@ -198,7 +198,53 @@ public class Commons extends BukkitPlugin {
 
 		//If the commands are to be registered: do so.
 		if (getConfiguration().registerCommands()) {
-			CommandRegister.registerCommands();
+			registerCommands(
+					new AddCurrencyCommand(),
+					new ArmorCommand(),
+					new BackCommand(),
+					new BlockTextCommand(),
+					new BuyPremiumCommand(),
+					new ClearInventoryCommand(),
+					new DayCommand(),
+					new DebugModeCommand(),
+					new EnchantCommand(),
+					new FeedCommand(),
+					new FireworksCommand(),
+					new FlyCommand(),
+					new GamemodeCommand(),
+					new HatCommand(),
+					new HealCommand(),
+					new IdCommand(),
+					new ItemCommand(),
+					new MaintenanceCommand(),
+					new MessageCommand(),
+					new MoreCommand(),
+					new NightCommand(),
+					new PotionCommand(),
+					new QuickResponseCommand(),
+					new RecipeCommand(),
+					new RemovePremiumCommand(),
+					new RenameCommand(),
+					new RepairCommand(),
+					new SetSpawnCommand(),
+					new SetWarpCommand(),
+					new SilenceCommand(),
+					new SkullCommand(),
+					new SlayCommand(),
+					new SpawnCommand(),
+					new SpawnMobCommand(),
+					new SpeedCommand(),
+					new TeleportAllCommand(),
+					new TeleportCommand(),
+					new TeleportPositionCommand(),
+					new TimeCommand(),
+					new TunnelsXPCommand(),
+					new UnbanCommand(),
+					new UnsilenceCommand(),
+					new WarpCommand(),
+					new WarpsCommand(),
+					new WorkbenchCommand()
+			);
 		}
 
 		//Register the debugger actions and triggers to 'case test' features in-game

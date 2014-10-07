@@ -1,5 +1,6 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.config.XmlEnchantment;
 import com.caved_in.commons.properties.PropertiesBuilder;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Material;
@@ -73,6 +74,13 @@ public class ItemBuilder {
 
 	public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
 		enchantments.add(new EnchantWrapper(enchantment, level, glow));
+		return this;
+	}
+
+	public ItemBuilder enchantments(List<XmlEnchantment> enchants) {
+		for (XmlEnchantment e : enchants) {
+			enchantments.add(new EnchantWrapper(e.getEnchantment(), e.getLevel(), e.hasGlow()));
+		}
 		return this;
 	}
 

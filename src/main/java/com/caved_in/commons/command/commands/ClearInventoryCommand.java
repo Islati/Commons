@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
@@ -8,18 +9,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ClearInventoryCommand {
-	@Command(name = "ci", usage = "/ci [player]", permission = "commons.clearinventory", aliases = {"clearinventory", "clearinv"})
-	public void onClearInventoryCommand(CommandSender commandSender, String[] args) {
+	@Command(identifier = "ci", permissions = {"commons.clearinventory"})
+	public void onClearInventoryCommand(CommandSender commandSender, @Arg(name = "target", def = "?sender") String playerName) {
 		Player player = null;
 
-		if (args.length > 0) {
+		if (playerName != null) {
 			//If the player doesn't have the permission to clear the inventory of someone else, then they can't clear it!
 			if (!commandSender.hasPermission(Perms.CLEAR_INVENTORY_OTHER)) {
 				Players.sendMessage(commandSender, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
 				return;
 			}
 
-			String playerName = args[0];
 			//Check if there's a player online with the name in our argument
 			if (Players.isOnline(playerName)) {
 				//Assign the player to clear the inventory of
