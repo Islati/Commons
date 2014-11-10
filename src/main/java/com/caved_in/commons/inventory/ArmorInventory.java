@@ -3,6 +3,7 @@ package com.caved_in.commons.inventory;
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.player.Players;
+import lombok.ToString;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Root(name = "armor")
+@ToString(exclude = {"serializableArmorSlots"})
 public class ArmorInventory {
 	@ElementMap(name = "items", entry = "slot", value = "item", keyType = Integer.class, valueType = XmlItemStack.class)
 	private Map<Integer, XmlItemStack> serializableArmorSlots = new HashMap<>();
@@ -50,6 +52,26 @@ public class ArmorInventory {
 		} else {
 			Entities.setEquipment(entity, this);
 		}
+	}
+
+	public ItemStack getWeapon() {
+		return armorSlots.get(ArmorSlot.WEAPON);
+	}
+
+	public ItemStack getHelmet() {
+		return armorSlots.get(ArmorSlot.HELMET);
+	}
+
+	public ItemStack getBoots() {
+		return armorSlots.get(ArmorSlot.BOOTS);
+	}
+
+	public ItemStack getLegs() {
+		return armorSlots.get(ArmorSlot.LEGGINGS);
+	}
+
+	public ItemStack getChest() {
+		return armorSlots.get(ArmorSlot.CHEST);
 	}
 
 	public Map<ArmorSlot, ItemStack> getArmor() {

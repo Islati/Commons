@@ -5,6 +5,7 @@ import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class Effects {
@@ -68,24 +69,24 @@ public class Effects {
 	}
 
 	/**
-	 * Make it look like the player is bleeding.
+	 * Make it look like the player's bleeding.
 	 *
-	 * @param player player to make bleed!
+	 * @param entity    entity to make bleed!
+	 * @param intensity the amount of times to play the effect (the greater the value, the more intense it'll be)
 	 */
-	public static void playBleedEffect(Player player) {
-		playBlockBreakEffect(player.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE_WIRE);
+	public static void playBleedEffect(Entity entity, int intensity) {
+		for (int i = 0; i < intensity; i++) {
+			playBleedEffect(entity);
+		}
 	}
 
 	/**
-	 * Make it look like the player's bleeding.
+	 * Play the bleed effect on the entity.
 	 *
-	 * @param player    player to make bleed!
-	 * @param intensity the amount of times to play the effect (the greater the value, the more intense it'll be)
+	 * @param entity entity to make bleed.
 	 */
-	public static void playBleedEffect(Player player, int intensity) {
-		for (int i = 0; i < intensity; i++) {
-			playBleedEffect(player);
-		}
+	public static void playBleedEffect(Entity entity) {
+		playBlockBreakEffect(entity.getLocation(), BLEED_EFFECT_RADIUS, Material.REDSTONE_WIRE);
 	}
 
 	/**

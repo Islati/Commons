@@ -7,10 +7,17 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 
+
 public class Locations {
+
+	private static final double TRUE_CIRLE = 0.5;
+	private static final int FALSE_CIRCLE = 0;
+
+	public static boolean USE_TRUE_CIRCLE = false;
 
 	public static Set<Player> getPlayersInRadius(Location location, double radius) {
 		Set<Player> playerInRadius = new HashSet<>();
@@ -94,6 +101,52 @@ public class Locations {
 		return locs;
 	}
 
+
+	/**
+	 * Get a full circle (not just the parameter) around the radius!
+	 *
+	 * @param center center of the circle selection.
+	 * @param radius radius of the circle
+	 * @return a list of locations that were in the circle.
+	 */
+	public static List<Location> getFullCircle(Location center, int radius) {
+		List<Location> locs = new ArrayList<>();
+
+		World world = center.getWorld();
+
+
+		double circleSize = USE_TRUE_CIRCLE ? TRUE_CIRLE : FALSE_CIRCLE;
+		final double radiusSquared = (radius + circleSize) * (radius * circleSize);
+
+		final Vector centerPoint = center.toVector();
+		final Vector currentPoint = centerPoint.clone();
+
+
+		for (int x = -radius; x <= radius; x++) {
+			currentPoint.setX(centerPoint.getX() + x);
+
+			for (int z = -radius; z <= radius; z++) {
+				currentPoint.setZ(centerPoint.getZ() + z);
+
+				//If the point is within the bounds of the radius, then it's part of the circle!
+				if (centerPoint.distanceSquared(currentPoint) <= radiusSquared) {
+					locs.add(currentPoint.toLocation(world));
+				}
+			}
+		}
+
+		return locs;
+	}
+
+	/**
+	 * Returns a list of all the blocks in a circle within a certain radius of a location.
+	 * <p>
+	 * <p>Author: ArthurMaker</p>
+	 *
+	 * @param centerLoc center Location
+	 * @param radius    radius of the circle
+	 * @return list of blocks
+	 */
 	public static List<Location> getCircle(Location centerLoc, int radius) {
 		List<Location> circle = new ArrayList<>();
 		World world = centerLoc.getWorld();
@@ -125,6 +178,7 @@ public class Locations {
 		return circle;
 	}
 
+
 	public static List<Location> getPlain(Location position1, Location position2) {
 		List<Location> plain = new ArrayList<>();
 		if (position1 == null) {
@@ -141,6 +195,15 @@ public class Locations {
 		return plain;
 	}
 
+	/**
+	 * Returns a list of all the blocks in a diagonal line between two locations.
+	 * <p>
+	 * <p>ArthurMaker</p>
+	 *
+	 * @param position1 first position
+	 * @param position2 second position
+	 * @return list of blocks
+	 */
 	public static List<Location> getLine(Location position1, Location position2) {
 		List<Location> line = new ArrayList<>();
 		int dx = Math.max(position1.getBlockX(), position2.getBlockX()) - Math.min(position1.getBlockX(), position2.getBlockX());

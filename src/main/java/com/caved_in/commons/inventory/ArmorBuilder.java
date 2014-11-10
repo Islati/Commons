@@ -59,7 +59,12 @@ public class ArmorBuilder {
 
 	public ArmorInventory toInventory() {
 		ArmorInventory inv = new ArmorInventory();
-		armor.entrySet().forEach(e -> inv.setItem(e.getKey(), e.getValue()));
+		armor.entrySet().forEach(e -> {
+			ItemStack item = e.getValue();
+			if (item != null) {
+				inv.setItem(e.getKey(), item);
+			}
+		});
 		return inv;
 	}
 }

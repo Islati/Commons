@@ -1,5 +1,6 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.inventory.ArmorInventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.EnumSet;
@@ -42,6 +43,10 @@ public enum ArmorSet {
 
 	public String[] getIdentifiers() {
 		return identifiers;
+	}
+
+	public ArmorInventory getArmorInventory() {
+		return new ArmorInventory(getArmor());
 	}
 
 	public static ArmorSet getSetByName(String name) {

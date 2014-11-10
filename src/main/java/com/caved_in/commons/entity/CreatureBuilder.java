@@ -1,6 +1,7 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.inventory.ArmorBuilder;
+import com.caved_in.commons.inventory.ArmorInventory;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
 import org.apache.commons.lang.StringUtils;
@@ -201,6 +202,11 @@ public class CreatureBuilder {
 		return armorBuilder.parent(this);
 	}
 
+	public CreatureBuilder armor(ArmorInventory armor) {
+		armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withWeapon(armor.getWeapon());
+		return this;
+	}
+
 	/**
 	 * Spawn the creature at a specific location with the properties acquired via the builder
 	 *
@@ -267,6 +273,28 @@ public class CreatureBuilder {
 		//Equip the entity with the equipment set
 		Entities.setEquipment(entity, armorBuilder.toInventory());
 		return entity;
+	}
+
+	public MobSpawnData toSpawnData() {
+		MobSpawnData data = new MobSpawnData();
+
+		data.setEntityType(type);
+		data.setAge(age);
+		data.setAgeMax(ageMax);
+		data.setAgeMin(ageMin);
+		data.setArmorInventory(armorBuilder.toInventory());
+		data.setHealth(health);
+		data.setMaxHealth(maxHealth);
+		data.setBaby(baby);
+		data.setVillager(villager);
+		data.setName(name);
+		data.setSkeletonType(skeletonType);
+		data.setPowered(powered);
+		data.setSize(size);
+		data.setSizeMin(sizeMin);
+		data.setSizeMax(sizeMax);
+
+		return data;
 	}
 
 	/**

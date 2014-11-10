@@ -191,7 +191,7 @@ public class Entities {
 	 * @param entity entity to get the health of
 	 * @return the amount of health the entity has
 	 */
-	public static double getCurrentHealth(LivingEntity entity) {
+	public static double getCurrentHealth(Damageable entity) {
 		return entity.getHealth();
 	}
 
@@ -251,7 +251,7 @@ public class Entities {
 	/**
 	 * Change the active armor of an entity in the specified slot
 	 * to be of the given ItemStack
-	 * <p>
+	 * <p/>
 	 * This method doesn't check if the slot, or item, are valid items for the slot:
 	 * It forces the items to be in the slot.
 	 *
@@ -688,5 +688,34 @@ public class Entities {
 		v.setY(v_y);
 		v.setZ(v_z);
 		e.setVelocity(v);
+	}
+
+	/**
+	 * Whether or not an entity has a passenger attached to them.
+	 *
+	 * @param entity entity to check for passengers on.
+	 * @return true if they've got a passenger, false otherwise.
+	 */
+	public static boolean hasPassenger(Entity entity) {
+		return entity.getPassenger() != null;
+	}
+
+	/**
+	 * Change the entities max (and current) health based on the given ratio.
+	 * <p/>
+	 * Example: An entity with 20 health, assigned a ratio of 0.5, will have 10 health
+	 * after adjusting.
+	 *
+	 * @param ratio the ratio to multiply the mobs health by
+	 */
+	public static void adjustHealth(Damageable subject, double ratio) {
+		double maxHealth = getMaxHealth(subject);
+		double currentHealth = getCurrentHealth(subject);
+
+		double adjustedMax = maxHealth * ratio;
+		double adjustedHealth = currentHealth * ratio;
+
+		subject.setMaxHealth(adjustedMax);
+		subject.setHealth(adjustedHealth);
 	}
 }

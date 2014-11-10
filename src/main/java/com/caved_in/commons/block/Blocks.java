@@ -18,9 +18,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.material.MaterialData;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Blocks {
 
@@ -29,8 +28,8 @@ public class Blocks {
 	/**
 	 * Set of the item-ids which materials are hollow
 	 */
-	public static final Set<Integer> HOLLOW_MATERIALS = new HashSet<>();
-	public static final Set<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
+	private static final Set<Integer> HOLLOW_MATERIALS = new HashSet<>();
+	public static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
 
 	/* Initialize the materials which are hollow */
 	static {
@@ -83,6 +82,15 @@ public class Blocks {
 		//Water is transparent, though not hollow
 		TRANSPARENT_MATERIALS.add((byte) Material.WATER.getId());
 		TRANSPARENT_MATERIALS.add((byte) Material.STATIONARY_WATER.getId());
+	}
+
+	/**
+	 * Convert a list of locations into a list of blocks!
+	 * @param locs locations to get the blocks for.
+	 * @return
+	 */
+	public static List<Block> getBlocks(List<Location> locs) {
+		return locs.stream().map(Location::getBlock).collect(Collectors.toList());
 	}
 
 	/**
@@ -485,4 +493,22 @@ public class Blocks {
 		return null;// no empty space within a cube of (2*(maxradius+1))^3
 	}
 
+	/**
+	 * Ouuuuu! Set the world on fiiiire!
+	 * Collection of locations to set on fire.
+	 *
+	 * @param locations places to be set on fire.
+	 */
+	public static void setFire(Collection<Location> locations) {
+		locations.forEach(l -> Blocks.setBlock(l, Material.FIRE));
+	}
+
+	/**
+	 * For every entry in the map, set the location (key) to the material specified by the corresponding value.
+	 *
+	 * @param materialLocations map of the locations and their corresponding materials.
+	 */
+	public static void restoreBlocks(Map<Location, Material> materialLocations) {
+		materialLocations.forEach(Blocks::setBlock);
+	}
 }

@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Worlds {
 	private static final Method GET_HANDLE = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("CraftWorld"), "getHandle");
 
-	public static void handleWeather(World World) {
+	public static void commonsHandleWeather(World World) {
 		if (World.hasStorm() && Commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
 			World.setStorm(false);
 			World.setThundering(false);
@@ -173,5 +173,34 @@ public class Worlds {
 
 	public static void clearDroppedItems(Location loc, int radius, int delay, TimeType duration) {
 		Commons.getInstance().getThreadManager().runTaskLater(new ClearDroppedItemsThread(loc, radius), TimeHandler.getTimeInTicks(delay, duration));
+	}
+
+	/**
+	 * Get the amount of mobs (all living creatures except players) in a specific world.
+	 *
+	 * @param world the world to get the mob-count for.
+	 * @return the amount of mobs (minus player) in the world.
+	 */
+	public static int getMobCount(World world) {
+		int playerCount = getPlayerCount(world);
+		int entityCount = world.getLivingEntities().size();
+
+		if (playerCount > 0) {
+			if (entityCount < playerCount) {
+				return 0;
+			}
+
+			return entityCount - playerCount;
+		}
+
+		return entityCount;
+	}
+
+	public static int getEntityCount(World world) {
+		return world.getEntities().size();
+	}
+
+	public static int getPlayerCount(World world) {
+		return world.getPlayers().size();
 	}
 }

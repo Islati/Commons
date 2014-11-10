@@ -10,6 +10,6 @@ public class WorldLoadedListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldLoaded(WorldLoadEvent event) {
-		Worlds.handleWeather(event.getWorld());
+		Worlds.commonsHandleWeather(event.getWorld());
 	}
 }

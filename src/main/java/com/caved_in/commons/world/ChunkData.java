@@ -1,6 +1,7 @@
 package com.caved_in.commons.world;
 
 import org.bukkit.Chunk;
+import org.bukkit.block.Block;
 import org.simpleframework.xml.Element;
 
 public class ChunkData {
@@ -63,6 +64,19 @@ public class ChunkData {
 
 	public ChunkState getState() {
 		return state;
+	}
+
+
+	/**
+	 * Checks if this Block Location is within the boundaries of the chunk
+	 * <p/>
+	 * <p>Author: bergerkiller</p>
+	 *
+	 * @param block to check
+	 * @return true if within, false if not
+	 */
+	public boolean isIn(Block block) {
+		return block.getX() >> 4 == getX() && block.getZ() >> 4 == getZ();
 	}
 
 }

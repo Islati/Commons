@@ -50,13 +50,8 @@ public class Cooldown {
 	}
 
 	public double getRemainingMinutes(Player player) {
-		if (!cooldowns.containsKey(player.getUniqueId())) {
-			return 0;
-		}
 
-		double playerTime = cooldowns.get(player.getUniqueId());
-		long timeCheck = System.currentTimeMillis() / 1000L;
-		return (timeCheck - playerTime) / 60;
+		return getRemainingSeconds(player) / 60;
 	}
 
 	/**
