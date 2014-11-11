@@ -7,6 +7,8 @@ import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.item.ItemMessage;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.scoreboard.BoardManager;
+import com.caved_in.commons.scoreboard.ScoreboardManager;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.executors.BukkitExecutors;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
@@ -20,17 +22,19 @@ import java.util.logging.Logger;
 
 public abstract class BukkitPlugin extends JavaPlugin {
 
-	private Serializer serializer = new Persister();
+	private Serializer serializer;
 
 	private BukkitScheduledExecutorService syncExecuter;
 
 	private BukkitScheduledExecutorService asyncExecuter;
 
+	private BoardManager scoreboardManager;
+
 	private RunnableManager threadManager;
 
 	private ItemMessage itemMessage;
 
-	private Logger logger;
+	private Logger logger = getLogger();
 
 	private CommandHandler commandHandler;
 
@@ -38,14 +42,18 @@ public abstract class BukkitPlugin extends JavaPlugin {
 		commandHandler = new CommandHandler(this);
 
 		threadManager = new RunnableManager(this);
+
+		scoreboardManager = new ScoreboardManager(this, 15l);
+
 		syncExecuter = BukkitExecutors.newSynchronous(this);
+
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
+
+		serializer = new Persister();
 
 		if (Plugins.hasProtocolLib()) {
 			itemMessage = new ItemMessage(this);
 		}
-
-		logger = getLogger();
 
 		//If the game doesn't have a data folder then make one
 		if (!Plugins.hasDataFolder(this)) {
@@ -119,5 +127,9 @@ public abstract class BukkitPlugin extends JavaPlugin {
 		for (String m : message) {
 			logger.log(Level.INFO, m);
 		}
+	}
+
+	public BoardManager getScoreboardManager() {
+		return scoreboardManager;
 	}
 }

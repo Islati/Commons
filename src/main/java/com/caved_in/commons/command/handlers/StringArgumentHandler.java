@@ -12,7 +12,7 @@ public class StringArgumentHandler extends ArgumentHandler<String> {
 		setMessage("min_error", "The parameter [%p] must be more than %1 characters.");
 		setMessage("max_error", "The parameter [%p] can't be more than %1 characters.");
 
-		addVariable("sender", "The command center", new ArgumentVariable<String>() {
+		addVariable("sender", "The command sender", new ArgumentVariable<String>() {
 			@Override
 			public String var(CommandSender sender, CommandArgument argument, String varName) throws CommandError {
 				if (!(sender instanceof Player)) {

@@ -187,36 +187,6 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		int ammoCount = ammoCounts.get(id);
 
 		return ammoCount <= 0;
-		/*
-		ItemStack item = getItem();
-		if (!Players.hasItemInHand(player,item)) {
-			return false;
-		}
-
-		ItemStack guns = player.getItemInHand();
-		String gunName = Items.getName(guns);
-		if (!StringUtil.startsWithIgnoreCase(gunName,baseName)) {
-			Commons.getInstance().debug("Base item isn't a guns... Weird!","Base Name Desired: " + baseName, "Name given: " + Items.getName(guns));
-			return false;
-		}
-
-		String[] nameSplit = gunName.split(baseName);
-
-		if (nameSplit.length <= 1) {
-			return false;
-		}
-
-		String bulletSide = nameSplit[1];
-		String bulletsCount = StringUtils.substringBetween(bulletSide,"<",">");
-		if (!NumberUtils.isNumber(bulletsCount)) {
-			Commons.getInstance().debug(bulletsCount + " is not a valid number!");
-			return false;
-		}
-
-		int bulletCount = Integer.parseInt(bulletsCount);
-		return bulletCount <= 0;
-		  */
-
 	}
 
 	public void damage(LivingEntity damaged, Player shooter) {

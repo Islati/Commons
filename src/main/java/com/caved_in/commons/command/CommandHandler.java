@@ -145,6 +145,8 @@ public class CommandHandler implements CommandExecutor {
 
 		registerArgumentHandler(double.class, new DoubleArgumentHandler());
 
+		registerArgumentHandler(boolean.class, new BooleanArgumentHandler());
+
 		registerArgumentHandler(Player.class, new PlayerArgumentHandler());
 
 		registerArgumentHandler(World.class, new WorldArgumentHandler());
@@ -165,6 +167,7 @@ public class CommandHandler implements CommandExecutor {
 		//Allow creation of ItemStacks via arguments, and also has variables so you
 		//can default to an itemstack using item names, ids, and id:data values!
 		registerArgumentHandler(ItemStack.class, new ItemStackArgumentHandler());
+
 	}
 
 	@SuppressWarnings("unchecked")

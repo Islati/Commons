@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.game.event.GadgetUseEvent;
+import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,10 @@ public class PlayerInteractListener implements Listener {
 		if (!Gadgets.isGadget(itemInHand)) {
 			return;
 		}
-		GadgetUseEvent gadgetEvent = new GadgetUseEvent(player, itemInHand);
+
+		Gadget gadget = Gadgets.getGadget(itemInHand);
+		GadgetUseEvent gadgetEvent = new GadgetUseEvent(player, event.getAction(), gadget);
+
 		GadgetUseEvent.handle(gadgetEvent);
 	}
 }

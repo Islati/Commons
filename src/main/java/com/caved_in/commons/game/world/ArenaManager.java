@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.world;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.player.Players;
@@ -33,8 +32,12 @@ public class ArenaManager implements ArenaHandler {
 		return arenas.get(worldName);
 	}
 
+	public Arena getArena(World world) {
+		return getArena(world.getName());
+	}
+
 	public boolean addArena(String worldName) {
-		Logger logger = Commons.getInstance().getLogger();
+		Logger logger = game.getLogger();
 		if (arenas.containsKey(worldName)) {
 			logger.info("Cannot add " + worldName + " as an arena with that name already exists");
 			return false;
@@ -110,7 +113,7 @@ public class ArenaManager implements ArenaHandler {
 
 	@Override
 	public void cycleArena() {
-		Logger logger = Commons.getInstance().getLogger();
+		Logger logger = game.getLogger();
 		if (arenas.isEmpty()) {
 			logger.info("Can't cycle arena because none are loaded");
 			return;

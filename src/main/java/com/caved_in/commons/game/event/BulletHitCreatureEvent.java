@@ -46,6 +46,10 @@ public class BulletHitCreatureEvent extends Event implements Cancellable {
 		return target;
 	}
 
+	public boolean hasGun() {
+		return projectile.getGun() != null;
+	}
+
 	public static void handle(BulletHitCreatureEvent e) {
 		if (e.isCancelled()) {
 			return;
@@ -53,6 +57,10 @@ public class BulletHitCreatureEvent extends Event implements Cancellable {
 
 		LivingEntity target = e.getTarget();
 		Bullet proj = e.getProjectile();
+
+		if (!e.hasGun()) {
+			return;
+		}
 
 		//Damage the target
 		proj.getGun().damage(target, proj.getShooter());

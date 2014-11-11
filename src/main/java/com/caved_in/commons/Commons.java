@@ -88,7 +88,10 @@ public class Commons extends BukkitPlugin {
 				new DebugDelayedMessage(),
 				new DebugArmorBuilder(),
 				new DebugCreatureBuilder(),
-				new DebugFishCannon()
+				new DebugFishCannon(),
+				new DebugFlamingEnderSword(),
+				new DebugScoreboardBuilder(),
+				new DebugDefaultScoreboard()
 		);
 	}
 
@@ -135,11 +138,6 @@ public class Commons extends BukkitPlugin {
 			debug("&aRegistered the fire-spread listener");
 		}
 
-		if (!worldConfig.isItemDropEnabled()) {
-			registerListeners(new ItemDropListener());
-			debug("&aRegistered the item-drop listener");
-		}
-
 		if (!worldConfig.isItemPickupEnabled()) {
 			registerListeners(new ItemPickupListener());
 			debug("&aRegistered the item-pickup listener");
@@ -160,7 +158,6 @@ public class Commons extends BukkitPlugin {
 		registerListeners(
 				//Used for gadgets, interaction restriction, etc.
 				new PlayerInteractListener(),
-				//Used
 				new BlockBreakPlaceListener(),
 				new EntityExplodeListener(),
 				new WorldLoadedListener(),
@@ -171,8 +168,14 @@ public class Commons extends BukkitPlugin {
 				new InventoryListener(),
 				new PlayerTeleportListener(),
 				new PlayerQuitListener(),
+				//Listen to the command pre-process event so we can spit params at debuggers, and drop disabled commands
 				new CommandPreProcessListener(),
-				new PlayerDeathListener()
+				//Listen to when a player dies so we can get the return location, incase they use /back
+				new PlayerDeathListener(),
+				//Used to handle the dropping of weapons. and items in general.
+				new ItemDropListener(),
+				//Used with the Weapons API.
+				new PlayerDamageEntityListener()
 		);
 	}
 

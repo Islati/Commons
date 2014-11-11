@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.entity.Entities;
@@ -24,6 +25,7 @@ import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
+import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ArrayUtils;
@@ -55,7 +57,6 @@ import java.util.stream.Stream;
 
 import static com.caved_in.commons.Commons.messageConsole;
 
-
 public class Players {
 	private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
 	public static final String DEFAULT_PREFIX = "Member";
@@ -66,6 +67,8 @@ public class Players {
 	private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
 
 	private static Gson gson = new Gson();
+
+	private static final Map<String, Cooldown> messageCooldowns = new HashMap<>();
 
 	/**
 	 * Check if a player has loaded data
@@ -684,6 +687,21 @@ public class Players {
 			threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
 			index += 1;
 		}
+	}
+
+	public static void sendMessageOnCooldown(Player p, int cooldown, String message) {
+		if (!messageCooldowns.containsKey(message)) {
+			messageCooldowns.put(message, new Cooldown(cooldown));
+		}
+
+		Cooldown cool = messageCooldowns.get(message);
+
+		if (cool.isOnCooldown(p)) {
+			return;
+		}
+
+		cool.setOnCooldown(p);
+		sendMessage(p, message);
 	}
 
 	/**
@@ -1820,7 +1838,11 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static Location getTargetLocation(Player player) {
-		return Locations.getNormalizedLocation(player.getTargetBlock(null, MAX_BLOCK_TARGET_DISTANCE).getLocation());
+		return getTargetLocation(player, MAX_BLOCK_TARGET_DISTANCE);
+	}
+
+	public static Location getTargetLocation(Player player, int distance) {
+		return Locations.getNormalizedLocation(player.getTargetBlock(Blocks.TRANSPARENT_MATERIALS, distance).getLocation());
 	}
 
 	/**

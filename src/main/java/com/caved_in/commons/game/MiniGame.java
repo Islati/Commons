@@ -1,6 +1,5 @@
 package com.caved_in.commons.game;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.clause.ServerShutdownClause;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.game.world.ArenaManager;
@@ -33,14 +32,14 @@ public abstract class MiniGame extends CraftGame {
 
 	private ArenaManager arenaManager;
 
+	@Override
 	public void onEnable() {
-		super.onEnable();
 		arenaManager = new ArenaManager(this);
 		loadArenas();
 		if (!arenaManager.hasArenas()) {
 			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
 		}
-		startup();
+		super.onEnable();
 	}
 
 	@Override
@@ -52,6 +51,7 @@ public abstract class MiniGame extends CraftGame {
 		shutdown();
 	}
 
+	@Override
 	public void update() {
 		GameState activeState = getActiveState();
 		//If there were no listeners registered when supposed to be
@@ -70,7 +70,7 @@ public abstract class MiniGame extends CraftGame {
 		}
 	}
 
-	protected void switchStates() {
+	public void switchStates() {
 
 		GameState gameState = getActiveState();
 
@@ -148,7 +148,7 @@ public abstract class MiniGame extends CraftGame {
 	}
 
 	public boolean hasStateBeenActive(int id) {
-		return isActiveState(id) || isActiveState(id);
+		return isActiveState(id) || isAfterState(id);
 	}
 
 	public boolean isActiveState(int id) {
@@ -186,7 +186,7 @@ public abstract class MiniGame extends CraftGame {
 	}
 
 	public void loadArenas() {
-		Logger logger = Commons.getInstance().getLogger();
+		Logger logger = getLogger();
 		File arenaFolder = getArenaFolder();
 		if (!arenaFolder.exists()) {
 			arenaFolder.mkdirs();
@@ -225,7 +225,7 @@ public abstract class MiniGame extends CraftGame {
 		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".xml");
 		try {
 			serializer.write(arena, arenaFile);
-			Commons.getInstance().debug("Saved " + arena.toString() + " to " + arenaFile.getPath());
+			debug("Saved " + arena.toString() + " to " + arenaFile.getPath());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

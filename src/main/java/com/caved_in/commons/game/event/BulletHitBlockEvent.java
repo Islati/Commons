@@ -56,6 +56,10 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 			return;
 		}
 
+		if (e.getProjectile().getGun() == null) {
+			return;
+		}
+
 		e.projectile.getGun().getBulletActions().onHit(e.getShooter(), e.getBlock());
 	}
 }
