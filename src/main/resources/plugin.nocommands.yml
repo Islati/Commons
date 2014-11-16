@@ -1,6 +1,6 @@
 name: Commons
 main: com.caved_in.commons.Commons
-version: 1.5.0
+version: ${project.version}
 description: An all-in-one plugin to provide features to both server owners, and developers.
 author: Brandon Curtis (TheGamersCave)
 softdepend: [TagAPI, ProtocolLib]
