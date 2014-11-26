@@ -3,6 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.location.PreTeleportLocation;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Location;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class BackCommand {
 
-	@Command(identifier = "back", onlyPlayers = true, permissions = {"commons.command.back"})
+	@Command(identifier = "back", onlyPlayers = true, permissions = {Perms.COMMAND_BACK})
 	public void onBackCommand(Player player) {
 		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		Location location = minecraftPlayer.getPreTeleportLocation();

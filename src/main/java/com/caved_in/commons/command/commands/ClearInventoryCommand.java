@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class ClearInventoryCommand {
-	@Command(identifier = "ci", permissions = {"commons.clearinventory"})
+	@Command(identifier = "ci", permissions = {Perms.CLEAR_INVENTORY})
 	public void onClearInventoryCommand(CommandSender commandSender, @Arg(name = "target", def = "?sender") String playerName) {
 		Player player = null;
 

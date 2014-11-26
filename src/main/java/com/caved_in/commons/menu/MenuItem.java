@@ -100,5 +100,9 @@ public abstract class MenuItem {
 //		return new ItemBuilder().name(getText()).amount(number).lore(descriptions).materialData(getIcon()).item();
 	}
 
+	public void close(Player player) {
+		getMenu().closeMenu(player);
+	}
+
 	public abstract void onClick(Player player);
 }

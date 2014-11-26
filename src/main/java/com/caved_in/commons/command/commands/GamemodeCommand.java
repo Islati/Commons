@@ -3,6 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -24,7 +25,7 @@ public class GamemodeCommand {
 		put("adventure", GameMode.ADVENTURE);
 	}};
 
-	@Command(identifier = "gm", permissions = {"commons.command.gamemode"})
+	@Command(identifier = "gm", permissions = {Perms.COMMAND_GAMEMODE})
 	public void gamemodeCommand(Player player, @Arg(name = "gamemode") String mode, @Arg(name = "target", def = "?sender") Player target) {
 		if (mode == null) {
 			Players.cycleGameMode(target);

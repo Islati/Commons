@@ -6,12 +6,15 @@ import com.caved_in.commons.chat.ChatMessage;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.Wildcard;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
+import java.util.Set;
+
 public class QuickResponseCommand {
 
-	@Command(identifier = "r", permissions = "commons.messages")
+	@Command(identifier = "r", permissions = Perms.COMMAND_MESSAGE)
 	public void quickRespondMessage(Player player, @Wildcard @Arg(name = "message") String message) {
 		String playerName = player.getName();
 

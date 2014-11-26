@@ -7,6 +7,7 @@ import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.config.ColorCode;
+import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
@@ -29,6 +30,7 @@ import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ArrayUtils;
+import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
@@ -53,6 +55,7 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.caved_in.commons.Commons.messageConsole;
@@ -292,6 +295,19 @@ public class Players {
 
 	public static OfflinePlayer getOfflinePlayer(String name) {
 		return Bukkit.getOfflinePlayer(name);
+	}
+
+	public static Set<Player> getPlayersWithPermission(String... permission) {
+		return stream().filter(p -> {
+			boolean pass = true;
+			for (String s : permission) {
+				if (!p.hasPermission(s)) {
+					pass = false;
+					break;
+				}
+			}
+			return pass;
+		}).collect(Collectors.toSet());
 	}
 
 	/**
@@ -1765,6 +1781,30 @@ public class Players {
 	}
 
 	/**
+	 * Hide the target from the players sight, spawning a particle effect
+	 * upon doing so. Default particles are a billow of smoke.
+	 * @param player player to hide the target from
+	 * @param target target to hide.
+	 * @since 1.6
+	 */
+	public static void hidePlayer(Player player, Player target) {
+		hidePlayer(player, target, ParticleEffects.LARGE_SMOKE);
+	}
+
+	/**
+	 * Hide the target from the players sight, and spawn particles as an effect.
+	 *
+	 * @param player    player to hide the target from.
+	 * @param target    target to hide.
+	 * @param particles the particles to display when hiding the player.
+	 * @since 1.6
+	 */
+	public static void hidePlayer(Player player, Player target, ParticleEffects particles) {
+		player.hidePlayer(target);
+		ParticleEffects.sendToLocation(particles, target.getLocation(), NumberUtil.getRandomInRange(4, 7));
+	}
+
+	/**
 	 * Hide a collection of players for the target player.
 	 *
 	 * @param player  player to hide the others for.
@@ -1785,22 +1825,22 @@ public class Players {
 	}
 
 	/**
-	 * Hide the target player from a collection of players.
+	 * Hide the target player from the views of all.
 	 *
-	 * @param players players to operate on.
-	 * @param target  player to hide for the other players.
+	 * @param players players the target will no longer be visible for
+	 * @param target  player to be hidden
 	 */
-	public static void hidePlayer(Collection<Player> players, Player target) {
+	public static void hidePlayer(Player target, Collection<Player> players) {
 		players.forEach(p -> p.hidePlayer(target));
 	}
 
 
 	/**
-	 * Unhide the target player from a collection of players
-	 *
-	 * @param players players to operate on.
+	 * Unhide the target player from the view of other players.
+	 * @param target player to unhide from others.
+	 * @param players players the target will be shown to.
 	 */
-	public static void unhidePlayer(Collection<Player> players, Player target) {
+	public static void unhidePlayer(Player target, Collection<Player> players) {
 		players.forEach(p -> p.showPlayer(target));
 	}
 
@@ -1841,6 +1881,13 @@ public class Players {
 		return getTargetLocation(player, MAX_BLOCK_TARGET_DISTANCE);
 	}
 
+	/**
+	 * Gets the players target location (on their cursor) up to the distance given.
+	 * @param player player to get the target location for.
+	 * @param distance furthest distance to retrieve the location at.
+	 * @return location that the player's targeting with their cursor; If it's greater than the given distance,
+	 * the location at the distance given is returned.
+	 */
 	public static Location getTargetLocation(Player player, int distance) {
 		return Locations.getNormalizedLocation(player.getTargetBlock(Blocks.TRANSPARENT_MATERIALS, distance).getLocation());
 	}

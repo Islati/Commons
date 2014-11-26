@@ -8,20 +8,97 @@ public class Perms {
 	public static final String BYPASS_CHAT_SILENCE = ("commons.silence.bypass");
 	/* All commands and their permissions */
 
+	public static final String COMMAND_WARP = "commons.command.warp";
+
+	public static final String COMMAND_WARPS = "commons.command.warps";
+
+	public static final String COMMAND_WORKBENCH = "commons.command.workbench";
+
+	public static final String COMMAND_RENAME = "commons.command.rename";
+
+	public static final String COMMAND_REPAIR = "commons.command.repair";
+
+	public static final String COMMAND_SETSPAWN = "commons.command.setspawn";
+
+	public static final String COMMAND_SETWARP = "commons.command.setwarp";
+
+	public static final String COMMAND_SILENCE = "commons.command.silence";
+
+	public static final String COMMAND_SKULL = "commons.command.skull";
+
+	public static final String COMMAND_SLAY = "commons.command.slay";
+
+	public static final String COMMAND_SPAWN = "commons.command.spawn";
+
+	public static final String COMMAND_MOB_SPAWN = "commons.command.spawnmob";
+
+	public static final String SPEED_COMMAND = "commons.command.speed";
+
+	public static final String COMMAND_TELEPORT_ALL = "commons.command.tpall";
+
+	public static final String COMMAND_TELEPORT = "commons.command.teleport";
+
+	public static final String COMMAND_TELEPORT_HERE = "commons.command.tphere";
+
+	public static final String COMMAND_TELEPORT_POSITION = "commons.command.tppos";
+
+	public static final String COMMAND_UNBAN = "commons.command.unban";
+
+	public static final String COMMAND_FLY = "commons.command.fly";
+
+	public static final String COMMAND_GAMEMODE = "commons.command.gamemode";
+
+	public static final String COMMAND_HAT = "commons.command.hat";
+
+	public static final String COMMAND_MESSAGE = "commons.messages";
+
+	public static final String SOCIAL_SPY = "commons.socialspy";
+
+	public static final String COMMAND_HEAL = "commons.command.heal";
+	public static final String HEAL_OTHER = "commons.command.heal.other";
+
+	public static final String COMMAND_ID = "commons.command.id";
+
+	public static final String COMMAND_ITEM = "commons.command.item";
+
+	public static final String COMMAND_MORE = "commons.command.more";
+
+	public static final String COMMAND_POTION = "commons.command.potion";
+
+	public static final String COMMAND_RECIPE = "commons.command.recipe";
+
+	public static final String COMMAND_TIME = "commons.command.time";
+
+	public static final String COMMAND_ADD_CURRENCY = "commons.command.addcurrency";
+
+	public static final String COMMAND_ENCHANT = "commons.command.enchant";
+
+	public static final String COMMAND_ARMOR = "commond.command.armor";
+	public static final String LEATHER_ARMOR_SET = "commons.armor.leather";
+	public static final String IRON_ARMOR_SET = "commons.armor.iron";
+	public static final String GOLD_ARMOR_SET = "commons.armor.gold";
+	public static final String DIAMOND_ARMOR_SET = "commons.armor.diamond";
+
+	public static final String MAINTENANCE_TOGGLE = "commons.maintenance.toggle";
+
+	public static final String BAN_EXEMPTION = "commons.noban";
+
 	public static final String COMMAND_BACK = ("commons.command.back");
 
 	public static final String COMMAND_FEED = ("commons.command.feed");
 
 	public static final String COMMAND_FIREWORKS = ("commons.command.fireworks");
 
-	public static final String COMMAND_BLOCKTEXT = ("commons.command.blocktext");
+	public static final String COMMAND_BLOCK_TEXT = "commons.command.blocktext";
 
 	public static final String COMMAND_BUYPREMIUM = ("commons.command.buypremium");
 
-	public static final String BAN = ("commons.command.ban");
+	public static final String COMMAND_REMOVEPREMIUM = "commons.command.removepremium";
 
-	public static final String CLEAR_INVENTORY = ("commons.clearinventory");
-	public static final String CLEAR_INVENTORY_OTHER = ("commons.clearinventory.other");
+	public static final String COMMAND_BAN = ("commons.command.ban");
+
+	public static final String CLEAR_INVENTORY = ("commons.command.clearinventory");
+	public static final String CLEAR_INVENTORY_OTHER = ("commons.command.clearinventory.other");
 	/* NameTag Permissions */
 	public static final String BLACK_NAMETAG = ("commons.nametag.black");
 	public static final String YELLOW_NAMETAG = ("commons.nametag.yellow");

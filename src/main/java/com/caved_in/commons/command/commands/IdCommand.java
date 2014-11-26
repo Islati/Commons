@@ -5,12 +5,13 @@ import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class IdCommand {
-	@Command(identifier = "id", permissions = "commons.command.id")
+	@Command(identifier = "id", permissions = Perms.COMMAND_ID)
 	public void onIdCommand(Player player, @Arg(name = "item", def = "0") String item) {
 		if (item == null || "0".equals(item)) {
 			if (!Players.hasItemInHand(player)) {

@@ -5,6 +5,7 @@ import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.item.Enchantments;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.enchantments.Enchantment;
@@ -17,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
  * Time: 7:11 PM
  */
 public class EnchantCommand {
-	@Command(identifier = "enchant", permissions = "commons.command.enchant")
+	@Command(identifier = "enchant", permissions = Perms.COMMAND_ENCHANT)
 	public void enchantCommand(Player player, @Arg(name = "enchantment") Enchantment enchant, @Arg(name = "level") int level) {
 
 		//Assure the player has an item in their hand, what they're adding the enchantments to.

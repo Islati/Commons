@@ -6,6 +6,7 @@ import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.FlagArg;
 import com.caved_in.commons.command.Flags;
 import com.caved_in.commons.entity.Entities;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import org.bukkit.entity.Player;
 import java.util.Set;
 
 public class SlayCommand {
-	@Command(identifier = "slay", permissions = "commons.command.slay")
+	@Command(identifier = "slay", permissions = Perms.COMMAND_SLAY)
 	@Flags(identifier = {"p"}, description = {"Whether or not to slay the players aswell."})
 	public void onSlayCommand(Player player, @FlagArg("p") boolean killPlayers, @Arg(name = "radius") int radius) {
 		int amountRemoved = 0;

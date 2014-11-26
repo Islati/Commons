@@ -8,13 +8,14 @@ import com.caved_in.commons.menu.ItemFormat;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.menu.menus.warpselection.WarpSelectionMenu;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.warp.Warps;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class WarpsCommand {
-	@Command(identifier = "warps", permissions = "commons.commands.warps")
-	public void onWarpsCommand(Player player, @Arg(name = "page") int page) {
+	@Command(identifier = "warps", permissions = Perms.COMMAND_WARPS)
+	public void onWarpsCommand(Player player, @Arg(name = "page", def = "1") int page) {
 		if (Commons.getWarpConfig().isWarpsMenuEnabled()) {
 			WarpSelectionMenu.getMenu(page).openMenu(player);
 		} else {

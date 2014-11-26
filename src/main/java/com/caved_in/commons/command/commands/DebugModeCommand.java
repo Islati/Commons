@@ -5,6 +5,7 @@ import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.Wildcard;
 import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class DebugModeCommand {
 		Debugger.getDebugMenu().sendTo(player, page, 6);
 	}
 
-	@Command(identifier = "debug", permissions = "commons.debugmode")
+	@Command(identifier = "debug", permissions = Perms.DEBUG_MODE)
 	public void onDebugModeCommand(Player player, @Arg(name = "action", def = "") String action, @Wildcard @Arg(name = "arguments") String args) {
 		MinecraftPlayer minecraftPlayer = Players.getData(player);
 		if (action == null || action.isEmpty()) {

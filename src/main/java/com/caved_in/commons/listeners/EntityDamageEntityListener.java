@@ -22,6 +22,10 @@ public class EntityDamageEntityListener implements Listener {
         Player player = null;
         Player pAttacked = null;
 
+        /*
+        Check if there was an arrow shot, and the shooter was a player, then we assign
+        the player (damaging) to the shooter.
+         */
         if (e.getEntityType() == EntityType.ARROW) {
             Arrow arrow = (Arrow) attacker;
             LivingEntity shooter = arrow.getShooter();
@@ -30,11 +34,16 @@ public class EntityDamageEntityListener implements Listener {
             }
         }
 
+        /*
+        Check if the attacker in the event was a player
+         */
         if (attacker instanceof Player) {
             player = (Player) attacker;
         }
 
-
+        /*
+        Check if the attacked entity was a player.
+         */
         if (attacked instanceof Player) {
             pAttacked = (Player) attacked;
         }
@@ -43,6 +52,11 @@ public class EntityDamageEntityListener implements Listener {
             return;
         }
 
+        /*
+        If we have both an attacking player, and an attacked player then we've got a pvp event,
+        used to remove the boiler-plating when all you really want is when a player damages a
+        player! Heyyyyyoooooo custom events.
+         */
         if (pAttacked != null) {
             //There's both an attacking and attacked player, so create the pvp event!
             PlayerDamagePlayerEvent pvpEvent = new PlayerDamagePlayerEvent(player, pAttacked, e.getCause());

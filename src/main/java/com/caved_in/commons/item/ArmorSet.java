@@ -1,6 +1,7 @@
 package com.caved_in.commons.item;
 
 import com.caved_in.commons.inventory.ArmorInventory;
+import com.caved_in.commons.permission.Perms;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.EnumSet;
@@ -8,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum ArmorSet {
-	LEATHER("commons.armor.leather", Items.LEATHER_ARMOR, "leather"),
-	IRON("commons.armor.iron", Items.IRON_ARMOR, "iron"),
-	GOLD("commons.armor.gold", Items.GOLD_ARMOR, "gold"),
-	DIAMOND("commons.armor.diamond", Items.DIAMOND_ARMOR, "diamond");
+	LEATHER(Perms.LEATHER_ARMOR_SET, Items.LEATHER_ARMOR, "leather"),
+	IRON(Perms.IRON_ARMOR_SET, Items.IRON_ARMOR, "iron"),
+	GOLD(Perms.GOLD_ARMOR_SET, Items.GOLD_ARMOR, "gold"),
+	DIAMOND(Perms.DIAMOND_ARMOR_SET, Items.DIAMOND_ARMOR, "diamond");
 
 	private static Map<String, ArmorSet> sets = new HashMap<>();
 

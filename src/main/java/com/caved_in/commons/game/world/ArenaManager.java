@@ -2,7 +2,9 @@ package com.caved_in.commons.game.world;
 
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.MiniGame;
+import com.caved_in.commons.game.event.ArenaCycleEvent;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -132,6 +134,25 @@ public class ArenaManager implements ArenaHandler {
 		do {
 			randomArena = arenaNames.get(random.nextInt(arenaNames.size()));
 		} while (activeArena.equalsIgnoreCase(randomArena));
+
+
+		Arena active = getActiveArena();
+
+		/*
+		If this isn't the first arena that's been into play,
+		then we can call an arena-cycle event!
+
+		Just incase any of the minigames require a different arena to come into play ;)
+		  */
+		if (activeArena != null) {
+			ArenaCycleEvent cycleEvent = new ArenaCycleEvent(game, active, getArena(randomArena));
+			Plugins.callEvent(cycleEvent);
+			if (cycleEvent.isCancelled()) {
+				return;
+			}
+
+			randomArena = cycleEvent.getTo().getWorldName();
+		}
 
 		activeArena = randomArena;
 		Players.teleportAllToSpawn(getActiveArena());

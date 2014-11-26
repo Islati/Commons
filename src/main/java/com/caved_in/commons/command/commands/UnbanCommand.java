@@ -5,6 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.PardonPlayerPunishmentsCallable;
 import com.google.common.util.concurrent.FutureCallback;
@@ -14,7 +15,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class UnbanCommand {
-	@Command(onlyPlayers = false, identifier = "unban", description = "Unban / pardon a user from their ban", permissions = "commons.command.unban")
+	@Command(onlyPlayers = false, identifier = "unban", description = "Unban / pardon a user from their ban", permissions = Perms.COMMAND_UNBAN)
 	public void onUnbanCommand(CommandSender sender, @Arg(name = "player") String name) {
 
 		String pardonIssuer = "";

@@ -10,7 +10,7 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
 public class MaintenanceCommand {
-	@Command(identifier = "maintenance", permissions = {"commons.maintenance.toggle"}, onlyPlayers = false)
+	@Command(identifier = "maintenance", permissions = {Perms.MAINTENANCE_TOGGLE}, onlyPlayers = false)
 	public void onMaintenanceCommand(CommandSender sender, @Arg(name = "action", def = "toggle") String mode) {
 		MaintenanceConfiguration config = Commons.getConfiguration().getMaintenanceConfig();
 
