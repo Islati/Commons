@@ -96,6 +96,8 @@ public class BulletBuilder {
 
 	public Bullet shoot() throws ProjectileCreationException {
 
+		Bullet bullet;
+
 		if (shooter == null) {
 			throw new ProjectileCreationException("Projectiles require a shooter");
 //			return null;
@@ -110,9 +112,13 @@ public class BulletBuilder {
 		}
 
 		if (effect != null) {
-			return new FancyBullet(shooter, gun, type, force, damage, spread, effect);
+			bullet = new FancyBullet(shooter, gun, type, force, damage, spread, effect);
+		} else {
+			bullet = new Bullet(shooter, gun, type, force, damage, spread);
 		}
 
-		return new Bullet(shooter, gun, type, force, damage, spread);
+		bullet.fire();
+
+		return bullet;
 	}
 }

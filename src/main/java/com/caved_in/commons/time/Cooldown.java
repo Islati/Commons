@@ -1,5 +1,6 @@
 package com.caved_in.commons.time;
 
+import com.caved_in.commons.chat.Chat;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -46,7 +47,14 @@ public class Cooldown {
 
 		double playerTime = cooldowns.get(player.getUniqueId());
 		long timeCheck = System.currentTimeMillis() / 1000L;
-		return timeCheck - playerTime;
+		double difference = timeCheck - playerTime;
+
+		Chat.debug("Difference in time from then to now is " + difference + " seconds");
+		if (difference <= 0) {
+			return 0;
+		}
+
+		return difference;
 	}
 
 	public double getRemainingMinutes(Player player) {

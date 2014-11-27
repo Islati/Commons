@@ -15,7 +15,7 @@ public class GunProperties {
 	@Element(name = "clip-size")
 	public int clipSize = 20;
 
-	@Element(name = "shoot-delay-millis")
+	@Element(name = "fire-delay-millis")
 	public long shotDelay = 1500l;
 
 	@Element(name = "reload-speed-seconds")
@@ -51,7 +51,7 @@ public class GunProperties {
 		this.parent = parent;
 	}
 
-	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "shoot-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo) {
+	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo) {
 		this.clipSize = clipSize;
 		this.shotDelay = shotDelay;
 		this.reloadSpeed = reloadSpeed;

@@ -1,5 +1,6 @@
 package com.caved_in.commons.chat;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
@@ -58,5 +59,11 @@ public class Chat {
 
 	public static void message(CommandSender sender, String... messages) {
 		Players.sendMessage(sender, messages);
+	}
+
+	public static void debug(String... message) {
+		Commons c = Commons.getInstance();
+
+		c.debug(message);
 	}
 }

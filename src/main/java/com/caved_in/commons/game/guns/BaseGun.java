@@ -70,7 +70,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	public void perform(Player holder) {
 		initBuilder();
 
-		//If the player's on cooldown from using this gun, then don't let them shoot.
+		//If the player's on cooldown from using this gun, then don't let them fire.
 		if (isOnCooldown(holder)) {
 			return;
 		}
@@ -87,7 +87,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		boolean scheduleReload = false;
 
-		//We need to shoot atleast one bullet.
+		//We need to fire atleast one bullet.
 		if (roundsToShoot < properties.roundsPerShot) {
 			scheduleReload = true;
 		}
@@ -114,7 +114,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 				//Schedule each bullet to be fired with the given delay, otherwise they'd be in a cluster.
 				Commons.getInstance().getThreadManager().runTaskLater(() -> {
 					try {
-						//Apply new spread to the projectile gun, and then shoot that m'fucka to space and back.
+						//Apply new spread to the projectile gun, and then fire that m'fucka to space and back.
 						builder.shoot();
 					} catch (ProjectileCreationException e) {
 						e.printStackTrace();
@@ -127,7 +127,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		//Set the player on cooldown from using this weapon.
 		addCooldown(holder);
 
-		//Handle the on-shoot of the gun, what the item's meant to do.
+		//Handle the on-fire of the gun, what the item's meant to do.
 		onFire(holder);
 
 		if (scheduleReload || getAmmo(holder) == 0) {
@@ -193,7 +193,6 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		Entities.damage(damaged, damage(), shooter);
 		actions.onHit(shooter, damaged);
 	}
-
 
 	@Override
 	public BulletActions getBulletActions() {

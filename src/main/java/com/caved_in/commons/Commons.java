@@ -91,7 +91,8 @@ public class Commons extends BukkitPlugin {
 				new DebugFishCannon(),
 				new DebugFlamingEnderSword(),
 				new DebugScoreboardBuilder(),
-				new DebugDefaultScoreboard()
+				new DebugDefaultScoreboard(),
+				new DebugThrowableBrick()
 		);
 	}
 
@@ -104,8 +105,8 @@ public class Commons extends BukkitPlugin {
 		}
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
-			registerListeners(new LauncherListener()); // Register shoot pad listener if its enabled
-			debug("&aRegistered the shoot pad listener");
+			registerListeners(new LauncherListener()); // Register fire pad listener if its enabled
+			debug("&aRegistered the fire pad listener");
 		}
 
 		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
