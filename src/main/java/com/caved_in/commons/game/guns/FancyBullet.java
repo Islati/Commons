@@ -8,6 +8,7 @@ import com.caved_in.commons.game.event.BulletHitCreatureEvent;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.time.BasicTicker;
 import com.caved_in.commons.utilities.NumberUtil;
+import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -61,7 +62,7 @@ public class FancyBullet extends Bullet {
 
 		World pw = p.getWorld();
 
-		Item item = getItem();
+		Item item = Worlds.dropItem(p.getLocation(), getItemStack());
 
 		for (int i = 0; i < 100; i++) {
 			double modX = px + i * x;
@@ -99,17 +100,7 @@ public class FancyBullet extends Bullet {
 				return;
 			}
 
-			Set<LivingEntity> entities = Entities.getLivingEntitiesNear(item, BULLET_SCAN_RADIUS);
-
-			//If we've got no entities near us, no use to check!
-			if (entities.size() == 0) {
-				if (!ticker.allow()) {
-					ticker.tick();
-				} else {
-					item.remove();
-				}
-				return;
-			}
+			Set<LivingEntity> entities = Entities.getLivingEntitiesNearLocation(l, 2);
 
 			for (LivingEntity entity : entities) {
 				if (entity.getUniqueId().equals(shooterId)) {

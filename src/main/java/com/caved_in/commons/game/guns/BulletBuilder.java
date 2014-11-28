@@ -111,11 +111,11 @@ public class BulletBuilder {
 			throw new ProjectileCreationException("Projectiles require a type");
 		}
 
-		if (effect != null) {
-			bullet = new FancyBullet(shooter, gun, type, force, damage, spread, effect);
-		} else {
+//		if (effect != null) {
+//			bullet = new FancyBullet(shooter, gun, type, force, damage, spread, effect);
+//		} else {
 			bullet = new Bullet(shooter, gun, type, force, damage, spread);
-		}
+//		}
 
 		bullet.fire();
 

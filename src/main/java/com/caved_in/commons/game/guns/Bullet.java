@@ -1,6 +1,8 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.game.event.BulletHitBlockEvent;
@@ -10,10 +12,8 @@ import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.time.BasicTicker;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,244 +26,177 @@ import org.bukkit.util.Vector;
 import java.util.*;
 
 public class Bullet implements Metadatable {
-	public static final double BULLET_SCAN_RADIUS = 1.5;
-	private static final Commons commons = Commons.getInstance();
+    public static final double BULLET_SCAN_RADIUS = 1.5;
+    private static final Commons commons = Commons.getInstance();
 
-	private static final int PICKUP_DELAY = 999999;
+    private static final int PICKUP_DELAY = 999999;
 
-	private Map<String, List<MetadataValue>> metadata = new HashMap<>();
-	private UUID shooter;
-	private Item item;
-	private double damage;
-	private Gun gun;
+    private Map<String, List<MetadataValue>> metadata = new HashMap<>();
+    private UUID shooter;
+    private double damage;
+    private Gun gun;
 
-	private BasicTicker ticker = new BasicTicker(10);
+    private ItemStack itemStack;
 
-	private BulletDamageEntityClause damageConditions = null;
+    private double force;
 
-	public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread, BulletDamageEntityClause damageConditions) {
-		this(Players.getPlayer(shooter), gun, item, force, damage, spread);
-		this.damageConditions = damageConditions;
-	}
+    private Item item;
 
-	public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
-		this(Players.getPlayer(shooter), gun, item, force, damage, spread);
-	}
+    private BulletDamageEntityClause damageConditions = null;
 
-	public Bullet(Player shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
-		this.shooter = shooter.getUniqueId();
-		this.gun = gun;
+    public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread, BulletDamageEntityClause damageConditions) {
+        this(Players.getPlayer(shooter), gun, item, force, damage, spread);
+        this.damageConditions = damageConditions;
+    }
 
-		Location loc = shooter.getLocation().add(0, 1, 0);
-//		loc.setY(0.05);
+    public Bullet(UUID shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
+        this(Players.getPlayer(shooter), gun, item, force, damage, spread);
+    }
 
-		Item droppedItem = Worlds.dropItem(loc/*.add(0,0.5,0)*/, item);
-//		droppedItem.setVelocity(loc.getDirection().normalize().multiply(force));
-//
-//		/* New method of shooting & shits */
-//		Vector direction = Vectors.direction(shooter.getLocation(), Players.getTargetLocation(shooter)).multiply(force);
-//		droppedItem.setVelocity(direction);
-		droppedItem.setPickupDelay(PICKUP_DELAY);
-		this.item = droppedItem;
-		this.damage = damage;
-		//Launch the vector
+    public Bullet(Player shooter, Gun gun, ItemStack item, double force, double damage, Vector spread) {
+        this(shooter, gun, item, force, damage);
+
+        //Launch the vector
 //		runTaskTimer(commons, 1, 1);
-	}
+    }
 
-	public Bullet(Player shooter, Gun gun, ItemStack item, double force, double damage) {
-		this.shooter = shooter.getUniqueId();
-		this.gun = gun;
+    public Bullet(Player shooter, Gun gun, ItemStack item, double force, double damage) {
+        this.shooter = shooter.getUniqueId();
+        this.gun = gun;
+        this.force = force;
+        this.itemStack = item;
+        this.damage = damage;
+    }
 
-		Location loc = shooter.getLocation().add(0, 1, 0);
-//		loc.setY(0.05);
+    @Override
+    public void setMetadata(String key, MetadataValue value) {
+        if (!hasMetadata(key)) {
+            metadata.put(key, Arrays.asList(value));
+            return;
+        }
 
-		Item droppedItem = Worlds.dropItem(loc/*.add(0,0.5,0)*/, item);
-//		droppedItem.setVelocity(loc.getDirection().normalize().multiply(force));
+        metadata.get(key).add(value);
+    }
 
-//		/* New method of shooting & shits */
-//		Vector direction = Vectors.direction(shooter.getLocation(), Players.getTargetLocation(shooter)).multiply(force);
-//		droppedItem.setVelocity(direction);
-		droppedItem.setPickupDelay(PICKUP_DELAY);
-		this.item = droppedItem;
-		this.damage = damage;
-	}
+    @Override
+    public List<MetadataValue> getMetadata(String key) {
+        return metadata.get(key);
+    }
 
-	@Override
-	public void setMetadata(String key, MetadataValue value) {
-		if (!hasMetadata(key)) {
-			metadata.put(key, Arrays.asList(value));
-			return;
-		}
+    @Override
+    public boolean hasMetadata(String key) {
+        return metadata.containsKey(key);
+    }
 
-		metadata.get(key).add(value);
-	}
+    @Override
+    public void removeMetadata(String s, Plugin plugin) {
+        metadata.remove(s);
+    }
 
-	@Override
-	public List<MetadataValue> getMetadata(String key) {
-		return metadata.get(key);
-	}
+    public void fire() {
+        Player p = getShooter();
 
-	@Override
-	public boolean hasMetadata(String key) {
-		return metadata.containsKey(key);
-	}
+        Location eyeLoc = p.getEyeLocation();
+        double px = eyeLoc.getX();
+        double py = eyeLoc.getY();
+        double pz = eyeLoc.getZ();
+        double yaw = Math.toRadians(eyeLoc.getYaw() + 90.0f);
+        double pitch = Math.toRadians(eyeLoc.getPitch() + 90.0f);
 
-	@Override
-	public void removeMetadata(String s, Plugin plugin) {
-		metadata.remove(s);
-	}
+        double x = Math.sin(pitch) * Math.cos(yaw);
+        double y = Math.sin(pitch) * Math.sin(yaw);
+        double z = Math.cos(pitch);
 
-	public void fire() {
-		Player p = getShooter();
+        World pw = p.getWorld();
 
-		Location eyeLoc = p.getEyeLocation();
-		double px = eyeLoc.getX();
-		double py = eyeLoc.getY();
-		double pz = eyeLoc.getZ();
-		double yaw = Math.toRadians(eyeLoc.getYaw() + 90.0f);
-		double pitch = Math.toRadians(eyeLoc.getPitch() + 90.0f);
+        this.item = Worlds.dropItem(p.getLocation(), itemStack);
+        this.item.setPickupDelay(PICKUP_DELAY);
+        this.item.setVelocity(p.getLocation().getDirection().multiply(10));
 
-		double x = Math.sin(pitch) * Math.cos(yaw);
-		double y = Math.sin(pitch) * Math.sin(yaw);
-		double z = Math.cos(pitch);
+//
+//        item.setVelocity(direction);
+//        item.setPickupDelay(PICKUP_DELAY);
 
-		World pw = p.getWorld();
+        BasicTicker ticker = new BasicTicker(7);
 
-		for (int i = 0; i < 100; i++) {
-			double modX = px + i * x;
-			double modY = py + i * z;
-			double modZ = pz + i * y;
+        for (int i = 0; i < 100; i++) {
+            double modX = px + i * x;
+            double modY = py + i * z;
+            double modZ = pz + i * y;
 
-			Location l = new Location(pw, modX, modY, modZ);
+            Location l = new Location(pw, modX, modY, modZ);
 
-			item.setVelocity(l.getDirection());
+            Block locBlock = l.getBlock();
+            item.setVelocity(l.getDirection());
 
-			Block locBlock = l.getBlock();
+            if (ticker.allow()) {
+                ParticleEffects.sendToLocation(ParticleEffects.INSTANT_SPELL, l, 2);
+                ticker.reset();
+            } else {
+                ticker.tick();
+            }
 
 			/*
-			If the bullet hits a block, and the block is solid, then we want to
+            If the bullet hits a block, and the block is solid, then we want to
 			fire a BulletHitBlockEvent with the block that was hit!
 			 */
-			if (locBlock.getType().isSolid()) {
-				BulletHitBlockEvent event = new BulletHitBlockEvent(this, locBlock);
-				Plugins.callEvent(event);
-				BulletHitBlockEvent.handle(event);
-
-				item.remove();
-				break;
-			}
+            if (locBlock.getType().isSolid()) {
+                BulletHitBlockEvent event = new BulletHitBlockEvent(this, locBlock);
+                Plugins.callEvent(event);
+                BulletHitBlockEvent.handle(event);
+                item.remove();
+                break;
+            }
 
 			/*
-			If the item is on the ground, then we're done!
+            If the item is on the ground, then we're done!
 			Remove the item and break the loop!
 			 */
-			if (item.isOnGround()) {
-				item.remove();
-				return;
-			}
+            if (item.isOnGround()) {
+                Chat.debug("Bullet is on the ground!");
+                item.remove();
+                return;
+            }
 
-			Set<LivingEntity> entities = Entities.getLivingEntitiesNear(item, BULLET_SCAN_RADIUS);
+            Set<LivingEntity> entities = Entities.getLivingEntitiesNearLocation(l, 2);
+            for (LivingEntity entity : entities) {
+                if (entity.getUniqueId().equals(shooter)) {
+                    continue;
+                }
 
-			//If we've got no entities near us, no use to check!
-			if (entities.size() == 0) {
-				if (!ticker.allow()) {
-					ticker.tick();
-				} else {
-					item.remove();
-				}
-				return;
-			}
+                if (damageConditions != null && !damageConditions.damage(p, entity)) {
+                    continue;
+                }
 
-			for (LivingEntity entity : entities) {
-				if (entity.getUniqueId().equals(shooter)) {
-					continue;
-				}
+                //Call the bullet hit creature event, because they hit some unfortunate being ;)
+                BulletHitCreatureEvent event = new BulletHitCreatureEvent(this, entity);
+                Plugins.callEvent(event);
+                BulletHitCreatureEvent.handle(event);
 
-				if (damageConditions != null && !damageConditions.damage(p, entity)) {
-					continue;
-				}
+                item.remove();
+                return;
+            }
+        }
 
-				//Call the bullet hit creature event, because they hit some unfortunate being ;)
-				BulletHitCreatureEvent event = new BulletHitCreatureEvent(this, entity);
-				Plugins.callEvent(event);
-				BulletHitCreatureEvent.handle(event);
+    }
 
-				item.remove();
-				return;
-			}
-		}
-	}
+    public double getDamage() {
+        return damage;
+    }
 
-	//	@Override
-	private void run() {
-		Location loc = item.getLocation();
+    public Player getShooter() {
+        return Players.getPlayer(shooter);
+    }
 
-		Block blockBeneath = loc.getBlock().getRelative(BlockFace.DOWN);
-		//If the item we're throwing hit something, then stop it from going else-where.
-		if (blockBeneath.getType() != Material.AIR) {
-			//Call the bullet hit-block event, as bullets are hitting blocks here!
-			BulletHitBlockEvent event = new BulletHitBlockEvent(this, blockBeneath);
-			Plugins.callEvent(event);
-			BulletHitBlockEvent.handle(event);
+    public Gun getGun() {
+        return gun;
+    }
 
-//			cancel();
-			item.remove();
-			return;
-		}
+    protected ItemStack getItemStack() {
+        return itemStack;
+    }
 
-		if (item.isOnGround()) {
-//			cancel();
-			item.remove();
-		}
-
-		Set<LivingEntity> entities = Entities.getLivingEntitiesNear(item, BULLET_SCAN_RADIUS);
-
-		//If we've got no entities near us, no use to check!
-		if (entities.size() == 0) {
-			if (!ticker.allow()) {
-				ticker.tick();
-			} else {
-				item.remove();
-//				cancel();
-			}
-			return;
-		}
-
-		Player player = getShooter();
-
-		for (LivingEntity entity : entities) {
-			if (entity.getUniqueId().equals(shooter)) {
-				continue;
-			}
-
-			if (damageConditions != null && !damageConditions.damage(player, entity)) {
-				continue;
-			}
-
-			//Call the bullet hit creature event, because they hit some unfortunate being ;)
-			BulletHitCreatureEvent event = new BulletHitCreatureEvent(this, entity);
-			Plugins.callEvent(event);
-			BulletHitCreatureEvent.handle(event);
-
-			item.remove();
-//			cancel();
-			return;
-		}
-	}
-
-	public double getDamage() {
-		return damage;
-	}
-
-	public Player getShooter() {
-		return Players.getPlayer(shooter);
-	}
-
-	public Gun getGun() {
-		return gun;
-	}
-
-	protected Item getItem() {
-		return item;
-	}
+//    protected Item getItem() {
+//        return item;
+//    }
 }
