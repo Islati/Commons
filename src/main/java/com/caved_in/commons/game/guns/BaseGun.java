@@ -38,7 +38,6 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	@Element(name = "bullet-properties", type = BulletProperties.class)
 	private BulletProperties bullets = new BulletProperties();
 
-
 	private Map<UUID, Integer> ammoCounts = new HashMap<>();
 
 	private Map<UUID, Long> shootDelays = new HashMap<>();
@@ -47,10 +46,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	private BulletActions actions;
 
-	public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties) {
+	public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties, @Element(name = "bullet-properties", type = BulletProperties.class) BulletProperties bulletProperties) {
 		super(gun.getItemStack());
 		this.gun = gun;
 		this.properties = properties;
+		this.bullets = bulletProperties;
 	}
 
 	public BaseGun(ItemStack item) {
@@ -133,6 +133,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		if (scheduleReload || getAmmo(holder) == 0) {
 			reload(holder);
 		}
+	}
+
+	@Override
+	public void onDrop(Player p) {
+		reload(p);
 	}
 
 	public boolean reload(final Player player) {

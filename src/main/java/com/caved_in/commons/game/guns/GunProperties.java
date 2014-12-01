@@ -2,6 +2,8 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
@@ -18,7 +20,7 @@ public class GunProperties {
 	@Element(name = "fire-delay-millis")
 	public long shotDelay = 1500l;
 
-	@Element(name = "reload-speed-seconds")
+	@Element(name = "reload-speed")
 	public int reloadSpeed = 5;
 
 	@Element(name = "reload-message")
@@ -67,9 +69,17 @@ public class GunProperties {
 		return this;
 	}
 
-	public GunProperties reloadSpeed(int seconds) {
-		this.reloadSpeed = seconds;
+	public GunProperties reloadTicks(int amt) {
+		reloadSpeed = amt;
 		return this;
+	}
+
+	public GunProperties reloadSpeed(int amount, TimeType type) {
+		return reloadTicks((int) TimeHandler.getTimeInTicks(amount, type));
+	}
+
+	public GunProperties reloadSpeed(int seconds) {
+		return reloadSpeed(seconds, TimeType.SECOND);
 	}
 
 	public GunProperties roundsPerShot(int amount) {

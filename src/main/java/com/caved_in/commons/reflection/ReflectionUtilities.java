@@ -1,6 +1,7 @@
 package com.caved_in.commons.reflection;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import org.bukkit.Bukkit;
 
 import java.lang.annotation.Annotation;
@@ -145,11 +146,11 @@ public class ReflectionUtilities {
 		try {
 			return (T) constructor.newInstance(args);
 		} catch (InstantiationException e) {
-			Commons.messageConsole("Failed to instantiate constructor: " + constructor.getName());
+			Chat.debug("Failed to instantiate constructor: " + constructor.getName());
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Failed to access constructor: " + constructor.getName());
+			Chat.debug("Failed to access constructor: " + constructor.getName());
 		} catch (InvocationTargetException e) {
-			Commons.messageConsole("Failed to invoke constructor: " + constructor.getName());
+			Chat.debug("Failed to invoke constructor: " + constructor.getName());
 		}
 		return null;
 	}

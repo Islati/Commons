@@ -1,6 +1,6 @@
 package com.caved_in.commons.game.event;
 
-import com.caved_in.commons.game.guns.Bullet;
+import com.caved_in.commons.game.guns.BaseBullet;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -8,13 +8,13 @@ import org.bukkit.event.HandlerList;
 
 public class BulletHitCreatureEvent extends Event implements Cancellable {
 
-	private final Bullet projectile;
+	private final BaseBullet projectile;
 	private LivingEntity target;
 	private boolean cancelled = false;
 
 	private static final HandlerList handlers = new HandlerList();
 
-	public BulletHitCreatureEvent(Bullet projectile, LivingEntity target) {
+	public BulletHitCreatureEvent(BaseBullet projectile, LivingEntity target) {
 		this.projectile = projectile;
 		this.target = target;
 	}
@@ -38,7 +38,7 @@ public class BulletHitCreatureEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
-	public Bullet getProjectile() {
+	public BaseBullet getProjectile() {
 		return projectile;
 	}
 
@@ -56,7 +56,7 @@ public class BulletHitCreatureEvent extends Event implements Cancellable {
 		}
 
 		LivingEntity target = e.getTarget();
-		Bullet proj = e.getProjectile();
+		BaseBullet proj = e.getProjectile();
 
 		if (!e.hasGun()) {
 			return;

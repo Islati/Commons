@@ -30,6 +30,8 @@ public class TimeHandler {
 				break;
 			case MILLESECOND:
 				return amt;
+			case TICK:
+				return TimeUnit.SECONDS.toMillis(amt / 20) / 1000;
 			default:
 				return -1;
 		}
@@ -44,6 +46,8 @@ public class TimeHandler {
 				return ((20 * 60) * amount);
 			case HOUR:
 				return ((20 * 60) * 60) * amount;
+			case TICK:
+				return amount;
 			default:
 				return 0L;
 		}

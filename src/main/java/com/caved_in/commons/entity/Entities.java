@@ -458,7 +458,7 @@ public class Entities {
 	 * @param radius radius to scan around the location.
 	 * @return a set of living entities which were near the location
 	 */
-	public static Set<LivingEntity> getLivingEntitiesNearLocation(Location center, int radius) {
+	public static Set<LivingEntity> getLivingEntitiesNearLocation(Location center, double radius) {
 		Set<LivingEntity> entities = new HashSet<>();
 		for (LivingEntity entity : center.getWorld().getLivingEntities()) {
 			if (Locations.isEntityInRadius(center, radius, entity)) {

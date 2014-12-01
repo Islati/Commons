@@ -4,18 +4,15 @@ import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.vector.Vectors;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
 
 import java.util.UUID;
 
 public class BulletBuilder {
 	private ItemStack type;
-	private Vector spread = null;
+	private double spread = 0.1;
 	private double force = 1;
 	private UUID shooter;
 	private double damage = 0;
@@ -85,13 +82,9 @@ public class BulletBuilder {
 		return this;
 	}
 
-	public BulletBuilder spread(Vector vector) {
-		this.spread = vector;
+	public BulletBuilder spread(double spread) {
+		this.spread = spread;
 		return this;
-	}
-
-	public BulletBuilder spread(Location loc, double amt) {
-		return spread(Vectors.getSpread(loc, amt));
 	}
 
 	public Bullet shoot() throws ProjectileCreationException {
@@ -111,11 +104,11 @@ public class BulletBuilder {
 			throw new ProjectileCreationException("Projectiles require a type");
 		}
 
-//		if (effect != null) {
-//			bullet = new FancyBullet(shooter, gun, type, force, damage, spread, effect);
-//		} else {
+		if (effect != null) {
+			bullet = new FancyBullet(shooter, gun, type, force, damage, spread, effect);
+		} else {
 			bullet = new Bullet(shooter, gun, type, force, damage, spread);
-//		}
+		}
 
 		bullet.fire();
 

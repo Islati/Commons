@@ -10,5 +10,7 @@ public interface Gadget extends Listener {
 
 	public void perform(Player holder);
 
+	public boolean drop(Player holder);
+
 	public int id();
 }

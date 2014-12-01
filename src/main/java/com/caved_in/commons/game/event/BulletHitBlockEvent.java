@@ -1,6 +1,8 @@
 package com.caved_in.commons.game.event;
 
+import com.caved_in.commons.game.guns.BaseBullet;
 import com.caved_in.commons.game.guns.Bullet;
+import com.caved_in.commons.game.guns.Gun;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -12,10 +14,10 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 
 	private boolean cancelled = false;
 
-	private Bullet projectile;
+	private BaseBullet projectile;
 	private Block block;
 
-	public BulletHitBlockEvent(Bullet projectile, Block block) {
+	public BulletHitBlockEvent(BaseBullet projectile, Block block) {
 		this.projectile = projectile;
 		this.block = block;
 	}
@@ -39,7 +41,7 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
-	public Bullet getProjectile() {
+	public BaseBullet getProjectile() {
 		return projectile;
 	}
 
@@ -56,10 +58,14 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 			return;
 		}
 
-		if (e.getProjectile().getGun() == null) {
+		BaseBullet bullet = e.getProjectile();
+
+		Gun gun = bullet.getGun();
+
+		if (gun == null) {
 			return;
 		}
 
-		e.projectile.getGun().getBulletActions().onHit(e.getShooter(), e.getBlock());
+		gun.getBulletActions().onHit(e.getShooter(), e.getBlock());
 	}
 }

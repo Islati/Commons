@@ -3,7 +3,6 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
-import com.caved_in.commons.game.item.Weapon;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -33,11 +32,11 @@ public class ItemDropListener implements Listener {
 
 		Gadget gadget = Gadgets.getGadget(item);
 
-		if (!(gadget instanceof Weapon)) {
-			return;
-		}
 
-		Weapon weapon = (Weapon) gadget;
-		weapon.onDrop(event.getPlayer());
+		boolean drop = gadget.drop(event.getPlayer());
+
+		if (!drop) {
+			event.setCancelled(true);
+		}
 	}
 }

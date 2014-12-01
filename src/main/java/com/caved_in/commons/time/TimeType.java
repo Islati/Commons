@@ -15,6 +15,7 @@ import java.util.Map;
  * ----------------------------------------------------------------------------
  */
 public enum TimeType {
+	TICK("tick", "ticks"),
 	YEAR("y", "year", "years"),
 	MONTH("m", "month", "months"),
 	WEEK("w", "week", "weeks"),

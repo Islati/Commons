@@ -1,9 +1,12 @@
 package com.caved_in.commons.game;
 
 import com.caved_in.commons.game.clause.ServerShutdownClause;
+import com.caved_in.commons.game.listener.GameConnectionListener;
+import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.game.world.ArenaManager;
 import com.caved_in.commons.plugin.Plugins;
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.world.Worlds;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.event.HandlerList;
@@ -11,10 +14,11 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.logging.Logger;
 
-public abstract class MiniGame extends CraftGame {
+public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	private Map<Integer, GameState> gameStates = new HashMap<>();
 
@@ -32,8 +36,31 @@ public abstract class MiniGame extends CraftGame {
 
 	private ArenaManager arenaManager;
 
+	private GameConnectionListener connectionListener;
+
+	/* The class which our user manager is created from */
+	private Class<? extends UserManager> userManagerClass;
+
+	private T userManager;
+
+	public MiniGame(Class<? extends UserManager> userManager) {
+		this.userManagerClass = userManager;
+
+		/* Create the constructor the the user-manager class */
+		Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
+
+		/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
+		this.userManager = ReflectionUtilities.invokeConstructor(constructor);
+	}
+
 	@Override
 	public void onEnable() {
+		/* Create the connection listener that handles the managing of game-player data */
+		connectionListener = new GameConnectionListener(this);
+
+		/* Register the game connection listener */
+		registerListeners(connectionListener);
+
 		arenaManager = new ArenaManager(this);
 		loadArenas();
 		if (!arenaManager.hasArenas()) {
@@ -63,7 +90,6 @@ public abstract class MiniGame extends CraftGame {
 		activeState.update();
 
 		switchStates();
-
 
 		if (!shutdownClauses.isEmpty() && doShutdown()) {
 			onDisable();
@@ -241,6 +267,10 @@ public abstract class MiniGame extends CraftGame {
 
 	public void setAutoSave(boolean autoSave) {
 		this.autoSave = autoSave;
+	}
+
+	public T getUserManager() {
+		return userManager;
 	}
 
 	public abstract void startup();

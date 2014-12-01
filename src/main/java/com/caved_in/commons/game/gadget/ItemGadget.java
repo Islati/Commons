@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class ItemGadget implements Gadget {
 
+	private boolean droppable;
+
 	private ItemStack gadgetItem;
 
 	public ItemGadget() {
@@ -24,11 +26,29 @@ public abstract class ItemGadget implements Gadget {
 		this.gadgetItem = item;
 	}
 
+	public boolean isDroppable() {
+		return droppable;
+	}
+
+	public void setDroppable(boolean canDrop) {
+		droppable = canDrop;
+	}
+
 	public void giveTo(Player player) {
 		Players.giveItem(player, getItem());
 	}
 
-	public abstract void perform(Player holder);
+	public boolean drop(Player p) {
+		onDrop(p);
+		return isDroppable();
+	}
 
 	public abstract int id();
+
+	public abstract void perform(Player holder);
+
+	public void onDrop(Player p) {
+
+	}
+
 }

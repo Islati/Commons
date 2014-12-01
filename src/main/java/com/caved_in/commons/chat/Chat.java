@@ -13,6 +13,8 @@ import java.util.Map;
  * Used to handle private messaging and message broadcasting.
  */
 public class Chat {
+	private static Commons commons = Commons.getInstance();
+
 	private static Map<String, ChatMessage> recentChatters = new HashMap<>();
 
 
@@ -62,8 +64,7 @@ public class Chat {
 	}
 
 	public static void debug(String... message) {
-		Commons c = Commons.getInstance();
-
-		c.debug(message);
+		commons.debug(message);
 	}
+
 }

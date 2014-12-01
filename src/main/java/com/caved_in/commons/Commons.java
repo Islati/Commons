@@ -92,7 +92,8 @@ public class Commons extends BukkitPlugin {
 				new DebugFlamingEnderSword(),
 				new DebugScoreboardBuilder(),
 				new DebugDefaultScoreboard(),
-				new DebugThrowableBrick()
+				new DebugThrowableBrick(),
+				new DebugKickStick()
 		);
 	}
 

@@ -6,6 +6,10 @@ public class Perms {
 	/* Used to see through player disguises */
 	public static final String BYPASS_DISGUISED_PLAYERS = "commons.disguise.nickvisible";
 	public static final String BYPASS_CHAT_SILENCE = ("commons.silence.bypass");
+
+	/* Restriction on the all mighty kick stick */
+	public static final String KICK_STICK = "commons.admin.kickstick";
+
 	/* All commands and their permissions */
 
 	public static final String COMMAND_WARP = "commons.command.warp";

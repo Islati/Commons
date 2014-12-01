@@ -1617,6 +1617,27 @@ public class Players {
 	}
 
 	/**
+	 * Restore the players health by the given amount. Will not exceed the players maximum health.
+	 * @param p player to restore health for.
+	 * @param amount amount of health to restore on the player.
+	 */
+	public static void restoreHealth(Player p, int amount) {
+		double currentHealth = p.getHealth();
+		double maxHealth = p.getMaxHealth();
+
+		if (currentHealth >= maxHealth) {
+			return;
+		}
+
+		double newHealth = currentHealth + amount;
+		if (newHealth > maxHealth) {
+			newHealth = maxHealth;
+		}
+
+		p.setHealth(newHealth);
+	}
+
+	/**
 	 * Heal the player to full health, remove any potion effects they have, and clear them from all
 	 * ticking damages.
 	 *

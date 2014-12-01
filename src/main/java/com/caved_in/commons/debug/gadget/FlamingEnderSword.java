@@ -63,10 +63,12 @@ public class FlamingEnderSword extends BaseWeapon {
 	}
 
 	@Override
-	public void onDrop(Player p) {
+	public boolean drop(Player p) {
 		Sounds.playSound(p, Sound.ENDERMAN_STARE);
 		Players.sendMessage(p, "&7The dark-side isn't fond of that disrespect");
 		Players.addPotionEffect(p, Potions.getPotionEffect(PotionEffectType.BLINDNESS, 1, 160));
+		Players.clearHand(p);
+		return false;
 	}
 
 	@Override

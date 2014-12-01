@@ -61,4 +61,8 @@ public abstract class User implements PlayerWrapper {
 	public boolean isOnline() {
 		return Players.isOnline(getId());
 	}
+
+	public void destroy() {
+
+	}
 }

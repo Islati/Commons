@@ -47,7 +47,7 @@ public class Cooldown {
 
 		double playerTime = cooldowns.get(player.getUniqueId());
 		long timeCheck = System.currentTimeMillis() / 1000L;
-		double difference = timeCheck - playerTime;
+		double difference = cooldownTime - (timeCheck - playerTime);
 
 		Chat.debug("Difference in time from then to now is " + difference + " seconds");
 		if (difference <= 0) {

@@ -52,8 +52,5 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 	@Override
 	public abstract void onAttack(Player p, LivingEntity e);
 
-	@Override
-	public abstract void onDrop(Player p);
-
 	public abstract int id();
 }

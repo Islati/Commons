@@ -33,7 +33,7 @@ public class FishCannon extends BaseGun {
 
 	private void initProperties() {
 		properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo").item()).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
-		bulletProperties().damage(10).delayBetweenRounds(1).speed(5).effect(ParticleEffects.SLIME);
+		bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffects.AIR_BUBBLE);
 	}
 
 	@Override
