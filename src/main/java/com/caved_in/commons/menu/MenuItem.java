@@ -104,5 +104,25 @@ public abstract class MenuItem {
 		getMenu().closeMenu(player);
 	}
 
+	public MenuItem text(String text) {
+		setText(text);
+		return this;
+	}
+
+	public MenuItem description(String... lines) {
+		setDescriptions(lines);
+		return this;
+	}
+
+	public MenuItem addDescription(String line) {
+		addDescriptions(line);
+		return this;
+	}
+
+	public MenuItem icon(MaterialData data) {
+		setIcon(data);
+		return this;
+	}
+
 	public abstract void onClick(Player player);
 }

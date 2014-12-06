@@ -1,9 +1,10 @@
 package com.caved_in.commons.game.guns;
 
+import com.caved_in.commons.game.gadget.Gadget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-public interface Gun {
+public interface Gun extends Gadget {
 
 	public void damage(LivingEntity damaged, Player shooter);
 

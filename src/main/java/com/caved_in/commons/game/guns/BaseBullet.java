@@ -132,7 +132,9 @@ public abstract class BaseBullet implements Metadatable {
 //        item.setVelocity(direction);
 //        item.setPickupDelay(PICKUP_DELAY);
 
-        for (int i = 0; i < 100; i++) {
+        int range = getGun().properties().range;
+
+        for (int i = 0; i < range; i++) {
             double modX = px + i * x;
             double modY = py + i * z;
             double modZ = pz + i * y;

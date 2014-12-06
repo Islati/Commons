@@ -50,5 +50,4 @@ public abstract class ItemGadget implements Gadget {
 	public void onDrop(Player p) {
 
 	}
-
 }

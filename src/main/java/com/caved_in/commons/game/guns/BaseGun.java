@@ -10,8 +10,6 @@ import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.time.TimeHandler;
-import com.caved_in.commons.time.TimeType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -70,14 +68,24 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	public void perform(Player holder) {
 		initBuilder();
 
-		//If the player's on cooldown from using this gun, then don't let them fire.
+		/*
+		If the player's on cooldown from
+		using this gun, then don't let them fire.
+		 */
 		if (isOnCooldown(holder)) {
 			return;
 		}
 
-		//If the gadget the player has needs to be reloaded then attempt to do so.
+		/*
+		If the gadget the player has needs
+		to be reloaded then attempt to do so.
+		 */
 		if (needsReload(holder)) {
-			//If the gadget was reloaded then send the player a message saying it was, but via the neat-0 itemMessage system.
+			/*
+			If the gadget was reloaded then send the
+			player a message saying it was, but via
+			the neat-0 itemMessage system.
+			 */
 			if (!reload(holder)) {
 				return;
 			}
@@ -92,15 +100,39 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 			scheduleReload = true;
 		}
 
+		/*
+		If we don't need to schedule a reload, then subtract the ammo
+		from the players total ammo count!.
+		 */
 		if (!scheduleReload) {
-			setAmmo(holder, getAmmo(holder) - roundsToShoot);
+
+			int ammoAfterShooting = getAmmo(holder);
+
+			/*
+			If the bullets are in a cluster-shot (aka; shells, like a shotgun)
+			then we only want to subtract one round from the total!
+
+			If they're not in a cluster shot, then they
+			could be shooting in rapid succession;
+			like 3-burst and 4-burst weapons.
+			 */
+			if (properties.clusterShot) {
+				ammoAfterShooting -= 1;
+			} else {
+				ammoAfterShooting -= roundsToShoot;
+			}
+
+			setAmmo(holder, ammoAfterShooting);
 		}
 
 		//Assign the shooter to the builder, used in the vector calculations.
 		builder = builder.shooter(holder);
 
 		if (properties.clusterShot) {
-			//Cluster shot means it's like a shotgun, where the bullets / items all come out at once.
+			/*
+			Cluster shot means it's like a shotgun,
+			where the bullets / items all come out at once.
+			 */
 			for (int i = 0; i < roundsToShoot; i++) {
 				try {
 					builder.shoot();
@@ -109,12 +141,22 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 				}
 			}
 		} else {
-			//Because we're not using cluster shot, we're going to delay the time between each shot, so it looks like burst fire.
+			/*
+			Because we're not using cluster shot,
+			we're going to delay the time between each shot,
+			so it looks like burst fire.
+			 */
 			for (int i = 0; i < roundsToShoot; i++) {
-				//Schedule each bullet to be fired with the given delay, otherwise they'd be in a cluster.
+				/*
+				Schedule each bullet to be fired with
+				the given delay, otherwise they'd be in a cluster.
+				 */
 				Commons.getInstance().getThreadManager().runTaskLater(() -> {
 					try {
-						//Apply new spread to the projectile gun, and then fire that m'fucka to space and back.
+						/*
+						Apply new spread to the projectile gun,
+						and then fire that m'fucka to space and back.
+						 */
 						builder.shoot();
 					} catch (ProjectileCreationException e) {
 						e.printStackTrace();
@@ -124,10 +166,14 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		}
 
 
-		//Set the player on cooldown from using this weapon.
+		/*
+		Set the player on cooldown from using this weapon.
+		 */
 		addCooldown(holder);
 
-		//Handle the on-fire of the gun, what the item's meant to do.
+		/*
+		Handle the on-fire of the gun, what the item's meant to do.
+		 */
 		onFire(holder);
 
 		if (scheduleReload || getAmmo(holder) == 0) {
@@ -146,26 +192,39 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		final MinecraftPlayer mcPlayer = Players.getData(id);
 
-		//If the player's already reloading, then don't bother with reloading again.
+		/*
+		If the player's already reloading,
+		then don't bother with reloading again.
+		 */
 		if (mcPlayer.isReloading()) {
 			return false;
 		}
 
 		mcPlayer.setReloading(properties.reloadSpeed);
 
-		//Reload according to the guns reload speed!
+		/*
+		Reload according to the guns reload speed!
+		 */
 		commons.getThreadManager().runTaskLater(() -> {
 			if (ammoCounts.containsKey(id)) {
-				//If this gun has reload messages, then send the message saying the gun was reloaded.
+				/*
+				If this gun has reload messages,
+				then send the message saying the
+				gun was reloaded.
+				 */
 				if (properties.reloadMessage) {
 					Players.sendMessage(player, Messages.gadgetReloaded(this));
 				}
 			}
 
 			setAmmo(player, properties.clipSize);
-			//The player's no-longer reloading, so remove them from doing so.
+
+			/*
+			The player's no-longer reloading,
+			so remove them from doing so.
+			 */
 			mcPlayer.setReloading(0);
-		}, TimeHandler.getTimeInTicks(properties.reloadSpeed, TimeType.SECOND));
+		}, properties.reloadSpeed);
 		return true;
 	}
 

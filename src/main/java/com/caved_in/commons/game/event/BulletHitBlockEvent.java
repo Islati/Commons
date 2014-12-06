@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.event;
 
 import com.caved_in.commons.game.guns.BaseBullet;
-import com.caved_in.commons.game.guns.Bullet;
 import com.caved_in.commons.game.guns.Gun;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -64,6 +63,18 @@ public class BulletHitBlockEvent extends Event implements Cancellable {
 
 		if (gun == null) {
 			return;
+		}
+
+		if (e.getBlock() == null) {
+			throw new NullPointerException("Block for BulletHitBlockEvent is null");
+		}
+
+		if (e.getShooter() == null) {
+			throw new NullPointerException("Shooter for BulletHitBlockEvent is null");
+		}
+
+		if (gun.getBulletActions() == null) {
+			throw new NullPointerException("Bullet Actions for gun is null");
 		}
 
 		gun.getBulletActions().onHit(e.getShooter(), e.getBlock());
