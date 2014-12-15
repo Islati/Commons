@@ -18,8 +18,8 @@
 
 package com.caved_in.commons.utilities;
 
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 
 import java.util.*;

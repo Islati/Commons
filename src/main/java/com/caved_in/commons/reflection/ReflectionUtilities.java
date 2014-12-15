@@ -9,8 +9,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReflectionUtilities {
+	private static final Map<Class<?>, Class<?>> CORRESPONDING_TYPES = new HashMap<Class<?>, Class<?>>();
+
+
 	public static final String NMS_PATH = getNMSPackageName();
 	public static final String CB_PATH = getCBPackageName();
 
@@ -97,6 +102,20 @@ public class ReflectionUtilities {
 		}
 	}
 
+
+	private Class<?> getPrimitiveType(Class<?> clazz) {
+		return CORRESPONDING_TYPES.containsKey(clazz) ? CORRESPONDING_TYPES
+				.get(clazz) : clazz;
+	}
+
+	private Class<?>[] toPrimitiveTypeArray(Class<?>[] classes) {
+		int a = classes != null ? classes.length : 0;
+		Class<?>[] types = new Class<?>[a];
+		for (int i = 0; i < a; i++)
+			types[i] = getPrimitiveType(classes[i]);
+		return types;
+	}
+
 	/**
 	 * Method stuff
 	 */
@@ -172,6 +191,22 @@ public class ReflectionUtilities {
 		for (Annotation annotation : method.getParameterAnnotations()[parameterIndex]) {
 			if (annotation.annotationType() == clazz) {
 				return (T) annotation;
+			}
+		}
+		return null;
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static Enum<?> getEnum(String enumFullName) {
+		String[] x = enumFullName.split("\\.(?=[^\\.]+$)");
+		if (x.length == 2) {
+			String enumClassName = x[0];
+			String enumName = x[1];
+			try {
+				Class<Enum> cl = (Class<Enum>) Class.forName(enumClassName);
+				return Enum.valueOf(cl, enumName);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 		return null;

@@ -78,7 +78,7 @@ public class RegisteredCommand {
 			return;
 		}
 
-		ArrayList<Object> resultArgs = new ArrayList<Object>();
+		ArrayList<Object> resultArgs = new ArrayList<>();
 		resultArgs.add(sender);
 
 		Arguments arguments;

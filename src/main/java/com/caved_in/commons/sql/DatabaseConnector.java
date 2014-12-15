@@ -1,6 +1,7 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.google.common.base.Stopwatch;
 
@@ -18,15 +19,14 @@ public abstract class DatabaseConnector implements TableConnector {
 	}
 
 	private void initConnection() {
-		Stopwatch stopwatch = new Stopwatch();
+		Stopwatch stopwatch = Stopwatch.createStarted();
 		try {
-			Commons.messageConsole("Attempting to establish a connection the MySQL server!");
-			stopwatch.start();
+			Chat.debug("Attempting to establish a connection the MySQL server!");
 			Class.forName("com.mysql.jdbc.Driver");
 			sqlConnection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + ":" + config.getPort() + "/" + config.getDatabase() + "?autoReconnect=true", config.getUsername(), config.getPassword());
 			stopwatch.stop();
-			Commons.messageConsole("Connection to MySQL server established! (" + config.getHost() + ":" + config.getPort() + ")");
-			Commons.messageConsole("Connection took " + stopwatch + "ms!");
+			Chat.debug("Connection to MySQL server established! (" + config.getHost() + ":" + config.getPort() + ")");
+			Chat.debug("Connection took " + stopwatch + "ms!");
 		} catch (SQLException e) {
 			Commons.messageConsole("Could not connect to MySQL server! because: " + e.getMessage());
 		} catch (ClassNotFoundException e) {

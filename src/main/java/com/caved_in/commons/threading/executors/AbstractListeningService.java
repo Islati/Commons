@@ -35,7 +35,7 @@ import java.util.concurrent.*;
  *
  * @author Doug Lea
  */
-abstract class AbstractListeningService implements ListeningExecutorService {
+abstract class AbstractListeningService implements BukkitScheduledExecutorService {
 	/**
 	 * Represents a runnable abstract listenable future task.
 	 *

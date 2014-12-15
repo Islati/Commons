@@ -23,7 +23,7 @@ public class Plugins {
 
 	private static PluginManager pluginManager = Bukkit.getPluginManager();
 
-	public static boolean pluginExists(String name) {
+	public static boolean isEnabled(String name) {
 		return pluginManager.isPluginEnabled(name);
 	}
 
@@ -41,10 +41,6 @@ public class Plugins {
 	}
 
 	public static Plugin getPlugin(String name) {
-		if (!pluginExists(name)) {
-			return null;
-		}
-
 		return pluginManager.getPlugin(name);
 	}
 
@@ -135,21 +131,27 @@ public class Plugins {
 	}
 
 	public static void registerListener(Plugin plugin, Listener listener) {
-		plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+		pluginManager.registerEvents(listener, plugin);
 	}
 
 	public static void registerListeners(Plugin plugin, Listener... listeners) {
-		PluginManager pl = plugin.getServer().getPluginManager();
 		for (Listener listener : listeners) {
-			pl.registerEvents(listener, plugin);
+			pluginManager.registerEvents(listener, plugin);
 		}
 	}
 
 	public static void callEvent(Event e) {
-		Bukkit.getServer().getPluginManager().callEvent(e);
+		pluginManager.callEvent(e);
 	}
 
 	public static boolean hasProtocolLib() {
-		return pluginExists("ProtocolLib");
+		return isEnabled("ProtocolLib");
 	}
+
+	public static String getBukkitVersion() {
+		String name = Bukkit.getServer().getClass().getPackage().getName();
+		String version = name.substring(name.lastIndexOf('.') + 1) + ".";
+		return version;
+	}
+
 }

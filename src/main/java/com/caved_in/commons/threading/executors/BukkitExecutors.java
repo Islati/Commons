@@ -21,7 +21,7 @@ public class BukkitExecutors {
 		final BukkitScheduler scheduler = getScheduler(plugin);
 		Preconditions.checkNotNull(plugin, "plugin cannot be NULL");
 
-		BukkitScheduledExecutorService service = new AbstractBukkitService(new PendingTasks(plugin, scheduler)) {
+		AbstractBukkitService service = new AbstractBukkitService(new PendingTasks(plugin, scheduler)) {
 			@Override
 			protected BukkitTask getTask(Runnable command) {
 				return scheduler.runTask(plugin, command);

@@ -93,7 +93,8 @@ public class Commons extends BukkitPlugin {
 				new DebugScoreboardBuilder(),
 				new DebugDefaultScoreboard(),
 				new DebugThrowableBrick(),
-				new DebugKickStick()
+				new DebugKickStick(),
+				new DebugTitle()
 		);
 	}
 
@@ -278,7 +279,7 @@ public class Commons extends BukkitPlugin {
 
 	@Override
 	public String getVersion() {
-		return "1.5.0";
+		return "1.6.3";
 	}
 
 	@Override

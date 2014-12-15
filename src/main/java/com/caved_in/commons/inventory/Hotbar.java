@@ -4,32 +4,28 @@ import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.ElementArray;
+import org.simpleframework.xml.ElementMap;
 import org.simpleframework.xml.Root;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Root(name = "Hotbar")
 public class Hotbar {
-	@ElementArray(name = "items", entry = "item", required = false)
-	private XmlItemStack[] items = new XmlItemStack[8];
+	@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true)
+	private Map<Integer, XmlItemStack> hotbarItems = new HashMap<>();
 
-	private ItemStack[] stacks = null;
-
-	public Hotbar(@ElementArray(name = "items", entry = "item", required = false) XmlItemStack[] items) {
-		this.items = items;
-		getItems();
+	public Hotbar(@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true) Map<Integer, XmlItemStack> items) {
+		this.hotbarItems = items;
 	}
 
 	public Hotbar(ItemStack... items) {
-		stacks = new ItemStack[8];
 		for (int i = 0; i < items.length; i++) {
-			ItemStack item = items[i];
-			if (item == null) {
-				this.items[i] = null;
-				continue;
+			if (i >= 9) {
+				break;
 			}
 
-			this.items[i] = XmlItemStack.fromItem(item);
-			stacks[i] = this.items[i].getItemStack();
+			hotbarItems.put(i, XmlItemStack.fromItem(items[i]));
 		}
 	}
 
@@ -41,7 +37,11 @@ public class Hotbar {
 	 * @return the hotbar instance.
 	 */
 	public Hotbar set(int slot, ItemStack item) {
-		items[slot - 1] = XmlItemStack.fromItem(item);
+		if (slot >= 9) {
+			slot = 8;
+		}
+
+		hotbarItems.put(slot, XmlItemStack.fromItem(item));
 		return this;
 	}
 
@@ -51,8 +51,8 @@ public class Hotbar {
 	 * @param player player to change the hotbar contents of
 	 */
 	public void assign(Player player) {
-		for (int i = 0; i < getItems().length; i++) {
-			Players.setHotbarItem(player, items[i].getItemStack(), i);
+		for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
+			Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue().getItemStack());
 		}
 	}
 
@@ -60,13 +60,16 @@ public class Hotbar {
 	 * @return an array of all the items in the hotbar.
 	 */
 	public ItemStack[] getItems() {
-		if (stacks == null) {
-			stacks = new ItemStack[8];
-			for (int i = 0; i < items.length; i++) {
-				stacks[i] = items[i].getItemStack();
-			}
-		}
+		ItemStack[] items = new ItemStack[8];
 
-		return stacks;
+		for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
+			int index = hotbarEntry.getKey();
+			if (index > items.length) {
+				continue;
+			}
+
+			items[index] = hotbarEntry.getValue().getItemStack();
+		}
+		return items;
 	}
 }

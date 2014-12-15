@@ -1,6 +1,6 @@
 package com.caved_in.commons.scoreboard;
 
-import net.minecraft.util.com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 

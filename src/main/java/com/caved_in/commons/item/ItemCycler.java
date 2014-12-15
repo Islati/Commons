@@ -2,13 +2,18 @@ package com.caved_in.commons.item;
 
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ItemCycler {
-    private ItemStack[] items;
+    private List<ItemStack> items = new ArrayList<>();
 
     private int currentIndex = 0;
 
     public ItemCycler(ItemStack... items) {
-        this.items = items;
+        for (ItemStack i : items) {
+            this.items.add(i);
+        }
     }
 
     public void cycle() {
@@ -16,7 +21,7 @@ public class ItemCycler {
         Dont succeed the length of the array,
         that could cause a few problems.
          */
-        if (currentIndex >= items.length) {
+        if (currentIndex >= items.size()) {
             currentIndex = 0;
             return;
         }
@@ -25,7 +30,7 @@ public class ItemCycler {
     }
 
     public ItemStack activeItem() {
-        return items[currentIndex];
+        return items.get(currentIndex);
     }
 
     public ItemStack nextItem() {

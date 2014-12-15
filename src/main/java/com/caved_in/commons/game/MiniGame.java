@@ -5,10 +5,12 @@ import com.caved_in.commons.game.listener.GameConnectionListener;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.game.world.ArenaManager;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.world.Worlds;
 import org.apache.commons.io.FileUtils;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -39,9 +41,9 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	private GameConnectionListener connectionListener;
 
 	/* The class which our user manager is created from */
-	private Class<? extends UserManager> userManagerClass;
+	private Class<? extends UserManager> userManagerClass = null;
 
-	private T userManager;
+	private T userManager = null;
 
 	public MiniGame(Class<? extends UserManager> userManager) {
 		this.userManagerClass = userManager;
@@ -55,6 +57,20 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	@Override
 	public void onEnable() {
+		if (userManager == null) {
+			boolean hasClass = userManagerClass == null;
+			debug(String.format("User manager class %s", hasClass ? "is null" : "isn't null"));
+
+			if (hasClass) {
+				Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
+				/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
+				this.userManager = ReflectionUtilities.invokeConstructor(constructor);
+				debug("Created usermanager of class " + userManagerClass.getCanonicalName());
+			} else {
+				debug("Unable to locate the usermanager class");
+			}
+		}
+
 		/* Create the connection listener that handles the managing of game-player data */
 		connectionListener = new GameConnectionListener(this);
 
@@ -66,6 +82,11 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		if (!arenaManager.hasArenas()) {
 			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
 		}
+
+		for (Player player : Players.allPlayers()) {
+			userManager.addUser(player);
+		}
+
 		super.onEnable();
 	}
 
@@ -75,7 +96,11 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		if (arenaManager.hasArenas()) {
 			saveArenas();
 		}
+
 		shutdown();
+
+		userManager.disposeAll();
+		userManager = null;
 	}
 
 	@Override

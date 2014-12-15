@@ -66,6 +66,10 @@ public class Entities {
 		return location.getWorld().spawn(location, TNTPrimed.class);
 	}
 
+	public static Firework spawnFireworks(Location loc) {
+		return (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+	}
+
 	/**
 	 * Spawn a zombie at a specific location.
 	 *
@@ -80,7 +84,6 @@ public class Entities {
 		zombie.setVillager(isVillager);
 		return zombie;
 	}
-
 	/**
 	 * Spawn a zombie pigman at a specific location.
 	 *

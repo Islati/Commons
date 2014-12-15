@@ -37,8 +37,8 @@ public class FlamingEnderSword extends BaseWeapon {
 
 	@Override
 	public void onSwing(Player p) {
-		ParticleEffects.sendToLocation(ParticleEffects.ENDER, p.getLocation(), NumberUtil.getRandomInRange(1, 4));
-		ParticleEffects.sendToLocation(ParticleEffects.ENDER, Players.getTargetLocation(p, 30), NumberUtil.getRandomInRange(1, 4));
+		ParticleEffects.sendToLocation(ParticleEffects.DEPTH_SUSPEND, p.getLocation(), NumberUtil.getRandomInRange(1, 4));
+		ParticleEffects.sendToLocation(ParticleEffects.DEPTH_SUSPEND, Players.getTargetLocation(p, 30), NumberUtil.getRandomInRange(1, 4));
 	}
 
 	@Override

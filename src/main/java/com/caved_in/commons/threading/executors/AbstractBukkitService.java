@@ -1,14 +1,14 @@
 package com.caved_in.commons.threading.executors;
 
 import com.google.common.base.Throwables;
+import com.google.common.util.concurrent.ListenableScheduledFuture;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 
-abstract class AbstractBukkitService
-		extends AbstractListeningService implements BukkitScheduledExecutorService {
+abstract class AbstractBukkitService extends AbstractListeningService {
 
 	private static final long MILLISECONDS_PER_TICK = 50;
 	private static final long NANOSECONDS_PER_TICK = 1000000 * MILLISECONDS_PER_TICK;
@@ -74,12 +74,10 @@ abstract class AbstractBukkitService
 		return Math.round(unit.toMillis(delay) / (double) MILLISECONDS_PER_TICK);
 	}
 
-	@Override
 	public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
 		return schedule(Executors.callable(command), delay, unit);
 	}
 
-	@Override
 	public <V> ListenableScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
 		long ticks = toTicks(delay, unit);
 
@@ -91,7 +89,6 @@ abstract class AbstractBukkitService
 		return task.getScheduledFuture(System.nanoTime() + delay * NANOSECONDS_PER_TICK, 0);
 	}
 
-	@Override
 	public ListenableScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay,
 															long period, TimeUnit unit) {
 
@@ -120,7 +117,6 @@ abstract class AbstractBukkitService
 
 	// Not supported!
 	@Deprecated
-	@Override
 	public ListenableScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
 		return scheduleAtFixedRate(command, initialDelay, delay, unit);
 	}

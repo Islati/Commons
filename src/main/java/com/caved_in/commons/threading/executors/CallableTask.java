@@ -14,8 +14,9 @@ class CallableTask<T> extends RunnableAbstractFuture<T> {
 		this.compute = compute;
 	}
 
-	public ListenableScheduledFuture<T> getScheduledFuture(final long startTime, final long nextDelay) {
-		return new ListenableScheduledFuture<T>() {
+	public ScheduledListenableFuture<T> getScheduledFuture(final long startTime, final long nextDelay) {
+		return new ScheduledListenableFuture<T>() {
+
 			@Override
 			public boolean cancel(boolean mayInterruptIfRunning) {
 				return CallableTask.this.cancel(mayInterruptIfRunning);

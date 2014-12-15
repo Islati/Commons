@@ -1,10 +1,13 @@
 package com.caved_in.commons.fireworks;
 
+import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
+import org.bukkit.entity.Firework;
+import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.util.Random;
 
@@ -66,11 +69,19 @@ public class Fireworks {
 	}
 
 	public static void playFirework(Location location, FireworkEffect fwEffect) {
-		try {
-			fplayer.playFirework(location.getWorld(), location, fwEffect);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Firework firework = Entities.spawnFireworks(location);
+		FireworkMeta meta = firework.getFireworkMeta();
+
+		meta.addEffects(fwEffect);
+		meta.setPower(NumberUtil.getRandomInRange(1, 4));
+
+		firework.setFireworkMeta(meta);
+//		try {
+//			fplayer.playFirework(location,fwEffect);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+
 	}
 
 	public static void playRandomFirework(Location location) {

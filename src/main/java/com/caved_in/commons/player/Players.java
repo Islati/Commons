@@ -18,8 +18,8 @@ import com.caved_in.commons.inventory.Hotbar;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
-import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.tasks.BanPlayerCallable;
@@ -39,7 +39,7 @@ import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import net.minecraft.util.io.netty.channel.Channel;
+import io.netty.channel.Channel;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
@@ -52,8 +52,6 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -61,7 +59,6 @@ import java.util.stream.Stream;
 import static com.caved_in.commons.Commons.messageConsole;
 
 public class Players {
-	private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
 	public static final String DEFAULT_PREFIX = "Member";
 	public static final int DEPTH_EQUALIZE_NUMBER = 63;
 	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
@@ -792,6 +789,25 @@ public class Players {
 		}
 	}
 
+	public static Set<Player> withPermissions(String... permissions) {
+		Set<Player> players = Sets.newHashSet();
+
+		for (Player p : allPlayers()) {
+			boolean add = true;
+			for (String perm : permissions) {
+				if (!p.hasPermission(perm)) {
+					add = false;
+					break;
+				}
+			}
+
+			if (add) {
+				players.add(p);
+			}
+		}
+		return players;
+	}
+
 	/**
 	 * Teleports the player to a location
 	 *
@@ -1054,6 +1070,8 @@ public class Players {
 			case ADVENTURE:
 				player.setGameMode(GameMode.SURVIVAL);
 				break;
+			case SPECTATOR:
+
 			default:
 				player.setGameMode(GameMode.SURVIVAL);
 				break;
@@ -2021,17 +2039,9 @@ public class Players {
 	 * @param player player to send the packet to
 	 * @param packet packet to send to the player
 	 */
+	@Deprecated
 	public static void sendPacket(Player player, Object packet) {
-		Method sendPacket = ReflectionUtilities.getMethod(ReflectionUtilities.getNMSClass("PlayerConnection"), "sendPacket", ReflectionUtilities.getNMSClass
-				("Packet"));
-		Object playerConnection = getConnection(player);
-
-		try {
-			sendPacket.invoke(playerConnection, packet);
-		} catch (Exception e) {
-			Commons.messageConsole("Failed to send a packet to: " + player.getName());
-			e.printStackTrace();
-		}
+		NmsPlayers.sendPacket(player, packet);
 	}
 
 	/**
@@ -2040,14 +2050,9 @@ public class Players {
 	 * @param player player to get the EntityPlayer handle of
 	 * @return EntityPlayer handle for the player object
 	 */
+	@Deprecated
 	public static Object toEntityPlayer(Player player) {
-		Method getHandle = ReflectionUtilities.getMethod(player.getClass(), "getHandle");
-		try {
-			return getHandle.invoke(player);
-		} catch (Exception e) {
-			Commons.messageConsole("Failed retrieve the NMS Player-Object of:" + player.getName());
-			return null;
-		}
+		return NmsPlayers.toEntityPlayer(player);
 	}
 
 	/**
@@ -2056,8 +2061,9 @@ public class Players {
 	 * @param player player to get the connection for
 	 * @return connection for the player, or null if none exists
 	 */
+	@Deprecated
 	public static Object getConnection(Player player) {
-		return ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("EntityPlayer"), "playerConnection", toEntityPlayer(player));
+		return NmsPlayers.getConnection(player);
 	}
 
 	/**
@@ -2066,27 +2072,19 @@ public class Players {
 	 * @param player player to get the network manager of
 	 * @return network manager object for the player, or null if unable to retrieve
 	 */
+	@Deprecated
 	public static Object getNetworkManager(Player player) {
-		try {
-			return ReflectionUtilities.getField(getConnection(player).getClass(), "networkManager").get(getConnection(player));
-		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Failed to get the NetworkManager of player: " + player.getName());
-			return null;
-		}
+		return NmsPlayers.getNetworkManager(player);
 	}
 
 	/**
 	 * Get the network channel of a player
 	 *
 	 * @param player player to get the channel of
-	 * @return {@link net.minecraft.util.io.netty.channel.Channel} which manages the player
+	 * @return {@link io.netty.channel.Channel} which manages the player
 	 */
+	@Deprecated
 	public static Channel getChannel(Player player) {
-		try {
-			return (Channel) channelField.get(getNetworkManager(player));
-		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Failed to get the channel of player: " + player.getName());
-			return null;
-		}
+		return NmsPlayers.getChannel(player);
 	}
 }

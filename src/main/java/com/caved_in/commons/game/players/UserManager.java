@@ -34,6 +34,12 @@ public class UserManager<T extends User> implements IUserManager<T> {
         users.put(p.getUniqueId(), userObject);
     }
 
+    public void disposeAll() {
+        for (T user : users.values()) {
+            user.destroy();
+        }
+    }
+
     public T getUser(Player p) {
         return users.get(p.getUniqueId());
     }

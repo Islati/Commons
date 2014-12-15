@@ -2,7 +2,7 @@ package com.caved_in.commons.warp;
 
 import com.caved_in.commons.Commons;
 import com.google.common.collect.Lists;
-import net.minecraft.util.org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
