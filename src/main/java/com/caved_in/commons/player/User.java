@@ -1,5 +1,6 @@
 package com.caved_in.commons.player;
 
+import com.caved_in.commons.chat.Chat;
 import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 
@@ -49,6 +50,9 @@ public abstract class User implements PlayerWrapper {
 	}
 
 	@Override
+	/**
+	 * Retrieve the {@link org.bukkit.entity.Player} for the wrapped user object.
+	 */
 	public Player getPlayer() {
 		return Players.getPlayer(id);
 	}
@@ -64,5 +68,23 @@ public abstract class User implements PlayerWrapper {
 
 	public void destroy() {
 
+	}
+
+	/**
+	 * Send the player a message to their chat box.
+	 *
+	 * @param messages message(s) to send.
+	 */
+	public void message(String... messages) {
+		Chat.message(getPlayer(), messages);
+	}
+
+	/**
+	 * Send the player a message to their action bar!
+	 *
+	 * @param message message to be shown.
+	 */
+	public void actionMessage(String message) {
+		Chat.actionMessage(getPlayer(), message);
 	}
 }

@@ -140,6 +140,9 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		/* Call the destroy method for the gamestate, or what happens when it's "Shut down" */
 		gameState.destroy();
 
+		/* Change the state to no longer be setup, to avoid issues */
+		gameState.setSetup(false);
+
 		/* Get and set the next active state */
 		GameState nextState = getNextState();
 		setActiveState(nextState);

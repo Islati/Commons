@@ -7,11 +7,7 @@ import org.bukkit.entity.Entity;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
-/**
- * Created By: TheGamersCave (Brandon)
- * Date: 30/01/14
- * Time: 9:39 PM
- */
+
 public class Warp {
 	@Attribute(name = "name")
 	private String name;

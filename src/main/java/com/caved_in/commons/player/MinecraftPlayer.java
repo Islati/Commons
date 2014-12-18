@@ -21,6 +21,8 @@ import java.util.UUID;
 
 @Root(name = "Player")
 public class MinecraftPlayer extends User {
+	private static Commons commons = Commons.getInstance();
+
 	@Element(name = "last-online")
 	private long lastOnline = 0L;
 
@@ -87,7 +89,6 @@ public class MinecraftPlayer extends User {
 		initWrapper();
 	}
 
-
 	public void dispose() {
 //		nametagEntity.die();
 //		nametagEntity = null;
@@ -95,7 +96,7 @@ public class MinecraftPlayer extends User {
 	}
 
 	private void initWrapper() {
-		currentServer = Commons.getConfiguration().getServerName();
+		currentServer = commons.getConfiguration().getServerName();
 		lastOnline = System.currentTimeMillis();
 		setId(Players.getPlayer(getName()).getUniqueId());
 		if (!Commons.hasSqlBackend()) {
@@ -245,10 +246,12 @@ public class MinecraftPlayer extends User {
 //		Commons.database.updatePlayerPremium(this);
 	}
 
+	@Deprecated
 	public ChatColor getTagColor() {
 		return tagColor;
 	}
 
+	@Deprecated
 	public void setTagColor(ChatColor tagColor) {
 		this.tagColor = tagColor;
 	}
@@ -264,44 +267,88 @@ public class MinecraftPlayer extends User {
 //	}
 
 
+	/**
+	 * Check whether or not the player has a custom walk speed.
+	 *
+	 * @return whether or not the player has a custom walk speed.
+	 */
 	public boolean hasCustomWalkSpeed() {
 		return walkSpeed != DEFAULT_WALK_SPEED;
 	}
 
+	/**
+	 * Check whether or not the player has a modified fly speed.
+	 * @return whether or not the player has a modified fly speed; If the players fly speed is greater than 0.1 then true is returned, false otherwise.
+	 */
 	public boolean hasCustomFlySpeed() {
 		return flySpeed != DEFAULT_FLY_SPEED;
 	}
 
+	/**
+	 * Get the players walk speed.
+	 * @return the players active walk speed.
+	 */
 	public double getWalkSpeed() {
 		return walkSpeed;
 	}
 
+	@Deprecated
 	public String getPrefix() {
 		return prefix;
 	}
 
+	/**
+	 * Change the players prefix.
+	 * @param prefix prefix to give the player.
+	 */
+	@Deprecated
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
 
+	/**
+	 * Change the player walk speed; The higher the number, the faster they'll fly.
+	 * Used internally {@link com.caved_in.commons.command.commands.SpeedCommand}
+	 * @param walkSpeed speed to give the player.
+	 */
 	public void setWalkSpeed(double walkSpeed) {
 		this.walkSpeed = walkSpeed;
 		getPlayer().setWalkSpeed((float) walkSpeed);
 	}
 
+	/**
+	 * Get the players active fly speed
+	 * @return the active fly speed of the given player.
+	 */
 	public double getFlySpeed() {
 		return flySpeed;
 	}
 
+	/**
+	 * Change the players fly speed.
+	 * The higher the number, the faster they'll fly.
+	 * Used internally in {@link com.caved_in.commons.command.commands.SpeedCommand}
+	 * @param flySpeed speed to give the player.
+	 */
 	public void setFlySpeed(double flySpeed) {
 		this.flySpeed = flySpeed;
 		getPlayer().setFlySpeed((float) flySpeed);
 	}
 
+	/**
+	 * Check whether or not the player is viewing a recipe.
+	 * Used internally.
+	 * @return whether or not the player is viewing a recipe.
+	 */
 	public boolean isViewingRecipe() {
 		return viewingRecipe;
 	}
 
+	/**
+	 * Set whether or not the player is viewing a recipe menu, or not.
+	 * Used internally in {@link com.caved_in.commons.command.commands.RecipeCommand}.
+	 * @param viewingRecipe whether or not the player is viewing a recipe menu.
+	 */
 	public void setViewingRecipe(boolean viewingRecipe) {
 		this.viewingRecipe = viewingRecipe;
 	}
@@ -313,14 +360,30 @@ public class MinecraftPlayer extends User {
 		return preTeleportLocation;
 	}
 
+	/**
+	 * Change the players pre-teleport location.
+	 * Used internally in {@link com.caved_in.commons.command.commands.BackCommand}
+	 * @param loc location the player was/is standing pre-teleport.
+	 * @param teleportType the type of teleport the player was involved in.
+	 */
 	public void setPreTeleportLocation(Location loc, PreTeleportType teleportType) {
 		this.preTeleportLocation = new PreTeleportLocation(loc, teleportType);
 	}
 
+	/**
+	 * Check whether or not the player is in debug mode.
+	 * Used
+	 * @return whether or not the player is in debug mode.
+	 */
 	public boolean isInDebugMode() {
 		return debugMode;
 	}
 
+	/**
+	 * Set whether or not the player is in debug mode.
+	 * Used internally in {@link com.caved_in.commons.command.commands.DebugModeCommand} and {@link com.caved_in.commons.player.Players} to manage player(s) debugging.
+	 * @param value boolean representing the desired debug status.
+	 */
 	public void setInDebugMode(boolean value) {
 		debugMode = value;
 	}
@@ -332,18 +395,36 @@ public class MinecraftPlayer extends User {
 		return punishments;
 	}
 
+	/**
+	 * Check whether or not the player is hiding other players.
+	 * @return whether or not the player is hiding other players.
+	 */
 	public boolean isHidingOtherPlayers() {
 		return hidingOtherPlayers;
 	}
 
+	/**
+	 * Set whether or not the player is hiding others.
+	 * Used internally to provide methods for {@link com.caved_in.commons.player.Players} in the methods related to player visibility (hide/unhide)
+	 * @param hidingOtherPlayers whether or not the user is hiding other players.
+	 */
 	public void setHidingOtherPlayers(boolean hidingOtherPlayers) {
 		this.hidingOtherPlayers = hidingOtherPlayers;
 	}
 
+	/**
+	 * Check whether or not the player is reloading their weapon.
+	 * @return
+	 */
 	public boolean isReloading() {
 		return reloadEnd > System.currentTimeMillis();
 	}
 
+	/**
+	 * Set the duration in seconds for the players current reload time. Used internally in
+	 * {@link com.caved_in.commons.game.guns.Gun} and {@link com.caved_in.commons.game.guns.BaseGun}
+	 * @param durationSeconds how long the player is "reloading" for.
+	 */
 	public void setReloading(int durationSeconds) {
 		this.reloadEnd = System.currentTimeMillis() + TimeHandler.getTimeInMilles(durationSeconds, TimeType.SECOND);
 	}

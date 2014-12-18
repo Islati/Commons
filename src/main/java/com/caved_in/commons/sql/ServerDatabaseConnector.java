@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.friends.FriendStatus;
@@ -266,7 +267,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		try {
 			statement.setString(1, playerId.toString());
 			statement.executeUpdate();
-			Commons.messageConsole("Executed pardon statement for " + playerId.toString());
+			Chat.debug("Executed pardon statement for " + playerId.toString());
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {

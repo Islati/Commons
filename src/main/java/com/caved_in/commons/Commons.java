@@ -1,5 +1,6 @@
 package com.caved_in.commons;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.commands.*;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
@@ -7,317 +8,374 @@ import com.caved_in.commons.config.WarpConfig;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
-import com.caved_in.commons.item.Items;
+import com.caved_in.commons.item.ItemSetManager;
+import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
-import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warps;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.UUID;
 
 public class Commons extends BukkitPlugin {
-	private static Commons plugin;
+    private static Commons plugin;
+
+    public static final String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
+    public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
+    public static final String DEBUG_DATA_FOLDER = "plugins/Commons/Debug/";
+    public static final String ITEM_DATA_FOLDER = "plugins/Commons/Items";
+
+    private static Configuration globalConfig = new Configuration();
+
+    /*
+    A(n) instance of the players class
+    to internally manage data of players for Commons.
+     */
+    private Players players;
+
+    /*
+    The item set manager; Manages interchangable
+    sets that players can select
+    */
+    private ItemSetManager itemSetManager;
+
+    /*
+    Instance of the chat class,
+    used to manage private messages between players.
+     */
+    private Chat chat;
+
+    /*
+    Instance of the Commons database connector; Handles
+    saving and loading of data to and from the database.
+     */
+    private ServerDatabaseConnector database = null;
+
+    public static synchronized Commons getInstance() {
+        if (plugin == null) {
+            plugin = (Commons) Plugins.getPlugin("Commons");
+        }
+        return plugin;
+    }
 
 
-	public static final String WARP_DATA_FOLDER = "plugins/Commons/Warps/";
-	public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
-	public static final String DEBUG_DATA_FOLDER = "plugins/Commons/Debug/";
+    public void startup() {
+        chat = new Chat();
 
-	private static Configuration globalConfig = new Configuration();
+		/*
+        Create the item-set manager, which allows us to save a players inventories
+		and swap them out at any time; Useful for creative, kits, etc.
+		 */
+        itemSetManager = new ItemSetManager();
 
-	//Database connectors
-	public static ServerDatabaseConnector database = null;
+        /*
+        Create the players instance, used internally to track commons-required
+        player data for methods, and tasks.
 
-	public static synchronized Commons getInstance() {
-		if (plugin == null) {
-			plugin = (Commons) Bukkit.getPluginManager().getPlugin("Commons");
-		}
-		return plugin;
-	}
+        Externally the Players class provides a static API
+         */
+        players = new Players();
 
-	public static void messageConsole(String... messages) {
-		messageConsole(Arrays.asList(messages));
-	}
+        //If the SQL Backend is enabled, then register all the database interfaces
+        if (hasSqlBackend()) {
+            SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
+            //Create the database connection
+            database = new ServerDatabaseConnector(sqlConfig);
+        }
 
-	public static void messageConsole(Collection<String> messages) {
-		for (String message : messages) {
-			Bukkit.getConsoleSender().sendMessage(StringUtil.formatColorCodes(message));
-		}
-	}
+        //If the commands are to be registered: do so.
+        if (getConfiguration().registerCommands()) {
+            registerCommands(
+                    new AddCurrencyCommand(),
+                    new ArmorCommand(),
+                    new BackCommand(),
+                    new BlockTextCommand(),
+                    new BuyPremiumCommand(),
+                    new ClearInventoryCommand(),
+                    new DayCommand(),
+                    new DebugModeCommand(),
+                    new EnchantCommand(),
+                    new FeedCommand(),
+                    new FireworksCommand(),
+                    new FlyCommand(),
+                    new GamemodeCommand(),
+                    new HatCommand(),
+                    new HealCommand(),
+                    new IdCommand(),
+                    new ItemCommand(),
+                    new MaintenanceCommand(),
+                    new MessageCommand(),
+                    new MoreCommand(),
+                    new NightCommand(),
+                    new PotionCommand(),
+                    new QuickResponseCommand(),
+                    new RecipeCommand(),
+                    new RemovePremiumCommand(),
+                    new RenameCommand(),
+                    new RepairCommand(),
+                    new SetSpawnCommand(),
+                    new SetWarpCommand(),
+                    new SilenceCommand(),
+                    new SkullCommand(),
+                    new SlayCommand(),
+                    new SpawnCommand(),
+                    new SpawnMobCommand(),
+                    new SpeedCommand(),
+                    new TeleportAllCommand(),
+                    new TeleportCommand(),
+                    new TeleportPositionCommand(),
+                    new TeleportHereCommand(),
+                    new TimeCommand(),
+                    new TunnelsXPCommand(),
+                    new UnbanCommand(),
+                    new UnsilenceCommand(),
+                    new WarpCommand(),
+                    new WarpsCommand(),
+                    new WorkbenchCommand()
+            );
+        }
 
-	public static void reloadConfiguration() {
-		getInstance().initConfig();
-	}
+        //Register the debugger actions and triggers to 'case test' features in-game
+        registerDebugActions();
 
-	public static Configuration getConfiguration() {
-		return globalConfig;
-	}
+        registerListeners(); // Register all our event listeners
 
-	public static WorldConfiguration getWorldConfig() {
-		return globalConfig.getWorldConfig();
-	}
+        // Load all the warps
+        Warps.loadWarps();
 
-	public static WarpConfig getWarpConfig() {
-		return globalConfig.getWarpConfig();
-	}
+        //Load all the players data
+        for (Player player : Players.allPlayers()) {
+            players.addData(player);
+        }
 
-	public static int getServerId() {
-		return 0;
-	}
+    }
 
-	private void registerDebugActions() {
-		Debugger.addDebugAction(
-				new DebugPlayerSyncData(),
-				new DebugHandItem(),
-				new DebugHandItemSerialize(),
-				new DebugItemDeserialize(),
-				new DebugTimeHandler(),
-				new DebugDropInventory(),
-				new DebugPlayerDirection(),
-				new DebugDelayedMessage(),
-				new DebugArmorBuilder(),
-				new DebugCreatureBuilder(),
-				new DebugFishCannon(),
-				new DebugFlamingEnderSword(),
-				new DebugScoreboardBuilder(),
-				new DebugDefaultScoreboard(),
-				new DebugThrowableBrick(),
-				new DebugKickStick(),
-				new DebugTitle()
-		);
-	}
+    @Override
+    public void shutdown() {
+        for (Player player : Players.allPlayers()) {
+            UUID playerId = player.getUniqueId();
+            Players.removeData(playerId);
+        }
+        Warps.saveWarps();
+    }
 
-	private void registerListeners() {
-		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
+    @Override
+    public String getVersion() {
+        return "1.7.0";
+    }
 
-		if (!worldConfig.hasExternalChatHandler()) {
-			registerListeners(new ChatListener());
-			debug("&aUsing Commons Chat Listener");
-		}
+    @Override
+    public String getAuthor() {
+        return "Brandon Curtis";
+    }
 
-		if (worldConfig.hasLaunchpadPressurePlates()) {
-			registerListeners(new LauncherListener()); // Register fire pad listener if its enabled
-			debug("&aRegistered the fire pad listener");
-		}
+    @Override
+    public void initConfig() {
+        Serializer configSerializer = new Persister();
 
-		if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
-			registerListeners(new BlockFormListener());
-			debug("&aRegistered the block spread listener");
-		}
 
-		if (worldConfig.isMyceliumSpreadDisabled()) {
-			registerListeners(new BlockSpreadListener());
-			debug("&aRegistered the mycelium spread listener");
-		}
+		/*
+        Check if the warps folder exists, and if not
+		then create it!
+		 */
+        File warpsFolder = new File(WARP_DATA_FOLDER);
+        if (!warpsFolder.exists()) {
+            warpsFolder.mkdirs();
+        }
 
-		if (worldConfig.isThunderDisabled()) {
-			registerListeners(new ThungerChangeListener());
-			debug("&aRegistered the thunder listener");
-		}
+		/*
+        Create the items folder, where
+		serializable items are stored
+		 */
+        File itemsFolder = new File(ITEM_DATA_FOLDER);
+        if (!itemsFolder.exists()) {
+            itemsFolder.mkdirs();
+        }
 
-		if (worldConfig.isWeatherDisabled()) {
-			registerListeners(new WeatherChangeListener());
-			debug("&aRegistered the Weather-Change listener");
-		}
+        Collection<File> itemFiles = FileUtils.listFiles(itemsFolder, null, false);
 
-		if (worldConfig.isLightningDisabled()) {
-			registerListeners(new LightningStrikeListener());
-			debug("&aRegistered the lightning listener");
-		}
+        if (itemFiles.size() > 0) {
+            /* Load all the files in the item folder, into the saved item manager */
+            for (File file : itemFiles) {
+                SavedItemManager.loadItem(file);
+            }
+        }
 
-		if (worldConfig.isFireSpreadDisabled()) {
-			registerListeners(new FireSpreadListener());
-			debug("&aRegistered the fire-spread listener");
-		}
+		/*
+        Check if the debug data folder exists, and if not then create it!
+		 */
+        File debugFolder = new File(DEBUG_DATA_FOLDER);
+        if (!debugFolder.exists()) {
+            debugFolder.mkdirs();
+        }
 
-		if (!worldConfig.isItemPickupEnabled()) {
-			registerListeners(new ItemPickupListener());
-			debug("&aRegistered the item-pickup listener");
-		}
+        try {
+            File configFile = new File(PLUGIN_DATA_FOLDER + "Config.xml");
+            if (!configFile.exists()) {
+                configSerializer.write(new Configuration(), configFile);
+            }
+            globalConfig = configSerializer.read(Configuration.class, configFile);
+        } catch (Exception Ex) {
+            Ex.printStackTrace();
+        }
+    }
 
-		if (!worldConfig.isFoodChangeEnabled()) {
-			registerListeners(new FoodChangeListener());
-			debug("&aRegistered the food change listener");
-		}
+    public static int getServerId() {
+        return 0;
+    }
 
-		//If the server is backed by SQL, then push the specific listeners
-		if (hasSqlBackend()) {
-			//Used to handle kicking of banned / temp-banned players
-			registerListeners(new PrePlayerLoginListener());
-			debug("&aRegistered the player pre-login listener");
-		}
+    private void registerDebugActions() {
+        Debugger.addDebugAction(
+                new DebugPlayerSyncData(),
+                new DebugHandItem(),
+                new DebugHandItemSerialize(),
+                new DebugItemDeserialize(),
+                new DebugTimeHandler(),
+                new DebugDropInventory(),
+                new DebugPlayerDirection(),
+                new DebugDelayedMessage(),
+                new DebugArmorBuilder(),
+                new DebugCreatureBuilder(),
+                new DebugFishCannon(),
+                new DebugFlamingEnderSword(),
+                new DebugScoreboardBuilder(),
+                new DebugDefaultScoreboard(),
+                new DebugThrowableBrick(),
+                new DebugKickStick(),
+                new DebugTitle()
+        );
+    }
 
-		registerListeners(
-				//Used for gadgets, interaction restriction, etc.
-				new PlayerInteractListener(),
-				new BlockBreakPlaceListener(),
-				new EntityExplodeListener(),
-				new WorldLoadedListener(),
-				new ServerPingListener(),
-				new PlayerLoginListener(),
-				new PlayerJoinListener(),
-				new PlayerKickListener(),
-				new InventoryListener(),
-				new PlayerTeleportListener(),
-				new PlayerQuitListener(),
-				//Listen to the command pre-process event so we can spit params at debuggers, and drop disabled commands
-				new CommandPreProcessListener(),
-				//Listen to when a player dies so we can get the return location, incase they use /back
-				new PlayerDeathListener(),
-				//Used to handle the dropping of weapons. and items in general.
-				new ItemDropListener(),
-				//Used with the Weapons API.
-				new EntityDamageEntityListener()
-		);
-	}
+    private void registerListeners() {
+        WorldConfiguration worldConfig = globalConfig.getWorldConfig();
 
-	public void startup() {
-		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        if (!worldConfig.hasExternalChatHandler()) {
+            registerListeners(new ChatListener());
+            debug("&aUsing Commons Chat Listener");
+        }
 
-		File warpsFolder = new File(WARP_DATA_FOLDER);
-		if (!warpsFolder.exists()) {
-			warpsFolder.mkdirs();
-		}
+        if (worldConfig.hasLaunchpadPressurePlates()) {
+            registerListeners(new LauncherListener()); // Register fire pad listener if its enabled
+            debug("&aRegistered the fire pad listener");
+        }
 
-		File debugFolder = new File(DEBUG_DATA_FOLDER);
-		if (!debugFolder.exists()) {
-			debugFolder.mkdirs();
-		}
+        if (worldConfig.isIceSpreadDisabled() || worldConfig.isSnowSpreadDisabled()) {
+            registerListeners(new BlockFormListener());
+            debug("&aRegistered the block spread listener");
+        }
 
-		//If the SQL Backend is enabled, then register all the database interfaces
-		if (hasSqlBackend()) {
-			SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
-			//Create the database connection
-			database = new ServerDatabaseConnector(sqlConfig);
-		}
+        if (worldConfig.isMyceliumSpreadDisabled()) {
+            registerListeners(new BlockSpreadListener());
+            debug("&aRegistered the mycelium spread listener");
+        }
 
-		//If the commands are to be registered: do so.
-		if (getConfiguration().registerCommands()) {
-			registerCommands(
-					new AddCurrencyCommand(),
-					new ArmorCommand(),
-					new BackCommand(),
-					new BlockTextCommand(),
-					new BuyPremiumCommand(),
-					new ClearInventoryCommand(),
-					new DayCommand(),
-					new DebugModeCommand(),
-					new EnchantCommand(),
-					new FeedCommand(),
-					new FireworksCommand(),
-					new FlyCommand(),
-					new GamemodeCommand(),
-					new HatCommand(),
-					new HealCommand(),
-					new IdCommand(),
-					new ItemCommand(),
-					new MaintenanceCommand(),
-					new MessageCommand(),
-					new MoreCommand(),
-					new NightCommand(),
-					new PotionCommand(),
-					new QuickResponseCommand(),
-					new RecipeCommand(),
-					new RemovePremiumCommand(),
-					new RenameCommand(),
-					new RepairCommand(),
-					new SetSpawnCommand(),
-					new SetWarpCommand(),
-					new SilenceCommand(),
-					new SkullCommand(),
-					new SlayCommand(),
-					new SpawnCommand(),
-					new SpawnMobCommand(),
-					new SpeedCommand(),
-					new TeleportAllCommand(),
-					new TeleportCommand(),
-					new TeleportPositionCommand(),
-					new TimeCommand(),
-					new TunnelsXPCommand(),
-					new UnbanCommand(),
-					new UnsilenceCommand(),
-					new WarpCommand(),
-					new WarpsCommand(),
-					new WorkbenchCommand()
-			);
-		}
+        if (worldConfig.isThunderDisabled()) {
+            registerListeners(new ThungerChangeListener());
+            debug("&aRegistered the thunder listener");
+        }
 
-		//Register the debugger actions and triggers to 'case test' features in-game
-		registerDebugActions();
+        if (worldConfig.isWeatherDisabled()) {
+            registerListeners(new WeatherChangeListener());
+            debug("&aRegistered the Weather-Change listener");
+        }
 
-		registerListeners(); // Register all our event listeners
+        if (worldConfig.isLightningDisabled()) {
+            registerListeners(new LightningStrikeListener());
+            debug("&aRegistered the lightning listener");
+        }
 
-		// Load all the warps
-		Warps.loadWarps();
+        if (worldConfig.isFireSpreadDisabled()) {
+            registerListeners(new FireSpreadListener());
+            debug("&aRegistered the fire-spread listener");
+        }
 
-		//Load all the players data
-		for (Player player : Players.allPlayers()) {
-			Players.addData(player);
-		}
+        if (!worldConfig.isItemPickupEnabled()) {
+            registerListeners(new ItemPickupListener());
+            debug("&aRegistered the item-pickup listener");
+        }
 
-	}
+        if (!worldConfig.isFoodChangeEnabled()) {
+            registerListeners(new FoodChangeListener());
+            debug("&aRegistered the food change listener");
+        }
 
-	@Override
-	public void shutdown() {
-		for (Player player : Players.allPlayers()) {
-			UUID playerId = player.getUniqueId();
-			Players.removeData(playerId);
-		}
-		Warps.saveWarps();
-	}
+        //If the server is backed by SQL, then push the specific listeners
+        if (hasSqlBackend()) {
+            //Used to handle kicking of banned / temp-banned players
+            registerListeners(new PrePlayerLoginListener());
+            debug("&aRegistered the player pre-login listener");
+        }
 
-	@Override
-	public String getVersion() {
-		return "1.6.3";
-	}
+        registerListeners(
+                //Used for gadgets, interaction restriction, etc.
+                new PlayerInteractListener(),
+                new BlockBreakPlaceListener(),
+                new EntityExplodeListener(),
+                new WorldLoadedListener(),
+                new ServerPingListener(),
+                new PlayerLoginListener(),
+                new PlayerJoinListener(),
+                new PlayerKickListener(),
+                new InventoryListener(),
+                new PlayerTeleportListener(),
+                new PlayerQuitListener(),
+                //Listen to the command pre-process event so we can spit params at debuggers, and drop disabled commands
+                new CommandPreProcessListener(),
+                //Listen to when a player dies so we can get the return location, incase they use /back
+                new PlayerDeathListener(),
+                //Used to handle the dropping of weapons. and items in general.
+                new ItemDropListener(),
+                //Used with the Weapons API.
+                new EntityDamageEntityListener()
+        );
+    }
 
-	@Override
-	public String getAuthor() {
-		return "Brandon Curtis";
-	}
+    public void reloadConfiguration() {
+        getInstance().initConfig();
+    }
 
-	@Override
-	public void initConfig() {
-		Serializer configSerializer = new Persister();
-		try {
-			File configFile = new File(PLUGIN_DATA_FOLDER + "Config.xml");
-			if (!configFile.exists()) {
-				configSerializer.write(new Configuration(), configFile);
-			}
-			globalConfig = configSerializer.read(Configuration.class, configFile);
-		} catch (Exception Ex) {
-			Ex.printStackTrace();
-		}
-	}
+    public Configuration getConfiguration() {
+        return globalConfig;
+    }
 
-	public static boolean hasSqlBackend() {
-		return globalConfig.hasSqlBackend();
-	}
+    public WorldConfiguration getWorldConfig() {
+        return globalConfig.getWorldConfig();
+    }
 
-	public static boolean bukkitVersionMatches(String versionNumber) {
-		return Bukkit.getVersion().contains(versionNumber);
-	}
+    public WarpConfig getWarpConfig() {
+        return globalConfig.getWarpConfig();
+    }
 
-	public static void reload() {
-		Bukkit.reload();
-	}
+    public static boolean hasSqlBackend() {
+        return globalConfig.hasSqlBackend();
+    }
 
-	private void givePlayerCompassMenu(Player player) {
-		if (Players.hasItem(player, Material.COMPASS)) {
-			return;
-		}
+    public static boolean bukkitVersionMatches(String versionNumber) {
+        return Bukkit.getVersion().contains(versionNumber);
+    }
 
-		Players.giveItem(player, Items.makeItem(Material.COMPASS, ChatColor.GREEN + "Server Selector"));
-	}
+    public ItemSetManager getItemSetManager() {
+        return itemSetManager;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public ServerDatabaseConnector getServerDatabase() {
+        return database;
+    }
+
+    public Players getPlayerManager() {
+        return players;
+    }
 }

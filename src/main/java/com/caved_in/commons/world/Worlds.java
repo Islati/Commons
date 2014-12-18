@@ -20,9 +20,10 @@ import java.util.UUID;
 
 public class Worlds {
 	private static final Method GET_HANDLE = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("CraftWorld"), "getHandle");
+	private static Commons commons = Commons.getInstance();
 
-	public static void commonsHandleWeather(World World) {
-		if (World.hasStorm() && Commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
+	public void handleWeather(World World) {
+		if (World.hasStorm() && commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
 			World.setStorm(false);
 			World.setThundering(false);
 		}

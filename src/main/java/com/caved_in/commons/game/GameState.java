@@ -8,8 +8,10 @@ public interface GameState extends Listener {
 	}
 
 	public default boolean isSetup() {
-		return true;
+		return false;
 	}
+
+	public void setSetup(boolean val);
 
 	public default void destroy() {
 

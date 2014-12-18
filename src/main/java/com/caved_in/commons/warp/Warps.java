@@ -9,6 +9,7 @@ import org.simpleframework.xml.core.Persister;
 import java.io.File;
 import java.util.*;
 
+//TODO Move the warps class to be an instance object of Commons.
 public class Warps {
 	public static int pages = 0;
 	private static boolean initialized = false;

@@ -11,7 +11,6 @@ public class Perms {
 	public static final String KICK_STICK = "commons.admin.kickstick";
 
 	/* All commands and their permissions */
-
 	public static final String COMMAND_WARP = "commons.command.warp";
 
 	public static final String COMMAND_WARPS = "commons.command.warps";
@@ -101,6 +100,8 @@ public class Perms {
 
 	public static final String COMMAND_BAN = ("commons.command.ban");
 
+	public static final String SET_COMMAND = "commons.command.set";
+
 	public static final String CLEAR_INVENTORY = ("commons.command.clearinventory");
 	public static final String CLEAR_INVENTORY_OTHER = ("commons.command.clearinventory.other");
 	/* NameTag Permissions */
@@ -128,4 +129,5 @@ public class Perms {
 	public static final String TELEPORT_BACK_END_PORTAL = ("commons.back.endportal");
 	public static final String TELEPORT_BACK_NETHER_PORTAL = ("commons.back.netherportal");
 	public static final String TELEPORT_BACK_ON_WARP = ("commons.back.warp");
+
 }

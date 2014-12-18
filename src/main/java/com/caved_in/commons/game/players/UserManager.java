@@ -41,11 +41,19 @@ public class UserManager<T extends User> implements IUserManager<T> {
     }
 
     public T getUser(Player p) {
-        return users.get(p.getUniqueId());
+        return getUser(p.getUniqueId());
+    }
+
+    public T getUser(UUID id) {
+        return users.get(id);
     }
 
     public void removeUser(Player p) {
-        users.remove(p.getUniqueId());
+        removeUser(p.getUniqueId());
+    }
+
+    public void removeUser(UUID id) {
+        users.remove(id);
     }
 
     public Class<? extends User> getUserClass() {

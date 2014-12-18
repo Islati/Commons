@@ -16,7 +16,13 @@ public class MoreCommand {
 	public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems) {
 		if (allItems) {
 			PlayerInventory inventory = player.getInventory();
-			inventory.forEach(i -> i.setAmount(i.getMaxStackSize()));
+			for (ItemStack item : inventory.getContents()) {
+				if (item == null) {
+					continue;
+				}
+
+				item.setAmount(item.getMaxStackSize());
+			}
 			return;
 		}
 

@@ -6,6 +6,7 @@ import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
@@ -21,6 +22,7 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.sound.Sounds;
+import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
@@ -56,14 +58,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.caved_in.commons.Commons.messageConsole;
-
 public class Players {
+	private static Commons commons = Commons.getInstance();
+
 	public static final String DEFAULT_PREFIX = "Member";
 	public static final int DEPTH_EQUALIZE_NUMBER = 63;
 	private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
 //	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
 
+	/* Map of all the players data; Wrapped player elements */
 	private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
 
 	private static Gson gson = new Gson();
@@ -76,7 +79,7 @@ public class Players {
 	 * @param playerId UUID to check if data exists for
 	 * @return true if the player has loaded data, false otherwise
 	 */
-	public static boolean hasData(UUID playerId) {
+	public boolean hasData(UUID playerId) {
 		return playerData.containsKey(playerId);
 	}
 
@@ -88,7 +91,7 @@ public class Players {
 	 * @see MinecraftPlayer
 	 * @since 1.0
 	 */
-	public static MinecraftPlayer getData(UUID playerId) {
+	public MinecraftPlayer getData(UUID playerId) {
 		return playerData.get(playerId);
 	}
 
@@ -100,7 +103,7 @@ public class Players {
 	 * @see MinecraftPlayer
 	 * @since 1.0
 	 */
-	public static MinecraftPlayer getData(Player player) {
+	public MinecraftPlayer getData(Player player) {
 		return playerData.get(player.getUniqueId());
 	}
 
@@ -115,7 +118,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	@SuppressWarnings("deprecation")
-	public static void addData(Player player) {
+	public void addData(Player player) {
 		UUID playerId = player.getUniqueId();
 		String playerName = player.getName();
 
@@ -128,21 +131,24 @@ public class Players {
 			return;
 		}
 
+		ServerDatabaseConnector database = commons.getServerDatabase();
+
 		//If the player doesn't have data in the database, and the insertion of defaults didnt work send them a message
-		if (!Commons.database.hasData(playerId)) {
-			Commons.database.insertDefaultData(player);
+		if (!database.hasData(playerId)) {
+			database.insertDefaultData(player);
 		}
-		messageConsole(Messages.playerDataLoadAttempt(playerName));
+
+		commons.debug(Messages.playerDataLoadAttempt(playerName));
 		//If the player has any cached data: remove it
 		if (hasData(playerId)) {
 			playerData.remove(playerId);
-			messageConsole(Messages.playerDataRemoveCache(playerName));
+			commons.debug(Messages.playerDataRemoveCache(playerName));
 		}
 
 		//Create a player wrapper from the data in the database and load it to the cache
-		minecraftPlayer = Commons.database.getPlayerWrapper(playerId);
+		minecraftPlayer = database.getPlayerWrapper(playerId);
 		minecraftPlayer.setTagColor(getNameTagColor(player));
-		Commons.messageConsole("&aLoaded data for " + playerName);
+		commons.debug("&aLoaded data for " + playerName);
 		playerData.put(playerId, minecraftPlayer);
 	}
 
@@ -168,7 +174,7 @@ public class Players {
 			return 0;
 		}
 
-		return getData(player).getCurrency();
+		return commons.getPlayerManager().getData(player).getCurrency();
 	}
 
 	public static void removeMoney(Player player, int amount) {
@@ -176,7 +182,7 @@ public class Players {
 			return;
 		}
 
-		getData(player).removeCurrency(amount);
+		commons.getPlayerManager().getData(player).removeCurrency(amount);
 	}
 
 	/**
@@ -190,7 +196,7 @@ public class Players {
 		playerData.put(minecraftPlayer.getId(), minecraftPlayer);
 		//If the commons is being backed
 		if (Commons.hasSqlBackend()) {
-			Commons.database.syncPlayerWrapperData(minecraftPlayer);
+			commons.getServerDatabase().syncPlayerWrapperData(minecraftPlayer);
 		}
 	}
 
@@ -199,7 +205,7 @@ public class Players {
 			return;
 		}
 
-		Commons.database.syncPlayerWrapperData(getData(player));
+		commons.getServerDatabase().syncPlayerWrapperData(commons.getPlayerManager().getData(player));
 	}
 
 	/**
@@ -213,13 +219,15 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void removeData(UUID playerId) {
-		if (Commons.hasSqlBackend() && hasData(playerId)) {
-			Commons.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
-			Commons.database.syncPlayerWrapperData(playerData.get(playerId));
-			Commons.messageConsole("&a" + playerId + "'s data has been synchronized");
+		ServerDatabaseConnector database = commons.getServerDatabase();
+		Players players = commons.getPlayerManager();
+		if (Commons.hasSqlBackend() && players.hasData(playerId)) {
+			Chat.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
+			database.syncPlayerWrapperData(playerData.get(playerId));
+			Chat.messageConsole("&a" + playerId + "'s data has been synchronized");
 		}
 
-		MinecraftPlayer wrapper = getData(playerId);
+		MinecraftPlayer wrapper = players.getData(playerId);
 		wrapper.dispose();
 		playerData.remove(playerId);
 	}
@@ -789,25 +797,6 @@ public class Players {
 		}
 	}
 
-	public static Set<Player> withPermissions(String... permissions) {
-		Set<Player> players = Sets.newHashSet();
-
-		for (Player p : allPlayers()) {
-			boolean add = true;
-			for (String perm : permissions) {
-				if (!p.hasPermission(perm)) {
-					add = false;
-					break;
-				}
-			}
-
-			if (add) {
-				players.add(p);
-			}
-		}
-		return players;
-	}
-
 	/**
 	 * Teleports the player to a location
 	 *
@@ -950,7 +939,7 @@ public class Players {
 			return false;
 		}
 
-		Set<Punishment> punishments = Commons.database.getActivePunishments(uniqueId);
+		Set<Punishment> punishments = commons.getServerDatabase().getActivePunishments(uniqueId);
 		for (Punishment punishment : punishments) {
 			if (punishment.getPunishmentType() == type) {
 				return true;
@@ -979,7 +968,7 @@ public class Players {
 	public static boolean hasPlayed(UUID playerId) {
 		boolean online = isOnline(playerId);
 		if (Commons.hasSqlBackend() && !online) {
-			return Commons.database.hasData(playerId);
+			return commons.getServerDatabase().hasData(playerId);
 		}
 		return online;
 	}
@@ -993,7 +982,7 @@ public class Players {
 	public static boolean hasPlayed(String name) {
 		boolean online = isOnline(name);
 		if (Commons.hasSqlBackend() && !online) {
-			return Commons.database.hasData(name);
+			return commons.getServerDatabase().hasData(name);
 		}
 		return online;
 	}
@@ -1071,7 +1060,7 @@ public class Players {
 				player.setGameMode(GameMode.SURVIVAL);
 				break;
 			case SPECTATOR:
-
+				player.setGameMode(GameMode.SPECTATOR);
 			default:
 				player.setGameMode(GameMode.SURVIVAL);
 				break;
@@ -1463,7 +1452,7 @@ public class Players {
 	 * @return true if the player's in debug mode, false otherwise.
 	 */
 	public static boolean isDebugging(Player player) {
-		return getData(player).isInDebugMode();
+		return commons.getPlayerManager().getData(player).isInDebugMode();
 	}
 
 	/**
@@ -1904,7 +1893,7 @@ public class Players {
 		for (Player p : allPlayers()) {
 			player.showPlayer(p);
 		}
-		getData(player).setHidingOtherPlayers(false);
+		commons.getPlayerManager().getData(player).setHidingOtherPlayers(false);
 	}
 
 
