@@ -2,6 +2,7 @@ package com.caved_in.commons.debug.actions;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.item.Items;
@@ -20,7 +21,7 @@ public class DebugHandItemSerialize implements DebugAction {
 	@Override
 	public void doAction(Player player, String... args) {
 		if (!Players.hasItemInHand(player)) {
-			Players.sendMessage(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
+			Chat.message(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
 			return;
 		}
 
@@ -33,9 +34,9 @@ public class DebugHandItemSerialize implements DebugAction {
 		if (!itemFile.exists()) {
 			try {
 				if (itemFile.createNewFile()) {
-					Players.sendMessage(player, "Created item file at " + itemFile.getPath());
+					Chat.message(player, "Created item file at " + itemFile.getPath());
 				} else {
-					Players.sendMessage(player, "Failed to create item file at " + itemFile.getPath());
+					Chat.message(player, "Failed to create item file at " + itemFile.getPath());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -44,9 +45,9 @@ public class DebugHandItemSerialize implements DebugAction {
 
 		try {
 			serializer.write(new XmlItemStack(playerHand), itemFile);
-			Players.sendMessage(player, "Saved item to " + itemFile.toString());
+			Chat.message(player, "Saved item to " + itemFile.toString());
 		} catch (Exception e) {
-			Players.sendMessage(player, "Error saving item to " + itemFile.toString());
+			Chat.message(player, "Error saving item to " + itemFile.toString());
 			e.printStackTrace();
 		}
 	}

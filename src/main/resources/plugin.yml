@@ -122,6 +122,8 @@ commands:
       usage: /<command> <item-data> <text>...
    id:
       usage: /<command> [item name]
+   set:
+      usage: /<command> [name]
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -34,7 +35,7 @@ public class GamemodeCommand {
 
 		mode = mode.toLowerCase();
 		if (!modeAliases.containsKey(mode)) {
-			Players.sendMessage(player, Messages.invalidCommandUsage("gamemode"));
+			Chat.message(player, Messages.invalidCommandUsage("gamemode"));
 			return;
 		}
 

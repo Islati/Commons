@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.FlagArg;
 import com.caved_in.commons.command.Flags;
@@ -19,13 +20,13 @@ public class RepairCommand {
 
 		if (!all) {
 			if (Players.handIsEmpty(player)) {
-				Players.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+				Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
 				return;
 			}
 
 			Items.repairItem(player.getItemInHand());
 		}
 
-		Players.sendMessage(player, Messages.ITEMS_REPAIRED);
+		Chat.message(player, Messages.ITEMS_REPAIRED);
 	}
 }

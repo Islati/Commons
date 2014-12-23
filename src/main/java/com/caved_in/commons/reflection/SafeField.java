@@ -1,6 +1,6 @@
 package com.caved_in.commons.reflection;
 
-import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 
 import java.lang.reflect.Field;
 
@@ -23,7 +23,7 @@ public class SafeField<T> {
 		try {
 			return (T) field.get(instance);
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Could not access field: " + toString());
+			Chat.messageAll("Could not access field: " + toString());
 			return null;
 		}
 	}
@@ -32,7 +32,7 @@ public class SafeField<T> {
 		try {
 			this.field.set(instance, value);
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Could not access field: " + toString());
+			Chat.messageAll("Could not access field: " + toString());
 		}
 	}
 }

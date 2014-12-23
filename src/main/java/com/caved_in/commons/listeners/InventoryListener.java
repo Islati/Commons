@@ -1,5 +1,6 @@
 package com.caved_in.commons.listeners;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.menu.ItemMenu;
 import com.caved_in.commons.menu.MenuBehaviour;
@@ -20,6 +21,12 @@ import org.bukkit.inventory.InventoryHolder;
 import java.util.List;
 
 public class InventoryListener implements Listener {
+
+	private static Players playerManager = null;
+
+	public InventoryListener() {
+		playerManager = Commons.getInstance().getPlayerHandler();
+	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onMenuClick(InventoryClickEvent event) {
@@ -62,7 +69,7 @@ public class InventoryListener implements Listener {
 			return;
 		}
 
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = playerManager.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, don't let them click / manipulate
@@ -111,7 +118,7 @@ public class InventoryListener implements Listener {
 			}
 		}
 		//Get the wrapped player data
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = playerManager.getData(player);
 		switch (inventoryType) {
 			case WORKBENCH:
 				//If the player's viewing a recipe, clear the inventory and update the inventory on close

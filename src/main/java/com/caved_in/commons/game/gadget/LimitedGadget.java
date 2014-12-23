@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.time.PlayerTicker;
@@ -36,7 +37,7 @@ public abstract class LimitedGadget extends ItemGadget {
 		if (playerTicker.allow(player)) {
 			//Remove the gadget from the players inventory, and send them a message.
 			Players.removeFromHand(player, 1);
-			Players.sendMessage(player, Messages.gadgetExpired(this));
+			Chat.message(player, Messages.gadgetExpired(this));
 			playerTicker.clear(player);
 		}
 		delay.setOnCooldown(player);

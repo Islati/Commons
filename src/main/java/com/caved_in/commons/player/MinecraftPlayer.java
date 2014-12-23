@@ -99,7 +99,7 @@ public class MinecraftPlayer extends User {
 		currentServer = commons.getConfiguration().getServerName();
 		lastOnline = System.currentTimeMillis();
 		setId(Players.getPlayer(getName()).getUniqueId());
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 //			friendsList = new FriendList(id);
 			//TODO: Assign default prefix to user
 			return;
@@ -238,7 +238,7 @@ public class MinecraftPlayer extends User {
 	 * @return
 	 */
 	public void setPremium(boolean isPremium) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return;
 		}
 

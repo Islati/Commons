@@ -8,13 +8,15 @@ import org.bukkit.entity.Player;
 
 public class HasSqlBackendItem extends MenuItem {
 
+	private Configuration config = Commons.getInstance().getConfiguration();
+
 	public HasSqlBackendItem() {
 		super();
 		init();
 	}
 
 	private void init() {
-		boolean hasSqlBackend = Commons.hasSqlBackend();
+		boolean hasSqlBackend = Commons.getInstance().getConfiguration().hasSqlBackend();
 		if (hasSqlBackend) {
 			setText("&aMySql Backend");
 			setIcon(Wool.GREEN_WOOL);
@@ -28,7 +30,6 @@ public class HasSqlBackendItem extends MenuItem {
 
 	@Override
 	public void onClick(Player player) {
-		Configuration config = Commons.getConfiguration();
 		boolean hasSqlBackend = !config.hasSqlBackend();
 		config.setSqlBackend(hasSqlBackend);
 		init();

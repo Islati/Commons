@@ -4,7 +4,6 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.player.MinecraftPlayer;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.entity.Player;
@@ -19,7 +18,7 @@ public class PlayerJoinListener implements Listener {
 	boolean trackOnline = false;
 
 	public PlayerJoinListener() {
-		config = Commons.getConfiguration();
+		config = Commons.getInstance().getConfiguration();
 		trackOnline = config.getSqlConfig().trackPlayerOnlineStatus();
 	}
 
@@ -30,14 +29,14 @@ public class PlayerJoinListener implements Listener {
 		//Reset the players walk and fly speeds
 		player.setFlySpeed((float) MinecraftPlayer.DEFAULT_FLY_SPEED);
 		player.setWalkSpeed((float) MinecraftPlayer.DEFAULT_WALK_SPEED);
-		WorldConfiguration worldConfig = Commons.getConfiguration().getWorldConfig();
+		WorldConfiguration worldConfig = config.getWorldConfig();
 
 		if (!worldConfig.hasJoinMessages()) {
 			event.setJoinMessage(null);
 		}
 
 		//Initialize the wrapped player data
-		Players.addData(player);
+		Commons.getInstance().getPlayerHandler().addData(player);
 
 		//Update the player's online status in our data-base!
 

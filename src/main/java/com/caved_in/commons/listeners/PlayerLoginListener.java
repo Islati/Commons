@@ -13,11 +13,16 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PlayerLoginListener implements Listener {
 
+	private Configuration config;
+
+	public PlayerLoginListener() {
+		config = Commons.getInstance().getConfiguration();
+	}
+
 	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent event) {
 		Player player = event.getPlayer();
-		Configuration configuration = Commons.getConfiguration();
-		MaintenanceConfiguration maintenanceConfiguration = configuration.getMaintenanceConfig();
+		MaintenanceConfiguration maintenanceConfiguration = config.getMaintenanceConfig();
 		//If maintenance mode is enabled, kick the player if they don't have permissions
 		if (maintenanceConfiguration.isMaintenanceMode()) {
 			if (!Players.hasPermission(player, Perms.MAINTENANCE_WHITELIST)) {
@@ -26,18 +31,18 @@ public class PlayerLoginListener implements Listener {
 			}
 		}
 
-		if (!configuration.hasSqlBackend()) {
+		if (!config.hasSqlBackend()) {
 			return;
 		}
 		/*
 		If the server is in premium-only mode check if
 		the player is premium and if not kick them
 		*/
-		PremiumConfiguration premiumConfiguration = configuration.getPremiumConfig();
+		PremiumConfiguration premiumConfiguration = config.getPremiumConfig();
 		if (!premiumConfiguration.isPremiumMode()) {
 			return;
 		}
-		if (!Commons.database.getPlayerWrapper(player.getUniqueId()).isPremium()) {
+		if (!Commons.getInstance().getServerDatabase().getPlayerWrapper(player.getUniqueId()).isPremium()) {
 			event.setKickMessage(premiumConfiguration.getKickMessage());
 			event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 		}

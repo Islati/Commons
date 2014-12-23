@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -13,6 +14,6 @@ public class NightCommand {
 	@Command(identifier = "night", permissions = Perms.COMMAND_TIME)
 	public void onNightCommand(Player player, @Arg(name = "world", def = "?sender") World world) {
 		Worlds.setTimeNight(world);
-		Players.sendMessage(player, Messages.timeUpdated(world.getName(), "night"));
+		Chat.message(player, Messages.timeUpdated(world.getName(), "night"));
 	}
 }

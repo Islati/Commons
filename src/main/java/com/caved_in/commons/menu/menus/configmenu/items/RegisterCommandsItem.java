@@ -14,7 +14,7 @@ public class RegisterCommandsItem extends MenuItem {
 	}
 
 	private void init() {
-		boolean hasSqlBackend = Commons.hasSqlBackend();
+		boolean hasSqlBackend = Commons.getInstance().getConfiguration().hasSqlBackend();
 		if (hasSqlBackend) {
 			setText("&aRegister Commands");
 			setIcon(Wool.GREEN_WOOL);
@@ -29,7 +29,7 @@ public class RegisterCommandsItem extends MenuItem {
 
 	@Override
 	public void onClick(Player player) {
-		Configuration config = Commons.getConfiguration();
+		Configuration config = Commons.getInstance().getConfiguration();
 		boolean registerCommands = !config.registerCommands();
 		config.setRegisterCommands(registerCommands);
 		init();

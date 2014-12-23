@@ -23,14 +23,11 @@ import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
-import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
 import com.caved_in.commons.time.Cooldown;
-import com.caved_in.commons.time.TimeHandler;
-import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
@@ -44,7 +41,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import io.netty.channel.Channel;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
-import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -125,7 +121,7 @@ public class Players {
 		MinecraftPlayer minecraftPlayer;
 
 		//If there's no SQL backend for commons, then just load a 'null' / default wrapper
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			minecraftPlayer = new MinecraftPlayer(playerName, 0);
 			playerData.put(playerId, minecraftPlayer);
 			return;
@@ -157,32 +153,33 @@ public class Players {
 	}
 
 	public static void giveMoney(Player player, int amount, boolean message) {
-		if (!Commons.hasSqlBackend()) {
+		//TODO Make Allow data to be added to Minecraft player even if there's no database attached
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return;
 		}
 
-		MinecraftPlayer minecraftPlayer = getData(player);
+		MinecraftPlayer minecraftPlayer = commons.getPlayerHandler().getData(player);
 		minecraftPlayer.addCurrency(minecraftPlayer.isPremium() ? ((double) amount) * 2 : (double) amount);
 		updateData(minecraftPlayer);
 		if (message) {
-			Players.sendMessage(player, Messages.playerEarnedExperience(amount));
+			Chat.message(player, Messages.playerEarnedExperience(amount));
 		}
 	}
 
 	public static int getMoney(Player player) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return 0;
 		}
 
-		return commons.getPlayerManager().getData(player).getCurrency();
+		return commons.getPlayerHandler().getData(player).getCurrency();
 	}
 
 	public static void removeMoney(Player player, int amount) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return;
 		}
 
-		commons.getPlayerManager().getData(player).removeCurrency(amount);
+		commons.getPlayerHandler().getData(player).removeCurrency(amount);
 	}
 
 	/**
@@ -195,17 +192,17 @@ public class Players {
 	public static void updateData(MinecraftPlayer minecraftPlayer) {
 		playerData.put(minecraftPlayer.getId(), minecraftPlayer);
 		//If the commons is being backed
-		if (Commons.hasSqlBackend()) {
+		if (Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			commons.getServerDatabase().syncPlayerWrapperData(minecraftPlayer);
 		}
 	}
 
 	public static void updateData(Player player) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return;
 		}
 
-		commons.getServerDatabase().syncPlayerWrapperData(commons.getPlayerManager().getData(player));
+		commons.getServerDatabase().syncPlayerWrapperData(commons.getPlayerHandler().getData(player));
 	}
 
 	/**
@@ -220,8 +217,8 @@ public class Players {
 	 */
 	public static void removeData(UUID playerId) {
 		ServerDatabaseConnector database = commons.getServerDatabase();
-		Players players = commons.getPlayerManager();
-		if (Commons.hasSqlBackend() && players.hasData(playerId)) {
+		Players players = commons.getPlayerHandler();
+		if (Commons.getInstance().getConfiguration().hasSqlBackend() && players.hasData(playerId)) {
 			Chat.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
 			database.syncPlayerWrapperData(playerData.get(playerId));
 			Chat.messageConsole("&a" + playerId + "'s data has been synchronized");
@@ -393,9 +390,9 @@ public class Players {
 
 	public static void ban(Player player, Punishment punishment) {
 		String playerName = player.getName();
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			player.setBanned(true);
-			Players.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
 			return;
 		}
 
@@ -405,9 +402,9 @@ public class Players {
 			public void onSuccess(Boolean banned) {
 				if (banned) {
 					Players.kick(player, punishment.getReason(), true);
-					Players.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+					Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
 				} else {
-					Players.messageAll(Players.onlineOperators(), Messages.playerNotBanned(playerName));
+					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(playerName));
 				}
 			}
 
@@ -427,12 +424,13 @@ public class Players {
 	 * @param punishment punishment to apply to the player
 	 */
 	public static void ban(String player, Punishment punishment) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			if (!Players.isOnline(player)) {
 				return;
 			}
 			Players.getPlayer(player).setBanned(true);
-			Players.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			//TODO make the messaging of everyone optional
+			Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
 			return;
 		}
 
@@ -444,9 +442,9 @@ public class Players {
 					if (Players.isOnline(player)) {
 						Players.kick(Players.getPlayer(player), punishment.getReason(), true);
 					}
-					Players.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+					Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
 				} else {
-					Players.messageAll(Players.onlineOperators(), Messages.playerNotBanned(player));
+					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(player));
 				}
 			}
 
@@ -514,36 +512,6 @@ public class Players {
 		kickAllWithoutPermission(permission.toString(), reason);
 	}
 
-	public static void messageOps(String... messages) {
-		messageAll(onlineOperators(), messages);
-	}
-
-	/**
-	 * Sends messages to all online players
-	 *
-	 * @param messages messages to send
-	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
-	 * @since 1.0
-	 */
-	public static void messageAll(String... messages) {
-		for (Player player : allPlayers()) {
-			sendMessage(player, messages);
-		}
-	}
-
-	public static void messageAllExcept(String message, Player... exceptions) {
-		UUID[] playerIds = getIdArray(exceptions);
-		messageAll(allPlayersExcept(playerIds), message);
-	}
-
-	private static UUID[] getIdArray(Player[] players) {
-		UUID[] ids = new UUID[players.length - 1];
-		for (int i = 0; i < ids.length; i++) {
-			ids[i] = players[i].getUniqueId();
-		}
-		return ids;
-	}
-
 	/**
 	 * Set the players level.
 	 *
@@ -590,211 +558,6 @@ public class Players {
 	 */
 	public static void addLevel(Player player) {
 		addLevel(player, 1);
-	}
-
-	/**
-	 * Sends a message to all online players.
-	 *
-	 * @param message message to send
-	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
-	 * @since 1.0
-	 */
-	public static void messageAll(String message) {
-		for (Player player : allPlayers()) {
-			if (player == null) {
-				continue;
-			}
-			sendMessage(player, message);
-		}
-	}
-
-	public static void messageAll(Collection<Player> receivers, String... messages) {
-		for (Player player : receivers) {
-			if (player == null) {
-				continue;
-			}
-			sendMessage(player, messages);
-		}
-	}
-
-	/**
-	 * Sends messages to all players <i>with</i> a specific permission
-	 *
-	 * @param permission permission to check for on players
-	 * @param messages   messages to send to the players
-	 * @see #sendMessage(org.bukkit.command.CommandSender, String...)
-	 * @since 1.0
-	 */
-	public static void messageAllWithPermission(String permission, String... messages) {
-		for (Player player : allPlayers()) {
-			if (player.hasPermission(permission)) {
-				sendMessage(player, messages);
-			}
-		}
-	}
-
-	public static void messageAllWithPermission(Perms permission, String message) {
-		messageAllWithPermission(permission.toString(), message);
-	}
-
-	public static void messageAllWithPermission(Perms permission, String... messages) {
-		messageAllWithPermission(permission.toString(), messages);
-	}
-
-	/**
-	 * Sends a message to all players <i>without</i> a specific permission
-	 *
-	 * @param permission permission to check for on players
-	 * @param message    message to send
-	 * @see #sendMessage(org.bukkit.command.CommandSender, String)
-	 * @since 1.0
-	 */
-	public static void messageAllWithoutPermission(String permission, String message) {
-		for (Player player : allPlayers()) {
-			if (player.hasPermission(permission)) {
-				sendMessage(player, message);
-			}
-		}
-	}
-
-	/**
-	 * Sends messages to all players <i>without</i> a specific permission
-	 *
-	 * @param permission permission to check for on players
-	 * @param messages   messages to send to the player
-	 * @since 1.0
-	 */
-	public static void messageAllWithoutPermission(String permission, String... messages) {
-		for (Player player : allPlayers()) {
-			if (!player.hasPermission(permission)) {
-				for (String message : messages) {
-					sendMessage(player, message);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Sends messages to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
-	 *
-	 * @param messageReceiver commandsender to send the message to
-	 * @param messages        messages to send
-	 * @since 1.0
-	 */
-	public static void sendMessage(CommandSender messageReceiver, String... messages) {
-		for (String message : messages) {
-			sendMessage(messageReceiver, message);
-		}
-	}
-
-	public static void sendMessage(CommandSender receiver, List<String> messages) {
-		for (String message : messages) {
-			sendMessage(receiver, message);
-		}
-	}
-
-	/**
-	 * Send the player
-	 *
-	 * @param receiver
-	 * @param sound
-	 * @param delay
-	 * @param messages
-	 */
-	public static void sendSoundedMessage(Player receiver, Sound sound, int delay, String... messages) {
-		int index = 1;
-		RunnableManager threadManager = Commons.getInstance().getThreadManager();
-		for (String message : messages) {
-			threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
-			index += 1;
-		}
-	}
-
-	public static void sendMessageOnCooldown(Player p, int cooldown, String message) {
-		if (!messageCooldowns.containsKey(message)) {
-			messageCooldowns.put(message, new Cooldown(cooldown));
-		}
-
-		Cooldown cool = messageCooldowns.get(message);
-
-		if (cool.isOnCooldown(p)) {
-			return;
-		}
-
-		cool.setOnCooldown(p);
-		sendMessage(p, message);
-	}
-
-	/**
-	 * Send the player a set of messages, with the given delay (in seconds) between each message.
-	 *
-	 * @param receiver player receiving the message(s).
-	 * @param delay    delay between each message being received.
-	 * @param messages messages to send to the player.
-	 */
-	public static void sendDelayedMessage(Player receiver, int delay, final String... messages) {
-		int index = 1;
-		RunnableManager threadManager = Commons.getInstance().getThreadManager();
-		for (String message : messages) {
-			threadManager.runTaskLater(new DelayedMessage(receiver, message), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
-			index += 1;
-		}
-	}
-
-	/**
-	 * Delayed message, used to send a player a message after a specific duration of time, and in order.
-	 */
-	private static class DelayedMessage implements Runnable {
-
-		private String message;
-		private Sound sound = null;
-		private UUID receiverId;
-
-		public DelayedMessage(Player player, String message) {
-			this.receiverId = player.getUniqueId();
-			this.message = StringUtil.colorize(message);
-		}
-
-		public DelayedMessage(Player player, String message, Sound sound) {
-			this(player, message);
-			this.sound = sound;
-		}
-
-		@Override
-		public void run() {
-			Players.sendMessage(Players.getPlayer(receiverId), message);
-			if (sound != null) {
-				Sounds.playSound(Players.getPlayer(receiverId), sound);
-			}
-		}
-	}
-
-	/**
-	 * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
-	 *
-	 * @param messageReceiver receiver of the message
-	 * @param message         message to send
-	 * @since 1.0
-	 */
-	public static void sendMessage(CommandSender messageReceiver, String message) {
-		if (messageReceiver == null || message == null) {
-			return;
-		}
-		messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
-	}
-
-
-	/**
-	 * Sends a message to the receiver a specific number of times;
-	 *
-	 * @param messageReceiver the receiver of this message
-	 * @param message         message to send to the receiver
-	 * @param messageAmount   how many times the message is to be sent
-	 */
-	public static void sendRepeatedMessage(CommandSender messageReceiver, String message, int messageAmount) {
-		for (int i = 0; i < messageAmount; i++) {
-			sendMessage(messageReceiver, message);
-		}
 	}
 
 	/**
@@ -935,7 +698,7 @@ public class Players {
 	 * @return true if the id has any active punishments of the desired type, false if the database feature of commons is disabled or the player has no punishments of the type specified.
 	 */
 	public static boolean hasActivePunishment(UUID uniqueId, PunishmentType type) {
-		if (!Commons.hasSqlBackend()) {
+		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			return false;
 		}
 
@@ -967,7 +730,7 @@ public class Players {
 	 */
 	public static boolean hasPlayed(UUID playerId) {
 		boolean online = isOnline(playerId);
-		if (Commons.hasSqlBackend() && !online) {
+		if (Commons.getInstance().getConfiguration().hasSqlBackend() && !online) {
 			return commons.getServerDatabase().hasData(playerId);
 		}
 		return online;
@@ -981,7 +744,7 @@ public class Players {
 	 */
 	public static boolean hasPlayed(String name) {
 		boolean online = isOnline(name);
-		if (Commons.hasSqlBackend() && !online) {
+		if (Commons.getInstance().getConfiguration().hasSqlBackend() && !online) {
 			return commons.getServerDatabase().hasData(name);
 		}
 		return online;
@@ -1452,7 +1215,7 @@ public class Players {
 	 * @return true if the player's in debug mode, false otherwise.
 	 */
 	public static boolean isDebugging(Player player) {
-		return commons.getPlayerManager().getData(player).isInDebugMode();
+		return commons.getPlayerHandler().getData(player).isInDebugMode();
 	}
 
 	/**
@@ -1881,7 +1644,7 @@ public class Players {
 		for (Player p : allPlayers()) {
 			player.hidePlayer(p);
 		}
-		getData(player).setHidingOtherPlayers(true);
+		commons.getPlayerHandler().getData(player).setHidingOtherPlayers(true);
 	}
 
 	/**
@@ -1893,7 +1656,7 @@ public class Players {
 		for (Player p : allPlayers()) {
 			player.showPlayer(p);
 		}
-		commons.getPlayerManager().getData(player).setHidingOtherPlayers(false);
+		commons.getPlayerHandler().getData(player).setHidingOtherPlayers(false);
 	}
 
 

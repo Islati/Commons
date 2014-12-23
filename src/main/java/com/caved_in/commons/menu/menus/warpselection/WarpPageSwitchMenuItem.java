@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.warpselection;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.menu.MenuItem;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.warp.Warps;
 import org.bukkit.entity.Player;
 
@@ -27,14 +27,14 @@ public class WarpPageSwitchMenuItem extends MenuItem {
 		switch (direction) {
 			case NEXT:
 				if (page >= warpPageCount) {
-					Players.sendMessage(player, "&7This is the final page, please use the &oprevious&r&7 button");
+					Chat.message(player, "&7This is the final page, please use the &oprevious&r&7 button");
 				} else {
 					getMenu().switchMenu(player, WarpSelectionMenu.getMenu(page + 1));
 				}
 				break;
 			case PREVIOUS:
 				if (page <= warpPageCount) {
-					Players.sendMessage(player, "&7This is the first page, please use the &onext&r&7 button");
+					Chat.message(player, "&7This is the first page, please use the &onext&r&7 button");
 				} else {
 					getMenu().switchMenu(player, WarpSelectionMenu.getMenu(page - 1));
 				}

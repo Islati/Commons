@@ -178,7 +178,7 @@ public class Messages {
 	}
 
 	public static String playerXpBalance(Player player) {
-		return String.format("&aYou have &e%s&a Tunnels XP", (int) Players.getData(player).getCurrency());
+		return String.format("&aYou have &e%s&a Tunnels XP", (int) Commons.getInstance().getPlayerHandler().getData(player).getCurrency());
 	}
 
 	public static String playerTeleportedTo(String item, String target) {

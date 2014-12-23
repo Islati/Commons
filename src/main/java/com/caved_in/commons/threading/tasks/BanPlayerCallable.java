@@ -9,14 +9,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 
-/**
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE" (Revision 42):
- * <brandon@caved.in> wrote this file. As long as you retain this notice you
- * can do whatever you want with this stuff. If we meet some day, and you think
- * this stuff is worth it, you can buy me a beer in return Brandon Curtis.
- * ----------------------------------------------------------------------------
- */
+
 public class BanPlayerCallable implements Callable<Boolean> {
 	private String playerName;
 	private UUID playerId;
@@ -38,7 +31,7 @@ public class BanPlayerCallable implements Callable<Boolean> {
 	@Override
 	public Boolean call() throws Exception {
 		if (!lookup) {
-			Commons.database.insertPlayerBan(punishment, playerId);
+			Commons.getInstance().getServerDatabase().insertPlayerBan(punishment, playerId);
 			return true;
 		}
 
@@ -46,7 +39,7 @@ public class BanPlayerCallable implements Callable<Boolean> {
 		Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID playerId) {
-				Commons.database.insertPlayerBan(punishment, playerId);
+				Commons.getInstance().getServerDatabase().insertPlayerBan(punishment, playerId);
 			}
 
 			@Override

@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
@@ -15,11 +16,11 @@ public class IdCommand {
 	public void onIdCommand(Player player, @Arg(name = "item", def = "0") String item) {
 		if (item == null || "0".equals(item)) {
 			if (!Players.hasItemInHand(player)) {
-				Players.sendMessage(player, "&eEither &ogive an item name as an argument, &e&lor&r&e &ohold an item in your hand&r&e.");
+				Chat.message(player, "&eEither &ogive an item name as an argument, &e&lor&r&e &ohold an item in your hand&r&e.");
 				return;
 			}
 
-			Players.sendMessage(player, Messages.itemId(player.getItemInHand()));
+			Chat.message(player, Messages.itemId(player.getItemInHand()));
 			return;
 		}
 
@@ -27,9 +28,9 @@ public class IdCommand {
 
 		try {
 			material = Items.getMaterialByName(item);
-			Players.sendMessage(player, Messages.itemId(item, material));
+			Chat.message(player, Messages.itemId(item, material));
 		} catch (InvalidMaterialNameException e) {
-			Players.sendMessage(player, Messages.invalidItem(item));
+			Chat.message(player, Messages.invalidItem(item));
 		}
 	}
 }

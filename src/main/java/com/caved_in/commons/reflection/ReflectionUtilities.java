@@ -80,7 +80,7 @@ public class ReflectionUtilities {
 
 			return field;
 		} catch (NoSuchFieldException e) {
-			Commons.messageConsole("No such field: " + fieldName + "!");
+			Chat.debug("No such field: " + fieldName + "!");
 		}
 		return null;
 	}
@@ -89,7 +89,7 @@ public class ReflectionUtilities {
 		try {
 			return (T) getField(clazz, fieldName).get(instance);
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Failed to access field: " + fieldName + "!");
+			Chat.debug("Failed to access field: " + fieldName + "!");
 		}
 		return null;
 	}
@@ -98,7 +98,7 @@ public class ReflectionUtilities {
 		try {
 			getField(clazz, fieldName).set(instance, value);
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Could not set new field value for: " + fieldName);
+			Chat.debug("Could not set new field value for: " + fieldName);
 		}
 	}
 
@@ -130,7 +130,7 @@ public class ReflectionUtilities {
 
 			return method;
 		} catch (NoSuchMethodException e) {
-			Commons.messageConsole("No such method: " + methodName + "!");
+			Chat.debug("No such method: " + methodName + "!");
 		}
 		return null;
 	}
@@ -139,9 +139,9 @@ public class ReflectionUtilities {
 		try {
 			return (T) method.invoke(instance, args);
 		} catch (IllegalAccessException e) {
-			Commons.messageConsole("Failed to access method: " + method.getName() + "!");
+			Chat.debug("Failed to access method: " + method.getName() + "!");
 		} catch (InvocationTargetException e) {
-			Commons.messageConsole("Failed to invoke method: " + method.getName() + "!");
+			Chat.debug("Failed to invoke method: " + method.getName() + "!");
 		}
 		return null;
 	}
@@ -156,7 +156,7 @@ public class ReflectionUtilities {
 
 			return constructor;
 		} catch (NoSuchMethodException e) {
-			Commons.messageConsole("No such constructor!");
+			Chat.debug("No such constructor!");
 		}
 		return null;
 	}

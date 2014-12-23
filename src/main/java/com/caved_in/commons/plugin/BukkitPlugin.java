@@ -1,5 +1,6 @@
 package com.caved_in.commons.plugin;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
@@ -123,7 +124,7 @@ public abstract class BukkitPlugin extends JavaPlugin {
 	}
 
 	public void debug(String... message) {
-		Players.messageAll(Players.getAllDebugging(), message);
+		Chat.messageAll(Players.getAllDebugging(), message);
 		for (String m : message) {
 			logger.log(Level.INFO, m);
 		}

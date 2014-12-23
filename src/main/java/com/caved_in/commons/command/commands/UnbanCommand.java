@@ -3,6 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -37,16 +38,16 @@ public class UnbanCommand {
 			public void onSuccess(Boolean aBoolean) {
 				if (aBoolean) {
 					if (console) {
-						Commons.messageConsole(Messages.playerPardoned(name));
+						Chat.messageConsole(Messages.playerPardoned(name));
 						return;
 					}
-					Players.sendMessage(player, Messages.playerPardoned(name));
+					Chat.message(player, Messages.playerPardoned(name));
 				} else {
 					if (console) {
-						Commons.messageConsole(Messages.ERROR_RETRIEVING_PLAYER_DATA);
+						Chat.messageConsole(Messages.ERROR_RETRIEVING_PLAYER_DATA);
 						return;
 					}
-					Players.sendMessage(player, Messages.ERROR_RETRIEVING_PLAYER_DATA);
+					Chat.message(player, Messages.ERROR_RETRIEVING_PLAYER_DATA);
 				}
 			}
 

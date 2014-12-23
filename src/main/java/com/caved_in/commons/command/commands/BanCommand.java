@@ -3,6 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.*;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
@@ -21,7 +22,7 @@ public class BanCommand {
 		long time = 0;
 		if (!permanent) {
 			if (timeDuration == null) {
-				Players.sendMessage(sender, "If the ban isn't permanent, then you should include a time duration");
+				Chat.message(sender, "If the ban isn't permanent, then you should include a time duration");
 				return;
 			}
 
@@ -29,7 +30,7 @@ public class BanCommand {
 		}
 
 		if (time == 0 && !permanent) {
-			Players.sendMessage(sender, "You need to include the time duration.\n&a--> &e/ban " + target + " -t 10y1m2w Being a griefer.");
+			Chat.message(sender, "You need to include the time duration.\n&a--> &e/ban " + target + " -t 10y1m2w Being a griefer.");
 			return;
 		}
 

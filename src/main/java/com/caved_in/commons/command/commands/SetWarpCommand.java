@@ -1,5 +1,6 @@
 package com.caved_in.commons.command.commands;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.Wildcard;
@@ -16,11 +17,11 @@ public class SetWarpCommand {
 	@Command(identifier = "setwarp", permissions = Perms.COMMAND_SETWARP)
 	public void onSetWarpCommand(Player player, @Wildcard @Arg(name = "warp name") String warpName) {
 		if (Warps.isWarp(warpName)) {
-			Players.sendMessage(player, duplicateWarp(warpName));
+			Chat.message(player, duplicateWarp(warpName));
 			return;
 		}
 
 		Warps.addWarp(new Warp(warpName, player.getLocation()), true);
-		Players.sendMessage(player, warpCreated(warpName));
+		Chat.message(player, warpCreated(warpName));
 	}
 }

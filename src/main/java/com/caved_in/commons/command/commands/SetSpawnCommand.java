@@ -1,5 +1,6 @@
 package com.caved_in.commons.command.commands;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
@@ -11,9 +12,9 @@ public class SetSpawnCommand {
 	@Command(identifier = "setspawn", permissions = {Perms.COMMAND_SETSPAWN})
 	public void setSpawnCommand(Player player) {
 		if (Worlds.setSpawn(player.getWorld(), player.getLocation())) {
-			Players.sendMessage(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
+			Chat.message(player, "&aSpawn location for the world &7" + player.getWorld().getName() + "&a has been set!");
 		} else {
-			Players.sendMessage(player, "&eThere was an error changing the spawn location for world &7" + player.getWorld().getName() + "&e; please check the console.");
+			Chat.message(player, "&eThere was an error changing the spawn location for world &7" + player.getWorld().getName() + "&e; please check the console.");
 		}
 	}
 }

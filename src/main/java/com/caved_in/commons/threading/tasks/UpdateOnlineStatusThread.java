@@ -18,7 +18,7 @@ public class UpdateOnlineStatusThread extends BukkitRunnable {
 
 	@Override
 	public void run() {
-		boolean updated = Commons.database.updateOnlineStatus(id, online);
+		boolean updated = Commons.getInstance().getServerDatabase().updateOnlineStatus(id, online);
 
 		if (!updated) {
 			Commons.getInstance().getLogger().severe(UNABLE_TO_UPDATE_MESSAGE);

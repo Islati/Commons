@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
+	private static Commons commons = Commons.getInstance();
+
 	private static final Logger logger = Commons.getInstance().getLogger();
 
 	private UUID playerId;
@@ -37,7 +39,7 @@ public class UpdatePlayerPremiumCallable implements Callable<Boolean> {
 		}
 
 		try {
-			Commons.database.updatePlayerPremium(playerId, premium);
+			commons.getServerDatabase().updatePlayerPremium(playerId, premium);
 			success = true;
 		} catch (SQLException e) {
 			success = false;

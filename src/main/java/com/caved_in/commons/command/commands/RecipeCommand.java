@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.item.Items;
@@ -14,7 +15,7 @@ public class RecipeCommand {
 	public void onItemRecipeCommand(Player player, @Arg(name = "item", def = "?hand") ItemStack item) {
 		boolean shown = Items.showRecipe(player, item);
 		if (!shown) {
-			Players.sendMessage(player, Messages.invalidRecipe(item));
+			Chat.message(player, Messages.invalidRecipe(item));
 		}
 	}
 }

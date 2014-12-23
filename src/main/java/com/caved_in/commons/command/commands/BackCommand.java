@@ -1,6 +1,8 @@
 package com.caved_in.commons.command.commands;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.permission.Perms;
@@ -11,20 +13,26 @@ import org.bukkit.entity.Player;
 
 public class BackCommand {
 
+	private Players players = Commons.getInstance().getPlayerHandler();
+
+	public BackCommand() {
+
+	}
+
 	@Command(identifier = "back", onlyPlayers = true, permissions = {Perms.COMMAND_BACK})
 	public void onBackCommand(Player player) {
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = players.getData(player);
 		Location location = minecraftPlayer.getPreTeleportLocation();
 
 		if (location == null) {
-			Players.sendMessage(player, Messages.NO_TELEPORT_BACK_LOCATION);
+			Chat.message(player, Messages.NO_TELEPORT_BACK_LOCATION);
 			return;
 		}
 
 		PreTeleportLocation preTeleLoc = minecraftPlayer.getPreTeleportLocation();
 
 		if (!preTeleLoc.hasPermission(player)) {
-			Players.sendMessage(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
+			Chat.message(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
 			return;
 		}
 

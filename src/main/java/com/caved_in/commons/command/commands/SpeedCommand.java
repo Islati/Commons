@@ -1,6 +1,8 @@
 package com.caved_in.commons.command.commands;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -9,9 +11,15 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class SpeedCommand {
+	private Players players;
+
+	public SpeedCommand() {
+		players = Commons.getInstance().getPlayerHandler();
+	}
+
 	@Command(identifier = "speed", permissions = {Perms.SPEED_COMMAND})
 	public void onSpeedCommand(Player player, @Arg(name = "speed", def = "1", verifiers = "min[1.0]|max[7.8]") double speed) {
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = players.getData(player);
 		if (player.isFlying()) {
 			double fSpeed = 0;
 
@@ -32,7 +40,7 @@ public class SpeedCommand {
 			minecraftPlayer.setWalkSpeed(wSpeed);
 		}
 
-		Players.sendMessage(player, Messages.playerSpeedUpdated(player.isFlying(), (int) speed));
+		Chat.message(player, Messages.playerSpeedUpdated(player.isFlying(), (int) speed));
 
 	}
 }

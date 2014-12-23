@@ -1,6 +1,7 @@
 package com.caved_in.commons.debug.actions;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.gadget.FishCannon;
 import com.caved_in.commons.game.gadget.Gadgets;
@@ -20,7 +21,7 @@ public class DebugFishCannon implements DebugAction {
 		}
 
 		if (args.length == 0) {
-			Players.sendMessage(player, Messages.invalidCommandUsage("gadget id"));
+			Chat.message(player, Messages.invalidCommandUsage("gadget id"));
 			return;
 		}
 

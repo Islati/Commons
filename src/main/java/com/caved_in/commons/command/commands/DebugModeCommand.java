@@ -1,6 +1,8 @@
 package com.caved_in.commons.command.commands;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.Wildcard;
@@ -12,16 +14,22 @@ import org.bukkit.entity.Player;
 
 public class DebugModeCommand {
 
+	private Players players;
+
+	public DebugModeCommand() {
+		players = Commons.getInstance().getPlayerHandler();
+	}
+
 	@Command(identifier = "debug on")
 	public void debugOnCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
 		mcPlayer.setInDebugMode(true);
-		Players.sendMessage(player, Messages.playerDebugModeChange(mcPlayer));
+		Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
 	}
 
 	@Command(identifier = "debug off")
 	public void debugOffCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
 		mcPlayer.setInDebugMode(false);
-		Players.sendMessage(player, Messages.playerDebugModeChange(mcPlayer));
+		Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
 	}
 
 	@Command(identifier = "debug ?")
@@ -31,10 +39,10 @@ public class DebugModeCommand {
 
 	@Command(identifier = "debug", permissions = Perms.DEBUG_MODE)
 	public void onDebugModeCommand(Player player, @Arg(name = "action", def = "") String action, @Wildcard @Arg(name = "arguments") String args) {
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = players.getData(player);
 		if (action == null || action.isEmpty()) {
 			minecraftPlayer.setInDebugMode(!minecraftPlayer.isInDebugMode());
-			Players.sendMessage(player, Messages.playerDebugModeChange(minecraftPlayer));
+			Chat.message(player, Messages.playerDebugModeChange(minecraftPlayer));
 			Players.updateData(minecraftPlayer);
 			return;
 		}

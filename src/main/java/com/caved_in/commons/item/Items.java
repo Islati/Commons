@@ -1,11 +1,12 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.MinecraftPlayer;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Sets;
@@ -610,7 +611,7 @@ public class Items {
 	}
 
 	public static void showFurnaceRecipe(Player player, FurnaceRecipe furnaceRecipe) {
-		Players.sendMessage(player, Messages.recipeFurnace(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
+		Chat.message(player, Messages.recipeFurnace(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
 	}
 
 	public static void showShapelessRecipe(Player player, ShapelessRecipe shapelessRecipe) {
@@ -618,7 +619,7 @@ public class Items {
 		List<ItemStack> recipeIngredients = shapelessRecipe.getIngredientList();
 		//Create a map for the recipes items
 		Map<Integer, ItemStack> recipeItems = new HashMap<>();
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Commons.getInstance().getPlayerHandler().getData(player);
 
 		//Put each item in their respective spot
 		for (int i = 0; i < recipeIngredients.size(); i++) {
@@ -639,7 +640,7 @@ public class Items {
 		String[] recipeShape = shapedRecipe.getShape();
 		//Create a new list used to create the inventory
 		Map<Integer, ItemStack> itemRecipe = new HashMap<>();
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = Commons.getInstance().getPlayerHandler().getData(player);
 		player.closeInventory();
 		//Loop through all the items of the shapes (row 1, 2, and 3)
 		for (int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {

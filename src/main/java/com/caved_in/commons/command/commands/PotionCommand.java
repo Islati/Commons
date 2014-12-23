@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -15,7 +16,7 @@ public class PotionCommand {
 	@Command(identifier = "potion", permissions = Perms.COMMAND_POTION)
 	public void onPotionCommand(Player player, @Arg(name = "type") String potionType, @Arg(name = "level", def = "1") int effectLevel) {
 		if (!PotionType.isPotionType(potionType)) {
-			Players.sendMessage(player, Messages.INVALID_POTION_TYPE);
+			Chat.message(player, Messages.INVALID_POTION_TYPE);
 			return;
 		}
 

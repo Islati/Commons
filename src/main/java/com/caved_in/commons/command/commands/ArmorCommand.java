@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.item.ArmorSet;
@@ -22,7 +23,7 @@ public class ArmorCommand {
 	public void armorCommand(Player sender, @Arg(name = "armor_type") String armorType) {
 		ArmorSet set = ArmorSet.getSetByName(armorType);
 		if (set == null) {
-			Players.sendMessage(sender, Messages.invalidArmorSet(armorType));
+			Chat.message(sender, Messages.invalidArmorSet(armorType));
 			return;
 		}
 

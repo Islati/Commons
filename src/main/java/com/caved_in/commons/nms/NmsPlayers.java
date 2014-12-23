@@ -1,6 +1,7 @@
 package com.caved_in.commons.nms;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import io.netty.channel.Channel;
 import org.bukkit.entity.Player;
@@ -25,7 +26,7 @@ public class NmsPlayers {
         try {
             sendPacket.invoke(playerConnection, packet);
         } catch (Exception e) {
-            Commons.messageConsole("Failed to send a packet to: " + player.getName());
+            Chat.debug("Failed to send a packet to: " + player.getName());
             e.printStackTrace();
         }
     }
@@ -41,7 +42,7 @@ public class NmsPlayers {
         try {
             return getHandle.invoke(player);
         } catch (Exception e) {
-            Commons.messageConsole("Failed retrieve the NMS Player-Object of:" + player.getName());
+            Chat.debug("Failed retrieve the NMS Player-Object of:" + player.getName());
             return null;
         }
     }
@@ -66,7 +67,7 @@ public class NmsPlayers {
         try {
             return ReflectionUtilities.getField(getConnection(player).getClass(), "networkManager").get(getConnection(player));
         } catch (IllegalAccessException e) {
-            Commons.messageConsole("Failed to get the NetworkManager of player: " + player.getName());
+            Chat.debug("Failed to get the NetworkManager of player: " + player.getName());
             return null;
         }
     }
@@ -81,7 +82,7 @@ public class NmsPlayers {
         try {
             return (Channel) channelField.get(getNetworkManager(player));
         } catch (IllegalAccessException e) {
-            Commons.messageConsole("Failed to get the channel of player: " + player.getName());
+            Chat.debug("Failed to get the channel of player: " + player.getName());
             return null;
         }
     }

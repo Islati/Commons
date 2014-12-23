@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.item.Items;
@@ -20,19 +21,19 @@ public class HatCommand {
 			if (!Items.isAir(inventory.getHelmet())) {
 				Players.giveItem(player, inventory.getHelmet(), true);
 				inventory.setHelmet(null);
-				Players.sendMessage(player, Messages.HAT_UNEQUIPPED);
+				Chat.message(player, Messages.HAT_UNEQUIPPED);
 				return;
 			}
 
 			if (Players.hasItemInHand(player)) {
 				inventory.setHelmet(player.getItemInHand());
 				Players.clearHand(player);
-				Players.sendMessage(player, Messages.HAT_EQUIPPED);
+				Chat.message(player, Messages.HAT_EQUIPPED);
 				return;
 			}
 		}
 
 		inventory.setHelmet(hat);
-		Players.sendMessage(player, Messages.HAT_EQUIPPED);
+		Chat.message(player, Messages.HAT_EQUIPPED);
 	}
 }

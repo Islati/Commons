@@ -2,6 +2,7 @@ package com.caved_in.commons.debug.actions;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.player.Players;
@@ -32,7 +33,7 @@ public class DebugItemDeserialize implements DebugAction {
 					XmlItemStack xmlItem = serializer.read(XmlItemStack.class, file);
 					ItemStack deserializedItem = xmlItem.getItemStack();
 					deserializedItems.add(deserializedItem);
-					Players.sendMessage(player, Messages.itemInfo(deserializedItem));
+					Chat.message(player, Messages.itemInfo(deserializedItem));
 
 				}
 			} catch (Exception e) {

@@ -1,13 +1,13 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.FlagArg;
 import com.caved_in.commons.command.Flags;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.permission.Perms;
-import com.caved_in.commons.player.Players;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -27,6 +27,6 @@ public class SlayCommand {
 			Entities.kill(entity);
 			amountRemoved++;
 		}
-		Players.sendMessage(player, Messages.entityRemovedEntities(amountRemoved));
+		Chat.message(player, Messages.entityRemovedEntities(amountRemoved));
 	}
 }

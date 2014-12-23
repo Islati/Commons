@@ -1,5 +1,6 @@
 package com.caved_in.commons.command.handlers;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.ArgumentHandler;
 import com.caved_in.commons.command.CommandArgument;
@@ -12,6 +13,8 @@ import org.bukkit.entity.Player;
 
 public class MinecraftPlayerArgumentHandler extends ArgumentHandler<MinecraftPlayer> {
 
+	private static Commons commons = Commons.getInstance();
+
 	public MinecraftPlayerArgumentHandler() {
 		setMessage("player_not_online", "%1 isn't online!");
 
@@ -21,7 +24,7 @@ public class MinecraftPlayerArgumentHandler extends ArgumentHandler<MinecraftPla
 			}
 
 			Player player = (Player) sender;
-			MinecraftPlayer mcPlayer = Players.getData(player);
+			MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(player);
 			if (mcPlayer == null) {
 				throw new CommandError("No MinecraftPlayer data exists for " + player.getName());
 			}
@@ -37,6 +40,6 @@ public class MinecraftPlayerArgumentHandler extends ArgumentHandler<MinecraftPla
 			throw new TransformError(Messages.playerOffline(value));
 		}
 
-		return Players.getData(player);
+		return commons.getPlayerHandler().getData(player);
 	}
 }

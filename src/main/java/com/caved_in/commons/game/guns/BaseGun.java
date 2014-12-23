@@ -2,6 +2,7 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
@@ -190,7 +191,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 		UUID id = player.getUniqueId();
 
-		final MinecraftPlayer mcPlayer = Players.getData(id);
+		final MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(id);
 
 		/*
 		If the player's already reloading,
@@ -213,7 +214,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 				gun was reloaded.
 				 */
 				if (properties.reloadMessage) {
-					Players.sendMessage(player, Messages.gadgetReloaded(this));
+					Chat.message(player, Messages.gadgetReloaded(this));
 				}
 			}
 

@@ -1,6 +1,7 @@
 package com.caved_in.commons.threading.tasks;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.time.Cooldown;
@@ -59,7 +60,7 @@ public class DelayedSoundMessageThread implements Runnable {
 		}
 		try {
 			String message = messages[messageIndex];
-			Players.sendMessage(player, message);
+			Chat.message(player, message);
 			Sounds.playSound(player, sound);
 			messageCooldown.setOnCooldown(player);
 			messageIndex++;

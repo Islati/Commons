@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.MinecraftPlayer;
@@ -14,13 +15,21 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockBreakPlaceListener implements Listener {
 
+	private static Commons commons = Commons.getInstance();
+	private static WorldConfiguration config;
+
+	public BlockBreakPlaceListener() {
+		config = Commons.getInstance().getConfiguration().getWorldConfig();
+	}
+
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event) {
-		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
+		if (config.isBlockBreakEnabled()) {
 			return;
 		}
+
 		Player player = event.getPlayer();
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = commons.getPlayerHandler().getData(player);
 		//If block breaking is disabled
 		//If the player doesn't have the permission to break blocks, disable it
 		if (!Players.hasPermission(player, Perms.BLOCK_BREAK)) {
@@ -37,13 +46,12 @@ public class BlockBreakPlaceListener implements Listener {
 		if (event.isCancelled()) {
 			return;
 		}
-		if (Commons.getWorldConfig().isBlockBreakEnabled()) {
-			return;
-		}
+
 		Player player = event.getPlayer();
-		if (Commons.getConfiguration().getWorldConfig().isBlockBreakEnabled()) {
+		if (config.isBlockBreakEnabled()) {
 			return;
 		}
+
 		if (!Players.hasPermission(player, Perms.BLOCK_PLACE)) {
 			if (player.getGameMode() != GameMode.CREATIVE) {
 				event.setCancelled(true);

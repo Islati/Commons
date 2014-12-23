@@ -1,12 +1,12 @@
 package com.caved_in.commons.debug;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.menu.ItemFormat;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.PageDisplay;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.Str;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
@@ -104,7 +104,7 @@ public class Debugger {
 		String blockName = Items.getFormattedMaterialName(block.getType());
 		int[] blockCords = Locations.getXYZ(block.getLocation());
 		String debugMessage = String.format(BLOCK_BREAK_MESSAGE, blockCords[0], blockCords[1], blockCords[2], blockId, blockName, block.getState().getData().getData(), block.getLightLevel());
-		Players.sendMessage(player, debugMessage);
+		Chat.message(player, debugMessage);
 	}
 
 	public static void debugInventoryClickEvent(Player player, InventoryClickEvent event) {
@@ -113,7 +113,7 @@ public class Debugger {
 		int rawSlot = event.getRawSlot();
 		int slot = event.getSlot();
 		String inventoryMessage = String.format(INVENTORY_CLICK_MESSAGE, slot, rawSlot, clickType, action);
-		Players.sendMessage(player, inventoryMessage);
+		Chat.message(player, inventoryMessage);
 	}
 
 	public static void debugCommandPreProcessEvent(Player player, PlayerCommandPreprocessEvent event) {
@@ -128,7 +128,7 @@ public class Debugger {
 			}
 		}
 		String message = String.format(COMMAND_PREPROCESS_MESSAGE, command, argLength, addition);
-		Players.sendMessage(player, message);
+		Chat.message(player, message);
 	}
 
 	public static ItemStack createExceptionBook(Exception ex) {

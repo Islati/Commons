@@ -1,6 +1,5 @@
 package com.caved_in.commons.sql;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.google.common.base.Stopwatch;
@@ -28,9 +27,9 @@ public abstract class DatabaseConnector implements TableConnector {
 			Chat.debug("Connection to MySQL server established! (" + config.getHost() + ":" + config.getPort() + ")");
 			Chat.debug("Connection took " + stopwatch + "ms!");
 		} catch (SQLException e) {
-			Commons.messageConsole("Could not connect to MySQL server! because: " + e.getMessage());
+			Chat.messageConsole("Could not connect to MySQL server! because: " + e.getMessage());
 		} catch (ClassNotFoundException e) {
-			Commons.messageConsole("JDBC Driver not found!");
+			Chat.messageConsole("JDBC Driver not found!");
 		}
 	}
 

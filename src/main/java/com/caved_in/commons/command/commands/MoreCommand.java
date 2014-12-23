@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.FlagArg;
 import com.caved_in.commons.command.Flags;
@@ -27,7 +28,7 @@ public class MoreCommand {
 		}
 
 		if (!Players.hasItemInHand(player)) {
-			Players.sendMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+			Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
 			return;
 		}
 

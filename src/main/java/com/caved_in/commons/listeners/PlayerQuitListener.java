@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.Configuration;
+import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import org.bukkit.event.EventHandler;
@@ -11,10 +11,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.UUID;
 
 public class PlayerQuitListener implements Listener {
-	private Configuration config;
+	private WorldConfiguration config;
 
 	public PlayerQuitListener() {
-
+		config = Commons.getInstance().getConfiguration().getWorldConfig();
 	}
 
 	@EventHandler
@@ -22,7 +22,7 @@ public class PlayerQuitListener implements Listener {
 		UUID playerId = event.getPlayer().getUniqueId();
 
 		//If there's no leave/join messages, then remove the message!
-		if (!Commons.getConfiguration().getWorldConfig().hasJoinMessages()) {
+		if (!config.hasJoinMessages()) {
 			event.setQuitMessage(null);
 		}
 

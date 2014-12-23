@@ -1,10 +1,9 @@
 package com.caved_in.commons;
 
-import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.chat.PrivateMessageManager;
 import com.caved_in.commons.command.commands.*;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.config.WarpConfig;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
@@ -16,6 +15,7 @@ import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.warp.Warps;
+import com.caved_in.commons.world.Worlds;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,8 +33,16 @@ public class Commons extends BukkitPlugin {
     public static final String PLUGIN_DATA_FOLDER = "plugins/Commons/";
     public static final String DEBUG_DATA_FOLDER = "plugins/Commons/Debug/";
     public static final String ITEM_DATA_FOLDER = "plugins/Commons/Items";
+    public static final String ITEM_SET_DATA_FOLDER = "plugins/Commons/ItemSets/";
 
     private static Configuration globalConfig = new Configuration();
+
+    /*
+    A(n) instance of the worlds class
+    to internally manage worlds and apply their settings
+    specified in the WorldConfiguration section of Commons Config.
+     */
+    private Worlds worlds;
 
     /*
     A(n) instance of the players class
@@ -49,10 +57,9 @@ public class Commons extends BukkitPlugin {
     private ItemSetManager itemSetManager;
 
     /*
-    Instance of the chat class,
-    used to manage private messages between players.
+    Used to manage private messages between players.
      */
-    private Chat chat;
+    private PrivateMessageManager privateMessageManager;
 
     /*
     Instance of the Commons database connector; Handles
@@ -69,7 +76,15 @@ public class Commons extends BukkitPlugin {
 
 
     public void startup() {
-        chat = new Chat();
+        /*
+        Create the private message manager; used to track private messages for players on the server.
+         */
+        privateMessageManager = new PrivateMessageManager();
+
+        /*
+        Create the worlds instance
+         */
+        worlds = new Worlds();
 
 		/*
         Create the item-set manager, which allows us to save a players inventories
@@ -86,7 +101,7 @@ public class Commons extends BukkitPlugin {
         players = new Players();
 
         //If the SQL Backend is enabled, then register all the database interfaces
-        if (hasSqlBackend()) {
+        if (globalConfig.hasSqlBackend()) {
             SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
             //Create the database connection
             database = new ServerDatabaseConnector(sqlConfig);
@@ -140,7 +155,8 @@ public class Commons extends BukkitPlugin {
                     new UnsilenceCommand(),
                     new WarpCommand(),
                     new WarpsCommand(),
-                    new WorkbenchCommand()
+                    new WorkbenchCommand(),
+                    new SetCommand()
             );
         }
 
@@ -199,6 +215,28 @@ public class Commons extends BukkitPlugin {
         File itemsFolder = new File(ITEM_DATA_FOLDER);
         if (!itemsFolder.exists()) {
             itemsFolder.mkdirs();
+        }
+
+        /*
+        Create the sets folder for the item manager; used to save and load- track and update item sets.
+         */
+        File itemSetsFolder = new File(ITEM_SET_DATA_FOLDER);
+        if (!itemSetsFolder.exists()) {
+            itemSetsFolder.mkdirs();
+        }
+
+        Collection<File> itemSetFiles = FileUtils.listFiles(itemSetsFolder, null, false);
+        if (itemSetFiles.size() > 0) {
+            /* Load all the files in the item folder, into the item set manager */
+            for (File file : itemSetFiles) {
+                try {
+                    ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
+                    itemSetManager.addSet(set);
+                    debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         Collection<File> itemFiles = FileUtils.listFiles(itemsFolder, null, false);
@@ -309,7 +347,7 @@ public class Commons extends BukkitPlugin {
         }
 
         //If the server is backed by SQL, then push the specific listeners
-        if (hasSqlBackend()) {
+        if (globalConfig.hasSqlBackend()) {
             //Used to handle kicking of banned / temp-banned players
             registerListeners(new PrePlayerLoginListener());
             debug("&aRegistered the player pre-login listener");
@@ -339,24 +377,16 @@ public class Commons extends BukkitPlugin {
         );
     }
 
+    public boolean hasDatabaseBackend() {
+        return Commons.getInstance().getConfiguration().hasSqlBackend();
+    }
+
     public void reloadConfiguration() {
         getInstance().initConfig();
     }
 
     public Configuration getConfiguration() {
         return globalConfig;
-    }
-
-    public WorldConfiguration getWorldConfig() {
-        return globalConfig.getWorldConfig();
-    }
-
-    public WarpConfig getWarpConfig() {
-        return globalConfig.getWarpConfig();
-    }
-
-    public static boolean hasSqlBackend() {
-        return globalConfig.hasSqlBackend();
     }
 
     public static boolean bukkitVersionMatches(String versionNumber) {
@@ -367,15 +397,19 @@ public class Commons extends BukkitPlugin {
         return itemSetManager;
     }
 
-    public Chat getChat() {
-        return chat;
-    }
-
     public ServerDatabaseConnector getServerDatabase() {
         return database;
     }
 
-    public Players getPlayerManager() {
+    public Players getPlayerHandler() {
         return players;
+    }
+
+    public PrivateMessageManager getPrivateMessageManager() {
+        return privateMessageManager;
+    }
+
+    public Worlds getWorldHandler() {
+        return worlds;
     }
 }

@@ -8,6 +8,7 @@ import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;
 import net.minecraft.server.v1_8_R1.ChatSerializer;
 import net.minecraft.server.v1_8_R1.IChatBaseComponent;
@@ -37,40 +38,8 @@ public class Chat {
 	 */
 	private static final String ACTION_JSON = "{\"text\": \"%s\"}";
 
-	private Map<String, ChatMessage> recentChatters = new HashMap<>();
 
 	private static final Map<String, Cooldown> messageCooldowns = new HashMap<>();
-
-
-	/**
-	 * Checks whether a player has a recent chat message
-	 *
-	 * @param playerName player to check recent messages for
-	 * @return true if there's a recent chat message for this player, false otherwise
-	 */
-	public boolean hasRecentPrivateMessageFrom(String playerName) {
-		return recentChatters.containsKey(playerName);
-	}
-
-	/**
-	 * Sets the chatmessage for a player
-	 *
-	 * @param playerFor   player to set the recent chat-message for
-	 * @param chatMessage chatmessage to set for the player
-	 */
-	public void setRecentPrivateMessageFrom(String playerFor, ChatMessage chatMessage) {
-		recentChatters.put(playerFor, chatMessage);
-	}
-
-	/**
-	 * Gets the person who sent the most recent message to the requested player
-	 *
-	 * @param playerFor player to get the recent chatter for
-	 * @return name of the recent chatter; null if none exists
-	 */
-	public String getMostRecentPrivateMessager(String playerFor) {
-		return recentChatters.get(playerFor).getPlayerSendingMessage();
-	}
 
 	/**
 	 * Broadcast the messages passed, automagically formatting all color codes.
@@ -271,7 +240,7 @@ public class Chat {
 	 * @param exceptions players to exclude from receiving the message
 	 */
 	public static void messageAllExcept(String message, Player... exceptions) {
-		UUID[] playerIds = Players.getIdArray(exceptions);
+		UUID[] playerIds = ArrayUtils.getIdArray(exceptions);
 		messageAll(Players.allPlayersExcept(playerIds), message);
 	}
 

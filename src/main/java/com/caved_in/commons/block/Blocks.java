@@ -2,6 +2,7 @@ package com.caved_in.commons.block;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.BlockID;
 import com.caved_in.commons.location.Locations;
@@ -72,7 +73,7 @@ public class Blocks {
 		try {
 			HOLLOW_MATERIALS.add(Material.CARPET.getId());
 		} catch (NoSuchFieldError e) {
-			Commons.messageConsole(Messages.OUTDATED_VERSION);
+			Chat.debug(Messages.OUTDATED_VERSION);
 		}
 
 		//All hollow materials are transparant materials

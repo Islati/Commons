@@ -2,10 +2,10 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.CommandConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.MinecraftPlayer;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,18 +14,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandPreProcessListener implements Listener {
+
+
+	private static Commons commons = Commons.getInstance();
+
+	private static CommandConfiguration commandConfig = Commons.getInstance().getConfiguration().getCommandConfig();
+
+	public CommandPreProcessListener() {
+
+	}
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onCommandPreProcess(PlayerCommandPreprocessEvent e) {
 		Player player = e.getPlayer();
 
 		String command = e.getMessage();
 
-		CommandConfiguration config = Commons.getConfiguration().getCommandConfig();
-
 		//Check if they're using a bukkit command, and bukkit commands are disabled.
-		if (StringUtil.startsWithIgnoreCase(command, "/bukkit:") && config.disableBukkitCommands()) {
+		if (StringUtil.startsWithIgnoreCase(command, "/bukkit:") && commandConfig.disableBukkitCommands()) {
 			e.setCancelled(true);
-			Players.sendMessage(player, Messages.COMMAND_DISABLED);
+			Chat.message(player, Messages.COMMAND_DISABLED);
 			return;
 		}
 
@@ -34,9 +42,9 @@ public class CommandPreProcessListener implements Listener {
 			case "/pl":
 			case "/plugins":
 			case "/plugin":
-				if (config.disablePluginsCommand()) {
+				if (commandConfig.disablePluginsCommand()) {
 					e.setCancelled(true);
-					Players.sendMessage(player, Messages.COMMAND_DISABLED);
+					Chat.message(player, Messages.COMMAND_DISABLED);
 					return;
 				}
 				break;
@@ -44,7 +52,7 @@ public class CommandPreProcessListener implements Listener {
 				break;
 		}
 
-		MinecraftPlayer minecraftPlayer = Players.getData(player);
+		MinecraftPlayer minecraftPlayer = commons.getPlayerHandler().getData(player);
 
 		if (minecraftPlayer.isInDebugMode()) {
 			Debugger.debugCommandPreProcessEvent(player, e);

@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import org.bukkit.event.EventHandler;
@@ -9,15 +10,15 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemDropListener implements Listener {
-	private boolean drop;
+	private WorldConfiguration config;
 
 	public ItemDropListener() {
-		drop = Commons.getConfiguration().getWorldConfig().isItemDropEnabled();
+		config = Commons.getInstance().getConfiguration().getWorldConfig();
 	}
 
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent event) {
-		if (!drop) {
+		if (!config.isItemDropEnabled()) {
 			event.setCancelled(true);
 			return;
 		}
@@ -26,7 +27,7 @@ public class ItemDropListener implements Listener {
 
 		//If we're not dealing with gadgets
 		if (!Gadgets.isGadget(item)) {
-			event.setCancelled(!drop);
+			event.setCancelled(!config.isItemDropEnabled());
 			return;
 		}
 

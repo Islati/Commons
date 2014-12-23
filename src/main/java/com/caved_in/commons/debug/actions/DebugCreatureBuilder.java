@@ -1,9 +1,9 @@
 package com.caved_in.commons.debug.actions;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.entity.CreatureBuilder;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.player.Players;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -28,7 +28,7 @@ public class DebugCreatureBuilder implements DebugAction {
 				.parent()
 				.spawn(player.getLocation());
 
-		Players.sendMessage(player,
+		Chat.message(player,
 				"&eSpawned an adult zombie with an iron helmet, gold boots, and a wooden sword",
 				"Spawned a wither skeleton with a diamond sword"
 		);

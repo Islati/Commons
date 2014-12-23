@@ -1,6 +1,7 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
@@ -16,7 +17,7 @@ public class ClearInventoryCommand {
 		if (playerName != null) {
 			//If the player doesn't have the permission to clear the inventory of someone else, then they can't clear it!
 			if (!commandSender.hasPermission(Perms.CLEAR_INVENTORY_OTHER)) {
-				Players.sendMessage(commandSender, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
+				Chat.message(player, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
 				return;
 			}
 
@@ -25,7 +26,7 @@ public class ClearInventoryCommand {
 				//Assign the player to clear the inventory of
 				player = Players.getPlayer(playerName);
 			} else {
-				Players.sendMessage(commandSender, Messages.playerOffline(playerName));
+				Chat.message(commandSender, Messages.playerOffline(playerName));
 				return;
 			}
 		}
@@ -33,7 +34,7 @@ public class ClearInventoryCommand {
 		//If the command-sender isn't a player, we're not clearing the inventory or someone else and the arguments are less than 1,
 		//then they's not doing it right.
 		if (player == null && !(commandSender instanceof Player)) {
-			Players.sendMessage(commandSender, Messages.invalidCommandUsage("name"));
+			Chat.message(commandSender, Messages.invalidCommandUsage("name"));
 			return;
 		}
 
@@ -41,6 +42,6 @@ public class ClearInventoryCommand {
 		//Clear the players inventory through the Players Class
 		Players.clearInventory(player, true);
 		//Send them a message saying their inventory was cleared
-		Players.sendMessage(player, Messages.INVENTORY_CLEARED);
+		Chat.message(player, Messages.INVENTORY_CLEARED);
 	}
 }

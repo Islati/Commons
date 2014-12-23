@@ -1,14 +1,14 @@
 package com.caved_in.commons.debug.actions;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.DebugAction;
-import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class DebugPlayerDirection implements DebugAction {
 	@Override
 	public void doAction(Player player, String... args) {
-		Players.sendMessage(player, Messages.playerFacingDirection(player));
+		Chat.message(player, Messages.playerFacingDirection(player));
 	}
 
 	@Override

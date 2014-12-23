@@ -1,7 +1,7 @@
 package com.caved_in.commons.debug.actions;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.DebugAction;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 
@@ -19,7 +19,7 @@ public class DebugDelayedMessage implements DebugAction {
 			};
 		}
 
-		Players.sendDelayedMessage(player, delay, messages);
+		Chat.sendDelayedMessage(player, delay, messages);
 	}
 
 	@Override

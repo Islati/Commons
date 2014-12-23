@@ -1,5 +1,6 @@
 package com.caved_in.commons.debug.gadget;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
@@ -46,7 +47,7 @@ public class FlamingEnderSword extends BaseWeapon {
 		try {
 			enderBullets.shooter(p).shoot();
 		} catch (ProjectileCreationException e) {
-			Players.sendMessage(p, "Unable to fire bullets at target.");
+			Chat.message(p, "Unable to fire bullets at target.");
 		}
 	}
 
@@ -54,7 +55,7 @@ public class FlamingEnderSword extends BaseWeapon {
 	public void onAttack(Player p, LivingEntity e) {
 		EntityType type = e.getType();
 		if (type == EntityType.ENDERMAN) {
-			Players.sendMessage(p, "&eYou attacked an enderman! F0k, let's kill em!");
+			Chat.message(p, "&eYou attacked an enderman! F0k, let's kill em!");
 			Entities.kill(e);
 			return;
 		}
@@ -65,7 +66,7 @@ public class FlamingEnderSword extends BaseWeapon {
 	@Override
 	public boolean drop(Player p) {
 		Sounds.playSound(p, Sound.ENDERMAN_STARE);
-		Players.sendMessage(p, "&7The dark-side isn't fond of that disrespect");
+		Chat.message(p, "&7The dark-side isn't fond of that disrespect");
 		Players.addPotionEffect(p, Potions.getPotionEffect(PotionEffectType.BLINDNESS, 1, 160));
 		Players.clearHand(p);
 		return false;

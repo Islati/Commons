@@ -1,10 +1,10 @@
 package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.permission.Perms;
-import com.caved_in.commons.player.Players;
 import com.caved_in.commons.world.WorldTime;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.World;
@@ -20,10 +20,10 @@ public class TimeCommand {
 			case "night":
 			case "dawn":
 				Worlds.setTime(world, WorldTime.getWorldTime(time));
-				Players.sendMessage(sender, Messages.timeUpdated(world.getName(), time));
+				Chat.message(sender, Messages.timeUpdated(world.getName(), time));
 				break;
 			default:
-				Players.sendMessage(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
+				Chat.message(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
 				break;
 		}
 	}
