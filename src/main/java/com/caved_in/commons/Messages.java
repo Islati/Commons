@@ -308,7 +308,7 @@ public class Messages {
 		}
 		String itemName = Items.getName(itemStack);
 		String enchantments = "&7No Enchantments";
-		if (Items.hasEnchants(itemStack)) {
+		if (Items.hasEnchantments(itemStack)) {
 			enchantments = itemEnchantments(itemStack);
 		}
 		Material type = itemStack.getType();

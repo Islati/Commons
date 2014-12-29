@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.listener;
 
-import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.game.MiniGame;
+import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.player.User;
 import org.bukkit.event.EventHandler;
@@ -11,10 +10,10 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GameConnectionListener implements Listener {
-    private MiniGame game;
+    private CraftGame game;
     private UserManager userManager;
 
-    public GameConnectionListener(MiniGame game) {
+    public GameConnectionListener(CraftGame game) {
         this.game = game;
         userManager = game.getUserManager();
     }

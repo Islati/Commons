@@ -30,6 +30,7 @@ import org.bukkit.material.MaterialData;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Items {
@@ -92,12 +93,8 @@ public class Items {
 		return ReflectionUtilities.invokeMethod(TO_NMS, null, stack);
 	}
 
-	public static boolean hasEnchants(ItemStack itemStack) {
+	public static boolean hasEnchantments(ItemStack itemStack) {
 		return hasMetadata(itemStack) && getMetadata(itemStack).hasEnchants();
-	}
-
-	public static boolean hasEnchantments(ItemStack item) {
-		return hasEnchants(item);
 	}
 
 	/**
@@ -365,7 +362,7 @@ public class Items {
 	}
 
 	public static boolean hasSameEnchantments(ItemStack item, ItemStack compareItem) {
-		if (!Items.hasEnchants(item) || !Items.hasEnchants(compareItem)) {
+		if (!Items.hasEnchantments(item) || !Items.hasEnchantments(compareItem)) {
 			return false;
 		}
 
@@ -488,6 +485,32 @@ public class Items {
 	public static ItemStack makeLeatherItem(Material material, String itemName, List<String> itemLore, Color itemColor) {
 		ItemStack itemStack = makeItem(material, itemName, itemLore);
 		return setColor(itemStack, itemColor);
+	}
+
+	/**
+	 * Check whether or not the item is a player skull.
+	 * Compares material types, data value, and checks if the skull has an owner / skin.
+	 *
+	 * @param item item to check if it's a player skull.
+	 * @return true if the skull is a human skull with an owner, false otherwise.
+	 */
+	public static boolean isPlayerSkull(ItemStack item) {
+		if (item.getType() != Material.SKULL_ITEM) {
+			return false;
+		}
+
+		if (getDataValue(item) != 3) {
+			return false;
+		}
+
+		try {
+			SkullMeta meta = (SkullMeta) item.getItemMeta();
+			return meta.hasOwner();
+		} catch (Exception e) {
+			Commons.getInstance().getLogger().log(Level.SEVERE, "Metadata cast exception", e);
+		}
+
+		return true;
 	}
 
 	public static ItemStack getSkull(String playerName) {

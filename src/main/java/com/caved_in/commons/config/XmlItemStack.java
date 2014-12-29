@@ -1,9 +1,11 @@
 package com.caved_in.commons.config;
 
 import com.caved_in.commons.item.Items;
+import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
@@ -35,19 +37,23 @@ public class XmlItemStack {
 	@ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false)
 	private ArrayList<XmlEnchantment> enchantments;
 
+	@Element(name = "skull-owner", required = false)
+	private String skullOwner;
+
 	private ItemStack itemStack;
 
 	public static XmlItemStack fromItem(ItemStack item) {
 		return new XmlItemStack(item);
 	}
 
-	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments) {
+	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments, @Element(name = "skull-owner", required = false) String skullOwner) {
 		this.id = id;
 		this.dataVal = dataVal;
 		this.itemName = itemName;
 		this.lore = lore;
 		this.enchantments = enchantments;
 		this.amount = amount;
+		this.skullOwner = skullOwner;
 	}
 
 	public XmlItemStack(ItemStack item) {
@@ -69,7 +75,7 @@ public class XmlItemStack {
 			lore = Items.getLore(item);
 		}
 		//If the item has enchantments, then add them to be serialized
-		if (Items.hasEnchants(item)) {
+		if (Items.hasEnchantments(item)) {
 			enchantments = new ArrayList<>();
 			for (Map.Entry<Enchantment, Integer> enchantment : item.getEnchantments().entrySet()) {
 				enchantments.add(new XmlEnchantment(enchantment.getKey(), enchantment.getValue()));
@@ -83,14 +89,26 @@ public class XmlItemStack {
 			amount = itemAmount;
 		}
 
+		// If the item is a players skull, then we'll save the owner name; so we can load it back!
+		if (Items.isPlayerSkull(item)) {
+			skullOwner = ((SkullMeta) item.getItemMeta()).getOwner();
+		}
+
 		itemStack = item.clone();
 	}
 
 	public ItemStack getItemStack() {
 		if (itemStack == null) {
 			Material itemMaterial = Material.getMaterial(id);
+
+			//If the item is a human skull/player skull then we'll re-assign the owner
+			if (itemMaterial == Material.SKULL_ITEM && dataVal == 3) {
+				//Sweet! There's a player skull, now assure we've got an owner for the skull.
+				if (!StringUtils.isNullOrEmpty(skullOwner)) {
+					itemStack = Items.getSkull(skullOwner);
+				}
 			//If there's a data value attached to this item, then create the item as such
-			if (dataVal > 0) {
+			} else if (dataVal > 0) {
 				itemStack = Items.makeItem(itemMaterial, dataVal);
 			} else {
 				itemStack = Items.makeItem(itemMaterial);
@@ -139,5 +157,13 @@ public class XmlItemStack {
 
 	public Material getMaterial() {
 		return getItemStack().getType();
+	}
+
+	public boolean isPlayerSkull() {
+		return Items.isPlayerSkull(getItemStack());
+	}
+
+	public String getSkullOwner() {
+		return skullOwner;
 	}
 }

@@ -45,18 +45,32 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	private T userManager = null;
 
+	/**
+	 * Initialize the minigame without direct registration of any classes
+	 */
+	public MiniGame() {
+
+	}
+
+	@Deprecated
 	public MiniGame(Class<? extends UserManager> userManager) {
-		this.userManagerClass = userManager;
-
-		/* Create the constructor the the user-manager class */
-		Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
-
-		/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
-		this.userManager = ReflectionUtilities.invokeConstructor(constructor);
+		registerUserManager(userManager);
 	}
 
 	@Override
 	public void onEnable() {
+		arenaManager = new ArenaManager(this);
+		loadArenas();
+		if (!arenaManager.hasArenas()) {
+			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
+		}
+
+		super.onEnable();
+
+		for (Player player : Players.allPlayers()) {
+			userManager.addUser(player);
+		}
+
 		if (userManager == null) {
 			boolean hasClass = userManagerClass == null;
 			debug(String.format("User manager class %s", hasClass ? "is null" : "isn't null"));
@@ -76,18 +90,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 		/* Register the game connection listener */
 		registerListeners(connectionListener);
-
-		arenaManager = new ArenaManager(this);
-		loadArenas();
-		if (!arenaManager.hasArenas()) {
-			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
-		}
-
-		for (Player player : Players.allPlayers()) {
-			userManager.addUser(player);
-		}
-
-		super.onEnable();
 	}
 
 	@Override
@@ -295,6 +297,16 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	public void setAutoSave(boolean autoSave) {
 		this.autoSave = autoSave;
+	}
+
+	public void registerUserManager(Class<? extends UserManager> userManagerClass) {
+		this.userManagerClass = userManagerClass;
+
+		/* Create the constructor the the user-manager class */
+		Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
+
+		/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
+		this.userManager = ReflectionUtilities.invokeConstructor(constructor);
 	}
 
 	public T getUserManager() {

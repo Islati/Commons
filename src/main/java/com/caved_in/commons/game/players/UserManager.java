@@ -14,16 +14,25 @@ public class UserManager<T extends User> implements IUserManager<T> {
     private Map<UUID, T> users = new HashMap<>();
 
     /* The class that the user will be created from. */
-    private Class<? extends User> playerClass;
+    private Class<? extends User> playerClass = null;
 
     /* Constructor for the user class */
-    private Constructor userContructor;
+    private Constructor userContructor = null;
 
+    /**
+     * Initialize a new user manager and set the derived class of {@link com.caved_in.commons.player.User} which the manager handles.
+     * @param userClass the derived class of {@link com.caved_in.commons.player.User} which the manager handles
+     */
     public UserManager(Class<? extends User> userClass) {
-        this.playerClass = userClass;
+        setUserClass(userClass);
+    }
 
-        /* Get the player-constructor for the user class */
-        userContructor = ReflectionUtilities.getConstructor(playerClass, Player.class);
+    /**
+     * Initialize a new user manager without registering the user class; Until the
+     * user class has been initialized, the user manager will be dysfunctional.
+     */
+    public UserManager() {
+
     }
 
     public void addUser(Player p) {
@@ -56,10 +65,37 @@ public class UserManager<T extends User> implements IUserManager<T> {
         users.remove(id);
     }
 
+    /**
+     * Set the class for users which the usermanager will handle.
+     * @param userClass the class deriving from {@link com.caved_in.commons.player.User}, which the usermanager will handle.
+     */
+    public void setUserClass(Class<? extends User> userClass) {
+        this.playerClass = userClass;
+
+        /* Get the player-constructor for the user class */
+        userContructor = ReflectionUtilities.getConstructor(playerClass, Player.class);
+    }
+
+    /**
+     * @return class for the custom user object for which this user manager works with.
+     */
     public Class<? extends User> getUserClass() {
         return playerClass;
     }
 
+    /**
+     * Check whether or not there's a class for the users specified.
+     * Note: If there's no player class, the user manager will not work.
+     * @return true if there's a player class registered, false otherwise.
+     */
+    public boolean hasUserClass() {
+        return playerClass != null && userContructor != null;
+    }
+
+    /**
+     * Retrieve a set of all the user objects who have data loaded and managed.
+     * @return a set of all the user objects who have data loaded.
+     */
     public Collection<T> allUsers() {
         return users.values();
     }
