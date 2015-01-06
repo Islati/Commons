@@ -9,7 +9,8 @@ and verbosity.. None existed, so I created *commons*.
 Features
 --------
   
-  *MiniGames Framework*
+  *MiniGames Framework*'
+  
     * Minigame framework through extending MiniGame<>
     * State-based gameplay managment.
     * Arena auto-loading and managment through MiniGame
