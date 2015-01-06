@@ -211,6 +211,9 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		return activeState == id;
 	}
 
+	{
+
+	}
 	public boolean isAfterState(int id) {
 		return activeState > id;
 	}

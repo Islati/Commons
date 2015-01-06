@@ -4,6 +4,7 @@ import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.player.User;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -18,12 +19,12 @@ public class GameConnectionListener implements Listener {
         userManager = game.getUserManager();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent e) {
         userManager.addUser(e.getPlayer());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerQuit(PlayerQuitEvent e) {
         User user = userManager.getUser(e.getPlayer());
         user.destroy();
@@ -31,7 +32,7 @@ public class GameConnectionListener implements Listener {
         userManager.removeUser(e.getPlayer());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerKick(PlayerKickEvent e) {
         User user = userManager.getUser(e.getPlayer());
         user.destroy();

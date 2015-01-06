@@ -19,6 +19,7 @@ public class ArenaCycleEvent extends Event implements Cancellable {
     private MiniGame game;
 
     public ArenaCycleEvent(MiniGame game, Arena from, Arena to) {
+        this.game = game;
         this.from = from;
         this.to = to;
     }

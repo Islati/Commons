@@ -21,7 +21,7 @@ import org.simpleframework.xml.core.Persister;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class BukkitPlugin extends JavaPlugin {
+public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	private Serializer serializer;
 

@@ -13,7 +13,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-class Connection implements Serializable {
+public class Connection implements Serializable {
 	static final long serialVersionUID = 1L;
 
 	private String domain;

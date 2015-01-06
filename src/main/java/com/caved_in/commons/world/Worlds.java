@@ -6,16 +6,17 @@ import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.threading.tasks.ClearDroppedItemsThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.google.common.collect.Sets;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class Worlds {
@@ -195,6 +196,48 @@ public class Worlds {
 		}
 
 		return entityCount;
+	}
+
+	/**
+	 * Cleans all the entities in every world (that isn't an npc or player)
+	 */
+	public static void cleanAllEntities() {
+		for (World bukkitWorld : Bukkit.getWorlds()) {
+			cleanAllEntities(bukkitWorld);
+		}
+	}
+
+	/**
+	 * Cleans all the entities in the given world
+	 * that isn't an npc (citizens NPC) or a player
+	 *
+	 * @param world
+	 */
+	public static void cleanAllEntities(World world) {
+		for (LivingEntity livingEntity : world.getLivingEntities()) {
+			//If it's not a citizens NPC and it's not an NPC / Player
+			if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
+				livingEntity.remove();
+			}
+		}
+	}
+
+
+	/**
+	 * Clean all the entities in a world except the defined types (And players, and citizens NPC'S)
+	 *
+	 * @param world       world to clean of livingEntities
+	 * @param entityTypes entityTypes to not remove
+	 */
+	public static void cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
+		Set<EntityType> eTypes = Sets.newHashSet(entityTypes);
+		for (LivingEntity livingEntity : world.getLivingEntities()) {
+			if (!eTypes.contains(livingEntity.getType())) {
+				if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
+					livingEntity.remove();
+				}
+			}
+		}
 	}
 
 	public static int getEntityCount(World world) {

@@ -288,6 +288,10 @@ public class Items {
 	 * lowercase
 	 */
 	public static String getName(ItemStack itemStack) {
+		if (itemStack == null) {
+			throw new NullPointerException("Unable to get the name of a null item");
+		}
+
 		if (!hasName(itemStack)) {
 			return itemStack.getType().toString().toLowerCase();
 		}
@@ -595,7 +599,7 @@ public class Items {
 		if (materialSplit == null) {
 			itemType = ItemType.lookup(idDatavalue);
 			if (itemType == null) {
-				throw new InvalidMaterialNameException(Messages.invalidItem(idDatavalue));
+				throw new InvalidMaterialNameException(StringUtil.stripColor(Messages.invalidItem(idDatavalue)));
 			}
 			return new MaterialData(itemType.getID());
 		}

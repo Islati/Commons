@@ -1,8 +1,8 @@
 package com.caved_in.commons.game.world;
 
-import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaCycleEvent;
+import com.caved_in.commons.game.event.ArenaLoadEvent;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.world.Worlds;
@@ -86,6 +86,13 @@ public class ArenaManager implements ArenaHandler {
 
 		Worlds.load(arena.getWorldName());
 
+		/*
+		Call the arena load event!
+		Used by games that require an action to be performed whenever an arena is loaded.
+		 */
+		ArenaLoadEvent event = new ArenaLoadEvent(game, arena);
+		Plugins.callEvent(event);
+
 		if (arena.isEnabled()) {
 			initializeArena(arena);
 		}
@@ -96,7 +103,7 @@ public class ArenaManager implements ArenaHandler {
 
 	private void initializeArena(Arena arena) {
 		World arenaWorld = arena.getWorld();
-		Entities.cleanAllEntities(arenaWorld);
+		Worlds.cleanAllEntities(arenaWorld);
 
 		arenaWorld.setStorm(arena.isStormy());
 
