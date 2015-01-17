@@ -203,6 +203,30 @@ public class Title {
         ticks = false;
     }
 
+    public ChatColor getTitleColor() {
+        return titleColor;
+    }
+
+    public ChatColor getSubtitleColor() {
+        return subtitleColor;
+    }
+
+    public int getFadeInTime() {
+        return fadeInTime;
+    }
+
+    public int getStayTime() {
+        return stayTime;
+    }
+
+    public int getFadeOutTime() {
+        return fadeOutTime;
+    }
+
+    public boolean isTicks() {
+        return ticks;
+    }
+
     /**
      * Send the title to a player
      *

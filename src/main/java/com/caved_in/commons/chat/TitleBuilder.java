@@ -15,6 +15,7 @@ public class TitleBuilder {
 
 	private boolean ticks = false;
 
+	private Title titleObj = null;
 
 	public TitleBuilder() {
 	}
@@ -74,7 +75,12 @@ public class TitleBuilder {
 			subtitle = "";
 		}
 
-		Title titleObj = new Title(title, subtitle);
+		if (titleObj == null) {
+			titleObj = new Title(title, subtitle);
+		} else {
+			titleObj.setTitle(title);
+			titleObj.setSubtitle(subtitle);
+		}
 		titleObj.setTitleColor(titleColor);
 		titleObj.setSubtitleColor(subtitleColor);
 		titleObj.setFadeInTime(fadeIn);
@@ -83,6 +89,8 @@ public class TitleBuilder {
 
 		if (ticks) {
 			titleObj.setTimingsToTicks();
+		} else {
+			titleObj.setTimingsToSeconds();
 		}
 
 		return titleObj;

@@ -17,6 +17,8 @@ public class PlayerJoinListener implements Listener {
 	private Configuration config;
 	boolean trackOnline = false;
 
+	private static Commons commons = Commons.getInstance();
+
 	public PlayerJoinListener() {
 		config = Commons.getInstance().getConfiguration();
 		trackOnline = config.getSqlConfig().trackPlayerOnlineStatus();
@@ -41,12 +43,16 @@ public class PlayerJoinListener implements Listener {
 		//Update the player's online status in our data-base!
 
 		if (trackOnline) {
-			Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
+			commons.getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
 		}
 
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (config.getServerName().equalsIgnoreCase("lobby")) {
 			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
 		}
+
+		commons.getThreadManager().runTaskAsync(() -> {
+			commons.getServerDatabase().updatePlayerCount();
+		});
 	}
 }

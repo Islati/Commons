@@ -5,11 +5,13 @@ import com.caved_in.commons.bans.Punishment;
 import com.caved_in.commons.bans.PunishmentBuilder;
 import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.config.ServerInfo;
 import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.friends.Friend;
 import com.caved_in.commons.friends.FriendStatus;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
@@ -56,13 +58,19 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
 	private static final String SYNC_PLAYER_DATA = "UPDATE server_players,server_prefixes,server_premium SET server_players.player_name=?, server_players.player_money=?, server_prefixes.player_prefix=?, server_premium.premium=? WHERE server_players.player_id=? AND server_premium.player_id=? AND server_prefixes.player_id=?";
 
+	/* Status tracker for the amount of players online, along with the maximum amount allowed */
+	private static final String SYNC_SERVER_INFO = "UPDATE servers SET svr_player_count=?, svr_player_limit=? WHERE svr_name=?";
+	private static final String INSERT_SERVER_INFO = "INSERT INTO servers (svr_name,svr_player_count,svr_player_limit) VALUES (?,?,?)";
+	private static final String RETRIEVE_SERVER_INFO = "SELECT * FROM servers WHERE svr_name=?";
+	private static final String RETRIEVE_ALL_SERVER_INFO = "SELECT * FROM servers";
+
 	private static final String[] TABLE_CREATION_STATEMENTS = new String[]{
 			"CREATE TABLE IF NOT EXISTS `server_online` (`player_id` varchar(36) NOT NULL, `online` tinyint(1) NOT NULL, `svr_id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_players` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT, `player_id` varchar(36) NOT NULL, `player_name` varchar(16) NOT NULL, `player_money` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
 			"CREATE TABLE IF NOT EXISTS `server_prefixes` (`player_id` varchar(36) NOT NULL, `player_prefix` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;",
-			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,`svr_name` text CHARACTER SET utf8 NOT NULL,`svr_ip` text CHARACTER SET utf8 NOT NULL,`svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100',PRIMARY KEY (`svr_id`),UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;"
+			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT, `svr_name` text CHARACTER SET utf8 NOT NULL, `svr_player_count` int(10) unsigned NOT NULL, `svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100', PRIMARY KEY (`svr_id`), UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;"
 	};
 
 	public ServerDatabaseConnector(SqlConfiguration sqlConfiguration) {
@@ -456,5 +464,109 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
 	public void insertPlayerBan(Punishment punishment, UUID playerId) {
 		insertPlayerBan(punishment.getPunishmentType(), playerId, punishment.getIssuer().toString(), punishment.getReason(), punishment.getExpiryTime());
+	}
+
+
+	public void updatePlayerCount() {
+		/*
+		If no server info exists then we're gonna
+		create the default data.
+		 */
+		if (!hasServerInfo()) {
+			insertServerInfo();
+		}
+
+		PreparedStatement syncPlayerStatement = prepareStatement(SYNC_SERVER_INFO);
+
+		try {
+			syncPlayerStatement.setInt(1, Players.getOnlineCount());
+			syncPlayerStatement.setInt(2, Bukkit.getServer().getMaxPlayers());
+			syncPlayerStatement.setString(3, Commons.getInstance().getConfiguration().getServerName());
+			syncPlayerStatement.executeUpdate();
+			Chat.debug("Synchronized player count with the database");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(syncPlayerStatement);
+		}
+	}
+
+	public boolean hasServerInfo() {
+		PreparedStatement hasPlayerCount = prepareStatement(RETRIEVE_SERVER_INFO);
+		boolean infoExists = false;
+		try {
+			hasPlayerCount.setString(1, Commons.getInstance().getConfiguration().getServerName());
+			ResultSet results = hasPlayerCount.executeQuery();
+			if (results.next()) {
+				infoExists = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(hasPlayerCount);
+		}
+		return infoExists;
+	}
+
+	public void insertServerInfo() {
+		PreparedStatement insertPlayerCountStatement = prepareStatement(INSERT_SERVER_INFO);
+
+		try {
+			insertPlayerCountStatement.setString(1, Commons.getInstance().getConfiguration().getServerName());
+			insertPlayerCountStatement.setInt(2, Players.getOnlineCount());
+			insertPlayerCountStatement.setInt(3, Bukkit.getServer().getMaxPlayers());
+			insertPlayerCountStatement.execute();
+			Chat.debug("Created default server-table info!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(insertPlayerCountStatement);
+		}
+	}
+
+	public ServerInfo getServerInfo(String name) {
+		PreparedStatement serverInfoStatement = prepareStatement(RETRIEVE_SERVER_INFO);
+		ServerInfo info = new ServerInfo();
+		try {
+			serverInfoStatement.setString(1, name);
+
+			ResultSet results = serverInfoStatement.executeQuery();
+			if (results.next()) {
+				info.name(results.getString("svr_name"))
+						.players(results.getInt("svr_player_count"))
+						.maxPlayers(results.getInt("svr_player_limit"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(serverInfoStatement);
+		}
+
+		return info;
+	}
+
+	public Set<ServerInfo> getAllServerInfo() {
+		Set<ServerInfo> infoSet = new HashSet<>();
+
+		PreparedStatement infoStatement = prepareStatement(RETRIEVE_ALL_SERVER_INFO);
+
+		try {
+			ResultSet results = infoStatement.executeQuery();
+
+			while (results.next()) {
+				ServerInfo info = new ServerInfo()
+						.name(results.getString("svr_name"))
+						.players(results.getInt("svr_player_count"))
+						.maxPlayers(results.getInt("svr_player_limit"));
+
+				infoSet.add(info);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(infoStatement);
+		}
+
+		return infoSet;
 	}
 }

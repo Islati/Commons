@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 public class EntityDamageEntityListener implements Listener {
 
@@ -28,7 +29,12 @@ public class EntityDamageEntityListener implements Listener {
          */
         if (e.getEntityType() == EntityType.ARROW) {
             Arrow arrow = (Arrow) attacker;
-            LivingEntity shooter = arrow.getShooter();
+            ProjectileSource source = arrow.getShooter();
+            if (!(source instanceof LivingEntity)) {
+                return;
+            }
+
+            LivingEntity shooter = (LivingEntity) source;
             if (shooter instanceof Player) {
                 player = (Player) shooter;
             }

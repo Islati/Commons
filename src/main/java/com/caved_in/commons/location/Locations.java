@@ -1,7 +1,7 @@
 package com.caved_in.commons.location;
 
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.world.Worlds;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -21,7 +21,7 @@ public class Locations {
 
 	public static Set<Player> getPlayersInRadius(Location location, double radius) {
 		Set<Player> playerInRadius = new HashSet<>();
-		Player[] onlinePlayers = Bukkit.getOnlinePlayers();
+		Collection<Player> onlinePlayers = Players.allPlayers();
 		double radiusSquared = radius * radius;
 		for (Player onlinePlayer : onlinePlayers) {
 			if (onlinePlayer.getLocation().distanceSquared(location) <= radiusSquared) {

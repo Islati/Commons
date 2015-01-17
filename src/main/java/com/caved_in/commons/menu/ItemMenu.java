@@ -1,9 +1,11 @@
 package com.caved_in.commons.menu;
 
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -14,6 +16,9 @@ import java.util.*;
 public class ItemMenu implements InventoryHolder {
 
 	private int rows;
+
+	private boolean rowsHasChanged = false;
+
 	private String title;
 	private Inventory inventory;
 	private Map<Integer, MenuItem> items = new HashMap<>();
@@ -30,8 +35,16 @@ public class ItemMenu implements InventoryHolder {
 
 	@Override
 	public Inventory getInventory() {
-		if (inventory == null) {
+		if (rowsHasChanged || inventory == null) {
 			inventory = Bukkit.createInventory(this, rows * 9, title);
+
+			/*
+			If the rows have updated, then we're going to re-assign the items
+			to the menu, and assure that they're being seen.
+			 */
+			if (rowsHasChanged) {
+				setMenuItems(inventory, items);
+			}
 		}
 		return inventory;
 	}
@@ -59,6 +72,32 @@ public class ItemMenu implements InventoryHolder {
 		this.exitOnClickOutside = exit;
 	}
 
+	private void setMenuItems(Inventory inv, Map<Integer, MenuItem> items) {
+		this.items = items;
+		for (Map.Entry<Integer, MenuItem> menuItems : items.entrySet()) {
+			int index = menuItems.getKey();
+			ItemStack slot = inv.getItem(index);
+
+			if (slot != null && slot.getType() != Material.AIR) {
+				continue;
+			}
+
+			inv.setItem(index, slot);
+			menuItems.getValue().addToMenu(this);
+		}
+	}
+
+	public void setMenuItems(Map<Integer, MenuItem> items) {
+		setMenuItems(getInventory(), items);
+	}
+
+	public void setItem(int index, MenuItem item) {
+		Inventory inventory = getInventory();
+		inventory.setItem(index, item.getItemStack());
+		items.put(index, item);
+		item.addToMenu(this);
+	}
+
 	public boolean addMenuItem(MenuItem item, int x, int y) {
 		return addMenuItem(item, y * 9 + x);
 	}
@@ -67,7 +106,7 @@ public class ItemMenu implements InventoryHolder {
 		Inventory inventory = getInventory();
 		ItemStack slot = inventory.getItem(index);
 		//If the item's not air, we're not adding it.
-		if (slot != null && slot.getType() != Material.AIR) {
+		if (!rowsHasChanged && (slot != null && slot.getType() != Material.AIR)) {
 			return false;
 		}
 
@@ -133,9 +172,12 @@ public class ItemMenu implements InventoryHolder {
 		Menus.switchMenu(player, this, toMenu);
 	}
 
+	public MenuItem getItem(int index) {
+		return items.get(index);
+	}
+
 	@Override
 	protected ItemMenu clone() {
-
 		ItemMenu clone = new ItemMenu(title, rows);
 		clone.setExitOnClickOutside(exitOnClickOutside);
 		clone.setBehaviours(menuActions);
@@ -150,6 +192,22 @@ public class ItemMenu implements InventoryHolder {
 		List<Player> viewers = new ArrayList<>();
 		getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(p -> viewers.add((Player) p));
 		return viewers;
+	}
+
+	public void updateMenu(Collection<HumanEntity> viewers) {
+		if (rowsHasChanged) {
+			/*
+			If the rows has changed; then we'll switch to the next menu, as opposed to
+			updating the existing one!
+			 */
+			viewers.stream().filter(e -> e instanceof Player).forEach(
+					p -> {
+						switchMenu((Player) p, this);
+					}
+			);
+			return;
+		}
+		viewers.stream().filter(e -> e instanceof Player).forEach(p -> Players.updateInventory((Player) p));
 	}
 
 	public void updateMenu() {
@@ -171,5 +229,20 @@ public class ItemMenu implements InventoryHolder {
 
 	public void clearMenuItems() {
 		items.clear();
+		/* Also clear the items from inventory */
+		inventory.clear();
+	}
+
+	public void setRows(int count) {
+		this.rows = count;
+		rowsHasChanged = true;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	private void setTitle(String title) {
+		//TODO nms actions, perhaps? :)
 	}
 }

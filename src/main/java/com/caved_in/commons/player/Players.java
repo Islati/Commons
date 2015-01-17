@@ -28,12 +28,13 @@ import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
 import com.caved_in.commons.time.Cooldown;
-import com.caved_in.commons.utilities.ArrayUtils;
+import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.warp.Warp;
 import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -871,6 +872,17 @@ public class Players {
 		if (clearArmor) {
 			player.getInventory().setArmorContents(new ItemStack[]{null, null, null, null});
 		}
+
+		/* Update the players inventory, to prevent any errors or item misplacement. */
+		player.updateInventory();
+	}
+
+	/**
+	 * Update the players inventory on the next game tick.
+	 * @param player player who's inventory shall be updated.
+	 */
+	public static void updateInventory(Player player) {
+		commons.getThreadManager().runTaskLater(player::updateInventory, 1);
 	}
 
 	/**
@@ -943,6 +955,7 @@ public class Players {
 	 */
 	public static void setItem(Player player, int slot, ItemStack item) {
 		Inventories.setItem(player.getInventory(), slot, item);
+
 	}
 
 	/**
@@ -1105,7 +1118,7 @@ public class Players {
 	 */
 	public static void setArmor(Player player, ArmorInventory armor) {
 		for (Map.Entry<ArmorSlot, ItemStack> entry : armor.getArmor().entrySet()) {
-			Players.setArmor(player, entry.getKey(), entry.getValue());
+			setArmor(player, entry.getKey(), entry.getValue());
 		}
 	}
 
@@ -1135,22 +1148,18 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static int getOnlineCount() {
-		return allPlayers().length;
+		return allPlayers().size();
 	}
 
-	/**
-	 * @return an array of players who are currently online
-	 * @since 1.0
-	 */
-	public static Player[] allPlayers() {
-		return Bukkit.getOnlinePlayers();
+	public static Set<Player> allPlayers() {
+		return Sets.newHashSet(Bukkit.getOnlinePlayers());
 	}
 
 	/**
 	 * @return Lambda stream of all the currently online players.
 	 */
 	public static Stream<Player> stream() {
-		return Stream.of(allPlayers());
+		return allPlayers().stream();
 	}
 
 	/**
@@ -1175,7 +1184,7 @@ public class Players {
 	 * @return a random online player.
 	 */
 	public static Player getRandomPlayer() {
-		return ArrayUtils.getRandom(allPlayers());
+		return ListUtils.getRandom(Lists.newArrayList(allPlayers()));
 	}
 
 	/**

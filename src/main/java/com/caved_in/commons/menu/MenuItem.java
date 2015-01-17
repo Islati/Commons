@@ -90,6 +90,14 @@ public abstract class MenuItem {
 		descriptions.add(StringUtil.formatColorCodes(line));
 	}
 
+	public void setIconNumber(int num) {
+		this.number = num;
+	}
+
+	public int getIconNumber() {
+		return number;
+	}
+
 	protected ItemStack getItemStack() {
 		ItemStack itemStack = new ItemStack(getIcon().getItemType(), getNumber(), getIcon().getData());
 		ItemMeta meta = itemStack.getItemMeta();
@@ -121,6 +129,11 @@ public abstract class MenuItem {
 
 	public MenuItem icon(MaterialData data) {
 		setIcon(data);
+		return this;
+	}
+
+	public MenuItem number(int num) {
+		setIconNumber(num);
 		return this;
 	}
 

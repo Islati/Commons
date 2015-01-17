@@ -10,10 +10,8 @@ import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.warp.Warp;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.WordUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -84,6 +82,7 @@ public class Entities {
 		zombie.setVillager(isVillager);
 		return zombie;
 	}
+
 	/**
 	 * Spawn a zombie pigman at a specific location.
 	 *
@@ -679,5 +678,84 @@ public class Entities {
 
 		subject.setMaxHealth(adjustedMax);
 		subject.setHealth(adjustedHealth);
+	}
+
+	/**
+	 * Check whether or not the entity is ontop of a block.
+	 *
+	 * @param entity entity to check
+	 * @return true if the entity is ontop of a block (including fence), false otherwise.
+	 */
+	public static boolean onBlock(Entity entity) {
+		Location loc = entity.getLocation();
+
+		double locX = loc.getX();
+		double locZ = loc.getZ();
+		double locY = loc.getY();
+
+		double xMod = locX % 1.0D;
+		if (locX < 0.0D) {
+			xMod += 1.0D;
+		}
+
+		double zMod = locZ % 1.0D;
+		if (locZ < 0.0D) {
+			zMod += 1.0D;
+		}
+
+		int xMin = 0;
+		int xMax = 0;
+		int zMin = 0;
+		int zMax = 0;
+
+		if (xMod < 0.3D) {
+			xMin = -1;
+		}
+		if (xMod > 0.7D) {
+			xMax = 1;
+		}
+		if (zMod < 0.3D) {
+			zMin = -1;
+		}
+		if (zMod > 0.7D) {
+			zMax = 1;
+		}
+
+		for (int x = xMin; x <= xMax; x++) {
+			for (int z = zMin; z <= zMax; z++) {
+
+				Block locBlock = loc.add(x, -0.5D, z).getBlock();
+
+				Material locBlockType = locBlock.getType();
+				/* If the block beneath the player isn't air or liquid, then they're on a block! */
+				if (locBlockType != Material.AIR && !locBlock.isLiquid()) {
+					return true;
+				}
+
+				Material materialBeneathPlayer = loc.add(x, -1.5D, z).getBlock().getType();
+
+				/*
+				If the players not standing ontop of something that'd offset their Y
+				by 0.5 (half a block, like fence) then continue.
+				 */
+				if (locY % 0.5D != 0.0D) {
+					continue;
+				}
+
+				/*
+				Lastly, if the material beneath the player is equal to fence, nether-fence, or cobble
+				stone walls, then they are infact standing atop a block!
+				 */
+				switch (materialBeneathPlayer) {
+					case FENCE:
+					case NETHER_FENCE:
+					case COBBLE_WALL:
+						return true;
+					default:
+						break;
+				}
+			}
+		}
+		return false;
 	}
 }

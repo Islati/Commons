@@ -1,5 +1,7 @@
 package com.caved_in.commons.item;
 
+import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.plugin.Plugins;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import org.apache.commons.lang.Validate;
@@ -45,7 +47,7 @@ public class ItemMessage {
 	private Material emptyHandReplacement = Material.SNOW;
 
 	public ItemMessage(Plugin plugin) {
-		Plugin p = Bukkit.getPluginManager().getPlugin("ProtocolLib");
+		Plugin p = Plugins.getPlugin("ProtocolLib");
 		if (p == null || !p.isEnabled()) {
 			throw new IllegalStateException("ItemMessage can not be used without ProtocolLib");
 		}
@@ -109,9 +111,11 @@ public class ItemMessage {
 	 */
 	public void sendMessage(Player player, String message, int duration, int priority) {
 		if (player.getGameMode() == GameMode.CREATIVE) {
-			// TODO: this doesn't work properly in creative mode.  Need to investigate further
-			// if it can be made to work, but for now, just send an old-fashioned chat message.
-			player.sendMessage(message);
+			/*
+			As we're unable to send the player an item-message if they're in creative,
+			due to the way minecraft functions, we'll send them an action message.
+			 */
+			Chat.actionMessage(player, message);
 		} else {
 			PriorityQueue<MessageRecord> msgQueue = getMessageQueue(player);
 			msgQueue.add(new MessageRecord(message, duration, priority, getNextId(player)));
@@ -217,7 +221,7 @@ public class ItemMessage {
 			this.iterations = Math.max(1, (rec.getDuration() * 20) / interval);
 			this.slot = player.getInventory().getHeldItemSlot();
 			this.message = rec.getMessage();
-			Bukkit.getPluginManager().registerEvents(this, plugin);
+			Plugins.registerListener(plugin, this);
 		}
 
 		@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

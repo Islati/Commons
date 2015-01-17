@@ -50,6 +50,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
+
 		serializer = new Persister();
 
 		if (Plugins.hasProtocolLib()) {
@@ -133,4 +134,5 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 	public BoardManager getScoreboardManager() {
 		return scoreboardManager;
 	}
+
 }

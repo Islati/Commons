@@ -21,3 +21,9 @@ keep adding them!
 
   Contributions:
   	ItemMessage - https://forums.bukkit.org/threads/itemmessage-use-item-metadata-to-create-popup-messages.167979/
+
+- iKeirNez:
+  * https://github.com/iKeirNez
+
+  Contributions:
+  	ProtoMessageApi-Plus - https://github.com/iKeirNez/PluginMessageAPI-Plus

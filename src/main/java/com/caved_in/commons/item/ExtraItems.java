@@ -2,6 +2,7 @@ package com.caved_in.commons.item;
 
 import com.google.common.collect.Sets;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 import java.util.EnumSet;
@@ -110,6 +111,10 @@ public enum ExtraItems {
 		this.material = material;
 		this.dataValue = dataValue;
 		this.aliases = aliases;
+	}
+
+	public ItemStack getItem() {
+		return Items.makeItem(getMaterial(), getDataValue());
 	}
 
 	public Material getMaterial() {

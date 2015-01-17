@@ -13,6 +13,8 @@ import java.util.UUID;
 public class PlayerQuitListener implements Listener {
 	private WorldConfiguration config;
 
+	private static Commons commons = Commons.getInstance();
+
 	public PlayerQuitListener() {
 		config = Commons.getInstance().getConfiguration().getWorldConfig();
 	}
@@ -26,14 +28,23 @@ public class PlayerQuitListener implements Listener {
 			event.setQuitMessage(null);
 		}
 
-		//Change the player's online status.
-		Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
-
 		//Remove the cached player instance!
 		Players.removeData(playerId);
+
+		if (!commons.hasDatabaseBackend()) {
+			return;
+		}
+
+		//Change the player's online status.
+		commons.getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
+
 //
 //		if (Commons.hasSqlBackend()) {
 //			Commons.disguiseDatabase.deletePlayerDisguiseData(playerId);
 //		}
+
+		commons.getThreadManager().runTaskLaterAsync(() -> {
+			commons.getServerDatabase().updatePlayerCount();
+		}, 20);
 	}
 }

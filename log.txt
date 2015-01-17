@@ -4,6 +4,41 @@
  + = Added
 -------------
 
+January 16'th, 2015 (Build 1.7.3):
+	- Finished the menu builder implementation
+	- Updated the ItemMenu setItems method to assign items in the wrapped inventory
+	- Created the getItem method on ItemMenu
+	- Created the setNumber method on MenuItem
+	-+ Performed updates on Commons (Player, Locations, EntityDamageListener) to match the latest spigot revision.
+	+ Finished the refactor on ItemMenu and MenuItem
+	+ Created the PlaceHolderMenuItem to use as a placeHolder in menus.
+
+January 15'th, 2015 (Build 1.7.3):
+	+ Began working on item tests for the ItemMenu system inside commons
+	  after finding a bug in the Tunnels-Connect plugin, and desiring
+	  resolution.
+
+	* Created a work around for updating the menu for a collection of entities
+	  whenever the rows have changed; It could be unable to re-render the items.
+
+	+ Began working on the ItemBuilder class used to easily
+	  create an item menu without specific behaviour modifications.
+
+January 14'th, 2015 (Build 1.7.3):
+	+ Created the network package
+	+ Created the Bungee class
+	+ Created the sendToServer method in the Bungee class
+	- Removed the JDEFERRED library; It's a hassle. Might re-implement in later versions.
+	+ Fixed bug in InitConfig for Commons with item-set loading.
+
+January 13'th, 2015 (Build 1.7.3):
+	- Created new methods to update the server info, such as player count and max players allowed per server.
+	- Created the XmlTitle class, used to serialize titles.
+	- Created the action-cooldown class, which follows the same structure as the Cooldown, though for string-based "actions"
+	* Added JDeferred as an included library with Commons
+	* Created the getDeferredManager method in BukkitPlugin
+	+ Created the ServerInfo class
+
 October 7'th, 2014 (Build 1.6-RELEASE):
 	+ Updated all commands to use the new methodcommand implementation
 	+ 

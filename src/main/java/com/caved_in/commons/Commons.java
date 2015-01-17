@@ -51,10 +51,12 @@ public class Commons extends BukkitPlugin {
     private Players players;
 
     /*
-    The item set manager; Manages interchangable
-    sets that players can select
-    */
-    private ItemSetManager itemSetManager;
+    Create the item-set manager, which allows us to save a players inventories
+    and swap them out at any time; Useful for creative, kits, etc.
+
+    Initialized on a class-level so there's no discrepancies before the setup method is called.
+     */
+    private ItemSetManager itemSetManager = new ItemSetManager();
 
     /*
     Used to manage private messages between players.
@@ -86,12 +88,6 @@ public class Commons extends BukkitPlugin {
          */
         worlds = new Worlds();
 
-		/*
-        Create the item-set manager, which allows us to save a players inventories
-		and swap them out at any time; Useful for creative, kits, etc.
-		 */
-        itemSetManager = new ItemSetManager();
-
         /*
         Create the players instance, used internally to track commons-required
         player data for methods, and tasks.
@@ -106,6 +102,12 @@ public class Commons extends BukkitPlugin {
             //Create the database connection
             database = new ServerDatabaseConnector(sqlConfig);
         }
+
+        /*
+        Register the plugin message channel for BungeeCord, so we can send players around
+        to other servers, and perform actions across servers!
+         */
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         //If the commands are to be registered: do so.
         if (getConfiguration().registerCommands()) {
@@ -186,7 +188,7 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public String getVersion() {
-        return "1.7.0";
+        return "1.7.2";
     }
 
     @Override
@@ -231,6 +233,11 @@ public class Commons extends BukkitPlugin {
             for (File file : itemSetFiles) {
                 try {
                     ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
+
+                    if (set == null) {
+                        continue;
+                    }
+
                     itemSetManager.addSet(set);
                     debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
                 } catch (Exception e) {
