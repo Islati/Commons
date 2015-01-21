@@ -158,7 +158,8 @@ public class Commons extends BukkitPlugin {
                     new WarpCommand(),
                     new WarpsCommand(),
                     new WorkbenchCommand(),
-                    new SetCommand()
+                    new SetCommand(),
+                    new TeleportOtherCommand()
             );
         }
 
@@ -188,7 +189,7 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public String getVersion() {
-        return "1.7.2";
+        return "1.7.4";
     }
 
     @Override

@@ -229,8 +229,11 @@ public class ItemMenu implements InventoryHolder {
 
 	public void clearMenuItems() {
 		items.clear();
+
+		if (inventory != null) {
 		/* Also clear the items from inventory */
-		inventory.clear();
+			inventory.clear();
+		}
 	}
 
 	public void setRows(int count) {

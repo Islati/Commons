@@ -184,4 +184,29 @@ public final class BlockID {
 	public static final int PACKED_ICE = 174;
 	public static final int DOUBLE_PLANT = 175;
 
+	/* 1.8 Items */
+
+	public static final int STANDING_BANNER = 176;
+	public static final int WALL_BANNER = 177;
+	public static final int DAYLIGHT_SENSOR_INVERTED = 178;
+	public static final int RED_SANDSTONE = 179;
+	public static final int RED_SANDSTONE_STAIRS = 180;
+	public static final int DOUBLE_STEP2 = 181;
+	public static final int STEP2 = 182;
+	public static final int SPRUCE_FENCE_GATE = 183;
+	public static final int BIRCH_FENCE_GATE = 184;
+	public static final int JUNGLE_FENCE_GATE = 185;
+	public static final int DARK_OAK_FENCE_GATE = 186;
+	public static final int ACACIA_FENCE_GATE = 187;
+	public static final int SPRUCE_FENCE = 188;
+	public static final int BIRCH_FENCE = 189;
+	public static final int JUNGLE_FENCE = 190;
+	public static final int DARK_OAK_FENCE = 191;
+	public static final int ACACIA_FENCE = 192;
+	public static final int SPRUCE_DOOR = 193;
+	public static final int BIRCH_DOOR = 194;
+	public static final int JUNGLE_DOOR = 195;
+	public static final int ACACIA_DOOR = 196;
+	public static final int DARK_OAK_DOOR = 197;
+
 }

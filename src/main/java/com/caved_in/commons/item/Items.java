@@ -404,6 +404,26 @@ public class Items {
 	}
 
 	/**
+	 * Retrieve the enchantments that an item has in a set of EnchantmentWrappers.
+	 * If the item has no enchantments, and empty hashset is returned.
+	 * @param item item to get the enchantments from.
+	 * @return a HashSet of the {@link com.caved_in.commons.item.EnchantWrapper} that the item has; If no enchants are available, then an empty hash set is returned.
+	 */
+	public static Set<EnchantWrapper> getEnchantments(ItemStack item) {
+		Set<EnchantWrapper> enchants = Sets.newHashSet();
+
+		if (!hasEnchantments(item)) {
+			return enchants;
+		}
+
+		for (Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
+			enchants.add(new EnchantWrapper(enchant.getKey(), enchant.getValue(), true));
+		}
+
+		return enchants;
+	}
+
+	/**
 	 * Make a new item stack with the given material
 	 *
 	 * @param material Material to create the itemstack with

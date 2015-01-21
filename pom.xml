@@ -9,7 +9,6 @@
         <powermock.version>1.6.1</powermock.version>
     </properties>
 
-
     <build>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>

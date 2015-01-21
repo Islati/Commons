@@ -1,8 +1,8 @@
 package com.caved_in.commons.item;
 
 import com.caved_in.commons.config.XmlEnchantment;
-import com.caved_in.commons.properties.PropertiesBuilder;
 import com.caved_in.commons.utilities.StringUtil;
+import com.google.common.collect.Lists;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,10 +26,12 @@ public class ItemBuilder {
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
 
-	private static PropertiesBuilder builder;
-
 	public static ItemBuilder of(Material material) {
 		return new ItemBuilder(material);
+	}
+
+	public static ItemBuilder of(ItemStack item) {
+		return new ItemBuilder(item);
 	}
 
 	public ItemBuilder(Material material) {
@@ -38,6 +41,16 @@ public class ItemBuilder {
 	public ItemBuilder(Material material, int amount) {
 		this.material = material;
 		this.amount = amount;
+	}
+
+	public ItemBuilder(ItemStack base) {
+		this.material = base.getType();
+		this.materialData = base.getData();
+		this.durability = (short) Items.getDataValue(base);
+		this.lore = Items.getLore(base);
+		this.enchantments = Lists.newArrayList(Items.getEnchantments(base));
+		this.amount = base.getAmount();
+		this.name = Items.getName(base);
 	}
 
 	public ItemBuilder() {
@@ -77,7 +90,7 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemBuilder enchantments(List<XmlEnchantment> enchants) {
+	public ItemBuilder enchantments(Collection<XmlEnchantment> enchants) {
 		for (XmlEnchantment e : enchants) {
 			enchantments.add(new EnchantWrapper(e.getEnchantment(), e.getLevel(), e.hasGlow()));
 		}

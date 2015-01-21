@@ -25,6 +25,7 @@ package com.caved_in.commons.item;
  * @author sk89q
  */
 public final class ItemID {
+
 	public static final int IRON_SHOVEL = 256;
 	public static final int IRON_PICK = 257;
 	public static final int IRON_AXE = 258;
@@ -184,6 +185,15 @@ public final class ItemID {
 	public static final int LEAD = 420;
 	public static final int NAME_TAG = 421;
 	public static final int COMMAND_BLOCK_MINECART = 422;
+	public static final int MUTTON = 423;
+	public static final int COOKED_MUTTON = 424;
+	public static final int BANNER = 425;
+	// Nothing at 456
+	public static final int SPRUCE_DOOR = 427;
+	public static final int BIRCH_DOOR = 428;
+	public static final int JUNGLE_DOOR = 429;
+	public static final int ACACIA_DOOR = 430;
+	public static final int DARK_OAK_DOOR = 431;
 
 	@Deprecated
 	public static final int GOLD_RECORD = 2256; // deprecated, but leave it there
@@ -201,4 +211,8 @@ public final class ItemID {
 	public static final int DISC_WARD = 2265;
 	public static final int DISC_11 = 2266;
 	public static final int DISC_WAIT = 2267;
+
+	private ItemID() {
+	}
+
 }

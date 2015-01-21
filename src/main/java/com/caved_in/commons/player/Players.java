@@ -27,7 +27,6 @@ import com.caved_in.commons.threading.tasks.BanPlayerCallable;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
-import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
@@ -67,8 +66,6 @@ public class Players {
 	private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
 
 	private static Gson gson = new Gson();
-
-	private static final Map<String, Cooldown> messageCooldowns = new HashMap<>();
 
 	/**
 	 * Check if a player has loaded data

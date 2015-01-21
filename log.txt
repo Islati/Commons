@@ -4,6 +4,18 @@
  + = Added
 -------------
 
+January 20'th, 2015 (Build 1.7.4):
+	+ Updated the ItemID class with all item id's for 1.8
+	+ Updated BukkitPlugin to contain a player glow handler; Allows us make players glow red
+	+ Created the 'tpo' command to teleport other players to eachother
+	~ Updated the 'tp' command to teleport to other players without having to supply both player and target names.
+
+January 19'th, 2015 (Build 1.7.4):
+	+ Updated the ItemBuilder to have the option to clone an existing item-stack.
+	+ Created the 'getEnchants' method in Items
+	+ Added the MAGIC_CRITICAL_HIT option to ParticleEffects for backwards compatability (found in Hub Tag)
+	+ Created the 'broadcastActionMessage' method in the Chat class
+
 January 16'th, 2015 (Build 1.7.3):
 	- Finished the menu builder implementation
 	- Updated the ItemMenu setItems method to assign items in the wrapped inventory

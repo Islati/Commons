@@ -34,8 +34,11 @@ commands:
       usage: /<command> <player>
       aliases: [bring]
    tp:
-      usage: /<command> <player> [Player]
+      usage: /<command> <player>
       aliases: [teleport]
+   tpo:
+      usage: /<command> <player> <targetPlayer>
+      aliases: [tpother,teleportother]
    fly:
       usage: /fly
    fw:

@@ -346,6 +346,7 @@ public enum ItemType {
 	FIREWORK_ROCKET(ItemID.FIREWORK_ROCKET, "Firework rocket", "firework", "rocket"),
 	FIREWORK_STAR(ItemID.FIREWORK_STAR, "Firework star", "fireworkstar", "fireworkcharge"),
 	ENCHANTED_BOOK(ItemID.ENCHANTED_BOOK, "Enchanted book", "enchantedbook", "spellbook", "enchantedtome", "tome"),
+
 	COMPARATOR(ItemID.COMPARATOR, "Comparator", "comparator", "capacitor"),
 	NETHER_BRICK_ITEM(ItemID.NETHER_BRICK, "Nether Brick (item)", "netherbrickitem"),
 	NETHER_QUARTZ(ItemID.NETHER_QUARTZ, "Nether Quartz", "netherquartz", "quartz"),
@@ -357,6 +358,15 @@ public enum ItemType {
 	LEAD(ItemID.LEAD, "Lead", "lead", "leash"),
 	NAME_TAG(ItemID.NAME_TAG, "Name Tag", "nametag"),
 	COMMAND_BLOCK_MINECART(ItemID.COMMAND_BLOCK_MINECART, "Minecart with Command Block"),
+	MUTTON(ItemID.MUTTON, "Mutton", "mutton", "rawmutton"),
+	COOKED_MUTTON(ItemID.COOKED_MUTTON, "Cooked Mutton", "cookedmutton"),
+	BANNER(ItemID.BANNER, "Banner", "banner"),
+	// Nothing at 456
+	SPRUCE_DOOR(ItemID.SPRUCE_DOOR, "Spruce Door", "sprucedoor"),
+	BIRCH_DOOR(ItemID.BIRCH_DOOR, "Birch Door", "birchdoor"),
+	JUNGLE_DOOR(ItemID.JUNGLE_DOOR, "Jungle Door", "jungledoor"),
+	ACACIA_DOOR(ItemID.ACACIA_DOOR, "Acacia Door", "acaciadoor"),
+	DARK_OAK_DOOR(ItemID.DARK_OAK_DOOR, "Dark Oak Door", "darkoakdoor"),
 	DISC_13(ItemID.DISC_13, "Music Disc - 13", "disc_13"),
 	DISC_CAT(ItemID.DISC_CAT, "Music Disc - Cat", "disc_cat"),
 	DISC_BLOCKS(ItemID.DISC_BLOCKS, "Music Disc - blocks", "disc_blocks"),

@@ -53,6 +53,15 @@ public class Chat {
 	}
 
 	/**
+	 * Broadcast the message passed (formatting all color codes) to all players
+	 * action bars!
+	 * @param message message to send to players action bars.
+	 */
+	public static void broadcastActionMessage(String message) {
+		Players.stream().forEach(p -> actionMessage(p, message));
+	}
+
+	/**
 	 * Message the console,and have any color codes colorized.
 	 *
 	 * @param messages messages to send to the console.

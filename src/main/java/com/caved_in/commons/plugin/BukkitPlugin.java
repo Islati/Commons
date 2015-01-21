@@ -4,6 +4,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.effect.PlayerGlowRed;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.item.ItemMessage;
@@ -39,6 +40,8 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	private CommandHandler commandHandler;
 
+	private PlayerGlowRed playerGlowHandler;
+
 	public void onEnable() {
 		commandHandler = new CommandHandler(this);
 
@@ -50,6 +53,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
+		playerGlowHandler = new PlayerGlowRed(this);
 
 		serializer = new Persister();
 
@@ -74,6 +78,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		shutdown();
 		Plugins.unregisterHooks(this);
 	}
+
 
 	public abstract void startup();
 
@@ -115,7 +120,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		return serializer;
 	}
 
-
 	public RunnableManager getThreadManager() {
 		return threadManager;
 	}
@@ -135,4 +139,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		return scoreboardManager;
 	}
 
+	public PlayerGlowRed getPlayerGlowHandler() {
+		return playerGlowHandler;
+	}
 }

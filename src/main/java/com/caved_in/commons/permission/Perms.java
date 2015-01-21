@@ -41,6 +41,8 @@ public class Perms {
 
 	public static final String COMMAND_TELEPORT = "commons.command.teleport";
 
+	public static final String COMMAND_TELEPORT_OTHER = "commons.command.teleportother";
+
 	public static final String COMMAND_TELEPORT_HERE = "commons.command.tphere";
 
 	public static final String COMMAND_TELEPORT_POSITION = "commons.command.tppos";

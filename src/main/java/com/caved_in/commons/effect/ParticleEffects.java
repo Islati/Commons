@@ -182,7 +182,8 @@ public enum ParticleEffects {
 	 */
 	MOB_APPEARANCE(59),
 	ENDER(DEPTH_SUSPEND.getName(), 60),
-	AIR_BUBBLE(BUBBLE.getName(), 61);
+	AIR_BUBBLE(BUBBLE.getName(), 61),
+	MAGIC_CRITICAL_HIT(MAGIC_CRIT.name(), 62);
 
 	public static int PARTICLE_RADIUS = 10;
 	private static final Random random = new Random();
