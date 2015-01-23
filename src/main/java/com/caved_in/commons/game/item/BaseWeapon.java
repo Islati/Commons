@@ -17,6 +17,7 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 
 	public BaseWeapon(ItemStack item) {
 		super(item);
+		properties.durability(item);
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 	}
 
 	@Override
+	//TODO inspect if this causes errors
 	public WeaponProperties properties() {
 		return properties;
 	}
@@ -51,6 +53,9 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 
 	@Override
 	public abstract void onAttack(Player p, LivingEntity e);
+
+	@Override
+	public abstract void onBreak(Player p);
 
 	public abstract int id();
 }

@@ -33,11 +33,12 @@ public class ItemDropListener implements Listener {
 
 		Gadget gadget = Gadgets.getGadget(item);
 
-
-		boolean drop = gadget.drop(event.getPlayer());
-
-		if (!drop) {
+		if (!gadget.properties().isDroppable()) {
 			event.setCancelled(true);
+			return;
 		}
+
+
+		gadget.onDrop(event.getPlayer(), event.getItemDrop());
 	}
 }

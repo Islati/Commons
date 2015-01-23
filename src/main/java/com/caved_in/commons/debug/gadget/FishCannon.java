@@ -22,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class FishCannon extends BaseGun {
+
 	private int id;
 
 	public FishCannon(int id) {

@@ -381,7 +381,8 @@ public class Commons extends BukkitPlugin {
                 //Used to handle the dropping of weapons. and items in general.
                 new ItemDropListener(),
                 //Used with the Weapons API.
-                new EntityDamageEntityListener()
+                new EntityDamageEntityListener(),
+                new ItemBreakListener()
         );
     }
 

@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -338,6 +339,18 @@ public class Entities {
 	}
 
 	/**
+	 * Launch an entity upwards with a given amount (how high to go) and force (multiplier to height & speed)
+	 * @param entity entity to launch upwards
+	 * @param amount amount of block to launch the entity up
+	 * @param force force to launch the entity at
+	 */
+	public static void launchUpwards(LivingEntity entity, int amount, int force) {
+		Vector entityVector = entity.getVelocity();
+		entityVector.add(new Vector(0, amount, 0)).multiply(force);
+		entity.setVelocity(entityVector);
+	}
+
+	/**
 	 * Force an entity to be removed safely, by spawning a thread to remove them one tick later.
 	 *
 	 * @param entity entity to remove safely.
@@ -399,7 +412,7 @@ public class Entities {
 	public static Set<Entity> selectEntitiesNear(Entity entity, double x, double y, double z, EntityType... types) {
 		Set<Entity> entities = new HashSet<>();
 
-		List<Entity> nearby = entity.getNearbyEntities(z, y, z);
+		List<Entity> nearby = entity.getNearbyEntities(x, y, z);
 
 		//If the types are null, they want all the entities near the location!
 		if (types == null || types.length == 0) {

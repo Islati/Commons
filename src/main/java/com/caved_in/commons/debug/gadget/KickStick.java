@@ -8,6 +8,7 @@ import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
@@ -16,7 +17,7 @@ public class KickStick extends BaseWeapon {
 
     public KickStick(int id) {
         super(ItemBuilder.of(Material.STICK).name("&cKick Stick").lore("&eGive em a &agood ol' &7&o*whacking*&r&e!").item());
-        setDroppable(false);
+        properties().droppable(false);
 
         this.id = id;
     }
@@ -57,7 +58,12 @@ public class KickStick extends BaseWeapon {
     }
 
     @Override
-    public void onDrop(Player p) {
+    public void onBreak(Player p) {
+
+    }
+
+    @Override
+    public void onDrop(Player p, Item item) {
 
     }
 
