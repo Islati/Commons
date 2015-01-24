@@ -1518,6 +1518,7 @@ public class Players {
 
 		ItemStack hand = Items.removeFromStack(player.getItemInHand(), amount);
 		player.setItemInHand(hand);
+		updateInventory(player);
 	}
 
 	/**

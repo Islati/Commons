@@ -295,7 +295,7 @@ public class Items {
 		if (!hasName(itemStack)) {
 			return itemStack.getType().toString().toLowerCase();
 		}
-		return StringUtil.stripColor(itemStack.getItemMeta().getDisplayName());
+		return StringUtil.stripColor(getMetadata(itemStack).getDisplayName());
 	}
 
 	public static boolean hasName(ItemStack itemStack) {

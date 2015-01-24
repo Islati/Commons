@@ -53,6 +53,9 @@ public class WorldConfiguration {
 	@Element(name = "explosion-fireworks")
 	private boolean explosionFireworks = true;
 
+	@Element(name = "enable-fall-damage")
+	private boolean fallDamage = true;
+
 	private boolean silenceChat = false;
 
 	public WorldConfiguration(@Element(name = "disable-weather") boolean disableWeather,
@@ -70,7 +73,8 @@ public class WorldConfiguration {
 							  @Element(name = "enable-item-drop") boolean enableItemDrop,
 							  @Element(name = "enable-food-change") boolean enableFoodChange,
 							  @Element(name = "disable-fire-spread") boolean disableFireSpread,
-							  @Element(name = "explosion-fireworks") boolean explosionFireworks
+							  @Element(name = "explosion-fireworks") boolean explosionFireworks,
+							  @Element(name = "enable-fall-damage") boolean fallDamage
 	) {
 		this.disableIceAccumulation = disableIceAccumulation;
 		this.disableWeather = disableWeather;
@@ -88,6 +92,7 @@ public class WorldConfiguration {
 		this.enableFoodChange = enableFoodChange;
 		this.disableFireSpread = disableFireSpread;
 		this.explosionFireworks = explosionFireworks;
+		this.fallDamage = fallDamage;
 	}
 
 	public WorldConfiguration() {
@@ -208,5 +213,9 @@ public class WorldConfiguration {
 	 */
 	public boolean hasExplosionFireworks() {
 		return explosionFireworks;
+	}
+
+	public boolean hasFallDamage() {
+		return fallDamage;
 	}
 }
