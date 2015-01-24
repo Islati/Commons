@@ -30,6 +30,11 @@ public class EntityDamageEntityListener implements Listener {
         if (e.getEntityType() == EntityType.ARROW) {
             Arrow arrow = (Arrow) attacker;
             ProjectileSource source = arrow.getShooter();
+
+            if (source == null) {
+                return;
+            }
+
             if (!(source instanceof LivingEntity)) {
                 return;
             }

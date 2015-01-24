@@ -26,6 +26,9 @@ public class ItemBuilder {
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
 
+	/* Whether or not the item is unbreakable, by default false, as most items break! */
+	private boolean unbreakable = false;
+
 	public static ItemBuilder of(Material material) {
 		return new ItemBuilder(material);
 	}
@@ -102,6 +105,16 @@ public class ItemBuilder {
 		return this;
 	}
 
+	public ItemBuilder unbreakable() {
+		unbreakable = true;
+		return this;
+	}
+
+	public ItemBuilder breakable() {
+		unbreakable = false;
+		return this;
+	}
+
 	public ItemStack item() {
 		ItemStack itemStack = new ItemStack(material, amount);
 		ItemMeta itemMeta = itemStack.getItemMeta();
@@ -129,6 +142,10 @@ public class ItemBuilder {
 		if (materialData != null) {
 			itemStack.setData(materialData);
 		}
+
+		//Set the items breakability status.
+		itemStack.getItemMeta().spigot().setUnbreakable(unbreakable);
+
 		//Return our itemstack
 		return itemStack;
 	}

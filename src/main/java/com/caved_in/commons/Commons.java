@@ -354,6 +354,11 @@ public class Commons extends BukkitPlugin {
             debug("&aRegistered the food change listener");
         }
 
+        if (!worldConfig.hasFallDamage()) {
+            registerListeners(new EntityDamageListener());
+            debug("Registered the entity damage listener, used for tracking fall damage and such!");
+        }
+
         //If the server is backed by SQL, then push the specific listeners
         if (globalConfig.hasSqlBackend()) {
             //Used to handle kicking of banned / temp-banned players
