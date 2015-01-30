@@ -4,9 +4,22 @@
  + = Added
 -------------
 
-January 23'rd, 2015 (Build 1.7.4):
-	+ Updated removeFromHand in players to include a player update inv statement
-	+ Updated world-config to have a fall-damage option
+January 22'nd, 2015 (Build 1.7.5-BETA):
+	+ Created the 'launchUpwards' method in Entities.
+	+ Updated the gadget interfaces onDrop method to now pass the Item object that'll be dropped.
+	+ Made the weapon interface extend Gadget interface; For proper semantics.
+	+ Created the GadgetProperties class to contain properties for the gadget; It's easier to have a builder interface than all with getters and setters
+	+ Updated weaponProperties class to extend GadgetProperties
+	+ Created the getToolSet() method in Items to get a whole set of all the tools in a given category.
+	+ Created the isTool() method in Items
+	+ Updated GunProperties to extend WeaponProperties
+	+ Updated NumberUtil to have a getRandomInRange method compatible with Doubles
+	+ Updated BaseGuns bulletBuilder to update its values as opposed to cache them
+	+ Updated Gun to have BaseDamage plus Bullet damage on top, gives the ability for multiple ammunition types.
+	+ Created the ItemBreak listener to cancel the change in durability for gadgets
+	+ Created the ToolType enum to manage types of tools.
+	~ Moved gadget properties to their own properties file
+	~ Made breaking changes to gadgets; Won't be hard to update in implementing plugins though!
 
 January 20'th, 2015 (Build 1.7.4):
 	+ Updated the ItemID class with all item id's for 1.8

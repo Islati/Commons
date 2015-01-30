@@ -457,6 +457,38 @@ public class Items {
 		return WeaponType.isMaterialWeapon(material);
 	}
 
+	public static boolean isTool(ItemStack item) {
+		return isTool(item.getType());
+	}
+
+	public static boolean isTool(Material type) {
+		return ToolType.isTool(type);
+	}
+
+	/**
+	 * Get all the items in a tool set, to their max stack size.
+	 *
+	 * @param type set of tools to get a copy of.
+	 * @return a {@link java.util.HashSet} of {@link org.bukkit.inventory.ItemStack} that the materials in the tool set make.
+	 */
+	public static Set<ItemStack> getToolSet(ToolType type) {
+		Set<ItemStack> items = type.getMaterialTypes().stream()
+				.map(itemType -> Items.makeItemAmount(itemType, itemType.getMaxStackSize()))
+				.collect(Collectors.toSet());
+		return items;
+	}
+
+	public static Set<ItemStack> getToolSet(ToolType type, int stackSize) {
+		/*
+		Create a set of item stacks by mapping the values of each individual material
+		type to an item of the desired type, collecting it into a set!
+		 */
+		Set<ItemStack> items = type.getMaterialTypes().stream()
+				.map(itemType -> Items.makeItemAmount(itemType, stackSize))
+				.collect(Collectors.toSet());
+		return items;
+	}
+
 	public static Material getMaterialById(int id) {
 		return Material.getMaterial(id);
 	}

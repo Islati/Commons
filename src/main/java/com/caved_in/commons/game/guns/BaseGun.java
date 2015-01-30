@@ -11,6 +11,7 @@ import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -58,11 +59,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	}
 
 	private void initBuilder() {
-		if (builder != null) {
-			return;
+		if (builder == null) {
+			builder = new BulletBuilder(properties.ammunition()).gun(this);
 		}
 
-		builder = new BulletBuilder(properties.ammunition()).damage(damage()).power(bullets.speed).gun(this);
+		builder.damage(damage()).power(bullets.speed);
 	}
 
 	@Override
@@ -183,7 +184,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	}
 
 	@Override
-	public void onDrop(Player p) {
+	public void onDrop(Player p, Item item) {
 		reload(p);
 	}
 
@@ -207,6 +208,14 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		Reload according to the guns reload speed!
 		 */
 		commons.getThreadManager().runTaskLater(() -> {
+
+			/*
+			If the player reloading isn't online anymore then we're going to cancel.
+			 */
+			if (!Players.isOnline(id)) {
+				return;
+			}
+
 			if (ammoCounts.containsKey(id)) {
 				/*
 				If this gun has reload messages,
@@ -269,6 +278,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		this.actions = actions;
 	}
 
+	@Override
 	public GunProperties properties() {
 		return properties;
 	}
@@ -310,7 +320,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
 	@Override
 	public double damage() {
-		return bullets.damage + (bullets.damage * random.nextDouble()) - (bullets.damage * random.nextDouble());
+		return properties.getDamage() + bullets.damage + (bullets.damage * random.nextDouble()) - (bullets.damage * random.nextDouble());
 	}
 
 	@Override

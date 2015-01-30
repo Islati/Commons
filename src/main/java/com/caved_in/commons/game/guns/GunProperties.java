@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.game.item.WeaponProperties;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
@@ -10,7 +11,7 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "guns-properties")
-public class GunProperties {
+public class GunProperties extends WeaponProperties {
 	/**
 	 * The size of our launchers clip. After 20 shots, they'll need to reload.
 	 */
@@ -50,13 +51,21 @@ public class GunProperties {
 	private Gun parent;
 
 	public GunProperties() {
+		droppable(false);
+		breakable(false);
 	}
 
 	public GunProperties(Gun parent) {
+		/* Call the default gun initializer, to set both the dropping and breaking to false) */
+		this();
+
 		this.parent = parent;
 	}
 
-	public GunProperties(@Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo) {
+	public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo) {
+		/* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
+		super(-1, false, false, damageMin, damageMax);
+
 		this.clipSize = clipSize;
 		this.shotDelay = shotDelay;
 		this.reloadSpeed = reloadSpeed;
@@ -170,6 +179,18 @@ public class GunProperties {
 	 */
 	public GunProperties displayAmmo(boolean val) {
 		this.displayAmmo = val;
+		return this;
+	}
+
+	/**
+	 * Set how much damage the gun will do before applying bullet damage!
+	 * Overall damage for the gun is calculated on the gun damage plus the bullet damage
+	 *
+	 * @param amt amount of damage this gun will do before applying bullet damage.
+	 * @return the gun-properties builder
+	 */
+	public GunProperties damage(double amt) {
+		damage(amt, amt);
 		return this;
 	}
 

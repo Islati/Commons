@@ -1,9 +1,16 @@
 package com.caved_in.commons.game.item;
 
+import com.caved_in.commons.game.gadget.Gadget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-public interface Weapon {
+public interface Weapon extends Gadget {
+
+	@Override
+	default void perform(Player holder) {
+		onSwing(holder);
+	}
+
 	/**
 	 * What actions to take when a player attacks the target entity;
 	 *
@@ -26,14 +33,6 @@ public interface Weapon {
 	 * @param p player activating the weapon
 	 */
 	public void onActivate(Player p);
-
-	/**
-	 * What action to take when a player drops the weapon.
-	 *
-	 * @param p player dropping the item.
-	 * @param p player dropping the item.
-	 */
-	public void onDrop(Player p);
 
 	/**
 	 * Whether or not the player is able to damage the targeted entity

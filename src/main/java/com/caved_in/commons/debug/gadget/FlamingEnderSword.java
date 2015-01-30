@@ -16,6 +16,7 @@ import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
@@ -31,6 +32,7 @@ public class FlamingEnderSword extends BaseWeapon {
 		super(ItemBuilder.of(Material.IRON_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!").item());
 		this.id = id;
 
+		properties().droppable(true).breakable(false);
 
 		enderBallProperties.speed(4).damage(5).damageCondition((shooter, target) -> target.getType() != EntityType.ENDERMAN);
 		enderBullets = BulletBuilder.from(enderBallProperties).gunless().type(Material.ENDER_PEARL);
@@ -64,12 +66,16 @@ public class FlamingEnderSword extends BaseWeapon {
 	}
 
 	@Override
-	public boolean drop(Player p) {
+	public void onBreak(Player p) {
+
+	}
+
+	@Override
+	public void onDrop(Player p, Item item) {
 		Sounds.playSound(p, Sound.ENDERMAN_STARE);
 		Chat.message(p, "&7The dark-side isn't fond of that disrespect");
 		Players.addPotionEffect(p, Potions.getPotionEffect(PotionEffectType.BLINDNESS, 1, 160));
-		Players.clearHand(p);
-		return false;
+		item.remove();
 	}
 
 	@Override

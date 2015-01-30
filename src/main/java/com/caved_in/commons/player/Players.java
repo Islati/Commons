@@ -190,13 +190,13 @@ public class Players {
 	public static void updateData(MinecraftPlayer minecraftPlayer) {
 		playerData.put(minecraftPlayer.getId(), minecraftPlayer);
 		//If the commons is being backed
-		if (Commons.getInstance().getConfiguration().hasSqlBackend()) {
+		if (commons.hasDatabaseBackend()) {
 			commons.getServerDatabase().syncPlayerWrapperData(minecraftPlayer);
 		}
 	}
 
 	public static void updateData(Player player) {
-		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
+		if (!commons.hasDatabaseBackend()) {
 			return;
 		}
 
@@ -639,7 +639,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void chat(Player player, String message) {
-		player.chat(message);
+		player.chat(StringUtil.colorize(message));
 	}
 
 	/**

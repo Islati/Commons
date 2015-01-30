@@ -51,8 +51,10 @@ public class PlayerJoinListener implements Listener {
 			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
 		}
 
-		commons.getThreadManager().runTaskAsync(() -> {
-			commons.getServerDatabase().updatePlayerCount();
-		});
+		if (commons.hasDatabaseBackend()) {
+			commons.getThreadManager().runTaskAsync(() -> {
+				commons.getServerDatabase().updatePlayerCount();
+			});
+		}
 	}
 }
