@@ -3,6 +3,7 @@ package com.caved_in.commons.game.players;
 import com.caved_in.commons.player.User;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
 import java.util.UUID;
 
 public interface IUserManager<T extends User> {
@@ -15,4 +16,6 @@ public interface IUserManager<T extends User> {
     public void removeUser(Player p);
 
     public void removeUser(UUID id);
+
+    public Collection<T> allUsers();
 }

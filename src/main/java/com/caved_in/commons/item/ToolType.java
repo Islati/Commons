@@ -28,7 +28,7 @@ public enum ToolType {
 			validTools.addAll(materials);
 
             /*
-            Populate the tool-indexed map of materials; Used for static
+			Populate the tool-indexed map of materials; Used for static
             retrieval and checking of types for materials!
              */
 			toolIndexedMaterials.put(toolType, materials);

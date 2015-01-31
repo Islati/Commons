@@ -4,6 +4,22 @@
  + = Added
 -------------
 
+January 28'th, 2015 (Build 1.8):
+	+ Updated S	erverInfo with a(n) isOnline method
+	+ Updated the database 'servers' table to contain a(n) svr_online field to represent if the server is online or offline
+	+ Updated the server database connector to contain appropriate methods related to the svr_online field
+
+January 25'th, 2015 (Build 1.8):
+	+ Added checks in Locations to assure when doing radius checks that the 2 locations are the same.
+	+ Created the inSameWorld(loc,loc) method in Locations
+
+January 24'th, 2015 (Build 1.8):
+	+ Updated GameConnectionListener to accept a UserManager in its constructor, for use when we don't use a usermanager in a game.
+
+January 23'rd, 2015 (Build 1.8):
+	+ Created the launchSnowball's methods inside Entities
+	+ Updated the PlayerDamagePlayer event with support for snowballs.
+
 January 22'nd, 2015 (Build 1.7.5-BETA):
 	+ Created the 'launchUpwards' method in Entities.
 	+ Updated the gadget interfaces onDrop method to now pass the Item object that'll be dropped.

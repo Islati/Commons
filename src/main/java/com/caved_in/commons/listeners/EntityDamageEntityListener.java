@@ -46,6 +46,25 @@ public class EntityDamageEntityListener implements Listener {
         }
 
         /*
+        If the damaging entity was a snowball then we're going to get the player whom
+        shot the snowball and assign them as the attacking player, rightfully so!
+         */
+        if (e.getEntityType() == EntityType.SNOWBALL) {
+            Snowball snowball = (Snowball) attacker;
+            ProjectileSource shooter = snowball.getShooter();
+
+            if (shooter == null) {
+                return;
+            }
+
+            if (!(shooter instanceof Player)) {
+                return;
+            }
+
+            player = (Player) shooter;
+        }
+
+        /*
         Check if the attacker in the event was a player
          */
         if (attacker instanceof Player) {

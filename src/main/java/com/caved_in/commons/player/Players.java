@@ -39,6 +39,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import io.netty.channel.Channel;
+import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
@@ -566,6 +567,8 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void teleport(Player player, Entity target) {
+		Validate.notNull(player);
+		Validate.notNull(target);
 		player.teleport(target, PlayerTeleportEvent.TeleportCause.PLUGIN);
 	}
 
@@ -577,6 +580,8 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void teleport(Player player, Location location) {
+		Validate.notNull(player);
+		Validate.notNull(location);
 		player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
 	}
 
@@ -588,6 +593,7 @@ public class Players {
 	 * @since 1.0
 	 */
 	public static void teleport(Player player, double[] xyz) {
+		Validate.notNull(player);
 		player.teleport(Locations.getLocation(player.getWorld(), xyz));
 	}
 

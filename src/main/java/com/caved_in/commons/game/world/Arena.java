@@ -5,6 +5,7 @@ import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaModifiedEvent;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.world.Worlds;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -86,7 +87,7 @@ public class Arena implements GameArena {
 
 	@Override
 	public List<Location> getSpawnLocations() {
-		List<Location> locs = spawns.stream().map(XmlLocation::getLocation).collect(Collectors.toList());
+		List<Location> locs = spawns.stream().collect(Collectors.toList());
 		return locs;
 	}
 
@@ -137,7 +138,7 @@ public class Arena implements GameArena {
 		try {
 			spawns.remove(num);
 		} catch (Exception e) {
-			//
+			e.printStackTrace();
 		} finally {
 			ArenaModifiedEvent.throwEvent(this);
 		}
@@ -148,7 +149,9 @@ public class Arena implements GameArena {
 	}
 
 	public Location getRandomSpawn() {
-		return ListUtils.getRandom(getSpawnLocations());
+		List<Location> spawns = getSpawnLocations();
+		Validate.notEmpty(spawns);
+		return ListUtils.getRandom(spawns);
 	}
 
 	public boolean isStormy() {

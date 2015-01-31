@@ -62,6 +62,9 @@ public class MinecraftPlayer extends User {
 	@Element(name = "prefix")
 	private String prefix = "";
 
+	@Element(name = "god-mode")
+	private boolean godMode = false;
+
 	/* Whether or not the player is currently reloading a gun */
 	private long reloadEnd = 0;
 
@@ -427,5 +430,13 @@ public class MinecraftPlayer extends User {
 	 */
 	public void setReloading(int durationSeconds) {
 		this.reloadEnd = System.currentTimeMillis() + TimeHandler.getTimeInMilles(durationSeconds, TimeType.SECOND);
+	}
+
+	public boolean hasGodMode() {
+		return godMode;
+	}
+
+	public void setGodMode(boolean godMode) {
+		this.godMode = godMode;
 	}
 }

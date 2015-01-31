@@ -23,8 +23,14 @@ public class Locations {
 		Set<Player> playerInRadius = new HashSet<>();
 		Collection<Player> onlinePlayers = Players.allPlayers();
 		double radiusSquared = radius * radius;
+		World centerWorld = location.getWorld();
 		for (Player onlinePlayer : onlinePlayers) {
-			if (onlinePlayer.getLocation().distanceSquared(location) <= radiusSquared) {
+			Location playerLoc = onlinePlayer.getLocation();
+			if (!playerLoc.getWorld().equals(centerWorld)) {
+				continue;
+			}
+
+			if (playerLoc.distanceSquared(location) <= radiusSquared) {
 				playerInRadius.add(onlinePlayer);
 			}
 		}
@@ -36,7 +42,19 @@ public class Locations {
 	}
 
 	public static boolean isEntityInRadius(Location center, double radius, Entity entity) {
-		return center.distanceSquared(entity.getLocation()) <= (radius * radius);
+		return isInRadius(center, entity.getLocation(), radius);
+	}
+
+	public static boolean isInRadius(Location center, Location loc, double radius) {
+		/*
+		If the world of the 2 locations isn't the same,
+		then they're clearly not in the radius!
+		 */
+		if (!loc.getWorld().equals(center.getWorld())) {
+			return false;
+		}
+
+		return center.distanceSquared(loc) <= (radius * radius);
 	}
 
 	public static Location getRandomLocation(Location locationCenter, double radius) {
@@ -281,6 +299,10 @@ public class Locations {
 
 	public static String getWorldName(Location location) {
 		return location.getWorld().getName();
+	}
+
+	public static boolean inSameWorld(Location loc, Location check) {
+		return loc.getWorld().equals(check);
 	}
 
 	public static boolean isBehind(LivingEntity entityToCheck, LivingEntity entityBehind) {

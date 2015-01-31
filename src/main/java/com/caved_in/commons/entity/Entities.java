@@ -350,6 +350,28 @@ public class Entities {
 		entity.setVelocity(entityVector);
 	}
 
+	public static void launchSnowball(LivingEntity entity) {
+		launchSnowball(entity, 1, 2);
+	}
+
+	public static void launchSnowball(LivingEntity entity, int force) {
+		launchSnowball(entity, 1, force);
+	}
+
+	/**
+	 * Make the desired amount of snowballs with a specified force fire from the entity passed.
+	 *
+	 * @param entity entity firing the snowballs
+	 * @param amount amount of snowballs the fire
+	 * @param force  force to apply to the snowballs
+	 */
+	public static void launchSnowball(LivingEntity entity, int amount, int force) {
+		for (int i = 0; i < amount; i++) {
+			Snowball snowball = entity.launchProjectile(Snowball.class);
+			snowball.setVelocity(snowball.getVelocity().multiply(force));
+		}
+	}
+
 	/**
 	 * Force an entity to be removed safely, by spawning a thread to remove them one tick later.
 	 *

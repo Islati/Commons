@@ -60,9 +60,10 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
 	/* Status tracker for the amount of players online, along with the maximum amount allowed */
 	private static final String SYNC_SERVER_INFO = "UPDATE servers SET svr_player_count=?, svr_player_limit=? WHERE svr_name=?";
-	private static final String INSERT_SERVER_INFO = "INSERT INTO servers (svr_name,svr_player_count,svr_player_limit) VALUES (?,?,?)";
+	private static final String INSERT_SERVER_INFO = "INSERT INTO servers (svr_name,svr_player_count,svr_player_limit,svr_online) VALUES (?,?,?,?)";
 	private static final String RETRIEVE_SERVER_INFO = "SELECT * FROM servers WHERE svr_name=?";
 	private static final String RETRIEVE_ALL_SERVER_INFO = "SELECT * FROM servers";
+	private static final String UPDATE_SERVER_ONLINE_STATUS = "UPDATE servers SET svr_online=? WHERE svr_name=?";
 
 	private static final String[] TABLE_CREATION_STATEMENTS = new String[]{
 			"CREATE TABLE IF NOT EXISTS `server_online` (`player_id` varchar(36) NOT NULL, `online` tinyint(1) NOT NULL, `svr_id` int(11) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
@@ -70,7 +71,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			"CREATE TABLE IF NOT EXISTS `server_prefixes` (`player_id` varchar(36) NOT NULL, `player_prefix` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;",
-			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT, `svr_name` text CHARACTER SET utf8 NOT NULL, `svr_player_count` int(10) unsigned NOT NULL, `svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100', PRIMARY KEY (`svr_id`), UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;"
+			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT, `svr_name` text CHARACTER SET utf8 NOT NULL, `svr_player_count` int(10) unsigned NOT NULL, `svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100', `svr_online` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`svr_id`), UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;"
 	};
 
 	public ServerDatabaseConnector(SqlConfiguration sqlConfiguration) {
@@ -515,12 +516,33 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			insertPlayerCountStatement.setString(1, Commons.getInstance().getConfiguration().getServerName());
 			insertPlayerCountStatement.setInt(2, Players.getOnlineCount());
 			insertPlayerCountStatement.setInt(3, Bukkit.getServer().getMaxPlayers());
+			insertPlayerCountStatement.setBoolean(4, true);
 			insertPlayerCountStatement.execute();
 			Chat.debug("Created default server-table info!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(insertPlayerCountStatement);
+		}
+	}
+
+	public void updateServerOnlineStatus(boolean isOnline) {
+		if (!hasServerInfo()) {
+			insertServerInfo();
+		}
+
+		PreparedStatement statement = prepareStatement(UPDATE_SERVER_ONLINE_STATUS);
+		String serverName = Commons.getInstance().getConfiguration().getServerName();
+
+		try {
+			statement.setBoolean(1, isOnline);
+			statement.setString(2, serverName);
+			statement.execute();
+			Chat.debug("Updated the online status of " + serverName + " to " + String.valueOf(isOnline));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(statement);
 		}
 	}
 
@@ -534,7 +556,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			if (results.next()) {
 				info.name(results.getString("svr_name"))
 						.players(results.getInt("svr_player_count"))
-						.maxPlayers(results.getInt("svr_player_limit"));
+						.maxPlayers(results.getInt("svr_player_limit"))
+						.online(results.getBoolean("svr_online"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -557,7 +580,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 				ServerInfo info = new ServerInfo()
 						.name(results.getString("svr_name"))
 						.players(results.getInt("svr_player_count"))
-						.maxPlayers(results.getInt("svr_player_limit"));
+						.maxPlayers(results.getInt("svr_player_limit"))
+						.online(results.getBoolean("svr_online"));
 
 				infoSet.add(info);
 			}

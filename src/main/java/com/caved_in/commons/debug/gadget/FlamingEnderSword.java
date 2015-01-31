@@ -29,7 +29,7 @@ public class FlamingEnderSword extends BaseWeapon {
 	private BulletBuilder enderBullets;
 
 	public FlamingEnderSword(int id) {
-		super(ItemBuilder.of(Material.IRON_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!").item());
+		super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!").item());
 		this.id = id;
 
 		properties().droppable(true).breakable(false);
@@ -67,7 +67,7 @@ public class FlamingEnderSword extends BaseWeapon {
 
 	@Override
 	public void onBreak(Player p) {
-
+		Chat.message(p, "Your sword of enders has broken");
 	}
 
 	@Override

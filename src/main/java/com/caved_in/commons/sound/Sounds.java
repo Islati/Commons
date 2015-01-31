@@ -19,6 +19,15 @@ public class Sounds {
 	}
 
 	/**
+	 * 	Plays the sound data to the given player.
+	 * @param player player to play the sound for
+	 * @param data sound data to play for the player; includes pitch, volume, and sound
+	 */
+	public static void playSound(Player player, SoundData data) {
+		playSound(player, data.getSound(), data.getVolume(), data.getPitch());
+	}
+
+	/**
 	 * Plays a sound for the player with the given volume and pitch
 	 *
 	 * @param player
@@ -39,6 +48,10 @@ public class Sounds {
 	 */
 	public static void playSoundDistant(Player player, Location location, Sound sound) {
 		player.playSound(location, sound, 1.0f, 1.0f);
+	}
+
+	public static void playSoundDistant(Player player, Location loc, SoundData data) {
+		player.playSound(loc, data.getSound(), data.getVolume(), data.getPitch());
 	}
 
 	/**
@@ -80,6 +93,10 @@ public class Sounds {
 		location.getWorld().playSound(location, sound, volume, pitch);
 	}
 
+	public static void playSoundForPlayersAtLocation(Location loc, SoundData sound) {
+		playSoundForPlayersAtLocation(loc, sound.getSound(), sound.getVolume(), sound.getPitch());
+	}
+
 	/**
 	 * Plays a sound for all players in the given areas radius, at a location other than the area center
 	 *
@@ -99,5 +116,9 @@ public class Sounds {
 		for (Player player : playersInLocation) {
 			playSoundDistant(player, soundPlayLocation, sound, volume, pitch);
 		}
+	}
+
+	public static void playSoundDistantAtLocation(Location areaLocation, Location soundLocation, double radius, SoundData data) {
+		playSoundDistantAtLocation(areaLocation, soundLocation, radius, data.getSound(), data.getVolume(), data.getPitch());
 	}
 }

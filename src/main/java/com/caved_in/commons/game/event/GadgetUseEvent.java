@@ -50,6 +50,10 @@ public class GadgetUseEvent extends Event implements Cancellable {
 		return handler;
 	}
 
+	public static HandlerList getHandlerList() {
+		return handler;
+	}
+
 	public Player getPlayer() {
 		return player;
 	}

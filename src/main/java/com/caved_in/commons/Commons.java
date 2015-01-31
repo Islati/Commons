@@ -101,6 +101,10 @@ public class Commons extends BukkitPlugin {
             SqlConfiguration sqlConfig = globalConfig.getSqlConfig();
             //Create the database connection
             database = new ServerDatabaseConnector(sqlConfig);
+
+            getThreadManager().runTaskAsync(() -> {
+                database.updateServerOnlineStatus(true);
+            });
         }
 
         /*
@@ -180,6 +184,15 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public void shutdown() {
+        /*
+        Update the server-online status for the server that's stopping
+        to false!
+         */
+        if (hasDatabaseBackend()) {
+            database.updateServerOnlineStatus(false);
+            getLogger().info("Updated the online-status for this server to false! b-bye!");
+        }
+
         for (Player player : Players.allPlayers()) {
             UUID playerId = player.getUniqueId();
             Players.removeData(playerId);
@@ -189,7 +202,7 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public String getVersion() {
-        return "1.7.4";
+        return "1.8.1";
     }
 
     @Override
@@ -354,11 +367,6 @@ public class Commons extends BukkitPlugin {
             debug("&aRegistered the food change listener");
         }
 
-        if (!worldConfig.hasFallDamage()) {
-            registerListeners(new EntityDamageListener());
-            debug("Registered the entity damage listener, used for tracking fall damage and such!");
-        }
-
         //If the server is backed by SQL, then push the specific listeners
         if (globalConfig.hasSqlBackend()) {
             //Used to handle kicking of banned / temp-banned players
@@ -387,7 +395,9 @@ public class Commons extends BukkitPlugin {
                 new ItemDropListener(),
                 //Used with the Weapons API.
                 new EntityDamageEntityListener(),
-                new ItemBreakListener()
+                new ItemBreakListener(),
+                new ItemDamageListener(),
+                new EntityDamageListener()
         );
     }
 

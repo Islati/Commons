@@ -14,14 +14,11 @@ public class ItemBreakListener implements Listener {
 		Player p = e.getPlayer();
 		ItemStack broken = e.getBrokenItem();
 
-		if (Gadgets.isGadget(broken)) {
-			Gadget gadget = Gadgets.getGadget(broken);
-
-			if (!gadget.properties().isBreakable()) {
-				broken.setDurability(Short.MAX_VALUE);
-			} else {
-				//TODO Implement decrement of pseudo-durability code
-			}
+		if (!Gadgets.isGadget(broken)) {
+			return;
 		}
+
+		Gadget gadget = Gadgets.getGadget(broken);
+		gadget.onBreak(p);
 	}
 }

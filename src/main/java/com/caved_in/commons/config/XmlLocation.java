@@ -31,7 +31,6 @@ public class XmlLocation extends BaseLocation {
 	@Element(name = "yaw", required = false)
 	private float yaw;
 
-	private Location location = null;
 
 	public static XmlLocation fromLocation(Location loc) {
 		return new XmlLocation(loc);
@@ -45,6 +44,14 @@ public class XmlLocation extends BaseLocation {
 		z = location.getZ();
 		pitch = location.getPitch();
 		yaw = location.getYaw();
+	}
+
+	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
+		super(Worlds.getWorld(worldName), x, y, z);
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.worldName = worldName;
 	}
 
 	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
@@ -61,36 +68,8 @@ public class XmlLocation extends BaseLocation {
 		return worldName;
 	}
 
-	@Override
-	public double getX() {
-		return x;
-	}
-
-	@Override
-	public double getY() {
-		return y;
-	}
-
-	@Override
-	public double getZ() {
-		return z;
-	}
-
-	@Override
-	public float getPitch() {
-		return pitch;
-	}
-
-	@Override
-	public float getYaw() {
-		return yaw;
-	}
-
 	@Deprecated
 	public Location getLocation() {
-		if (location == null) {
-			location = new Location(Worlds.getWorld(worldName), x, y, z, yaw, pitch);
-		}
-		return location;
+		return this;
 	}
 }
