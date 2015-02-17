@@ -958,7 +958,7 @@ public class Players {
 	 */
 	public static void setItem(Player player, int slot, ItemStack item) {
 		Inventories.setItem(player.getInventory(), slot, item);
-
+		player.updateInventory();
 	}
 
 	/**
@@ -1190,6 +1190,15 @@ public class Players {
 		return ListUtils.getRandom(Lists.newArrayList(allPlayers()));
 	}
 
+	public static Player getRandomNonPremiumPlayer() {
+		if (!Players.isOnline(1)) {
+			return null;
+		}
+
+		List<MinecraftPlayer> nonPremiums = allPlayerWrappers().stream().filter(p -> !p.isPremium()).collect(Collectors.toList());
+		return ListUtils.getRandom(nonPremiums).getPlayer();
+	}
+
 	/**
 	 * Retrieve all the players in a specific world.
 	 *
@@ -1396,6 +1405,16 @@ public class Players {
 	 */
 	public static void feed(Player player) {
 		feed(player, 20);
+	}
+
+	public static void decreaseHunger(Player player, int amount) {
+		int hungerLevel = player.getFoodLevel();
+		hungerLevel -= amount;
+		if (hungerLevel <= 0) {
+			hungerLevel = 0;
+		}
+
+		player.setFoodLevel(hungerLevel);
 	}
 
 	/**
@@ -1795,6 +1814,29 @@ public class Players {
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * Increase the players speed by the multiplier given!
+	 *
+	 * @param p          player who's speed will be increased.
+	 * @param multiplier multiplier to increase the players speed by.
+	 */
+	public static void setSpeed(Player p, int multiplier) {
+		double walkSpeed = MinecraftPlayer.DEFAULT_WALK_SPEED * multiplier;
+		double flySpeed = MinecraftPlayer.DEFAULT_FLY_SPEED * multiplier;
+		p.setWalkSpeed((float) walkSpeed);
+		p.setFlySpeed((float) flySpeed);
+	}
+
+	/**
+	 * Reset the players walk and run speed to default!
+	 *
+	 * @param p player to reset the walk and fly speed for.
+	 */
+	public static void resetSpeed(Player p) {
+		p.setWalkSpeed((float) MinecraftPlayer.DEFAULT_WALK_SPEED);
+		p.setFlySpeed((float) MinecraftPlayer.DEFAULT_FLY_SPEED);
 	}
 
 

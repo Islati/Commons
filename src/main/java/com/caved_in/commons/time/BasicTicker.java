@@ -6,6 +6,11 @@ public class BasicTicker implements Ticker {
 
 	private int ticks = 0;
 
+	/*
+	Whether or not the ticker will reset after its allow methods passed.
+	 */
+	private boolean resetAfterAllow = true;
+
 	public BasicTicker(int allowAmount) {
 		this.amount = allowAmount;
 	}
@@ -33,9 +38,19 @@ public class BasicTicker implements Ticker {
 	@Override
 	public boolean allow() {
 		if (getTickCount() >= allowAmount()) {
-			reset();
+			if (resetAfterAllow()) {
+				reset();
+			}
 			return true;
 		}
 		return false;
+	}
+
+	public boolean resetAfterAllow() {
+		return resetAfterAllow;
+	}
+
+	public void setResetAfterAllow(boolean val) {
+		this.resetAfterAllow = val;
 	}
 }

@@ -15,7 +15,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.command.CommandSender;
 
 public class BuyPremiumCommand {
-	@Command(identifier = "buypremium", description = "Used to give users premium", permissions = Perms.COMMAND_BUYPREMIUM)
+	@Command(identifier = "buypremium", description = "Used to give users premium", permissions = Perms.COMMAND_BUYPREMIUM, onlyPlayers = false)
 	public void buyPlayerPremium(CommandSender sender, @Arg(name = "player") String playerName) {
 		Chat.message(sender, "&ePlease wait while we search for this players info");
 		//If the player's online, then get the unique ID of the player

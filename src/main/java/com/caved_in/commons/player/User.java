@@ -1,6 +1,8 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.world.Worlds;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 
@@ -14,6 +16,8 @@ public abstract class User implements PlayerWrapper {
 
 	@Element(name = "uuid")
 	private String uid;
+
+	private String worldName;
 
 	public User(Player p) {
 		name = p.getName();
@@ -66,7 +70,50 @@ public abstract class User implements PlayerWrapper {
 		return Players.isOnline(getId());
 	}
 
+	public World getWorld() {
+		return Worlds.getWorld(worldName);
+	}
+
+	/**
+	 * Updates the cached world variable to players existing world. Used internally.
+	 */
+	@Deprecated
+	public void updateWorld() {
+		World playerWorld = getPlayer().getWorld();
+		String playerWorldName = playerWorld.getName();
+
+		/*
+		If the world the player is switching to is the same as their existing world
+		(player isn't actually changing worlds)
+		then quit while we're ahead.
+		 */
+		if (worldName != null && playerWorldName.equals(worldName)) {
+			return;
+		}
+
+		World oldWorld = Worlds.getWorld(worldName);
+		worldName = playerWorld.getName();
+		onWorldChange(oldWorld, playerWorld);
+	}
+
 	public void destroy() {
+
+	}
+
+	/**
+	 * @return the name of the world the player is currently in.
+	 */
+	public String getWorldName() {
+		return worldName;
+	}
+
+	/**
+	 * Called whenever the user changes worlds; Has no behaviour by default, though it can be overridden to fulfill your needs.
+	 *
+	 * @param from the world the player switched from.
+	 * @param to   the world the player has switched to.
+	 */
+	public void onWorldChange(World from, World to) {
 
 	}
 

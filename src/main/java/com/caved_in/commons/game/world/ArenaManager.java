@@ -1,10 +1,12 @@
 package com.caved_in.commons.game.world;
 
+import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaCycleEvent;
 import com.caved_in.commons.game.event.ArenaLoadEvent;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
+import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -53,7 +55,11 @@ public class ArenaManager implements ArenaHandler {
 
 		//Create a new arena for the given world
 		if (!Worlds.exists(worldName)) {
-			Worlds.load(worldName);
+			try {
+				Worlds.load(worldName);
+			} catch (WorldLoadException e) {
+				logger.severe(String.format("Error adding arena for World '%s' ArenaManager::addArena - StackTrace: %s", worldName, Str.getStackStr(e)));
+			}
 			logger.info("Loaded " + worldName + " for the arena");
 		}
 
@@ -84,7 +90,11 @@ public class ArenaManager implements ArenaHandler {
 			setActiveArena(arena);
 		}
 
-		Worlds.load(arena.getWorldName());
+		try {
+			Worlds.load(arena.getWorldName());
+		} catch (WorldLoadException e) {
+			game.getLogger().severe("Error loading the world " + arena.getWorldName() + " in ArenaManager::addArena - " + Str.getStackStr(e));
+		}
 
 		/*
 		Call the arena load event!
@@ -187,7 +197,11 @@ public class ArenaManager implements ArenaHandler {
 
 	@Override
 	public void loadArena(Arena arena) {
-		Worlds.load(arena.getWorldName());
+		try {
+			Worlds.load(arena.getWorldName());
+		} catch (WorldLoadException e) {
+			game.getLogger().severe("Error loading arena '" + arena.getArenaName() + "' (World: " + arena.getWorldName() + ") in ArenaManager::loadArena - " + Str.getStackStr(e));
+		}
 
 		if (arena.isEnabled()) {
 			initializeArena(arena);
@@ -214,7 +228,22 @@ public class ArenaManager implements ArenaHandler {
 	}
 
 	public void teleportAllToArena() {
-		Players.stream().forEach(p -> Players.teleport(p, getActiveArena().getRandomSpawn()));
+		Arena activeArena = getActiveArena();
+		if (activeArena == null) {
+			throw new NullPointerException("Unable to teleport players to the arena, as there's no active arena");
+		}
+
+		if (!activeArena.isWorldLoaded()) {
+			try {
+				activeArena.loadWorld();
+			} catch (WorldLoadException e) {
+				e.printStackTrace();
+				//TODO Potentially cycle the arena, notify players, etc.
+				return;
+			}
+		}
+
+		Players.stream().forEach(p -> Players.teleport(p, activeArena.getRandomSpawn()));
 	}
 
 

@@ -1,5 +1,6 @@
 package com.caved_in.commons.chat;
 
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.ChatColor;
 
 public class TitleBuilder {
@@ -21,12 +22,12 @@ public class TitleBuilder {
 	}
 
 	public TitleBuilder title(String title) {
-		this.title = title;
+		this.title = StringUtil.colorize(title);
 		return this;
 	}
 
 	public TitleBuilder subtitle(String subtitle) {
-		this.subtitle = subtitle;
+		this.subtitle = StringUtil.colorize(subtitle);
 		return this;
 	}
 

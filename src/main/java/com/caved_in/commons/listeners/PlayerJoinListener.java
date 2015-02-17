@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.player.MinecraftPlayer;
+import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.entity.Player;
@@ -38,7 +39,7 @@ public class PlayerJoinListener implements Listener {
 		}
 
 		//Initialize the wrapped player data
-		Commons.getInstance().getPlayerHandler().addData(player);
+		commons.getPlayerHandler().addData(player);
 
 		//Update the player's online status in our data-base!
 
@@ -49,6 +50,12 @@ public class PlayerJoinListener implements Listener {
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (config.getServerName().equalsIgnoreCase("lobby")) {
 			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
+		}
+
+		MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(player);
+
+		if (commons.isServerFull() && mcPlayer.isPremium()) {
+			Players.kick(Players.getRandomNonPremiumPlayer(), "&eYou were moved to hub to make room for a premium player");
 		}
 
 		if (commons.hasDatabaseBackend()) {

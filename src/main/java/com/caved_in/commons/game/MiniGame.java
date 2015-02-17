@@ -1,7 +1,7 @@
 package com.caved_in.commons.game;
 
 import com.caved_in.commons.game.clause.ServerShutdownClause;
-import com.caved_in.commons.game.listener.GameConnectionListener;
+import com.caved_in.commons.game.listener.UserManagerListener;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.game.world.ArenaManager;
@@ -38,7 +38,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	private ArenaManager arenaManager;
 
-	private GameConnectionListener connectionListener;
+	private UserManagerListener userManagerListener;
 
 	/* The class which our user manager is created from */
 	private Class<? extends UserManager> userManagerClass = null;
@@ -86,10 +86,10 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		}
 
 		/* Create the connection listener that handles the managing of game-player data */
-		connectionListener = new GameConnectionListener(this);
+		userManagerListener = new UserManagerListener(this);
 
 		/* Register the game connection listener */
-		registerListeners(connectionListener);
+		registerListeners(userManagerListener);
 	}
 
 	@Override
@@ -319,8 +319,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	public abstract void startup();
 
 	public abstract void shutdown();
-
-	public abstract String getVersion();
 
 	public abstract String getAuthor();
 

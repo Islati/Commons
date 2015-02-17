@@ -5,6 +5,7 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.BlockID;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.threading.tasks.BlockRegenThread;
 import com.caved_in.commons.threading.tasks.BlocksRegenThread;
@@ -16,6 +17,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.material.MaterialData;
 
@@ -511,5 +513,42 @@ public class Blocks {
 	 */
 	public static void restoreBlocks(Map<Location, Material> materialLocations) {
 		materialLocations.forEach(Blocks::setBlock);
+	}
+
+
+	/**
+	 * Spawn a {@link org.bukkit.entity.FallingBlock} of the given material type
+	 *
+	 * @param loc      location to spawn the block at
+	 * @param material material to make the block
+	 * @return the falling block that was spawned
+	 */
+	public static FallingBlock spawnFallingBlock(Location loc, Material material) {
+		return spawnFallingBlock(loc, material, 0);
+	}
+
+	/**
+	 * Spawn a {@link org.bukkit.entity.FallingBlock} of the given material at the location specified.
+	 *
+	 * @param loc       location to spawn the falling block at
+	 * @param material  material the block will be.
+	 * @param dataValue data value to give the material
+	 * @return the falling block that was spawned.
+	 */
+	public static FallingBlock spawnFallingBlock(Location loc, Material material, int dataValue) {
+		return spawnFallingBlock(loc, Items.getMaterialData(material, dataValue));
+	}
+
+	/**
+	 * Spawn a {@link org.bukkit.entity.FallingBlock} with the specified materialdata at the given location
+	 *
+	 * @param loc  location to spawn the fallingblock
+	 * @param data materialdata the block has when spawned.
+	 * @return the falling block that was spawned.
+	 */
+	public static FallingBlock spawnFallingBlock(Location loc, MaterialData data) {
+		World world = loc.getWorld();
+		FallingBlock block = world.spawnFallingBlock(loc, data.getItemType(), data.getData());
+		return block;
 	}
 }

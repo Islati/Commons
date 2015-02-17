@@ -99,4 +99,11 @@ public class UserManager<T extends User> implements IUserManager<T> {
     public Collection<T> allUsers() {
         return users.values();
     }
+
+    /**
+     * @return whether or not there's any user data in the user manager.
+     */
+    public boolean hasUsers() {
+        return users.size() > 0;
+    }
 }

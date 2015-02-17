@@ -1,6 +1,7 @@
 package com.caved_in.commons.cuboid;
 
 import com.caved_in.commons.Messages;
+import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -197,7 +198,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	}
 
 	/**
-	 * Get the Cuboid's world.
+	 * Get the Cuboid's world. Attempts to load the world if it's not currently loaded.
 	 *
 	 * @return The World object representing this Cuboid's world
 	 * @throws IllegalStateException if the world is not loaded
@@ -206,7 +207,11 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 
 		World world = Bukkit.getWorld(this.worldName);
 		if (world == null) {
-			Worlds.load(worldName);
+			try {
+				Worlds.load(worldName);
+			} catch (WorldLoadException e) {
+				e.printStackTrace();
+			}
 		}
 		return world;
 	}

@@ -1,12 +1,15 @@
 package com.caved_in.commons.world;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.threading.tasks.ClearDroppedItemsThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -35,6 +38,19 @@ public class Worlds {
 	}
 
 	public static World getWorld(String worldName) {
+		if (!exists(worldName)) {
+			boolean loaded = false;
+
+			try {
+				loaded = load(worldName);
+			} catch (WorldLoadException e) {
+				e.printStackTrace();
+			}
+
+			if (!loaded) {
+				Chat.debug("Unable to load world " + worldName + " due to errors!");
+			}
+		}
 		return Bukkit.getWorld(worldName);
 	}
 
@@ -51,6 +67,11 @@ public class Worlds {
 	}
 
 	public static String getWorldName(Location location) {
+		Validate.notNull(location, "Unable to get the name for a null location ");
+
+		World world = location.getWorld();
+		Validate.notNull(world, "Unable to get the name for the location as its associated world is null!");
+
 		return location.getWorld().getName();
 	}
 
@@ -98,7 +119,7 @@ public class Worlds {
 		return Bukkit.getServer().unloadWorld(world, false);
 	}
 
-	public static boolean load(String worldName) {
+	public static boolean load(String worldName) throws WorldLoadException {
 		try {
 			Bukkit.getServer().createWorld(new WorldCreator(worldName));
 //			if (exists(worldName)) {
@@ -107,7 +128,7 @@ public class Worlds {
 //				world.loadChunk(spawnLocation.getBlockX(),spawnLocation.getBlockZ(),true);
 //			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			throw new WorldLoadException(ex.getCause());
 		}
 		return exists(worldName);
 	}
@@ -165,7 +186,11 @@ public class Worlds {
 		String worldName = world.getName();
 		world.setAutoSave(false);
 		unload(world);
-		load(worldName);
+		try {
+			load(worldName);
+		} catch (WorldLoadException e) {
+			e.printStackTrace();
+		}
 		world.setAutoSave(save);
 	}
 

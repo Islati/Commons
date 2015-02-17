@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+@Deprecated
 public class GameConnectionListener implements Listener {
     private BukkitPlugin parent;
     private UserManager userManager;
@@ -22,6 +23,10 @@ public class GameConnectionListener implements Listener {
     public GameConnectionListener(CraftGame game) {
         this.parent = game;
         userManager = game.getUserManager();
+    }
+
+    protected UserManager getUserManager() {
+        return userManager;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

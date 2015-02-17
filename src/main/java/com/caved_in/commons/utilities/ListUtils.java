@@ -1,5 +1,8 @@
 package com.caved_in.commons.utilities;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -103,5 +106,9 @@ public class ListUtils {
 		}
 
 		return result;
+	}
+
+	public static <T> List<T> removeDuplicates(List<T> list) {
+		return Lists.newArrayList(Sets.newHashSet(list));
 	}
 }

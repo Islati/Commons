@@ -2,7 +2,6 @@ package com.caved_in.commons.config;
 
 import com.caved_in.commons.location.BaseLocation;
 import com.caved_in.commons.world.Worlds;
-import lombok.ToString;
 import org.bukkit.Location;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -11,7 +10,6 @@ import org.simpleframework.xml.Root;
  * Serializable wrapper for Locations. Extends location class so it can be passed to methods without calling getLocation()
  */
 @Root(name = "location")
-@ToString(exclude = {"location"})
 public class XmlLocation extends BaseLocation {
 	@Element(name = "world")
 	private String worldName;
@@ -66,10 +64,5 @@ public class XmlLocation extends BaseLocation {
 
 	public String getWorldName() {
 		return worldName;
-	}
-
-	@Deprecated
-	public Location getLocation() {
-		return this;
 	}
 }

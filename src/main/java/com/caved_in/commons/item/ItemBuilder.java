@@ -123,7 +123,7 @@ public class ItemBuilder {
 			itemMeta.setDisplayName(name);
 		}
 		//Check for lore and set the lore
-		if (!lore.isEmpty()) {
+		if (lore != null && !lore.isEmpty()) {
 			itemMeta.setLore(StringUtil.formatColorCodes(lore));
 		}
 		//If there's any enchantments added to the itembuilder, add them to the item

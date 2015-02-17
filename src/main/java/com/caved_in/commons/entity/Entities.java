@@ -5,6 +5,7 @@ import com.caved_in.commons.inventory.ArmorInventory;
 import com.caved_in.commons.inventory.ArmorSlot;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.potion.Potions;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.warp.Warp;
@@ -17,6 +18,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.*;
@@ -118,6 +120,35 @@ public class Entities {
 		Sheep sheep = (Sheep) spawnLivingEntity(EntityType.SHEEP, location);
 		sheep.setColor(Items.getRandomDyeColor());
 		return sheep;
+	}
+
+	/**
+	 * Spawn an invisible, invincible {@link org.bukkit.entity.Bat} at the given location
+	 * @param loc location to spawn the bat at.
+	 * @return the invisible bat that was spawned
+	 */
+	public static Bat spawnInvisibleBat(Location loc) {
+		World world = loc.getWorld();
+		Bat bat = world.spawn(loc, Bat.class);
+		/*
+		 Give the bat invisibility..
+		 */
+		addPotionEffect(bat, Potions.getPotionEffect(PotionEffectType.INVISIBILITY, 1, Integer.MAX_VALUE));
+		/*
+		.. and also stop them from taking any damage for a loooong time!
+		 */
+		bat.setNoDamageTicks(Integer.MAX_VALUE);
+
+		/*
+		Make sure the bat stays spawned when nobodies near it!
+		 */
+		bat.setRemoveWhenFarAway(false);
+
+		/*
+		and assure the bat has no movement velocity, otherwise shit will go haywire!
+		 */
+		bat.setVelocity(new Vector(0, 0, 0));
+		return bat;
 	}
 
 	/**
@@ -373,12 +404,26 @@ public class Entities {
 	}
 
 	/**
+	 * Force a variable amount of entities to be removed.
+	 * @param entities entities to remove.
+	 */
+	public static void remove(Entity... entities) {
+		for (Entity e : entities) {
+			e.remove();
+		}
+	}
+
+	/**
 	 * Force an entity to be removed safely, by spawning a thread to remove them one tick later.
 	 *
-	 * @param entity entity to remove safely.
+	 * @param entities entities to remove safely.
 	 */
-	public static void removeEntitySafely(final LivingEntity entity) {
-		Commons.getInstance().getThreadManager().runTaskOneTickLater(entity::remove);
+	public static void removeEntitySafely(Entity... entities) {
+		Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> {
+			for (Entity e : entities) {
+				e.remove();
+			}
+		});
 	}
 
 	/**

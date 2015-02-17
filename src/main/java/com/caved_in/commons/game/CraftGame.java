@@ -18,8 +18,6 @@ public abstract class CraftGame extends BukkitPlugin implements GameCore {
 
 	public abstract void shutdown();
 
-	public abstract String getVersion();
-
 	public abstract String getAuthor();
 
 	public abstract void initConfig();

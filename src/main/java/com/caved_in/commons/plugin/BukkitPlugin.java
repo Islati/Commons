@@ -84,7 +84,10 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public abstract void shutdown();
 
-	public abstract String getVersion();
+	@Override
+	public String getVersion() {
+		return getDescription().getVersion();
+	}
 
 	public abstract String getAuthor();
 
