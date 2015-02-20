@@ -9,7 +9,7 @@ import java.util.Map;
  * The private message manager provides functionality utilized internally by Commons for private communication between players.
  */
 public class PrivateMessageManager {
-	private Map<String, ChatMessage> recentChatters = new HashMap<>();
+	private Map<String, PrivateMessage> recentChatters = new HashMap<>();
 
 	public PrivateMessageManager() {
 
@@ -30,10 +30,10 @@ public class PrivateMessageManager {
 	 * Sets the chatmessage for a player
 	 *
 	 * @param playerFor   player to set the recent chat-message for
-	 * @param chatMessage chatmessage to set for the player
+	 * @param privateMessage chatmessage to set for the player
 	 */
-	public void setRecentPrivateMessageFrom(String playerFor, ChatMessage chatMessage) {
-		recentChatters.put(playerFor, chatMessage);
+	public void setRecentPrivateMessageFrom(String playerFor, PrivateMessage privateMessage) {
+		recentChatters.put(playerFor, privateMessage);
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class PrivateMessageManager {
 	public void messagePlayer(Player playerSendingTo, Player playerSendingFrom, String message) {
 		Chat.sendMessage(playerSendingTo, "&f[&e" + playerSendingFrom.getDisplayName() + "&b -> &aYou&f] " + message);
 		Chat.sendMessage(playerSendingFrom, "&f[&eYou &b-> &a" + playerSendingTo.getDisplayName() + "&f] " + message);
-		setRecentPrivateMessageFrom(playerSendingTo.getName(), new ChatMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
+		setRecentPrivateMessageFrom(playerSendingTo.getName(), new PrivateMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
 	}
 
 

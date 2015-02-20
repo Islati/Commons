@@ -2,6 +2,7 @@ package com.caved_in.commons.world;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.reflection.ReflectionUtilities;
@@ -194,8 +195,23 @@ public class Worlds {
 		world.setAutoSave(save);
 	}
 
-	public static void clearDroppedItems(Location loc, int radius) {
-		Commons.getInstance().getThreadManager().runTaskNow(new ClearDroppedItemsThread(loc, radius));
+	public static int clearDroppedItems(World world) {
+		int cleaned = 0;
+		/*TODO Add a "clear-Item-effect" where when the items removed an actions performed, like particles or something. */
+		for (Item droppedItem : world.getEntitiesByClass(Item.class)) {
+			droppedItem.remove();
+			cleaned += 1;
+		}
+		return cleaned;
+	}
+
+	public static int clearDroppedItems(Location loc, int radius) {
+		int cleaned = 0;
+		for (Item item : Entities.getDroppedItemsNearLocation(loc, radius)) {
+			item.remove();
+			cleaned++;
+		}
+		return cleaned;
 	}
 
 	public static void clearDroppedItems(Location loc, int radius, int delay, TimeType duration) {
@@ -225,26 +241,33 @@ public class Worlds {
 
 	/**
 	 * Cleans all the entities in every world (that isn't an npc or player)
+	 * @return The amount of entities in total that were slayed across each world;
 	 */
-	public static void cleanAllEntities() {
+	public static int cleanAllEntities() {
+		int globallyCleaned = 0;
 		for (World bukkitWorld : Bukkit.getWorlds()) {
-			cleanAllEntities(bukkitWorld);
+			globallyCleaned += cleanAllEntities(bukkitWorld);
 		}
+		return globallyCleaned;
 	}
 
 	/**
 	 * Cleans all the entities in the given world
 	 * that isn't an npc (citizens NPC) or a player
 	 *
-	 * @param world
+	 * @param world world to clean the entitied from.
+	 * @return number of entities that were remove during the operation.
 	 */
-	public static void cleanAllEntities(World world) {
+	public static int cleanAllEntities(World world) {
+		int slayed = 0;
 		for (LivingEntity livingEntity : world.getLivingEntities()) {
 			//If it's not a citizens NPC and it's not an NPC / Player
 			if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
 				livingEntity.remove();
+				slayed++;
 			}
 		}
+		return slayed;
 	}
 
 
@@ -253,16 +276,20 @@ public class Worlds {
 	 *
 	 * @param world       world to clean of livingEntities
 	 * @param entityTypes entityTypes to not remove
+	 * @return the amount of entities that were removed during the operation.
 	 */
-	public static void cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
+	public static int cleanAllEntitiesExcept(World world, EntityType... entityTypes) {
+		int slayed = 0;
 		Set<EntityType> eTypes = Sets.newHashSet(entityTypes);
 		for (LivingEntity livingEntity : world.getLivingEntities()) {
 			if (!eTypes.contains(livingEntity.getType())) {
 				if (!livingEntity.hasMetadata("NPC") && !(livingEntity instanceof HumanEntity)) {
 					livingEntity.remove();
+					slayed++;
 				}
 			}
 		}
+		return slayed;
 	}
 
 	public static int getEntityCount(World world) {

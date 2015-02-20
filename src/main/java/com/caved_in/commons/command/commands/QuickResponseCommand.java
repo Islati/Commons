@@ -3,7 +3,7 @@ package com.caved_in.commons.command.commands;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.chat.ChatMessage;
+import com.caved_in.commons.chat.PrivateMessage;
 import com.caved_in.commons.chat.PrivateMessageManager;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
@@ -47,6 +47,6 @@ public class QuickResponseCommand {
 
 		Chat.message(playerSendingTo, "&r[&e" + player.getName() + "&b -> &aYou&r] " + message);
 		Chat.message(player, "&r[&eYou&b -> &a" + playerSendingTo.getName() + "&r] " + message);
-		pmManager.setRecentPrivateMessageFrom(playerSendingTo.getName(), new ChatMessage(player.getName(), playerSendingTo.getName()));
+		pmManager.setRecentPrivateMessageFrom(playerSendingTo.getName(), new PrivateMessage(player.getName(), playerSendingTo.getName()));
 	}
 }

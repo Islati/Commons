@@ -122,6 +122,7 @@ public class Commons extends BukkitPlugin {
 					new BanCommand(),
 					new BlockTextCommand(),
 					new BuyPremiumCommand(),
+					new CleanCommand(),
 					new ClearInventoryCommand(),
 					new DayCommand(),
 					new DebugModeCommand(),

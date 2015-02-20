@@ -2,13 +2,12 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.chat.ChatMessage;
+import com.caved_in.commons.chat.PrivateMessage;
 import com.caved_in.commons.chat.PrivateMessageManager;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.Wildcard;
 import com.caved_in.commons.permission.Perms;
-import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class MessageCommand {
@@ -26,6 +25,6 @@ public class MessageCommand {
 	private void messagePlayer(Player playerSendingTo, Player playerSendingFrom, String message) {
 		Chat.sendMessage(playerSendingTo, "&f[&e" + playerSendingFrom.getDisplayName() + "&b -> &aYou&f] " + message);
 		Chat.sendMessage(playerSendingFrom, "&f[&eYou &b-> &a" + playerSendingTo.getDisplayName() + "&f] " + message);
-		pmManager.setRecentPrivateMessageFrom(playerSendingTo.getName(), new ChatMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
+		pmManager.setRecentPrivateMessageFrom(playerSendingTo.getName(), new PrivateMessage(playerSendingFrom.getName(), playerSendingTo.getName()));
 	}
 }

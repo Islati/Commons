@@ -78,6 +78,10 @@ public class Perms {
 
 	public static final String COMMAND_ENCHANT = "commons.command.enchant";
 
+	public static final String COMMAND_CLEAN = "commons.clean";
+	public static final String COMMAND_CLEAN_ENTITIES = "commons.clean.entities";
+	public static final String COMMAND_CLEAN_MOBS = "commons.clean.mobs";
+
 	public static final String COMMAND_ARMOR = "commond.command.armor";
 	public static final String LEATHER_ARMOR_SET = "commons.armor.leather";
 	public static final String IRON_ARMOR_SET = "commons.armor.iron";

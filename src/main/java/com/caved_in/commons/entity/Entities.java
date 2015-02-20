@@ -560,11 +560,10 @@ public class Entities {
 	 * @return a set of items that were found on the ground. If none were found, an empty hashset is returned.
 	 */
 	public static Set<Item> getDroppedItemsNearLocation(Location center, int radius) {
-		Set<Entity> entities = getEntitiesNearLocation(center, radius);
 		Set<Item> items = new HashSet<>();
-		for (Entity entity : entities) {
-			if (entity instanceof Item) {
-				items.add((Item) entity);
+		for (Item item : center.getWorld().getEntitiesByClass(Item.class)) {
+			if (Locations.isEntityInRadius(center, radius, item)) {
+				items.add(item);
 			}
 		}
 		return items;

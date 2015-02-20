@@ -4,7 +4,13 @@
  + = Added
 -------------
 
-febuary 16'th, 2015:
+Febuary 20'th, 2015 (Build 1.8.2):
+	~ Updated World::cleanAllEntities(*) to return an integer
+	~ Updated World::cleanAllEntitiesExcept to return an integer
+	+ Created Entities.getDroppedItemsNear to retrieve a set of all the dropped items near a given location
+	+ Created the CleanCommand class (home of the '/clean' command) which is a utility command for cleaning drops, items, mobs, etc.
+
+febuary 16'th, 2015 (Build 1.8.2):
 	+ Updated Entities with a remove(...) method
 	~ Changed Entities::removeSafely(LivingEntity) to removeSafely(Entity...)
 	+ Created the StainedClay class to easily get different colours of clay :)
@@ -20,7 +26,7 @@ febuary 16'th, 2015:
 	~ Migrated getWorld to use a String based identifier
 	+ Created the getWorldName method inside User
 
-Febuary 15'th, 2015:
+Febuary 15'th, 2015 (Build 1.8.2):
 	~ Updated BukkitPlugin to return the plugin.yml version defined, removing the need to define the given method.
 
 Febuary 12'th, 2015 (Build 1.8.1):
