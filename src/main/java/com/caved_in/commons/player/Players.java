@@ -387,6 +387,19 @@ public class Players {
 		return player.getUniqueId();
 	}
 
+
+	public static void mute(Player player, Punishment punishment) {
+		mute(player.getUniqueId(), punishment);
+	}
+
+	public static void mute(UUID id, Punishment punishment) {
+		if (!Commons.getInstance().hasDatabaseBackend()) {
+			return;
+		}
+
+
+	}
+		
 	public static void ban(Player player, Punishment punishment) {
 		String playerName = player.getName();
 		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {

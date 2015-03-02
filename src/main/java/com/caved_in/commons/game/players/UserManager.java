@@ -43,6 +43,10 @@ public class UserManager<T extends User> implements IUserManager<T> {
         users.put(p.getUniqueId(), userObject);
     }
 
+    public void addUser(T user) {
+        users.put(user.getId(), user);
+    }
+
     public void disposeAll() {
         for (T user : users.values()) {
             user.destroy();
@@ -63,6 +67,10 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     public void removeUser(UUID id) {
         users.remove(id);
+    }
+
+    public boolean hasData(UUID id) {
+        return users.containsKey(id);
     }
 
     /**

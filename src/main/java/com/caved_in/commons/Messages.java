@@ -165,6 +165,10 @@ public class Messages {
 		return String.format("&eYou were teleported to &a%s", playerName);
 	}
 
+	public static String playerTeleportedToYou(String playerName) {
+		return String.format("&a%s&e teleported to you!", playerName);
+	}
+
 	public static String playerTeleportedTo(String description) {
 		return String.format("&eYou've been teleported to &a%S", description);
 	}
@@ -431,6 +435,10 @@ public class Messages {
 
 	public static String potionInfo(PotionEffect effect) {
 		return String.format("&ePotion Type: &6%s\n&eLevel: &6%s", effect.getType().getName(), effect.getAmplifier());
+	}
+
+	public static String playerError(Player player, String error) {
+		return String.format("&cPlayer Error: &e%s @ (%s)\n&r%s&r &7%s", player.getName(), locationCoords(player.getLocation()), YELLOW_INDENT_ARROW, error);
 	}
 
 	public static String properUsage(String usage) {

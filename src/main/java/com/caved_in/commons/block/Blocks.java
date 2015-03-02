@@ -11,6 +11,8 @@ import com.caved_in.commons.threading.tasks.BlockRegenThread;
 import com.caved_in.commons.threading.tasks.BlocksRegenThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.world.Worlds;
+import com.google.common.collect.Sets;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,6 +21,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.TNTPrimed;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 import java.util.*;
@@ -317,6 +320,24 @@ public class Blocks {
 		}
 	}
 
+	public static void breakTree(Block block, boolean leaves, boolean dropItems) {
+		Material type = block.getType();
+		ItemStack drop = null;
+		if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
+			drop = Items.convertBlockToItem(block);
+			breakBlock(block, true);
+			if (dropItems) {
+				Worlds.dropItem(block.getLocation(), drop);
+			}
+			
+			/*
+			For all the blocks surrounding the parent, we're going to continue breaking the
+			blocks (logs, and potentially leaves) until they're all gone!
+			 */
+			getBlocksSurrounding(block).forEach(b -> breakTree(b, leaves, dropItems));
+		}
+	}
+
 	public static void scheduleBlockRegen(Block block, boolean effect) {
 		scheduleBlockRegen(block, effect, BLOCK_REGEN_DELAY);
 	}
@@ -394,6 +415,11 @@ public class Blocks {
 		}
 	}
 
+	public static boolean isOfAnyType(Block block, Material... types) {
+		Set<Material> mats = Sets.newHashSet(types);
+		return mats.contains(block.getType());
+	}
+
 	/**
 	 * Check a block at a specific XYZ Cordinate for a world, and destroy all the blocks with the
 	 * id defined by <i>required</i> around the block
@@ -448,6 +474,20 @@ public class Blocks {
 		for (int i = 0; i < amount; i++) {
 			spawnTNT(location);
 		}
+	}
+
+	public static Block getBlockFacing(Block parent, BlockFace face) {
+		return parent.getRelative(face);
+	}
+
+	/**
+	 * Retrieve all the blocks that surround the parent block in all possible directions.
+	 *
+	 * @param parent parent block to retrieve the surrounding blocks from.
+	 * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parent block.
+	 */
+	public static Set<Block> getBlocksSurrounding(Block parent) {
+		return EnumSet.allOf(BlockFace.class).stream().map(face -> getBlockFacing(parent, face)).collect(Collectors.toSet());
 	}
 
 	/**

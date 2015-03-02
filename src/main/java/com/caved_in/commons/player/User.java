@@ -17,17 +17,21 @@ public abstract class User implements PlayerWrapper {
 	@Element(name = "uuid")
 	private String uid;
 
+	@Element(name = "world")
 	private String worldName;
 
 	public User(Player p) {
 		name = p.getName();
 		id = p.getUniqueId();
+		uid = id.toString();
+		worldName = p.getWorld().getName();
 	}
 
-	public User(@Element(name = "name") String name, @Element(name = "uuid") String uid) {
+	public User(@Element(name = "name") String name, @Element(name = "uuid") String uid, @Element(name = "world") String world) {
 		this.name = name;
 		this.uid = uid;
 		id = UUID.fromString(this.uid);
+		this.worldName = world;
 	}
 
 	public User() {

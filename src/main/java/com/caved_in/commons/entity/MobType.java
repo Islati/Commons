@@ -40,7 +40,9 @@ public enum MobType {
 	HORSE(EntityType.HORSE, "horse", "horsey", "foal"),
 	//	ENDER_DRAGON(EntityType.ENDER_DRAGON,"dragon","enderdragon","ender_dragon"),
 	WITHER(EntityType.WITHER, "wither", "witherboss"),
-	SILVERFISH(EntityType.SILVERFISH, "silverfish", "silver_fish");
+	SILVERFISH(EntityType.SILVERFISH, "silverfish", "silver_fish"),
+	RABBIT(EntityType.RABBIT, "rabbit", "bunny"),
+	GUARDIAN(EntityType.GUARDIAN, "guardian");
 
 	private static Map<String, EntityType> entityTypes = new HashMap<>();
 

@@ -834,6 +834,18 @@ public class Items {
 		return (getMetadata(itemStack) instanceof BookMeta);
 	}
 
+	public static boolean isFlower(ItemStack item) {
+		switch (item.getType()) {
+			case YELLOW_FLOWER:
+			case RED_ROSE:
+			case DOUBLE_PLANT:
+				return true;
+			default:
+				return false;
+		}
+
+	}
+	
 	public static ItemStack makeBook(String title, String author, String... pages) {
 		return makeBook(title, author, Arrays.asList(pages));
 	}

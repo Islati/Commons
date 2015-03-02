@@ -105,6 +105,7 @@ public class Perms {
 	public static final String COMMAND_REMOVEPREMIUM = "commons.command.removepremium";
 
 	public static final String COMMAND_BAN = ("commons.command.ban");
+	public static final String COMMAND_MUTE = "commons.command.mute";
 
 	public static final String SET_COMMAND = "commons.command.set";
 
