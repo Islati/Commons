@@ -1,10 +1,7 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
-import com.caved_in.commons.bans.PunishmentType;
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
@@ -13,10 +10,8 @@ import com.caved_in.commons.time.TimeType;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
-import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -69,8 +64,6 @@ public class MinecraftPlayer extends User {
 
 	@Element(name = "god-mode")
 	private boolean godMode = false;
-
-	private TeleportRequest teleportRequest = null;
 
 	/* Whether or not the player is currently reloading a gun */
 	private long reloadEnd = 0;
@@ -403,39 +396,6 @@ public class MinecraftPlayer extends User {
 	 */
 	public Set<Punishment> getPunishments() {
 		return punishments;
-	}
-
-	public void addPunishment(Punishment punishment, boolean push) {
-		punishments.add(punishment);
-
-		//todo IMplement notify of punishment being added
-
-		if (push) {
-			//todo push punishment to database or write to file.
-		}
-	}
-
-	/**
-	 * @return whether or not the player has an active mute
-	 */
-	public boolean isMuted() {
-		return hasActivePunishment(PunishmentType.MUTE);
-	}
-
-	/**
-	 * Check if the player has any active punishments of the given type
-	 *
-	 * @param type type to check if the player has any of
-	 * @return true if they do, false otherwise
-	 */
-	public boolean hasActivePunishment(PunishmentType type) {
-		for (Punishment punishment : punishments) {
-			if (punishment.getPunishmentType() == type) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
