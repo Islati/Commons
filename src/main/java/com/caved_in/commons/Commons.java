@@ -132,12 +132,14 @@ public class Commons extends BukkitPlugin {
 					new FlyCommand(),
 					//TODO Register Friend Command
 					new GamemodeCommand(),
+					new GodCommand(),
 					new HatCommand(),
 					new HealCommand(),
 					new IdCommand(),
 					new ItemCommand(),
 					new MaintenanceCommand(),
 					new MessageCommand(),
+					new MuteCommand(),
 					new MoreCommand(),
 					new NightCommand(),
 					new PotionCommand(),
@@ -160,9 +162,11 @@ public class Commons extends BukkitPlugin {
 					new TeleportHereCommand(),
 					new TeleportOtherCommand(),
 					new TeleportPositionCommand(),
+					new TeleportRequestCommand(),
 					new TimeCommand(),
 					new TunnelsXPCommand(),
 					new UnbanCommand(),
+					new UnmuteCommand(),
 					new UnsilenceCommand(),
 					new WarpCommand(),
 					new WarpsCommand(),
@@ -315,10 +319,8 @@ public class Commons extends BukkitPlugin {
 	private void registerListeners() {
 		WorldConfiguration worldConfig = globalConfig.getWorldConfig();
 
-		if (!worldConfig.hasExternalChatHandler()) {
-			registerListeners(new ChatListener());
-			debug("&aUsing Commons Chat Listener");
-		}
+		registerListeners(new ChatListener());
+		debug("&aCreated the Chat Listener");
 
 		if (worldConfig.hasLaunchpadPressurePlates()) {
 			registerListeners(new LauncherListener()); // Register fire pad listener if its enabled

@@ -22,13 +22,10 @@ public class CleanCommand {
 		Chat.message(
 				player,
 				"&6There's several actions that can be performed",
-				"&e- &aCleaning mobs in a radius (or world)",
-				"&e    *&b /clean mobs (radius)",
-				"&e    *&b /clean mobs --world (world)",
 				"&e- &aCleaning dropped items",
 				"&e    *&b /clean items (radius)",
 				"&e    *&b /clean items --all",
-				"&e- &aClearing all the liquids (lava/water) in a radius",
+				"&e- &aClearing all the liquids (lava/water) in a radius &7(Coming Soon)",
 				"&e    *&b/clean fluid (radius)"
 		);
 	}

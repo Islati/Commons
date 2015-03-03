@@ -53,6 +53,7 @@ public class TimeHandler {
 		}
 	}
 
+	@Deprecated /* Broken as hell */
 	public static long parseStringForDuration(String string) {
 		long millesDuration = 0L;
 		TimeType timeType;

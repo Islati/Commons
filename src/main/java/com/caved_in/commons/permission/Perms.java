@@ -48,10 +48,13 @@ public class Perms {
 	public static final String COMMAND_TELEPORT_POSITION = "commons.command.tppos";
 
 	public static final String COMMAND_UNBAN = "commons.command.unban";
+	public static final String COMMAND_UNMUTE = "commons.command.unmute";
 
 	public static final String COMMAND_FLY = "commons.command.fly";
 
 	public static final String COMMAND_GAMEMODE = "commons.command.gamemode";
+
+	public static final String COMMAND_GOD_MODE = "commons.command.god";
 
 	public static final String COMMAND_HAT = "commons.command.hat";
 
@@ -105,6 +108,7 @@ public class Perms {
 	public static final String COMMAND_REMOVEPREMIUM = "commons.command.removepremium";
 
 	public static final String COMMAND_BAN = ("commons.command.ban");
+	public static final String COMMAND_MUTE = "commons.command.mute";
 
 	public static final String SET_COMMAND = "commons.command.set";
 

@@ -4,7 +4,12 @@ import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.game.thread.GameUpdateThread;
 import com.caved_in.commons.plugin.BukkitPlugin;
 
-public abstract class CraftGame extends BukkitPlugin implements GameCore {
+/**
+ * Barebones implementation of the GameCore. Extends {@link com.caved_in.commons.plugin.BukkitPlugin}
+ *
+ * @param <T>
+ */
+public abstract class CraftGame<T extends UserManager> extends BukkitPlugin implements GameCore {
 
 	@Override
 	public void onEnable() {
@@ -27,5 +32,5 @@ public abstract class CraftGame extends BukkitPlugin implements GameCore {
 
 	public abstract long tickDelay();
 
-	public abstract <T extends UserManager> T getUserManager();
+	public abstract T getUserManager();
 }

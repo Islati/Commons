@@ -23,10 +23,8 @@ import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
-import com.caved_in.commons.threading.tasks.BanPlayerCallable;
-import com.caved_in.commons.threading.tasks.KickPlayerThread;
-import com.caved_in.commons.threading.tasks.NameFetcherCallable;
-import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
+import com.caved_in.commons.threading.tasks.*;
+import com.caved_in.commons.time.DateUtils;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
@@ -40,7 +38,6 @@ import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import io.netty.channel.Channel;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.entity.Entity;
@@ -387,11 +384,61 @@ public class Players {
 		return player.getUniqueId();
 	}
 
+
+	public static void mute(Player player, Punishment punishment) {
+		mute(player.getUniqueId(), punishment);
+	}
+
+	public static void mute(UUID id, Punishment punishment) {
+		if (!Commons.getInstance().hasDatabaseBackend()) {
+			return;
+		}
+		internal_mute(new MutePlayerCallable(id, punishment));
+	}
+
+	public static void mute(String name, Punishment punishment) {
+		if (!Commons.getInstance().hasDatabaseBackend()) {
+			return;
+		}
+		internal_mute(new MutePlayerCallable(name, punishment));
+	}
+
+	private static void internal_mute(MutePlayerCallable callable) {
+		ListenableFuture<Boolean> mutePlayerFuture = commons.getAsyncExecuter().submit(callable);
+		Futures.addCallback(mutePlayerFuture, new FutureCallback<Boolean>() {
+			@Override
+			public void onSuccess(@Nullable Boolean aBoolean) {
+				if (aBoolean == null) {
+					//weird
+				}
+
+				if (aBoolean) {
+					MinecraftPlayer player = commons.getPlayerHandler().getData(callable.getId());
+
+					if (player == null) {
+						return;
+					}
+
+					player.addPunishment(callable.getPunishment(), false);
+					//todo implement message player of being muted.
+				} else {
+					//Error muting player?
+					commons.debug("Unable to mute player " + callable.getName(), callable.getPunishment().toString());
+				}
+			}
+
+			@Override
+			public void onFailure(Throwable throwable) {
+
+			}
+		});
+	}
+		
 	public static void ban(Player player, Punishment punishment) {
 		String playerName = player.getName();
 		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
 			player.setBanned(true);
-			Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DateUtils.getDifferenceFormat(punishment.getExpiryTime())));
 			return;
 		}
 
@@ -401,7 +448,7 @@ public class Players {
 			public void onSuccess(Boolean banned) {
 				if (banned) {
 					Players.kick(player, punishment.getReason(), true);
-					Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+					Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DateUtils.getDifferenceFormat(System.currentTimeMillis())));
 				} else {
 					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(playerName));
 				}
@@ -429,7 +476,7 @@ public class Players {
 			}
 			Players.getPlayer(player).setBanned(true);
 			//TODO make the messaging of everyone optional
-			Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+			Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DateUtils.getDifferenceFormat(punishment.getExpiryTime())));
 			return;
 		}
 
@@ -441,7 +488,7 @@ public class Players {
 					if (Players.isOnline(player)) {
 						Players.kick(Players.getPlayer(player), punishment.getReason(), true);
 					}
-					Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
+					Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DateUtils.getDifferenceFormat(punishment.getExpiryTime())));
 				} else {
 					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(player));
 				}

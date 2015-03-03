@@ -76,6 +76,8 @@ public class Messages {
 
 	private static final String INSUFFICIENT_PERMISSION_MESSAGE = "&cYou don't have the required permissions to %s.";
 
+	public static final String GOD_MODE_ENABLED = "&6God Mode&e has been &a&lENABLED!";
+	public static final String GOD_MODE_DISABLED = "&6God Mode&e has been &a&lDISABLED!";
 
 	public static String arenaAdded(String world) {
 		return String.format("&aThe world '&e%s'&a has been added as an arena!", world);
@@ -163,6 +165,10 @@ public class Messages {
 
 	public static String playerTeleportedToPlayer(String playerName) {
 		return String.format("&eYou were teleported to &a%s", playerName);
+	}
+
+	public static String playerTeleportedToYou(String playerName) {
+		return String.format("&a%s&e teleported to you!", playerName);
 	}
 
 	public static String playerTeleportedTo(String description) {
@@ -431,6 +437,10 @@ public class Messages {
 
 	public static String potionInfo(PotionEffect effect) {
 		return String.format("&ePotion Type: &6%s\n&eLevel: &6%s", effect.getType().getName(), effect.getAmplifier());
+	}
+
+	public static String playerError(Player player, String error) {
+		return String.format("&cPlayer Error: &e%s @ (%s)\n&r%s&r &7%s", player.getName(), locationCoords(player.getLocation()), YELLOW_INDENT_ARROW, error);
 	}
 
 	public static String properUsage(String usage) {

@@ -4,6 +4,33 @@
  + = Added
 -------------
 
+March 2'nd, 2015 (Build 1.8.3):
+	~ Updated the ban command syntax
+	+ Implemented the actual mute command
+	+ Created the unmute command.
+	+ Implemented methods inside Players.java to mute players on the api level.
+	+ Implemented the God command, after having the api for it accessable for weeks :p
+
+Febuary 28'th, 2015 (Build 1.8.3):
+	+ Implemented the long missing mute feature!
+	~ Fixed the issue with TPA
+	~ Updated the messages that were sent on tpa request
+	+ Added PICKAXE to ToolType.java (Oops!)
+	+ Created the breakTree method inside Blocks.java
+	+ Created the isOfAnyType method inside Blocks.java
+	+ Created the getBlocksSurrounding method inside Blocks.java
+	+ Created the getBlockFacing method inside Blocks.java
+Febuary 27'th, 2015 (Build 1.8.3):
+	+ Implemented methods into ServerDatabaseConnector to add, get, set, and remove money from a player.
+	~ Updating /addcurrency to be able to add money to the player even if they're offline. (Using callables)
+
+Febuary 24'th, 2015 (Build 1.8.3):
+	+ Implemented the TPA, TPAHERE, TPACCEPT and TPDENY commands as per requested
+	+ Created Items.isFlower
+
+Febuary 23'rd, 2015 (Build 1.8.3):
+	+ Updated Tdo.txt with a new idea for command sys and chat messages
+
 Febuary 20'th, 2015 (Build 1.8.2):
 	~ Updated World::cleanAllEntities(*) to return an integer
 	~ Updated World::cleanAllEntitiesExcept to return an integer

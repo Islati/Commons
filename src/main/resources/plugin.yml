@@ -33,6 +33,14 @@ commands:
    tphere:
       usage: /<command> <player>
       aliases: [bring]
+   tpa:
+      usage: /<command> <player>
+   tpahere:
+      usage: /<command> <player>
+   tpaccept:
+      usage: /<command>
+   tpdeny:
+      usage: /<command>
    tp:
       usage: /<command> <player>
       aliases: [teleport]
@@ -47,6 +55,8 @@ commands:
       usage: /msg <player>
    gm:
       usage: /gm [Mode]
+   god:
+      usage: /god
    maintenance:
       usage: /maintenance [on/off/toggle]
    silence:

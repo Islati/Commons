@@ -31,7 +31,7 @@ public class BanPlayerCallable implements Callable<Boolean> {
 	@Override
 	public Boolean call() throws Exception {
 		if (!lookup) {
-			Commons.getInstance().getServerDatabase().insertPlayerBan(punishment, playerId);
+			Commons.getInstance().getServerDatabase().insertPlayerPunishment(punishment, playerId);
 			return true;
 		}
 
@@ -39,7 +39,7 @@ public class BanPlayerCallable implements Callable<Boolean> {
 		Futures.addCallback(getPlayerUuid, new FutureCallback<UUID>() {
 			@Override
 			public void onSuccess(UUID playerId) {
-				Commons.getInstance().getServerDatabase().insertPlayerBan(punishment, playerId);
+				Commons.getInstance().getServerDatabase().insertPlayerPunishment(punishment, playerId);
 			}
 
 			@Override

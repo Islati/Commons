@@ -50,7 +50,11 @@ public class ItemBuilder {
 		this.material = base.getType();
 		this.materialData = base.getData();
 		this.durability = (short) Items.getDataValue(base);
-		this.lore = Items.getLore(base);
+
+		if (Items.hasLore(base)) {
+			this.lore = Items.getLore(base);
+		}
+		
 		this.enchantments = Lists.newArrayList(Items.getEnchantments(base));
 		this.amount = base.getAmount();
 		this.name = Items.getName(base);

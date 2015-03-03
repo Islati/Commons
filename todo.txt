@@ -1,3 +1,25 @@
+Configurable Messages!
+=================================
+
+	Implement a message interface that loads its unformatted strings from a file; YAML? XML?
+
+	Inspiration: https://github.com/BanManagement/BanManager/blob/master/src/main/resources/messages.yml
+				 https://github.com/Frostcast/BukkitPluginUtil/blob/master/src/me/confuser/bukkitutil/Message.java
+
+
+Chat Message Builder
+=======================================
+
+	Build chat messages with a builder interface 
+	Like 'ChatMessage.make().text("Some Text Here").hoverableText("Some Highlight Here").onHover("This is hovered text!").text("");
+
+Commands Module - Upgrade
+=======================================
+
+	Implement text that's hoverable for all the commands, and when clicked it adds that syntax
+	into the players chat, like done in HoloDisplays!
+	
+
 Armor Command - Slot Specific Armors.
 =======================================
 	Add flags for individual armor pieces and accept material as params for /armor

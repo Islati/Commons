@@ -34,6 +34,10 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 	private static final String INSERT_PREMIUM_TABLE_DATA = "INSERT INTO server_premium (player_id,premium) VALUES (?,?)";
 	private static final String INSERT_PREFIX_TABLE_DATA = "INSERT INTO server_prefixes (player_id, player_prefix) VALUES (?,?)";
 
+	//Used by the console / api to perform actions to offline players
+	private static final String SET_PLAYER_MONEY = "UPDATE server_players SET player_money=? WHERE player_id=?";
+	private static final String GET_PLAYER_MONEY = "SELECT player_money FROM server_players WHERE player_id=?";
+
 	//Server connection time
 	private static final String INSERT_SERVER_CONNECTION_DATA = "INSERT INTO server_connections (player_id,player_name, player_ip, connect_time) VALUES (?,?,?,?)";
 
@@ -445,7 +449,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		}
 	}
 
-	public void insertPlayerBan(PunishmentType punishmentType, UUID playerId, String giverId, String reason, long expires) {
+	public boolean insertPlayerPunishment(PunishmentType punishmentType, UUID playerId, String giverId, String reason, long expires) {
+		boolean executed = false;
 		PreparedStatement statement = prepareStatement("INSERT INTO server_punishments (pun_type, player_id, pun_giver_id, pun_issued, pun_expires, pun_reason, pardoned) VALUES (?,?,?,?,?,?,?)");
 		try {
 			statement.setInt(1, punishmentType.getId());
@@ -456,15 +461,17 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			statement.setString(6, reason);
 			statement.setBoolean(7, false);
 			statement.executeUpdate();
+			executed = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(statement);
 		}
+		return executed;
 	}
 
-	public void insertPlayerBan(Punishment punishment, UUID playerId) {
-		insertPlayerBan(punishment.getPunishmentType(), playerId, punishment.getIssuer().toString(), punishment.getReason(), punishment.getExpiryTime());
+	public boolean insertPlayerPunishment(Punishment punishment, UUID playerId) {
+		return insertPlayerPunishment(punishment.getPunishmentType(), playerId, punishment.getIssuer().toString(), punishment.getReason(), punishment.getExpiryTime());
 	}
 
 
@@ -592,5 +599,72 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		}
 
 		return infoSet;
+	}
+
+	public boolean givePlayerMoney(UUID id, int amount) {
+		if (!hasData(id)) {
+			return false;
+		}
+
+		int money = getPlayerMoney(id);
+
+		money += amount;
+
+		return setPlayerMoney(id, money);
+	}
+
+	public boolean removePlayerMoney(UUID id, int amount) {
+		//TODO Implement functionality.
+		return false;
+	}
+
+	public int getPlayerMoney(UUID id) {
+		int money = 0;
+		PreparedStatement statement = prepareStatement(GET_PLAYER_MONEY);
+
+		try {
+			statement.setString(1, id.toString());
+
+			ResultSet results = statement.executeQuery();
+
+			while (results.next()) {
+				money = results.getInt("player_money");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return money;
+	}
+
+	/**
+	 * Set how much money the player with the given uuid will have.
+	 *
+	 * @param id     id of the player to set the money for.
+	 * @param amount amount of money the player will have.
+	 * @return true if the statement was executed without problem false otherwise.
+	 */
+	public boolean setPlayerMoney(UUID id, int amount) {
+		boolean executed = false;
+
+		if (!hasData(id)) {
+			return false;
+		}
+
+		PreparedStatement statement = prepareStatement(SET_PLAYER_MONEY);
+
+		try {
+			statement.setInt(1, amount);
+			statement.setString(2, id.toString());
+
+			statement.executeUpdate();
+			executed = true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return executed;
 	}
 }
