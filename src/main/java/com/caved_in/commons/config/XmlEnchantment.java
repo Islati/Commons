@@ -33,6 +33,21 @@ public class XmlEnchantment {
 		enchantName = enchantment.getName();
 	}
 
+	public XmlEnchantment enchantment(Enchantment enchant) {
+		this.enchantName = enchant.getName();
+		return this;
+	}
+
+	public XmlEnchantment level(int level) {
+		this.level = level;
+		return this;
+	}
+
+	public XmlEnchantment glow(boolean glow) {
+		this.glow = glow;
+		return this;
+	}
+
 	public Enchantment getEnchantment() {
 		return Enchantment.getByName(enchantName);
 	}

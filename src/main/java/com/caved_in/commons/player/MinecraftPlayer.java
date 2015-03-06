@@ -1,7 +1,10 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.Messages;
 import com.caved_in.commons.bans.Punishment;
+import com.caved_in.commons.bans.PunishmentType;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
@@ -10,14 +13,17 @@ import com.caved_in.commons.time.TimeType;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
+import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Root(name = "Player")
 public class MinecraftPlayer extends User {
@@ -72,6 +78,8 @@ public class MinecraftPlayer extends User {
 	 * Location the player was before their last teleport
 	 */
 	private PreTeleportLocation preTeleportLocation;
+
+	private TeleportRequest teleportRequest;
 
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
@@ -232,6 +240,10 @@ public class MinecraftPlayer extends User {
 	 */
 	public boolean isPremium() {
 		return isPremium;
+	}
+
+	public boolean isMuted() {
+		return getPunishments().stream().filter(p -> p.getPunishmentType() == PunishmentType.MUTE).collect(Collectors.toSet()).size() > 0;
 	}
 
 	/**
@@ -483,6 +495,14 @@ public class MinecraftPlayer extends User {
 	public void denyTeleport() {
 		teleportRequest.deny(getPlayer());
 		teleportRequest = null;
+	}
+
+	public void addPunishment(Punishment punishment, boolean b) {
+		this.punishments.add(punishment);
+
+		if (b) {
+			//todo update database.
+		}
 	}
 
 	@ToString(of = {"filled", "requesterName", "requestedName", "requester", "receiver", "type"})
