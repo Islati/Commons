@@ -2,8 +2,12 @@ package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.game.gadget.GadgetProperties;
 import com.caved_in.commons.utilities.NumberUtil;
+import lombok.ToString;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root(name = "weapon-properties")
+@ToString(of = {"damageMin", "damageMax"}, callSuper = true)
 public class WeaponProperties extends GadgetProperties {
 	@Element(name = "damage-min")
 	private double damageMin;
@@ -29,5 +33,13 @@ public class WeaponProperties extends GadgetProperties {
 
 	public double getDamage() {
 		return NumberUtil.getRandomInRange(damageMin, damageMax);
+	}
+
+	public double getMinDamage() {
+		return damageMin;
+	}
+
+	public double getMaxDamage() {
+		return damageMax;
 	}
 }

@@ -2,6 +2,7 @@ package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.game.clause.PlayerDamageEntityClause;
 import com.caved_in.commons.game.gadget.ItemGadget;
+import com.caved_in.commons.item.ItemBuilder;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,11 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 	public BaseWeapon(ItemStack item) {
 		super(item);
 		properties.durability(item);
+	}
+
+	public BaseWeapon(ItemBuilder builder) {
+		super(builder);
+		properties.durability(getItem());
 	}
 
 	@Override

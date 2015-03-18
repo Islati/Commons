@@ -8,6 +8,7 @@ import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
@@ -56,6 +57,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 	public BaseGun(ItemStack item) {
 		super(item);
 		gun = XmlItemStack.fromItem(item);
+	}
+
+	public BaseGun(ItemBuilder builder) {
+		super(builder);
+		gun = XmlItemStack.fromItem(getItem());
 	}
 
 	private void initBuilder() {

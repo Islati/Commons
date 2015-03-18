@@ -1,5 +1,7 @@
 package com.caved_in.commons.game.gadget;
 
+import com.caved_in.commons.exceptions.ItemCreationException;
+import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -13,6 +15,16 @@ public abstract class ItemGadget implements Gadget {
 
 	public ItemGadget() {
 
+	}
+
+	public ItemGadget(ItemBuilder builder) {
+		ItemStack item = null;
+
+		try {
+			item = builder.item();
+		} catch (ItemCreationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ItemGadget(ItemStack item) {

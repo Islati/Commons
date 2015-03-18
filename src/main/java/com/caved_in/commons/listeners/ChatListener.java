@@ -37,13 +37,13 @@ public class ChatListener implements Listener {
 		}
 		MinecraftPlayer minecraftPlayer = commons.getPlayerHandler().getData(player);
 
-		if (minecraftPlayer.isMuted()) {
-			event.setCancelled(true);
-
-			minecraftPlayer.actionMessage("&cYou've been muted. &7(You can appeal the mute on our forums)");
-			//todo implement message to send to players if they're muted in the config.
-			return;
-		}
+//		if (minecraftPlayer.isMuted()) {
+//			event.setCancelled(true);
+//
+//			minecraftPlayer.actionMessage("&cYou've been muted. &7(You can appeal the mute on our forums)");
+//			//todo implement message to send to players if they're muted in the config.
+//			return;
+//		}
 
 		if (config.getWorldConfig().hasExternalChatHandler()) {
 			return;

@@ -9,6 +9,7 @@ public class Perms {
 
 	/* Restriction on the all mighty kick stick */
 	public static final String KICK_STICK = "commons.admin.kickstick";
+	public static final String KICK_DENY = "commons.admin.antikick";
 
 	/* All commands and their permissions */
 	public static final String COMMAND_WARP = "commons.command.warp";

@@ -1,18 +1,18 @@
 package com.caved_in.commons.item;
 
 import com.caved_in.commons.config.XmlEnchantment;
+import com.caved_in.commons.exceptions.ItemCreationException;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
+import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ItemBuilder {
 	private Material material;
@@ -26,6 +26,9 @@ public class ItemBuilder {
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
 
+	private Attributes attributes;
+	private List<Attributes.Attribute> attributeList = new ArrayList<>();
+
 	/* Whether or not the item is unbreakable, by default false, as most items break! */
 	private boolean unbreakable = false;
 
@@ -35,6 +38,10 @@ public class ItemBuilder {
 
 	public static ItemBuilder of(ItemStack item) {
 		return new ItemBuilder(item);
+	}
+
+	public static ItemBuilder of(MaterialData data) {
+		return of(data.toItemStack(1));
 	}
 
 	public ItemBuilder(Material material) {
@@ -61,6 +68,23 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder() {
+	}
+
+	public ItemBuilder addAttribute(String name, Attributes.AttributeType attributeType, Attributes.Operation operation, int amount) {
+		attributeList.add(Attributes.Attribute.newBuilder().name(name).type(attributeType).operation(operation).amount(amount).build());
+		return this;
+	}
+
+	public ItemBuilder addAttribute(Attributes.Attribute attr) {
+		attributeList.add(attr);
+		return this;
+	}
+
+	public ItemBuilder addAttribute(Optional<Attributes.Attribute> attr) {
+		if (attr.isPresent()) {
+			return addAttribute(attr.get());
+		}
+		return this;
 	}
 
 	public ItemBuilder amount(int amount) {
@@ -119,11 +143,17 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemStack item() {
+	public ItemStack item() throws ItemCreationException {
+		if (material == null || material == Material.AIR) {
+			throw new ItemCreationException("Unable to create an item with air (or null) materials");
+		}
+
 		ItemStack itemStack = new ItemStack(material, amount);
+
 		ItemMeta itemMeta = itemStack.getItemMeta();
+
 		//If the name for the builders been set then set the name on the item
-		if (name != null && !name.isEmpty()) {
+		if (!StringUtils.isNullOrEmpty(name)) {
 			itemMeta.setDisplayName(name);
 		}
 		//Check for lore and set the lore
@@ -149,6 +179,25 @@ public class ItemBuilder {
 
 		//Set the items breakability status.
 		itemStack.getItemMeta().spigot().setUnbreakable(unbreakable);
+
+
+		/*
+		If there's been any attributes added to the item,
+		then we can go ahead and add them all in!
+		 */
+		if (attributeList.size() > 0) {
+			if (!Plugins.hasProtocolLib()) {
+				throw new ItemCreationException("Unable to apply attributes to the items as it required ProtocolLib as a dependancy!");
+			}
+
+			attributes = new Attributes(itemStack);
+
+			for (Attributes.Attribute itemAttribute : attributeList) {
+				attributes.add(itemAttribute);
+			}
+
+			itemStack = attributes.getStack();
+		}
 
 		//Return our itemstack
 		return itemStack;

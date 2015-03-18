@@ -20,7 +20,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
@@ -320,6 +322,33 @@ public class Blocks {
 		}
 	}
 
+	public static void breakTreeSafely(Player player, Block block, boolean leaves, boolean dropItems) {
+		Material type = block.getType();
+		ItemStack drop = null;
+		if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
+			drop = Items.convertBlockToItem(block);
+			BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
+
+			if (breakEvent.isCancelled()) {
+				return;
+			}
+
+			breakBlock(block, true);
+			if (dropItems) {
+				Worlds.dropItem(block.getLocation(), drop);
+			}
+
+			/*
+			For all the blocks surrounding the parent, we're going to continue breaking the
+			blocks (logs, and potentially leaves) until they're all gone!
+			 */
+
+			for (Block b : getBlocksSurrounding(block)) {
+				breakTreeSafely(player, b, leaves, dropItems);
+			}
+		}
+	}
+
 	public static void breakTree(Block block, boolean leaves, boolean dropItems) {
 		Material type = block.getType();
 		ItemStack drop = null;
@@ -329,12 +358,14 @@ public class Blocks {
 			if (dropItems) {
 				Worlds.dropItem(block.getLocation(), drop);
 			}
-			
+
 			/*
 			For all the blocks surrounding the parent, we're going to continue breaking the
 			blocks (logs, and potentially leaves) until they're all gone!
 			 */
-			getBlocksSurrounding(block).forEach(b -> breakTree(b, leaves, dropItems));
+			getBlocksSurrounding(block).forEach(b -> {
+				breakTree(b, leaves, dropItems);
+			});
 		}
 	}
 

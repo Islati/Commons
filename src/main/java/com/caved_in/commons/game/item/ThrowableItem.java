@@ -2,6 +2,7 @@ package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.gadget.ItemGadget;
+import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
@@ -25,6 +26,15 @@ public abstract class ThrowableItem extends ItemGadget {
 
     public ThrowableItem(ItemStack item, int delay) {
         super(item);
+        this.delay = delay;
+    }
+
+    public ThrowableItem(ItemBuilder builder) {
+        super(builder);
+    }
+
+    public ThrowableItem(ItemBuilder builder, int delay) {
+        super(builder);
         this.delay = delay;
     }
 

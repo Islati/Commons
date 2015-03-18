@@ -2,17 +2,11 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.bans.Punishment;
-import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.location.PreTeleportType;
-import com.caved_in.commons.threading.tasks.GetPlayerPunishmentsCallable;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,10 +14,7 @@ import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Root(name = "Player")
 public class MinecraftPlayer extends User {
@@ -52,8 +43,6 @@ public class MinecraftPlayer extends User {
 	private double walkSpeed = 0.22;
 	@Element(name = "fly-speed")
 	private double flySpeed = 0.1;
-
-	private Set<Punishment> punishments = new HashSet<>();
 
 	public static final double DEFAULT_WALK_SPEED = 0.22;
 	public static final double DEFAULT_FLY_SPEED = 0.1;
@@ -101,9 +90,6 @@ public class MinecraftPlayer extends User {
 	}
 
 	public void dispose() {
-//		nametagEntity.die();
-//		nametagEntity = null;
-		punishments = null;
 	}
 
 	private void initWrapper() {
@@ -115,23 +101,6 @@ public class MinecraftPlayer extends User {
 			//TODO: Assign default prefix to user
 			return;
 		}
-
-		//Create an async future to get the punishments for this player (and load them into the player wrapper instance)
-		ListenableFuture<Set<Punishment>> punishmentListenable = Commons.getInstance().getAsyncExecuter().submit(new GetPlayerPunishmentsCallable(getId()));
-		Futures.addCallback(punishmentListenable, new FutureCallback<Set<Punishment>>() {
-			@Override
-			public void onSuccess(Set<Punishment> punishmentSet) {
-				if (punishmentSet == null) {
-					return;
-				}
-				punishments = punishmentSet;
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
 
 //Create an async future to get the UUID of the player
 		/*
@@ -240,10 +209,6 @@ public class MinecraftPlayer extends User {
 	 */
 	public boolean isPremium() {
 		return isPremium;
-	}
-
-	public boolean isMuted() {
-		return getPunishments().stream().filter(p -> p.getPunishmentType() == PunishmentType.MUTE).collect(Collectors.toSet()).size() > 0;
 	}
 
 	/**
@@ -403,12 +368,6 @@ public class MinecraftPlayer extends User {
 		debugMode = value;
 	}
 
-	/**
-	 * @return a set of the active punishments the player has
-	 */
-	public Set<Punishment> getPunishments() {
-		return punishments;
-	}
 
 	/**
 	 * Check whether or not the player is hiding other players.
@@ -495,14 +454,6 @@ public class MinecraftPlayer extends User {
 	public void denyTeleport() {
 		teleportRequest.deny(getPlayer());
 		teleportRequest = null;
-	}
-
-	public void addPunishment(Punishment punishment, boolean b) {
-		this.punishments.add(punishment);
-
-		if (b) {
-			//todo update database.
-		}
 	}
 
 	@ToString(of = {"filled", "requesterName", "requestedName", "requester", "receiver", "type"})

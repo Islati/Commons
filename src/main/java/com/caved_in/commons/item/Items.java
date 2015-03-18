@@ -461,6 +461,14 @@ public class Items {
 		return isTool(item.getType());
 	}
 
+	public static boolean isTool(ItemStack item, ToolType type) {
+		return isTool(item.getType(), type);
+	}
+
+	public static boolean isTool(Material material, ToolType type) {
+		return type.isType(material);
+	}
+
 	public static boolean isTool(Material type) {
 		return ToolType.isTool(type);
 	}
@@ -522,7 +530,7 @@ public class Items {
 	}
 
 	public static ItemStack makeItem(Material material, int dataVal) {
-		return getMaterialData(material, dataVal).toItemStack();
+		return getMaterialData(material, dataVal).toItemStack(1);
 	}
 
 	public static ItemStack makeLeatherItem(Material material, String itemName, List<String> itemLore, Map<Enchantment, Integer> enchantments, Color itemColor) {

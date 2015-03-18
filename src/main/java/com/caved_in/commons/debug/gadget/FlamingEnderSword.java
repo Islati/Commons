@@ -29,7 +29,7 @@ public class FlamingEnderSword extends BaseWeapon {
 	private BulletBuilder enderBullets;
 
 	public FlamingEnderSword(int id) {
-		super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!").item());
+		super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
 		this.id = id;
 
 		properties().droppable(true).breakable(false);

@@ -1,9 +1,13 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.item.Items;
+import lombok.ToString;
 import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root(name = "gadget-properties")
+@ToString(of = {"durability", "isBreakable", "isDroppable"})
 public class GadgetProperties {
 	/*
 	The durability of the item (How many uses it has)
@@ -18,6 +22,7 @@ public class GadgetProperties {
 	private boolean isBreakable;
 
 	/*
+
 	Whether or not the item can be dropped; by default it's false.
 	 */
 	@Element(name = "droppable")

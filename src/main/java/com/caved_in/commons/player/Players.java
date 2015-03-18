@@ -2,8 +2,6 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
-import com.caved_in.commons.bans.Punishment;
-import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.chat.Chat;
@@ -23,7 +21,9 @@ import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
-import com.caved_in.commons.threading.tasks.*;
+import com.caved_in.commons.threading.tasks.KickPlayerThread;
+import com.caved_in.commons.threading.tasks.NameFetcherCallable;
+import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.utilities.StringUtil;
@@ -32,12 +32,8 @@ import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import io.netty.channel.Channel;
 import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.com.google.gson.Gson;
 import org.bukkit.entity.Entity;
@@ -385,122 +381,6 @@ public class Players {
 	}
 
 
-	public static void mute(Player player, Punishment punishment) {
-		mute(player.getUniqueId(), punishment);
-	}
-
-	public static void mute(UUID id, Punishment punishment) {
-		if (!Commons.getInstance().hasDatabaseBackend()) {
-			return;
-		}
-		internal_mute(new MutePlayerCallable(id, punishment));
-	}
-
-	public static void mute(String name, Punishment punishment) {
-		if (!Commons.getInstance().hasDatabaseBackend()) {
-			return;
-		}
-		internal_mute(new MutePlayerCallable(name, punishment));
-	}
-
-	private static void internal_mute(MutePlayerCallable callable) {
-		ListenableFuture<Boolean> mutePlayerFuture = commons.getAsyncExecuter().submit(callable);
-		Futures.addCallback(mutePlayerFuture, new FutureCallback<Boolean>() {
-			@Override
-			public void onSuccess(@Nullable Boolean aBoolean) {
-				if (aBoolean == null) {
-					//weird
-				}
-
-				if (aBoolean) {
-					MinecraftPlayer player = commons.getPlayerHandler().getData(callable.getId());
-
-					if (player == null) {
-						return;
-					}
-
-					player.addPunishment(callable.getPunishment(), false);
-					//todo implement message player of being muted.
-				} else {
-					//Error muting player?
-					commons.debug("Unable to mute player " + callable.getName(), callable.getPunishment().toString());
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-
-			}
-		});
-	}
-		
-	public static void ban(Player player, Punishment punishment) {
-		String playerName = player.getName();
-		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-			player.setBanned(true);
-			Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
-			return;
-		}
-
-		ListenableFuture<Boolean> banPlayerFuture = Commons.getInstance().getAsyncExecuter().submit(new BanPlayerCallable(player.getUniqueId(), punishment));
-		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
-			@Override
-			public void onSuccess(Boolean banned) {
-				if (banned) {
-					Players.kick(player, punishment.getReason(), true);
-					Chat.messageAll(Messages.playerBannedGlobalMessage(playerName, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
-				} else {
-					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(playerName));
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Issue a ban for the given player.
-	 * If Commons is setup to use a database the ban will be handled through the async executor,
-	 * otherwise bukkits method will be used.
-	 *
-	 * @param player     name of the player to ban
-	 * @param punishment punishment to apply to the player
-	 */
-	public static void ban(String player, Punishment punishment) {
-		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-			if (!Players.isOnline(player)) {
-				return;
-			}
-			Players.getPlayer(player).setBanned(true);
-			//TODO make the messaging of everyone optional
-			Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
-			return;
-		}
-
-		ListenableFuture<Boolean> banPlayerFuture = Commons.getInstance().getAsyncExecuter().submit(new BanPlayerCallable(player, punishment));
-		Futures.addCallback(banPlayerFuture, new FutureCallback<Boolean>() {
-			@Override
-			public void onSuccess(Boolean banned) {
-				if (banned) {
-					if (Players.isOnline(player)) {
-						Players.kick(Players.getPlayer(player), punishment.getReason(), true);
-					}
-					Chat.messageAll(Messages.playerBannedGlobalMessage(player, "Server", punishment.getReason(), punishment.isPermanent() ? "Never" : DurationFormatUtils.formatDurationWords(punishment.getExpiryTime() - System.currentTimeMillis(), true, true)));
-				} else {
-					Chat.messageAll(Players.onlineOperators(), Messages.playerNotBanned(player));
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
-	}
-
 	/**
 	 * Kicks the player for the reason defined
 	 * <p>
@@ -739,38 +619,6 @@ public class Players {
 	 */
 	public static boolean hasPermission(Player player, Perms permission) {
 		return hasPermission(player, permission.toString());
-	}
-
-	/**
-	 * Check if the given id has any punishments of the given type active.
-	 *
-	 * @param uniqueId id to search for.
-	 * @param type     type of punishment to search for.
-	 * @return true if the id has any active punishments of the desired type, false if the database feature of commons is disabled or the player has no punishments of the type specified.
-	 */
-	public static boolean hasActivePunishment(UUID uniqueId, PunishmentType type) {
-		if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-			return false;
-		}
-
-		Set<Punishment> punishments = commons.getServerDatabase().getActivePunishments(uniqueId);
-		for (Punishment punishment : punishments) {
-			if (punishment.getPunishmentType() == type) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Check if the player has any active punishments of the given type.
-	 *
-	 * @param player player to check.
-	 * @param type   type of punishment to search for.
-	 * @return true if the player has a punishment of the given type, false otherwise.
-	 */
-	public static boolean hasActivePunishment(Player player, PunishmentType type) {
-		return hasActivePunishment(player.getUniqueId(), type);
 	}
 
 	/**

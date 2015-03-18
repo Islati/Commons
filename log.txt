@@ -4,6 +4,20 @@
  + = Added
 -------------
 
+March 18'th, 2015 (Build 1.8.4):
+	~ Made ItemBuilder throw ItemCreationException
+	~ Updated ItemGadget, BaseWeapon, ThrowableItem, BaseGun, WeaponProperties, GunProperties, and others have
+	  methods to take ItemBuilders and handle the new ItemCreationException!
+
+
+March 12'th, 2015 (Build 1.8.4):
+	- Removed all code related to punishments, bans, mutes, warnings, etc
+	+ Created Blocks.breakTreeSafely to have the most basic form of implementation with other plugins. (Calls blockbreak events before continueing with breaks)
+	+ Created the ItemCreation exception
+	+ Added the 'Attributes' class to Items package; Credits to Comphenix for it!
+	~ In ItemBuilder I Implemented methods (and logic) to add attributes to items
+	+ Created the XmlAttribute class but didn't implement the logic for it yet.
+
 March 5'th, 2015 (Build 1.8.3):
 	+ Updated XmlEnchantment to contain builder-like methods to better customize it!
 

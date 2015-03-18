@@ -16,7 +16,7 @@ public class KickStick extends BaseWeapon {
     private int id;
 
     public KickStick(int id) {
-        super(ItemBuilder.of(Material.STICK).name("&cKick Stick").lore("&eGive em a &agood ol' &7&o*whacking*&r&e!").item());
+        super(ItemBuilder.of(Material.STICK).name("&cKick Stick").lore("&eGive em a &agood ol' &7&o*whacking*&r&e!"));
         properties().droppable(false);
 
         this.id = id;
@@ -51,6 +51,11 @@ public class KickStick extends BaseWeapon {
         }
 
         Player target = (Player) e;
+
+        if (Players.hasPermission(target, Perms.KICK_DENY)) {
+            Chat.message(p, String.format("&a%s&e is unable to be kicked.", target));
+            return;
+        }
 
         int embursment = NumberUtil.getRandomInRange(100, 200);
         Players.kick(target, String.format("&c%s&e whacked you with the kick stick! Here's &a&o%s XP&e (for being a good sport &c<3&e)!", p.getName(), embursment));

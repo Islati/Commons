@@ -11,19 +11,6 @@ commands:
    removepremium:
       description: Used to remove premium (Console only)
       usage: /<command> <PlayerName>
-   ban:
-      description: Used to ban a player across all servers
-      usage: /<command> <Player> <Reason> [t:Time]
-   unban:
-      description: Used to unban a player across all servers
-      usage: /<command> <name>
-      aliases: [pardon]
-   mute:
-      description: Used to mute a player across all servers
-      usage: /<command> <Player>
-   unmute:
-      description: Used to unmute a player across all servers
-      usage: /<command> <Player>
    msg:
       usage: /msg <player> <message>
       aliases: [m, t, tell, whisper]

@@ -26,14 +26,14 @@ public class FishCannon extends BaseGun {
 	private int id;
 
 	public FishCannon(int id) {
-		super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon").item());
+		super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon"));
 		this.id = id;
 		setBulletActions(FishCannonAction.getInstance());
 		initProperties();
 	}
 
 	private void initProperties() {
-		properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo").item()).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
+		properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
 		bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffects.BUBBLE);
 	}
 

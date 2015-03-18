@@ -1,5 +1,6 @@
 package com.caved_in.commons.config;
 
+import lombok.ToString;
 import org.bukkit.enchantments.Enchantment;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
@@ -8,6 +9,7 @@ import org.simpleframework.xml.Root;
  * Serializable wrapper for item enchantments.
  */
 @Root(name = "enchantment")
+@ToString(of = {"enchantName", "level", "glow"})
 public class XmlEnchantment {
 	@Attribute(name = "name")
 	private String enchantName;
@@ -31,6 +33,10 @@ public class XmlEnchantment {
 	public XmlEnchantment(Enchantment enchantment, int level) {
 		this.level = level;
 		enchantName = enchantment.getName();
+	}
+
+	public XmlEnchantment() {
+
 	}
 
 	public XmlEnchantment enchantment(Enchantment enchant) {

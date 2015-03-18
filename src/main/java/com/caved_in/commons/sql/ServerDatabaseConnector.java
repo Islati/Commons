@@ -1,9 +1,6 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.bans.Punishment;
-import com.caved_in.commons.bans.PunishmentBuilder;
-import com.caved_in.commons.bans.PunishmentType;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ServerInfo;
 import com.caved_in.commons.config.SqlConfiguration;
@@ -21,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static com.caved_in.commons.sql.DatabaseField.*;
+import static com.caved_in.commons.sql.DatabaseField.FRIEND_USER_ID;
 
 public class ServerDatabaseConnector extends DatabaseConnector {
 
@@ -41,12 +38,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 	//Server connection time
 	private static final String INSERT_SERVER_CONNECTION_DATA = "INSERT INTO server_connections (player_id,player_name, player_ip, connect_time) VALUES (?,?,?,?)";
 
-	//Punishments statements
-	private static String RETRIEVE_ALL_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=?";
-	private static final String RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS = "SELECT * FROM server_punishments WHERE player_id=? AND pardoned=0 AND pun_expires > ?";
-	private static final String RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT = "SELECT pun_expires, pun_reason, pun_issued, pun_giver_id FROM server_punishments WHERE player_id=? and pun_type=? ORDER BY pun_expires DESC LIMIT 1";
-	private static final String PARDON_ACTIVE_PUNISHMENTS = "UPDATE server_punishments SET pardoned=1 WHERE player_id=?";
-	private static final String PARDON_ACTIVE_PUNISHMENTS_TYPE = "UPDATE server_punishments SET pardoned=1 WHERE pun_type=? AND player_id=? AND pardoned=0";
 	//Friends table / friends list data statement
 	private static final String GET_PLAYER_FRIENDS = "SELECT * FROM server_friends WHERE player_id=?";
 	private static final String INSERT_FRIEND_REQUEST = "INSERT INTO server_friends (player_id,friend_id,friend_status) VALUES (?,?,?)";
@@ -74,7 +65,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			"CREATE TABLE IF NOT EXISTS `server_players` (`id` int(10) unsigned NOT NULL AUTO_INCREMENT, `player_id` varchar(36) NOT NULL, `player_name` varchar(16) NOT NULL, `player_money` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;",
 			"CREATE TABLE IF NOT EXISTS `server_prefixes` (`player_id` varchar(36) NOT NULL, `player_prefix` text NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
 			"CREATE TABLE IF NOT EXISTS `server_premium` (`player_id` varchar(36) NOT NULL, `premium` tinyint(1) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
-			"CREATE TABLE IF NOT EXISTS `server_punishments` (`id` int(11) NOT NULL AUTO_INCREMENT, `pun_type` int(11) NOT NULL, `player_id` varchar(36) NOT NULL, `pun_giver_id` varchar(36) NOT NULL, `pun_issued` bigint(20) NOT NULL, `pun_expires` bigint(20) NOT NULL, `pun_reason` text NOT NULL, `pardoned` tinyint(1) NOT NULL, KEY `id` (`id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;",
 			"CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT, `svr_name` text CHARACTER SET utf8 NOT NULL, `svr_player_count` int(10) unsigned NOT NULL, `svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100', `svr_online` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`svr_id`), UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;"
 	};
 
@@ -230,89 +220,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 		}
 	}
 
-	public Set<Punishment> getActivePunishments(UUID playerId) {
-		long timeStamp = System.currentTimeMillis();
-		PreparedStatement statement = prepareStatement(RETRIEVE_ACTIVE_PLAYER_PUNISHMENTS);
-		Set<Punishment> punishments = new HashSet<>();
-		try {
-			statement.setString(1, playerId.toString());
-			statement.setLong(2, timeStamp);
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				//Build the punishment and add it to the set of punishments for the player
-				Punishment punishment = new PunishmentBuilder()
-						.withType(PunishmentType.getPunishmentType(resultSet.getInt(PUNISHMENT_TYPE.toString())))
-						.withIssuer(UUID.fromString(resultSet.getString(PUNISHMENT_ISSUER_UID.toString())))
-						.withReason(resultSet.getString(PUNISHMENT_REASON.toString()))
-						.issuedOn(resultSet.getLong(PUNISHMENT_ISSUED_TIME.toString()))
-						.expiresOn(resultSet.getLong(PUNISHMENT_EXPIRATION_TIME.toString()))
-						.build();
-				punishments.add(punishment);
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			close(statement);
-		}
-		return punishments;
-	}
-
-	public Punishment getMostRecentPunishment(UUID uniqueId, PunishmentType type) {
-		PreparedStatement statement = prepareStatement(RETRIEVE_MOST_RECENT_PLAYER_PUNISHMENT);
-		Punishment punishment = null;
-		try {
-			statement.setString(1, uniqueId.toString());
-			statement.setInt(2, type.getId());
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				punishment = new PunishmentBuilder().withType(type).withReason(resultSet.getString("pun_reason")).withIssuer(UUID.fromString(resultSet.getString("pun_giver_id"))).issuedOn(resultSet.getLong("pun_issued")).expiresOn(resultSet.getLong("pun_expires")).build();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(statement);
-		}
-		return punishment;
-	}
-
-	public void pardonActivePunishments(UUID playerId) {
-		PreparedStatement statement = prepareStatement(PARDON_ACTIVE_PUNISHMENTS);
-		try {
-			statement.setString(1, playerId.toString());
-			statement.executeUpdate();
-			Chat.debug("Executed pardon statement for " + playerId.toString());
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			close(statement);
-		}
-	}
-
-	public void pardonActivePunishments(UUID playerId, PunishmentType type) {
-		PreparedStatement statement = prepareStatement(PARDON_ACTIVE_PUNISHMENTS_TYPE);
-		try {
-			statement.setInt(1, type.getId());
-			statement.setString(2, playerId.toString());
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			close(statement);
-		}
-	}
-
-	public boolean hasActivePunishment(UUID playerId) {
-		return getActivePunishments(playerId).size() > 0;
-	}
-
-	public boolean hasActivePunishment(UUID playerId, PunishmentType punishmentType) {
-		for (Punishment punishment : getActivePunishments(playerId)) {
-			if (punishmentType == punishment.getPunishmentType()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public void updateFriendRequest(UUID playerId, UUID friendId, FriendStatus status) {
 		PreparedStatement statement = prepareStatement(UPDATE_FRIEND_REQUEST);
 		try {
@@ -448,32 +355,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 			close(statement);
 		}
 	}
-
-	public boolean insertPlayerPunishment(PunishmentType punishmentType, UUID playerId, String giverId, String reason, long expires) {
-		boolean executed = false;
-		PreparedStatement statement = prepareStatement("INSERT INTO server_punishments (pun_type, player_id, pun_giver_id, pun_issued, pun_expires, pun_reason, pardoned) VALUES (?,?,?,?,?,?,?)");
-		try {
-			statement.setInt(1, punishmentType.getId());
-			statement.setString(2, playerId.toString());
-			statement.setString(3, giverId);
-			statement.setLong(4, System.currentTimeMillis());
-			statement.setLong(5, expires);
-			statement.setString(6, reason);
-			statement.setBoolean(7, false);
-			statement.executeUpdate();
-			executed = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(statement);
-		}
-		return executed;
-	}
-
-	public boolean insertPlayerPunishment(Punishment punishment, UUID playerId) {
-		return insertPlayerPunishment(punishment.getPunishmentType(), playerId, punishment.getIssuer().toString(), punishment.getReason(), punishment.getExpiryTime());
-	}
-
 
 	public void updatePlayerCount() {
 		/*
