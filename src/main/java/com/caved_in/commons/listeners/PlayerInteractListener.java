@@ -20,10 +20,7 @@ public class PlayerInteractListener implements Listener {
 		}
 
 		Gadget gadget = Gadgets.getGadget(itemInHand);
-
-
 		GadgetUseEvent gadgetEvent = new GadgetUseEvent(player, event.getAction(), gadget);
-
 		GadgetUseEvent.handle(gadgetEvent);
 	}
 }

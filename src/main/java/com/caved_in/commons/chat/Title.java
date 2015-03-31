@@ -1,6 +1,8 @@
 package com.caved_in.commons.chat;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.nms.NmsPlayers;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -102,10 +104,26 @@ public class Title {
      * Load spigot and NMS classes
      */
     private void loadClasses() {
+        if (!Commons.bukkitVersionMatches("1_8")) {
+            Chat.debug(Plugins.getBukkitVersion());
+            throw new IllegalAccessError("Unable to use Titles class as it requires a minimum of Bukkit / Spigot 1.8 (Non Protocol Hack)");
+        }
+
+
         packetTitle = getNMSClass("PacketPlayOutTitle");
-        packetActions = getNMSClass("EnumTitleAction");
         chatBaseComponent = getNMSClass("IChatBaseComponent");
-        nmsChatSerializer = getNMSClass("ChatSerializer");
+        //todo implement check for bukkit version! >= 1.8.3 then  nmsChatSerializer = getNMSClass("IChatBaseComponent$ChatSerializer");
+
+        /*
+        If the bukkit version is < 1.8.3
+         */
+        if (!Commons.bukkitVersionMatches("1_8_R2")) {
+            packetActions = getNMSClass("EnumTitleAction");
+            nmsChatSerializer = getNMSClass("ChatSerializer");
+        } else {
+            packetActions = getNMSClass("PacketPlayOutTitle$EnumTitleAction");
+            nmsChatSerializer = getNMSClass("IChatBaseComponent$ChatSerializer");
+        }
     }
 
     /**

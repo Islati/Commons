@@ -3,7 +3,6 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.MaintenanceConfiguration;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_8_R1.ServerPing;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;

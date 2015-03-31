@@ -2,12 +2,14 @@ package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.Cooldown;
 import com.caved_in.commons.time.PlayerTicker;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+//todo implement method to track uses on the gadget itself!
 public abstract class LimitedGadget extends ItemGadget {
 	private int uses = 1;
 	private PlayerTicker playerTicker;
@@ -23,6 +25,12 @@ public abstract class LimitedGadget extends ItemGadget {
 		super(item);
 		playerTicker = new PlayerTicker(uses);
 		this.uses = uses;
+	}
+
+	public LimitedGadget(ItemBuilder builder, int uses) {
+		super(builder);
+		this.uses = uses;
+		playerTicker = new PlayerTicker(uses);
 	}
 
 	@Override

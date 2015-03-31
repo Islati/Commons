@@ -10,9 +10,8 @@ import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_8_R1.ChatSerializer;
-import net.minecraft.server.v1_8_R1.IChatBaseComponent;
-import net.minecraft.server.v1_8_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_8_R2.IChatBaseComponent;
+import net.minecraft.server.v1_8_R2.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -93,7 +92,11 @@ public class Chat {
 	 * @param message message to send.
 	 */
 	public static void actionMessage(Player player, String message) {
-		IChatBaseComponent actionComponent = ChatSerializer.a(String.format(ACTION_JSON, StringUtil.colorize(message)));
+		if (!Commons.bukkitVersionMatches("1_8")) {
+			throw new IllegalAccessError("Unable to create action messages on < Bukkit / Spigot 1.8");
+		}
+		//TODO Implement version checking for action messages!
+		IChatBaseComponent actionComponent = IChatBaseComponent.ChatSerializer.a(String.format(ACTION_JSON, StringUtil.colorize(message)));
 		PacketPlayOutChat actionChatPacket = new PacketPlayOutChat(actionComponent, (byte) 2);
 		NmsPlayers.sendPacket(player, actionChatPacket);
 	}

@@ -3,6 +3,7 @@ package com.caved_in.commons.item;
 import com.caved_in.commons.config.XmlEnchantment;
 import com.caved_in.commons.exceptions.ItemCreationException;
 import com.caved_in.commons.plugin.Plugins;
+import com.caved_in.commons.utilities.SneakyThrow;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
@@ -143,9 +144,9 @@ public class ItemBuilder {
 		return this;
 	}
 
-	public ItemStack item() throws ItemCreationException {
+	public ItemStack item() {
 		if (material == null || material == Material.AIR) {
-			throw new ItemCreationException("Unable to create an item with air (or null) materials");
+			SneakyThrow.sneaky(new ItemCreationException("Unable to create an item with air (or null) materials"));
 		}
 
 		ItemStack itemStack = new ItemStack(material, amount);
@@ -187,7 +188,7 @@ public class ItemBuilder {
 		 */
 		if (attributeList.size() > 0) {
 			if (!Plugins.hasProtocolLib()) {
-				throw new ItemCreationException("Unable to apply attributes to the items as it required ProtocolLib as a dependancy!");
+				SneakyThrow.sneaky(new ItemCreationException("Unable to apply attributes to the items as it required ProtocolLib as a dependancy!"));
 			}
 
 			attributes = new Attributes(itemStack);

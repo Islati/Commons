@@ -66,6 +66,11 @@ public class CreatureBuilder {
 		this.type = type;
 	}
 
+	public CreatureBuilder(MobType type) {
+		this.type = type.getEntityType();
+
+	}
+
 	/**
 	 * Set the creatures name.
 	 *

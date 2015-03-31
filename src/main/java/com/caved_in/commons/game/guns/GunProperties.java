@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.config.XmlItemStack;
-import com.caved_in.commons.exceptions.ItemCreationException;
 import com.caved_in.commons.game.item.WeaponProperties;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
@@ -146,11 +145,7 @@ public class GunProperties extends WeaponProperties {
 	}
 
 	public GunProperties ammunition(ItemBuilder builder) {
-		try {
-			ammunition(builder.item());
-		} catch (ItemCreationException e) {
-			e.printStackTrace();
-		}
+		ammunition(builder.item());
 		return this;
 	}
 

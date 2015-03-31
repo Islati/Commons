@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.8.4</version>
+    <version>1.8.5</version>
 
     <properties>
         <powermock.version>1.6.1</powermock.version>
@@ -69,6 +69,7 @@
                                     <include>org.objenesis:objenesis:jar:*</include>
                                     <include>org.projectlombok:lombok:jar:*</include>
                                     <include>cglib:cglib-nodep:jar:*</include>
+                                    <include>org.javatuples:javatuples:jar:*</include>
                                     <!--<include>org.apache.logging.log4j:log4j-api:jar:*</include>-->
                                     <!--<include>org.apache.logging.log4j:log4j-core:jar:*</include>-->
                                     <!--Shade in SK89Q's command framework so other plugins can depend
@@ -160,7 +161,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
+            <version>1.8.3-R0.1-SNAPSHOT</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>org.bukkit</groupId>-->
@@ -230,6 +231,13 @@
             <artifactId>powermock-api-mockito</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.javatuples</groupId>
+            <artifactId>javatuples</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
         <!--Logging Plugins, Log4j and it's required API-->
         <!--<dependency>-->

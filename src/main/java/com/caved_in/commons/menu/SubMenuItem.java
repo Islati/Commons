@@ -25,6 +25,10 @@ public class SubMenuItem extends MenuItem {
 		this.itemMenu = itemMenu;
 	}
 
+	public ItemMenu getSubMenu() {
+		return itemMenu;
+	}
+
 	@Override
 	public void onClick(Player player) {
 		getMenu().switchMenu(player, itemMenu);

@@ -17,8 +17,10 @@ public class Gadgets {
 //	private static final AtomicInteger ids = new AtomicInteger(1);
 	private static final Random random = new Random();
 
+	//todo Implement methods to get first free int for gadget registration
 	private static final Map<Integer, Gadget> gadgets = new HashMap<>();
 
+	//todo implement int method to return the registered gadgets id
 	public static void registerGadget(Gadget gadget) {
 		gadgets.put(gadget.id(), gadget);
 	}

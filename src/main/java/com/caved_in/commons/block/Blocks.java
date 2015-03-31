@@ -102,6 +102,64 @@ public class Blocks {
 	}
 
 	/**
+	 * Get the distance between the nearest block of the given type, and the location.
+	 * @param loc location to begin the search from
+	 * @param searchMaterial material to search for
+	 * @param depth depth (and radius) of how far to search
+	 * @return the distance between the location and the searched material, or -1 if nothing was found.
+	 */
+	public static int getBlockTypeDistance(Location loc, Material searchMaterial, int depth) {
+		World world = loc.getWorld();
+		double baseX = loc.getX();
+		double baseY = loc.getY();
+		double baseZ = loc.getZ();
+
+		//From 0 to the deepest of depths allowed, loop through all the blocks!
+		for (int depthLevel = 0; depthLevel < depth; ++depthLevel) {
+
+			int deepZ;
+			int deepY;
+
+			//Bottom up on Z axis & Y Axis- check if the blocks match the type we're searching for!
+			for (deepZ = -depthLevel; deepZ <= depthLevel; ++deepZ) {
+				for (deepY = -depthLevel; deepY <= depthLevel; ++deepY) {
+
+					Block blockAtPlus = getBlockAt(Locations.getLocation(world, baseX + deepZ, baseY + depthLevel, baseZ + deepY));
+					Block blockAtMinus = getBlockAt(Locations.getLocation(world, baseX + deepZ, baseY - depthLevel, baseZ + deepY));
+
+					if (blockAtPlus.getType() == searchMaterial || blockAtMinus.getType() == searchMaterial) {
+						return depthLevel;
+					}
+				}
+			}
+
+			for (deepZ = -depthLevel; deepZ <= depthLevel; ++deepZ) {
+				for (deepY = (-depthLevel + 1); deepY <= (depthLevel - 1); ++deepY) {
+					Block blockAtPlus = getBlockAt(Locations.getLocation(world, baseX + deepZ, baseY + deepY, baseZ + depthLevel));
+					Block blockAtMinus = getBlockAt(Locations.getLocation(world, baseX + deepZ, baseY + deepY, baseZ - depthLevel));
+
+					if (blockAtPlus.getType() == searchMaterial || blockAtMinus.getType() == searchMaterial) {
+						return depthLevel;
+					}
+				}
+			}
+
+			for (deepZ = (-depthLevel + 1); deepZ < (depthLevel - 1); ++deepZ) {
+				for (deepY = (-depthLevel + 1); deepY <= (depthLevel - 1); ++deepY) {
+					Block blockAtPlus = getBlockAt(Locations.getLocation(world, baseX + depthLevel, baseY + deepY, baseZ + deepZ));
+					Block blockAtMinus = getBlockAt(Locations.getLocation(world, baseX - depthLevel, baseY + deepY, baseZ + deepZ));
+
+					if (blockAtPlus.getType() == searchMaterial || blockAtMinus.getType() == searchMaterial) {
+						return depthLevel;
+					}
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	/**
 	 * Gets the corresponding material for blocks and materials.
 	 * <p>
 	 * For example: {@link org.bukkit.Material#WOODEN_DOOR} is the block-correspondant

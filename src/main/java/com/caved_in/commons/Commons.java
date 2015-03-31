@@ -307,7 +307,8 @@ public class Commons extends BukkitPlugin {
 				new DebugDefaultScoreboard(),
 				new DebugThrowableBrick(),
 				new DebugKickStick(),
-				new DebugTitle()
+				new DebugTitle(),
+				new DebugConfirmationMenu()
 		);
 	}
 
@@ -409,7 +410,7 @@ public class Commons extends BukkitPlugin {
 	}
 
 	public static boolean bukkitVersionMatches(String versionNumber) {
-		return Bukkit.getVersion().contains(versionNumber);
+		return Plugins.getBukkitVersion().contains(versionNumber);
 	}
 
 	public ItemSetManager getItemSetManager() {

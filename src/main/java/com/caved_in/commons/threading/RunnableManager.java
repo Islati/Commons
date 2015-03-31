@@ -19,6 +19,9 @@ public class RunnableManager {
 		this.plugin = Plugin;
 	}
 
+	//todo implement wrapped class that holds runnable, but outputs to console from the name of the thread that had it's task executed (debug)
+	// Example: [GAME UPDATE] Started Tick!
+
 	public int registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
 		int taskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
 		runningTasks.put(name, taskId);
