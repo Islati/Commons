@@ -1,15 +1,15 @@
 package com.caved_in.commons.menu.menus.confirmation;
 
 import com.caved_in.commons.item.Wool;
-import com.caved_in.commons.menu.ItemMenu;
-import com.caved_in.commons.menu.MenuBehaviourType;
-import com.caved_in.commons.menu.MenuItem;
+import com.caved_in.commons.menu.*;
 import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class ConfirmationMenu extends ItemMenu {
     private ConfirmationMenuItem confirmItem = null;
     private ConfirmationMenuItem denyItem = null;
+
+    private boolean actionPerformed = false;
 
     public static ConfirmationMenu of(String title) {
         return new ConfirmationMenu(title);
@@ -33,18 +33,34 @@ public class ConfirmationMenu extends ItemMenu {
         return this;
     }
 
-    public ConfirmationMenu allowClickOutside(boolean clickOutside) {
-        setExitOnClickOutside(clickOutside);
+    public ConfirmationMenu onOpen(MenuOpenBehaviour onOpen) {
+        addBehaviour(MenuBehaviourType.OPEN, onOpen);
         return this;
     }
 
-    public ConfirmationMenu denyOnOutsideClick() {
-        addBehaviour(MenuBehaviourType.CLOSE, denyItem.action::perform);
+    public ConfirmationMenu onClose(MenuCloseBehaviour onClose) {
+        addBehaviour(MenuBehaviourType.CLOSE, onClose);
+        return this;
+    }
+
+    public ConfirmationMenu exitOnClickOutside(boolean exit) {
+        setExitOnClickOutside(exit);
+        return this;
+    }
+
+    public ConfirmationMenu denyOnClose() {
+        addBehaviour(MenuBehaviourType.CLOSE, (menu, player) -> {
+            if (actionPerformed) {
+                return;
+            }
+
+            denyItem.action.perform(menu, player);
+        });
         return this;
     }
 
     public enum MenuConfirmationOption {
-        CONFIRM(Wool.GREEN_WOOL, 1),
+        CONFIRM(Wool.GREEN_WOOL, 0),
         DENY(Wool.RED_WOOL, 8);
 
         private MaterialData icon;
@@ -74,6 +90,7 @@ public class ConfirmationMenu extends ItemMenu {
 
         @Override
         public void onClick(Player player) {
+            actionPerformed = true;
             action.perform(getMenu(), player);
         }
     }

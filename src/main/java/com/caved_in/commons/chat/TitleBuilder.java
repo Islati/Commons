@@ -18,6 +18,10 @@ public class TitleBuilder {
 
 	private Title titleObj = null;
 
+	public static TitleBuilder create() {
+		return new TitleBuilder();
+	}
+
 	public TitleBuilder() {
 	}
 

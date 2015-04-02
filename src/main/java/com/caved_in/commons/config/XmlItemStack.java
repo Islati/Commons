@@ -1,9 +1,11 @@
 package com.caved_in.commons.config;
 
 import com.caved_in.commons.item.Items;
+import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.simpleframework.xml.Element;
@@ -40,13 +42,16 @@ public class XmlItemStack {
 	@Element(name = "skull-owner", required = false)
 	private String skullOwner;
 
+	@ElementList(name = "flags", entry = "flag", type = ItemFlag.class, required = false)
+	private List<ItemFlag> itemFlags = null;
+
 	private ItemStack itemStack;
 
 	public static XmlItemStack fromItem(ItemStack item) {
 		return new XmlItemStack(item);
 	}
 
-	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments, @Element(name = "skull-owner", required = false) String skullOwner) {
+	public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments, @Element(name = "skull-owner", required = false) String skullOwner, @ElementList(name = "flags", entry = "flag", type = ItemFlag.class, required = false) List<ItemFlag> flags) {
 		this.id = id;
 		this.dataVal = dataVal;
 		this.itemName = itemName;
@@ -54,6 +59,7 @@ public class XmlItemStack {
 		this.enchantments = enchantments;
 		this.amount = amount;
 		this.skullOwner = skullOwner;
+		this.itemFlags = flags;
 	}
 
 	public XmlItemStack(ItemStack item) {
@@ -81,7 +87,10 @@ public class XmlItemStack {
 				enchantments.add(new XmlEnchantment(enchantment.getKey(), enchantment.getValue()));
 			}
 		}
-		//Clone the item!
+
+		if (Items.hasFlags(item)) {
+			itemFlags = Lists.newArrayList(Items.getFlags(item));
+		}
 
 		int itemAmount = item.getAmount();
 

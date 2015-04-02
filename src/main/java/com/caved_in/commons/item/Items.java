@@ -133,6 +133,10 @@ public class Items {
 		return itemStack;
 	}
 
+	public static void clearLore(ItemStack item) {
+		setLore(item, Arrays.asList());
+	}
+
 	/**
 	 * Get lore of item at specific line
 	 *
@@ -218,6 +222,26 @@ public class Items {
 		return itemMeta.getLore();
 	}
 
+	public static boolean hasLoreAtLine(ItemStack item, int line) {
+		List<String> loreLines = getLore(item);
+
+		if (loreLines.size() > line) {
+			return StringUtils.isNotEmpty(loreLines.get(line));
+		}
+
+		return false;
+	}
+
+	public static void setLore(ItemStack item, int line, String lore) {
+		if (!hasLoreAtLine(item, line)) {
+			return;
+		}
+
+		List<String> loreLines = getLore(item);
+		loreLines.set(line, StringUtil.formatColorCodes(lore));
+		setLore(item, loreLines);
+	}
+	
 	public static ItemStack setLore(ItemStack itemStack, List<String> loreLines) {
 		ItemMeta itemMeta = getMetadata(itemStack);
 		List<String> lore = new ArrayList<>();
@@ -293,7 +317,7 @@ public class Items {
 		}
 
 		if (!hasName(itemStack)) {
-			return itemStack.getType().toString().toLowerCase();
+			return getFormattedMaterialName(itemStack);
 		}
 		return StringUtil.stripColor(getMetadata(itemStack).getDisplayName());
 	}
@@ -314,7 +338,7 @@ public class Items {
 	 * @return true if the item name contains the text, false otherwise
 	 */
 	public static boolean nameContains(ItemStack item, String text) {
-		return StringUtil.startsWithIgnoreCase(getName(item), text);
+		return StringUtils.containsIgnoreCase(getName(item), text);
 	}
 
 	public static ItemStack removeFromStack(ItemStack itemStack, int amount) {
@@ -363,6 +387,48 @@ public class Items {
 
 	public static boolean addEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel) {
 		return addEnchantment(itemStack, enchantment, enchantmentLevel, false);
+	}
+
+	public static void addEnchantment(ItemStack target, EnchantWrapper... enchants) {
+		for (EnchantWrapper wrapper : enchants) {
+			addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
+		}
+
+	}
+
+	public static void addEnchantments(ItemStack target, Collection<EnchantWrapper> wrappers) {
+		for (EnchantWrapper wrapper : wrappers) {
+			addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
+		}
+	}
+
+	public static void clearEnchantments(ItemStack item) {
+		getMetadata(item).getEnchants().clear();
+	}
+
+	public static void setEnchantments(ItemStack target, Set<EnchantWrapper> enchants) {
+		ItemMeta meta = getMetadata(target);
+
+		//Clear the current enchantments.
+		meta.getEnchants().clear();
+
+		for (EnchantWrapper wrapper : enchants) {
+			addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
+		}
+	}
+
+	public static ItemStack replaceInName(ItemStack target, String search, String replace) {
+		if (!hasName(target)) {
+			return target;
+		}
+
+		String name = getName(target);
+
+		if (StringUtils.containsIgnoreCase(search, replace)) {
+			name = StringUtils.replace(name, search, replace);
+		}
+
+		return Items.setName(target, name);
 	}
 
 	public static boolean hasSameEnchantments(ItemStack item, ItemStack compareItem) {
@@ -421,6 +487,18 @@ public class Items {
 		}
 
 		return enchants;
+	}
+
+	public static void addFlags(ItemStack item, ItemFlag... flag) {
+		ItemMeta meta = getMetadata(item);
+		meta.addItemFlags(flag);
+		setMetadata(item, meta);
+	}
+
+	public static void addFlags(ItemStack item, Collection<ItemFlag> flags) {
+		ItemMeta meta = getMetadata(item);
+		flags.forEach(flag -> meta.addItemFlags(flag));
+		setMetadata(item, meta);
 	}
 
 	/**
@@ -875,4 +953,13 @@ public class Items {
 		DyeColor[] dyeColors = DyeColor.values();
 		return dyeColors[new Random().nextInt(dyeColors.length)];
 	}
+
+	public static boolean hasFlags(ItemStack item) {
+		return getMetadata(item).getItemFlags().size() > 0;
+	}
+
+	public static Set<ItemFlag> getFlags(ItemStack item) {
+		return getMetadata(item).getItemFlags();
+	}
+
 }

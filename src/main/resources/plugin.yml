@@ -116,8 +116,6 @@ commands:
       usage: /<command> <radius> [kill players (yes/no)]
    armor:
       usage: /<command> <type>
-   rename:
-      usage: /<command> <item name>
    blocktext:
       usage: /<command> <item-data> <text>...
    id:

@@ -13,6 +13,11 @@ public class EnchantWrapper {
 		this.itemGlow = itemGlow;
 	}
 
+	public EnchantWrapper() {
+
+
+	}
+
 	public Enchantment getEnchantment() {
 		return enchantment;
 	}
@@ -23,5 +28,16 @@ public class EnchantWrapper {
 
 	public int getLevel() {
 		return level;
+	}
+
+	public EnchantWrapper enchantment(Enchantment enchant, int level) {
+		this.enchantment = enchant;
+		this.level = level;
+		return this;
+	}
+
+	public EnchantWrapper glow(boolean glow) {
+		this.itemGlow = glow;
+		return this;
 	}
 }

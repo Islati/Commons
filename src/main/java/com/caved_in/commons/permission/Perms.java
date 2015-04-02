@@ -18,7 +18,7 @@ public class Perms {
 
 	public static final String COMMAND_WORKBENCH = "commons.command.workbench";
 
-	public static final String COMMAND_RENAME = "commons.command.rename";
+	public static final String COMMAND_RENAME = "commons.command.item.rename";
 
 	public static final String COMMAND_REPAIR = "commons.command.repair";
 
@@ -141,4 +141,5 @@ public class Perms {
 	public static final String TELEPORT_BACK_NETHER_PORTAL = ("commons.back.netherportal");
 	public static final String TELEPORT_BACK_ON_WARP = ("commons.back.warp");
 
+	public static final String COMMAND_ITEM_LORE = "commons.command.item.lore";
 }

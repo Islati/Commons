@@ -11,11 +11,12 @@ public class DebugConfirmationMenu implements DebugAction {
     public void doAction(Player player, String... args) {
         ConfirmationMenu.of("Smite yourself?")
                 .onConfirm((m, p) -> {
-                    m.closeMenu(p);
                     p.getWorld().strikeLightning(p.getLocation());
+                    m.closeMenu(p);
                 }).onDeny((m, p) -> {
             Entities.burn(p, 1, TimeType.MINUTE);
-        }).allowClickOutside(true).denyOnOutsideClick()
+            m.closeMenu(p);
+        }).exitOnClickOutside(false).denyOnClose()
                 .openMenu(player);
     }
 

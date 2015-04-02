@@ -144,7 +144,6 @@ public class Commons extends BukkitPlugin {
 					new QuickResponseCommand(),
 					new RecipeCommand(),
 					new RemovePremiumCommand(),
-					new RenameCommand(),
 					new RepairCommand(),
 					new SetCommand(),
 					new SetSpawnCommand(),
