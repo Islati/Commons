@@ -176,4 +176,63 @@ public class Inventories {
 	public static Inventory makeInventory(String title, int rows) {
 		return Bukkit.getServer().createInventory(null, rows * 9, StringUtil.formatColorCodes(title));
 	}
+
+	public static int getFirst(Inventory inv, ItemStack item) {
+		//todo loop through items and find first item, return it's slot.
+		Map<Integer, ? extends ItemStack> matchingItems = inv.all(item.getType());
+
+		for (Map.Entry<Integer, ? extends ItemStack> itemEnty : matchingItems.entrySet()) {
+			if (itemEnty.getValue().isSimilar(item)) {
+				return itemEnty.getKey();
+			}
+		}
+
+		return -1;
+	}
+
+	public static int getFirst(Inventory inv, Material mat) {
+		Map<Integer, ? extends ItemStack> matchingItems = inv.all(mat);
+
+		for (Map.Entry<Integer, ? extends ItemStack> itemEnty : matchingItems.entrySet()) {
+			if (itemEnty.getValue().getType() == mat) {
+				return itemEnty.getKey();
+			}
+		}
+
+		return -1;
+	}
+
+	public static int getCount(Inventory inv, Material mat) {
+		Map<Integer, ? extends ItemStack> matchingItems = inv.all(mat);
+
+		int count = 0;
+
+		for (Map.Entry<Integer, ? extends ItemStack> itemEntry : matchingItems.entrySet()) {
+			ItemStack item = itemEntry.getValue();
+			if (item.getType() != mat) {
+				continue;
+			}
+
+			count += item.getAmount();
+		}
+
+		return count;
+	}
+
+	public static int getCount(Inventory inv, ItemStack item) {
+		Map<Integer, ? extends ItemStack> matchingItems = inv.all(item);
+
+		int count = 0;
+
+		for (Map.Entry<Integer, ? extends ItemStack> itemEntry : matchingItems.entrySet()) {
+			ItemStack invItem = itemEntry.getValue();
+			if (!item.isSimilar(invItem)) {
+				continue;
+			}
+
+			count += invItem.getAmount();
+		}
+
+		return count;
+	}
 }

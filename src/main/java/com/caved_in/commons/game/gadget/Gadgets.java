@@ -1,16 +1,15 @@
 package com.caved_in.commons.game.gadget;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Gadgets {
 	//Used to assign gadgets an ID auto-magically
@@ -18,11 +17,13 @@ public class Gadgets {
 	private static final Random random = new Random();
 
 	//todo Implement methods to get first free int for gadget registration
-	private static final Map<Integer, Gadget> gadgets = new HashMap<>();
+	private static final Map<Integer, Gadget> gadgets = new LinkedHashMap<>();
 
 	//todo implement int method to return the registered gadgets id
+	//todo Move Gadgets class to a manager for each plugin made with commons
 	public static void registerGadget(Gadget gadget) {
 		gadgets.put(gadget.id(), gadget);
+		Plugins.registerListener(Commons.getInstance(), gadget);
 	}
 
 	public static boolean isGadget(ItemStack item) {
@@ -59,5 +60,13 @@ public class Gadgets {
 	public static Gadget getRandomGadget() {
 		List<Gadget> gadgetList = Lists.newArrayList(gadgets.values());
 		return gadgetList.get(random.nextInt(gadgetList.size()));
+	}
+
+	public static Collection<Gadget> getAllGadgets() {
+		return gadgets.values();
+	}
+
+	public static int getGadgetCount() {
+		return gadgets.size();
 	}
 }

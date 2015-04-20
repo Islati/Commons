@@ -13,17 +13,22 @@ import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.plugin.Plugins;
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.warp.Warps;
 import com.caved_in.commons.world.Worlds;
+import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public class Commons extends BukkitPlugin {
@@ -34,6 +39,7 @@ public class Commons extends BukkitPlugin {
 	public static final String DEBUG_DATA_FOLDER = "plugins/Commons/Debug/";
 	public static final String ITEM_DATA_FOLDER = "plugins/Commons/Items";
 	public static final String ITEM_SET_DATA_FOLDER = "plugins/Commons/ItemSets/";
+	public static final String RULES_LOCATION = "plugins/Commons/rules.txt";
 
 	private static Configuration globalConfig = new Configuration();
 
@@ -78,6 +84,11 @@ public class Commons extends BukkitPlugin {
 
 
 	public void startup() {
+		/* Before setting up any of the handlers, deal with the reflective / nms setup */
+
+		//Use reflection to prepare for custom enchants.
+		prepForCustomEnchantments();
+		
 		/*
 		Create the private message manager; used to track private messages for players on the server.
          */
@@ -145,6 +156,7 @@ public class Commons extends BukkitPlugin {
 					new RecipeCommand(),
 					new RemovePremiumCommand(),
 					new RepairCommand(),
+					new RulesCommand(),
 					new SetCommand(),
 					new SetSpawnCommand(),
 					new SetWarpCommand(),
@@ -283,10 +295,89 @@ public class Commons extends BukkitPlugin {
 		} catch (Exception Ex) {
 			Ex.printStackTrace();
 		}
+		
+		/*
+		Initialize the rules class!
+		 */
+		Rules.init(new File(RULES_LOCATION));
+		
+	}
+
+	public static class Rules {
+		private static List<String> rules = Lists.newArrayList(
+				"1. You may not use vulgar or abusive language.",
+				"2. You musn't be racist.",
+				"3. You musn't use hacks or (unnapproved) mods that give you an unfair advantage",
+				"4. You may not spam",
+				"5. You may not advertise",
+				"6. You musn't use excessive caps",
+				"7. You mayn not advertise any links that are not Tunnels related",
+				"8. You musn't abuse glitches or game exploits",
+				"9. You may not troll any of the members, or ellicit ill behaviour in any way.",
+				"10. You must be respectful to players",
+				"11. Do not abuse glitches, and report them if found",
+				"12. Do not steal, nor cheat the server or players",
+				"13. AFK Machines are forbidden."
+		);
+
+		private static File file;
+
+		private static Rules instance;
+
+		public static void init(File file) {
+			instance = new Rules(file);
+		}
+
+		public static Rules getInstance() {
+			return instance;
+		}
+
+		protected Rules(File f) {
+			file = f;
+			
+			/*
+			If the rules file doesn't exist, then create it!
+			
+			 */
+			if (!file.exists()) {
+
+				//todo implement option for players who have their swear filter off, to things like "don't be a dick"
+				try {
+					FileUtils.writeLines(file, rules);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+
+
+			load();
+		}
+
+		public static void load() {
+			try {
+				rules = FileUtils.readLines(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public static void add(String rule) {
+			rules.add(String.format("%s. %s", rules.size() + 1, rule));
+		}
+
+		public static List<String> getRules() {
+			return rules;
+		}
+
 	}
 
 	public static int getServerId() {
 		return 0;
+	}
+
+	private void prepForCustomEnchantments() {
+		ReflectionUtilities.setField(Enchantment.class, "acceptingNew", null, true);
 	}
 
 	private void registerDebugActions() {
@@ -307,7 +398,8 @@ public class Commons extends BukkitPlugin {
 				new DebugThrowableBrick(),
 				new DebugKickStick(),
 				new DebugTitle(),
-				new DebugConfirmationMenu()
+				new DebugConfirmationMenu(),
+				new DebugExplosionArrow()
 		);
 	}
 

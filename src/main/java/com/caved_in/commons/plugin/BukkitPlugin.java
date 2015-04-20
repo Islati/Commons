@@ -145,4 +145,5 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 	public PlayerGlowRed getPlayerGlowHandler() {
 		return playerGlowHandler;
 	}
+
 }

@@ -451,6 +451,22 @@ public class Items {
 		return true;
 	}
 
+	public static boolean hasEnchantment(ItemStack item, Enchantment enchant) {
+		if (!Items.hasEnchantments(item)) {
+			return false;
+		}
+
+
+		Set<EnchantWrapper> enchants = getEnchantments(item);
+		for (EnchantWrapper wrapper : enchants) {
+			if (wrapper.getEnchantment().equals(enchant)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * Filter a collection of items where the enchantments match that of the item param.
 	 *

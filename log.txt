@@ -4,6 +4,16 @@
  + = Added
 -------------
 
+April 20'th, 2015 (Build 1.8.5):
+	+ Created the Rules Command, and Rules class (Commons.Rules)
+
+April 6'th, 2015 (Build 1.8.5):
+	+ Created the BaseArrow class, for creating arrow's with custom effects
+	+ Created DebugAction and "Proto" gadget for explosive arrows
+	~ Updated MobType with isHostile and isMob methods
+	~ Updated Items with 'hasEnchantment' method
+	~ Updates BaseArrow to ignore Infinity enchantments
+
 April 1'st, 2015 (Build 1.8.5):
 	+ Created Herobrine 2.0!
 	~ Updated TitleBuilder to have a static initializer, .create()

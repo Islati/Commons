@@ -94,6 +94,8 @@ public class CommandHandler implements CommandExecutor {
 		}
 
 		@Override
+		//todo Change this to a help screen! Also, use JSON to make hoverable / clickable
+		//info.
 		public String getUsage(RegisteredCommand command) {
 			StringBuilder usage = new StringBuilder();
 			usage.append(command.getLabel());

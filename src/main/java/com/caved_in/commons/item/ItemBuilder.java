@@ -28,6 +28,8 @@ public class ItemBuilder {
 	private List<String> lore = new ArrayList<>();
 	private List<EnchantWrapper> enchantments = new ArrayList<>();
 
+	private boolean forceEnchantments = false;
+	
 	private List<ItemFlag> flags = new ArrayList<>();
 
 	private Attributes attributes;
@@ -130,6 +132,11 @@ public class ItemBuilder {
 
 	public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
 		enchantments.add(new EnchantWrapper(enchantment, level, glow));
+		return this;
+	}
+
+	public ItemBuilder forceEnchantments(boolean val) {
+		this.forceEnchantments = val;
 		return this;
 	}
 

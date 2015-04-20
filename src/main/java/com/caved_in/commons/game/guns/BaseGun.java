@@ -233,6 +233,15 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 				}
 			}
 
+			
+			/*
+			If the gun actually takes the ammunition from the player, then
+			assure it gets taken from their inventory.
+			 */
+			if (properties.takeAmmunition) {
+				//todo check if player ammo count < clip size, if so, partially fill clip.
+			}
+			
 			setAmmo(player, properties.clipSize);
 
 			/*

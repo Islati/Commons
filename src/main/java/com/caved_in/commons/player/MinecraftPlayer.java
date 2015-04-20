@@ -11,6 +11,7 @@ import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
@@ -69,6 +70,11 @@ public class MinecraftPlayer extends User {
 	private PreTeleportLocation preTeleportLocation;
 
 	private TeleportRequest teleportRequest;
+
+	/**
+	 * The custom arrow that the player's got equipped!
+	 */
+	private ItemStack equippedArrow;
 
 	/**
 	 * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
@@ -499,7 +505,7 @@ public class MinecraftPlayer extends User {
 				 */
 				case TELEPORT_TO:
 					Player toRequested = Players.getPlayer(requester);
-					commons.debug("<TP> Player " + accepting.getName() + " teleported to " + toRequested.getName());
+//					commons.debug("<TP> Player " + accepting.getName() + " teleported to " + toRequested.getName());
 					Players.teleport(toRequested, accepting);
 					Chat.message(toRequested, Messages.playerTeleportedToPlayer(toRequested.getName()));
 					Chat.message(accepting, Messages.playerTeleportedToYou(accepting.getName()));
@@ -507,7 +513,7 @@ public class MinecraftPlayer extends User {
 					break;
 				case TELEPORT_HERE:
 					Player hereRequested = Players.getPlayer(requester);
-					commons.debug("<TP-HERE> Player " + hereRequested.getName() + " teleported to " + accepting.getName());
+//					commons.debug("<TP-HERE> Player " + hereRequested.getName() + " teleported to " + accepting.getName());
 					Players.teleport(accepting, hereRequested);
 					Chat.message(hereRequested, Messages.playerTeleportedToPlayer(accepting.getName()));
 					Chat.message(accepting, Messages.playerTeleportedToYou(hereRequested.getName()));
@@ -532,4 +538,72 @@ public class MinecraftPlayer extends User {
 		}
 		
 	}
+//
+//	/**
+//	 * Get the custom arrow that the player has equipped; Used to take precedence
+//	 * over*
+//	 * @return
+//	 */
+//	public ItemStack getEquippedArrow() {
+//		return equippedArrow;
+//	}
+//
+//	public void unequipArrow() {
+//		equippedArrow = null;
+//	}
+//
+//	public void equipArrow(ItemStack item) {
+//
+//		if (item.getType() != Material.ARROW) {
+//			//todo handle wrongly equipping arrows
+//			return;
+//		}
+//
+//		equippedArrow = item.clone();
+//	}
+//
+//	public boolean hasArrowEquipped() {
+//		if (equippedArrow == null) {
+//			return false;
+//		}
+//
+//		Player p = getPlayer();
+//
+//		return Inventories.contains(p.getInventory(),getEquippedArrow());
+//	}
+//
+//	public boolean takeArrow() {
+//		if (!hasArrowEquipped()) {
+//			return false;
+//		}
+//
+//		Player player = getPlayer();
+//		PlayerInventory playerInv = player.getInventory();
+//
+//		int arrowSlot = Inventories.getSlotOf(playerInv,equippedArrow);
+//
+//		ItemStack customArrow = playerInv.getItem(arrowSlot);
+//
+//		//If we couldn't get the arrows in slot, then we're not able to take it from the player
+//		if (customArrow == null) {
+//			return false;
+//		}
+//
+//		//Remove 1 of the custom arrows from the stack
+//		customArrow = Items.removeFromStack(customArrow,1);
+//
+//		//Though after taking the arrow from the stack of arrows,
+//		//if it's null, then we're all out!
+//		if (customArrow == null) {
+//			Inventories.clearSlot(playerInv,arrowSlot);
+//			//Unequip the arrows from the player!
+//			unequipArrow();
+//			player.updateInventory();
+//			return true;
+//		}
+//
+//		Inventories.setItem(playerInv,arrowSlot,customArrow);
+//		player.updateInventory();
+//		return true;
+//	}
 }

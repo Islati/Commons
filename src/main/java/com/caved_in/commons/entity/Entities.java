@@ -837,4 +837,24 @@ public class Entities {
 		}
 		return false;
 	}
+
+	/**
+	 * Check whether or not the given entity is hostile or docile by nature.
+	 *
+	 * @param entity entity to check the nature of.
+	 * @return true if the given entity is hostile, false otherwise.
+	 */
+	public static boolean isHostile(LivingEntity entity) {
+		return MobType.isHostile(entity.getType());
+	}
+
+	/**
+	 * Check if the entity is a mob (livingentity).
+	 *
+	 * @param entity entity to check
+	 * @return true if the entity is a mob entity, false otherwise.
+	 */
+	public static boolean isMob(Entity entity) {
+		return MobType.isMob(entity.getType());
+	}
 }
