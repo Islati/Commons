@@ -484,7 +484,8 @@ public class Commons extends BukkitPlugin {
 				new EntityDamageEntityListener(),
 				new ItemBreakListener(),
 				new ItemDamageListener(),
-				new EntityDamageListener()
+				new EntityDamageListener(),
+				new SignEditListener()
 		);
 	}
 

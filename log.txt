@@ -4,6 +4,10 @@
  + = Added
 -------------
 
+April 23'rd, 2015 (Build 1.8.6):
+    - Removed the previous methods inside MinecraftPlayer for teleport request, kept it inside the commands itself using the confirmation menu class.
+    + Implemented the SignChangeListener to colorize the text on signs.
+
 April 20'th, 2015 (Build 1.8.5):
 	+ Created the Rules Command, and Rules class (Commons.Rules)
 

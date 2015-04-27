@@ -45,6 +45,10 @@ public class EntityDamageListener implements Listener {
 		MinecraftPlayer mcPlayer = playerHandler.getData(damagedPlayer);
 
 		if (mcPlayer.hasGodMode()) {
+//			if (!damagedPlayer.hasPermission(Perms.COMMAND_GOD_MODE)) {
+//				mcPlayer.setGodMode(false);
+//				return;
+//			}
 			e.setCancelled(true);
 		}
 	}

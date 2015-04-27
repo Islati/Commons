@@ -18,6 +18,8 @@ public class ItemDropListener implements Listener {
 
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent event) {
+
+		//todo check if player is in creative and has option for creative drops off, then don't drop items- Just remove them when they're dropped
 		if (!config.isItemDropEnabled()) {
 			event.setCancelled(true);
 			return;

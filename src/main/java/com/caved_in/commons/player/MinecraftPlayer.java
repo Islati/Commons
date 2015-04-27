@@ -1,16 +1,12 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.Messages;
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
-import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -68,8 +64,6 @@ public class MinecraftPlayer extends User {
 	 * Location the player was before their last teleport
 	 */
 	private PreTeleportLocation preTeleportLocation;
-
-	private TeleportRequest teleportRequest;
 
 	/**
 	 * The custom arrow that the player's got equipped!
@@ -264,6 +258,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Check whether or not the player has a modified fly speed.
+	 *
 	 * @return whether or not the player has a modified fly speed; If the players fly speed is greater than 0.1 then true is returned, false otherwise.
 	 */
 	public boolean hasCustomFlySpeed() {
@@ -272,6 +267,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Get the players walk speed.
+	 *
 	 * @return the players active walk speed.
 	 */
 	public double getWalkSpeed() {
@@ -285,6 +281,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Change the players prefix.
+	 *
 	 * @param prefix prefix to give the player.
 	 */
 	@Deprecated
@@ -295,6 +292,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Change the player walk speed; The higher the number, the faster they'll fly.
 	 * Used internally {@link com.caved_in.commons.command.commands.SpeedCommand}
+	 *
 	 * @param walkSpeed speed to give the player.
 	 */
 	public void setWalkSpeed(double walkSpeed) {
@@ -304,6 +302,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Get the players active fly speed
+	 *
 	 * @return the active fly speed of the given player.
 	 */
 	public double getFlySpeed() {
@@ -314,6 +313,7 @@ public class MinecraftPlayer extends User {
 	 * Change the players fly speed.
 	 * The higher the number, the faster they'll fly.
 	 * Used internally in {@link com.caved_in.commons.command.commands.SpeedCommand}
+	 *
 	 * @param flySpeed speed to give the player.
 	 */
 	public void setFlySpeed(double flySpeed) {
@@ -324,6 +324,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Check whether or not the player is viewing a recipe.
 	 * Used internally.
+	 *
 	 * @return whether or not the player is viewing a recipe.
 	 */
 	public boolean isViewingRecipe() {
@@ -333,6 +334,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Set whether or not the player is viewing a recipe menu, or not.
 	 * Used internally in {@link com.caved_in.commons.command.commands.RecipeCommand}.
+	 *
 	 * @param viewingRecipe whether or not the player is viewing a recipe menu.
 	 */
 	public void setViewingRecipe(boolean viewingRecipe) {
@@ -349,7 +351,8 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Change the players pre-teleport location.
 	 * Used internally in {@link com.caved_in.commons.command.commands.BackCommand}
-	 * @param loc location the player was/is standing pre-teleport.
+	 *
+	 * @param loc          location the player was/is standing pre-teleport.
 	 * @param teleportType the type of teleport the player was involved in.
 	 */
 	public void setPreTeleportLocation(Location loc, PreTeleportType teleportType) {
@@ -359,6 +362,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Check whether or not the player is in debug mode.
 	 * Used
+	 *
 	 * @return whether or not the player is in debug mode.
 	 */
 	public boolean isInDebugMode() {
@@ -368,6 +372,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Set whether or not the player is in debug mode.
 	 * Used internally in {@link com.caved_in.commons.command.commands.DebugModeCommand} and {@link com.caved_in.commons.player.Players} to manage player(s) debugging.
+	 *
 	 * @param value boolean representing the desired debug status.
 	 */
 	public void setInDebugMode(boolean value) {
@@ -377,6 +382,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Check whether or not the player is hiding other players.
+	 *
 	 * @return whether or not the player is hiding other players.
 	 */
 	public boolean isHidingOtherPlayers() {
@@ -386,6 +392,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Set whether or not the player is hiding others.
 	 * Used internally to provide methods for {@link com.caved_in.commons.player.Players} in the methods related to player visibility (hide/unhide)
+	 *
 	 * @param hidingOtherPlayers whether or not the user is hiding other players.
 	 */
 	public void setHidingOtherPlayers(boolean hidingOtherPlayers) {
@@ -394,6 +401,7 @@ public class MinecraftPlayer extends User {
 
 	/**
 	 * Check whether or not the player is reloading their weapon.
+	 *
 	 * @return
 	 */
 	public boolean isReloading() {
@@ -403,6 +411,7 @@ public class MinecraftPlayer extends User {
 	/**
 	 * Set the duration in seconds for the players current reload time. Used internally in
 	 * {@link com.caved_in.commons.game.guns.Gun} and {@link com.caved_in.commons.game.guns.BaseGun}
+	 *
 	 * @param durationSeconds how long the player is "reloading" for.
 	 */
 	public void setReloading(int durationSeconds) {
@@ -415,128 +424,6 @@ public class MinecraftPlayer extends User {
 
 	public void setGodMode(boolean godMode) {
 		this.godMode = godMode;
-	}
-
-	public void setTeleportRequest(TeleportRequest request) {
-		this.teleportRequest = request;
-		commons.debug("Teleport request for " + getName() + " has been set; Requester = " + request.requesterName);
-	}
-
-	public void requestTeleportTo(Player target) {
-		MinecraftPlayer mcTarget = Commons.getInstance().getPlayerHandler().getData(target);
-		Player player = getPlayer();
-
-		mcTarget.setTeleportRequest(new TeleportRequest(TeleportRequest.TeleportRequestType.TELEPORT_TO, player, target));
-		Chat.message(player, "&eYour teleport request was sent to &e" + target.getName());
-		Chat.message(target, "&eYou've received a &6teleport request &efrom &a" + player.getName() + " &eto teleport to you.", "&aAccept &eor &cdeny&e the request with &a/tpaccept &eor &c/tpdeny");
-	}
-
-	public void requestTeleportHere(Player target) {
-		MinecraftPlayer mcTarget = Commons.getInstance().getPlayerHandler().getData(target);
-		Player player = getPlayer();
-
-		mcTarget.setTeleportRequest(new TeleportRequest(TeleportRequest.TeleportRequestType.TELEPORT_HERE, player, target));
-		Chat.message(player, "&eYour teleport request was sent to &e" + target.getName());
-		Chat.message(target, "&eYou've received a &6teleport request &efrom &a" + player.getName() + " &efor you to teleport to them.", "&aAccept &eor &cdeny &ethe request with &a/tpaccept &eor &c/tpdeny");
-	}
-
-	public boolean hasTeleportRequest() {
-		if (teleportRequest == null) {
-			return false;
-		}
-
-		return !teleportRequest.hasExpired();
-	}
-
-	public TeleportRequest getTeleportRequest() {
-		return teleportRequest;
-	}
-
-	public void acceptTeleport() {
-		teleportRequest.accept(getPlayer());
-		teleportRequest = null;
-	}
-
-	public void denyTeleport() {
-		teleportRequest.deny(getPlayer());
-		teleportRequest = null;
-	}
-
-	@ToString(of = {"filled", "requesterName", "requestedName", "requester", "receiver", "type"})
-	public static class TeleportRequest {
-
-		private static enum TeleportRequestType {
-			TELEPORT_TO,
-			TELEPORT_HERE
-		}
-
-		public static final boolean ONLY_REQUESTED_CAN_ACCEPT = true;
-		private static final long TIME_UNTIL_EXPIRY = TimeHandler.getTimeInMilles(30, TimeType.SECOND);
-		//TODO Add configurable expire time.
-
-		private long expire;
-		private boolean filled = false;
-
-		private UUID requester;
-		private UUID receiver;
-
-		public final String requesterName;
-
-		public final String requestedName;
-
-		private TeleportRequestType type;
-
-		public TeleportRequest(TeleportRequestType type, Player playerRequesting, Player playerReceiving) {
-			this.type = type;
-			expire = Long.sum(System.currentTimeMillis(), TIME_UNTIL_EXPIRY);
-			this.requester = playerRequesting.getUniqueId();
-			this.receiver = playerReceiving.getUniqueId();
-			requestedName = playerReceiving.getName();
-			requesterName = playerRequesting.getName();
-
-			commons.debug(this.toString());
-		}
-
-		public void accept(Player accepting) {
-			switch (type) {
-				/*
-				Teleport the player who's accepting the teleport to the player
-				they requested to teleport to!
-				 */
-				case TELEPORT_TO:
-					Player toRequested = Players.getPlayer(requester);
-//					commons.debug("<TP> Player " + accepting.getName() + " teleported to " + toRequested.getName());
-					Players.teleport(toRequested, accepting);
-					Chat.message(toRequested, Messages.playerTeleportedToPlayer(toRequested.getName()));
-					Chat.message(accepting, Messages.playerTeleportedToYou(accepting.getName()));
-					filled = true;
-					break;
-				case TELEPORT_HERE:
-					Player hereRequested = Players.getPlayer(requester);
-//					commons.debug("<TP-HERE> Player " + hereRequested.getName() + " teleported to " + accepting.getName());
-					Players.teleport(accepting, hereRequested);
-					Chat.message(hereRequested, Messages.playerTeleportedToPlayer(accepting.getName()));
-					Chat.message(accepting, Messages.playerTeleportedToYou(hereRequested.getName()));
-					filled = true;
-					break;
-			}
-		}
-
-		public void deny(Player denier) {
-			Player sender = Players.getPlayer(requester);
-			Chat.message(denier, String.format("&cYou denied the teleport request from &e%s", sender.getName()));
-			Chat.message(sender, String.format("&e%s&c denied your teleport request", denier.getName()));
-			filled = true;
-		}
-
-		public boolean hasExpired() {
-			if (filled) {
-				return true;
-			}
-
-			return System.currentTimeMillis() > expire;
-		}
-		
 	}
 //
 //	/**

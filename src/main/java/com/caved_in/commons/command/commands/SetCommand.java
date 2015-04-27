@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 public class SetCommand {
 	private static ItemSetManager sets;
 
+	//todo move item sets to a menu
+
 	public SetCommand() {
 		sets = Commons.getInstance().getItemSetManager();
 	}

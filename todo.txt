@@ -1,3 +1,9 @@
+Bonemeal Gadget / Command
+=================================
+Gadget / Methods that can simulate the placement of bonemeal, to form grass and things of that nature.
+If I write the methods to do it I can easily create a gadget around that!
+
+
 Configurable Messages!
 =================================
 

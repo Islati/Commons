@@ -192,7 +192,11 @@ public class CommandHandler implements CommandExecutor {
 
 	public void registerCommands(Object... commands) {
 		for (Object o : commands) {
-			registerCommand(o);
+			try {
+				registerCommand(o);
+			} catch (RegisterCommandMethodException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

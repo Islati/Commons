@@ -24,10 +24,6 @@ commands:
       usage: /<command> <player>
    tpahere:
       usage: /<command> <player>
-   tpaccept:
-      usage: /<command>
-   tpdeny:
-      usage: /<command>
    tp:
       usage: /<command> <player>
       aliases: [teleport]
@@ -84,6 +80,8 @@ commands:
    enchant:
       usage: /<command>
    repair:
+      usage: /<command>
+   rules:
       usage: /<command>
    recipe:
       usage: /<command> [item name or id]

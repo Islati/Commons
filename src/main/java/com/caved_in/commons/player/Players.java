@@ -490,7 +490,7 @@ public class Players {
 	 * Teleports the player to a location
 	 *
 	 * @param player player to teleport
-	 * @param target location to teleport the player to
+	 * @param target entity to teleport the player to
 	 * @since 1.0
 	 */
 	public static void teleport(Player player, Entity target) {
@@ -777,6 +777,7 @@ public class Players {
 
 	/**
 	 * Update the players inventory on the next game tick.
+	 *
 	 * @param player player who's inventory shall be updated.
 	 */
 	public static void updateInventory(Player player) {
@@ -1314,7 +1315,8 @@ public class Players {
 
 	/**
 	 * Restore the players health by the given amount. Will not exceed the players maximum health.
-	 * @param p player to restore health for.
+	 *
+	 * @param p      player to restore health for.
 	 * @param amount amount of health to restore on the player.
 	 */
 	public static void restoreHealth(Player p, int amount) {
@@ -1501,6 +1503,7 @@ public class Players {
 	/**
 	 * Hide the target from the players sight, spawning a particle effect
 	 * upon doing so. Default particles are a billow of smoke.
+	 *
 	 * @param player player to hide the target from
 	 * @param target target to hide.
 	 * @since 1.6
@@ -1555,7 +1558,8 @@ public class Players {
 
 	/**
 	 * Unhide the target player from the view of other players.
-	 * @param target player to unhide from others.
+	 *
+	 * @param target  player to unhide from others.
 	 * @param players players the target will be shown to.
 	 */
 	public static void unhidePlayer(Player target, Collection<Player> players) {
@@ -1601,7 +1605,8 @@ public class Players {
 
 	/**
 	 * Gets the players target location (on their cursor) up to the distance given.
-	 * @param player player to get the target location for.
+	 *
+	 * @param player   player to get the target location for.
 	 * @param distance furthest distance to retrieve the location at.
 	 * @return location that the player's targeting with their cursor; If it's greater than the given distance,
 	 * the location at the distance given is returned.
