@@ -10,47 +10,47 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.Collection;
 
 public class UpdateBasicScoreboardThread extends BukkitRunnable {
-	private ScoreboardWrapper wrapper;
+    private ScoreboardWrapper wrapper;
 
-	private boolean populated;
+    private boolean populated;
 
-	public UpdateBasicScoreboardThread(ScoreboardWrapper wrapper) {
-		this.wrapper = wrapper;
-	}
+    public UpdateBasicScoreboardThread(ScoreboardWrapper wrapper) {
+        this.wrapper = wrapper;
+    }
 
-	@Override
-	public void run() {
-		Scoreboard scoreboard = wrapper.getScoreboard();
+    @Override
+    public void run() {
+        Scoreboard scoreboard = wrapper.getScoreboard();
 
-		Collection<ScoreboardEntry> entries = wrapper.getInfo().getEntries();
+        Collection<ScoreboardEntry> entries = wrapper.getInfo().getEntries();
 
-		Objective obj = scoreboard.getObjective(DisplaySlot.SIDEBAR);
+        Objective obj = scoreboard.getObjective(DisplaySlot.SIDEBAR);
 
-		//If the board's not populated then loop through every
-		//entry
-		if (!populated) {
-			entries.forEach(e -> {
-				obj.getScore(e.getValue()).setScore(e.getScore());
-			});
-			populated = true;
-		}
+        //If the board's not populated then loop through every
+        //entry
+        if (!populated) {
+            entries.forEach(e -> {
+                obj.getScore(e.getValue()).setScore(e.getScore());
+            });
+            populated = true;
+        }
 
-		for (ScoreboardEntry entry : entries) {
+        for (ScoreboardEntry entry : entries) {
 
-			//If the scoreboard has already been populated, and nothings changed then continue.
-			if (!entry.hasChanged()) {
-				continue;
-			}
+            //If the scoreboard has already been populated, and nothings changed then continue.
+            if (!entry.hasChanged()) {
+                continue;
+            }
 
-			//Reset the previous score, as if it's changed we don't want it anymore!
-			String oldText = entry.getPreviousValue();
-			scoreboard.resetScores(oldText);
+            //Reset the previous score, as if it's changed we don't want it anymore!
+            String oldText = entry.getPreviousValue();
+            scoreboard.resetScores(oldText);
 
-			//And finally, initialize a score of the new value and mark the entry as un-changed,
-			//so it doesn't loop again and such.
-			obj.getScore(entry.getValue()).setScore(entry.getScore());
-			entry.setChanged(false);
-		}
+            //And finally, initialize a score of the new value and mark the entry as un-changed,
+            //so it doesn't loop again and such.
+            obj.getScore(entry.getValue()).setScore(entry.getScore());
+            entry.setChanged(false);
+        }
 
-	}
+    }
 }

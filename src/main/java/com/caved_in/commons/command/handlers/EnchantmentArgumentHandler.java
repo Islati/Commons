@@ -9,15 +9,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 
 public class EnchantmentArgumentHandler extends ArgumentHandler<Enchantment> {
-	public EnchantmentArgumentHandler() {
-	}
+    public EnchantmentArgumentHandler() {
+    }
 
-	@Override
-	public Enchantment transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
-		if (!Enchantments.isEnchantment(value)) {
-			throw new TransformError(Messages.invalidEnchantment(value));
-		}
+    @Override
+    public Enchantment transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
+        if (!Enchantments.isEnchantment(value)) {
+            throw new TransformError(Messages.invalidEnchantment(value));
+        }
 
-		return Enchantments.getEnchantment(value);
-	}
+        return Enchantments.getEnchantment(value);
+    }
 }

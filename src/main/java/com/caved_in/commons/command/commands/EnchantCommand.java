@@ -14,29 +14,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class EnchantCommand {
-	@Command(identifier = "enchant", permissions = Perms.COMMAND_ENCHANT)
-	public void enchantCommand(Player player, @Arg(name = "enchantment") Enchantment enchant, @Arg(name = "level") int level) {
+    @Command(identifier = "enchant", permissions = Perms.COMMAND_ENCHANT)
+    public void enchantCommand(Player player, @Arg(name = "enchantment") Enchantment enchant, @Arg(name = "level") int level) {
 
-		//Assure the player has an item in their hand, what they're adding the enchantments to.
-		if (!Players.hasItemInHand(player)) {
-			Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
-			return;
-		}
+        //Assure the player has an item in their hand, what they're adding the enchantments to.
+        if (!Players.hasItemInHand(player)) {
+            Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
+            return;
+        }
 
-		//Get the item to add the enchantment to, sending feedback whether it worked, or not!
-		ItemStack hand = player.getItemInHand();
-		if (!Items.addEnchantment(hand, enchant, level, true)) {
-			Chat.message(player, Messages.FAILED_TO_ENCHANT_ITEM);
-			return;
-		}
+        //Get the item to add the enchantment to, sending feedback whether it worked, or not!
+        ItemStack hand = player.getItemInHand();
+        if (!Items.addEnchantment(hand, enchant, level, true)) {
+            Chat.message(player, Messages.FAILED_TO_ENCHANT_ITEM);
+            return;
+        }
 
-		Chat.message(player, Messages.itemEnchantmentAdded(enchant.getName(), level));
-	}
+        Chat.message(player, Messages.itemEnchantmentAdded(enchant.getName(), level));
+    }
 
-	@Command(identifier = "enchant list", permissions = "commons.command.enchant")
-	public void enchantListCommand(Player player) {
-		for (Enchantments enchants : Enchantments.values()) {
-			Chat.message(player, String.format("&eIdentifier: &a%s\n&r&e- Aliases:\n&a%s", enchants.getMainAlias(), StringUtil.joinString(enchants.getAliases(), ", ")));
-		}
-	}
+    @Command(identifier = "enchant list", permissions = "commons.command.enchant")
+    public void enchantListCommand(Player player) {
+        for (Enchantments enchants : Enchantments.values()) {
+            Chat.message(player, String.format("&eIdentifier: &a%s\n&r&e- Aliases:\n&a%s", enchants.getMainAlias(), StringUtil.joinString(enchants.getAliases(), ", ")));
+        }
+    }
 }

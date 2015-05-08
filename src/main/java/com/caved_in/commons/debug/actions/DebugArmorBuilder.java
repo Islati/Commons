@@ -9,18 +9,18 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class DebugArmorBuilder implements DebugAction {
-	@Override
-	public void doAction(Player player, String... args) {
-		ArmorInventory tieredArmor = new ArmorBuilder()
-				.withHelmet(Items.makeItem(Material.DIAMOND_HELMET))
-				.withBoots(Items.makeItem(Material.IRON_BOOTS))
-				.toInventory();
+    @Override
+    public void doAction(Player player, String... args) {
+        ArmorInventory tieredArmor = new ArmorBuilder()
+                .withHelmet(Items.makeItem(Material.DIAMOND_HELMET))
+                .withBoots(Items.makeItem(Material.IRON_BOOTS))
+                .toInventory();
 
-		Players.setArmor(player, tieredArmor);
-	}
+        Players.setArmor(player, tieredArmor);
+    }
 
-	@Override
-	public String getActionName() {
-		return "armor_builder";
-	}
+    @Override
+    public String getActionName() {
+        return "armor_builder";
+    }
 }

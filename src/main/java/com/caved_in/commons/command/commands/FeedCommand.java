@@ -9,17 +9,17 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class FeedCommand {
-	@Command(identifier = "feed", permissions = Perms.COMMAND_FEED)
-	public void feedCommand(Player player, @Arg(name = "player", def = "?sender") Player target) {
-		Players.feed(target);
+    @Command(identifier = "feed", permissions = Perms.COMMAND_FEED)
+    public void feedCommand(Player player, @Arg(name = "player", def = "?sender") Player target) {
+        Players.feed(target);
 
-		//If the player fed themselves we want to give them a unique message
-		if (target.equals(player)) {
-			Chat.message(player, "&aYou've fully fed yourself! &eMmmmm!");
-			return;
-		}
+        //If the player fed themselves we want to give them a unique message
+        if (target.equals(player)) {
+            Chat.message(player, "&aYou've fully fed yourself! &eMmmmm!");
+            return;
+        }
 
-		Chat.message(target, Messages.PLAYER_FED);
-		Chat.message(player, Messages.playerFed(target.getName()));
-	}
+        Chat.message(target, Messages.PLAYER_FED);
+        Chat.message(player, Messages.playerFed(target.getName()));
+    }
 }

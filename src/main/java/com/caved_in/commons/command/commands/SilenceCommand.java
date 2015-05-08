@@ -9,9 +9,9 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
 public class SilenceCommand {
-	@Command(identifier = "silence", permissions = Perms.COMMAND_SILENCE, onlyPlayers = false)
-	public void onSilenceCommand(CommandSender sender) {
-		Commons.getInstance().getConfiguration().getWorldConfig().setChatSilenced(true);
-		Chat.messageAll(Messages.CHAT_SILENCED);
-	}
+    @Command(identifier = "silence", permissions = Perms.COMMAND_SILENCE, onlyPlayers = false)
+    public void onSilenceCommand(CommandSender sender) {
+        Commons.getInstance().getConfiguration().getWorldConfig().setChatSilenced(true);
+        Chat.messageAll(Messages.CHAT_SILENCED);
+    }
 }

@@ -12,28 +12,28 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class MoreCommand {
-	@Command(identifier = "more", permissions = {Perms.COMMAND_MORE})
-	@Flags(identifier = {"a"})
-	public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems) {
-		if (allItems) {
-			PlayerInventory inventory = player.getInventory();
-			for (ItemStack item : inventory.getContents()) {
-				if (item == null) {
-					continue;
-				}
+    @Command(identifier = "more", permissions = {Perms.COMMAND_MORE})
+    @Flags(identifier = {"a"})
+    public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems) {
+        if (allItems) {
+            PlayerInventory inventory = player.getInventory();
+            for (ItemStack item : inventory.getContents()) {
+                if (item == null) {
+                    continue;
+                }
 
-				item.setAmount(item.getMaxStackSize());
-			}
-			return;
-		}
+                item.setAmount(item.getMaxStackSize());
+            }
+            return;
+        }
 
-		if (!Players.hasItemInHand(player)) {
-			Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
-			return;
-		}
+        if (!Players.hasItemInHand(player)) {
+            Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
+            return;
+        }
 
-		ItemStack playerHandItem = player.getItemInHand();
-		playerHandItem.setAmount(64);
-		player.setItemInHand(playerHandItem);
-	}
+        ItemStack playerHandItem = player.getItemInHand();
+        playerHandItem.setAmount(64);
+        player.setItemInHand(playerHandItem);
+    }
 }

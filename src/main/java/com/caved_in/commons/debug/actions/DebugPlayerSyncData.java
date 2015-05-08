@@ -8,14 +8,14 @@ import org.bukkit.entity.Player;
 
 public class DebugPlayerSyncData implements DebugAction {
 
-	@Override
-	public void doAction(Player player, String... args) {
-		Players.updateData(Commons.getInstance().getPlayerHandler().getData(player));
-		Chat.message(player, "Your data has been synchronized - Check console for errors (if any)");
-	}
+    @Override
+    public void doAction(Player player, String... args) {
+        Players.updateData(Commons.getInstance().getPlayerHandler().getData(player));
+        Chat.message(player, "Your data has been synchronized - Check console for errors (if any)");
+    }
 
-	@Override
-	public String getActionName() {
-		return "player_sync_data";
-	}
+    @Override
+    public String getActionName() {
+        return "player_sync_data";
+    }
 }

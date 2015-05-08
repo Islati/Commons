@@ -14,43 +14,43 @@ import org.bukkit.entity.Player;
 
 public class DebugModeCommand {
 
-	private Players players;
+    private Players players;
 
-	public DebugModeCommand() {
-		players = Commons.getInstance().getPlayerHandler();
-	}
+    public DebugModeCommand() {
+        players = Commons.getInstance().getPlayerHandler();
+    }
 
-	@Command(identifier = "debug on")
-	public void debugOnCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
-		mcPlayer.setInDebugMode(true);
-		Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
-	}
+    @Command(identifier = "debug on")
+    public void debugOnCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
+        mcPlayer.setInDebugMode(true);
+        Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
+    }
 
-	@Command(identifier = "debug off")
-	public void debugOffCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
-		mcPlayer.setInDebugMode(false);
-		Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
-	}
+    @Command(identifier = "debug off")
+    public void debugOffCommand(Player player, @Arg(name = "player", def = "?sender") MinecraftPlayer mcPlayer) {
+        mcPlayer.setInDebugMode(false);
+        Chat.message(player, Messages.playerDebugModeChange(mcPlayer));
+    }
 
-	@Command(identifier = "debug ?")
-	public void debugListCommand(Player player, @Arg(name = "page", def = "1") int page) {
-		Debugger.getDebugMenu().sendTo(player, page, 6);
-	}
+    @Command(identifier = "debug ?")
+    public void debugListCommand(Player player, @Arg(name = "page", def = "1") int page) {
+        Debugger.getDebugMenu().sendTo(player, page, 6);
+    }
 
-	@Command(identifier = "debug", permissions = Perms.DEBUG_MODE)
-	public void onDebugModeCommand(Player player, @Arg(name = "action", def = "") String action, @Wildcard @Arg(name = "arguments") String args) {
-		MinecraftPlayer minecraftPlayer = players.getData(player);
-		if (action == null || action.isEmpty()) {
-			minecraftPlayer.setInDebugMode(!minecraftPlayer.isInDebugMode());
-			Chat.message(player, Messages.playerDebugModeChange(minecraftPlayer));
-			Players.updateData(minecraftPlayer);
-			return;
-		}
+    @Command(identifier = "debug", permissions = Perms.DEBUG_MODE)
+    public void onDebugModeCommand(Player player, @Arg(name = "action", def = "") String action, @Wildcard @Arg(name = "arguments") String args) {
+        MinecraftPlayer minecraftPlayer = players.getData(player);
+        if (action == null || action.isEmpty()) {
+            minecraftPlayer.setInDebugMode(!minecraftPlayer.isInDebugMode());
+            Chat.message(player, Messages.playerDebugModeChange(minecraftPlayer));
+            Players.updateData(minecraftPlayer);
+            return;
+        }
 
-		if (Debugger.isDebugAction(action)) {
-			String[] debugArgs = args.split(" ");
-			Debugger.getDebugAction(action).doAction(player, debugArgs);
-			return;
-		}
-	}
+        if (Debugger.isDebugAction(action)) {
+            String[] debugArgs = args.split(" ");
+            Debugger.getDebugAction(action).doAction(player, debugArgs);
+            return;
+        }
+    }
 }

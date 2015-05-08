@@ -14,19 +14,19 @@ import org.bukkit.entity.Player;
  */
 public class ArmorCommand {
 
-	@Command(
-			identifier = "armor",
-			onlyPlayers = true,
-			description = "Equip yourself with a full set of armor!",
-			permissions = {Perms.COMMAND_ARMOR}
-	)
-	public void armorCommand(Player sender, @Arg(name = "armor_type") String armorType) {
-		ArmorSet set = ArmorSet.getSetByName(armorType);
-		if (set == null) {
-			Chat.message(sender, Messages.invalidArmorSet(armorType));
-			return;
-		}
+    @Command(
+            identifier = "armor",
+            onlyPlayers = true,
+            description = "Equip yourself with a full set of armor!",
+            permissions = {Perms.COMMAND_ARMOR}
+    )
+    public void armorCommand(Player sender, @Arg(name = "armor_type") String armorType) {
+        ArmorSet set = ArmorSet.getSetByName(armorType);
+        if (set == null) {
+            Chat.message(sender, Messages.invalidArmorSet(armorType));
+            return;
+        }
 
-		Players.setArmor(sender, set.getArmor());
-	}
+        Players.setArmor(sender, set.getArmor());
+    }
 }

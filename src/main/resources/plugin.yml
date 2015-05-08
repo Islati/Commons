@@ -122,6 +122,8 @@ commands:
       usage: /<command> [name]
    clean:
       usage: /<command> <mobs/items/fluids>
+   grass:
+      usage: /<command> <size> <density>
 permissions:
    commons.admin.*:
       description: Gives access to all the administrative commands and tasks within tunnels

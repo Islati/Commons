@@ -21,6 +21,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     /**
      * Initialize a new user manager and set the derived class of {@link com.caved_in.commons.player.User} which the manager handles.
+     *
      * @param userClass the derived class of {@link com.caved_in.commons.player.User} which the manager handles
      */
     public UserManager(Class<? extends User> userClass) {
@@ -75,6 +76,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     /**
      * Set the class for users which the usermanager will handle.
+     *
      * @param userClass the class deriving from {@link com.caved_in.commons.player.User}, which the usermanager will handle.
      */
     public void setUserClass(Class<? extends User> userClass) {
@@ -94,6 +96,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
     /**
      * Check whether or not there's a class for the users specified.
      * Note: If there's no player class, the user manager will not work.
+     *
      * @return true if there's a player class registered, false otherwise.
      */
     public boolean hasUserClass() {
@@ -102,6 +105,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     /**
      * Retrieve a set of all the user objects who have data loaded and managed.
+     *
      * @return a set of all the user objects who have data loaded.
      */
     public Collection<T> allUsers() {

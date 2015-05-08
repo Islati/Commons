@@ -14,34 +14,34 @@ import java.util.UUID;
 
 public class PlayerKickListener implements Listener {
 
-	private WorldConfiguration config;
+    private WorldConfiguration config;
 
-	public PlayerKickListener() {
-		config = Commons.getInstance().getConfiguration().getWorldConfig();
-	}
+    public PlayerKickListener() {
+        config = Commons.getInstance().getConfiguration().getWorldConfig();
+    }
 
-	@EventHandler
-	public void onPlayerKicked(PlayerKickEvent event) {
-		if (!config.hasJoinMessages()) {
-			event.setLeaveMessage(null);
-		}
+    @EventHandler
+    public void onPlayerKicked(PlayerKickEvent event) {
+        if (!config.hasJoinMessages()) {
+            event.setLeaveMessage(null);
+        }
 
-		Player player = event.getPlayer();
+        Player player = event.getPlayer();
 
-		if (Players.hasPermission(player, Perms.KICK_DENY)) {
-			event.setCancelled(true);
-			return;
-		}
+        if (Players.hasPermission(player, Perms.KICK_DENY)) {
+            event.setCancelled(true);
+            return;
+        }
 
 
-		UUID playerId = player.getUniqueId();
+        UUID playerId = player.getUniqueId();
 
-		//Update the player's online status in the database
-		Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
+        //Update the player's online status in the database
+        Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
 
-		Players.removeData(playerId);
+        Players.removeData(playerId);
 //		if (Commons.hasSqlBackend()) {
 //			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
 //		}
-	}
+    }
 }

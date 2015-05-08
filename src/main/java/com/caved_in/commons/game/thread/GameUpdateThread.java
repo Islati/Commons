@@ -4,14 +4,14 @@ import com.caved_in.commons.game.GameCore;
 
 public class GameUpdateThread implements Runnable {
 
-	private GameCore core;
+    private GameCore core;
 
-	public GameUpdateThread(com.caved_in.commons.game.CraftGame core) {
-		this.core = core;
-	}
+    public GameUpdateThread(com.caved_in.commons.game.CraftGame core) {
+        this.core = core;
+    }
 
-	@Override
-	public void run() {
-		core.update();
-	}
+    @Override
+    public void run() {
+        core.update();
+    }
 }

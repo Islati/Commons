@@ -30,18 +30,18 @@ public class Permissions {
 //		return perms.get(permission);
 //	}
 
-	public static boolean hasPermission(Player player, Permissible item) {
-		return player.hasPermission(item.getPermission());
-	}
+    public static boolean hasPermission(Player player, Permissible item) {
+        return player.hasPermission(item.getPermission());
+    }
 
-	public static boolean hasPermissions(CommandSender sender, String[] permissions) {
-		for (String s : permissions) {
-			if (!sender.hasPermission(s)) {
-				return false;
-			}
-		}
-		return true;
-	}
+    public static boolean hasPermissions(CommandSender sender, String[] permissions) {
+        for (String s : permissions) {
+            if (!sender.hasPermission(s)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 //	public static void setPermission(Player player, String permission, boolean value) {
 //		getPermissionAttachment(player).setPermission(permission, value);

@@ -9,16 +9,16 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 public class ServerPingListener implements Listener {
 
-	private MaintenanceConfiguration config;
+    private MaintenanceConfiguration config;
 
-	public ServerPingListener() {
-		config = Commons.getInstance().getConfiguration().getMaintenanceConfig();
-	}
+    public ServerPingListener() {
+        config = Commons.getInstance().getConfiguration().getMaintenanceConfig();
+    }
 
-	@EventHandler
-	public void onServerPing(ServerListPingEvent event) {
-		if (config.isMaintenanceMode()) {
-			event.setMotd(StringUtil.formatColorCodes(config.getMotd()));
-		}
-	}
+    @EventHandler
+    public void onServerPing(ServerListPingEvent event) {
+        if (config.isMaintenanceMode()) {
+            event.setMotd(StringUtil.formatColorCodes(config.getMotd()));
+        }
+    }
 }

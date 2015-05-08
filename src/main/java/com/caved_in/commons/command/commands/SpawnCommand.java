@@ -7,9 +7,9 @@ import com.caved_in.commons.world.Worlds;
 import org.bukkit.entity.Player;
 
 public class SpawnCommand {
-	@Command(identifier = "spawn", permissions = Perms.COMMAND_SPAWN)
-	public void onSpawnCommand(Player player) {
-		//Teleport the player to spawn
-		Players.teleport(player, Worlds.getSpawn(player.getWorld()));
-	}
+    @Command(identifier = "spawn", permissions = Perms.COMMAND_SPAWN)
+    public void onSpawnCommand(Player player) {
+        //Teleport the player to spawn
+        Players.teleport(player, Worlds.getSpawn(player.getWorld()));
+    }
 }

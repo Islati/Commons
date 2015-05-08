@@ -2,7 +2,7 @@ package com.caved_in.commons.utilities;
 
 /**
  * Credits for the SneakyThrow class go to Spigot, from the org.spigotmc package!
- * <p/>
+ * <p>
  * http://www.spigotmc.org
  */
 public class SneakyThrow {

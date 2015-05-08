@@ -6,8 +6,8 @@ import com.caved_in.commons.permission.Perms;
 import org.bukkit.entity.Player;
 
 public class WorkbenchCommand {
-	@Command(identifier = "workbench", permissions = Perms.COMMAND_WORKBENCH)
-	public void onWorkbenchCommand(Player player) {
-		Inventories.openWorkbench(player);
-	}
+    @Command(identifier = "workbench", permissions = Perms.COMMAND_WORKBENCH)
+    public void onWorkbenchCommand(Player player) {
+        Inventories.openWorkbench(player);
+    }
 }

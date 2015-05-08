@@ -8,26 +8,26 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class EntityExplodeListener implements Listener {
-	private WorldConfiguration worldConfig;
+    private WorldConfiguration worldConfig;
 
-	public EntityExplodeListener() {
-		worldConfig = Commons.getInstance().getConfiguration().getWorldConfig();
-	}
+    public EntityExplodeListener() {
+        worldConfig = Commons.getInstance().getConfiguration().getWorldConfig();
+    }
 
-	@EventHandler
-	public void onEntityExplode(EntityExplodeEvent event) {
-		if (event.isCancelled()) {
-			return;
-		}
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
 
-		if (worldConfig.hasExplosionFireworks()) {
-			Fireworks.playRandomFirework(event.getLocation());
-		}
+        if (worldConfig.hasExplosionFireworks()) {
+            Fireworks.playRandomFirework(event.getLocation());
+        }
 
-		if (worldConfig.isBlockBreakEnabled()) {
-			return;
-		}
-		//Clear all the blocks from the block list to assure they're not removed when exploding
-		event.blockList().clear();
-	}
+        if (worldConfig.isBlockBreakEnabled()) {
+            return;
+        }
+        //Clear all the blocks from the block list to assure they're not removed when exploding
+        event.blockList().clear();
+    }
 }

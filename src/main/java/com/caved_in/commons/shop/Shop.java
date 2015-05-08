@@ -12,17 +12,17 @@ import java.util.Map;
  * ----------------------------------------------------------------------------
  */
 public class Shop {
-	private static Map<Integer, StoreItem> storeItems = new HashMap<>();
+    private static Map<Integer, StoreItem> storeItems = new HashMap<>();
 
-	public static boolean isItem(int id) {
-		return storeItems.containsKey(id);
-	}
+    public static boolean isItem(int id) {
+        return storeItems.containsKey(id);
+    }
 
-	public static StoreItem getItemById(int id) {
-		return storeItems.get(id);
-	}
+    public static StoreItem getItemById(int id) {
+        return storeItems.get(id);
+    }
 
-	public static void addItem(StoreItem item) {
-		storeItems.put(item.getItemId(), item);
-	}
+    public static void addItem(StoreItem item) {
+        storeItems.put(item.getItemId(), item);
+    }
 }

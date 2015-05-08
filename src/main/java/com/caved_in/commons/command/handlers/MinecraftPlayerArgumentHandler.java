@@ -13,33 +13,33 @@ import org.bukkit.entity.Player;
 
 public class MinecraftPlayerArgumentHandler extends ArgumentHandler<MinecraftPlayer> {
 
-	private static Commons commons = Commons.getInstance();
+    private static Commons commons = Commons.getInstance();
 
-	public MinecraftPlayerArgumentHandler() {
-		setMessage("player_not_online", "%1 isn't online!");
+    public MinecraftPlayerArgumentHandler() {
+        setMessage("player_not_online", "%1 isn't online!");
 
-		addVariable("sender", "The command executor", (sender, argument, varName) -> {
-			if (!(sender instanceof Player)) {
-				throw new CommandError(Messages.CANT_AS_CONSOLE);
-			}
+        addVariable("sender", "The command executor", (sender, argument, varName) -> {
+            if (!(sender instanceof Player)) {
+                throw new CommandError(Messages.CANT_AS_CONSOLE);
+            }
 
-			Player player = (Player) sender;
-			MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(player);
-			if (mcPlayer == null) {
-				throw new CommandError("No MinecraftPlayer data exists for " + player.getName());
-			}
-			return mcPlayer;
-		});
-	}
+            Player player = (Player) sender;
+            MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(player);
+            if (mcPlayer == null) {
+                throw new CommandError("No MinecraftPlayer data exists for " + player.getName());
+            }
+            return mcPlayer;
+        });
+    }
 
-	@Override
-	public MinecraftPlayer transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
-		Player player = Players.getPlayer(value);
+    @Override
+    public MinecraftPlayer transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
+        Player player = Players.getPlayer(value);
 
-		if (player == null) {
-			throw new TransformError(Messages.playerOffline(value));
-		}
+        if (player == null) {
+            throw new TransformError(Messages.playerOffline(value));
+        }
 
-		return commons.getPlayerHandler().getData(player);
-	}
+        return commons.getPlayerHandler().getData(player);
+    }
 }

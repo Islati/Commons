@@ -9,22 +9,22 @@ import org.simpleframework.xml.Root;
  */
 @Root(name = "sound")
 public class XmlSound {
-	@Attribute(name = "name")
-	private String soundName = Sound.NOTE_STICKS.name();
+    @Attribute(name = "name")
+    private String soundName = Sound.NOTE_STICKS.name();
 
-	public static XmlSound fromSound(Sound sound) {
-		return new XmlSound(sound);
-	}
+    public static XmlSound fromSound(Sound sound) {
+        return new XmlSound(sound);
+    }
 
-	public XmlSound(@Attribute(name = "name") String soundName) {
-		this.soundName = soundName;
-	}
+    public XmlSound(@Attribute(name = "name") String soundName) {
+        this.soundName = soundName;
+    }
 
-	public XmlSound(Sound sound) {
-		this.soundName = sound.name();
-	}
+    public XmlSound(Sound sound) {
+        this.soundName = sound.name();
+    }
 
-	public Sound getSound() {
-		return Sound.valueOf(soundName);
-	}
+    public Sound getSound() {
+        return Sound.valueOf(soundName);
+    }
 }

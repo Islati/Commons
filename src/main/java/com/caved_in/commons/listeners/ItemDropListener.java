@@ -10,37 +10,37 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemDropListener implements Listener {
-	private WorldConfiguration config;
+    private WorldConfiguration config;
 
-	public ItemDropListener() {
-		config = Commons.getInstance().getConfiguration().getWorldConfig();
-	}
+    public ItemDropListener() {
+        config = Commons.getInstance().getConfiguration().getWorldConfig();
+    }
 
-	@EventHandler
-	public void onItemDrop(PlayerDropItemEvent event) {
+    @EventHandler
+    public void onItemDrop(PlayerDropItemEvent event) {
 
-		//todo check if player is in creative and has option for creative drops off, then don't drop items- Just remove them when they're dropped
-		if (!config.isItemDropEnabled()) {
-			event.setCancelled(true);
-			return;
-		}
+        //todo check if player is in creative and has option for creative drops off, then don't drop items- Just remove them when they're dropped
+        if (!config.isItemDropEnabled()) {
+            event.setCancelled(true);
+            return;
+        }
 
-		ItemStack item = event.getItemDrop().getItemStack();
+        ItemStack item = event.getItemDrop().getItemStack();
 
-		//If we're not dealing with gadgets
-		if (!Gadgets.isGadget(item)) {
-			event.setCancelled(!config.isItemDropEnabled());
-			return;
-		}
+        //If we're not dealing with gadgets
+        if (!Gadgets.isGadget(item)) {
+            event.setCancelled(!config.isItemDropEnabled());
+            return;
+        }
 
-		Gadget gadget = Gadgets.getGadget(item);
+        Gadget gadget = Gadgets.getGadget(item);
 
-		if (!gadget.properties().isDroppable()) {
-			event.setCancelled(true);
-			return;
-		}
+        if (!gadget.properties().isDroppable()) {
+            event.setCancelled(true);
+            return;
+        }
 
 
-		gadget.onDrop(event.getPlayer(), event.getItemDrop());
-	}
+        gadget.onDrop(event.getPlayer(), event.getItemDrop());
+    }
 }

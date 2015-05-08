@@ -7,6 +7,9 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
+/**
+ * An event called whenever an arena is cycled inside the MiniGame engine.
+ */
 public class ArenaCycleEvent extends Event implements Cancellable {
     private static HandlerList handlers = new HandlerList();
 

@@ -11,16 +11,16 @@ import org.bukkit.inventory.ItemStack;
 
 public class PlayerInteractListener implements Listener {
 
-	@EventHandler
-	public void onPlayerInteracted(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		ItemStack itemInHand = player.getItemInHand();
-		if (!Gadgets.isGadget(itemInHand)) {
-			return;
-		}
+    @EventHandler
+    public void onPlayerInteracted(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        ItemStack itemInHand = player.getItemInHand();
+        if (!Gadgets.isGadget(itemInHand)) {
+            return;
+        }
 
-		Gadget gadget = Gadgets.getGadget(itemInHand);
-		GadgetUseEvent gadgetEvent = new GadgetUseEvent(player, event.getAction(), gadget);
-		GadgetUseEvent.handle(gadgetEvent);
-	}
+        Gadget gadget = Gadgets.getGadget(itemInHand);
+        GadgetUseEvent gadgetEvent = new GadgetUseEvent(player, event.getAction(), gadget);
+        GadgetUseEvent.handle(gadgetEvent);
+    }
 }

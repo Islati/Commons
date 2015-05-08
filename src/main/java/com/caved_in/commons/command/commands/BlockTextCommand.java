@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.material.MaterialData;
 
 public class BlockTextCommand {
-	@Command(identifier = "blocktext", permissions = {Perms.COMMAND_BLOCK_TEXT})
-	public void onBlockText(Player player, @Arg(name = "material-data") MaterialData data, @Wildcard @Arg(name = "text") String text) {
-		Letter.drawString(text, data.getItemType(), data.getData(), Players.getTargetLocation(player), Players.getDirection(player));
-	}
+    @Command(identifier = "blocktext", permissions = {Perms.COMMAND_BLOCK_TEXT})
+    public void onBlockText(Player player, @Arg(name = "material-data") MaterialData data, @Wildcard @Arg(name = "text") String text) {
+        Letter.drawString(text, data.getItemType(), data.getData(), Players.getTargetLocation(player), Players.getDirection(player));
+    }
 }

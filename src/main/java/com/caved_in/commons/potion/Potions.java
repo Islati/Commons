@@ -5,8 +5,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Potions {
 
-	public static PotionEffect getPotionEffect(PotionEffectType potionEffectType, int amplification, int durationInTicks) {
-		return new PotionEffect(potionEffectType, durationInTicks, amplification);
-	}
+    public static PotionEffect getPotionEffect(PotionEffectType potionEffectType, int amplification, int durationInTicks) {
+        return new PotionEffect(potionEffectType, durationInTicks, amplification);
+    }
 
 }

@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class SkullCommand {
-	@Command(identifier = "skull", permissions = Perms.COMMAND_SKULL)
-	public void getPlayerSkullCommand(Player player, @Arg(name = "player") String name) {
-		ItemStack playerSkull = Items.getSkull(name);
-		Items.setName(playerSkull, name + "'s Head");
-		player.getInventory().addItem(playerSkull);
-	}
+    @Command(identifier = "skull", permissions = Perms.COMMAND_SKULL)
+    public void getPlayerSkullCommand(Player player, @Arg(name = "player") String name) {
+        ItemStack playerSkull = Items.getSkull(name);
+        Items.setName(playerSkull, name + "'s Head");
+        player.getInventory().addItem(playerSkull);
+    }
 }

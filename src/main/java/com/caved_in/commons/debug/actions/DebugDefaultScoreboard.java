@@ -10,32 +10,32 @@ import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 
 public class DebugDefaultScoreboard implements DebugAction {
-	private static final Commons commons = Commons.getInstance();
+    private static final Commons commons = Commons.getInstance();
 
-	private static BoardManager manager = commons.getScoreboardManager();
+    private static BoardManager manager = commons.getScoreboardManager();
 
-	private ScoreboardWrapper wrapper = manager.builder().title("&cDefault board!").dummyObjective().type(ScoreboardType.NORMAL).entry(1, "Line uno").entry(2, "Line deus").build();
+    private ScoreboardWrapper wrapper = manager.builder().title("&cDefault board!").dummyObjective().type(ScoreboardType.NORMAL).entry(1, "Line uno").entry(2, "Line deus").build();
 
-	private boolean inited = false;
+    private boolean inited = false;
 
-	@Override
-	public void doAction(Player player, String... args) {
-		if (!inited) {
-			manager.setDefaultScoreboard(wrapper);
-			inited = true;
-			return;
-		}
+    @Override
+    public void doAction(Player player, String... args) {
+        if (!inited) {
+            manager.setDefaultScoreboard(wrapper);
+            inited = true;
+            return;
+        }
 
-		ScoreboardInformation info = wrapper.getInfo();
-		for (int i = 0; i < args.length; i++) {
-			info.entry(i + 1, args[i]);
-		}
+        ScoreboardInformation info = wrapper.getInfo();
+        for (int i = 0; i < args.length; i++) {
+            info.entry(i + 1, args[i]);
+        }
 
-		commons.debug("Assigned entries " + StringUtil.joinString(args, ", ") + " to default wrapper");
-	}
+        commons.debug("Assigned entries " + StringUtil.joinString(args, ", ") + " to default wrapper");
+    }
 
-	@Override
-	public String getActionName() {
-		return "default_scoreboard";
-	}
+    @Override
+    public String getActionName() {
+        return "default_scoreboard";
+    }
 }

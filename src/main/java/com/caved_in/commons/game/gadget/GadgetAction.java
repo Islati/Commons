@@ -2,6 +2,13 @@ package com.caved_in.commons.game.gadget;
 
 import org.bukkit.entity.Player;
 
+/**
+ * Used to attach data to gadgets whenever a player performs on them.
+ */
 public interface GadgetAction {
-	public void perform(Player player);
+
+    /**
+     * @param player player performing the action.
+     */
+    void perform(Player player);
 }

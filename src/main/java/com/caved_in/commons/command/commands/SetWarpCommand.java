@@ -14,14 +14,14 @@ import static com.caved_in.commons.Messages.duplicateWarp;
 import static com.caved_in.commons.Messages.warpCreated;
 
 public class SetWarpCommand {
-	@Command(identifier = "setwarp", permissions = Perms.COMMAND_SETWARP)
-	public void onSetWarpCommand(Player player, @Wildcard @Arg(name = "warp name") String warpName) {
-		if (Warps.isWarp(warpName)) {
-			Chat.message(player, duplicateWarp(warpName));
-			return;
-		}
+    @Command(identifier = "setwarp", permissions = Perms.COMMAND_SETWARP)
+    public void onSetWarpCommand(Player player, @Wildcard @Arg(name = "warp name") String warpName) {
+        if (Warps.isWarp(warpName)) {
+            Chat.message(player, duplicateWarp(warpName));
+            return;
+        }
 
-		Warps.addWarp(new Warp(warpName, player.getLocation()), true);
-		Chat.message(player, warpCreated(warpName));
-	}
+        Warps.addWarp(new Warp(warpName, player.getLocation()), true);
+        Chat.message(player, warpCreated(warpName));
+    }
 }

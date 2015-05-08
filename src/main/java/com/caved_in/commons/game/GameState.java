@@ -3,25 +3,57 @@ package com.caved_in.commons.game;
 import org.bukkit.event.Listener;
 
 public interface GameState extends Listener {
-	public default void setup() {
+    /**
+     * Operations to perform when initializing the game state.
+     */
+    default void setup() {
 
-	}
+    }
 
-	public default boolean isSetup() {
-		return false;
-	}
+    /**
+     * Check whether or not the state has been setup.
+     * @return true if the state has been setup, false otherwise.
+     */
+    default boolean isSetup() {
+        return false;
+    }
 
-	public void setSetup(boolean val);
+    /**
+     * Change the value of the state setup.
+     * If not set to true after the initial setup, the game engine will continue to call {@link GameState#setup()}
+     * @param val value to assign.
+     */
+    void setSetup(boolean val);
 
-	public default void destroy() {
+    /**
+     * Operations to perform when the game state is destroyed.
+     */
+    default void destroy() {
 
-	}
+    }
 
-	public void update();
+    /**
+     * Operations to perform when this state is ticked.
+     * Logic specific to this state of the game should be written and handled here.
+     */
+    void update();
 
-	public int id();
+    /**
+     * Unique identifier of the game state. Used to handle to order, registration, cycling, and execution of Game States.
+     * MUST BE UNIQUE FROM ALL REGISTERED STATES.
+     * @return unique game-state ID.
+     */
+    int id();
 
-	public boolean switchState();
+    /**
+     * Whether or not to switch to the next state.
+     * @return true to switch to the next state, false to continue executing this state.
+     */
+    boolean switchState();
 
-	public int nextState();
+    /**
+     * Which state is to be executed once this state has been destroyed.
+     * @return id of the state to be executed once this state has been destroyed.
+     */
+    int nextState();
 }

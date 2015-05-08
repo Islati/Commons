@@ -11,10 +11,10 @@ import org.bukkit.entity.Player;
 
 
 public class DayCommand {
-	@Command(identifier = "day", permissions = Perms.COMMAND_TIME)
-	public void onDayCommand(Player player) {
-		World world = player.getWorld();
-		Worlds.setTimeDay(world);
-		Chat.message(player, Messages.timeUpdated(world.getName(), "day"));
-	}
+    @Command(identifier = "day", permissions = Perms.COMMAND_TIME)
+    public void onDayCommand(Player player) {
+        World world = player.getWorld();
+        Worlds.setTimeDay(world);
+        Chat.message(player, Messages.timeUpdated(world.getName(), "day"));
+    }
 }

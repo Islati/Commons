@@ -10,20 +10,20 @@ import org.bukkit.inventory.ItemStack;
 
 public class ItemDamageListener implements Listener {
 
-	@EventHandler
-	public void itemDamageEvent(PlayerItemDamageEvent e) {
-		Player p = e.getPlayer();
-		ItemStack item = e.getItem();
+    @EventHandler
+    public void itemDamageEvent(PlayerItemDamageEvent e) {
+        Player p = e.getPlayer();
+        ItemStack item = e.getItem();
 
-		if (!Gadgets.isGadget(item)) {
-			return;
-		}
+        if (!Gadgets.isGadget(item)) {
+            return;
+        }
 
-		Gadget gadget = Gadgets.getGadget(item);
-		if (!gadget.properties().isBreakable()) {
-			e.setCancelled(true);
-		}
+        Gadget gadget = Gadgets.getGadget(item);
+        if (!gadget.properties().isBreakable()) {
+            e.setCancelled(true);
+        }
 
-		//TODO Implement pseudo durability codes based on gadget properties
-	}
+        //TODO Implement pseudo durability codes based on gadget properties
+    }
 }

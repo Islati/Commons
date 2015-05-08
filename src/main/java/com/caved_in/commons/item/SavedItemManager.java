@@ -22,72 +22,72 @@ import java.util.Set;
  * '/i save' and '/i load' Command.
  */
 public class SavedItemManager {
-	private static Serializer serializer = new Persister();
+    private static Serializer serializer = new Persister();
 
-	private static final Map<String, ItemStack> items = new HashMap<>();
+    private static final Map<String, ItemStack> items = new HashMap<>();
 
-	public static Set<String> getItemNames() {
-		return items.keySet();
-	}
+    public static Set<String> getItemNames() {
+        return items.keySet();
+    }
 
-	public static boolean saveItem(String name, ItemStack item) {
-		if (items.containsKey(name)) {
-			return false;
-		}
+    public static boolean saveItem(String name, ItemStack item) {
+        if (items.containsKey(name)) {
+            return false;
+        }
 
-		XmlItemStack xmlItemStack = XmlItemStack.fromItem(item);
+        XmlItemStack xmlItemStack = XmlItemStack.fromItem(item);
 
-		File itemFile = new File(String.format("%s/%s.xml", Commons.ITEM_DATA_FOLDER, name));
+        File itemFile = new File(String.format("%s/%s.xml", Commons.ITEM_DATA_FOLDER, name));
 
-		boolean saved = true;
+        boolean saved = true;
 
-		try {
-			serializer.write(xmlItemStack, itemFile);
+        try {
+            serializer.write(xmlItemStack, itemFile);
 
-			items.put(name, item);
-		} catch (Exception e) {
-			e.printStackTrace();
-			saved = true;
-		}
+            items.put(name, item);
+        } catch (Exception e) {
+            e.printStackTrace();
+            saved = true;
+        }
 
-		return saved;
-	}
+        return saved;
+    }
 
-	public static void loadItem(File file) {
-		String itemName = FilenameUtils.removeExtension(file.getName());
+    public static void loadItem(File file) {
+        String itemName = FilenameUtils.removeExtension(file.getName());
 
-		XmlItemStack item = null;
-		try {
-			item = serializer.read(XmlItemStack.class, file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        XmlItemStack item = null;
+        try {
+            item = serializer.read(XmlItemStack.class, file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		if (item == null) {
-			return;
-		}
+        if (item == null) {
+            return;
+        }
 
-		items.put(itemName, item.getItemStack());
-		Chat.debug(String.format("Loaded item %s", StringUtil.joinString(Messages.itemInfo(item.getItemStack()), "\n", 0)));
-	}
+        items.put(itemName, item.getItemStack());
+        Chat.debug(String.format("Loaded item %s", StringUtil.joinString(Messages.itemInfo(item.getItemStack()), "\n", 0)));
+    }
 
-	public static ItemStack getItem(String name) {
-		for (Map.Entry<String, ItemStack> itemEntry : items.entrySet()) {
-			String entryName = itemEntry.getKey();
+    public static ItemStack getItem(String name) {
+        for (Map.Entry<String, ItemStack> itemEntry : items.entrySet()) {
+            String entryName = itemEntry.getKey();
 
             /*
-			Check if the two item names aren't equal, and
+            Check if the two item names aren't equal, and
             if so skip this item.
              */
-			if (!name.equalsIgnoreCase(entryName)) {
-				continue;
-			}
+            if (!name.equalsIgnoreCase(entryName)) {
+                continue;
+            }
 
-			return itemEntry.getValue();
-		}
+            return itemEntry.getValue();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 
 }

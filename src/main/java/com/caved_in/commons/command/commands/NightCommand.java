@@ -11,9 +11,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class NightCommand {
-	@Command(identifier = "night", permissions = Perms.COMMAND_TIME)
-	public void onNightCommand(Player player, @Arg(name = "world", def = "?sender") World world) {
-		Worlds.setTimeNight(world);
-		Chat.message(player, Messages.timeUpdated(world.getName(), "night"));
-	}
+    @Command(identifier = "night", permissions = Perms.COMMAND_TIME)
+    public void onNightCommand(Player player, @Arg(name = "world", def = "?sender") World world) {
+        Worlds.setTimeNight(world);
+        Chat.message(player, Messages.timeUpdated(world.getName(), "night"));
+    }
 }

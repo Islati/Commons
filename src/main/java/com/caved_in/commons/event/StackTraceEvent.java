@@ -14,51 +14,51 @@ import org.bukkit.inventory.ItemStack;
 import java.util.stream.Stream;
 
 public class StackTraceEvent extends Event {
-	private static final HandlerList handler = new HandlerList();
-	private Exception exception;
+    private static final HandlerList handler = new HandlerList();
+    private Exception exception;
 
-	public StackTraceEvent(Exception ex) {
-		this.exception = ex;
-	}
+    public StackTraceEvent(Exception ex) {
+        this.exception = ex;
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handler;
-	}
+    @Override
+    public HandlerList getHandlers() {
+        return handler;
+    }
 
-	public static HandlerList getHandlerList() {
-		return handler;
-	}
+    public static HandlerList getHandlerList() {
+        return handler;
+    }
 
-	public Exception getException() {
-		return exception;
-	}
+    public Exception getException() {
+        return exception;
+    }
 
-	public static void handle(StackTraceEvent e) {
-		DebugConfig debugConfig = Commons.getInstance().getConfiguration().getDebugConfig();
-		//If they've disabled stack-trace-events in the config, don't handle this
-		if (!debugConfig.isStackTraceEvent()) {
-			return;
-		}
+    public static void handle(StackTraceEvent e) {
+        DebugConfig debugConfig = Commons.getInstance().getConfiguration().getDebugConfig();
+        //If they've disabled stack-trace-events in the config, don't handle this
+        if (!debugConfig.isStackTraceEvent()) {
+            return;
+        }
 
-		Stream<Player> debuggingPlayers = Players.getAllDebugging().stream();
-		Exception eventException = e.getException();
-		//If the books for stack-tracing are enabled, then give one to all the debugging players
-		if (debugConfig.isStackTraceBooks()) {
-			ItemStack exceptionBook = Debugger.createExceptionBook(eventException);
-			//YAY! MY FIRST JAVA LAMBDA STATEMENT
-			debuggingPlayers.forEach(p -> Players.giveItem(p, exceptionBook));
-		}
+        Stream<Player> debuggingPlayers = Players.getAllDebugging().stream();
+        Exception eventException = e.getException();
+        //If the books for stack-tracing are enabled, then give one to all the debugging players
+        if (debugConfig.isStackTraceBooks()) {
+            ItemStack exceptionBook = Debugger.createExceptionBook(eventException);
+            //YAY! MY FIRST JAVA LAMBDA STATEMENT
+            debuggingPlayers.forEach(p -> Players.giveItem(p, exceptionBook));
+        }
 
-		//If the stack trace messages are to be sent in chat, send em!
-		if (debugConfig.isStackTraceChat()) {
-			String[] exceptionMessages = Messages.exceptionInfo(eventException);
-			//For every player that's debugging, send them the exception-info message
-			debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
-		}
-	}
+        //If the stack trace messages are to be sent in chat, send em!
+        if (debugConfig.isStackTraceChat()) {
+            String[] exceptionMessages = Messages.exceptionInfo(eventException);
+            //For every player that's debugging, send them the exception-info message
+            debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
+        }
+    }
 
-	public static void handle(Exception e) {
-		handle(new StackTraceEvent(e));
-	}
+    public static void handle(Exception e) {
+        handle(new StackTraceEvent(e));
+    }
 }

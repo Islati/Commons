@@ -9,16 +9,16 @@ import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemBreakListener implements Listener {
-	@EventHandler
-	public void onItemBreakEvent(PlayerItemBreakEvent e) {
-		Player p = e.getPlayer();
-		ItemStack broken = e.getBrokenItem();
+    @EventHandler
+    public void onItemBreakEvent(PlayerItemBreakEvent e) {
+        Player p = e.getPlayer();
+        ItemStack broken = e.getBrokenItem();
 
-		if (!Gadgets.isGadget(broken)) {
-			return;
-		}
+        if (!Gadgets.isGadget(broken)) {
+            return;
+        }
 
-		Gadget gadget = Gadgets.getGadget(broken);
-		gadget.onBreak(p);
-	}
+        Gadget gadget = Gadgets.getGadget(broken);
+        gadget.onBreak(p);
+    }
 }

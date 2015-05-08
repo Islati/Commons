@@ -12,64 +12,64 @@ import java.util.Map;
 
 @Root(name = "Hotbar")
 public class Hotbar {
-	@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true)
-	private Map<Integer, XmlItemStack> hotbarItems = new HashMap<>();
+    @ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true)
+    private Map<Integer, XmlItemStack> hotbarItems = new HashMap<>();
 
-	public Hotbar(@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true) Map<Integer, XmlItemStack> items) {
-		this.hotbarItems = items;
-	}
+    public Hotbar(@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true) Map<Integer, XmlItemStack> items) {
+        this.hotbarItems = items;
+    }
 
-	public Hotbar(ItemStack... items) {
-		for (int i = 0; i < items.length; i++) {
-			if (i >= 9) {
-				break;
-			}
+    public Hotbar(ItemStack... items) {
+        for (int i = 0; i < items.length; i++) {
+            if (i >= 9) {
+                break;
+            }
 
-			hotbarItems.put(i, XmlItemStack.fromItem(items[i]));
-		}
-	}
+            hotbarItems.put(i, XmlItemStack.fromItem(items[i]));
+        }
+    }
 
-	/**
-	 * Assign a slot (1 to 9) an item.
-	 *
-	 * @param slot slot to set the item in (1 to 9)
-	 * @param item item to set in the slot.
-	 * @return the hotbar instance.
-	 */
-	public Hotbar set(int slot, ItemStack item) {
-		if (slot >= 9) {
-			slot = 8;
-		}
+    /**
+     * Assign a slot (1 to 9) an item.
+     *
+     * @param slot slot to set the item in (1 to 9)
+     * @param item item to set in the slot.
+     * @return the hotbar instance.
+     */
+    public Hotbar set(int slot, ItemStack item) {
+        if (slot >= 9) {
+            slot = 8;
+        }
 
-		hotbarItems.put(slot, XmlItemStack.fromItem(item));
-		return this;
-	}
+        hotbarItems.put(slot, XmlItemStack.fromItem(item));
+        return this;
+    }
 
-	/**
-	 * Assign the players hotbar the contents of this hotbar.
-	 *
-	 * @param player player to change the hotbar contents of
-	 */
-	public void assign(Player player) {
-		for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
-			Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue().getItemStack());
-		}
-	}
+    /**
+     * Assign the players hotbar the contents of this hotbar.
+     *
+     * @param player player to change the hotbar contents of
+     */
+    public void assign(Player player) {
+        for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
+            Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue().getItemStack());
+        }
+    }
 
-	/**
-	 * @return an array of all the items in the hotbar.
-	 */
-	public ItemStack[] getItems() {
-		ItemStack[] items = new ItemStack[8];
+    /**
+     * @return an array of all the items in the hotbar.
+     */
+    public ItemStack[] getItems() {
+        ItemStack[] items = new ItemStack[8];
 
-		for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
-			int index = hotbarEntry.getKey();
-			if (index > items.length) {
-				continue;
-			}
+        for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
+            int index = hotbarEntry.getKey();
+            if (index > items.length) {
+                continue;
+            }
 
-			items[index] = hotbarEntry.getValue().getItemStack();
-		}
-		return items;
-	}
+            items[index] = hotbarEntry.getValue().getItemStack();
+        }
+        return items;
+    }
 }

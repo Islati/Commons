@@ -10,33 +10,33 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class CleanPaperBehaviour implements MenuCloseBehaviour {
 
-	private static CleanPaperBehaviour instance;
+    private static CleanPaperBehaviour instance;
 
-	private static final String[] itemNames = new String[]{"Next Page", "Previous Page"};
-	private static final Material PAPER = Material.PAPER;
+    private static final String[] itemNames = new String[]{"Next Page", "Previous Page"};
+    private static final Material PAPER = Material.PAPER;
 
-	protected CleanPaperBehaviour() {
+    protected CleanPaperBehaviour() {
 
-	}
+    }
 
-	public static CleanPaperBehaviour getInstance() {
-		if (instance == null) {
-			instance = new CleanPaperBehaviour();
-		}
-		return instance;
-	}
+    public static CleanPaperBehaviour getInstance() {
+        if (instance == null) {
+            instance = new CleanPaperBehaviour();
+        }
+        return instance;
+    }
 
-	@Override
-	public void doAction(ItemMenu menu, final Player player) {
-		Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> {
-			PlayerInventory inventory = player.getInventory();
-			for (String name : itemNames) {
-				int slot = Inventories.getSlotOf(inventory, PAPER, name);
-				if (slot == -1) {
-					continue;
-				}
-				Inventories.clearSlot(inventory, slot);
-			}
-		});
-	}
+    @Override
+    public void doAction(ItemMenu menu, final Player player) {
+        Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> {
+            PlayerInventory inventory = player.getInventory();
+            for (String name : itemNames) {
+                int slot = Inventories.getSlotOf(inventory, PAPER, name);
+                if (slot == -1) {
+                    continue;
+                }
+                Inventories.clearSlot(inventory, slot);
+            }
+        });
+    }
 }

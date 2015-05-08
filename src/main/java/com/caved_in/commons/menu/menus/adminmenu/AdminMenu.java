@@ -4,16 +4,16 @@ import com.caved_in.commons.menu.ItemMenu;
 
 @SuppressWarnings("WeakerAccess")
 public class AdminMenu extends ItemMenu {
-	private static AdminMenu instance;
+    private static AdminMenu instance;
 
-	public static AdminMenu getInstance() {
-		if (instance == null) {
-			instance = new AdminMenu();
-		}
-		return instance;
-	}
+    public static AdminMenu getInstance() {
+        if (instance == null) {
+            instance = new AdminMenu();
+        }
+        return instance;
+    }
 
-	protected AdminMenu() {
-		super("&4Admin Menu", 1);
-	}
+    protected AdminMenu() {
+        super("&4Admin Menu", 1);
+    }
 }

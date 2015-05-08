@@ -14,14 +14,14 @@ import java.util.concurrent.Callable;
  * ----------------------------------------------------------------------------
  */
 public class GetPlayerNameCallable implements Callable<String> {
-	private UUID uniqueId;
+    private UUID uniqueId;
 
-	public GetPlayerNameCallable(UUID uniqueId) {
-		this.uniqueId = uniqueId;
-	}
+    public GetPlayerNameCallable(UUID uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 
-	@Override
-	public String call() throws Exception {
-		return Players.getNameFromUUID(uniqueId);
-	}
+    @Override
+    public String call() throws Exception {
+        return Players.getNameFromUUID(uniqueId);
+    }
 }

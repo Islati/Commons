@@ -4,9 +4,9 @@ import org.bukkit.entity.Player;
 
 
 public class NicklistCommand {
-	//	@Command(name = "nicklist", permission = "commons.command.nicklist")
-	public void getNickListCommand(Player player, String[] args) {
-		/*HelpScreen HelpScreen = new HelpScreen("Currently Disguised Players");
+    //	@Command(name = "nicklist", permission = "commons.command.nicklist")
+    public void getNickListCommand(Player player, String[] args) {
+        /*HelpScreen HelpScreen = new HelpScreen("Currently Disguised Players");
 		HelpScreen.setHeader(ChatColor.YELLOW + "<name> Page <page> of <maxpage>");
 		HelpScreen.setFormat("<name> is disguised as <desc>");
 		HelpScreen.setFlipColor(ChatColor.GREEN, ChatColor.DARK_GREEN);
@@ -21,5 +21,5 @@ public class NicklistCommand {
 			HelpScreen.sendTo(player, 1, 7);
 		}
 		*/
-	}
+    }
 }

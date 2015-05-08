@@ -23,59 +23,59 @@ import java.util.List;
 
 public class FishCannon extends BaseGun {
 
-	private int id;
+    private int id;
 
-	public FishCannon(int id) {
-		super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon"));
-		this.id = id;
-		setBulletActions(FishCannonAction.getInstance());
-		initProperties();
-	}
+    public FishCannon(int id) {
+        super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon"));
+        this.id = id;
+        setBulletActions(FishCannonAction.getInstance());
+        initProperties();
+    }
 
-	private void initProperties() {
-		properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
-		bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffects.BUBBLE);
-	}
+    private void initProperties() {
+        properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
+        bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffects.BUBBLE);
+    }
 
-	@Override
-	public void onFire(Player shooter) {
-	}
+    @Override
+    public void onFire(Player shooter) {
+    }
 
-	private static class FishCannonAction implements BulletActions {
-		private static FishCannonAction instance;
+    private static class FishCannonAction implements BulletActions {
+        private static FishCannonAction instance;
 
-		public static FishCannonAction getInstance() {
-			if (instance == null) {
-				instance = new FishCannonAction();
-			}
-			return instance;
-		}
+        public static FishCannonAction getInstance() {
+            if (instance == null) {
+                instance = new FishCannonAction();
+            }
+            return instance;
+        }
 
-		@Override
-		public void onHit(Player player, LivingEntity damaged) {
-			Location hitLoc = damaged.getLocation();
+        @Override
+        public void onHit(Player player, LivingEntity damaged) {
+            Location hitLoc = damaged.getLocation();
 
-			Effects.explode(hitLoc, 1.0f, false, false);
+            Effects.explode(hitLoc, 1.0f, false, false);
 
-			ItemStack item = Items.makeItem(Material.COOKED_FISH);
+            ItemStack item = Items.makeItem(Material.COOKED_FISH);
 
-			List<Location> circle = Locations.getCircle(hitLoc, 3);
-			circle.forEach(l -> {
-				Item dropItem = Worlds.dropItem(l, item);
-				dropItem.setFireTicks((int) TimeHandler.getTimeInTicks(4, TimeType.SECOND));
-			});
+            List<Location> circle = Locations.getCircle(hitLoc, 3);
+            circle.forEach(l -> {
+                Item dropItem = Worlds.dropItem(l, item);
+                dropItem.setFireTicks((int) TimeHandler.getTimeInTicks(4, TimeType.SECOND));
+            });
 
-			Worlds.clearDroppedItems(hitLoc, 3, 3, TimeType.SECOND);
-		}
+            Worlds.clearDroppedItems(hitLoc, 3, 3, TimeType.SECOND);
+        }
 
-		@Override
-		public void onHit(Player player, Block block) {
-			ParticleEffects.sendToLocation(ParticleEffects.CLOUD, block.getLocation(), NumberUtil.getRandomInRange(1, 3));
-		}
-	}
+        @Override
+        public void onHit(Player player, Block block) {
+            ParticleEffects.sendToLocation(ParticleEffects.CLOUD, block.getLocation(), NumberUtil.getRandomInRange(1, 3));
+        }
+    }
 
-	@Override
-	public int id() {
-		return id;
-	}
+    @Override
+    public int id() {
+        return id;
+    }
 }

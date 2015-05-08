@@ -15,22 +15,22 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class WarpsCommand {
-	private WarpConfig warpConfig;
+    private WarpConfig warpConfig;
 
-	public WarpsCommand() {
-		warpConfig = Commons.getInstance().getConfiguration().getWarpConfig();
-	}
+    public WarpsCommand() {
+        warpConfig = Commons.getInstance().getConfiguration().getWarpConfig();
+    }
 
-	@Command(identifier = "warps", permissions = Perms.COMMAND_WARPS)
-	public void onWarpsCommand(Player player, @Arg(name = "page", def = "1") int page) {
-		if (warpConfig.isWarpsMenuEnabled()) {
-			WarpSelectionMenu.getMenu(page).openMenu(player);
-		} else {
-			HelpScreen warpsMenu = Menus.generateHelpScreen("Warps / Waypoints", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
-			for (String warp : Warps.getWarpNames()) {
-				warpsMenu.setEntry(warp, "");
-			}
-			warpsMenu.sendTo(player, page, 7);
-		}
-	}
+    @Command(identifier = "warps", permissions = Perms.COMMAND_WARPS)
+    public void onWarpsCommand(Player player, @Arg(name = "page", def = "1") int page) {
+        if (warpConfig.isWarpsMenuEnabled()) {
+            WarpSelectionMenu.getMenu(page).openMenu(player);
+        } else {
+            HelpScreen warpsMenu = Menus.generateHelpScreen("Warps / Waypoints", PageDisplay.DEFAULT, ItemFormat.NO_DESCRIPTION, ChatColor.GREEN, ChatColor.DARK_GREEN);
+            for (String warp : Warps.getWarpNames()) {
+                warpsMenu.setEntry(warp, "");
+            }
+            warpsMenu.sendTo(player, page, 7);
+        }
+    }
 }

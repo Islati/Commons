@@ -8,13 +8,13 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class TeleportAllCommand {
-	@Command(identifier = "tpall", permissions = Perms.COMMAND_TELEPORT_ALL)
-	public void onTpallCommand(Player player) {
-		String name = player.getName();
+    @Command(identifier = "tpall", permissions = Perms.COMMAND_TELEPORT_ALL)
+    public void onTpallCommand(Player player) {
+        String name = player.getName();
 
-		for (Player onlinePlayer : Players.allPlayersExcept(player.getUniqueId())) {
-			Players.teleport(onlinePlayer, player);
-			Chat.message(onlinePlayer, Messages.playerTeleportedToPlayer(name));
-		}
-	}
+        for (Player onlinePlayer : Players.allPlayersExcept(player.getUniqueId())) {
+            Players.teleport(onlinePlayer, player);
+            Chat.message(onlinePlayer, Messages.playerTeleportedToPlayer(name));
+        }
+    }
 }

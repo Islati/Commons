@@ -11,58 +11,58 @@ import org.simpleframework.xml.Root;
 @Root(name = "enchantment")
 @ToString(of = {"enchantName", "level", "glow"})
 public class XmlEnchantment {
-	@Attribute(name = "name")
-	private String enchantName;
+    @Attribute(name = "name")
+    private String enchantName;
 
-	@Attribute(name = "level")
-	private int level;
+    @Attribute(name = "level")
+    private int level;
 
-	@Attribute(name = "glow", required = false)
-	private boolean glow = true;
+    @Attribute(name = "glow", required = false)
+    private boolean glow = true;
 
-	public static XmlEnchantment fromEnchant(Enchantment enchantment, int level) {
-		return new XmlEnchantment(enchantment, level);
-	}
+    public static XmlEnchantment fromEnchant(Enchantment enchantment, int level) {
+        return new XmlEnchantment(enchantment, level);
+    }
 
-	public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level, @Attribute(name = "glow", required = false) boolean glow) {
-		this.level = level;
-		this.enchantName = enchantName;
-		this.glow = glow;
-	}
+    public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level, @Attribute(name = "glow", required = false) boolean glow) {
+        this.level = level;
+        this.enchantName = enchantName;
+        this.glow = glow;
+    }
 
-	public XmlEnchantment(Enchantment enchantment, int level) {
-		this.level = level;
-		enchantName = enchantment.getName();
-	}
+    public XmlEnchantment(Enchantment enchantment, int level) {
+        this.level = level;
+        enchantName = enchantment.getName();
+    }
 
-	public XmlEnchantment() {
+    public XmlEnchantment() {
 
-	}
+    }
 
-	public XmlEnchantment enchantment(Enchantment enchant) {
-		this.enchantName = enchant.getName();
-		return this;
-	}
+    public XmlEnchantment enchantment(Enchantment enchant) {
+        this.enchantName = enchant.getName();
+        return this;
+    }
 
-	public XmlEnchantment level(int level) {
-		this.level = level;
-		return this;
-	}
+    public XmlEnchantment level(int level) {
+        this.level = level;
+        return this;
+    }
 
-	public XmlEnchantment glow(boolean glow) {
-		this.glow = glow;
-		return this;
-	}
+    public XmlEnchantment glow(boolean glow) {
+        this.glow = glow;
+        return this;
+    }
 
-	public Enchantment getEnchantment() {
-		return Enchantment.getByName(enchantName);
-	}
+    public Enchantment getEnchantment() {
+        return Enchantment.getByName(enchantName);
+    }
 
-	public int getLevel() {
-		return level;
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	public boolean hasGlow() {
-		return glow;
-	}
+    public boolean hasGlow() {
+        return glow;
+    }
 }

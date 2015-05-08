@@ -15,41 +15,41 @@ import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.command.CommandSender;
 
 public class BuyPremiumCommand {
-	@Command(identifier = "buypremium", description = "Used to give users premium", permissions = Perms.COMMAND_BUYPREMIUM, onlyPlayers = false)
-	public void buyPlayerPremium(CommandSender sender, @Arg(name = "player") String playerName) {
-		Chat.message(sender, "&ePlease wait while we search for this players info");
-		//If the player's online, then get the unique ID of the player
+    @Command(identifier = "buypremium", description = "Used to give users premium", permissions = Perms.COMMAND_BUYPREMIUM, onlyPlayers = false)
+    public void buyPlayerPremium(CommandSender sender, @Arg(name = "player") String playerName) {
+        Chat.message(sender, "&ePlease wait while we search for this players info");
+        //If the player's online, then get the unique ID of the player
 
-		if (!Players.hasPlayed(playerName)) {
-			Chat.message(sender, Messages.invalidPlayerData(playerName));
-			return;
-		}
+        if (!Players.hasPlayed(playerName)) {
+            Chat.message(sender, Messages.invalidPlayerData(playerName));
+            return;
+        }
 
-		ListenableFuture<Boolean> updatePremiumStatusFuture;
-		BukkitScheduledExecutorService async = Commons.getInstance().getAsyncExecuter();
+        ListenableFuture<Boolean> updatePremiumStatusFuture;
+        BukkitScheduledExecutorService async = Commons.getInstance().getAsyncExecuter();
 
-		if (Players.isOnline(playerName)) {
-			updatePremiumStatusFuture = async.submit(new UpdatePlayerPremiumCallable(Players.getPlayer(playerName).getUniqueId(), true));
-		} else {
-			updatePremiumStatusFuture = async.submit(new UpdatePlayerPremiumCallable(playerName, true));
-		}
+        if (Players.isOnline(playerName)) {
+            updatePremiumStatusFuture = async.submit(new UpdatePlayerPremiumCallable(Players.getPlayer(playerName).getUniqueId(), true));
+        } else {
+            updatePremiumStatusFuture = async.submit(new UpdatePlayerPremiumCallable(playerName, true));
+        }
 
 
-		// = Commons.getInstance().getAsyncExecuter().submit(new UpdatePlayerPremiumCallable(playerName, true));
-		Futures.addCallback(updatePremiumStatusFuture, new FutureCallback<Boolean>() {
-			@Override
-			public void onSuccess(Boolean aBoolean) {
-				if (aBoolean) {
-					Chat.message(sender, Messages.premiumPlayerPromoted(playerName));
-				} else {
-					Chat.message(sender, "&cDatabase Connection Error: &eAn error occurred while connecting to the user database.", "&l&7Please report this error to a member of our staff.");
-				}
-			}
+        // = Commons.getInstance().getAsyncExecuter().submit(new UpdatePlayerPremiumCallable(playerName, true));
+        Futures.addCallback(updatePremiumStatusFuture, new FutureCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean aBoolean) {
+                if (aBoolean) {
+                    Chat.message(sender, Messages.premiumPlayerPromoted(playerName));
+                } else {
+                    Chat.message(sender, "&cDatabase Connection Error: &eAn error occurred while connecting to the user database.", "&l&7Please report this error to a member of our staff.");
+                }
+            }
 
-			@Override
-			public void onFailure(Throwable throwable) {
-				Chat.message(sender, "&cDatabase Connection Error: &eAn error occurred while connecting to the user database.", "&l&7Please report this error to a member of our staff.");
-			}
-		});
-	}
+            @Override
+            public void onFailure(Throwable throwable) {
+                Chat.message(sender, "&cDatabase Connection Error: &eAn error occurred while connecting to the user database.", "&l&7Please report this error to a member of our staff.");
+            }
+        });
+    }
 }

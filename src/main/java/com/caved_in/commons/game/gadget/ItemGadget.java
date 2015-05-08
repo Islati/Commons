@@ -6,50 +6,51 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+
 public abstract class ItemGadget implements Gadget {
 
-	private ItemStack gadgetItem;
+    private ItemStack gadgetItem;
 
-	private GadgetProperties properties = new GadgetProperties();
+    private GadgetProperties properties = new GadgetProperties();
 
-	public ItemGadget() {
+    public ItemGadget() {
 
-	}
+    }
 
-	public ItemGadget(ItemBuilder builder) {
-		ItemStack item = builder.item();
-		setItem(item);
-	}
+    public ItemGadget(ItemBuilder builder) {
+        ItemStack item = builder.item();
+        setItem(item);
+    }
 
-	public ItemGadget(ItemStack item) {
-		setItem(item);
-	}
+    public ItemGadget(ItemStack item) {
+        setItem(item);
+    }
 
-	public ItemStack getItem() {
-		return gadgetItem;
-	}
+    public ItemStack getItem() {
+        return gadgetItem;
+    }
 
-	public void setItem(ItemStack item) {
-		this.gadgetItem = item.clone();
-		properties.durability(item);
-	}
+    public void setItem(ItemStack item) {
+        this.gadgetItem = item.clone();
+        properties.durability(item);
+    }
 
-	public void giveTo(Player player) {
-		Players.giveItem(player, getItem());
-	}
+    public void giveTo(Player player) {
+        Players.giveItem(player, getItem());
+    }
 
-	public abstract int id();
+    public abstract int id();
 
-	public abstract void perform(Player holder);
+    public abstract void perform(Player holder);
 
-	public void onDrop(Player player, Item dropped) {
+    public void onDrop(Player player, Item dropped) {
 
-	}
+    }
 
-	@Override
-	public GadgetProperties properties() {
-		return properties;
-	}
+    @Override
+    public GadgetProperties properties() {
+        return properties;
+    }
 
 
 }

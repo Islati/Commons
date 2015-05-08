@@ -12,44 +12,44 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
 
-	private WorldConfiguration worldConfig;
+    private WorldConfiguration worldConfig;
 
-	private Players playerHandler;
+    private Players playerHandler;
 
-	public EntityDamageListener() {
-		worldConfig = Commons.getInstance().getConfiguration().getWorldConfig();
+    public EntityDamageListener() {
+        worldConfig = Commons.getInstance().getConfiguration().getWorldConfig();
 
-		playerHandler = Commons.getInstance().getPlayerHandler();
-	}
+        playerHandler = Commons.getInstance().getPlayerHandler();
+    }
 
-	@EventHandler
-	public void onEntityDamageEvent(EntityDamageEvent e) {
-		EntityDamageEvent.DamageCause cause = e.getCause();
+    @EventHandler
+    public void onEntityDamageEvent(EntityDamageEvent e) {
+        EntityDamageEvent.DamageCause cause = e.getCause();
 
-		if (!worldConfig.hasFallDamage()) {
-			/*
+        if (!worldConfig.hasFallDamage()) {
+            /*
 			As this listener is only registered when fall damage is disabled, we're only
 			going to cancel the event when an entity is damaged via falling.
 			 */
-			if (cause == EntityDamageEvent.DamageCause.FALL) {
-				e.setCancelled(true);
-			}
-		}
+            if (cause == EntityDamageEvent.DamageCause.FALL) {
+                e.setCancelled(true);
+            }
+        }
 
-		Entity damaged = e.getEntity();
-		if (!(damaged instanceof Player)) {
-			return;
-		}
+        Entity damaged = e.getEntity();
+        if (!(damaged instanceof Player)) {
+            return;
+        }
 
-		Player damagedPlayer = (Player) damaged;
-		MinecraftPlayer mcPlayer = playerHandler.getData(damagedPlayer);
+        Player damagedPlayer = (Player) damaged;
+        MinecraftPlayer mcPlayer = playerHandler.getData(damagedPlayer);
 
-		if (mcPlayer.hasGodMode()) {
+        if (mcPlayer.hasGodMode()) {
 //			if (!damagedPlayer.hasPermission(Perms.COMMAND_GOD_MODE)) {
 //				mcPlayer.setGodMode(false);
 //				return;
 //			}
-			e.setCancelled(true);
-		}
-	}
+            e.setCancelled(true);
+        }
+    }
 }

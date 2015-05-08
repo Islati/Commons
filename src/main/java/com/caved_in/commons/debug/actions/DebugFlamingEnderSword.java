@@ -10,34 +10,34 @@ import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 
 public class DebugFlamingEnderSword implements DebugAction {
-	private static boolean registered = false;
-	private static int gadgetId;
+    private static boolean registered = false;
+    private static int gadgetId;
 
-	@Override
-	public void doAction(Player player, String... args) {
-		if (registered) {
-			Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
-			return;
-		}
+    @Override
+    public void doAction(Player player, String... args) {
+        if (registered) {
+            Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
+            return;
+        }
 
-		if (args.length == 0) {
-			Chat.message(player, Messages.invalidCommandUsage("gadget id"));
-			return;
-		}
+        if (args.length == 0) {
+            Chat.message(player, Messages.invalidCommandUsage("gadget id"));
+            return;
+        }
 
-		int id = StringUtil.getNumberAt(args, 0, 1886);
+        int id = StringUtil.getNumberAt(args, 0, 1886);
 
-		Chat.message(player, "&cRegistering flame-sword with id " + id);
-		gadgetId = id;
-		if (!Gadgets.isGadget(id)) {
-			Gadgets.registerGadget(new FlamingEnderSword(id));
-			registered = true;
-		}
-		Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
-	}
+        Chat.message(player, "&cRegistering flame-sword with id " + id);
+        gadgetId = id;
+        if (!Gadgets.isGadget(id)) {
+            Gadgets.registerGadget(new FlamingEnderSword(id));
+            registered = true;
+        }
+        Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
+    }
 
-	@Override
-	public String getActionName() {
-		return "ender_sword";
-	}
+    @Override
+    public String getActionName() {
+        return "ender_sword";
+    }
 }

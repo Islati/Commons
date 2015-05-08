@@ -9,31 +9,31 @@ import org.bukkit.event.HandlerList;
  * The ArenaLoadEvent is called whenever an arena is loaded into the minigames ArenaManager
  */
 public class ArenaLoadEvent extends Event {
-	private static HandlerList handlers = new HandlerList();
+    private static HandlerList handlers = new HandlerList();
 
-	private Arena loaded;
+    private Arena loaded;
 
-	private MiniGame game;
+    private MiniGame game;
 
-	public ArenaLoadEvent(MiniGame game, Arena loaded) {
-		this.game = game;
-		this.loaded = loaded;
-	}
+    public ArenaLoadEvent(MiniGame game, Arena loaded) {
+        this.game = game;
+        this.loaded = loaded;
+    }
 
-	@Override
-	public HandlerList getHandlers() {
-		return handlers;
-	}
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
 
-	public Arena getArena() {
-		return loaded;
-	}
+    public Arena getArena() {
+        return loaded;
+    }
 
-	public static HandlerList getHandlerList() {
-		return handlers;
-	}
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
 
-	public MiniGame getGame() {
-		return game;
-	}
+    public MiniGame getGame() {
+        return game;
+    }
 }

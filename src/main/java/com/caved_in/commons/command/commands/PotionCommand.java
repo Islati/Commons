@@ -11,15 +11,15 @@ import com.caved_in.commons.potion.Potions;
 import org.bukkit.entity.Player;
 
 public class PotionCommand {
-	//TODO Make menu where players can select potion types, and then a subsequent menu where they
-	//select the level of the potion.
-	@Command(identifier = "potion", permissions = Perms.COMMAND_POTION)
-	public void onPotionCommand(Player player, @Arg(name = "type") String potionType, @Arg(name = "level", def = "1") int effectLevel) {
-		if (!PotionType.isPotionType(potionType)) {
-			Chat.message(player, Messages.INVALID_POTION_TYPE);
-			return;
-		}
+    //TODO Make menu where players can select potion types, and then a subsequent menu where they
+    //select the level of the potion.
+    @Command(identifier = "potion", permissions = Perms.COMMAND_POTION)
+    public void onPotionCommand(Player player, @Arg(name = "type") String potionType, @Arg(name = "level", def = "1") int effectLevel) {
+        if (!PotionType.isPotionType(potionType)) {
+            Chat.message(player, Messages.INVALID_POTION_TYPE);
+            return;
+        }
 
-		Players.addPotionEffect(player, Potions.getPotionEffect(PotionType.getPotionType(potionType).getPotionEffectType(), effectLevel, Integer.MAX_VALUE));
-	}
+        Players.addPotionEffect(player, Potions.getPotionEffect(PotionType.getPotionType(potionType).getPotionEffectType(), effectLevel, Integer.MAX_VALUE));
+    }
 }

@@ -11,20 +11,20 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 
 public class TimeCommand {
-	@Command(identifier = "time", permissions = Perms.COMMAND_TIME)
-	public void onTimeCommand(CommandSender sender, @Arg(name = "world", def = "?sender") World world, @Arg(name = "time") String time) {
-		time = time.toLowerCase();
-		//Switch on what the player entered
-		switch (time) {
-			case "day":
-			case "night":
-			case "dawn":
-				Worlds.setTime(world, WorldTime.getWorldTime(time));
-				Chat.message(sender, Messages.timeUpdated(world.getName(), time));
-				break;
-			default:
-				Chat.message(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
-				break;
-		}
-	}
+    @Command(identifier = "time", permissions = Perms.COMMAND_TIME)
+    public void onTimeCommand(CommandSender sender, @Arg(name = "world", def = "?sender") World world, @Arg(name = "time") String time) {
+        time = time.toLowerCase();
+        //Switch on what the player entered
+        switch (time) {
+            case "day":
+            case "night":
+            case "dawn":
+                Worlds.setTime(world, WorldTime.getWorldTime(time));
+                Chat.message(sender, Messages.timeUpdated(world.getName(), time));
+                break;
+            default:
+                Chat.message(sender, Messages.invalidCommandUsage("Time [day/night/dawn]"));
+                break;
+        }
+    }
 }

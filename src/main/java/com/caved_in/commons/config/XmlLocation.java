@@ -11,58 +11,58 @@ import org.simpleframework.xml.Root;
  */
 @Root(name = "location")
 public class XmlLocation extends BaseLocation {
-	@Element(name = "world")
-	private String worldName;
+    @Element(name = "world")
+    private String worldName;
 
-	@Element(name = "x-pos")
-	private double x;
+    @Element(name = "x-pos")
+    private double x;
 
-	@Element(name = "y-pos")
-	private double y;
+    @Element(name = "y-pos")
+    private double y;
 
-	@Element(name = "z-pos")
-	private double z;
+    @Element(name = "z-pos")
+    private double z;
 
-	@Element(name = "pitch", required = false)
-	private float pitch;
+    @Element(name = "pitch", required = false)
+    private float pitch;
 
-	@Element(name = "yaw", required = false)
-	private float yaw;
+    @Element(name = "yaw", required = false)
+    private float yaw;
 
 
-	public static XmlLocation fromLocation(Location loc) {
-		return new XmlLocation(loc);
-	}
+    public static XmlLocation fromLocation(Location loc) {
+        return new XmlLocation(loc);
+    }
 
-	public XmlLocation(Location location) {
-		super(location);
-		worldName = Worlds.getWorldName(location);
-		x = location.getX();
-		y = location.getY();
-		z = location.getZ();
-		pitch = location.getPitch();
-		yaw = location.getYaw();
-	}
+    public XmlLocation(Location location) {
+        super(location);
+        worldName = Worlds.getWorldName(location);
+        x = location.getX();
+        y = location.getY();
+        z = location.getZ();
+        pitch = location.getPitch();
+        yaw = location.getYaw();
+    }
 
-	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
-		super(Worlds.getWorld(worldName), x, y, z);
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.worldName = worldName;
-	}
+    public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
+        super(Worlds.getWorld(worldName), x, y, z);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.worldName = worldName;
+    }
 
-	public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
-		super(Worlds.getWorld(worldName), x, y, z, pitch, yaw);
-		this.worldName = worldName;
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.pitch = pitch;
-		this.yaw = yaw;
-	}
+    public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
+        super(Worlds.getWorld(worldName), x, y, z, pitch, yaw);
+        this.worldName = worldName;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.pitch = pitch;
+        this.yaw = yaw;
+    }
 
-	public String getWorldName() {
-		return worldName;
-	}
+    public String getWorldName() {
+        return worldName;
+    }
 }

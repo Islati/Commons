@@ -16,37 +16,37 @@ import java.util.List;
 import java.util.UUID;
 
 public class ScrollingScoreboardWrapper extends AbstractScoreboardWrapper {
-	private Scoreboard scoreboard;
+    private Scoreboard scoreboard;
 
-	private DisplaySlot slot;
+    private DisplaySlot slot;
 
-	private List<BukkitRunnable> threads = Lists.newArrayListWithExpectedSize(2);
+    private List<BukkitRunnable> threads = Lists.newArrayListWithExpectedSize(2);
 
-	public ScrollingScoreboardWrapper(@NonNull BoardManager manager, @NonNull Scoreboard scoreboard, @NonNull ScoreboardInformation info) {
-		super(manager, scoreboard, info);
-	}
+    public ScrollingScoreboardWrapper(@NonNull BoardManager manager, @NonNull Scoreboard scoreboard, @NonNull ScoreboardInformation info) {
+        super(manager, scoreboard, info);
+    }
 
-	@Override
-	public ScrollingScoreboardWrapper assign(Player p) {
-		UUID id = p.getUniqueId();
+    @Override
+    public ScrollingScoreboardWrapper assign(Player p) {
+        UUID id = p.getUniqueId();
 
-		Objective obj = scoreboard.getObjective(slot);
+        Objective obj = scoreboard.getObjective(slot);
 
-		obj.setDisplayName(getInfo().getTitle().toString());
+        obj.setDisplayName(getInfo().getTitle().toString());
 
 //		ScrollingTitleCycler title = new ScrollingTitleCycler(getManager(),id,getInfo());
-		//Create the thread that manages the title cycler. (If required)
+        //Create the thread that manages the title cycler. (If required)
 //		threads.add(title);
 
-		//Create the thread that updates this players scoreboard.
-		threads.add(new UpdatePlayerScrollingScoreboardThread(this));
+        //Create the thread that updates this players scoreboard.
+        threads.add(new UpdatePlayerScrollingScoreboardThread(this));
 
-		//Assign the player their scoreboard.
-		p.setScoreboard(scoreboard);
-		return this;
-	}
+        //Assign the player their scoreboard.
+        p.setScoreboard(scoreboard);
+        return this;
+    }
 
-	public List<BukkitRunnable> getThreads() {
-		return threads;
-	}
+    public List<BukkitRunnable> getThreads() {
+        return threads;
+    }
 }

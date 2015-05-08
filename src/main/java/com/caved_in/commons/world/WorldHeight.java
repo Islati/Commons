@@ -6,7 +6,7 @@ package com.caved_in.commons.world;
  * Time: 11:32 AM
  */
 public enum WorldHeight {
-	ABOVE_SEA_LEVEL,
-	AT_SEA_LEVEL,
-	BELOW_SEA_LEVEL
+    ABOVE_SEA_LEVEL,
+    AT_SEA_LEVEL,
+    BELOW_SEA_LEVEL
 }

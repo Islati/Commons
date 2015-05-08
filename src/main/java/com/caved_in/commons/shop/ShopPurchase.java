@@ -11,8 +11,8 @@ import java.util.UUID;
  * ----------------------------------------------------------------------------
  */
 public class ShopPurchase {
-	private int itemId;
-	private UUID playerId;
-	private long itemSoldTime;
-	private long itemExpireTime;
+    private int itemId;
+    private UUID playerId;
+    private long itemSoldTime;
+    private long itemExpireTime;
 }

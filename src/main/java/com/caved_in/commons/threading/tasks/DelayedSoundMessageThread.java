@@ -13,59 +13,59 @@ import java.util.UUID;
 
 public class DelayedSoundMessageThread implements Runnable {
 
-	private UUID playerId;
+    private UUID playerId;
 
-	private String[] messages;
+    private String[] messages;
 
-	private int messageIndex = 0;
+    private int messageIndex = 0;
 
-	private int finalIndex = 0;
+    private int finalIndex = 0;
 
-	private Sound sound;
+    private Sound sound;
 
-	private Cooldown messageCooldown;
+    private Cooldown messageCooldown;
 
-	private int taskId = 0;
+    private int taskId = 0;
 
-	public DelayedSoundMessageThread(Player player, Sound sound, int secondsDelay, String... messages) {
-		playerId = player.getUniqueId();
-		this.sound = sound;
-		this.messages = messages;
+    public DelayedSoundMessageThread(Player player, Sound sound, int secondsDelay, String... messages) {
+        playerId = player.getUniqueId();
+        this.sound = sound;
+        this.messages = messages;
 
-		//If there's only one message in the array, attempt to split the string on newline
-		//As per default behaviour ;)
-		if (messages.length == 1) {
-			messages = StringUtil.splitOnNewline(messages[0]);
-		}
+        //If there's only one message in the array, attempt to split the string on newline
+        //As per default behaviour ;)
+        if (messages.length == 1) {
+            messages = StringUtil.splitOnNewline(messages[0]);
+        }
 
 
-		finalIndex = messages.length - 1;
-		messageCooldown = new Cooldown(secondsDelay);
-	}
+        finalIndex = messages.length - 1;
+        messageCooldown = new Cooldown(secondsDelay);
+    }
 
-	public void setTaskId(int id) {
-		taskId = id;
-	}
+    public void setTaskId(int id) {
+        taskId = id;
+    }
 
-	@Override
-	public void run() {
-		if (messageIndex >= finalIndex) {
-			Commons.getInstance().getThreadManager().cancelTask(taskId);
-			return;
-		}
+    @Override
+    public void run() {
+        if (messageIndex >= finalIndex) {
+            Commons.getInstance().getThreadManager().cancelTask(taskId);
+            return;
+        }
 
-		Player player = Players.getPlayer(playerId);
-		if (messageCooldown.isOnCooldown(player)) {
-			return;
-		}
-		try {
-			String message = messages[messageIndex];
-			Chat.message(player, message);
-			Sounds.playSound(player, sound);
-			messageCooldown.setOnCooldown(player);
-			messageIndex++;
-		} catch (IndexOutOfBoundsException e) {
-			Commons.getInstance().debug("Uh oh! Message index[" + messageIndex + "] doesn't exist!\n" + StringUtil.joinString(messages, "\n"));
-		}
-	}
+        Player player = Players.getPlayer(playerId);
+        if (messageCooldown.isOnCooldown(player)) {
+            return;
+        }
+        try {
+            String message = messages[messageIndex];
+            Chat.message(player, message);
+            Sounds.playSound(player, sound);
+            messageCooldown.setOnCooldown(player);
+            messageIndex++;
+        } catch (IndexOutOfBoundsException e) {
+            Commons.getInstance().debug("Uh oh! Message index[" + messageIndex + "] doesn't exist!\n" + StringUtil.joinString(messages, "\n"));
+        }
+    }
 }

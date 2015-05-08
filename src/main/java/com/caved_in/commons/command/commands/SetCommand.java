@@ -13,51 +13,51 @@ import com.mysql.jdbc.StringUtils;
 import org.bukkit.entity.Player;
 
 public class SetCommand {
-	private static ItemSetManager sets;
+    private static ItemSetManager sets;
 
-	//todo move item sets to a menu
+    //todo move item sets to a menu
 
-	public SetCommand() {
-		sets = Commons.getInstance().getItemSetManager();
-	}
+    public SetCommand() {
+        sets = Commons.getInstance().getItemSetManager();
+    }
 
-	@Command(identifier = "set", permissions = Perms.SET_COMMAND)
-	public void onSetCommand(Player player, @Wildcard @Arg(name = "name") String name) {
-		if (StringUtils.isNullOrEmpty(name)) {
-			Chat.message(player, Messages.invalidCommandUsage("name(can include spaces)"));
-			return;
-		}
+    @Command(identifier = "set", permissions = Perms.SET_COMMAND)
+    public void onSetCommand(Player player, @Wildcard @Arg(name = "name") String name) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            Chat.message(player, Messages.invalidCommandUsage("name(can include spaces)"));
+            return;
+        }
 
-		ItemSetManager.ItemSet set = sets.getSet(name);
+        ItemSetManager.ItemSet set = sets.getSet(name);
 
-		if (set == null) {
-			Chat.message(player, String.format("&cThe set '&e%s'&c doesn't exist", name));
-			return;
-		}
+        if (set == null) {
+            Chat.message(player, String.format("&cThe set '&e%s'&c doesn't exist", name));
+            return;
+        }
 
-		Players.setInventory(player, set.getInventoryContents(), true);
-		Chat.message(player, String.format("&eYour inventory has been set to the '&a%s&e' item set", set.getName()));
-	}
+        Players.setInventory(player, set.getInventoryContents(), true);
+        Chat.message(player, String.format("&eYour inventory has been set to the '&a%s&e' item set", set.getName()));
+    }
 
-	@Command(identifier = "set list")
-	public void onSetListCommand(Player player) {
-		for (String name : sets.getSetNames()) {
-			Chat.message(player, name);
-		}
-	}
+    @Command(identifier = "set list")
+    public void onSetListCommand(Player player) {
+        for (String name : sets.getSetNames()) {
+            Chat.message(player, name);
+        }
+    }
 
-	@Command(identifier = "set save")
-	public void onSetSaveCommand(Player player, @Wildcard @Arg(name = "name") String name) {
-		if (StringUtils.isNullOrEmpty(name)) {
-			Chat.message(player, Messages.invalidCommandUsage("name(can include spaces)"));
-			return;
-		}
+    @Command(identifier = "set save")
+    public void onSetSaveCommand(Player player, @Wildcard @Arg(name = "name") String name) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            Chat.message(player, Messages.invalidCommandUsage("name(can include spaces)"));
+            return;
+        }
 
-		ItemSetManager.ItemSet set = new ItemSetManager.ItemSet(name, player.getInventory());
-		sets.addSet(set);
+        ItemSetManager.ItemSet set = new ItemSetManager.ItemSet(name, player.getInventory());
+        sets.addSet(set);
 
-		Chat.message(player, String.format("&aSaved the set &e%s&a to file!", name));
+        Chat.message(player, String.format("&aSaved the set &e%s&a to file!", name));
 
-	}
+    }
 
 }

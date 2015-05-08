@@ -10,18 +10,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class PlayerDeathListener implements Listener {
-	private static Players players;
+    private static Players players;
 
-	public PlayerDeathListener() {
-		players = Commons.getInstance().getPlayerHandler();
-	}
+    public PlayerDeathListener() {
+        players = Commons.getInstance().getPlayerHandler();
+    }
 
-	@EventHandler
-	public void onPlayerDeath(PlayerDeathEvent e) {
-		Player player = e.getEntity();
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent e) {
+        Player player = e.getEntity();
 
-		MinecraftPlayer minecrafter = players.getData(player);
+        MinecraftPlayer minecrafter = players.getData(player);
 
-		minecrafter.setPreTeleportLocation(player.getLocation(), PreTeleportType.DEATH);
-	}
+        minecrafter.setPreTeleportLocation(player.getLocation(), PreTeleportType.DEATH);
+    }
 }

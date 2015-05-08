@@ -24,126 +24,126 @@ import java.util.logging.Logger;
 
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
-	private Serializer serializer;
+    private Serializer serializer;
 
-	private BukkitScheduledExecutorService syncExecuter;
+    private BukkitScheduledExecutorService syncExecuter;
 
-	private BukkitScheduledExecutorService asyncExecuter;
+    private BukkitScheduledExecutorService asyncExecuter;
 
-	private BoardManager scoreboardManager;
+    private BoardManager scoreboardManager;
 
-	private RunnableManager threadManager;
+    private RunnableManager threadManager;
 
-	private ItemMessage itemMessage;
+    private ItemMessage itemMessage;
 
-	private Logger logger = getLogger();
+    private Logger logger = getLogger();
 
-	private CommandHandler commandHandler;
+    private CommandHandler commandHandler;
 
-	private PlayerGlowRed playerGlowHandler;
+    private PlayerGlowRed playerGlowHandler;
 
-	public void onEnable() {
-		commandHandler = new CommandHandler(this);
+    public void onEnable() {
+        commandHandler = new CommandHandler(this);
 
-		threadManager = new RunnableManager(this);
+        threadManager = new RunnableManager(this);
 
-		scoreboardManager = new ScoreboardManager(this, 15l);
+        scoreboardManager = new ScoreboardManager(this, 15l);
 
-		syncExecuter = BukkitExecutors.newSynchronous(this);
+        syncExecuter = BukkitExecutors.newSynchronous(this);
 
-		asyncExecuter = BukkitExecutors.newAsynchronous(this);
+        asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
-		playerGlowHandler = new PlayerGlowRed(this);
+        playerGlowHandler = new PlayerGlowRed(this);
 
-		serializer = new Persister();
+        serializer = new Persister();
 
-		if (Plugins.hasProtocolLib()) {
-			itemMessage = new ItemMessage(this);
-		}
+        if (Plugins.hasProtocolLib()) {
+            itemMessage = new ItemMessage(this);
+        }
 
-		//If the game doesn't have a data folder then make one
-		if (!Plugins.hasDataFolder(this)) {
-			Plugins.makeDataFolder(this);
-		}
+        //If the game doesn't have a data folder then make one
+        if (!Plugins.hasDataFolder(this)) {
+            Plugins.makeDataFolder(this);
+        }
 
-		//Assure we've got our configuration initialized, incase any startup options require it.
-		initConfig();
+        //Assure we've got our configuration initialized, incase any startup options require it.
+        initConfig();
 
-		//Call the startup method, where the game performs its startup logic
-		startup();
-	}
+        //Call the startup method, where the game performs its startup logic
+        startup();
+    }
 
-	public void onDisable() {
-		threadManager.cancelTasks();
-		shutdown();
-		Plugins.unregisterHooks(this);
-	}
+    public void onDisable() {
+        threadManager.cancelTasks();
+        shutdown();
+        Plugins.unregisterHooks(this);
+    }
 
 
-	public abstract void startup();
+    public abstract void startup();
 
-	public abstract void shutdown();
+    public abstract void shutdown();
 
-	@Override
-	public String getVersion() {
-		return getDescription().getVersion();
-	}
+    @Override
+    public String getVersion() {
+        return getDescription().getVersion();
+    }
 
-	public abstract String getAuthor();
+    public abstract String getAuthor();
 
-	public abstract void initConfig();
+    public abstract void initConfig();
 
-	public void registerCommands(Object... commands) {
-		commandHandler.registerCommands(commands);
-	}
+    public void registerCommands(Object... commands) {
+        commandHandler.registerCommands(commands);
+    }
 
-	public void registerListeners(Listener... listeners) {
-		Plugins.registerListeners(this, listeners);
-	}
+    public void registerListeners(Listener... listeners) {
+        Plugins.registerListeners(this, listeners);
+    }
 
-	public void registerGadgets(Gadget... gadgets) {
-		for (Gadget gadget : gadgets) {
-			Gadgets.registerGadget(gadget);
-		}
-	}
+    public void registerGadgets(Gadget... gadgets) {
+        for (Gadget gadget : gadgets) {
+            Gadgets.registerGadget(gadget);
+        }
+    }
 
-	public void registerDebugActions(DebugAction... actions) {
-		Debugger.addDebugAction(actions);
-	}
+    public void registerDebugActions(DebugAction... actions) {
+        Debugger.addDebugAction(actions);
+    }
 
-	public BukkitScheduledExecutorService getSyncExecuter() {
-		return syncExecuter;
-	}
+    public BukkitScheduledExecutorService getSyncExecuter() {
+        return syncExecuter;
+    }
 
-	public BukkitScheduledExecutorService getAsyncExecuter() {
-		return asyncExecuter;
-	}
+    public BukkitScheduledExecutorService getAsyncExecuter() {
+        return asyncExecuter;
+    }
 
-	public Serializer getSerializer() {
-		return serializer;
-	}
+    public Serializer getSerializer() {
+        return serializer;
+    }
 
-	public RunnableManager getThreadManager() {
-		return threadManager;
-	}
+    public RunnableManager getThreadManager() {
+        return threadManager;
+    }
 
-	public ItemMessage getItemMessage() {
-		return itemMessage;
-	}
+    public ItemMessage getItemMessage() {
+        return itemMessage;
+    }
 
-	public void debug(String... message) {
-		Chat.messageAll(Players.getAllDebugging(), message);
-		for (String m : message) {
-			logger.log(Level.INFO, m);
-		}
-	}
+    public void debug(String... message) {
+        Chat.messageAll(Players.getAllDebugging(), message);
+        for (String m : message) {
+            logger.log(Level.INFO, m);
+        }
+    }
 
-	public BoardManager getScoreboardManager() {
-		return scoreboardManager;
-	}
+    public BoardManager getScoreboardManager() {
+        return scoreboardManager;
+    }
 
-	public PlayerGlowRed getPlayerGlowHandler() {
-		return playerGlowHandler;
-	}
+    public PlayerGlowRed getPlayerGlowHandler() {
+        return playerGlowHandler;
+    }
 
 }

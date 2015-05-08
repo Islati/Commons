@@ -9,35 +9,35 @@ package com.caved_in.commons.shop;
  * ----------------------------------------------------------------------------
  */
 public class ShopItem implements StoreItem {
-	private int id;
-	private String name;
-	private String description;
-	private double price;
+    private int id;
+    private String name;
+    private String description;
+    private double price;
 
-	public ShopItem(int id, String name, String description, double price) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-	}
+    public ShopItem(int id, String name, String description, double price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
 
-	@Override
-	public int getItemId() {
-		return id;
-	}
+    @Override
+    public int getItemId() {
+        return id;
+    }
 
-	@Override
-	public String getItemName() {
-		return name;
-	}
+    @Override
+    public String getItemName() {
+        return name;
+    }
 
-	@Override
-	public String getItemDescription() {
-		return description;
-	}
+    @Override
+    public String getItemDescription() {
+        return description;
+    }
 
-	@Override
-	public double getItemPrice() {
-		return price;
-	}
+    @Override
+    public double getItemPrice() {
+        return price;
+    }
 }

@@ -11,15 +11,15 @@ import org.bukkit.command.CommandSender;
 
 public class UnsilenceCommand {
 
-	private static Configuration config = Commons.getInstance().getConfiguration();
+    private static Configuration config = Commons.getInstance().getConfiguration();
 
-	public UnsilenceCommand() {
+    public UnsilenceCommand() {
 
-	}
+    }
 
-	@Command(identifier = "unsilence", permissions = Perms.COMMAND_SILENCE, onlyPlayers = false)
-	public void unsilenceLobbyCommand(CommandSender sender) {
-		config.getWorldConfig().setChatSilenced(false);
-		Chat.messageAll(Messages.CHAT_UNSILENCED);
-	}
+    @Command(identifier = "unsilence", permissions = Perms.COMMAND_SILENCE, onlyPlayers = false)
+    public void unsilenceLobbyCommand(CommandSender sender) {
+        config.getWorldConfig().setChatSilenced(false);
+        Chat.messageAll(Messages.CHAT_UNSILENCED);
+    }
 }

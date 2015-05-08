@@ -14,26 +14,26 @@ import org.bukkit.inventory.PlayerInventory;
 
 
 public class HatCommand {
-	@Command(identifier = "hat", permissions = {Perms.COMMAND_HAT})
-	public void hatCommand(Player player, @Arg(name = "hat-item", def = "0") ItemStack hat) {
-		PlayerInventory inventory = player.getInventory();
-		if (hat == null || hat.getType() == Material.AIR) {
-			if (!Items.isAir(inventory.getHelmet())) {
-				Players.giveItem(player, inventory.getHelmet(), true);
-				inventory.setHelmet(null);
-				Chat.message(player, Messages.HAT_UNEQUIPPED);
-				return;
-			}
+    @Command(identifier = "hat", permissions = {Perms.COMMAND_HAT})
+    public void hatCommand(Player player, @Arg(name = "hat-item", def = "0") ItemStack hat) {
+        PlayerInventory inventory = player.getInventory();
+        if (hat == null || hat.getType() == Material.AIR) {
+            if (!Items.isAir(inventory.getHelmet())) {
+                Players.giveItem(player, inventory.getHelmet(), true);
+                inventory.setHelmet(null);
+                Chat.message(player, Messages.HAT_UNEQUIPPED);
+                return;
+            }
 
-			if (Players.hasItemInHand(player)) {
-				inventory.setHelmet(player.getItemInHand());
-				Players.clearHand(player);
-				Chat.message(player, Messages.HAT_EQUIPPED);
-				return;
-			}
-		}
+            if (Players.hasItemInHand(player)) {
+                inventory.setHelmet(player.getItemInHand());
+                Players.clearHand(player);
+                Chat.message(player, Messages.HAT_EQUIPPED);
+                return;
+            }
+        }
 
-		inventory.setHelmet(hat);
-		Chat.message(player, Messages.HAT_EQUIPPED);
-	}
+        inventory.setHelmet(hat);
+        Chat.message(player, Messages.HAT_EQUIPPED);
+    }
 }

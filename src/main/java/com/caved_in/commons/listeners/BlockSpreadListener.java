@@ -7,10 +7,10 @@ import org.bukkit.event.block.BlockSpreadEvent;
 
 public class BlockSpreadListener implements Listener {
 
-	@EventHandler
-	public void onBlockSpread(BlockSpreadEvent event) {
-		if (event.getSource().getType() == Material.MYCEL) {
-			event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onBlockSpread(BlockSpreadEvent event) {
+        if (event.getSource().getType() == Material.MYCEL) {
+            event.setCancelled(true);
+        }
+    }
 }

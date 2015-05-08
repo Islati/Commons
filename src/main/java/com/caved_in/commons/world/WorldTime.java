@@ -6,21 +6,21 @@ package com.caved_in.commons.world;
  * Time: 2:32 PM
  */
 public enum WorldTime {
-	DAWN(0),
-	DAY(1000),
-	NIGHT(12000);
+    DAWN(0),
+    DAY(1000),
+    NIGHT(12000);
 
-	private long time;
+    private long time;
 
-	WorldTime(long time) {
-		this.time = time;
-	}
+    WorldTime(long time) {
+        this.time = time;
+    }
 
-	public long getTime() {
-		return time;
-	}
+    public long getTime() {
+        return time;
+    }
 
-	public static WorldTime getWorldTime(String time) {
-		return WorldTime.valueOf(time.toUpperCase());
-	}
+    public static WorldTime getWorldTime(String time) {
+        return WorldTime.valueOf(time.toUpperCase());
+    }
 }

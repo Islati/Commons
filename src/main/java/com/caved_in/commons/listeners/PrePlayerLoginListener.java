@@ -9,14 +9,14 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
 public class PrePlayerLoginListener implements Listener {
 
-	private static ServerDatabaseConnector database;
+    private static ServerDatabaseConnector database;
 
-	public PrePlayerLoginListener() {
-		database = Commons.getInstance().getServerDatabase();
-	}
+    public PrePlayerLoginListener() {
+        database = Commons.getInstance().getServerDatabase();
+    }
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
 
-	}
+    }
 }

@@ -14,30 +14,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UpdatePlayerScrollingScoreboardThread extends BukkitRunnable {
-	private boolean populated;
+    private boolean populated;
 
-	private static final Commons commons = Commons.getInstance();
+    private static final Commons commons = Commons.getInstance();
 
-	private Map<ScrollingScoreboardEntry, IndexedTextCycler> indexedEntryCyclers = new HashMap<>();
-	private Map<String, Team> prefixesToTeams = new HashMap<>();
+    private Map<ScrollingScoreboardEntry, IndexedTextCycler> indexedEntryCyclers = new HashMap<>();
+    private Map<String, Team> prefixesToTeams = new HashMap<>();
 
-	private ScrollingScoreboardWrapper wrapper;
+    private ScrollingScoreboardWrapper wrapper;
 
-	public UpdatePlayerScrollingScoreboardThread(ScrollingScoreboardWrapper wrapper) {
-		this.wrapper = wrapper;
-	}
+    public UpdatePlayerScrollingScoreboardThread(ScrollingScoreboardWrapper wrapper) {
+        this.wrapper = wrapper;
+    }
 
-	private void init() {
-		indexedEntryCyclers.clear();
-		prefixesToTeams.clear();
+    private void init() {
+        indexedEntryCyclers.clear();
+        prefixesToTeams.clear();
 
-		Collection<ScoreboardEntry> entries = wrapper.getInfo().getEntries();
+        Collection<ScoreboardEntry> entries = wrapper.getInfo().getEntries();
 
-		int entryCount = entries.size();
+        int entryCount = entries.size();
 
-		commons.debug("Entries count = " + entryCount);
+        commons.debug("Entries count = " + entryCount);
 
-		Scoreboard scoreboard = wrapper.getScoreboard();
+        Scoreboard scoreboard = wrapper.getScoreboard();
 //
 //
 //
@@ -83,10 +83,10 @@ public class UpdatePlayerScrollingScoreboardThread extends BukkitRunnable {
 //
 //			commons.debug("Registering team : " + teamName + " @ Element [" + i + "]");
 //		}
-	}
+    }
 
-	@Override
-	public void run() {
+    @Override
+    public void run() {
 //		List<ScrollingScoreboardEntry> entries = wrapper.getInfo().getEntries();
 //
 //		Scoreboard scoreboard = wrapper.getScoreboard();
@@ -118,27 +118,27 @@ public class UpdatePlayerScrollingScoreboardThread extends BukkitRunnable {
 //			obj.getScore(newVal).setScore(indexedCycler.getIndex());
 //			populated = true;
 //		}
-	}
+    }
 
-	public static class IndexedTextCycler {
-		private TextCycler cycler;
-		private int index;
+    public static class IndexedTextCycler {
+        private TextCycler cycler;
+        private int index;
 
-		public IndexedTextCycler(int index, TextCycler cycler) {
-			this.index = index;
-			this.cycler = cycler;
-		}
+        public IndexedTextCycler(int index, TextCycler cycler) {
+            this.index = index;
+            this.cycler = cycler;
+        }
 
-		public int getIndex() {
-			return index;
-		}
+        public int getIndex() {
+            return index;
+        }
 
-		public TextCycler getCycler() {
-			return cycler;
-		}
+        public TextCycler getCycler() {
+            return cycler;
+        }
 
-		public void setCycler(TextCycler cycler) {
-			this.cycler = cycler;
-		}
-	}
+        public void setCycler(TextCycler cycler) {
+            this.cycler = cycler;
+        }
+    }
 }

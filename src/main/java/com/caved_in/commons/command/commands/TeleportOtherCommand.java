@@ -9,9 +9,9 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class TeleportOtherCommand {
-	@Command(identifier = "tpo", permissions = Perms.COMMAND_TELEPORT_OTHER, onlyPlayers = true)
-	public void onTeleportOtherCommand(Player sender, @Arg(name = "player") Player p, @Arg(name = "target") Player target) {
-		Players.teleport(p, target);
-		Chat.message(p, Messages.playerTeleportedToPlayer(target.getName()));
-	}
+    @Command(identifier = "tpo", permissions = Perms.COMMAND_TELEPORT_OTHER, onlyPlayers = true)
+    public void onTeleportOtherCommand(Player sender, @Arg(name = "player") Player p, @Arg(name = "target") Player target) {
+        Players.teleport(p, target);
+        Chat.message(p, Messages.playerTeleportedToPlayer(target.getName()));
+    }
 }

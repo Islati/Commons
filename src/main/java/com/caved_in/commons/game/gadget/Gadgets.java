@@ -12,61 +12,109 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class Gadgets {
-	//Used to assign gadgets an ID auto-magically
+    //Used to assign gadgets an ID auto-magically
 //	private static final AtomicInteger ids = new AtomicInteger(1);
-	private static final Random random = new Random();
+    private static final Random random = new Random();
 
-	//todo Implement methods to get first free int for gadget registration
-	private static final Map<Integer, Gadget> gadgets = new LinkedHashMap<>();
+    //todo Implement methods to get first free int for gadget registration
+    private static final Map<Integer, Gadget> gadgets = new LinkedHashMap<>();
 
-	//todo implement int method to return the registered gadgets id
-	//todo Move Gadgets class to a manager for each plugin made with commons
-	public static void registerGadget(Gadget gadget) {
-		gadgets.put(gadget.id(), gadget);
-		Plugins.registerListener(Commons.getInstance(), gadget);
-	}
+    //todo implement int method to return the registered gadgets id
+    //todo Move Gadgets class to a manager for each plugin made with commons
 
-	public static boolean isGadget(ItemStack item) {
-		return getGadget(item) != null;
-	}
+    /**
+     * Register the given gadget, enabling it's effects to be utilized whenever the associated item is used.
+     * Note: Every gadget must have a unique id, if not, the previously registered gadget will be overwritten.
+     *
+     * @param gadget gadget to register.
+     */
+    public static void registerGadget(Gadget gadget) {
+        gadgets.put(gadget.id(), gadget);
+        Plugins.registerListener(Commons.getInstance(), gadget);
+    }
 
-	public static boolean isGadget(int id) {
-		return gadgets.containsKey(id);
-	}
+    /**
+     * Check whether or not the given itemstack is a gadget / has gadget data associated with it.
+     *
+     * @param item item to check
+     * @return true if the item is a gadget, false otherwisse.
+     */
+    public static boolean isGadget(ItemStack item) {
+        return getGadget(item) != null;
+    }
 
-	public static Gadget getGadget(ItemStack item) {
-		for (Gadget gadget : gadgets.values()) {
-			if (gadget instanceof BaseGun) {
+    /**
+     * Check whether or not a gadget with the given id exists.
+     *
+     * @param id id of the gadget to check for
+     * @return true if a gadget exists with the given id, false otherwise.
+     */
+    public static boolean isGadget(int id) {
+        return gadgets.containsKey(id);
+    }
 
-				BaseGun gun = (BaseGun) gadget;
-				if (Items.nameContains(item, gun.getItemName())) {
-					return gun;
-				}
-			} else if (gadget.getItem().isSimilar(item)) {
-				return gadget;
-			}
-		}
-		return null;
-	}
+    /**
+     * Retrieve a gadget its associated item stack.
+     *
+     * @param item item to get the gadget container for.
+     * @return the gadget associated with the given itemstack, or null if no gadget is associated.
+     */
+    public static Gadget getGadget(ItemStack item) {
+        for (Gadget gadget : gadgets.values()) {
+            if (gadget instanceof BaseGun) {
 
-	public static Gadget getGadget(int id) {
-		return gadgets.get(id);
-	}
+                BaseGun gun = (BaseGun) gadget;
+                if (Items.nameContains(item, gun.getItemName())) {
+                    return gun;
+                }
+            } else if (gadget.getItem().isSimilar(item)) {
+                return gadget;
+            }
+        }
+        return null;
+    }
 
-	public static void spawnGadget(Gadget gadget, Location location) {
-		Worlds.dropItem(location, gadget.getItem());
-	}
+    /**
+     * Retrieve a gadget by its registered id.
+     *
+     * @param id id of the gadget to get
+     * @return gadget registered with the given id, or null if none are registered with the given id.
+     */
+    public static Gadget getGadget(int id) {
+        return gadgets.get(id);
+    }
 
-	public static Gadget getRandomGadget() {
-		List<Gadget> gadgetList = Lists.newArrayList(gadgets.values());
-		return gadgetList.get(random.nextInt(gadgetList.size()));
-	}
+    /**
+     * Spawn the gadget at the given location.
+     *
+     * @param gadget   gadget to drop at the location
+     * @param location location to spawn the gadget at
+     */
+    public static void spawnGadget(Gadget gadget, Location location) {
+        Worlds.dropItem(location, gadget.getItem());
+    }
 
-	public static Collection<Gadget> getAllGadgets() {
-		return gadgets.values();
-	}
+    /**
+     * Retrieve a random gadget from the list of currently registered gadgets
+     *
+     * @return random gadget of the registered gadgets
+     */
+    public static Gadget getRandomGadget() {
+        List<Gadget> gadgetList = Lists.newArrayList(gadgets.values());
+        return gadgetList.get(random.nextInt(gadgetList.size()));
+    }
 
-	public static int getGadgetCount() {
-		return gadgets.size();
-	}
+    /**
+     * @return a collection of all the currently registered gadgets
+     */
+    public static Collection<Gadget> getAllGadgets() {
+        return gadgets.values();
+    }
+
+    /**
+     * @return the amount of registered gadgets
+     */
+    public static int getGadgetCount() {
+        return gadgets.size();
+    }
 }

@@ -8,31 +8,31 @@ import org.bukkit.entity.Player;
 
 public class HasSqlBackendItem extends MenuItem {
 
-	private Configuration config = Commons.getInstance().getConfiguration();
+    private Configuration config = Commons.getInstance().getConfiguration();
 
-	public HasSqlBackendItem() {
-		super();
-		init();
-	}
+    public HasSqlBackendItem() {
+        super();
+        init();
+    }
 
-	private void init() {
-		boolean hasSqlBackend = Commons.getInstance().getConfiguration().hasSqlBackend();
-		if (hasSqlBackend) {
-			setText("&aMySql Backend");
-			setIcon(Wool.GREEN_WOOL);
-			setDescriptions("&eClick to disable the MySQL Backend");
-		} else {
-			setText("&cMySql Backend");
-			setIcon(Wool.RED_WOOL);
-			setDescriptions("&eClick to enable the MySQL Backend");
-		}
-	}
+    private void init() {
+        boolean hasSqlBackend = Commons.getInstance().getConfiguration().hasSqlBackend();
+        if (hasSqlBackend) {
+            setText("&aMySql Backend");
+            setIcon(Wool.GREEN_WOOL);
+            setDescriptions("&eClick to disable the MySQL Backend");
+        } else {
+            setText("&cMySql Backend");
+            setIcon(Wool.RED_WOOL);
+            setDescriptions("&eClick to enable the MySQL Backend");
+        }
+    }
 
-	@Override
-	public void onClick(Player player) {
-		boolean hasSqlBackend = !config.hasSqlBackend();
-		config.setSqlBackend(hasSqlBackend);
-		init();
-		getMenu().updateMenu();
-	}
+    @Override
+    public void onClick(Player player) {
+        boolean hasSqlBackend = !config.hasSqlBackend();
+        config.setSqlBackend(hasSqlBackend);
+        init();
+        getMenu().updateMenu();
+    }
 }

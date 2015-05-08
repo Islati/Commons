@@ -18,38 +18,38 @@ import java.util.Set;
 
 public class DebugItemDeserialize implements DebugAction {
 
-	@Override
-	public void doAction(Player player, String... args) {
-		Serializer serializer = new Persister();
-		File debugFolder = new File(Commons.DEBUG_DATA_FOLDER);
-		if (!debugFolder.exists()) {
-			debugFolder.mkdirs();
-		}
+    @Override
+    public void doAction(Player player, String... args) {
+        Serializer serializer = new Persister();
+        File debugFolder = new File(Commons.DEBUG_DATA_FOLDER);
+        if (!debugFolder.exists()) {
+            debugFolder.mkdirs();
+        }
 
-		Set<ItemStack> deserializedItems = new HashSet<>();
-		for (File file : FileUtils.listFiles(debugFolder, null, false)) {
-			try {
-				if (serializer.validate(XmlItemStack.class, file)) {
-					XmlItemStack xmlItem = serializer.read(XmlItemStack.class, file);
-					ItemStack deserializedItem = xmlItem.getItemStack();
-					deserializedItems.add(deserializedItem);
-					Chat.message(player, Messages.itemInfo(deserializedItem));
+        Set<ItemStack> deserializedItems = new HashSet<>();
+        for (File file : FileUtils.listFiles(debugFolder, null, false)) {
+            try {
+                if (serializer.validate(XmlItemStack.class, file)) {
+                    XmlItemStack xmlItem = serializer.read(XmlItemStack.class, file);
+                    ItemStack deserializedItem = xmlItem.getItemStack();
+                    deserializedItems.add(deserializedItem);
+                    Chat.message(player, Messages.itemInfo(deserializedItem));
 
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-		if (deserializedItems.size() > 0) {
-			for (ItemStack item : deserializedItems) {
-				Players.giveItem(player, item, true);
-			}
-		}
-	}
+        if (deserializedItems.size() > 0) {
+            for (ItemStack item : deserializedItems) {
+                Players.giveItem(player, item, true);
+            }
+        }
+    }
 
-	@Override
-	public String getActionName() {
-		return "item_deserialize";
-	}
+    @Override
+    public String getActionName() {
+        return "item_deserialize";
+    }
 }

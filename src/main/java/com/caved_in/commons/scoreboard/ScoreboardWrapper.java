@@ -8,25 +8,25 @@ import java.util.Collection;
 
 public interface ScoreboardWrapper {
 
-	public Scoreboard getScoreboard();
+    public Scoreboard getScoreboard();
 
-	public void setScoreboard(Scoreboard board);
+    public void setScoreboard(Scoreboard board);
 
-	public ScoreboardInformation getInfo();
+    public ScoreboardInformation getInfo();
 
-	public void setInfo(ScoreboardInformation info);
+    public void setInfo(ScoreboardInformation info);
 
-	public void setDisplaySlot(DisplaySlot slot);
+    public void setDisplaySlot(DisplaySlot slot);
 
-	public BoardManager getManager();
+    public BoardManager getManager();
 
-	public ScoreboardWrapper assign(Player p);
+    public ScoreboardWrapper assign(Player p);
 
-	public default boolean hasThreads() {
-		return false;
-	}
+    public default boolean hasThreads() {
+        return false;
+    }
 
-	public default Collection<? extends Runnable> getThreads() {
-		return null;
-	}
+    public default Collection<? extends Runnable> getThreads() {
+        return null;
+    }
 }

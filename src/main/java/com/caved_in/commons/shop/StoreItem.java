@@ -9,11 +9,11 @@ package com.caved_in.commons.shop;
  * ----------------------------------------------------------------------------
  */
 public interface StoreItem {
-	public int getItemId();
+    public int getItemId();
 
-	public double getItemPrice();
+    public double getItemPrice();
 
-	public String getItemName();
+    public String getItemName();
 
-	public String getItemDescription();
+    public String getItemDescription();
 }

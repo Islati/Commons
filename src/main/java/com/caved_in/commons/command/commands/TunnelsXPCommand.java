@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 public class TunnelsXPCommand {
 
-	@Command(identifier = "xp")
-	public void playerXPCommand(Player player) {
-		Chat.message(player, Messages.playerXpBalance(player));
-	}
+    @Command(identifier = "xp")
+    public void playerXPCommand(Player player) {
+        Chat.message(player, Messages.playerXpBalance(player));
+    }
 }

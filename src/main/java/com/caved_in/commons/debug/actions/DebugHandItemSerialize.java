@@ -18,42 +18,42 @@ import java.util.Arrays;
 
 public class DebugHandItemSerialize implements DebugAction {
 
-	@Override
-	public void doAction(Player player, String... args) {
-		if (!Players.hasItemInHand(player)) {
-			Chat.message(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
-			return;
-		}
+    @Override
+    public void doAction(Player player, String... args) {
+        if (!Players.hasItemInHand(player)) {
+            Chat.message(player, Messages.DEBUG_ACTION_REQUIRES_HAND_ITEM);
+            return;
+        }
 
-		Serializer serializer = new Persister();
-		ItemStack playerHand = player.getItemInHand();
-		Items.setName(playerHand, "&bThe Debugger");
-		Items.setLore(playerHand, Arrays.asList("&eDebugging le hand item", "&6By adding lines of lore"));
-		File itemFile = new File(String.format(Commons.DEBUG_DATA_FOLDER + "%s.xml", String.valueOf(System.currentTimeMillis())));
+        Serializer serializer = new Persister();
+        ItemStack playerHand = player.getItemInHand();
+        Items.setName(playerHand, "&bThe Debugger");
+        Items.setLore(playerHand, Arrays.asList("&eDebugging le hand item", "&6By adding lines of lore"));
+        File itemFile = new File(String.format(Commons.DEBUG_DATA_FOLDER + "%s.xml", String.valueOf(System.currentTimeMillis())));
 
-		if (!itemFile.exists()) {
-			try {
-				if (itemFile.createNewFile()) {
-					Chat.message(player, "Created item file at " + itemFile.getPath());
-				} else {
-					Chat.message(player, "Failed to create item file at " + itemFile.getPath());
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+        if (!itemFile.exists()) {
+            try {
+                if (itemFile.createNewFile()) {
+                    Chat.message(player, "Created item file at " + itemFile.getPath());
+                } else {
+                    Chat.message(player, "Failed to create item file at " + itemFile.getPath());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-		try {
-			serializer.write(new XmlItemStack(playerHand), itemFile);
-			Chat.message(player, "Saved item to " + itemFile.toString());
-		} catch (Exception e) {
-			Chat.message(player, "Error saving item to " + itemFile.toString());
-			e.printStackTrace();
-		}
-	}
+        try {
+            serializer.write(new XmlItemStack(playerHand), itemFile);
+            Chat.message(player, "Saved item to " + itemFile.toString());
+        } catch (Exception e) {
+            Chat.message(player, "Error saving item to " + itemFile.toString());
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public String getActionName() {
-		return "hand_item_serialize";
-	}
+    @Override
+    public String getActionName() {
+        return "hand_item_serialize";
+    }
 }

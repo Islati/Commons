@@ -4,6 +4,26 @@
  + = Added
 -------------
 
+March 8'th, 2015 (Build 1.8.6):
+	~ Finished documenting Blocks.java
+	~ Updated SpawnMob command to require extra permission to spawn an ender dragon.
+	~ Modified MobType to now include the EnderDragon type.
+	~ Documented the remainder of BlockData.java
+	~ Finished Documenting Entities Class
+	~ Finished Documenting Fireworks.java
+	~ Documented all classes in game/clause
+	~ Documented all classes in game/event
+	~ Documented Gadget.java
+	~ Documented GadgetAction.java
+	~ Documented Gadgets.java
+	~ Documented GadgetProperties.java
+
+April 29'th, 2015 (Build 1.8.6):
+	+ Created the /grass Command, to simulate the placement of bonemeal, with flowers, and shtuff.
+	~ Added ChainMail armor to ArmorType and ArmorSet (including command)
+	~ Finished Documenting Inventories.java... 400+ classes to go!
+	+ Documented the Gadgets.java
+	~ Continued Documenting Items.java from the bottom-up
 April 23'rd, 2015 (Build 1.8.6):
     - Removed the previous methods inside MinecraftPlayer for teleport request, kept it inside the commands itself using the confirmation menu class.
     + Implemented the SignChangeListener to colorize the text on signs.

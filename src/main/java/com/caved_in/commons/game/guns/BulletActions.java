@@ -7,7 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public interface BulletActions extends CreatureHitAction, BlockHitAction {
-	public void onHit(Player player, LivingEntity target);
+    public void onHit(Player player, LivingEntity target);
 
-	public void onHit(Player player, Block block);
+    public void onHit(Player player, Block block);
 }

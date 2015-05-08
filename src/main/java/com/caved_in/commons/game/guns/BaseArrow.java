@@ -65,8 +65,6 @@ public abstract class BaseArrow extends ItemGadget {
             Chat.debug(((Player) entity).getName() + " has infinty on their bow");
         }
 
-//        firedArrows.put(entity.getUniqueId(),)
-
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -75,17 +73,14 @@ public abstract class BaseArrow extends ItemGadget {
         Entity entityDamaged = e.getEntity();
 
         if (e.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
-//            commons.debug("Not a custom arrow; Not a projectile!");
             return;
         }
 
         if (!(entityDamaged instanceof LivingEntity)) {
-//            commons.debug("Entity Damaged isn't a living entity");
             return;
         }
 
         if (!(entityDamager instanceof Arrow)) {
-//            commons.debug("Nota custom arrow; Not instance of arrow");
             return;
         }
 
@@ -93,7 +88,6 @@ public abstract class BaseArrow extends ItemGadget {
         ProjectileSource arrowShooter = shotArrow.getShooter();
 
         if (!(arrowShooter instanceof Player)) {
-//            commons.debug("Not shot from a player");
             return;
         }
 
@@ -101,10 +95,8 @@ public abstract class BaseArrow extends ItemGadget {
         //todo implement get-first-arrow-method
 
         int arrowSlot = Inventories.getFirst(player.getInventory(), Material.ARROW);
-//        commons.debug("First arrow slot = " + arrowSlot);
 
         if (arrowSlot == -1) {
-//            commons.debug("Player " + player.getName() + " doesn't have any '" + Items.getName(getItem()) + "'");
             return;
         }
 
@@ -115,17 +107,14 @@ public abstract class BaseArrow extends ItemGadget {
         }
 
         if (!arrowStack.isSimilar(getItem())) {
-//            Chat.debug("Player shot " + Items.getName(arrowStack) + ", not " + Items.getName(getItem()));
             return;
         }
 
         if (!onDamage((LivingEntity) entityDamaged, player)) {
             e.setCancelled(true);
-//            commons.debug("Was unable to attack entity!");
             return;
         }
 
-//        commons.debug(player.getName() + " shot a(n) [" + entityDamaged.getType() + "] with their '" + Items.getName(arrowStack) + "'");
 
         if (infinityIds.contains(player.getUniqueId())) {
             arrowStack = Items.removeFromStack(arrowStack, 1);

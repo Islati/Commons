@@ -13,29 +13,29 @@ import org.bukkit.entity.Player;
 
 public class BackCommand {
 
-	private Players players = Commons.getInstance().getPlayerHandler();
+    private Players players = Commons.getInstance().getPlayerHandler();
 
-	public BackCommand() {
+    public BackCommand() {
 
-	}
+    }
 
-	@Command(identifier = "back", onlyPlayers = true, permissions = {Perms.COMMAND_BACK})
-	public void onBackCommand(Player player) {
-		MinecraftPlayer minecraftPlayer = players.getData(player);
-		Location location = minecraftPlayer.getPreTeleportLocation();
+    @Command(identifier = "back", onlyPlayers = true, permissions = {Perms.COMMAND_BACK})
+    public void onBackCommand(Player player) {
+        MinecraftPlayer minecraftPlayer = players.getData(player);
+        Location location = minecraftPlayer.getPreTeleportLocation();
 
-		if (location == null) {
-			Chat.message(player, Messages.NO_TELEPORT_BACK_LOCATION);
-			return;
-		}
+        if (location == null) {
+            Chat.message(player, Messages.NO_TELEPORT_BACK_LOCATION);
+            return;
+        }
 
-		PreTeleportLocation preTeleLoc = minecraftPlayer.getPreTeleportLocation();
+        PreTeleportLocation preTeleLoc = minecraftPlayer.getPreTeleportLocation();
 
-		if (!preTeleLoc.hasPermission(player)) {
-			Chat.message(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
-			return;
-		}
+        if (!preTeleLoc.hasPermission(player)) {
+            Chat.message(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
+            return;
+        }
 
-		Players.teleport(player, preTeleLoc);
-	}
+        Players.teleport(player, preTeleLoc);
+    }
 }

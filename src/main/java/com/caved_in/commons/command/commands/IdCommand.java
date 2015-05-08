@@ -12,25 +12,25 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 public class IdCommand {
-	@Command(identifier = "id", permissions = Perms.COMMAND_ID)
-	public void onIdCommand(Player player, @Arg(name = "item", def = "0") String item) {
-		if (item == null || "0".equals(item)) {
-			if (!Players.hasItemInHand(player)) {
-				Chat.message(player, "&eEither &ogive an item name as an argument, &e&lor&r&e &ohold an item in your hand&r&e.");
-				return;
-			}
+    @Command(identifier = "id", permissions = Perms.COMMAND_ID)
+    public void onIdCommand(Player player, @Arg(name = "item", def = "0") String item) {
+        if (item == null || "0".equals(item)) {
+            if (!Players.hasItemInHand(player)) {
+                Chat.message(player, "&eEither &ogive an item name as an argument, &e&lor&r&e &ohold an item in your hand&r&e.");
+                return;
+            }
 
-			Chat.message(player, Messages.itemId(player.getItemInHand()));
-			return;
-		}
+            Chat.message(player, Messages.itemId(player.getItemInHand()));
+            return;
+        }
 
-		Material material = null;
+        Material material = null;
 
-		try {
-			material = Items.getMaterialByName(item);
-			Chat.message(player, Messages.itemId(item, material));
-		} catch (InvalidMaterialNameException e) {
-			Chat.message(player, Messages.invalidItem(item));
-		}
-	}
+        try {
+            material = Items.getMaterialByName(item);
+            Chat.message(player, Messages.itemId(item, material));
+        } catch (InvalidMaterialNameException e) {
+            Chat.message(player, Messages.invalidItem(item));
+        }
+    }
 }

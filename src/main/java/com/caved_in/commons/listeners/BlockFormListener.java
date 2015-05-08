@@ -9,28 +9,28 @@ import org.bukkit.event.block.BlockFormEvent;
 
 public class BlockFormListener implements Listener {
 
-	private Configuration config;
+    private Configuration config;
 
-	public BlockFormListener() {
-		config = Commons.getInstance().getConfiguration();
-	}
+    public BlockFormListener() {
+        config = Commons.getInstance().getConfiguration();
+    }
 
-	@EventHandler
-	public void onBlockForm(BlockFormEvent event) {
-		Material blockType = event.getNewState().getType();
-		switch (blockType) {
-			case SNOW:
-				if (config.getWorldConfig().isSnowSpreadDisabled()) {
-					event.setCancelled(true);
-				}
-				break;
-			case ICE:
-				if (config.getWorldConfig().isIceSpreadDisabled()) {
-					event.setCancelled(true);
-				}
-				break;
-			default:
-				break;
-		}
-	}
+    @EventHandler
+    public void onBlockForm(BlockFormEvent event) {
+        Material blockType = event.getNewState().getType();
+        switch (blockType) {
+            case SNOW:
+                if (config.getWorldConfig().isSnowSpreadDisabled()) {
+                    event.setCancelled(true);
+                }
+                break;
+            case ICE:
+                if (config.getWorldConfig().isIceSpreadDisabled()) {
+                    event.setCancelled(true);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
