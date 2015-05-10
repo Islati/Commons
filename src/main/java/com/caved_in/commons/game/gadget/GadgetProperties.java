@@ -8,6 +8,10 @@ import org.simpleframework.xml.Root;
 
 @Root(name = "gadget-properties")
 @ToString(of = {"durability", "isBreakable", "isDroppable"})
+/**
+ * All the properties specific to Gadgets, accessed through any Gadget instance, it manages properties specific
+ * to each gadget instance.
+ */
 public class GadgetProperties {
     /*
     The durability of the item (How many uses it has)
