@@ -8,21 +8,24 @@ import org.bukkit.block.Block;
 
 import java.util.List;
 
+/**
+ * 
+ */
 public interface GameArena {
 
-    public int id();
+    int id();
 
-    public String getArenaName();
+    String getArenaName();
 
-    public String getWorldName();
+    String getWorldName();
 
-    public World getWorld();
+    World getWorld();
 
-    public default boolean isWorldLoaded() {
+    default boolean isWorldLoaded() {
         return Worlds.getWorld(getWorldName()) != null;
     }
 
-    public default void loadWorld() throws WorldLoadException {
+    default void loadWorld() throws WorldLoadException {
         String worldName = getWorldName();
         if (Worlds.exists(getWorldName())) {
             return;
@@ -33,14 +36,14 @@ public interface GameArena {
         }
     }
 
-    public List<Location> getSpawnLocations();
+    List<Location> getSpawnLocations();
 
-    public boolean isEnabled();
+    boolean isEnabled();
 
-    public boolean isLobby();
+    boolean isLobby();
 
-    public boolean isBreakable(Block block);
+    boolean isBreakable(Block block);
 
-    public boolean isPlaceable(Block block);
+    boolean isPlaceable(Block block);
 
 }

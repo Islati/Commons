@@ -23,6 +23,16 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
+/**
+ * Base for all Bullets that are fired by {@link Gun} / {@link BaseGun}.
+ * Handles the calculations of where the projectile will hit; Calls a {@link BulletHitBlockEvent} when hitting blocks,
+ * or a {@link BulletHitCreatureEvent} event whenever a creature is damaged.
+ *
+ * Extending this class will allow you to implement your own behaviours for when a bullet travels over a location.
+ *
+ * Implementations of the class are {@link FancyBullet}, which is currently buggy- Though launches particle effects as it travels, and
+ * the {@link Bullet} which is a bare-bones implementation of this class, though traces the path with particles on a very minimal level.
+ */
 public abstract class BaseBullet implements Metadatable {
 
     public static final double BULLET_SCAN_RADIUS = 1.5;
@@ -97,6 +107,14 @@ public abstract class BaseBullet implements Metadatable {
         metadata.remove(s);
     }
 
+    /**
+     * Fire the bullet upon it's path, upon the path the player is currently aiming.
+     *
+     * Before calling this method a player, gun, itemstack, force, damage, and spread ABSOLUTELY MUST
+     * be assigned.
+     *
+     * This is set through instancing a new Bullet Class.
+     */
     public void fire() {
         Player p = getShooter();
 
@@ -201,10 +219,18 @@ public abstract class BaseBullet implements Metadatable {
         return damage;
     }
 
+    /**
+     * Retrieve the player who's responsible for shooting the bullet.
+     * @return player who's shooting the gun.
+     */
     public Player getShooter() {
         return Players.getPlayer(shooter);
     }
 
+    /**
+     * Retrieve the {@link Gun} which this bullet is being fired from.
+     * @return gun which this bulle tis being fired from.
+     */
     public Gun getGun() {
         return gun;
     }
@@ -213,6 +239,10 @@ public abstract class BaseBullet implements Metadatable {
         return itemStack;
     }
 
+    /**
+     * Get the item that the
+     * @return
+     */
     protected Item getItem() {
         return item;
     }
@@ -221,10 +251,19 @@ public abstract class BaseBullet implements Metadatable {
         return random;
     }
 
+    /**
+     * Get the amount of spread that's applied to the Bullet.
+     * @return amount of spread that's applied to the Bullet.
+     */
     public double getSpread() {
         return spread;
     }
 
+    /**
+     * Change the item that the bullet is attached to.
+     * DO NOT EVER CALL THIS. EVER. I WILL FIND YOU. <3
+     * @param i item to assign.
+     */
     protected void setItem(Item i) {
         this.item = i;
     }

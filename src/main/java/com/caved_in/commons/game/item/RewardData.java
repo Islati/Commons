@@ -10,6 +10,9 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "reward-data")
+/**
+ * An internal class used to manage chanced, and randomized reward-data, generally in a container, but is also used for loot selection in minigames.
+ */
 public class RewardData {
     @Attribute(name = "min")
     private int min = 1;

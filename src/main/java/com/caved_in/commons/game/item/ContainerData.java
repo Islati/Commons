@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 @Root(name = "container-data")
+/**
+ * Internal class used for the storage of chest/container contents, tagged with SimpleXML (library shaded with commons) serialization tags..
+ */
 public class ContainerData {
     @Element(name = "enabled")
     private boolean enabled = true;
