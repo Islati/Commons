@@ -9,18 +9,41 @@ import org.bukkit.block.Block;
 import java.util.List;
 
 /**
- * 
+ * Utilized via the {@link com.caved_in.commons.game.MiniGame} and {@link ArenaHandler} to provide cyclable worlds after 'rounds',
+ * easy multi-world support, and restoration of maps after a round has been played / completed, etc.
+ *
+ * Each GameArena wraps a single World, and actions performed on an instance will only affect the world associated.
  */
 public interface GameArena {
 
+    /**
+     * The ID registered to manage this GameArena.
+     * @return id associated with the GameArena
+     */
     int id();
 
+    /**
+     * The name of the arena.
+     * @return name of the arena.
+     */
     String getArenaName();
 
+    /**
+     * Name of the world which this arena manages.
+     * @return name of the world which this arena manages.
+     */
     String getWorldName();
 
+    /**
+     * Retrieve the world that's managed by this GameArena.
+     * @return the world that's managed by this GameArena
+     */
     World getWorld();
 
+    /**
+     * Retrieve whether or not the world associated with this GameArena is loaded, or not.
+     * @return true if the world is loaded, false otherwise.
+     */
     default boolean isWorldLoaded() {
         return Worlds.getWorld(getWorldName()) != null;
     }
