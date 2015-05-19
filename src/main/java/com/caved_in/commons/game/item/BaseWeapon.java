@@ -11,6 +11,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * An implementation of the {@link ItemGadget} class which implements the {@link Weapon} interface.
+ *
+ * Provides unimplemented methods to handle whenever the item is activated (right clicked), swung, damages a(n) entity(entities), when it's dropped,
+ * when it's broken, and so forth.
+ *
+ * Extending this class will be a sure route to creating custom swords, axes, and tools of that nature.
+ */
 public abstract class BaseWeapon extends ItemGadget implements Weapon {
     private Set<PlayerDamageEntityClause> damageClauses = new HashSet<>();
 

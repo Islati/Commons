@@ -26,6 +26,16 @@ import java.util.UUID;
 
 
 @Root(name = "projectile-gun")
+/**
+ * An absolutely spectacular extension of the {@link ItemGadget} class, which implements the behaviours of a Gun.
+ *
+ * Through usage of the {@link BaseBullet} (and chosen implementation) it fires a bullet whenever the gadget is interacted with.
+ *
+ * Guns also contain a per-player ammo variable, and handles reloading whenever the ammo reaches 0.
+ *
+ * Further development will feature options of removing an itemstack from the players inventory based on the item attached
+ * to the "equipped" (associated) bullet, Optionally.
+ */
 public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();
@@ -302,6 +312,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         this.properties = properties;
     }
 
+    /**
+     * Retrieve the amount of ammo the player currently has for the gun.
+     * @param player player to get the ammo for.
+     * @return amount of ammo the player currently has for the gun.
+     */
     public int getAmmo(Player player) {
         UUID id = player.getUniqueId();
         if (!ammoCounts.containsKey(id)) {
@@ -310,6 +325,11 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         return ammoCounts.get(player.getUniqueId());
     }
 
+    /**
+     * Set the amount of ammo the player has for this gun.
+     * @param player player to change the ammo amount for.
+     * @param amt amount of ammo to assign the player.
+     */
     public void setAmmo(Player player, int amt) {
         ammoCounts.put(player.getUniqueId(), amt);
 
