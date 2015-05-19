@@ -18,8 +18,8 @@ import org.bukkit.inventory.ItemStack;
  *     <li>An extension of ItemGadget, which limits the amount of times the gadget can be used: {@link LimitedGadget}</li>
  *     <li>An extension of ItemGadget that has a(n) {@link com.caved_in.commons.menu.ItemMenu} attached, so when interacted the menu opens.</li>
  *     <li>An extension of the Gadget interface for Guns: {@link com.caved_in.commons.game.guns.Gun}</li>
- *     <li>An ellaborate extension of ItemGadget that provides actions related to guns: {@link com.caved_in.commons.game.guns.BaseGun}</li>
- *     <li>An ellaborate extension of ItemGadget and Implementation of Weapon that provides a base for weapons: {@link com.caved_in.commons.game.item.BaseWeapon}</li>
+ *     <li>An elaborate extension of ItemGadget that provides actions related to guns: {@link com.caved_in.commons.game.guns.BaseGun}</li>
+ *     <li>An elaborate extension of ItemGadget and Implementation of Weapon that provides a base for weapons: {@link com.caved_in.commons.game.item.BaseWeapon}</li>
  *     <li>An extension interface of Gadget, which provides methods related to creating weapons (Ie. Sword, Wand, Etc): {@link com.caved_in.commons.game.item.Weapon}</li>
  *     <li>An implementation of the above Weapon Interface, using {@link com.caved_in.commons.game.item.BaseWeapon} for a base, which will kill enderman with one swift hit: {@link com.caved_in.commons.debug.gadget.FlamingEnderSword}</li>
  *     <li>An extension of {@link ItemGadget}, that allows items to be thrown: {@link com.caved_in.commons.game.item.ThrowableItem}</li>

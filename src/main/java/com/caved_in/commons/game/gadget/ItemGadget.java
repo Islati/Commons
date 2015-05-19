@@ -6,7 +6,10 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-
+/**
+ * Bare-bones implementation of the {@link com.caved_in.commons.game.gadget.Gadget} interface.
+ * Handles all the default behaviours, and has actions automatically handled inside Commons.
+ */
 public abstract class ItemGadget implements Gadget {
 
     private ItemStack gadgetItem;
@@ -51,6 +54,4 @@ public abstract class ItemGadget implements Gadget {
     public GadgetProperties properties() {
         return properties;
     }
-
-
 }
