@@ -41,7 +41,7 @@ public abstract class ItemGadget implements Gadget {
 	public void setItem(ItemStack item) {
         this.gadgetItem = item.clone();
         properties.durability(item);
-	}
+    }
 
 	/**
 	 * Give the player a copy of the gadget.
