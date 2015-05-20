@@ -138,4 +138,8 @@ public abstract class MenuItem {
     }
 
     public abstract void onClick(Player player);
+
+	public void onClick(Material mat, Player p) {
+
+	}
 }

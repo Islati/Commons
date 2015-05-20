@@ -41,7 +41,8 @@ public class InventoryListener implements Listener {
         event.setCancelled(true);
         ItemMenu menu = (ItemMenu) holder;
         //If the player is clicking outside the menu, and it closes when clicking outside, then close it!
-        if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
+
+		if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
             if (menu.exitOnClickOutside()) {
                 menu.closeMenu(player);
             }
@@ -49,7 +50,9 @@ public class InventoryListener implements Listener {
         int index = event.getRawSlot();
         //if the players selecting within bounds of the inventory, then act accordingly
         if (index < inventory.getSize()) {
-            menu.selectMenuItem(player, index);
+			//todo optionally pass the way the icon was clicked!
+			//todo Example: RIGHT_CLICK_ITEM, MIDDLE_CLICK_ITEM,SHIFT_CLICK,LEFT_CLICK
+			menu.selectMenuItem(player, index);
         } else {
             //If they're gonna mess with their inventory, they don't need a menu open.
             if (menu.exitOnClickOutside()) {
