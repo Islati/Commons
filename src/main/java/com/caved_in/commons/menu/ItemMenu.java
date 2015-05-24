@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -128,14 +129,14 @@ public class ItemMenu implements InventoryHolder {
         return true;
     }
 
-    public void selectMenuItem(Player player, int index) {
-        if (!items.containsKey(index)) {
+	public void selectMenuItem(Player player, int index, ClickType type) {
+		if (!items.containsKey(index)) {
             return;
         }
 
         MenuItem item = items.get(index);
-        item.onClick(player);
-    }
+		item.onClick(player, type);
+	}
 
     public void openMenu(Player player) {
         Inventory inventory = getInventory();

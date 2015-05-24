@@ -5,6 +5,7 @@ import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.item.Wool;
 import com.caved_in.commons.menu.MenuItem;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 
 public class HasSqlBackendItem extends MenuItem {
 
@@ -29,8 +30,8 @@ public class HasSqlBackendItem extends MenuItem {
     }
 
     @Override
-    public void onClick(Player player) {
-        boolean hasSqlBackend = !config.hasSqlBackend();
+	public void onClick(Player player, ClickType type) {
+		boolean hasSqlBackend = !config.hasSqlBackend();
         config.setSqlBackend(hasSqlBackend);
         init();
         getMenu().updateMenu();
