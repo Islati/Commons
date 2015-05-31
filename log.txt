@@ -4,6 +4,9 @@
  + = Added
 -------------
 
+May 31'st (Build 1.8.6):
+	~ Updated Bungee.java to have methods to connect to various Bungee servers, and get info related to em!
+
 March 8'th, 2015 (Build 1.8.6):
 	~ Finished documenting Blocks.java
 	~ Updated SpawnMob command to require extra permission to spawn an ender dragon.

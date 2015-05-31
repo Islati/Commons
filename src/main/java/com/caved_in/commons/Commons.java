@@ -10,6 +10,7 @@ import com.caved_in.commons.debug.actions.*;
 import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
+import com.caved_in.commons.network.Bungee;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.plugin.Plugins;
@@ -22,6 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.Messenger;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -118,11 +120,18 @@ public class Commons extends BukkitPlugin {
             });
         }
 
+        Messenger messenger = getServer().getMessenger();
         /*
         Register the plugin message channel for BungeeCord, so we can send players around
         to other servers, and perform actions across servers!
          */
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        messenger.registerOutgoingPluginChannel(this, "BungeeCord");
+
+        /*
+        Register the incoming plugin messages
+         */
+        messenger.registerIncomingPluginChannel(this, "BungeeCord", Bungee.getInstance());
+
 
         //If the commands are to be registered: do so.
         if (getConfiguration().registerCommands()) {
