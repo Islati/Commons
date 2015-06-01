@@ -118,12 +118,12 @@ public class Title {
         /*
         If the bukkit version is < 1.8.3
          */
-        if (!Commons.bukkitVersionMatches("1_8_R2")) {
-            packetActions = getNMSClass("EnumTitleAction");
-            nmsChatSerializer = getNMSClass("ChatSerializer");
-        } else {
+        if (!Commons.bukkitVersionMatches("1_8_R2") || !Commons.bukkitVersionMatches("1_8_R3")) {
             packetActions = getNMSClass("PacketPlayOutTitle$EnumTitleAction");
             nmsChatSerializer = getNMSClass("IChatBaseComponent$ChatSerializer");
+        } else {
+            packetActions = getNMSClass("EnumTitleAction");
+            nmsChatSerializer = getNMSClass("ChatSerializer");
         }
     }
 

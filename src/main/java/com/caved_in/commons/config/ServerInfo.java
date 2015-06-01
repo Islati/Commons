@@ -9,6 +9,9 @@ public class ServerInfo implements Comparable<ServerInfo> {
     private String name;
     private int playerCount;
     private int maxPlayerCount;
+    private String ip;
+    private int port;
+    private String[] players;
     private boolean online = false;
 
     public ServerInfo() {
@@ -19,6 +22,21 @@ public class ServerInfo implements Comparable<ServerInfo> {
         this.name = name;
         this.playerCount = playerCount;
         this.maxPlayerCount = maxPlayerCount;
+    }
+
+    public ServerInfo players(String[] players) {
+        this.players = players;
+        return this;
+    }
+
+    public ServerInfo port(int port) {
+        this.port = port;
+        return this;
+    }
+
+    public ServerInfo ip(String ip) {
+        this.ip = ip;
+        return this;
     }
 
     public ServerInfo name(String name) {
@@ -71,6 +89,18 @@ public class ServerInfo implements Comparable<ServerInfo> {
 
     public boolean isOnline() {
         return online;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public String[] getPlayers() {
+        return players;
     }
 
     @Override
