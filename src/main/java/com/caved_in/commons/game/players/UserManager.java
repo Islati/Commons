@@ -1,8 +1,11 @@
 package com.caved_in.commons.game.players;
 
+import com.caved_in.commons.game.event.UserJoinEvent;
 import com.caved_in.commons.player.User;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
@@ -18,6 +21,8 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     /* Constructor for the user class */
     private Constructor userContructor = null;
+
+    private JavaPlugin parent = null;
 
     /**
      * Initialize a new user manager and set the derived class of {@link com.caved_in.commons.player.User} which the manager handles.
@@ -36,12 +41,26 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     }
 
+    public void setParent(JavaPlugin plugin) {
+        this.parent = plugin;
+    }
+
+    public JavaPlugin getParent() {
+        return parent;
+    }
+
     public void addUser(Player p) {
         /* Create the user object from the polled constructor, and the player object */
         T userObject = ReflectionUtilities.invokeConstructor(userContructor, p);
 
         /* Put the newly created user object into the map of users! */
         users.put(p.getUniqueId(), userObject);
+
+        /*
+        Create the event for when a user joins, and call it for plugins to listen!
+         */
+        UserJoinEvent userJoinEvent = new UserJoinEvent(getParent(), userObject);
+        Plugins.callEvent(userJoinEvent);
     }
 
     public void addUser(T user) {

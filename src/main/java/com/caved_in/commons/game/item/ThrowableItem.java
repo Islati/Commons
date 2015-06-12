@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.game.gadget.GadgetProperties;
 import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
@@ -11,14 +12,12 @@ import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.simpleframework.xml.Element;
 
 public abstract class ThrowableItem extends ItemGadget {
 
-    private int delay;
-
-    private int force = 1;
-
-    private boolean canPickup = false;
+    private Properties properties = new Properties();
 
     public ThrowableItem(ItemStack item) {
         super(item);
@@ -26,7 +25,7 @@ public abstract class ThrowableItem extends ItemGadget {
 
     public ThrowableItem(ItemStack item, int delay) {
         super(item);
-        this.delay = delay;
+        properties().delay(delay);
     }
 
     public ThrowableItem(ItemBuilder builder) {
@@ -35,7 +34,7 @@ public abstract class ThrowableItem extends ItemGadget {
 
     public ThrowableItem(ItemBuilder builder, int delay) {
         super(builder);
-        this.delay = delay;
+        properties().delay(delay);
     }
 
     @Override
@@ -45,51 +44,150 @@ public abstract class ThrowableItem extends ItemGadget {
 
         Location eyeLoc = holder.getEyeLocation();
 
-        Item thrownItem = Worlds.dropItem(eyeLoc, getItem());
+        final Item thrownItem = Worlds.dropItem(eyeLoc, getItem());
 
         //If the item's not meant to be picked up, then assure it
         //wont be picked up
-        if (!canPickup()) {
+        if (!properties().canPickup()) {
             thrownItem.setPickupDelay(Integer.MAX_VALUE);
         }
 
-        thrownItem.setVelocity(eyeLoc.getDirection().multiply(force));
+        thrownItem.setVelocity(eyeLoc.getDirection().multiply(properties().force()));
 
-        //After the delay is up, we want to handle the item!
-        Commons.getInstance().getThreadManager().runTaskLater(() -> {
-            //Call the handle, for any implementations to do as they wish!
-            handle(holder, thrownItem);
+        Action action = properties().action();
+        switch (action) {
+            case DELAY:
+                //After the delay is up, we want to handle the item!
+                Commons.getInstance().getThreadManager().runTaskLater(() -> {
+                    //Call the handle, for any implementations to do as they wish!
+                    handle(holder, thrownItem);
 
-            //Remove the item after the handle is called!
-            thrownItem.remove();
-        }, TimeHandler.getTimeInTicks(delay, TimeType.SECOND));
+                    //Remove the item after the handle is called!
+                    thrownItem.remove();
+                }, TimeHandler.getTimeInTicks(properties().delay(), properties().delayType()));
+                break;
+            case REPEAT_TICK:
+                long reTicks;
+                if (properties().isTicks()) {
+                    reTicks = properties().delay();
+                } else {
+                    reTicks = TimeHandler.getTimeInTicks(properties().delay(), properties().delayType());
+                }
+
+                Commons.getInstance().getThreadManager().registerSyncRepeatTask("Gadget[" + thrownItem.getUniqueId().toString() + "-TICK]", new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        //Handle the thrown item just as specified
+                        handle(holder, thrownItem);
+
+                        //Though if the item is no longer available, then cancel the task!!
+                        //This means that the item must be removed within the handle method, to cancel this task.
+                        if (!thrownItem.isValid()) {
+                            cancel();
+                        }
+                    }
+                }, reTicks, reTicks);
+                break;
+            case EXECUTE:
+                long exTicks = properties().isTicks() ? properties().delay() : 50l;
+                //Execute the task 2.5 seconds later, as it gives the item time to travel!
+                Commons.getInstance().getThreadManager().runTaskLater(() -> {
+                    handle(holder, thrownItem);
+                }, exTicks);
+                break;
+        }
+
     }
 
     public abstract void handle(Player holder, Item thrownItem);
 
     public abstract int id();
 
-    public void setDelay(int secondsDelay) {
-        this.delay = secondsDelay;
+    @Override
+    public Properties properties() {
+        return properties;
     }
 
-    public void setForce(int force) {
-        this.force = force;
+    public enum Action {
+        DELAY,
+        REPEAT_TICK,
+        EXECUTE
     }
 
-    public int getDelay() {
-        return delay;
+    public class Properties extends GadgetProperties {
+        private int delay = 40;
+
+        private int force;
+
+        private boolean pickupable = false;
+
+        private boolean ticks = false;
+
+        private Action action = Action.EXECUTE;
+
+        private TimeType timeType = TimeType.SECOND;
+
+        public Properties() {
+            super();
+        }
+
+        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable) {
+            super(durability, isBreakable, isDroppable);
+        }
+
+        public int delay() {
+            return delay;
+        }
+
+        public Properties delay(int delay) {
+            this.delay = delay;
+            return this;
+        }
+
+        public Properties delayType(TimeType type) {
+            this.timeType = type;
+            return this;
+        }
+
+        public Properties useTicks(boolean val) {
+            this.ticks = val;
+            return this;
+        }
+
+        public TimeType delayType() {
+            return timeType;
+        }
+
+        public int force() {
+            return force;
+        }
+
+        public Properties force(int force) {
+            this.force = force;
+            return this;
+        }
+
+        public boolean canPickup() {
+            return pickupable;
+        }
+
+        public Properties canPickup(boolean value) {
+            this.pickupable = value;
+            return this;
+        }
+
+        public Properties action(Action action) {
+            this.action = action;
+            return this;
+        }
+
+        public Action action() {
+            return action;
+        }
+
+        public boolean isTicks() {
+            return ticks;
+        }
     }
 
-    public int getForce() {
-        return force;
-    }
-
-    public boolean canPickup() {
-        return canPickup;
-    }
-
-    public void setCanPickup(boolean canPickup) {
-        this.canPickup = canPickup;
-    }
 }

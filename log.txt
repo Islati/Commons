@@ -4,6 +4,21 @@
  + = Added
 -------------
 
+June 11'th, 2015 (Build 1.8.6):
+	+ Updated Throwable item with 3 methods of execution; Repeating handle, single execution, and delayed execution!
+	+ Moved all properties for the ThrowableItem to the 'properties()' object.
+
+June 8'th, 2015 (Build 1.8.6):
+	+ Made the CuboidCreator class; Use it to allow the 2-step creation of building cuboids for the player.
+	+ Implemented an onDrop() call to be made even if the item isn't droppable!
+
+June 7'th, 2015 (Build 1.8.6):
+	- Removed most of the makeItem(*) methods from Items.java, preferred to use the ItemBuilder.
+
+June 4'th (Build 1.8.6):
+	+ Created a wrap around the shops villagers provide.
+	+ VillagerShop being an interface to easily create, store, and use these custom trades!
+
 May 31'st (Build 1.8.6):
 	~ Updated Bungee.java to have methods to connect to various Bungee servers, and get info related to em!
 

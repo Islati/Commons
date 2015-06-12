@@ -50,6 +50,7 @@ public class CommandHandler implements CommandExecutor {
 
         @Override
         public String[] getHelpMessage(RegisteredCommand command) {
+            //todo implement option to input a HelpScreen and move it to an array of strings.
             ArrayList<String> message = new ArrayList<String>();
 
             if (command.isSet()) {

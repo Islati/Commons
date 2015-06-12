@@ -89,6 +89,14 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
             }
         }
 
+        /*
+        Now if the user manager has been initialized, we want to make sure that we're
+        able to get the parent plugin from the UserManager- So assign it to be so! :)
+         */
+        if (userManager != null) {
+            userManager.setParent(this);
+        }
+
 		/* Create the connection listener that handles the managing of game-player data */
         userManagerListener = new UserManagerListener(this);
 

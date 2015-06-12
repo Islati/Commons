@@ -2,9 +2,15 @@ package com.caved_in.commons.cuboid;
 
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.utilities.NumberUtil;
+import org.bukkit.Location;
 import org.bukkit.Material;
 
 public class Cuboids {
+
+    public static Cuboid create(Location firstLoc, Location secondLoc) {
+        return new Cuboid(firstLoc, secondLoc);
+    }
+
     /**
      * Search for a material within a region and replace it with the specified material
      *

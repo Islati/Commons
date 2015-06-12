@@ -8,7 +8,9 @@ import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.reflection.ReflectionUtilities;
+import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.StringUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -550,12 +552,19 @@ public class Items {
     }
 
     /**
-     * @param item
+     * Remove all the enchantments from an item.
+     * @param item item to clear of enchantments.
      */
     public static void clearEnchantments(ItemStack item) {
         getMetadata(item).getEnchants().clear();
     }
 
+    /**
+     * Assign a collection of enchantments, and levels, to the given item.
+     *
+     * @param target   item to enchant.
+     * @param enchants collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to add to the item.
+     */
     public static void setEnchantments(ItemStack target, Set<EnchantWrapper> enchants) {
         ItemMeta meta = getMetadata(target);
 
@@ -567,6 +576,13 @@ public class Items {
         }
     }
 
+    /**
+     * Replace a substring inside the given items name!
+     * @param target item to rename.
+     * @param search string to search for, that will be replaced.
+     * @param replace replacement for the searched string.
+     * @return the ItemStack that's been renamed.
+     */
     public static ItemStack replaceInName(ItemStack target, String search, String replace) {
         if (!hasName(target)) {
             return target;
@@ -581,6 +597,12 @@ public class Items {
         return Items.setName(target, name);
     }
 
+    /**
+     * Compare the enchantments of 2 items and see if they match.
+     * @param item item to match the enchantments against.
+     * @param compareItem comparing item, to see if the enchantments match against the first.
+     * @return true if both items have the same enchantments, false otherwise.
+     */
     public static boolean hasSameEnchantments(ItemStack item, ItemStack compareItem) {
         if (!Items.hasEnchantments(item) || !Items.hasEnchantments(compareItem)) {
             return false;
@@ -601,6 +623,12 @@ public class Items {
         return true;
     }
 
+    /**
+     * Check if the given item has the queried enchantment. Doesn't match against levels for the enchantment.
+     * @param item item to check enchantments for.
+     * @param enchant enchantment to check for on the item.
+     * @return true if the item has the enchantment in question, false otherwise.
+     */
     public static boolean hasEnchantment(ItemStack item, Enchantment enchant) {
         if (!Items.hasEnchantments(item)) {
             return false;
@@ -617,6 +645,13 @@ public class Items {
         return false;
     }
 
+    /**
+     * Check if the given item has the enchantment of the desired level on it.
+     * @param item item to search for enchantments on.
+     * @param enchant enchantment to look for on the item.
+     * @param level level of the enchantment to match against.
+     * @return true if the item has the enchantment of the given level, false otherwise.
+     */
     public static boolean hasEnchantment(ItemStack item, Enchantment enchant, int level) {
         if (!Items.hasEnchantments(item)) {
             return false;
@@ -629,7 +664,6 @@ public class Items {
             }
         }
         return false;
-
     }
 
     /**
@@ -671,12 +705,22 @@ public class Items {
         return enchants;
     }
 
+    /**
+     * Add ItemFlag's to the given item.
+     * @param item item to add flags to.
+     * @param flag flags to add to the item.
+     */
     public static void addFlags(ItemStack item, ItemFlag... flag) {
         ItemMeta meta = getMetadata(item);
         meta.addItemFlags(flag);
         setMetadata(item, meta);
     }
 
+    /**
+     * Add a collection of ItemFlags to the given ItemStack
+     * @param item item to have flags added on.
+     * @param flags collection of ItemFlags to add to the Item.
+     */
     public static void addFlags(ItemStack item, Collection<ItemFlag> flags) {
         ItemMeta meta = getMetadata(item);
         flags.forEach(flag -> meta.addItemFlags(flag));
@@ -693,42 +737,86 @@ public class Items {
         return new ItemStack(material);
     }
 
-    public static Material getItemTypeMaterial(ItemType itemType) {
-        return getMaterialById(itemType.getID());
-    }
-
+    /**
+     * Check if the ItemStack is of the given material type.
+     * @param itemStack item to check the type of.
+     * @param material material to compare the item to.
+     * @return true if the item is of the given type, false otherwise.
+     */
     public static boolean isType(ItemStack itemStack, Material material) {
         return itemStack != null && material == itemStack.getType();
     }
 
+    /**
+     * Check if the ItemStack is a piece of armor.
+     * @param itemStack item to check.
+     * @return true if the item is a piece of armor, false otherwise.
+     */
     public static boolean isArmor(ItemStack itemStack) {
         return isArmor(itemStack.getType());
     }
 
+    /**
+     * Check if the given Material is a piece of armor.
+     * @param material material to check.
+     * @return true if the material is a piece of armor, false otherwise.
+     */
     public static boolean isArmor(Material material) {
         return armorMaterials.contains(material);
     }
 
+    /**
+     * Check if the item of the given type is a weapon or not.
+     * @param itemStack item to check.
+     * @return true if the item is a weapon, false otherwise.
+     */
     public static boolean isWeapon(ItemStack itemStack) {
         return WeaponType.isItemWeapon(itemStack);
     }
 
+    /**
+     * Check if the material is the type of a weapon or not.
+     * @param material material to check.
+     * @return true if the material is a weapon, false otherwise.
+     */
     public static boolean isWeapon(Material material) {
         return WeaponType.isMaterialWeapon(material);
     }
 
+    /**
+     * Check if the Item is a tool; Hoe, Axe, Shovel, Flint & Tinder, etc!
+     * @param item item to check.
+     * @return true if the item is that of any of the tool types, false otherwise.
+     */
     public static boolean isTool(ItemStack item) {
         return isTool(item.getType());
     }
 
+    /**
+     * Check if the item is of the given tool type.
+     * @param item item to check.
+     * @param type type to compare the item to.
+     * @return true if the item is the of any of the materials matched by the given {@link ToolType}
+     */
     public static boolean isTool(ItemStack item, ToolType type) {
         return isTool(item.getType(), type);
     }
 
+    /**
+     * Check if the material is of the given tool type.
+     * @param material material to check.
+     * @param type tooltype to compare the material to.
+     * @return true if the material is of the given type, false otherwise.
+     */
     public static boolean isTool(Material material, ToolType type) {
         return type.isType(material);
     }
 
+    /**
+     * Check if the material is a tool.
+     * @param type material to check.
+     * @return true if the material is a tool, false otherwise.
+     */
     public static boolean isTool(Material type) {
         return ToolType.isTool(type);
     }
@@ -741,52 +829,35 @@ public class Items {
      */
     public static Set<ItemStack> getToolSet(ToolType type) {
         Set<ItemStack> items = type.getMaterialTypes().stream()
-                .map(itemType -> Items.makeItemAmount(itemType, itemType.getMaxStackSize()))
+                .map(itemType -> ItemBuilder.of(itemType).amount(itemType.getMaxStackSize()).item())
                 .collect(Collectors.toSet());
         return items;
     }
 
+    /**
+     * Create a collection of the Tool Set, with all items assigned the given stack size.
+     * @param type type of ToolSet to create.
+     * @param stackSize size to set each of the ItemStacks to.
+     * @return a hashset with each item in the Tools Type
+     */
     public static Set<ItemStack> getToolSet(ToolType type, int stackSize) {
         /*
 		Create a set of item stacks by mapping the values of each individual material
 		type to an item of the desired type, collecting it into a set!
 		 */
         Set<ItemStack> items = type.getMaterialTypes().stream()
-                .map(itemType -> Items.makeItemAmount(itemType, stackSize))
+                .map(itemType -> ItemBuilder.of(itemType).amount(stackSize).item())
                 .collect(Collectors.toSet());
         return items;
     }
 
+    /**
+     * Retrieve a material by it's ID.
+     * @param id id of the material to get.
+     * @return material assigned the given ID.
+     */
     public static Material getMaterialById(int id) {
         return Material.getMaterial(id);
-    }
-
-    /**
-     * Make an itemstack with a specific material and display name
-     *
-     * @param material material of the itemstack
-     * @param itemName name to give the itemstack
-     * @return Itemstack with the material and name
-     */
-    public static ItemStack makeItem(Material material, String itemName) {
-        ItemStack itemStack = makeItem(material);
-        return setName(itemStack, itemName);
-    }
-
-    @Deprecated
-    public static ItemStack makeItem(MaterialData materialData, String name, String... lore) {
-        ItemStack itemStack = materialData.toItemStack();
-        itemStack = setName(itemStack, name);
-        return setLore(itemStack, Arrays.asList(lore));
-    }
-
-    public static ItemStack makeItem(String name, Material material, String... lore) {
-        return makeItem(material, name, Arrays.asList(lore));
-    }
-
-    public static ItemStack makeItem(Material material, String itemName, List<String> itemLore) {
-        ItemStack itemStack = makeItem(material, itemName);
-        return setLore(itemStack, itemLore);
     }
 
     /**
@@ -811,7 +882,7 @@ public class Items {
      * @return itemstack with the given material, custon name, custom lore, enchantments, and color.
      */
     public static ItemStack makeLeatherItem(Material material, String itemName, List<String> itemLore, Map<Enchantment, Integer> enchantments, Color itemColor) {
-        ItemStack itemStack = makeItem(material, itemName, itemLore);
+        ItemStack itemStack = ItemBuilder.of(material).name(itemName).lore(itemLore).item();
         for (Entry<Enchantment, Integer> enchantment : enchantments.entrySet()) {
             addEnchantment(itemStack, enchantment.getKey(), enchantment.getValue(), true);
         }
@@ -926,19 +997,6 @@ public class Items {
         Dye dye = new Dye();
         dye.setColor(dyeColor);
         return dye;
-    }
-
-    /**
-     * Create a new itemstack with the given material, and amount.
-     *
-     * @param material
-     * @param amount
-     * @return
-     */
-    public static ItemStack makeItemAmount(Material material, int amount) {
-        ItemStack itemStack = makeItem(material);
-        itemStack.setAmount(amount);
-        return itemStack;
     }
 
     /**
@@ -1290,6 +1348,12 @@ public class Items {
     public static DyeColor getRandomDyeColor() {
         DyeColor[] dyeColors = DyeColor.values();
         return dyeColors[new Random().nextInt(dyeColors.length)];
+    }
+
+    private static List<Color> colors = Lists.newArrayList(Color.AQUA, Color.BLACK, Color.BLUE, Color.FUCHSIA, Color.GRAY, Color.GREEN, Color.LIME, Color.MAROON, Color.NAVY, Color.OLIVE, Color.ORANGE, Color.PURPLE, Color.RED, Color.SILVER, Color.YELLOW, Color.WHITE, Color.TEAL);
+
+    public static Color getRandomColor() {
+        return ListUtils.getRandom(colors);
     }
 
     /**

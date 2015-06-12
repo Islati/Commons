@@ -96,9 +96,10 @@ public class ConfirmationMenu extends ItemMenu {
 		}
 	}
 
-	public static interface Action {
+	@FunctionalInterface
+	public interface Action {
 
-		public void perform(ItemMenu menu, Player player);
+		void perform(ItemMenu menu, Player player);
 
 	}
 }

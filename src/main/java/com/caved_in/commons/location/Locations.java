@@ -26,6 +26,7 @@ public class Locations {
         World centerWorld = location.getWorld();
         for (Player onlinePlayer : onlinePlayers) {
             Location playerLoc = onlinePlayer.getLocation();
+
             if (!playerLoc.getWorld().equals(centerWorld)) {
                 continue;
             }

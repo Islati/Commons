@@ -14,7 +14,7 @@ public class ThrowableBrick extends ThrowableItem {
         super(ItemBuilder.of(Material.CLAY_BRICK).lore("&eYou'll bash your eye out!"));
         this.id = id;
 
-        setDelay(3);
+        properties().delay(2).action(Action.DELAY);
     }
 
     @Override

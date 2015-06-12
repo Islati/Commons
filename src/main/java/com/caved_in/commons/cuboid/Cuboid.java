@@ -692,7 +692,6 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
                     return Unknown;
             }
         }
-
     }
 
 }

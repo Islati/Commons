@@ -2,6 +2,7 @@ package com.caved_in.commons.game.players;
 
 import com.caved_in.commons.player.User;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -38,4 +39,8 @@ public interface IUserManager<T extends User> {
     void removeUser(UUID id);
 
     Collection<T> allUsers();
+
+    JavaPlugin getParent();
+
+    void setParent(JavaPlugin plugin);
 }
