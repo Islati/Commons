@@ -111,6 +111,10 @@ public abstract class User implements PlayerWrapper {
         return worldName;
     }
 
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
+    }
+
     /**
      * Called whenever the user changes worlds; Has no behaviour by default, though it can be overridden to fulfill your needs.
      *

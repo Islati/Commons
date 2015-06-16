@@ -4,6 +4,13 @@
  + = Added
 -------------
 
+June 16'th, 2015 (Build 1.8.6):
+	+ Created the GameFeature and FeatureManager class / service.
+		- Used to easily create tickable features and have a nice, simple way to manage them all!
+
+June 15'th, 2015 (Build 1.8.6):
+	+ Created the setWorldName(String: name); method inside User.java
+
 June 11'th, 2015 (Build 1.8.6):
 	+ Updated Throwable item with 3 methods of execution; Repeating handle, single execution, and delayed execution!
 	+ Moved all properties for the ThrowableItem to the 'properties()' object.

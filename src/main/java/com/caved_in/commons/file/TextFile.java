@@ -177,6 +177,15 @@ public class TextFile {
         }
     }
 
+    public static String getText(File file) {
+        try {
+            return FileUtils.readFileToString(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     /**
      * Overwrite a files contents with new data.

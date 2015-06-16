@@ -1,5 +1,7 @@
 package com.caved_in.commons.game;
 
+import com.caved_in.commons.game.feature.FeatureManager;
+import com.caved_in.commons.game.feature.GameFeature;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.game.thread.GameUpdateThread;
 import com.caved_in.commons.plugin.BukkitPlugin;
@@ -11,9 +13,17 @@ import com.caved_in.commons.plugin.BukkitPlugin;
  */
 public abstract class CraftGame<T extends UserManager> extends BukkitPlugin implements GameCore {
 
+    private FeatureManager featureManager;
+
     @Override
     public void onEnable() {
         super.onEnable();
+
+        /*
+        Initialize the feature manager!
+         */
+        featureManager = new FeatureManager(this);
+
         //Create the core update thread and begin running it immediately, with the desired delay.
         GameUpdateThread updateThread = new GameUpdateThread(this);
         getThreadManager().registerSyncRepeatTask("Game Update", updateThread, 20, tickDelay());
@@ -33,4 +43,12 @@ public abstract class CraftGame<T extends UserManager> extends BukkitPlugin impl
     public abstract long tickDelay();
 
     public abstract T getUserManager();
+
+    public FeatureManager getFeatureManager() {
+        return featureManager;
+    }
+
+    public void registerFeatures(GameFeature... features) {
+        getFeatureManager().addFeatures(features);
+    }
 }

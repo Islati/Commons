@@ -59,8 +59,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
         /*
         Create the event for when a user joins, and call it for plugins to listen!
          */
-        UserJoinEvent userJoinEvent = new UserJoinEvent(getParent(), userObject);
-        Plugins.callEvent(userJoinEvent);
+        callUserJoin(userObject);
     }
 
     public void addUser(T user) {
@@ -91,6 +90,14 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     public boolean hasData(UUID id) {
         return users.containsKey(id);
+    }
+
+    protected void put(UUID id, T user) {
+        users.put(id, user);
+    }
+
+    protected void remove(UUID id) {
+        users.remove(id);
     }
 
     /**
@@ -136,5 +143,13 @@ public class UserManager<T extends User> implements IUserManager<T> {
      */
     public boolean hasUsers() {
         return users.size() > 0;
+    }
+
+    protected void callUserJoin(T userObject) {
+        /*
+        Create the event for when a user joins, and call it for plugins to listen!
+         */
+        UserJoinEvent userJoinEvent = new UserJoinEvent(getParent(), userObject);
+        Plugins.callEvent(userJoinEvent);
     }
 }
