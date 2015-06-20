@@ -50,5 +50,9 @@ public abstract class CraftGame<T extends UserManager> extends BukkitPlugin impl
 
     public void registerFeatures(GameFeature... features) {
         getFeatureManager().addFeatures(features);
+        /*
+        Register the listeners attached to each feature!
+         */
+        registerListeners(features);
     }
 }

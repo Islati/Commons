@@ -8,8 +8,10 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.potion.Potions;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.warp.Warp;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -205,6 +207,10 @@ public class Entities {
         entity.setCustomNameVisible(isVisible);
     }
 
+    public static boolean hasName(Entity entity) {
+        return entity.getCustomName() != null;
+    }
+
     /**
      * Get the entities name (derived from their type), fully formatted and capitalized properly.
      *
@@ -324,8 +330,7 @@ public class Entities {
 
     /**
      * Equip an entity with the specified armor.
-     *
-     * @param entity    entity to parent.
+     *  @param entity    entity to parent.
      * @param inventory armor to parent the entity with.
      */
     public static void setEquipment(LivingEntity entity, ArmorInventory inventory) {
@@ -880,5 +885,68 @@ public class Entities {
      */
     public static boolean isMob(Entity entity) {
         return MobType.isMob(entity.getType());
+    }
+
+    public static void assignData(Entity entity, MobSpawnData data) {
+        if (entity instanceof Ageable) {
+            Ageable ageable = (Ageable) entity;
+            if (data.isBaby()) {
+                ageable.setBaby();
+            } else {
+                //If the minimum age is greater than 0, and the maximum age is more than the min
+                //then we're going to want to setup an age range between the min and max;
+                if (data.getAgeMin() > 0 && data.getAgeMax() > data.getAgeMin()) {
+                    ageable.setAge(NumberUtil.getRandomInRange(data.getAgeMin(), data.getAgeMax()));
+                } else if (data.getAge() > 0) {
+                    ageable.setAge(data.getAge());
+                } else {
+                    ageable.setAdult();
+                }
+            }
+        }
+
+        if (entity instanceof Zombie) {
+            Zombie zombie = (Zombie) entity;
+            zombie.setBaby(data.isBaby());
+            zombie.setVillager(zombie.isVillager());
+        }
+
+        if (entity instanceof Skeleton) {
+            Skeleton skeleton = (Skeleton) entity;
+            skeleton.setSkeletonType(data.getSkeletonType());
+        }
+
+        if (entity instanceof Slime) {
+            Slime slime = (Slime) entity;
+
+            //If the slime has a min and max potential size, then assign them a random in that range
+            //Otherwise, assign them the default size.
+            if (data.getSizeMin() > 0 && data.getSizeMax() > data.getSizeMin()) {
+                slime.setSize(NumberUtil.getRandomInRange(data.getSizeMin(), data.getSizeMax()));
+            } else if (data.getSize() > 0) {
+                slime.setSize(data.getSize());
+            }
+        }
+
+        if (entity instanceof Creeper) {
+            Creeper creeper = (Creeper) entity;
+            creeper.setPowered(data.isPowered());
+        }
+
+        if (entity instanceof LivingEntity) {
+            LivingEntity le = (LivingEntity) entity;
+            if (data.getHealth() > 0 && data.getMaxHealth() >= data.getHealth()) {
+
+                Entities.setMaxHealth(le, data.getMaxHealth());
+                Entities.setHealth(le, data.getHealth());
+            }
+
+            if (!StringUtils.isEmpty(data.getName())) {
+                Entities.setName(le, data.getName(), true);
+            }
+
+            //Equip the entity with the equipment set
+            Entities.setEquipment(le, data.getArmorInventory());
+        }
     }
 }

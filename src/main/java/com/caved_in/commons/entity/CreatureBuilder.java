@@ -62,6 +62,61 @@ public class CreatureBuilder {
     /* The armor builder, used to continue the builder experience and parent our creature */
     private ArmorBuilder armorBuilder = new ArmorBuilder();
 
+    public static CreatureBuilder clone(Entity entity) {
+
+        CreatureBuilder builder = new CreatureBuilder(entity.getType());
+
+        if (entity instanceof Ageable) {
+            Ageable agedEntity = (Ageable) entity;
+
+            builder.age(agedEntity.getAge());
+        }
+
+        if (entity instanceof Villager) {
+            Villager villager = (Villager) entity;
+            builder.asVillager(true);
+        }
+
+        if (entity instanceof Zombie) {
+            Zombie zombie = (Zombie) entity;
+
+            builder.asVillager(zombie.isVillager());
+        }
+
+        if (entity instanceof Creeper) {
+            Creeper creeper = (Creeper) entity;
+
+            builder.powered(creeper.isPowered());
+        }
+
+        if (Entities.hasName(entity)) {
+            builder.name(entity.getCustomName());
+        }
+
+        if (entity instanceof LivingEntity) {
+            LivingEntity creature = (LivingEntity) entity;
+            builder.maxHealth(Entities.getMaxHealth(creature))
+                    .health(Entities.getCurrentHealth(creature))
+                    .armor(new ArmorInventory(creature.getEquipment().getArmorContents()));
+
+
+        }
+
+
+        if (entity instanceof Skeleton) {
+            Skeleton skeleton = (Skeleton) entity;
+
+            builder.skeletonType = skeleton.getSkeletonType();
+        }
+
+        if (entity instanceof Slime) {
+            Slime slime = (Slime) entity;
+            builder.size(slime.getSize());
+        }
+
+        return builder;
+    }
+
     public CreatureBuilder(EntityType type) {
         this.type = type;
     }
@@ -160,6 +215,11 @@ public class CreatureBuilder {
      */
     public CreatureBuilder powered() {
         this.powered = true;
+        return this;
+    }
+
+    public CreatureBuilder powered(boolean value) {
+        this.powered = value;
         return this;
     }
 
@@ -319,6 +379,66 @@ public class CreatureBuilder {
             entities.add(spawn(location));
         }
         return entities;
+    }
+
+    protected EntityType getType() {
+        return type;
+    }
+
+    protected double getHealth() {
+        return health;
+    }
+
+    protected double getMaxHealth() {
+        return maxHealth;
+    }
+
+    protected boolean isBaby() {
+        return baby;
+    }
+
+    protected boolean isVillager() {
+        return villager;
+    }
+
+    protected boolean isPowered() {
+        return powered;
+    }
+
+    protected Skeleton.SkeletonType getSkeletonType() {
+        return skeletonType;
+    }
+
+    protected String getName() {
+        return name;
+    }
+
+    protected int getAge() {
+        return age;
+    }
+
+    protected int getAgeMin() {
+        return ageMin;
+    }
+
+    protected int getAgeMax() {
+        return ageMax;
+    }
+
+    protected int getSize() {
+        return size;
+    }
+
+    protected int getSizeMin() {
+        return sizeMin;
+    }
+
+    protected int getSizeMax() {
+        return sizeMax;
+    }
+
+    protected ArmorBuilder getArmorBuilder() {
+        return armorBuilder;
     }
 
     /**

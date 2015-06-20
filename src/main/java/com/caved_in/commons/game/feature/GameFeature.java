@@ -1,6 +1,8 @@
 package com.caved_in.commons.game.feature;
 
-public abstract class GameFeature {
+import org.bukkit.event.Listener;
+
+public abstract class GameFeature implements Listener {
     private String id;
 
     private boolean enabled = true;
