@@ -87,8 +87,10 @@ public abstract class MenuItem {
 		descriptions = StringUtil.formatColorCodes(Arrays.asList(lines));
 	}
 
-	public void addDescriptions(String line) {
-		descriptions.add(StringUtil.formatColorCodes(line));
+	public void addDescriptions(String... line) {
+		for (String s : line) {
+			descriptions.add(StringUtil.formatColorCodes(s));
+		}
 	}
 
 	public void setIconNumber(int num) {
