@@ -109,6 +109,7 @@ public class RegisteredCommand {
                     CommandError ce = (CommandError) e.getCause();
                     sender.sendMessage(ce.getColorizedMessage());
                     if (ce.showUsage()) {
+                        //todo: generate helpscreen from this.
                         sender.sendMessage(getUsage());
                     }
                 } else {

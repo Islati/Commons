@@ -1,5 +1,7 @@
 package com.caved_in.commons.game;
 
+import com.caved_in.commons.game.feature.FeatureManager;
+import com.caved_in.commons.game.feature.GameFeature;
 import com.caved_in.commons.game.players.UserManager;
 
 /**
@@ -25,4 +27,8 @@ public interface GameCore<T extends UserManager> {
      * @return UserManager used to handle user data associated and utilized by the core.
      */
     T getUserManager();
+
+    FeatureManager getFeatureManager();
+
+    void registerFeatures(GameFeature... features);
 }

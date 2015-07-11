@@ -34,7 +34,7 @@ public class CommandUtil {
         for (String arg : arguments) {
             Matcher matcher = verifyArgumentsPattern.matcher(arg);
             if (!matcher.matches()) {
-                throw new IllegalArgumentException("The argrument \"" + arg + "\" is in invalid form.");
+                throw new IllegalArgumentException("The argument \"" + arg + "\" is in invalid form.");
             }
 
             List<String> parameters = new ArrayList<String>();

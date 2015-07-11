@@ -46,6 +46,14 @@ public class FeatureManager {
         return getFeatures().stream().filter(g -> !g.enabled()).collect(Collectors.toList());
     }
 
+    public int count() {
+        return getFeatures().size();
+    }
+
+    public boolean hasFeatures() {
+        return count() > 0;
+    }
+
     public void tickEnabled() {
         getFeatures().stream().filter(GameFeature::enabled).forEach(gf -> {
             if (gf.allowExecute()) {
