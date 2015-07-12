@@ -642,8 +642,8 @@ public class Entities {
      * @param target    target to burn/
      * @param fireTicks amount of ticks the fire will last.
      */
-    public static void burn(Damageable target, int fireTicks) {
-        target.setFireTicks(fireTicks);
+	public static void burn(Entity target, int fireTicks) {
+		target.setFireTicks(fireTicks);
     }
 
     /**
@@ -653,8 +653,8 @@ public class Entities {
      * @param amount   how long the target should burn; used with timeType to specify duration.
      * @param timeType the unit of time used to determine how long the target burns for.
      */
-    public static void burn(Damageable target, int amount, TimeType timeType) {
-        target.setFireTicks((int) TimeHandler.getTimeInTicks(amount, timeType));
+	public static void burn(Entity target, int amount, TimeType timeType) {
+		target.setFireTicks((int) TimeHandler.getTimeInTicks(amount, timeType));
     }
 
     /**
