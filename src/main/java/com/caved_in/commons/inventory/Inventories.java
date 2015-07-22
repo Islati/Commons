@@ -245,7 +245,7 @@ public class Inventories {
 
     /**
      * Shuffle the contents of the inventory, moving all items to random slots.
-     *
+     *12
      * @param inventory inventory to shuffle.
      */
     public static void shuffleContents(Inventory inventory) {
