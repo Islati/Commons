@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.players;
 
 import com.caved_in.commons.game.event.UserJoinEvent;
+import com.caved_in.commons.game.event.UserQuitEvent;
 import com.caved_in.commons.player.User;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.reflection.ReflectionUtilities;
@@ -68,6 +69,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     public void disposeAll() {
         for (T user : users.values()) {
+            callUserQuit(user);
             user.destroy();
         }
     }
@@ -85,7 +87,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
     }
 
     public void removeUser(UUID id) {
-        users.remove(id);
+        remove(id);
     }
 
     public boolean hasData(UUID id) {
@@ -97,6 +99,8 @@ public class UserManager<T extends User> implements IUserManager<T> {
     }
 
     protected void remove(UUID id) {
+        T user = getUser(id);
+        callUserQuit(user);
         users.remove(id);
     }
 
@@ -151,5 +155,10 @@ public class UserManager<T extends User> implements IUserManager<T> {
          */
         UserJoinEvent userJoinEvent = new UserJoinEvent(getParent(), userObject);
         Plugins.callEvent(userJoinEvent);
+    }
+
+    protected void callUserQuit(T userObject) {
+        UserQuitEvent userQuitEvent = new UserQuitEvent(getParent(), userObject);
+        Plugins.callEvent(userQuitEvent);
     }
 }

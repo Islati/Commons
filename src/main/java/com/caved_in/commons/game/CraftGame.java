@@ -17,12 +17,12 @@ public abstract class CraftGame<T extends UserManager> extends BukkitPlugin impl
 
     @Override
     public void onEnable() {
-        super.onEnable();
-
         /*
         Initialize the feature manager!
          */
         featureManager = new FeatureManager(this);
+
+        super.onEnable();
 
         //Create the core update thread and begin running it immediately, with the desired delay.
         GameUpdateThread updateThread = new GameUpdateThread(this);

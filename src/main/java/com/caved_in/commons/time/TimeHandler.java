@@ -71,6 +71,7 @@ public class TimeHandler {
                 timeType = TimeType.getTimeType(s);
                 int timeAmount = Integer.parseInt(sb.toString());
                 millesDuration += getTimeInMilles(timeAmount, timeType);
+                sb = new StringBuilder();
             }
         }
         return millesDuration;

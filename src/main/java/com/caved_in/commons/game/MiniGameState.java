@@ -1,5 +1,7 @@
 package com.caved_in.commons.game;
 
+import com.caved_in.commons.chat.Chat;
+
 /**
  * Barebones implementation of a game state, overriding the defaults defined in {@link GameState} to provide functionality.
  */
@@ -27,4 +29,8 @@ public abstract class MiniGameState implements GameState {
     public abstract void setup();
 
     public abstract void destroy();
+
+    public void debug(String... text) {
+        Chat.debug(text);
+    }
 }

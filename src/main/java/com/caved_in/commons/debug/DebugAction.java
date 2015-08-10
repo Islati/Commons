@@ -1,5 +1,6 @@
 package com.caved_in.commons.debug;
 
+import com.caved_in.commons.chat.Chat;
 import org.bukkit.entity.Player;
 
 public interface DebugAction {
@@ -15,4 +16,8 @@ public interface DebugAction {
      * @return the actions name.
      */
     String getActionName();
+
+    default void debug(String... text) {
+        Chat.debug(text);
+    }
 }

@@ -4,6 +4,11 @@
  + = Added
 -------------
 
+July 27'th, 2015 (Build 1.8.7):
+	+ Created the UserQuitEvent
+	+ Implemented Logic for UserQuitEvent to be called when a users data is removed!
+	+
+
 June 16'th, 2015 (Build 1.8.6):
 	+ Created the GameFeature and FeatureManager class / service.
 		- Used to easily create tickable features and have a nice, simple way to manage them all!
