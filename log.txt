@@ -4,6 +4,19 @@
  + = Added
 -------------
 
+August 21'st, 2015 (Build 1.8.7):
+	~ Updated ChatCommand with more functionality, moved it to an abstract class and began working on implementation for it.
+	~ Updated ChatCommandHandler with functionality to handle chat commands.
+		+ Implemented base logic with arg parsing and permission handling
+		+ Implemented check for global commands
+		+ Implemented registration of commands
+			+ Optional override for commands if the command handler allows it.
+
+August 12'th, 2015 (Build 1.8.7):
+	+ Updated ArmorBuilder with an enchantAll() method to enchant all the items inside the builder with a specific enchantment.
+	+ Updated ArmorBuilder to have a constructer or ItemStack[], using the structure of the array to generate a map of ArmorSlots and items!
+
+
 July 27'th, 2015 (Build 1.8.7):
 	+ Created the UserQuitEvent
 	+ Implemented Logic for UserQuitEvent to be called when a users data is removed!

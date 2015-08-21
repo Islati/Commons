@@ -1,6 +1,8 @@
 package com.caved_in.commons.inventory;
 
 import com.caved_in.commons.entity.CreatureBuilder;
+import com.caved_in.commons.item.Items;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -13,6 +15,14 @@ public class ArmorBuilder {
 
     public ArmorBuilder() {
 
+    }
+
+    public ArmorBuilder(ItemStack[] items) {
+        for (int i = 0; i < items.length; i++) {
+            ArmorSlot slot = ArmorSlot.getSlot(i);
+            ItemStack armorItem = items[i];
+            armor.put(slot, armorItem);
+        }
     }
 
     public ArmorBuilder(CreatureBuilder creatureBuilder) {
@@ -66,5 +76,13 @@ public class ArmorBuilder {
             }
         });
         return inv;
+    }
+
+    public ArmorBuilder enchantAll(Enchantment enchant, int level) {
+        armor.entrySet().forEach(e -> {
+            Items.addEnchantment(e.getValue(), enchant, level);
+        });
+
+        return this;
     }
 }
