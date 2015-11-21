@@ -316,6 +316,11 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
         return res;
     }
 
+    public Block[] getBorder() {
+        //todo implement method to get the border around a cuboid! From corner to corner to corner.
+        return null;
+    }
+
     /**
      * Expand the Cuboid in the given direction by the given amount.  Negative amounts will shrink the Cuboid in the given direction.  Shrinking a cuboid's
      * face past the opposite face is not an error and will return a valid Cuboid.

@@ -16,10 +16,7 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Inventories {
 
@@ -130,6 +127,16 @@ public class Inventories {
     }
 
     /**
+     * Check whether or not the inventory is absolutely full.
+     *
+     * @param inv inventory to check.
+     * @return true if every slot in the inventory has an item in it. False Otherwise.
+     */
+    public static boolean isFull(Inventory inv) {
+        return inv.firstEmpty() == -1;
+    }
+
+    /**
      * Set the contents of the given inventory.
      *
      * @param inventory inventory to set the contents for
@@ -203,7 +210,7 @@ public class Inventories {
      * @param inventory inventory to search
      * @param material  material to search for
      * @param itemName  name of the material to match
-     * @return slot of the named-item if it exists in the inventory, false otherwise.
+     * @return slot of the named-item if it exists in the inventory, -1 otherwise.
      */
     public static Integer getSlotOf(Inventory inventory, Material material, String itemName) {
         HashMap<Integer, ? extends ItemStack> items = inventory.all(material);
@@ -233,6 +240,58 @@ public class Inventories {
     }
 
     /**
+     * Check whether or not an inventory contains more than one stack of a specific item in the inventory.
+     *
+     * @param inv        inventory to search through.
+     * @param searchItem item to search for.
+     * @return true if there's more than one slot containing the item, false otherwise.
+     */
+    public static boolean hasMultipleStacks(Inventory inv, ItemStack searchItem) {
+        return getSlotsOf(inv, searchItem).size() > 1;
+    }
+
+    /**
+     * Retrieve all the slots and associated amount of a specific item inside the inventory.
+     *
+     * @param inv        inventory of which to search.
+     * @param searchItem item to search for in the inventory.
+     * @return A HashMap with the Slot (Integer) as a key, and Value being the count of items in that slot.
+     */
+    public static Map<Integer, Integer> getSlotsCount(Inventory inv, ItemStack searchItem) {
+        Map<Integer, Integer> slotsCount = new HashMap<>();
+
+        Map<Integer, ? extends ItemStack> items = inv.all(searchItem);
+
+        for (Map.Entry<Integer, ? extends ItemStack> item : items.entrySet()) {
+            if (item.getValue().isSimilar(searchItem)) {
+                slotsCount.put(item.getKey(), item.getValue().getAmount());
+            }
+        }
+
+        return slotsCount;
+    }
+
+    /**
+     * Retrieve all the slots in which a specific item resides. If any.
+     *
+     * @param inventory  Inventory to search for the item in.
+     * @param searchItem item to search for inside the inventory
+     * @return A HashMap of Integers, each of which being a slot that the searched item resides in.
+     */
+    public static Set<Integer> getSlotsOf(Inventory inventory, ItemStack searchItem) {
+        Set<Integer> itemSlots = new HashSet<>();
+
+        Map<Integer, ? extends ItemStack> items = inventory.all(searchItem);
+        for (Map.Entry<Integer, ? extends ItemStack> item : items.entrySet()) {
+            if (item.getValue().isSimilar(searchItem)) {
+                itemSlots.add(item.getKey());
+            }
+        }
+
+        return itemSlots;
+    }
+
+    /**
      * Check if the inventory contains any of the given item.
      *
      * @param inventory inventory to search
@@ -245,7 +304,8 @@ public class Inventories {
 
     /**
      * Shuffle the contents of the inventory, moving all items to random slots.
-     *12
+     * 12
+     *
      * @param inventory inventory to shuffle.
      */
     public static void shuffleContents(Inventory inventory) {

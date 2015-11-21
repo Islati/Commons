@@ -71,6 +71,7 @@ public class Entities {
 
     /**
      * Spawn fireworks at the given location.
+     *
      * @param loc location to spawn fireworks at.
      * @return firework that was spawned at the given location.
      */
@@ -139,10 +140,10 @@ public class Entities {
         World world = loc.getWorld();
         Bat bat = world.spawn(loc, Bat.class);
         /*
-		 Give the bat invisibility..
+         Give the bat invisibility..
 		 */
         addPotionEffect(bat, Potions.getPotionEffect(PotionEffectType.INVISIBILITY, 1, Integer.MAX_VALUE));
-		/*
+        /*
 		.. and also stop them from taking any damage for a loooong time!
 		 */
         bat.setNoDamageTicks(Integer.MAX_VALUE);
@@ -330,7 +331,8 @@ public class Entities {
 
     /**
      * Equip an entity with the specified armor.
-     *  @param entity    entity to parent.
+     *
+     * @param entity    entity to parent.
      * @param inventory armor to parent the entity with.
      */
     public static void setEquipment(LivingEntity entity, ArmorInventory inventory) {
@@ -339,7 +341,8 @@ public class Entities {
 
     /**
      * Assign a collection of living-entities to have the armor specific by ArmorInventory param.
-     * @param entities entities to modify the armor of.
+     *
+     * @param entities  entities to modify the armor of.
      * @param inventory armor to assign to the entities.
      */
     public static void setEquipment(Collection<? extends LivingEntity> entities, ArmorInventory inventory) {
@@ -353,8 +356,18 @@ public class Entities {
      * @return the entity type matched by the type parameter if found, and otherwise EntityType.UNKNOWN
      */
     public static EntityType getTypeByName(String type) {
+        EntityType entityType;
+        try {
+            entityType = EntityType.valueOf(type);
+            if (entityType != null) {
+                return entityType;
+            }
+        } catch (Exception e) {
+
+        }
+
         String entityInput = type.toLowerCase().replace("_", "");
-        EntityType entityType = MobType.getTypeByName(entityInput);
+        entityType = MobType.getTypeByName(entityInput);
         if (entityType != null) {
             return entityType;
         } else {
@@ -396,6 +409,7 @@ public class Entities {
 
     /**
      * Launch a snowball from the given entity.
+     *
      * @param entity entity to throw the snowball from.
      */
     public static void launchSnowball(LivingEntity entity) {
@@ -404,8 +418,9 @@ public class Entities {
 
     /**
      * Launch a snowball from the given entity with a specified force. Higher than 40 may cause visual glitches.
+     *
      * @param entity entity to throw the snowball.
-     * @param force force to throw the snowball with.
+     * @param force  force to throw the snowball with.
      */
     public static void launchSnowball(LivingEntity entity, int force) {
         launchSnowball(entity, 1, force);
@@ -628,8 +643,9 @@ public class Entities {
 
     /**
      * Damage the entity with a specific amount of damage, using the damager param as the source of damage.
-     * @param target entity to damage
-     * @param damage damage to apply to the {@param target}
+     *
+     * @param target  entity to damage
+     * @param damage  damage to apply to the {@param target}
      * @param damager entity applying the damage.
      */
     public static void damage(Damageable target, double damage, LivingEntity damager) {
@@ -642,8 +658,8 @@ public class Entities {
      * @param target    target to burn/
      * @param fireTicks amount of ticks the fire will last.
      */
-	public static void burn(Entity target, int fireTicks) {
-		target.setFireTicks(fireTicks);
+    public static void burn(Entity target, int fireTicks) {
+        target.setFireTicks(fireTicks);
     }
 
     /**
@@ -653,8 +669,8 @@ public class Entities {
      * @param amount   how long the target should burn; used with timeType to specify duration.
      * @param timeType the unit of time used to determine how long the target burns for.
      */
-	public static void burn(Entity target, int amount, TimeType timeType) {
-		target.setFireTicks((int) TimeHandler.getTimeInTicks(amount, timeType));
+    public static void burn(Entity target, int amount, TimeType timeType) {
+        target.setFireTicks((int) TimeHandler.getTimeInTicks(amount, timeType));
     }
 
     /**

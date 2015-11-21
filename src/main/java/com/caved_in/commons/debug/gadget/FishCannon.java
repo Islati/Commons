@@ -2,6 +2,7 @@ package com.caved_in.commons.debug.gadget;
 
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.guns.BulletActions;
 import com.caved_in.commons.item.ItemBuilder;
@@ -22,12 +23,18 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class FishCannon extends BaseGun {
+    private static FishCannon instance = null;
 
-    private int id;
+    public static FishCannon getInstance() {
+        if (instance == null) {
+            instance = new FishCannon();
+            Gadgets.registerGadget(instance);
+        }
+        return instance;
+    }
 
-    public FishCannon(int id) {
+    public FishCannon() {
         super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon"));
-        this.id = id;
         setBulletActions(FishCannonAction.getInstance());
         initProperties();
     }
@@ -72,10 +79,5 @@ public class FishCannon extends BaseGun {
         public void onHit(Player player, Block block) {
             ParticleEffects.sendToLocation(ParticleEffects.CLOUD, block.getLocation(), NumberUtil.getRandomInRange(1, 3));
         }
-    }
-
-    @Override
-    public int id() {
-        return id;
     }
 }

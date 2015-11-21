@@ -14,10 +14,10 @@ import org.simpleframework.xml.Root;
  */
 public class WeaponProperties extends GadgetProperties {
     @Element(name = "damage-min")
-    private double damageMin;
+    private double damageMin = 0;
 
     @Element(name = "damage-max")
-    private double damageMax;
+    private double damageMax = 0;
 
     public WeaponProperties() {
 
@@ -45,5 +45,9 @@ public class WeaponProperties extends GadgetProperties {
 
     public double getMaxDamage() {
         return damageMax;
+    }
+
+    public boolean hasDamageRange() {
+        return damageMin > 0 && damageMax > 0;
     }
 }

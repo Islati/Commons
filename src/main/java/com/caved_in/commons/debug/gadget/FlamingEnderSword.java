@@ -4,6 +4,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
+import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.guns.BulletBuilder;
 import com.caved_in.commons.game.guns.BulletProperties;
 import com.caved_in.commons.game.item.BaseWeapon;
@@ -22,16 +23,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 public class FlamingEnderSword extends BaseWeapon {
-    private int id;
 
     private BulletProperties enderBallProperties = new BulletProperties();
 
     private BulletBuilder enderBullets;
 
-    public FlamingEnderSword(int id) {
-        super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
-        this.id = id;
+    private static FlamingEnderSword instance = null;
 
+    public static FlamingEnderSword getInstance() {
+        if (instance == null) {
+            instance = new FlamingEnderSword();
+            Gadgets.registerGadget(instance);
+
+        }
+        return instance;
+    }
+
+    protected FlamingEnderSword() {
+        super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
         properties().droppable(true).breakable(false);
 
         enderBallProperties.speed(4).damage(5).damageCondition((shooter, target) -> target.getType() != EntityType.ENDERMAN);
@@ -76,10 +85,5 @@ public class FlamingEnderSword extends BaseWeapon {
         Chat.message(p, "&7The dark-side isn't fond of that disrespect");
         Players.addPotionEffect(p, Potions.getPotionEffect(PotionEffectType.BLINDNESS, 1, 160));
         item.remove();
-    }
-
-    @Override
-    public int id() {
-        return id;
     }
 }

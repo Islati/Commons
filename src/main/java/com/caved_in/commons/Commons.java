@@ -150,6 +150,7 @@ public class Commons extends BukkitPlugin {
                     new FireworksCommand(),
                     new FlyCommand(),
                     //TODO Register Friend Command
+                    new GadgetsCommand(),
                     new GamemodeCommand(),
                     new GrassCommand(),
                     new GodCommand(),
@@ -321,7 +322,7 @@ public class Commons extends BukkitPlugin {
                 "4. You may not spam",
                 "5. You may not advertise",
                 "6. You musn't use excessive caps",
-                "7. You mayn not advertise any links that are not Tunnels related",
+                "7. You may not advertise any links that are not Tunnels related",
                 "8. You musn't abuse glitches or game exploits",
                 "9. You may not troll any of the members, or ellicit ill behaviour in any way.",
                 "10. You must be respectful to players",

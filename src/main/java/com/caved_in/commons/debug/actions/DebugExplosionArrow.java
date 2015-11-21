@@ -12,11 +12,11 @@ import org.bukkit.inventory.ItemStack;
 public class DebugExplosionArrow implements DebugAction {
     @Override
     public void doAction(Player player, String... args) {
-        if (!Gadgets.isGadget(13996)) {
+        if (!Gadgets.hasBeenRegistered(ProtoExplosionArrow.getInstance())) {
             Gadgets.registerGadget(ProtoExplosionArrow.getInstance());
         }
 
-        ItemStack arrow = ProtoExplosionArrow.getInstance().getItem();
+        ItemStack arrow = ProtoExplosionArrow.getInstance().getItem().clone();
         arrow.setAmount(64);
         Players.giveItem(player, Items.makeItem(Material.BOW), arrow);
     }

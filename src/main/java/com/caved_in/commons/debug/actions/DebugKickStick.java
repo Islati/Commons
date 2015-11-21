@@ -1,39 +1,15 @@
 package com.caved_in.commons.debug.actions;
 
-import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.gadget.KickStick;
-import com.caved_in.commons.game.gadget.Gadgets;
-import com.caved_in.commons.player.Players;
-import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 
 public class DebugKickStick implements DebugAction {
-    private static boolean registered = false;
-    private static int gadgetId;
-
     @Override
     public void doAction(Player player, String... args) {
-        if (registered) {
-            Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
-            return;
-        }
-
-        if (args.length == 0) {
-            Chat.message(player, Messages.invalidCommandUsage("gadget id"));
-            return;
-        }
-
-        int id = StringUtil.getNumberAt(args, 0, 4105);
-
-        Chat.message(player, "&cRegistering &eThe Kick Stick&c with id " + id);
-        gadgetId = id;
-        if (!Gadgets.isGadget(id)) {
-            Gadgets.registerGadget(new KickStick(id));
-            registered = true;
-        }
-        Players.giveItem(player, Gadgets.getGadget(gadgetId).getItem());
+        KickStick.getInstance().giveTo(player);
+        Chat.message(player, "&aKick Stick is registered with ID: &e" + KickStick.getInstance().id());
     }
 
     @Override

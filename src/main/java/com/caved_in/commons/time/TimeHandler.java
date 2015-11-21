@@ -3,7 +3,9 @@ package com.caved_in.commons.time;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
@@ -81,11 +83,33 @@ public class TimeHandler {
         return DurationFormatUtils.formatDurationWords(duration, true, true);
     }
 
+    public static String trimDurationDifferenceToWords(long start, long finish) {
+        return trimNowToWords(finish - start);
+    }
+
+    public static String trimNowToWords(long time) {
+        return trimDurationDifferenceToWords(time,System.currentTimeMillis());
+    }
+
     public static int getSecondsFromTicks(long tickAmount) {
         return (int) (tickAmount / 20);
     }
 
     public static String getDurationBreakdown(long time) {
         return DurationFormatUtils.formatDurationWords(time, true, true);
+    }
+
+    public static Date getDateFromTimeStamp(long timestamp) {
+        return new Date(timestamp);
+    }
+
+    private static SimpleDateFormat numericDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    public static String dateToStringNumeric(Date date) {
+        return numericDateFormat.format(date);
+    }
+
+    private static SimpleDateFormat wordDateFormat = new SimpleDateFormat("MMMM dd, yyyyy");
+    public static String dateToStringWords(Date date) {
+        return wordDateFormat.format(date);
     }
 }

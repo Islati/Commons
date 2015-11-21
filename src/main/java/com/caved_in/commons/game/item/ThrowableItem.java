@@ -101,8 +101,6 @@ public abstract class ThrowableItem extends ItemGadget {
 
     public abstract void handle(Player holder, Item thrownItem);
 
-    public abstract int id();
-
     @Override
     public Properties properties() {
         return properties;

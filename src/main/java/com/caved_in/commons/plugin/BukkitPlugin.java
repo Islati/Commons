@@ -1,6 +1,8 @@
 package com.caved_in.commons.plugin;
 
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.chat.ChatCommand;
+import com.caved_in.commons.chat.ChatCommandHandler;
 import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
@@ -42,22 +44,58 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
     private PlayerGlowRed playerGlowHandler;
 
+    private ChatCommandHandler chatCommandhandler;
+
     public void onEnable() {
+        /*
+        Create the command handler for annotation-based commands.
+         */
         commandHandler = new CommandHandler(this);
 
+        /*
+        Create the chat command handler, for when you're lazy but wanna write commands.
+         As the chat command handler implements the listener, then we're also going to
+         register it as a listener.
+         */
+        registerListeners(
+                chatCommandhandler = new ChatCommandHandler(this)
+        );
+        /*
+        Create the thread manager, used to wrap tasks.
+         */
         threadManager = new RunnableManager(this);
 
+        /*
+        Create the scoreboard manager, incase you wish to do
+        fancy shmancy work with the scoreboard.
+         */
         scoreboardManager = new ScoreboardManager(this, 15l);
 
+        /*
+        Create the syncronous promise listener
+         */
         syncExecuter = BukkitExecutors.newSynchronous(this);
 
+        /*
+        Create the asyncronous promise listener
+         */
         asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
+        /*
+        Create the player glow handler, used as a cosmetic effect!
+         */
         playerGlowHandler = new PlayerGlowRed(this);
 
+        /*
+        Create the local serializer! (SimpleXML)
+         */
         serializer = new Persister();
 
         if (Plugins.hasProtocolLib()) {
+            /*
+            If protocolLib is enabled then we also want to create the ItemMessage
+            handler, where you use item meta packets to send actionbar-like messages
+             */
             itemMessage = new ItemMessage(this);
         }
 
@@ -95,6 +133,16 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
     public void registerCommands(Object... commands) {
         commandHandler.registerCommands(commands);
+    }
+
+    public boolean registerChatCommands(ChatCommand... commands) {
+        for(ChatCommand cmd : commands) {
+            if (!chatCommandhandler.registerCommand(cmd)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void registerListeners(Listener... listeners) {

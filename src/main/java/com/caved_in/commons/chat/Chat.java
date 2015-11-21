@@ -363,4 +363,21 @@ public class Chat {
         commons.debug(message);
     }
 
+    @Deprecated
+    public static void formatDebug(String msg, Object... formatting) {
+        commons.debug(String.format(msg,formatting));
+    }
+
+    public static String format(String text) {
+        return StringUtil.formatColorCodes(text);
+    }
+
+    public static String format(String text, Object... args) {
+        return String.format(StringUtil.formatColorCodes(text), args);
+    }
+
+    public static void format(Player p, String text, Object... args) {
+        message(p, format(text, args));
+    }
+
 }

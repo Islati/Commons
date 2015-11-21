@@ -32,6 +32,13 @@ public class ChatCommandHandler implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e) {
+        /*
+        If there's no commands registered then just fuck off and don't bother.
+         */
+        if (commands.isEmpty()) {
+            return;
+        }
+
         Player player = e.getPlayer();
         String msg = e.getMessage();
 

@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 
 public class TimeCommand {
     @Command(identifier = "time", permissions = Perms.COMMAND_TIME)
-    public void onTimeCommand(CommandSender sender, @Arg(name = "world", def = "?sender") World world, @Arg(name = "time") String time) {
+    public void onTimeCommand(CommandSender sender,@Arg(name = "time") String time, @Arg(name = "world", def = "?sender") World world) {
         time = time.toLowerCase();
         //Switch on what the player entered
         switch (time) {

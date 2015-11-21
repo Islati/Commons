@@ -65,6 +65,7 @@ public class UserManager<T extends User> implements IUserManager<T> {
 
     public void addUser(T user) {
         users.put(user.getId(), user);
+        callUserJoin(user);
     }
 
     public void disposeAll() {

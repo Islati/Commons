@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.plugin.Plugins;
@@ -10,10 +11,12 @@ import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Gadgets {
-    //Used to assign gadgets an ID auto-magically
-//	private static final AtomicInteger ids = new AtomicInteger(1);
+    //    Used to assign gadgets an ID auto-magically
+    private static final AtomicInteger ids = new AtomicInteger(0);
+
     private static final Random random = new Random();
 
     //todo Implement methods to get first free int for gadget registration
@@ -116,5 +119,56 @@ public class Gadgets {
      */
     public static int getGadgetCount() {
         return gadgets.size();
+    }
+
+    public static int getFirstFreeId() {
+        int gadgetCount = getGadgetCount();
+        if (gadgetCount == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            if (!gadgets.containsKey(i)) {
+                return i;
+            }
+        }
+
+        throw new IndexOutOfBoundsException("Unable to obtain a free ID");
+    }
+
+    /**
+     * Determine whether or not the gadget has been registered already.
+     *
+     * @param gadget gadget
+     * @return
+     */
+    public static boolean hasBeenRegistered(Gadget gadget) {
+        return gadgets.containsKey(gadget.id());
+    }
+
+    /**
+     * Retrieve the ID of the gadget associated with the itemstack if it's a gadget.
+     *
+     * @param item itemstack of the gadget to retrieve the ID for.
+     * @return -1 if the item isn't a gadget, otherwise the id of the associated gadget.
+     */
+    public static int getId(ItemStack item) {
+        if (!isGadget(item)) {
+            return -1;
+        }
+
+        for (Gadget gadget : gadgets.values()) {
+            if (gadget instanceof BaseGun) {
+
+                BaseGun gun = (BaseGun) gadget;
+                if (Items.nameContains(item, gun.getItemName())) {
+                    return gun.id();
+                }
+            } else if (gadget.getItem().isSimilar(item)) {
+                return gadget.id();
+            }
+        }
+
+        return -1;
     }
 }

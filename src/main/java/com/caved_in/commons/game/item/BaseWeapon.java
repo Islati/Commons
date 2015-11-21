@@ -70,6 +70,4 @@ public abstract class BaseWeapon extends ItemGadget implements Weapon {
 
     @Override
     public abstract void onBreak(Player p);
-
-    public abstract int id();
 }

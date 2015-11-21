@@ -2,6 +2,7 @@ package com.caved_in.commons.debug.gadget;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
+import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.guns.BaseArrow;
 import com.caved_in.commons.item.ItemBuilder;
 import org.bukkit.Material;
@@ -16,6 +17,7 @@ public class ProtoExplosionArrow extends BaseArrow {
     public static ProtoExplosionArrow getInstance() {
         if (instance == null) {
             instance = new ProtoExplosionArrow();
+            Gadgets.registerGadget(instance);
         }
         return instance;
     }
@@ -36,10 +38,5 @@ public class ProtoExplosionArrow extends BaseArrow {
         Chat.message(shooter, "&cBoom!");
         Chat.debug("Explodede!!!!!");
         return true;
-    }
-
-    @Override
-    public int id() {
-        return 13996;
     }
 }

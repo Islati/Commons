@@ -67,6 +67,7 @@ public abstract class LimitedGadget extends ItemGadget {
 		if (playerTicker.allow(player)) {
 			//Remove the gadget from the players inventory, and send them a message.
 			Players.removeFromHand(player, 1);
+			//todo investigate limited gadgets not dissapearing from inv.
 			Chat.message(player, Messages.gadgetExpired(this));
 			playerTicker.clear(player);
 		}
@@ -79,8 +80,6 @@ public abstract class LimitedGadget extends ItemGadget {
 	 * @param player player using the gadget.
 	 */
 	public abstract void use(Player player);
-
-	public abstract int id();
 
 	/**
 	 * Retrieve the overall amount of uses a gadget is limited to.
