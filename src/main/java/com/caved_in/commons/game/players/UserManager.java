@@ -69,6 +69,10 @@ public class UserManager<T extends User> implements IUserManager<T> {
     }
 
     public void disposeAll() {
+        if (users.isEmpty()) {
+            return;
+        }
+
         for (T user : users.values()) {
             callUserQuit(user);
             user.destroy();

@@ -120,13 +120,21 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
     @Override
     public void update() {
         GameState activeState = getActiveState();
-        //If there were no listeners registered when supposed to be
-        if (!hasExternalListeners() && !registeredStateListeners) {
-            Plugins.registerListeners(this, activeState);
-            registeredStateListeners = true;
-        }
 
-        activeState.update();
+        /*
+        If we've got an active state, then continue. Otherwise we're not able to
+        register the listeners (They'll be null)
+         */
+        if (activeState != null) {
+
+            //If there were no listeners registered when supposed to be
+            if (!hasExternalListeners() && !registeredStateListeners) {
+                Plugins.registerListeners(this, activeState);
+                registeredStateListeners = true;
+            }
+
+            activeState.update();
+        }
 
         switchStates();
 
@@ -138,6 +146,10 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
     public void switchStates() {
 
         GameState gameState = getActiveState();
+
+        if (gameState == null) {
+            return;
+        }
 
 		/* If the active game state hasn't already been setup, then do so*/
         if (!gameState.isSetup()) {

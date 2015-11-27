@@ -40,6 +40,28 @@ public class TextFile {
         }
     }
 
+    public void append(List<String> strings) {
+        strings.forEach(this::appendString);
+    }
+
+    public void overwriteFile(List<String> data) {
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            try {
+                FileUtils.forceDelete(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            FileUtils.writeLines(new File(filePath), data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void appendString(String data) {
         try {
             FileUtils.writeStringToFile(new File(this.filePath), data + "\r\n", true);

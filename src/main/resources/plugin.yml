@@ -27,6 +27,12 @@ commands:
    tp:
       usage: /<command> <player>
       aliases: [teleport]
+   tpmenu:
+      usage: /<command> <enable/on/disable/off>
+   tpaccept:
+      usage: /<command>
+   tpdeny:
+      usage: /<command>
    tpo:
       usage: /<command> <player> <targetPlayer>
       aliases: [tpother,teleportother]

@@ -4,6 +4,13 @@
  + = Added
 -------------
 
+November 26'th 2015 (Build 1.8.8):
+	~ Fixed bugs inside Minigame with null registration of listeners when no states have been added.
+	+ Implemented TPMenu command to toggle tpmenu.
+	+ Implemented TeleportMenuOptions hack in a text file for managing players teleport menu options.
+	~ Modified TextFile with options to overwriteFile with a list.
+	+ Re-Implemented Tpaccept and TpDeny command for people who don't want to use the confirmation menus for teleport requests.
+
 November 17'th, 2015 (Build 1.8.8):
 	~ Re-arranged the arguments in the /time command to take world as an optional, final param.
 	+ Created a round method in NumberUtil for rounding doubles to a specific decimal place.

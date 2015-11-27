@@ -7,6 +7,7 @@ import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.config.WorldConfiguration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.debug.actions.*;
+import com.caved_in.commons.file.TextFile;
 import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
@@ -29,6 +30,7 @@ import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -42,6 +44,7 @@ public class Commons extends BukkitPlugin {
     public static final String ITEM_DATA_FOLDER = "plugins/Commons/Items";
     public static final String ITEM_SET_DATA_FOLDER = "plugins/Commons/ItemSets/";
     public static final String RULES_LOCATION = "plugins/Commons/rules.txt";
+    public static final String TELEPORT_MENU_DISABLED_LOCATION = "plugins/Commons/disabled-teleport-menus.txt";
 
     private static Configuration globalConfig = new Configuration();
 
@@ -90,9 +93,9 @@ public class Commons extends BukkitPlugin {
 
         //Use reflection to prepare for custom enchants.
         prepForCustomEnchantments();
-		
+
 		/*
-		Create the private message manager; used to track private messages for players on the server.
+        Create the private message manager; used to track private messages for players on the server.
          */
         privateMessageManager = new PrivateMessageManager();
 
@@ -183,6 +186,7 @@ public class Commons extends BukkitPlugin {
                     new TeleportOtherCommand(),
                     new TeleportPositionCommand(),
                     new TeleportRequestCommand(),
+                    new TeleportMenuCommand(),
                     new TimeCommand(),
                     new TunnelsXPCommand(),
                     new UnsilenceCommand(),
@@ -209,7 +213,7 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public void shutdown() {
-		/*
+        /*
         Update the server-online status for the server that's stopping
         to false!
          */
@@ -312,6 +316,48 @@ public class Commons extends BukkitPlugin {
 		 */
         Rules.init(new File(RULES_LOCATION));
 
+        /*
+        Initialize the Teleport Menu Settings
+         */
+        TeleportMenuSettings.init(TELEPORT_MENU_DISABLED_LOCATION);
+    }
+
+    public static class TeleportMenuSettings {
+        private List<String> disabledUuids = new ArrayList<>();
+
+        private static TeleportMenuSettings instance;
+
+        private TextFile textFile;
+
+        public static TeleportMenuSettings getInstance() {
+            return instance;
+        }
+
+        public static void init(String path) {
+            instance = new TeleportMenuSettings(path);
+        }
+
+        protected TeleportMenuSettings(String filePath) {
+            textFile = new TextFile(filePath);
+        }
+
+        public boolean hasMenuDisabled(UUID id) {
+            return disabledUuids.contains(id.toString());
+        }
+
+        public void disableMenu(UUID id) {
+            disabledUuids.add(id.toString());
+            save();
+        }
+
+        public void enableMenu(UUID id) {
+            disabledUuids.remove(id.toString());
+            save();
+        }
+
+        private void save() {
+            textFile.overwriteFile(disabledUuids);
+        }
     }
 
     public static class Rules {

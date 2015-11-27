@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.ItemBuilder;
@@ -62,7 +61,6 @@ public abstract class BaseArrow extends ItemGadget {
 
         if (Items.hasEnchantment(bow, Enchantment.ARROW_INFINITE)) {
             infinityIds.add(entity.getUniqueId());
-            Chat.debug(((Player) entity).getName() + " has infinty on their bow");
         }
 
     }
@@ -131,6 +129,7 @@ public abstract class BaseArrow extends ItemGadget {
 
     @Override
     public void perform(Player holder) {
+        //todo equip in 1.9
 //        MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(holder);
 //
 //        if (mcPlayer.hasArrowEquipped()) {
