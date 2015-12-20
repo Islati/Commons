@@ -22,6 +22,7 @@ public class AddCurrencyCommand {
     public void addCurrency(CommandSender sender, @Arg(name = "player", description = "player to give the money to") String playerName, @Arg(name = "amount", description = "amount of currency to give to the player!") int amt) {
         if (Players.isOnline(playerName)) {
             Player player = Players.getPlayer(playerName);
+            //todo implement vault hook
             Players.giveMoney(player, amt, true);
             Players.updateData(player);
             Chat.message(sender, Messages.playerAddedXp(player.getName(), amt));

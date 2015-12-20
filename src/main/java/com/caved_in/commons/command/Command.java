@@ -16,9 +16,9 @@ public @interface Command {
     String description() default "";
 
     /**
-     * The identifier describes what command definition this will bind to. Spliced by spaces, you can define as many sub commands as you want, as long as the first command (the root) is defined in the plugin.yml file.<br><br>
+     * The identifier describes what command definition this will bind to. Spliced by spaces, you can define as many sub commands as you want, as long as the first command (the root) is defined in the plugin.commands.yml file.<br><br>
      * Example: {@code @Command(identifier="root sub1 sub2")}<br>
-     * The first command "root" needs to be defined in the plugin.yml. The user will be able to access the command by writing (if the root command does not choose an alias instead):<br>
+     * The first command "root" needs to be defined in the plugin.commands.yml. The user will be able to access the command by writing (if the root command does not choose an alias instead):<br>
      * {@code /root sub1 sub2}<br>
      */
     String identifier();

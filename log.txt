@@ -4,6 +4,27 @@
  + = Added
 -------------
 
+December 15'th, 2015 (Build 1.8.8-2):
+	+ Implemented the Metrics class under org.mcstats.
+	+ Created the Characters class for ASCII Characters!
+	+ Moved all the operations in Str class to StringUtil!
+		- BREAKING CHANGE.
+	~ Updated Lombok to 1.16.2
+
+Deember 11'th, 2015 (Built 1.8.8-2):
+	+ Created the Scaler class! Used to scale chances based on a min and max value!
+	+ Created the 'getNmsVersion' method in Plugins.java
+
+December 7'th, 2015 (Build 1.8.8-1):
+	~ Fixed the ClearInventory command message null pointer exception when clearing other players.
+	- Removed empty SetPrefixCommand class... Command has been obsolete for months.. Will return when I implement a Chat Handler.
+	- Removed /nicklist from the commands.
+	+ Implemented getBulletBuilder() in BaseGun.
+	~ Attempted a fix for the FlamingEnderSword
+	~ Implemented fix for damage being bypassed when players are in godmode.
+	~ Updated plugin.yml file with all permissions inside of Commons.
+	+ Removed un-necessary commands inside commons; Nicklist, nick, and friends.
+
 November 26'th 2015 (Build 1.8.8):
 	~ Fixed bugs inside Minigame with null registration of listeners when no states have been added.
 	+ Implemented TPMenu command to toggle tpmenu.

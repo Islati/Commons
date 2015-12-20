@@ -120,6 +120,12 @@ public class Fireworks {
         playFirework(location, randomFireworkEffect());
     }
 
+    public static void playRandomFireworks(Location location, int count) {
+        for (int i = 0; i < count; i++) {
+            playRandomFirework(location);
+        }
+    }
+
     /**
      * @return a randomly generated FireworkEffect with all aspects assigned.
      */

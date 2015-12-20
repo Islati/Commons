@@ -509,7 +509,11 @@ public class Players {
     public static void teleport(Player player, Location location) {
         Validate.notNull(player);
         Validate.notNull(location);
-        player.teleport(location, PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+        float preYaw = player.getLocation().getYaw();
+        float prePitch = player.getLocation().getPitch();
+
+        player.teleport(new Location(location.getWorld(), location.getX(), location.getY(), location.getZ(), preYaw, prePitch), PlayerTeleportEvent.TeleportCause.PLUGIN);
     }
 
     /**
@@ -1320,6 +1324,28 @@ public class Players {
      * @param amount amount of health to restore on the player.
      */
     public static void restoreHealth(Player p, int amount) {
+        double currentHealth = p.getHealth();
+        double maxHealth = p.getMaxHealth();
+
+        if (currentHealth >= maxHealth) {
+            return;
+        }
+
+        double newHealth = currentHealth + amount;
+        if (newHealth > maxHealth) {
+            newHealth = maxHealth;
+        }
+
+        p.setHealth(newHealth);
+    }
+
+    /**
+     * Restore the players health by the given amount. Will not exceed the players maximum health.
+     *
+     * @param p      player to restore health for.
+     * @param amount amount of health to restore on the player.
+     */
+    public static void restoreHealth(Player p, double amount) {
         double currentHealth = p.getHealth();
         double maxHealth = p.getMaxHealth();
 

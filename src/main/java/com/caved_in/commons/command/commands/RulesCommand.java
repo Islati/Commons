@@ -21,7 +21,7 @@ public class RulesCommand {
     }
 
     @Command(identifier = "rules add", description = "Add a new rule to the list of rules")
-    public void onRulesAddCommand(Player player, @Wildcard @Arg(name="rule")String rule) {
+    public void onRulesAddCommand(Player player, @Wildcard @Arg(name = "rule") String rule) {
         Commons.Rules.add(rule);
         Chat.actionMessage(player, String.format("&eRule Added: &a%s", rule));
     }

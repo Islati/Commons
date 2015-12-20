@@ -17,7 +17,7 @@ public class ClearInventoryCommand {
         if (playerName != null) {
             //If the player doesn't have the permission to clear the inventory of someone else, then they can't clear it!
             if (!commandSender.hasPermission(Perms.CLEAR_INVENTORY_OTHER)) {
-                Chat.message(player, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
+                Chat.message(commandSender, Messages.permissionRequired(Perms.CLEAR_INVENTORY_OTHER));
                 return;
             }
 

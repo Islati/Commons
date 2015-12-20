@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class SpawnMobCommand {
+    //todo implement options for max-health / health, name.
     @Command(identifier = "spawnmob", permissions = Perms.COMMAND_MOB_SPAWN)
     @Flags(identifier = {"baby", "age", "size", "villager", "powered", "wither", "helmet", "chest", "legs", "boots", "hand"})
     public void onSpawnMobCommand(Player player, @Arg(name = "mob type") EntityType type, @Arg(name = "amount", def = "1") int amount,

@@ -150,8 +150,11 @@ public class Plugins {
 
     public static String getBukkitVersion() {
         String name = Bukkit.getServer().getClass().getPackage().getName();
-        String version = name.substring(name.lastIndexOf('.') + 1) + ".";
+        String version = name.substring(name.lastIndexOf('.') + 1);
         return version;
     }
 
+    public static String getNmsVersion() {
+        return Bukkit.getServer().getClass().getPackage().getName().substring(23);
+    }
 }

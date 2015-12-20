@@ -49,6 +49,7 @@ public class DebugModeCommand {
 
         if (Debugger.isDebugAction(action)) {
             String[] debugArgs = args.split(" ");
+            Chat.debug("Arguments for Debug Action " + action + " are: " + args);
             Debugger.getDebugAction(action).doAction(player, debugArgs);
             return;
         }

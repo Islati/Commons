@@ -5,8 +5,7 @@ import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.Gadgets;
-import com.caved_in.commons.game.guns.BulletBuilder;
-import com.caved_in.commons.game.guns.BulletProperties;
+import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.item.BaseWeapon;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
@@ -24,10 +23,6 @@ import org.bukkit.potion.PotionEffectType;
 
 public class FlamingEnderSword extends BaseWeapon {
 
-    private BulletProperties enderBallProperties = new BulletProperties();
-
-    private BulletBuilder enderBullets;
-
     private static FlamingEnderSword instance = null;
 
     public static FlamingEnderSword getInstance() {
@@ -39,12 +34,20 @@ public class FlamingEnderSword extends BaseWeapon {
         return instance;
     }
 
+    private BaseGun enderGun = new BaseGun(ItemBuilder.of(Material.ENDER_STONE)) {
+
+        @Override
+        public void onFire(Player shooter) {
+
+        }
+    };
+
     protected FlamingEnderSword() {
         super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
         properties().droppable(true).breakable(false);
 
-        enderBallProperties.speed(4).damage(5).damageCondition((shooter, target) -> target.getType() != EntityType.ENDERMAN);
-        enderBullets = BulletBuilder.from(enderBallProperties).gunless().type(Material.ENDER_PEARL);
+        enderGun.bulletProperties().speed(4).damage(5).damageCondition((shooter, target) -> target.getType() != EntityType.ENDERMAN);
+        enderGun.getBulletBuilder().gun(enderGun).type(Material.ENDER_PEARL);
     }
 
     @Override
@@ -56,9 +59,9 @@ public class FlamingEnderSword extends BaseWeapon {
     @Override
     public void onActivate(Player p) {
         try {
-            enderBullets.shooter(p).shoot();
+            enderGun.getBulletBuilder().shooter(p).shoot();
         } catch (ProjectileCreationException e) {
-            Chat.message(p, "Unable to fire bullets at target.");
+            Chat.message(p, "Unable to fire bullets at target. Projectile Creation Exception");
         }
     }
 

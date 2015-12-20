@@ -53,6 +53,8 @@ public abstract class BaseBullet implements Metadatable {
     /* The parent object which this bullet's being made for */
     private Gun gun;
 
+    private boolean gunless = false;
+
     /* The item the gun shoots */
     private ItemStack itemStack;
 

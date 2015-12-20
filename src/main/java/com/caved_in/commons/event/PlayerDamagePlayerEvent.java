@@ -15,10 +15,16 @@ public class PlayerDamagePlayerEvent extends PlayerEvent implements Cancellable 
 
     private boolean cancelled;
 
-    public PlayerDamagePlayerEvent(Player damager, Player target, EntityDamageEvent.DamageCause cause) {
+    private double damage;
+
+    private double finalDamage;
+
+    public PlayerDamagePlayerEvent(Player damager, Player target, double damage, double finalDamage, EntityDamageEvent.DamageCause cause) {
         super(damager);
         this.target = target;
         this.damageCause = cause;
+        this.damage = damage;
+        this.finalDamage = finalDamage;
     }
 
     public Player getTarget() {
@@ -27,6 +33,18 @@ public class PlayerDamagePlayerEvent extends PlayerEvent implements Cancellable 
 
     public EntityDamageEvent.DamageCause getDamageCause() {
         return damageCause;
+    }
+
+    public double getDamage() {
+        return damage;
+    }
+
+    public double getFinalDamage() {
+        return finalDamage;
+    }
+
+    public void setDamage(double dmg) {
+        this.damage = dmg;
     }
 
     @Override

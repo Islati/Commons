@@ -2,6 +2,7 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.*;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class TreeCommand {
 
-    @Command(identifier = "tree", permissions = "commons.command.tree")
+    @Command(identifier = "tree", permissions = Perms.COMMAND_TREE)
     @Flags(identifier = {"-cursor"})
     public void onTreeCommand(Player player, @FlagArg("-cursor") boolean cursor, @Wildcard @Arg(name = "tree-type") String treeType) {
 

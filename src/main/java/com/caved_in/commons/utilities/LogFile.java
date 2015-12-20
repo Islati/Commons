@@ -19,6 +19,8 @@ public class LogFile {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            //todo implement auto load.
         }
 
         this.file = file;

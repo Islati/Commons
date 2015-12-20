@@ -13,6 +13,5 @@ public class TeleportPositionCommand {
     public void onTeleportPositionCommand(Player player, @Arg(name = "x") double x, @Arg(name = "y") double y, @Arg(name = "z") double z) {
         Players.teleport(player, new double[]{x, y, z});
         Chat.message(player, Messages.playerTeleportedTo(String.format("%sx %sy %sz", x, y, z)));
-
     }
 }

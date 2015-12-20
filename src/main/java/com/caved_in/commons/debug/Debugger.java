@@ -7,7 +7,7 @@ import com.caved_in.commons.menu.HelpScreen;
 import com.caved_in.commons.menu.ItemFormat;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.PageDisplay;
-import com.caved_in.commons.utilities.Str;
+import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -133,6 +133,6 @@ public class Debugger {
     }
 
     public static ItemStack createExceptionBook(Exception ex) {
-        return Items.makeBook("Exception: " + ex.getMessage(), Str.getStackStr(ex));
+        return Items.makeBook("Exception: " + ex.getMessage(), StringUtil.getStackStr(ex));
     }
 }

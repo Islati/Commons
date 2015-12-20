@@ -378,4 +378,9 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     public String getItemName() {
         return gun.getItemName();
     }
+
+    public BulletBuilder getBulletBuilder() {
+        initBuilder();
+        return builder;
+    }
 }

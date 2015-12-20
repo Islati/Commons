@@ -294,6 +294,91 @@ public class Items {
     }
 
     /**
+     * Retrieve the line of text in the items lore where it contains a specific string.
+     *
+     * @param item item to search the lore on.
+     * @param text text to search for in the items lore.
+     * @return The line of text containing the search variable, if available; Otherwise null is returned.
+     */
+    public static String getLoreLineContaining(ItemStack item, String text) {
+        if (!hasLore(item)) {
+            return null;
+        }
+
+        List<String> lore = getLore(item);
+
+        String cLine = null;
+
+        for (String line : lore) {
+            if (!StringUtil.stripColor(line.toLowerCase()).contains(StringUtil.stripColor(text.toLowerCase()))) {
+                continue;
+            }
+
+            cLine = line;
+            break;
+        }
+
+        return cLine;
+    }
+
+    /**
+     * Get the line number which contains the given text in an items lore.
+     *
+     * @param item item to search the lore on.
+     * @param text text to search for within the lore.
+     * @return line number which the text resides if it exists, if it doesn't exist -1 is returned.
+     */
+    public static int getLoreLineNumberContaining(ItemStack item, String text) {
+        if (!hasLore(item)) {
+            return -1;
+        }
+
+        List<String> lore = getLore(item);
+
+        for (int i = 0; i < lore.size(); i++) {
+            String loreLine = StringUtil.stripColor(lore.get(i));
+
+            if (!loreLine.toLowerCase().contains(StringUtil.stripColor(text.toLowerCase()))) {
+                continue;
+            }
+
+            return i;
+        }
+
+        return -1;
+    }
+
+    /**
+     * Retrieve all the lines of lore on an item which contain a specific piece of text. (Future: Match against regex)
+     *
+     * @param item item to retrieve the lore from.
+     * @param text text to search for in each line of lore.
+     * @return List of all the lore lines which contained the desired text.
+     */
+    public static List<String> getLoreLinesContaining(ItemStack item, String text) {
+        //todo implement regex match
+        List<String> lines = new ArrayList<>();
+
+        if (!hasLore(item)) {
+            return lines;
+        }
+
+        List<String> lore = getLore(item);
+
+        if (lore == null) {
+            return lines;
+        }
+
+        for (String line : lore) {
+            if (StringUtil.stripColor(line).toLowerCase().contains(StringUtil.stripColor(text.toLowerCase()))) {
+                lines.add(line);
+            }
+        }
+
+        return lines;
+    }
+
+    /**
      * Set the lore at a specific line for the given item. If there's currently no lore at the line, the operation will fail.
      *
      * @param item item to assign the lore to
@@ -363,7 +448,7 @@ public class Items {
             if (s == null || s.isEmpty()) {
                 continue;
             }
-            if (s.toLowerCase().contains(text.toLowerCase())) {
+            if (StringUtil.stripColor(s.toLowerCase()).contains(StringUtil.stripColor(text.toLowerCase()))) {
                 return true;
             }
         }
@@ -553,6 +638,7 @@ public class Items {
 
     /**
      * Remove all the enchantments from an item.
+     *
      * @param item item to clear of enchantments.
      */
     public static void clearEnchantments(ItemStack item) {
@@ -578,8 +664,9 @@ public class Items {
 
     /**
      * Replace a substring inside the given items name!
-     * @param target item to rename.
-     * @param search string to search for, that will be replaced.
+     *
+     * @param target  item to rename.
+     * @param search  string to search for, that will be replaced.
      * @param replace replacement for the searched string.
      * @return the ItemStack that's been renamed.
      */
@@ -599,7 +686,8 @@ public class Items {
 
     /**
      * Compare the enchantments of 2 items and see if they match.
-     * @param item item to match the enchantments against.
+     *
+     * @param item        item to match the enchantments against.
      * @param compareItem comparing item, to see if the enchantments match against the first.
      * @return true if both items have the same enchantments, false otherwise.
      */
@@ -625,7 +713,8 @@ public class Items {
 
     /**
      * Check if the given item has the queried enchantment. Doesn't match against levels for the enchantment.
-     * @param item item to check enchantments for.
+     *
+     * @param item    item to check enchantments for.
      * @param enchant enchantment to check for on the item.
      * @return true if the item has the enchantment in question, false otherwise.
      */
@@ -647,9 +736,10 @@ public class Items {
 
     /**
      * Check if the given item has the enchantment of the desired level on it.
-     * @param item item to search for enchantments on.
+     *
+     * @param item    item to search for enchantments on.
      * @param enchant enchantment to look for on the item.
-     * @param level level of the enchantment to match against.
+     * @param level   level of the enchantment to match against.
      * @return true if the item has the enchantment of the given level, false otherwise.
      */
     public static boolean hasEnchantment(ItemStack item, Enchantment enchant, int level) {
@@ -707,6 +797,7 @@ public class Items {
 
     /**
      * Add ItemFlag's to the given item.
+     *
      * @param item item to add flags to.
      * @param flag flags to add to the item.
      */
@@ -718,7 +809,8 @@ public class Items {
 
     /**
      * Add a collection of ItemFlags to the given ItemStack
-     * @param item item to have flags added on.
+     *
+     * @param item  item to have flags added on.
      * @param flags collection of ItemFlags to add to the Item.
      */
     public static void addFlags(ItemStack item, Collection<ItemFlag> flags) {
@@ -739,8 +831,9 @@ public class Items {
 
     /**
      * Check if the ItemStack is of the given material type.
+     *
      * @param itemStack item to check the type of.
-     * @param material material to compare the item to.
+     * @param material  material to compare the item to.
      * @return true if the item is of the given type, false otherwise.
      */
     public static boolean isType(ItemStack itemStack, Material material) {
@@ -749,6 +842,7 @@ public class Items {
 
     /**
      * Check if the ItemStack is a piece of armor.
+     *
      * @param itemStack item to check.
      * @return true if the item is a piece of armor, false otherwise.
      */
@@ -758,6 +852,7 @@ public class Items {
 
     /**
      * Check if the given Material is a piece of armor.
+     *
      * @param material material to check.
      * @return true if the material is a piece of armor, false otherwise.
      */
@@ -767,6 +862,7 @@ public class Items {
 
     /**
      * Check if the item of the given type is a weapon or not.
+     *
      * @param itemStack item to check.
      * @return true if the item is a weapon, false otherwise.
      */
@@ -774,8 +870,14 @@ public class Items {
         return WeaponType.isItemWeapon(itemStack);
     }
 
+    //todo document.
+    public static boolean isWeapon(ItemStack item, WeaponType type) {
+        return WeaponType.isItemWeapon(item, type);
+    }
+
     /**
      * Check if the material is the type of a weapon or not.
+     *
      * @param material material to check.
      * @return true if the material is a weapon, false otherwise.
      */
@@ -785,6 +887,7 @@ public class Items {
 
     /**
      * Check if the Item is a tool; Hoe, Axe, Shovel, Flint & Tinder, etc!
+     *
      * @param item item to check.
      * @return true if the item is that of any of the tool types, false otherwise.
      */
@@ -794,6 +897,7 @@ public class Items {
 
     /**
      * Check if the item is of the given tool type.
+     *
      * @param item item to check.
      * @param type type to compare the item to.
      * @return true if the item is the of any of the materials matched by the given {@link ToolType}
@@ -804,8 +908,9 @@ public class Items {
 
     /**
      * Check if the material is of the given tool type.
+     *
      * @param material material to check.
-     * @param type tooltype to compare the material to.
+     * @param type     tooltype to compare the material to.
      * @return true if the material is of the given type, false otherwise.
      */
     public static boolean isTool(Material material, ToolType type) {
@@ -814,6 +919,7 @@ public class Items {
 
     /**
      * Check if the material is a tool.
+     *
      * @param type material to check.
      * @return true if the material is a tool, false otherwise.
      */
@@ -836,13 +942,14 @@ public class Items {
 
     /**
      * Create a collection of the Tool Set, with all items assigned the given stack size.
-     * @param type type of ToolSet to create.
+     *
+     * @param type      type of ToolSet to create.
      * @param stackSize size to set each of the ItemStacks to.
      * @return a hashset with each item in the Tools Type
      */
     public static Set<ItemStack> getToolSet(ToolType type, int stackSize) {
         /*
-		Create a set of item stacks by mapping the values of each individual material
+        Create a set of item stacks by mapping the values of each individual material
 		type to an item of the desired type, collecting it into a set!
 		 */
         Set<ItemStack> items = type.getMaterialTypes().stream()
@@ -853,6 +960,7 @@ public class Items {
 
     /**
      * Retrieve a material by it's ID.
+     *
      * @param id id of the material to get.
      * @return material assigned the given ID.
      */

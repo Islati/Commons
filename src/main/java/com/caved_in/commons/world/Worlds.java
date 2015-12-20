@@ -9,6 +9,7 @@ import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.threading.tasks.ClearDroppedItemsThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -159,6 +160,10 @@ public class Worlds {
     }
 
     public static Item dropItem(World world, Location location, ItemStack item, boolean natural) {
+        Preconditions.checkNotNull(world);
+        Preconditions.checkNotNull(location);
+        Preconditions.checkNotNull(item);
+
         if (natural) {
             return world.dropItemNaturally(location, item);
         } else {

@@ -25,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.Messenger;
+import org.mcstats.metrics.Metrics;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
@@ -93,6 +94,14 @@ public class Commons extends BukkitPlugin {
 
         //Use reflection to prepare for custom enchants.
         prepForCustomEnchantments();
+
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+            getLogger().info("Metrics for Commons has been Enabled!");
+        } catch (IOException e) {
+            getLogger().info("Metrics for Commons failed to enable!");
+        }
 
 		/*
         Create the private message manager; used to track private messages for players on the server.

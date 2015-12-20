@@ -6,7 +6,7 @@ import com.caved_in.commons.game.event.ArenaCycleEvent;
 import com.caved_in.commons.game.event.ArenaLoadEvent;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
-import com.caved_in.commons.utilities.Str;
+import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -58,7 +58,7 @@ public class ArenaManager implements ArenaHandler {
             try {
                 Worlds.load(worldName);
             } catch (WorldLoadException e) {
-                logger.severe(String.format("Error adding arena for World '%s' ArenaManager::addArena - StackTrace: %s", worldName, Str.getStackStr(e)));
+                logger.severe(String.format("Error adding arena for World '%s' ArenaManager::addArena - StackTrace: %s", worldName, StringUtil.getStackStr(e)));
             }
             logger.info("Loaded " + worldName + " for the arena");
         }
@@ -93,7 +93,7 @@ public class ArenaManager implements ArenaHandler {
         try {
             Worlds.load(arena.getWorldName());
         } catch (WorldLoadException e) {
-            game.getLogger().severe("Error loading the world " + arena.getWorldName() + " in ArenaManager::addArena - " + Str.getStackStr(e));
+            game.getLogger().severe("Error loading the world " + arena.getWorldName() + " in ArenaManager::addArena - " + StringUtil.getStackStr(e));
         }
 
 		/*
@@ -200,7 +200,7 @@ public class ArenaManager implements ArenaHandler {
         try {
             Worlds.load(arena.getWorldName());
         } catch (WorldLoadException e) {
-            game.getLogger().severe("Error loading arena '" + arena.getArenaName() + "' (World: " + arena.getWorldName() + ") in ArenaManager::loadArena - " + Str.getStackStr(e));
+            game.getLogger().severe("Error loading arena '" + arena.getArenaName() + "' (World: " + arena.getWorldName() + ") in ArenaManager::loadArena - " + StringUtil.getStackStr(e));
         }
 
         if (arena.isEnabled()) {

@@ -48,6 +48,7 @@ public class Entities {
         return entities;
     }
 
+
     /**
      * Spawn an entity at a specific location
      *
@@ -144,7 +145,7 @@ public class Entities {
 		 */
         addPotionEffect(bat, Potions.getPotionEffect(PotionEffectType.INVISIBILITY, 1, Integer.MAX_VALUE));
         /*
-		.. and also stop them from taking any damage for a loooong time!
+        .. and also stop them from taking any damage for a loooong time!
 		 */
         bat.setNoDamageTicks(Integer.MAX_VALUE);
 
@@ -174,6 +175,10 @@ public class Entities {
             healthBarColor = ChatColor.RED;
         }
         return healthBarColor;
+    }
+
+    public static boolean hasKiller(LivingEntity entity) {
+        return entity.getKiller() != null;
     }
 
     /**
@@ -206,6 +211,14 @@ public class Entities {
     public static void setName(LivingEntity entity, String name, boolean isVisible) {
         setName(entity, name);
         entity.setCustomNameVisible(isVisible);
+    }
+
+    public static String getName(Entity entity) {
+        if (!hasName(entity)) {
+            return getDefaultName(entity.getType());
+        } else {
+            return entity.getCustomName();
+        }
     }
 
     public static boolean hasName(Entity entity) {
@@ -478,6 +491,18 @@ public class Entities {
         return null;
     }
 
+    public static LivingEntity getEntityByUUID(UUID id) {
+        for (World world : Bukkit.getWorlds()) {
+            for (LivingEntity entity : world.getLivingEntities()) {
+                if (entity.getUniqueId().equals(id)) {
+                    return entity;
+                }
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Get all the living-entities within a bounding box centered around the given entity.
      *
@@ -638,7 +663,14 @@ public class Entities {
      * @param damage amount of damage to deal
      */
     public static void damage(Damageable target, double damage) {
+        if (target instanceof Player) {
+            if (Commons.getInstance().getPlayerHandler().getData((Player) target).hasGodMode()) {
+                return;
+            }
+        }
         target.damage(damage);
+
+        //todo implement event proc.
     }
 
     /**
@@ -649,6 +681,12 @@ public class Entities {
      * @param damager entity applying the damage.
      */
     public static void damage(Damageable target, double damage, LivingEntity damager) {
+        if (target instanceof Player) {
+            if (Commons.getInstance().getPlayerHandler().getData((Player) target).hasGodMode()) {
+                return;
+            }
+        }
+
         target.damage(damage, damager);
     }
 

@@ -5,6 +5,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.menu.menus.confirmation.ConfirmationMenu;
+import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ import org.bukkit.entity.Player;
 public class TeleportRequestCommand {
     private static Commons commons = Commons.getInstance();
 
-    @Command(identifier = "tpa", permissions = "commons.tpa")
+    @Command(identifier = "tpa", permissions = Perms.COMMAND_TPA)
     public void onTpaCommand(Player player, @Arg(name = "target") Player target) {
         if (Commons.TeleportMenuSettings.getInstance().hasMenuDisabled(target.getUniqueId())) {
             commons.getPlayerHandler().getData(player).requestTeleportTo(target);
@@ -33,7 +34,7 @@ public class TeleportRequestCommand {
         }
     }
 
-    @Command(identifier = "tpahere", permissions = "commons.tpa")
+    @Command(identifier = "tpahere", permissions = Perms.COMMAND_TPA)
     public void onTpaHereCommand(Player player, @Arg(name = "target") Player target) {
         if (Commons.TeleportMenuSettings.getInstance().hasMenuDisabled(target.getUniqueId())) {
             commons.getPlayerHandler().getData(player).requestTeleportHere(target);
@@ -54,7 +55,7 @@ public class TeleportRequestCommand {
         }
     }
 
-    @Command(identifier = "tpaccept", permissions = "commons.tpa")
+    @Command(identifier = "tpaccept", permissions = Perms.COMMAND_TPA)
     public void onTpAcceptCommand(Player player) {
         MinecraftPlayer acceptor = commons.getPlayerHandler().getData(player);
         if (!acceptor.hasTeleportRequest()) {
@@ -65,7 +66,7 @@ public class TeleportRequestCommand {
         acceptor.acceptTeleport();
     }
 
-    @Command(identifier = "tpdeny", permissions = "commons.tpa")
+    @Command(identifier = "tpdeny", permissions = Perms.COMMAND_TPA)
     public void onTpDenyCommand(Player player) {
         MinecraftPlayer denier = commons.getPlayerHandler().getData(player);
 

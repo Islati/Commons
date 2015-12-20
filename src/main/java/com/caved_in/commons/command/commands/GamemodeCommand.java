@@ -24,6 +24,9 @@ public class GamemodeCommand {
         put("2", GameMode.ADVENTURE);
         put("a", GameMode.ADVENTURE);
         put("adventure", GameMode.ADVENTURE);
+        put("spectator", GameMode.SPECTATOR);
+        put("3", GameMode.SPECTATOR);
+        put("spec", GameMode.SPECTATOR);
     }};
 
     @Command(identifier = "gm", permissions = {Perms.COMMAND_GAMEMODE})

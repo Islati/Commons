@@ -1,5 +1,6 @@
 package com.caved_in.commons.listeners;
 
+import com.caved_in.commons.Commons;
 import com.caved_in.commons.event.PlayerDamagePlayerEvent;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
@@ -14,6 +15,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
 public class EntityDamageEntityListener implements Listener {
+
+    private Players playerDataHandler = null;
+
+    public EntityDamageEntityListener() {
+        playerDataHandler = Commons.getInstance().getPlayerHandler();
+    }
 
     @EventHandler
     public void onPlayerDamageEntity(EntityDamageByEntityEvent e) {
@@ -77,6 +84,16 @@ public class EntityDamageEntityListener implements Listener {
         if (attacked instanceof Player) {
             pAttacked = (Player) attacked;
         }
+
+        /*
+        Below we're checking if the player attacked is in GodMode, and if they are
+        then stop damage!
+         */
+        if (pAttacked != null && playerDataHandler.getData(pAttacked).hasGodMode()) {
+            e.setCancelled(true);
+            return;
+        }
+
         //Assure that we've got a player attacking, and a living entity was attacked.
         if (player == null || !(attacked instanceof LivingEntity)) {
             return;
@@ -89,7 +106,7 @@ public class EntityDamageEntityListener implements Listener {
          */
         if (pAttacked != null) {
             //There's both an attacking and attacked player, so create the pvp event!
-            PlayerDamagePlayerEvent pvpEvent = new PlayerDamagePlayerEvent(player, pAttacked, e.getCause());
+            PlayerDamagePlayerEvent pvpEvent = new PlayerDamagePlayerEvent(player, pAttacked, e.getDamage(), e.getFinalDamage(), e.getCause());
             //Call the pvp event
             Plugins.callEvent(pvpEvent);
             //If the pvp event was cancelled, then quit while we're ahead (and cancel this event)
@@ -97,6 +114,11 @@ public class EntityDamageEntityListener implements Listener {
                 e.setCancelled(true);
                 return;
             }
+
+            /*
+            Re-assign the damage which is being dealt, as it could have been modified.
+             */
+            e.setDamage(pvpEvent.getDamage());
         }
 
         LivingEntity entity = (LivingEntity) attacked;

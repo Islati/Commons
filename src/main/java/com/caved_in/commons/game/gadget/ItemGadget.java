@@ -1,6 +1,8 @@
 package com.caved_in.commons.game.gadget;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.item.ItemBuilder;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -21,17 +23,23 @@ public abstract class ItemGadget implements Gadget {
 
     public ItemGadget() {
         id = Gadgets.getFirstFreeId();
+        Chat.debug("Registered Gadget [NO ITEM] under ID " + id);
     }
 
     public ItemGadget(ItemBuilder builder) {
-        this();
         ItemStack item = builder.item();
         setItem(item);
+
+        id = Gadgets.getFirstFreeId();
+        Chat.debug("Registered Gadget " + Items.getName(getItem()) + " with  ID " + id);
+
     }
 
     public ItemGadget(ItemStack item) {
-        this();
+        id = Gadgets.getFirstFreeId();
         setItem(item);
+        Chat.debug("Registered Gadget " + Items.getName(getItem()) + " with  ID " + id);
+
     }
 
     public ItemStack getItem() {

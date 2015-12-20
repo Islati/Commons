@@ -56,16 +56,20 @@ public class Perms {
 
     public static final String COMMAND_GAMEMODE = "commons.command.gamemode";
 
+    public static final String COMMAND_GADGETS = "commons.command.gadgets";
+
     public static final String COMMAND_GOD_MODE = "commons.command.god";
+
+    public static final String COMMAND_GRASS = "commons.command.grass";
 
     public static final String COMMAND_HAT = "commons.command.hat";
 
-    public static final String COMMAND_MESSAGE = "commons.messages";
+    public static final String COMMAND_MESSAGE = "commons.command.message";
 
     public static final String SOCIAL_SPY = "commons.socialspy";
 
     public static final String COMMAND_HEAL = "commons.command.heal";
-    public static final String HEAL_OTHER = "commons.command.heal.other";
+    public static final String COMMAND_HEAL_OTHER = "commons.command.heal.other";
 
     public static final String COMMAND_ID = "commons.command.id";
 
@@ -83,9 +87,9 @@ public class Perms {
 
     public static final String COMMAND_ENCHANT = "commons.command.enchant";
 
-    public static final String COMMAND_CLEAN = "commons.clean";
-    public static final String COMMAND_CLEAN_ENTITIES = "commons.clean.entities";
-    public static final String COMMAND_CLEAN_MOBS = "commons.clean.mobs";
+    public static final String COMMAND_CLEAN = "commons.command.clean";
+    public static final String COMMAND_CLEAN_ENTITIES = "commons.command.clean.entities";
+    public static final String COMMAND_CLEAN_MOBS = "commons.command.clean.mobs";
 
     public static final String COMMAND_ARMOR = "commond.command.armor";
     public static final String LEATHER_ARMOR_SET = "commons.armor.leather";
@@ -144,4 +148,6 @@ public class Perms {
     public static final String TELEPORT_BACK_ON_WARP = ("commons.back.warp");
 
     public static final String COMMAND_ITEM_LORE = "commons.command.item.lore";
+    public static final String COMMAND_TPA = "commons.command.tpa";
+    public static final String COMMAND_TREE = "commons.command.tree";
 }

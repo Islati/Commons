@@ -26,7 +26,7 @@ public class CleanCommand {
                 "&e    *&b /clean items (radius)",
                 "&e    *&b /clean items --all",
                 "&e- &aClearing all the liquids (lava/water) in a radius &7(Coming Soon)",
-                "&e    *&b/clean fluid (radius)"
+                "&e    *&b/clean fluid (radius)" //todo Implement
         );
     }
 

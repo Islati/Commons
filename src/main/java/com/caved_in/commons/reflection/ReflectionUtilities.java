@@ -166,10 +166,13 @@ public class ReflectionUtilities {
             return (T) constructor.newInstance(args);
         } catch (InstantiationException e) {
             Chat.debug("Failed to instantiate constructor: " + constructor.getName());
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
             Chat.debug("Failed to access constructor: " + constructor.getName());
+            e.printStackTrace();
         } catch (InvocationTargetException e) {
             Chat.debug("Failed to invoke constructor: " + constructor.getName());
+            e.printStackTrace();
         }
         return null;
     }

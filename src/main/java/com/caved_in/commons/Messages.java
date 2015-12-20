@@ -10,7 +10,6 @@ import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.utilities.Str;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
@@ -184,7 +183,7 @@ public class Messages {
     }
 
     public static String playerXpBalance(Player player) {
-        return String.format("&aYou have &e%s&a Tunnels XP", (int) Commons.getInstance().getPlayerHandler().getData(player).getCurrency());
+        return String.format("&aYou have &e%s&a XP", (int) Commons.getInstance().getPlayerHandler().getData(player).getCurrency());
     }
 
     public static String playerTeleportedTo(String item, String target) {
@@ -204,7 +203,7 @@ public class Messages {
     }
 
     public static String playerAddedXp(String playerName, int amount) {
-        return String.format("&aYou've added &e%s&a tunnels xp to &b%s", amount, playerName);
+        return String.format("&aYou've added &e%s&a xp to &b%s", amount, playerName);
     }
 
     public static String playerEarnedExperience(int amount) {
@@ -427,7 +426,7 @@ public class Messages {
         return new String[]{
                 String.format("&cException Occurred @ &e%s", new Date()),
                 String.format("%s%s", YELLOW_INDENT_ARROW, e.getLocalizedMessage()),
-                String.format("%s%s", YELLOW_INDENT_ARROW, Str.getStackStr(e))
+                String.format("%s%s", YELLOW_INDENT_ARROW, StringUtil.getStackStr(e))
         };
     }
 

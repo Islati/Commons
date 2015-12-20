@@ -2,5 +2,235 @@ name: Commons
 main: com.caved_in.commons.Commons
 version: ${project.version}
 description: An all-in-one plugin to provide features to both server owners, and developers.
-author: Brandon Curtis (TheGamersCave)
+author: Brandon Curtis (TheGamersCave/MumbosHut)
 softdepend: [TagAPI, ProtocolLib]
+
+permissions:
+   commons.*:
+      description: Gives all permission nodes within Commons!
+      children:
+        commons.admin.*: true
+        commons.command.*: true
+        commons.armor.*: true
+        commons.builder: true
+   commons.command.*:
+      description: Gives access to all the commands within Commons.
+      default: op
+      children:
+         commons.command.buypremium: true
+         commons.command.removepremium: true
+         commons.command.addcurrency: true
+         commond.command.armor: true
+         commons.command.back: true
+         commons.command.blocktext: true
+         commons.command.clean: true
+         commons.command.ban: true
+         commons.command.clearinventory: true
+         commons.command.clearinventory.other: true
+         commons.command.time: true
+         commons.debugmode: true
+         commons.command.enchant: true
+         commons.command.feed: true
+         commons.command.fireworks: true
+         commons.command.fly: true
+         commons.command.gadgets: true
+         commons.command.gamemode: true
+         commons.command.god: true
+         commons.commands.grass: true
+         commons.command.hat: true
+         commons.command.heal: true
+         commons.command.heal.other: true
+         commons.command.id: true
+         commons.command.item: true
+         commons.command.message: true
+         commons.command.more: true
+         commons.command.potion: true
+         commons.command.recipe: true
+         commons.command.repair: true
+         commons.command.set: true
+         commons.command.setwarp: true
+         commons.command.setspawn: true
+         commons.command.silence: true
+         commons.command.skull: true
+         commons.command.slay: true
+         commons.command.spawn: true
+         commons.command.spawnmob: true
+         commons.command.spawnmob.enderdragon: true
+         commons.command.speed: true
+         commons.command.tpall: true
+         commons.command.tphere: true
+         commons.command.teleport: true
+         commons.command.teleportother: true
+         commons.command.tppos: true
+         commons.command.tpa: true
+         commons.command.tree: true
+         commons.command.warps: true
+         commons.command.warp: true
+         commons.command.workbench: true
+   commons.admin.*:
+      description: Gives access to all the administrative commands and tasks Commons.
+      default: op
+      children:
+        commons.admin: true
+        commons.command.gadgets: true
+        commons.maintenance.toggle: true
+        commons.maintenance.join: true
+        commons.command.*: true
+        commons.admin.antikick: true
+        commons.armor.*: true
+   commons.armor.*:
+      description: Gives players access to spawning all the armor sets!
+      default: op
+      children:
+         commons.armor.leather: true
+         commons.armor.iron: true
+         commons.armor.gold: true
+         commons.armor.chain: true
+         commons.armor.diamond: true
+   commons.builder:
+      description: Allows players to break and place blocks, bypassing config options.
+      default: op
+      children:
+         commons.block.break: true
+         commons.block.place: true
+# Below are all the permission nodes
+# Required for armor sets!
+   commons.armor.diamond:
+         description: Gives a player access to spawning a diamond armor set for themselves.
+   commons.armor.chain:
+         description: Gives a player access to spawning a chain armor set for themselves.
+   commons.armor.gold:
+         description: Gives a player access to spawning a gold armor set for themselves.
+   commons.armor.iron:
+      description: Gives a player access to spawning an iron armor set for themselves.
+   commons.armor.leather:
+      description: Gives a player access to spawning a leather armor set for themselves.
+# Admin related Permission nodes:
+# KickStick, Anti Kick, Debug Mode, Maintenance mode options.
+   commons.admin.antikick:
+      description: Allows a player to forbid from being kicked.
+   commons.admin.kickstick:
+      description: Allows players to use the kickstick!
+   commons.debugmode:
+      description: Allow a player to enter debug mode! (GRANT CAREFULLY)
+   commons.maintenance.toggle:
+      description: Allows players to toggle maintenance mode on the server.
+      default: op
+   commons.maintenance.join:
+      description: Allows players to join when the server is in maintenance mode.
+      default: op
+# Below are many many many command-based permission
+# Nodes, associated with regulating the access of command between players!
+   commons.command.addcurrency:
+      description: Allows players to use the addcurrency command, giving players the premium currency.
+      default: op
+   commons.command.setspawn:
+      description: Allows a player to set the spawn of the world they're currently in.
+   commons.command.warps:
+      description: Allows players to use the warps command.
+   commons.command.workbench:
+      description: Allows players to use the workbench command.
+   commons.command.warp:
+      description: Allows players to use the warp command.
+   commons.command.tree:
+      description: Allows players to generate trees via a command.
+   commons.command.tpa:
+      description: Allows players to use the tpa command.
+   commons.command.tppos:
+      description: Allows players to use the tppos command.
+   commons.command.teleportother:
+      description: Allows players to use the tpother command.
+   commons.command.tphere:
+      description: Allows players to use the teleport here command.
+   commons.command.teleport:
+      description: Allows players to use the teleport command.
+   commons.command.tpall:
+      description: Allows players to use the teleport-all command.
+   commons.command.speed:
+      description: Allows players to use the speed command to change their speed.
+   commons.command.spawn:
+      description: Allows players to use the spawn command.
+   commons.command.spawnmob:
+      description: Allows players to use the spawnmob command.
+   commons.command.spawnmob.enderdragon:
+      description: Allows players to use the spawnmob command, spawning an enderdragon.
+   commons.command.slay:
+      description: Allows players to use the slay command.
+   commons.command.skull:
+      description: Allows players to create player skulls using the skull command.
+   commons.command.setwarp:
+      description: Allows players to use the setwarp command.
+   commons.command.silence:
+      description: Allows players to use the silence command.
+   commons.silence.bypass:
+      description: Allows players to bypass the silencing of chat
+   commons.command.set:
+      description: Allows players to use the set command, for managing item sets.
+   commons.command.recipe:
+      description: Allows player to use the recipe command.
+   commons.command.repair:
+      description: Allows player to use the repair command.
+   commons.command.potion:
+      description: Allows players to use the potions command.
+      default: op
+   commons.command.more:
+      description: Allows players to use the more command, giving them more items on the item in their hand.
+   commons.command.message:
+      description: Allows players to use the message command.
+   commons.command.id:
+      description: Allows players to use the id command.
+   commons.command.item:
+      description: Allows players to use the item command.
+   commons.command.hat:
+      description: Allows players to use the hat command.
+   commons.command.heal:
+      description: Allows players to use the heal command.
+   commons.command.heal.other:
+      description: Allows players to use the heal command on others.
+   commons.commands.grass:
+      description: Allows players to use the grass command.
+   commons.command.gamemode:
+      description: Allows players to use the gamemode command.
+   commons.command.god:
+      description: Allows players to use the godmode command.
+   commons.command.gadgets:
+      description: Allows players to use the gadgets command.
+   commons.command.fireworks:
+      description: Allows players to use the fireworks command.
+   commons.command.fly:
+      description: Allows players to use the fly command.
+   commons.command.enchant:
+      description: Allows players to use the enchant command.
+      default: op
+   commons.command.feed:
+      description: Allows a player to feed themselves (or others) via the feed command
+   commons.command.time:
+      description: Allows players to use all time-based commands.
+      default: op
+   commons.command.armor:
+      description: Allows players to use the Armor command.
+      default: op
+   commons.command.back:
+      description: Allows players to use the back command
+      default: op
+   commons.command.blocktext:
+      description: Allows players to use the blocktext command
+      default: op
+   commons.command.clean:
+      description: Allows players to use the Clean Command and all its subcommands
+      children:
+         commons.command.clean.entities: true
+         commons.command.clean.mobs: true
+   commons.command.clearinventory:
+      description: Allows players to use the ClearInventory Command
+   commons.command.clearinventory.other:
+      description: Allows player to use the ClearInventory Command on other players.
+   commons.ban:
+      description: Allows players to use the ban command
+      default: op
+   commons.command.buypremium:
+      description: Allows players to use the buypremium command
+      default: op
+   commons.command.removepremium:
+      description: Allows players to use the removepremium command
+      default:

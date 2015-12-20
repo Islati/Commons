@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 /**
  * An extension of {@link CraftGame} used to easily create MiniGame-based plugins without all the boiler-plating required when normally setting them up.
+ *
  * @param <T> User manager implementation for the minigame to pass it's user classes to upon join, leave, etc.
  */
 public abstract class MiniGame<T extends UserManager> extends CraftGame {
@@ -42,7 +43,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     private ArenaManager arenaManager;
 
-    private UserManagerListener userManagerListener;
+    private UserManagerListener userManagerListener = null;
 
     /* The class which our user manager is created from */
     private Class<? extends UserManager> userManagerClass = null;
@@ -98,9 +99,11 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
         }
 
 		/* Create the connection listener that handles the managing of game-player data */
-        userManagerListener = new UserManagerListener(this);
+        if (userManagerListener == null) {
+            userManagerListener = new UserManagerListener(this);
+        }
 
-		/* Register the game connection listener */
+        /* Register the game connection listener */
         registerListeners(userManagerListener);
     }
 
@@ -203,6 +206,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
     /**
      * Register a {@link GameState} with the minigames engine.
      * If a game-state with the given ID already exists, it's overwritten.
+     *
      * @param state state to register.
      */
     public void registerGameState(GameState state) {
@@ -212,6 +216,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
     /**
      * Assign if the MiniGame requires external listeners.
      * If true, you'll have to register your own player connection listeners, as opposed to using the ones that already exist.
+     *
      * @param value true to use external listeners, false otherwise.
      */
     @Deprecated
@@ -243,6 +248,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Check whether or not the state of the given id has been active, or not.
+     *
      * @param id id of the state to check
      * @return true if the state is currently active, or was previously active; False otherwise.
      */
@@ -252,6 +258,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Check whether or not the given state-id is currently active.
+     *
      * @param id id of the state to check
      * @return true if the state with the given id is currently active, false otherwise.
      */
@@ -261,6 +268,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Check if the active state is passed that of the id given.
+     *
      * @param id id of the state to check.
      * @return true if the state requested has already passed, false otherwise.
      */
@@ -270,6 +278,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Check if the active state is before that of the id given.
+     *
      * @param id id of the state to check.
      * @return true if the active state comes before the requested ID, false otherwise.
      */
@@ -279,6 +288,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Register {@link ServerShutdownClause}'s, that if passed will force the server to stop.
+     *
      * @param clauses clauses to register.
      */
     public void registerShutdownClauses(ServerShutdownClause... clauses) {
@@ -287,6 +297,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Register the given {@link GameState}(s) with the minigame engine.
+     *
      * @param states states to register.
      */
     public void registerGameStates(GameState... states) {
@@ -304,6 +315,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Set whether or not the game is over.
+     *
      * @param gameOver value to assign.
      */
     public void setGameOver(boolean gameOver) {
@@ -363,6 +375,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Save the given arena to file.
+     *
      * @param arena arena to save.
      */
     public void saveArena(Arena arena) {
@@ -392,6 +405,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Change whether or not to automatically save data.
+     *
      * @param autoSave value to assign.
      */
     public void setAutoSave(boolean autoSave) {
@@ -401,6 +415,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
     /**
      * Register the given class as the MiniGames {@link UserManager}.
      * Loaded via reflection, must contain the default constructor for a UserManager.
+     *
      * @param userManagerClass class to register as the user manager.
      */
     public void registerUserManager(Class<? extends UserManager> userManagerClass) {
@@ -413,8 +428,13 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
         this.userManager = ReflectionUtilities.invokeConstructor(constructor);
     }
 
+    public void setUserManagerListener(UserManagerListener listener) {
+        userManagerListener = listener;
+    }
+
     /**
      * Retrieve the UserManager used to handle all the instanced player data, specific to this MiniGame.
+     *
      * @return the usermanager used to handle player data.
      */
     public T getUserManager() {
@@ -433,6 +453,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
     /**
      * Retrieve the author of the MiniGame
+     *
      * @return author of the MiniGame
      */
     public abstract String getAuthor();

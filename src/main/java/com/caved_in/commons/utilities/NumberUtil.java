@@ -38,6 +38,10 @@ public class NumberUtil {
         return random.nextInt(101) <= percent;
     }
 
+    public static boolean percentCheck(double percent) {
+        return random.nextInt(101) <= percent;
+    }
+
     public static float percentOf(int num, int target) {
         return num * 100.0f / target;
     }

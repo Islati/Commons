@@ -1,7 +1,6 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.plugin.Plugins;
@@ -121,19 +120,19 @@ public class Gadgets {
         return gadgets.size();
     }
 
+
     public static int getFirstFreeId() {
-        int gadgetCount = getGadgetCount();
-        if (gadgetCount == 0) {
-            return 0;
+        int id = 0;
+
+        do {
+            id = ids.getAndIncrement();
+        } while (gadgets.containsKey(id));
+
+        if (id >= Integer.MAX_VALUE) {
+            throw new IndexOutOfBoundsException("Unable to obtain ID for gadget; No identifiers available.");
         }
 
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            if (!gadgets.containsKey(i)) {
-                return i;
-            }
-        }
-
-        throw new IndexOutOfBoundsException("Unable to obtain a free ID");
+        return id;
     }
 
     /**

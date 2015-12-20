@@ -22,6 +22,8 @@ public class HatCommand {
                 Players.giveItem(player, inventory.getHelmet(), true);
                 inventory.setHelmet(null);
                 Chat.message(player, Messages.HAT_UNEQUIPPED);
+                //todo play sound
+                //todo implement config for hat equip and unequip sound.
                 return;
             }
 

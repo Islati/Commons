@@ -15,8 +15,8 @@ public class HealCommand {
         Chat.message(target, Messages.PLAYER_HEALED);
         //If the player using the command healed themself.
         if (!target.getUniqueId().equals(player.getUniqueId())) {
-            if (!player.hasPermission(Perms.HEAL_OTHER)) {
-                Chat.message(player, Messages.permissionRequired(Perms.HEAL_OTHER));
+            if (!player.hasPermission(Perms.COMMAND_HEAL_OTHER)) {
+                Chat.message(player, Messages.permissionRequired(Perms.COMMAND_HEAL_OTHER));
                 return;
             }
             Chat.message(player, Messages.playerHealed(target.getName()));
