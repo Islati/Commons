@@ -129,14 +129,14 @@ public class ItemMenu implements InventoryHolder {
         return true;
     }
 
-	public void selectMenuItem(Player player, int index, ClickType type) {
-		if (!items.containsKey(index)) {
+    public void selectMenuItem(Player player, int index, ClickType type) {
+        if (!items.containsKey(index)) {
             return;
         }
 
         MenuItem item = items.get(index);
-		item.onClick(player, type);
-	}
+        item.onClick(player, type);
+    }
 
     public void openMenu(Player player) {
         Inventory inventory = getInventory();
@@ -169,6 +169,24 @@ public class ItemMenu implements InventoryHolder {
         }
     }
 
+    public void closeMenu() {
+        Inventory inv = getInventory();
+        List<Player> viewers = getViewers();
+
+        for (Player p : viewers) {
+            p.closeInventory();
+        }
+
+        List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.CLOSE);
+        if (behaviours.size() > 0) {
+            for (MenuBehaviour behaviour : behaviours) {
+                for (Player p : viewers) {
+                    behaviour.doAction(this, p);
+                }
+            }
+        }
+    }
+
     public void switchMenu(Player player, ItemMenu toMenu) {
         Menus.switchMenu(player, this, toMenu);
     }
@@ -197,8 +215,8 @@ public class ItemMenu implements InventoryHolder {
 
     public void updateMenu(Collection<HumanEntity> viewers) {
         if (rowsHasChanged) {
-			/*
-			If the rows has changed; then we'll switch to the next menu, as opposed to
+            /*
+            If the rows has changed; then we'll switch to the next menu, as opposed to
 			updating the existing one!
 			 */
             viewers.stream().filter(e -> e instanceof Player).forEach(

@@ -1,14 +1,10 @@
 package com.caved_in.commons.reflection;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import org.bukkit.Bukkit;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +33,7 @@ public class ReflectionUtilities {
         try {
             return Class.forName(name);
         } catch (ClassNotFoundException e) {
-            Commons.getInstance().debug("Could not find class: " + name + "!");
+            Chat.debug("Could not find class: " + name + "!");
         }
         return null;
     }
@@ -73,13 +69,9 @@ public class ReflectionUtilities {
     public static Field getField(Class<?> clazz, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
-
-            if (!field.isAccessible()) {
-                field.setAccessible(true);
-            }
-
+            setAccessible(field, true);
             return field;
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             Chat.debug("No such field: " + fieldName + "!");
         }
         return null;
@@ -130,7 +122,7 @@ public class ReflectionUtilities {
 
             return method;
         } catch (NoSuchMethodException e) {
-            Chat.debug("No such method: " + methodName + "!");
+            Chat.debug("No such method: " + methodName + " on class" + clazz.getCanonicalName() + "!");
         }
         return null;
     }
@@ -179,14 +171,104 @@ public class ReflectionUtilities {
 
     public static void setValue(Object instance, String fieldName, Object value) throws Exception {
         Field field = instance.getClass().getDeclaredField(fieldName);
-        field.setAccessible(true);
+        makeModifieable(field);
+        field.set(instance, value);
+    }
+
+    public static void setValue(Class<?> clazz, String field, Object value) throws Exception {
+        Field f = getField(clazz, field);
+        makeModifieable(f);
+        f.set(null, value);
+    }
+
+    public static void setValue(Field field, Object instance, Object value) throws Exception {
+        makeModifieable(field);
         field.set(instance, value);
     }
 
     public static Object getValue(Object instance, String fieldName) throws Exception {
         Field field = instance.getClass().getDeclaredField(fieldName);
-        field.setAccessible(true);
+        setAccessible(field, true);
         return field.get(instance);
+    }
+
+    public static Object getValue(Class<?> clazz, String fieldName, Object object) throws Exception {
+        return (getValue(getField(clazz, fieldName), object));
+    }
+
+    public static Object getValue(Field field, Object object) throws Exception {
+        return field.get(object);
+    }
+
+
+    public static void removeFinal(Field field) throws Exception {
+        setAccessible(field, true);
+
+        if (!isFinal(field)) {
+            Chat.debug("Field " + field.getName() + " in class " + field.getClass().getCanonicalName() + " is not final.. Cannot remove final");
+            return;
+        }
+
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+    }
+
+    public static boolean hasField(Class<?> clazz, String field) {
+        try {
+            Field f = clazz.getField(field);
+        } catch (NoSuchFieldException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean hasDeclaredField(Class<?> clazz, String field) {
+        try {
+            Field f = clazz.getDeclaredField(field);
+        } catch (NoSuchFieldException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isFinal(Field field) throws Exception {
+        return Modifier.isFinal(field.getModifiers());
+    }
+
+    public static boolean isFinal(Class<?> clazz, String field) throws Exception {
+        Field f = getField(clazz, field);
+        return isFinal(f);
+    }
+
+    public static boolean isStatic(Class<?> clazz, String field) throws Exception {
+        Field f = getField(clazz, field);
+        return isStatic(f);
+    }
+
+    public static boolean isStatic(Field field) throws Exception {
+        return Modifier.isStatic(field.getModifiers());
+    }
+
+    public static boolean isModifieable(Field field) throws Exception {
+        return !isFinal(field) && isAccessible(field);
+    }
+
+    public static boolean isAccessible(Field field) throws Exception {
+        return field.isAccessible();
+    }
+
+    public static void setAccessible(Field field, boolean value) throws Exception {
+        field.setAccessible(value);
+    }
+
+    public static void makeModifieable(Field field) throws Exception {
+        setAccessible(field, true);
+
+        if (isFinal(field)) {
+            removeFinal(field);
+        }
     }
 
     @SuppressWarnings("unchecked")

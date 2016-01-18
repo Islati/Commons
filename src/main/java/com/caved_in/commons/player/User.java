@@ -142,4 +142,15 @@ public abstract class User implements PlayerWrapper {
     public void actionMessage(String message) {
         Chat.actionMessage(getPlayer(), message);
     }
+
+
+    /**
+     * Send the player a formatted chat message!
+     *
+     * @param msg  message to be formatted with args and shown to the player.
+     * @param args arguments to format the message with
+     */
+    public void format(String msg, Object... args) {
+        Chat.format(getPlayer(), msg, args);
+    }
 }

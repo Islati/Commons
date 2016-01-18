@@ -110,6 +110,7 @@ public class ItemCommand {
         itemLoreHelpScreen.sendTo(p, 1, 3);
     }
 
+    @Command(identifier = "i lore add", permissions = Perms.COMMAND_ITEM)
     public void onLoreAddCommand(Player player, @Wildcard @Arg(name = "lore", description = "Lore to add to the given item") String lore) {
         if (Players.handIsEmpty(player)) {
             Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");

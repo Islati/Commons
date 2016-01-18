@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.listener;
 
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.player.User;
@@ -46,6 +45,11 @@ public class UserManagerListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerKick(PlayerKickEvent e) {
         User user = userManager.getUser(e.getPlayer());
+        if (user == null) {
+            parent.getPluginLogger().severe("Unable to retrieve User data (" + userManager.getUserClass().getCanonicalName() + ") for player " + e.getPlayer().getName());
+            return;
+        }
+
         user.destroy();
 
         userManager.removeUser(e.getPlayer());
@@ -56,7 +60,7 @@ public class UserManagerListener implements Listener {
         UserManager manager = getUserManager();
         try {
             manager.getUser(e.getPlayer()).updateWorld();
-            Chat.debug("Updated world for " + e.getPlayer().getName());
+            parent.getPluginLogger().info("Updated world for " + e.getPlayer().getName());
         } catch (NullPointerException ex) {
             parent.getThreadManager().runTaskLater(new Runnable() {
                 @Override

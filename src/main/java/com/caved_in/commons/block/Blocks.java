@@ -571,6 +571,16 @@ public class Blocks {
     }
 
     /**
+     * Check whether or not the block is a smeltable ore.
+     *
+     * @param block the block to check if its smeltable or not.
+     * @return true if the ore is smeltable, false otherwise.
+     */
+    public static boolean isSmeltableOre(Block block) {
+        return Items.isSmeltableOre(block.getType());
+    }
+
+    /**
      * Check if a block's type matches any of those passed by the types parameter.
      *
      * @param block block to check.

@@ -131,15 +131,6 @@ public class Menus {
         return helpScreen;
     }
 
-    public static HelpScreen getNickHelpScreen() {
-        HelpScreen nicknameHelpsScreen = generateHelpScreen("Nickname Command Help", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
-        nicknameHelpsScreen.setEntry("/nick help", "Shows the help menu");
-        nicknameHelpsScreen.setEntry("/nick off [player]", "Turns the nickname off for yourself, or another player");
-        nicknameHelpsScreen.setEntry("/nick <Name>", "Disguise yourself as another player");
-        nicknameHelpsScreen.setEntry("/nick <player> <Name>", "Disguise another player");
-        return nicknameHelpsScreen;
-    }
-
     public static ItemMenu createMenu(String title, int rows) {
         return new ItemMenu(title, rows);
     }
@@ -162,38 +153,4 @@ public class Menus {
         fromMenu.closeMenu(player);
         Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> toMenu.openMenu(player));
     }
-
-	/*
-
-	public static HelpScreen getFriendsListScreen(Set<Friend> friendsList) {
-		HelpScreen requestScreen = generateHelpScreen("Your friends list", PageDisplay.DEFAULT, ItemFormat.IS, ChatColor.WHITE, ChatColor.WHITE);
-		for (Friend friend : friendsList) {
-			boolean isOnline = Players.isOnline(friend.getFriendId());
-			ChatColor friendColor = isOnline ? ChatColor.GREEN : ChatColor.RED;
-			requestScreen.setEntry(friendColor + friend.getFriendId() + ChatColor.YELLOW, "currently " + friendColor + (isOnline ? "online" : "offline") + ".");
-		}
-		return requestScreen;
-	}
-
-	public static HelpScreen getFriendRequestsHelpScreen(Set<Friend> friendsList) {
-		HelpScreen requestScreen = generateHelpScreen("Friend Requests", PageDisplay.DEFAULT, ItemFormat.FRIEND_REQUEST, ChatColor.GREEN, ChatColor.DARK_GREEN);
-		for (Friend friend : friendsList) {
-			requestScreen.setEntry(friend.getFriendId(), "");
-		}
-		return requestScreen;
-	}
-
-	public static HelpScreen getFriendsCommandHelpScreen() {
-		HelpScreen friendScreen = generateHelpScreen("Friends Command-Help", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GREEN, ChatColor.DARK_GREEN);
-		friendScreen.setEntry("/friends add <username>", "Send a player a friend request with the given message");
-		friendScreen.setEntry("/friends help", "This help-menu");
-		friendScreen.setEntry("/friends accept <Username>", "Accept the friend request from this user (if you have one)");
-		friendScreen.setEntry("/friends block <Username>", "Block this user from sending you friend requests");
-		friendScreen.setEntry("/friends requests", "See all of the friend-requests you have.");
-		friendScreen.setEntry("/friends list", "See a list of all your friends");
-		friendScreen.setEntry("/friends remove <Username>", "Remove this user from you friends");
-		friendScreen.setEntry("/friends deny <Username>", "Deny a friend request from this user");
-		return friendScreen;
-	}
-	*/
 }

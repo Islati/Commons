@@ -69,7 +69,7 @@ public class ScoreboardManager implements BoardManager, Listener {
 
         ScoreboardWrapper wrapper = null;
         switch (type) {
-            case SCROLLING:
+//            case SCROLLING:
 //				wrapper = new ScrollingScoreboardWrapper(this,scoreboard,info);
             case NORMAL:
                 wrapper = new BasicScoreboardWrapper(this, scoreboard, info);

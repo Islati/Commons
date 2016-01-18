@@ -17,6 +17,7 @@ import com.caved_in.commons.threading.RunnableManager;
 import com.caved_in.commons.threading.executors.BukkitExecutors;
 import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -38,7 +39,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
     private ItemMessage itemMessage;
 
-    private Logger logger = getLogger();
+    private Logger logger;
 
     private CommandHandler commandHandler;
 
@@ -47,6 +48,8 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
     private ChatCommandHandler chatCommandhandler;
 
     public void onEnable() {
+        initLogger();
+
         /*
         Create the command handler for annotation-based commands.
          */
@@ -136,7 +139,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
     }
 
     public boolean registerChatCommands(ChatCommand... commands) {
-        for(ChatCommand cmd : commands) {
+        for (ChatCommand cmd : commands) {
             if (!chatCommandhandler.registerCommand(cmd)) {
                 return false;
             }
@@ -192,6 +195,15 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
     public PlayerGlowRed getPlayerGlowHandler() {
         return playerGlowHandler;
+    }
+
+    public Logger getPluginLogger() {
+        return logger;
+    }
+
+    private void initLogger() {
+        logger = new PluginLogger(this);
+        logger.setUseParentHandlers(true);
     }
 
 }

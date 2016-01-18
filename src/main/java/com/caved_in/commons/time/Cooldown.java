@@ -5,10 +5,12 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
+//todo set individual cooldowns for players
 public class Cooldown {
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
-    private int cooldownTime = 0;
+    private long cooldownTime = 0;
 
     /**
      * Create a new cooldown object with a duration in seconds
@@ -16,7 +18,7 @@ public class Cooldown {
      * @param seconds
      */
     public Cooldown(int seconds) {
-        this.cooldownTime = seconds;
+        this.cooldownTime = seconds * 1000;
     }
 
     public void removeCooldown(Player player) {
@@ -33,11 +35,11 @@ public class Cooldown {
      * @param player
      */
     public void setOnCooldown(Player player) {
-        cooldowns.put(player.getUniqueId(), System.currentTimeMillis() / 1000L);
+        cooldowns.put(player.getUniqueId(), Long.sum(System.currentTimeMillis(), cooldownTime));
     }
 
     public void setCooldownTime(int cooldownTime) {
-        this.cooldownTime = cooldownTime;
+        this.cooldownTime = cooldownTime * 1000;
     }
 
     public double getRemainingSeconds(Player player) {
@@ -45,20 +47,20 @@ public class Cooldown {
             return 0;
         }
 
-        double playerTime = cooldowns.get(player.getUniqueId());
-        long timeCheck = System.currentTimeMillis() / 1000L;
-        double difference = cooldownTime - (timeCheck - playerTime);
+        long playerOffCooldown = cooldowns.get(player.getUniqueId());
+        long currentTime = System.currentTimeMillis();
+        long difference = playerOffCooldown - currentTime;
 
-        Chat.debug("Difference in time from then to now is " + difference + " seconds");
+        Chat.debug("Difference in time from then to now on " + player.getName() + " is " + difference + " seconds");
         if (difference <= 0) {
             return 0;
         }
 
-        return difference;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(difference);
+        return (double) seconds;
     }
 
     public double getRemainingMinutes(Player player) {
-
         return getRemainingSeconds(player) / 60;
     }
 
@@ -73,8 +75,8 @@ public class Cooldown {
             return false;
         }
 
-        double playerTime = cooldowns.get(player.getUniqueId());
-        long currentTime = System.currentTimeMillis() / 1000L;
-        return (currentTime - playerTime) < cooldownTime;
+        double seconds = getRemainingSeconds(player);
+
+        return seconds > 0;
     }
 }

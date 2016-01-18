@@ -8,6 +8,7 @@ import com.caved_in.commons.menu.ItemFormat;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.PageDisplay;
 import com.caved_in.commons.utilities.StringUtil;
+import com.google.common.base.Splitter;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -132,7 +134,10 @@ public class Debugger {
         Chat.message(player, message);
     }
 
-    public static ItemStack createExceptionBook(Exception ex) {
-        return Items.makeBook("Exception: " + ex.getMessage(), StringUtil.getStackStr(ex));
+    private static Splitter bookSplitter = Splitter.fixedLength(250).limit(50);
+
+    public static ItemStack createExceptionBook(Throwable ex) {
+        List<String> bookPages = bookSplitter.splitToList(StringUtil.getStackStr(ex));
+        return Items.makeBook(ex.getClass().getCanonicalName(), "ERROR", bookPages);
     }
 }

@@ -69,6 +69,7 @@
                                     <include>org.projectlombok:lombok:jar:*</include>
                                     <include>cglib:cglib-nodep:jar:*</include>
                                     <include>org.javatuples:javatuples:jar:*</include>
+                                    <include>org.jooq:joor:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
@@ -203,6 +204,12 @@
             <artifactId>javatuples</artifactId>
             <version>LATEST</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>joor</artifactId>
+            <version>0.9.5</version>
         </dependency>
     </dependencies>
 </project>

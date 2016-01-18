@@ -107,30 +107,6 @@ public class MinecraftPlayer extends User {
             //TODO: Assign default prefix to user
             return;
         }
-
-//Create an async future to get the UUID of the player
-        /*
-        ListenableFuture<UUID> playerIdListenable = Commons.asyncExecutor.submit(new CallableGetPlayerUuid(getName()));
-		Futures.addCallback(playerIdListenable, new FutureCallback<UUID>() {
-			@Override
-			public void onSuccess(UUID uuid) {
-				id = uuid;
-			}
-
-			@Override
-			public void onFailure(Throwable throwable) {
-				throwable.printStackTrace();
-			}
-		});
-		*/
-
-//		prefix = Commons.database.getPrefix(this);
-//
-//		if (Commons.friendDatabase.hasData(playerName)) {
-//			friendsList = new FriendList(id, Commons.friendDatabase.getFriends(playerName));
-//		} else {
-//			friendsList = new FriendList(id);
-//		}
     }
 
     /**
@@ -241,16 +217,6 @@ public class MinecraftPlayer extends User {
     public void setTagColor(ChatColor tagColor) {
         this.tagColor = tagColor;
     }
-
-//	/**
-//	 * Gets the players friends list
-//	 *
-//	 * @return a FriendList object which contains the players friends; If there are no
-//	 * Friend objects, then the friendslist is still returned though with no friend objects
-//	 */
-//	public FriendList getFriendsList() {
-//		return friendsList;
-//	}
 
 
     /**

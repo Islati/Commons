@@ -928,6 +928,42 @@ public class Items {
     }
 
     /**
+     * Check whether or not an item is an ore.
+     *
+     * @param item Item to check if it's an ore.
+     * @return true if the items material is the ore-block of coal, iron, diamond, emerald, redstone, gold, or lapis
+     */
+    public static boolean isOre(ItemStack item) {
+        return Blocks.isOre(item.getType());
+    }
+
+    /**
+     * Check whether or not the material is a smeltable ore.
+     *
+     * @param type the type of the ore to check if it's smeltable.
+     * @return true if the ore is smeltable, otherwise false.
+     */
+    public static boolean isSmeltableOre(Material type) {
+        switch (type) {
+            case IRON_ORE:
+            case GOLD_ORE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Check whether or not the item is of a smeltable ore.
+     *
+     * @param item Item to check whether or not is a smeltable ore.
+     * @return true if it's a smeltable ore, otherwise false.
+     */
+    public static boolean isSmeltableOre(ItemStack item) {
+        return isSmeltableOre(item.getType());
+    }
+
+    /**
      * Get all the items in a tool set, to their max stack size.
      *
      * @param type set of tools to get a copy of.

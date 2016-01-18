@@ -4,6 +4,44 @@
  + = Added
 -------------
 
+January 17'th, 2016 (Build 1.8.8-2):
+	~ Updated ReflectionExecutor with more methods and neat hacks!
+		- Removal of final modifier on a field.
+
+	- Removed ErrorLogger as its broken.
+	+ Implemented LoggedPluginManager and LoggedScheduler with implementations defaulting
+	  inside of Commons. All Commons plugins should now by default have awesome debugging.
+	~ Moved all NMS Requiring classes to be abstracted.
+		- Chat.actionMessage
+		- Chat.title
+		- VillagerTrading
+	- Removed commons.network.Bungee, as there's no implementation or usage for it. It's broke.
+	- Removed:
+		- LambdaEnchantment
+		- ItemOperation
+		- BuildableItem
+		- VillagerShop and trading, it never worked.
+		- InventoryItem
+		- Friends package... No need for it.
+		- Coords, again, un-needed.
+		- Properties package... Unfinished unimplemented idea.
+
+January 16'th, 2016 (Build 1.8.8-2):
+	~ Implemented a custom Logger to BukkitPlugin
+	~ Implemented .closeMenu() for all viewers in ItemMenu.
+	~ Implemented .getPluginLogger() in BukkitPlugin.
+	+ Implemented a(n) UnhandledExceptionHandler for StackTraceEvent to better handle all those debugging!
+		+ Implemented global Event to handle Throwable Exceptions!
+		+ Gives all players debugging a book with the detail of exception.
+	+ Implemented .getPlugins() to retrieve all the plugins from the bukkit plugin logger.
+	+ Implemented ErrorLogger to handle all exceptions thrown by Bukkit and filter
+		them through a stack trace event.
+
+
+January 14'th, 2016 (Build 1.8.8-2):
+	~ Modified the implementation of Cooldown for better performance and simplicity.
+	~ Modified Entities.launchUpwards() to take a double as the force argument.
+
 December 15'th, 2015 (Build 1.8.8-2):
 	+ Implemented the Metrics class under org.mcstats.
 	+ Created the Characters class for ASCII Characters!

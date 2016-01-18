@@ -7,6 +7,7 @@ import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -22,7 +23,7 @@ public class EntityDamageListener implements Listener {
         playerHandler = Commons.getInstance().getPlayerHandler();
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamageEvent(EntityDamageEvent e) {
         EntityDamageEvent.DamageCause cause = e.getCause();
 

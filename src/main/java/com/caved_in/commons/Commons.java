@@ -12,6 +12,7 @@ import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
 import com.caved_in.commons.network.Bungee;
+import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.plugin.Plugins;
@@ -90,7 +91,10 @@ public class Commons extends BukkitPlugin {
 
 
     public void startup() {
-        /* Before setting up any of the handlers, deal with the reflective / nms setup */
+        /*
+        Initialize all NMS!
+         */
+        NMS.init();
 
         //Use reflection to prepare for custom enchants.
         prepForCustomEnchantments();
@@ -193,8 +197,8 @@ public class Commons extends BukkitPlugin {
                     new TeleportCommand(),
                     new TeleportHereCommand(),
                     new TeleportOtherCommand(),
-                    new TeleportPositionCommand(),
                     new TeleportRequestCommand(),
+                    new TeleportPositionCommand(),
                     new TeleportMenuCommand(),
                     new TimeCommand(),
                     new TunnelsXPCommand(),
@@ -217,7 +221,6 @@ public class Commons extends BukkitPlugin {
         for (Player player : Players.allPlayers()) {
             players.addData(player);
         }
-
     }
 
     @Override
@@ -276,7 +279,7 @@ public class Commons extends BukkitPlugin {
 
         Collection<File> itemSetFiles = FileUtils.listFiles(itemSetsFolder, null, false);
         if (itemSetFiles.size() > 0) {
-			/* Load all the files in the item folder, into the item set manager */
+            /* Load all the files in the item folder, into the item set manager */
             for (File file : itemSetFiles) {
                 try {
                     ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
@@ -296,7 +299,7 @@ public class Commons extends BukkitPlugin {
         Collection<File> itemFiles = FileUtils.listFiles(itemsFolder, null, false);
 
         if (itemFiles.size() > 0) {
-			/* Load all the files in the item folder, into the saved item manager */
+            /* Load all the files in the item folder, into the saved item manager */
             for (File file : itemFiles) {
                 SavedItemManager.loadItem(file);
             }
@@ -319,9 +322,9 @@ public class Commons extends BukkitPlugin {
         } catch (Exception Ex) {
             Ex.printStackTrace();
         }
-		
+
 		/*
-		Initialize the rules class!
+        Initialize the rules class!
 		 */
         Rules.init(new File(RULES_LOCATION));
 
@@ -400,9 +403,9 @@ public class Commons extends BukkitPlugin {
 
         protected Rules(File f) {
             file = f;
-			
+
 			/*
-			If the rules file doesn't exist, then create it!
+            If the rules file doesn't exist, then create it!
 			
 			 */
             if (!file.exists()) {
@@ -471,7 +474,9 @@ public class Commons extends BukkitPlugin {
                 new DebugKickStick(),
                 new DebugTitle(),
                 new DebugConfirmationMenu(),
-                new DebugExplosionArrow()
+                new DebugExplosionArrow(),
+                new DebugThrowException(),
+                new DebugActionMessage()
         );
     }
 

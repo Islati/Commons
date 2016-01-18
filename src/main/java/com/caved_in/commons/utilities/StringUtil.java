@@ -589,7 +589,7 @@ public class StringUtil extends OutputStream {
         return -1;
     }
 
-    public static String getStackStr(Exception err) {
+    public static String getStackStr(Throwable err) {
         if (err == null) {// || err.getCause() == null) {
             return "";
         }

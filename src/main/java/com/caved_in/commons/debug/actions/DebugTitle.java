@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class DebugTitle implements DebugAction {
     @Override
     public void doAction(Player player, String... args) {
-        Title title = new Title("Brandon is Awesome", "(and so is Jodie <3)");
+        Title title = new Title("Brandon is Awesome");
         title.setFadeOutTime(1);
         title.setStayTime(4);
         title.setSubtitleColor(ChatColor.YELLOW);

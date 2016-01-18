@@ -12,10 +12,7 @@ import com.caved_in.commons.time.TimeType;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang.Validate;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -33,10 +30,6 @@ public class Worlds {
             World.setStorm(false);
             World.setThundering(false);
         }
-    }
-
-    public static Object getHandle(World world) {
-        return ReflectionUtilities.invokeMethod(GET_HANDLE, world);
     }
 
     public static World getWorld(String worldName) {
@@ -163,6 +156,10 @@ public class Worlds {
         Preconditions.checkNotNull(world);
         Preconditions.checkNotNull(location);
         Preconditions.checkNotNull(item);
+
+        if (item.getType() == Material.AIR) {
+            return null;
+        }
 
         if (natural) {
             return world.dropItemNaturally(location, item);

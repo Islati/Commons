@@ -1,7 +1,7 @@
 package com.caved_in.commons.chat;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.nms.NmsPlayers;
+import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.threading.RunnableManager;
@@ -10,8 +10,6 @@ import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_8_R3.IChatBaseComponent;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -23,8 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-//todo Remove the imports NMS and use reflection for version support?
-
 /**
  * Used to messages to players, console, specific permission groups, users with permissions, action messages, titles, and more.
  */
@@ -32,13 +28,6 @@ public class Chat {
     private static Commons commons = Commons.getInstance();
 
     private static ConsoleCommandSender commandSender = Bukkit.getConsoleSender();
-
-    /*
-    Unformatted string which is used to create the JSON Text / component
-    to send to the player's action bar.
-     */
-    private static final String ACTION_JSON = "{\"text\": \"%s\"}";
-
 
     private static final Map<String, Cooldown> messageCooldowns = new HashMap<>();
 
@@ -95,13 +84,7 @@ public class Chat {
      * @param message message to send.
      */
     public static void actionMessage(Player player, String message) {
-        if (!Commons.bukkitVersionMatches("1_8")) {
-            throw new IllegalAccessError("Unable to create action messages on < Bukkit / Spigot 1.8");
-        }
-        //TODO Implement version checking for action messages!
-        IChatBaseComponent actionComponent = IChatBaseComponent.ChatSerializer.a(String.format(ACTION_JSON, StringUtil.colorize(message)));
-        PacketPlayOutChat actionChatPacket = new PacketPlayOutChat(actionComponent, (byte) 2);
-        NmsPlayers.sendPacket(player, actionChatPacket);
+        NMS.getActionMessageHandler().actionMessage(player, message);
     }
 
     /**

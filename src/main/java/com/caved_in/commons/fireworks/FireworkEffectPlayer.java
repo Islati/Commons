@@ -1,5 +1,6 @@
 package com.caved_in.commons.fireworks;
 
+import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -60,14 +61,14 @@ public class FireworkEffectPlayer {
         // the net.minecraft.server.World
         Object nms_world = null;
         Object nms_firework = null;
-		/*
-		 * The reflection part, this gives us access to funky ways of messing
+        /*
+         * The reflection part, this gives us access to funky ways of messing
 		 * around with things
 		 */
         if (world_getHandle == null) {
             // get the methods of the craftbukkit objects
-            world_getHandle = getMethod(world.getClass(), "getHandle");
-            firework_getHandle = getMethod(fw.getClass(), "getHandle");
+            world_getHandle = ReflectionUtilities.getMethod(world.getClass(), "getHandle");
+            firework_getHandle = ReflectionUtilities.getMethod(fw.getClass(), "getHandle");
         }
         // invoke with no arguments
         nms_world = world_getHandle.invoke(world, (Object[]) null);
@@ -75,7 +76,7 @@ public class FireworkEffectPlayer {
         // null checks are fast, so having this seperate is ok
         if (nms_world_broadcastEntityEffect == null) {
             // get the method of the nms_world
-            nms_world_broadcastEntityEffect = getMethod(nms_world.getClass(), "broadcastEntityEffect");
+            nms_world_broadcastEntityEffect = ReflectionUtilities.getMethod(nms_world.getClass(), "broadcastEntityEffect");
         }
 		/*
 		 * Now we mess with the metadata, allowing nice clean spawning of a
@@ -100,23 +101,6 @@ public class FireworkEffectPlayer {
         nms_world_broadcastEntityEffect.invoke(nms_world, new Object[]{nms_firework, (byte) 17});
         // remove from the game
         fw.remove();
-    }
-
-    /**
-     * Internal method, used as shorthand to grab our method in a nice friendly
-     * manner
-     *
-     * @param cl
-     * @param method
-     * @return Method (or null)
-     */
-    private static Method getMethod(Class<?> cl, String method) {
-        for (Method m : cl.getMethods()) {
-            if (m.getName().equals(method)) {
-                return m;
-            }
-        }
-        return null;
     }
 
 }

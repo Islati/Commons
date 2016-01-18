@@ -1,5 +1,6 @@
 package com.caved_in.commons.plugin;
 
+import com.caved_in.commons.event.StackTraceEvent;
 import com.caved_in.commons.utilities.LogUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -23,6 +24,32 @@ public class Plugins {
 
     private static PluginManager pluginManager = Bukkit.getPluginManager();
 
+    private static LoggedPluginManager events = null;
+
+    private static LoggedScheduler scheduler = null;
+
+    static {
+        events = new LoggedPluginManager(pluginManager) {
+            @Override
+            protected void customHandler(Event event, Throwable e) {
+                StackTraceEvent.call(e);
+            }
+        };
+
+        scheduler = new LoggedScheduler(Bukkit.getScheduler()) {
+            @Override
+            protected void customHandler(int taskID, Throwable e) {
+                StackTraceEvent.call(e);
+            }
+        };
+
+
+    }
+
+    public static LoggedScheduler getLoggedScheduler() {
+        return scheduler;
+    }
+
     public static boolean isEnabled(String name) {
         return pluginManager.isPluginEnabled(name);
     }
@@ -42,6 +69,10 @@ public class Plugins {
 
     public static Plugin getPlugin(String name) {
         return pluginManager.getPlugin(name);
+    }
+
+    public static Plugin[] getPlugins() {
+        return pluginManager.getPlugins();
     }
 
     public static boolean hasDataFolder(Plugin plugin) {
@@ -131,17 +162,17 @@ public class Plugins {
     }
 
     public static void registerListener(Plugin plugin, Listener listener) {
-        pluginManager.registerEvents(listener, plugin);
+        events.registerEvents(listener, plugin);
     }
 
     public static void registerListeners(Plugin plugin, Listener... listeners) {
         for (Listener listener : listeners) {
-            pluginManager.registerEvents(listener, plugin);
+            events.registerEvents(listener, plugin);
         }
     }
 
     public static void callEvent(Event e) {
-        pluginManager.callEvent(e);
+        events.callEvent(e);
     }
 
     public static boolean hasProtocolLib() {

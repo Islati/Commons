@@ -6,19 +6,26 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.DebugConfig;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.plugin.Plugins;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
+import org.joor.Reflect;
 
-import java.util.stream.Stream;
+import java.util.Set;
 
 public class StackTraceEvent extends Event {
-    private static final HandlerList handler = new HandlerList();
-    private Exception exception;
+    private static StackTraceErrorHandler errorHandler = StackTraceErrorHandler.getInstance();
 
-    public StackTraceEvent(Exception ex) {
-        this.exception = ex;
+    private static final HandlerList handler = new HandlerList();
+    private Throwable throwable;
+
+    public StackTraceEvent(Throwable ex) {
+        this.throwable = ex;
     }
 
     @Override
@@ -30,23 +37,25 @@ public class StackTraceEvent extends Event {
         return handler;
     }
 
-    public Exception getException() {
-        return exception;
+    public Throwable getException() {
+        return throwable;
+    }
+
+    public static void call(Throwable throwable) {
+        Chat.messageConsole("Calling Stack Trace Event!");
+        StackTraceEvent event = new StackTraceEvent(throwable);
+        Plugins.callEvent(event);
+        handle(event);
     }
 
     public static void handle(StackTraceEvent e) {
         DebugConfig debugConfig = Commons.getInstance().getConfiguration().getDebugConfig();
-        //If they've disabled stack-trace-events in the config, don't handle this
-        if (!debugConfig.isStackTraceEvent()) {
-            return;
-        }
 
-        Stream<Player> debuggingPlayers = Players.getAllDebugging().stream();
-        Exception eventException = e.getException();
+        Set<Player> debuggingPlayers = Players.getAllDebugging();
+        Throwable eventException = e.getException();
         //If the books for stack-tracing are enabled, then give one to all the debugging players
         if (debugConfig.isStackTraceBooks()) {
             ItemStack exceptionBook = Debugger.createExceptionBook(eventException);
-            //YAY! MY FIRST JAVA LAMBDA STATEMENT
             debuggingPlayers.forEach(p -> Players.giveItem(p, exceptionBook));
         }
 
@@ -58,7 +67,39 @@ public class StackTraceEvent extends Event {
         }
     }
 
-    public static void handle(Exception e) {
-        handle(new StackTraceEvent(e));
+    public static class StackTraceErrorHandler implements Thread.UncaughtExceptionHandler {
+        private static StackTraceErrorHandler instance = null;
+
+        public static StackTraceErrorHandler getInstance() {
+            if (instance == null) {
+                instance = new StackTraceErrorHandler();
+            }
+            return instance;
+        }
+
+        protected StackTraceErrorHandler() {
+
+        }
+
+        public static void register() {
+            Thread.setDefaultUncaughtExceptionHandler(getInstance());
+            MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
+
+            Thread serverThread = Reflect.on(server).get("serverThread");
+            serverThread.setUncaughtExceptionHandler(getInstance());
+
+            Thread primaryThread = Reflect.on(server).get("primaryThread");
+            primaryThread.setUncaughtExceptionHandler(getInstance());
+            Chat.messageConsole("Registered uncaught exception handler for serverThread and PrimaryThread");
+        }
+
+        @Override
+        public void uncaughtException(Thread t, Throwable e) {
+            try {
+                StackTraceEvent.call(e);
+            } catch (Throwable th) {
+                e.printStackTrace();
+            }
+        }
     }
 }

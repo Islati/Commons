@@ -14,7 +14,7 @@ public class ItemBreakListener implements Listener {
         Player p = e.getPlayer();
         ItemStack broken = e.getBrokenItem();
 
-        if (!Gadgets.isGadget(broken)) {
+        if (broken == null || !Gadgets.isGadget(broken)) {
             return;
         }
 

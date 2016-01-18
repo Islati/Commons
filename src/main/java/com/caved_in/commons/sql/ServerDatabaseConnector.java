@@ -4,8 +4,6 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ServerInfo;
 import com.caved_in.commons.config.SqlConfiguration;
-import com.caved_in.commons.friends.Friend;
-import com.caved_in.commons.friends.FriendStatus;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Bukkit;
@@ -17,8 +15,6 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import static com.caved_in.commons.sql.DatabaseField.FRIEND_USER_ID;
 
 public class ServerDatabaseConnector extends DatabaseConnector {
 
@@ -41,7 +37,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
     //Friends table / friends list data statement
     private static final String GET_PLAYER_FRIENDS = "SELECT * FROM server_friends WHERE player_id=?";
     private static final String INSERT_FRIEND_REQUEST = "INSERT INTO server_friends (player_id,friend_id,friend_status) VALUES (?,?,?)";
-    private static final String UPDATE_FRIEND_REQUEST = "UPDATE server_friends SET friend_status=? WHERE player_id=? AND friend_id=?";
 
     //Online status update query
     private static final String UPDATE_PLAYER_ONLINE_STATUS = "UPDATE server_online SET online=? AND svr_id=? WHERE player_id=?";
@@ -218,87 +213,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
             //Close all our prepared statements.
             close(playerTableStatement, prefixTableStatement, premiumTableStatement);
         }
-    }
-
-    public void updateFriendRequest(UUID playerId, UUID friendId, FriendStatus status) {
-        PreparedStatement statement = prepareStatement(UPDATE_FRIEND_REQUEST);
-        try {
-            //Build the statement to update the request for the player
-            statement.setInt(1, status.getId());
-            statement.setString(2, playerId.toString());
-            statement.setString(3, friendId.toString());
-            statement.addBatch();
-            statement.clearParameters();
-            //Build the statement to update the request for the friend
-            statement.setInt(1, status.getId());
-            statement.setString(2, friendId.toString());
-            statement.setString(3, playerId.toString());
-            statement.addBatch();
-            //Execute the batch statements
-            statement.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(statement);
-        }
-    }
-
-    public void updateFriendRequest(Friend friend, FriendStatus friendStatus) {
-        updateFriendRequest(friend.getPlayerId(), friend.getFriendId(), friendStatus);
-    }
-
-    public void insertFriendRequest(UUID playerId, UUID friendId) {
-        PreparedStatement statement = prepareStatement(INSERT_FRIEND_REQUEST);
-        try {
-            //Build the statement to insert the request for the player
-            statement.setString(1, playerId.toString());
-            statement.setString(2, friendId.toString());
-            statement.setInt(3, FriendStatus.REQUESTED.getId());
-            statement.addBatch();
-            //Clear the parameters for the next statement
-            statement.clearParameters();
-            //Build the statement to insert the request for the player being requested
-            statement.setString(1, friendId.toString());
-            statement.setString(2, playerId.toString());
-            statement.setInt(3, FriendStatus.REQUESTED.getId());
-            statement.addBatch();
-            //Execute the statements
-            statement.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(statement);
-        }
-    }
-
-    public Set<Friend> getFriends(Player player) {
-        return getFriends(player.getUniqueId());
-    }
-
-    public Set<Friend> getFriends(UUID playerId) {
-        Set<Friend> friends = new HashSet<>();
-        PreparedStatement statement = prepareStatement(GET_PLAYER_FRIENDS);
-        try {
-            statement.setString(1, playerId.toString());
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Friend friend;
-                UUID friendId = UUID.fromString(resultSet.getString(FRIEND_USER_ID.toString()));
-                friend = new Friend(playerId, friendId);
-                friends.add(friend);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return friends;
-    }
-
-    public boolean hasFriends(UUID playerId) {
-        return getFriends(playerId).size() > 0;
-    }
-
-    public boolean hasFriends(Player player) {
-        return hasFriends(player.getUniqueId());
     }
 
     public boolean updateOnlineStatus(UUID uniqueId, boolean isOnline) {

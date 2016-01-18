@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 //todo DOCUMENT EVERYTHING
 public abstract class CustomEnchantment extends Enchantment {
     private int id;

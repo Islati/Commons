@@ -1,6 +1,7 @@
 package com.caved_in.commons.threading;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.plugin.Plugins;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -23,37 +24,37 @@ public class RunnableManager {
     // Example: [GAME UPDATE] Started Tick!
 
     public int registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-        int taskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+        int taskId = Plugins.getLoggedScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
         runningTasks.put(name, taskId);
         runnableIds.put(taskId, task);
         return taskId;
     }
 
     public int registerAsyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-        int taskId = plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+        int taskId = Plugins.getLoggedScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
         runningTasks.put(name, taskId);
         runnableIds.put(taskId, task);
         return taskId;
     }
 
     public void runTaskNow(Runnable task) {
-        plugin.getServer().getScheduler().runTask(this.plugin, task);
+        Plugins.getLoggedScheduler().runTask(this.plugin, task);
     }
 
     public void runTaskAsync(Runnable task) {
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, task);
+        Plugins.getLoggedScheduler().runTaskAsynchronously(plugin, task);
     }
 
     public void runTaskLater(Runnable task, long delayInTicks) {
-        plugin.getServer().getScheduler().runTaskLater(plugin, task, delayInTicks);
+        Plugins.getLoggedScheduler().runTaskLater(plugin, task, delayInTicks);
     }
 
     public void runTaskOneTickLater(Runnable task) {
-        plugin.getServer().getScheduler().runTaskLater(plugin, task, 1);
+        Plugins.getLoggedScheduler().runTaskLater(plugin, task, 1);
     }
 
     public void runTaskLaterAsync(Runnable task, long delay) {
-        plugin.getServer().getScheduler().runTaskLaterAsynchronously(plugin, task, delay);
+        Plugins.getLoggedScheduler().runTaskLaterAsynchronously(plugin, task, delay);
     }
 
     public boolean cancelTask(String name) {
@@ -66,7 +67,7 @@ public class RunnableManager {
     }
 
     public void cancelTask(int taskId) {
-        plugin.getServer().getScheduler().cancelTask(taskId);
+        Plugins.getLoggedScheduler().cancelTask(taskId);
     }
 
     public void cancelTasks() {

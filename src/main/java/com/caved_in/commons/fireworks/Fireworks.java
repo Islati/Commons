@@ -63,6 +63,7 @@ public class Fireworks {
 
     /**
      * Retrieve an array of random colors.
+     *
      * @param amount amount of randomized colors to retrieve
      * @return an array of randomly generated colors.
      */
@@ -76,6 +77,7 @@ public class Fireworks {
 
     /**
      * Retrieve an array of random firework colors.
+     *
      * @param amount amount of randomized colors to retrieve.
      * @return an array of randomly selected firework colors.
      */
@@ -93,27 +95,27 @@ public class Fireworks {
 
     /**
      * Play a firework effect / launch a firework at the given location.
+     *
      * @param location location to prepare the firework at.
      * @param fwEffect effect to attach to the fireworks.
      */
     public static void playFirework(Location location, FireworkEffect fwEffect) {
-        Firework firework = Entities.spawnFireworks(location);
-        FireworkMeta meta = firework.getFireworkMeta();
+        try {
+            fplayer.playFirework(location, fwEffect);
+        } catch (Exception e) {
+            Firework firework = Entities.spawnFireworks(location);
+            FireworkMeta meta = firework.getFireworkMeta();
 
-        meta.addEffects(fwEffect);
-        meta.setPower(NumberUtil.getRandomInRange(1, 4));
+            meta.addEffects(fwEffect);
+            meta.setPower(NumberUtil.getRandomInRange(1, 4));
 
-        firework.setFireworkMeta(meta);
-//		try {
-//			fplayer.playFirework(location,fwEffect);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-
+            firework.setFireworkMeta(meta);
+        }
     }
 
     /**
      * Play a random firework effect at the given location.
+     *
      * @param location location to play the effect at.
      */
     public static void playRandomFirework(Location location) {

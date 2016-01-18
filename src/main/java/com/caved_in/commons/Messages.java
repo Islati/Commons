@@ -5,7 +5,6 @@ import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.location.Coords;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.player.MinecraftPlayer;
@@ -175,11 +174,7 @@ public class Messages {
     }
 
     public static String playerTeleportedTo(double[] xyz) {
-        return playerTeleportedTo(new Coords(xyz));
-    }
-
-    public static String playerTeleportedTo(Coords xyz) {
-        return String.format("&eYou've been teleported to &a%sx,%sy,%sz", xyz.getX(), xyz.getY(), xyz.getZ());
+        return String.format("&eYou've been teleported to &a%sx,%sy,%sz", xyz[0], xyz[1], xyz[2]);
     }
 
     public static String playerXpBalance(Player player) {
@@ -422,7 +417,7 @@ public class Messages {
         return String.format("Name '%s' has been shortened to '%s'", from, to);
     }
 
-    public static String[] exceptionInfo(Exception e) {
+    public static String[] exceptionInfo(Throwable e) {
         return new String[]{
                 String.format("&cException Occurred @ &e%s", new Date()),
                 String.format("%s%s", YELLOW_INDENT_ARROW, e.getLocalizedMessage()),
