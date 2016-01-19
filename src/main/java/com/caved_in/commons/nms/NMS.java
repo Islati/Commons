@@ -7,6 +7,7 @@ import com.caved_in.commons.nms.minecraft_1_8_R3.UnhandledStackTrace_18R3;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
 import com.caved_in.commons.nms.no_implementation.TitleHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
+import com.caved_in.commons.nms.non_breaking_implementation.NonBreakingInventoryHandler;
 import com.caved_in.commons.plugin.Plugins;
 
 public class NMS {
@@ -20,6 +21,8 @@ public class NMS {
     private static ActionMessageHandler actionMessageHandler = null;
 
     private static AbstractTitle.TitleHandler titleHandler = null;
+
+    private static InventoryHandler inventoryHandler = null;
 
     private static boolean initialized = false;
 
@@ -42,8 +45,10 @@ public class NMS {
                 titleHandler = new TitleHandlerNI();
                 break;
         }
-
         stackTraceHandler.register();
+
+        inventoryHandler = new NonBreakingInventoryHandler();
+
         initialized = true;
     }
 
@@ -59,4 +64,7 @@ public class NMS {
         return titleHandler;
     }
 
+    public static InventoryHandler getInventoryHandler() {
+        return inventoryHandler;
+    }
 }

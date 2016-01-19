@@ -5,6 +5,11 @@ description: An all-in-one plugin to provide features to both server owners, and
 author: Brandon Curtis (TheGamersCave/MumbosHut)
 softdepend: [TagAPI, ProtocolLib]
 
+commands:
+   chatmenu:
+      description: Used as a handler for all custom registered chat menus.
+      usage: /<command> [handler action]
+
 permissions:
    commons.*:
       description: Gives all permission nodes within Commons!

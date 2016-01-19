@@ -4,6 +4,16 @@
  + = Added
 -------------
 
+January 19'th, 2016 (Build 1.8.8-2):
+	+ Implemented ChatMenus under the menus package to better create your text-based menus!
+	+ Implemented an NMS Handler for Inventories, with a non-breaking implementation.
+		- So far it allows renaming of inventory windows.
+
+January 18'th, 2016 (Build 1.8.8-2):
+	+ Updated ThrowableItem.Properties with more properties.
+		- ALlowing cancel of the handle, and a cancel message, to stop actions from processing.
+		- Allow toggling on removal of items.
+
 January 17'th, 2016 (Build 1.8.8-2):
 	~ Updated ReflectionExecutor with more methods and neat hacks!
 		- Removal of final modifier on a field.

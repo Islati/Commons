@@ -2,6 +2,7 @@ package com.caved_in.commons.inventory;
 
 import com.caved_in.commons.block.ChestType;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.utilities.ArrayUtils;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
@@ -444,5 +445,16 @@ public class Inventories {
         }
 
         return count;
+    }
+
+    /**
+     * Force the change of an inventories name through the power
+     * of NMS and a version of {@link com.caved_in.commons.nms.InventoryHandler}
+     *
+     * @param inv   inventory to change
+     * @param title new title to assign the inventory
+     */
+    public static void rename(Inventory inv, String title) {
+        NMS.getInventoryHandler().changeTitle(inv, title);
     }
 }

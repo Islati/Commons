@@ -1,6 +1,7 @@
 package com.caved_in.commons.chat;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.menu.ChatMenu;
 import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sound.Sounds;
@@ -348,7 +349,7 @@ public class Chat {
 
     @Deprecated
     public static void formatDebug(String msg, Object... formatting) {
-        commons.debug(String.format(msg,formatting));
+        commons.debug(String.format(msg, formatting));
     }
 
     public static String format(String text) {
@@ -361,6 +362,16 @@ public class Chat {
 
     public static void format(Player p, String text, Object... args) {
         message(p, format(text, args));
+    }
+
+    /**
+     * Initialize a builder of which you can create {@link ChatMenu} by.
+     * Allows actions to be registered on click, and handled appropriately.
+     *
+     * @return a newly created {@link ChatMenu} for creating awesome text-menus.
+     */
+    public static ChatMenu createMenu() {
+        return new ChatMenu();
     }
 
 }

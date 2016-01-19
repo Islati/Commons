@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.gadget.GadgetProperties;
 import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.item.ItemBuilder;
@@ -62,8 +63,16 @@ public abstract class ThrowableItem extends ItemGadget {
                     //Call the handle, for any implementations to do as they wish!
                     handle(holder, thrownItem);
 
+                    if (properties().action() == Action.CANCEL) {
+                        Chat.actionMessage(holder, properties().cancelMessage());
+                        properties().action(Action.DELAY);
+                        return;
+                    }
+
                     //Remove the item after the handle is called!
-                    thrownItem.remove();
+                    if (properties().removeItem()) {
+                        thrownItem.remove();
+                    }
                 }, TimeHandler.getTimeInTicks(properties().delay(), properties().delayType()));
                 break;
             case REPEAT_TICK:
@@ -93,8 +102,23 @@ public abstract class ThrowableItem extends ItemGadget {
                 //Execute the task 2.5 seconds later, as it gives the item time to travel!
                 Commons.getInstance().getThreadManager().runTaskLater(() -> {
                     handle(holder, thrownItem);
+
+                    if (properties().action() == Action.CANCEL) {
+                        Chat.actionMessage(holder, properties().cancelMessage());
+                        properties().action(Action.EXECUTE);
+                    }
+
+                    if (properties().removeItem()) {
+                        if (thrownItem.isValid()) {
+                            thrownItem.remove();
+                        }
+                    }
                 }, exTicks);
                 break;
+            case CANCEL:
+                Chat.actionMessage(holder, properties().cancelMessage());
+                break;
+
         }
 
     }
@@ -109,7 +133,8 @@ public abstract class ThrowableItem extends ItemGadget {
     public enum Action {
         DELAY,
         REPEAT_TICK,
-        EXECUTE
+        EXECUTE,
+        CANCEL
     }
 
     public class Properties extends GadgetProperties {
@@ -121,7 +146,11 @@ public abstract class ThrowableItem extends ItemGadget {
 
         private boolean ticks = false;
 
+        private boolean removeItem = true;
+
         private Action action = Action.EXECUTE;
+
+        private String cancelMessage = "";
 
         private TimeType timeType = TimeType.SECOND;
 
@@ -152,6 +181,11 @@ public abstract class ThrowableItem extends ItemGadget {
             return this;
         }
 
+        public Properties removeItem(boolean val) {
+            this.removeItem = val;
+            return this;
+        }
+
         public TimeType delayType() {
             return timeType;
         }
@@ -179,8 +213,27 @@ public abstract class ThrowableItem extends ItemGadget {
             return this;
         }
 
+        public Properties cancel(String message) {
+            this.cancelMessage = message;
+            this.action = Action.CANCEL;
+            return this;
+        }
+
+        public Properties cancelMessage(String message) {
+            this.cancelMessage = message;
+            return this;
+        }
+
         public Action action() {
             return action;
+        }
+
+        public String cancelMessage() {
+            return cancelMessage;
+        }
+
+        public boolean removeItem() {
+            return removeItem;
         }
 
         public boolean isTicks() {

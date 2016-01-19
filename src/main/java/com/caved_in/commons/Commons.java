@@ -1,6 +1,7 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.chat.PrivateMessageManager;
+import com.caved_in.commons.command.RegisterCommandMethodException;
 import com.caved_in.commons.command.commands.*;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.config.SqlConfiguration;
@@ -11,7 +12,7 @@ import com.caved_in.commons.file.TextFile;
 import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.network.Bungee;
+import com.caved_in.commons.menu.ChatMenuCommandListener;
 import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
@@ -25,7 +26,6 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.messaging.Messenger;
 import org.mcstats.metrics.Metrics;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -47,6 +47,7 @@ public class Commons extends BukkitPlugin {
     public static final String ITEM_SET_DATA_FOLDER = "plugins/Commons/ItemSets/";
     public static final String RULES_LOCATION = "plugins/Commons/rules.txt";
     public static final String TELEPORT_MENU_DISABLED_LOCATION = "plugins/Commons/disabled-teleport-menus.txt";
+
 
     private static Configuration globalConfig = new Configuration();
 
@@ -82,6 +83,8 @@ public class Commons extends BukkitPlugin {
      */
     private ServerDatabaseConnector database = null;
 
+    private ChatMenuCommandListener chatMenuListener = null;
+
     public static synchronized Commons getInstance() {
         if (plugin == null) {
             plugin = (Commons) Plugins.getPlugin("Commons");
@@ -106,6 +109,8 @@ public class Commons extends BukkitPlugin {
         } catch (IOException e) {
             getLogger().info("Metrics for Commons failed to enable!");
         }
+
+        chatMenuListener = new ChatMenuCommandListener(this);
 
 		/*
         Create the private message manager; used to track private messages for players on the server.
@@ -136,77 +141,69 @@ public class Commons extends BukkitPlugin {
             });
         }
 
-        Messenger messenger = getServer().getMessenger();
-        /*
-        Register the plugin message channel for BungeeCord, so we can send players around
-        to other servers, and perform actions across servers!
-         */
-        messenger.registerOutgoingPluginChannel(this, "BungeeCord");
-
-        /*
-        Register the incoming plugin messages
-         */
-        messenger.registerIncomingPluginChannel(this, "BungeeCord", Bungee.getInstance());
-
-
         //If the commands are to be registered: do so.
         if (getConfiguration().registerCommands()) {
-            registerCommands(
-                    new AddCurrencyCommand(),
-                    new ArmorCommand(),
-                    new BackCommand(),
-                    new BlockTextCommand(),
-                    new BuyPremiumCommand(),
-                    new CleanCommand(),
-                    new ClearInventoryCommand(),
-                    new DayCommand(),
-                    new DebugModeCommand(),
-                    new EnchantCommand(),
-                    new FeedCommand(),
-                    new FireworksCommand(),
-                    new FlyCommand(),
-                    //TODO Register Friend Command
-                    new GadgetsCommand(),
-                    new GamemodeCommand(),
-                    new GrassCommand(),
-                    new GodCommand(),
-                    new HatCommand(),
-                    new HealCommand(),
-                    new IdCommand(),
-                    new ItemCommand(),
-                    new MaintenanceCommand(),
-                    new MessageCommand(),
-                    new MoreCommand(),
-                    new NightCommand(),
-                    new PotionCommand(),
-                    new QuickResponseCommand(),
-                    new RecipeCommand(),
-                    new RemovePremiumCommand(),
-                    new RepairCommand(),
-                    new RulesCommand(),
-                    new SetCommand(),
-                    new SetSpawnCommand(),
-                    new SetWarpCommand(),
-                    new SilenceCommand(),
-                    new SkullCommand(),
-                    new SlayCommand(),
-                    new SpawnCommand(),
-                    new SpawnMobCommand(),
-                    new SpeedCommand(),
-                    new TeleportAllCommand(),
-                    new TeleportCommand(),
-                    new TeleportHereCommand(),
-                    new TeleportOtherCommand(),
-                    new TeleportRequestCommand(),
-                    new TeleportPositionCommand(),
-                    new TeleportMenuCommand(),
-                    new TimeCommand(),
-                    new TunnelsXPCommand(),
-                    new UnsilenceCommand(),
-                    new WarpCommand(),
-                    new WarpsCommand(),
-                    new WorkbenchCommand()
-            );
+            try {
+                registerCommands(
+                        new AddCurrencyCommand(),
+                        new ArmorCommand(),
+                        new BackCommand(),
+                        new BlockTextCommand(),
+                        new BuyPremiumCommand(),
+                        new CleanCommand(),
+                        new ClearInventoryCommand(),
+                        new DayCommand(),
+                        new DebugModeCommand(),
+                        new EnchantCommand(),
+                        new FeedCommand(),
+                        new FireworksCommand(),
+                        new FlyCommand(),
+                        //TODO Register Friend Command
+                        new GadgetsCommand(),
+                        new GamemodeCommand(),
+                        new GrassCommand(),
+                        new GodCommand(),
+                        new HatCommand(),
+                        new HealCommand(),
+                        new IdCommand(),
+                        new ItemCommand(),
+                        new MaintenanceCommand(),
+                        new MessageCommand(),
+                        new MoreCommand(),
+                        new NightCommand(),
+                        new PotionCommand(),
+                        new QuickResponseCommand(),
+                        new RecipeCommand(),
+                        new RemovePremiumCommand(),
+                        new RepairCommand(),
+                        new RulesCommand(),
+                        new SetCommand(),
+                        new SetSpawnCommand(),
+                        new SetWarpCommand(),
+                        new SilenceCommand(),
+                        new SkullCommand(),
+                        new SlayCommand(),
+                        new SpawnCommand(),
+                        new SpawnMobCommand(),
+                        new SpeedCommand(),
+                        new TeleportAllCommand(),
+                        new TeleportCommand(),
+                        new TeleportHereCommand(),
+                        new TeleportOtherCommand(),
+                        new TeleportRequestCommand(),
+                        new TeleportPositionCommand(),
+                        new TeleportMenuCommand(),
+                        new TimeCommand(),
+                        new TunnelsXPCommand(),
+                        new UnsilenceCommand(),
+                        new WarpCommand(),
+                        new WarpsCommand(),
+                        new WorkbenchCommand()
+                );
+            } catch (RegisterCommandMethodException e) {
+                e.printStackTrace();
+                debug("Unable to register commands; If you're using the no-commands version of commons assure '<register-commands>' inside of Config.xml is set to false. Otherwise, send the stack trace to our developers for assistance.");
+            }
         }
 
         //Register the debugger actions and triggers to 'case test' features in-game
@@ -604,5 +601,9 @@ public class Commons extends BukkitPlugin {
 
     public boolean isServerFull() {
         return Players.getOnlineCount() >= Bukkit.getMaxPlayers();
+    }
+
+    public ChatMenuCommandListener getChatMenuListener() {
+        return chatMenuListener;
     }
 }

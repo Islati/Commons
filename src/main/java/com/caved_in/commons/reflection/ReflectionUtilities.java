@@ -23,6 +23,12 @@ public class ReflectionUtilities {
         return "org.bukkit.craftbukkit." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     }
 
+    public static String getVersion() {
+        String name = Bukkit.getServer().getClass().getPackage().getName();
+        String version = name.substring(name.lastIndexOf('.') + 1) + ".";
+        return version;
+    }
+
     /**
      * Retrieve a class.
      *
@@ -39,16 +45,6 @@ public class ReflectionUtilities {
     }
 
     /**
-     * Retrieve a(n) NMS class.
-     *
-     * @param className name of the class to retrieve
-     * @return the class if found, otherwise null
-     */
-    public static Class getNMSClass(String className) {
-        return getClass(NMS_PATH + "." + className);
-    }
-
-    /**
      * Retrieve a(n) Craft Bukkit class
      *
      * @param className name of the class to retrieve
@@ -56,6 +52,48 @@ public class ReflectionUtilities {
      */
     public static Class getCBClass(String className) {
         return getClass(CB_PATH + "." + className);
+    }
+
+    public static Class<?> getNMSClass(String className) {
+        String fullName = "net.minecraft.server." + getVersion() + className;
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(fullName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clazz;
+    }
+
+    public static Class<?> getOBCClass(String className) {
+        String fullName = "org.bukkit.craftbukkit." + getVersion() + className;
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(fullName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clazz;
+    }
+
+    public static Class<?> getOBCClass(String className, String subPackage) {
+        String fullName = "org.bukkit.craftbukkit." + getVersion() + subPackage + "." + className;
+        Class<?> clazz = null;
+        try {
+            clazz = Class.forName(fullName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clazz;
+    }
+
+    public static Object getHandle(Object obj) {
+        try {
+            return getMethod(obj.getClass(), "getHandle", new Class[0]).invoke(obj, new Object[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -69,7 +107,7 @@ public class ReflectionUtilities {
     public static Field getField(Class<?> clazz, String fieldName) {
         try {
             Field field = clazz.getDeclaredField(fieldName);
-            setAccessible(field, true);
+            setAccessible(field);
             return field;
         } catch (Exception e) {
             Chat.debug("No such field: " + fieldName + "!");
@@ -171,24 +209,21 @@ public class ReflectionUtilities {
 
     public static void setValue(Object instance, String fieldName, Object value) throws Exception {
         Field field = instance.getClass().getDeclaredField(fieldName);
-        makeModifieable(field);
-        field.set(instance, value);
+        setAccessible(field).set(instance, value);
     }
 
     public static void setValue(Class<?> clazz, String field, Object value) throws Exception {
         Field f = getField(clazz, field);
-        makeModifieable(f);
-        f.set(null, value);
+        setAccessible(f).set(null, value);
     }
 
     public static void setValue(Field field, Object instance, Object value) throws Exception {
-        makeModifieable(field);
-        field.set(instance, value);
+        setAccessible(field).set(instance, value);
     }
 
     public static Object getValue(Object instance, String fieldName) throws Exception {
         Field field = instance.getClass().getDeclaredField(fieldName);
-        setAccessible(field, true);
+        setAccessible(field);
         return field.get(instance);
     }
 
@@ -202,7 +237,7 @@ public class ReflectionUtilities {
 
 
     public static void removeFinal(Field field) throws Exception {
-        setAccessible(field, true);
+        setAccessible(field);
 
         if (!isFinal(field)) {
             Chat.debug("Field " + field.getName() + " in class " + field.getClass().getCanonicalName() + " is not final.. Cannot remove final");
@@ -259,16 +294,12 @@ public class ReflectionUtilities {
         return field.isAccessible();
     }
 
-    public static void setAccessible(Field field, boolean value) throws Exception {
-        field.setAccessible(value);
-    }
-
-    public static void makeModifieable(Field field) throws Exception {
-        setAccessible(field, true);
-
-        if (isFinal(field)) {
-            removeFinal(field);
-        }
+    public static Field setAccessible(Field f) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+        f.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(f, f.getModifiers() & 0xFFFFFFEF);
+        return f;
     }
 
     @SuppressWarnings("unchecked")

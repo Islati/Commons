@@ -52,7 +52,6 @@ commands:
       usage: /silence
    unsilence:
       usage: /unsilence
-
    r:
       usage: /<command> <Message>
    skull:
@@ -127,6 +126,9 @@ commands:
       usage: /<command> <size> <density>
    gadgets:
       usage: /<command>
+   chatmenu:
+      description: Used as a handler for all custom registered chat menus.
+      usage: /<command> [handler action]
 permissions:
    commons.*:
       description: Gives all permission nodes within Commons!

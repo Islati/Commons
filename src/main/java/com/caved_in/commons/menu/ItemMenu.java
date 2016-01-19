@@ -1,5 +1,6 @@
 package com.caved_in.commons.menu;
 
+import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
@@ -250,7 +251,7 @@ public class ItemMenu implements InventoryHolder {
         items.clear();
 
         if (inventory != null) {
-		/* Also clear the items from inventory */
+        /* Also clear the items from inventory */
             inventory.clear();
         }
     }
@@ -264,7 +265,11 @@ public class ItemMenu implements InventoryHolder {
         return title;
     }
 
-    private void setTitle(String title) {
-        //TODO nms actions, perhaps? :)
+    public void setTitle(String title) {
+        if (inventory == null) {
+            throw new IllegalAccessError("Unable to rename the inventory as it's not been initialized");
+        }
+        this.title = title;
+        Inventories.rename(getInventory(), StringUtil.formatColorCodes(title));
     }
 }
