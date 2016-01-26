@@ -2,7 +2,13 @@
  - = Removed
  ~ = Modified
  + = Added
+ n: = Note
 -------------
+
+January 22'nd, 2016 (Build 1.8.8-2):
+	n: Tampering with Reflections (https://github.com/ronmamo/reflections) to write class loading methods!
+		Could be used to load all command classes, debug actions, listeners, and so on in a package; Who knows?
+		If it doesn't pan out I won't include it in Commons.
 
 January 19'th, 2016 (Build 1.8.8-2):
 	+ Implemented ChatMenus under the menus package to better create your text-based menus!

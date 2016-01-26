@@ -36,6 +36,8 @@ commands:
    tpo:
       usage: /<command> <player> <targetPlayer>
       aliases: [tpother,teleportother]
+   tree:
+      usage: /<command> [--cursor] <treetype>
    fly:
       usage: /fly
    fw:

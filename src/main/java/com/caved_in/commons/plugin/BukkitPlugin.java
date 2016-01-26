@@ -25,185 +25,203 @@ import org.simpleframework.xml.core.Persister;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
-    private Serializer serializer;
+	private Serializer serializer;
 
-    private BukkitScheduledExecutorService syncExecuter;
+	private BukkitScheduledExecutorService syncExecuter;
 
-    private BukkitScheduledExecutorService asyncExecuter;
+	private BukkitScheduledExecutorService asyncExecuter;
 
-    private BoardManager scoreboardManager;
+	private BoardManager scoreboardManager;
 
-    private RunnableManager threadManager;
+	private RunnableManager threadManager;
 
-    private ItemMessage itemMessage;
+	private ItemMessage itemMessage;
 
-    private Logger logger;
+	private Logger logger = null;
 
-    private CommandHandler commandHandler;
+	private CommandHandler commandHandler;
 
-    private PlayerGlowRed playerGlowHandler;
+	private PlayerGlowRed playerGlowHandler;
 
-    private ChatCommandHandler chatCommandhandler;
+	private ChatCommandHandler chatCommandhandler;
 
-    public void onEnable() {
-        initLogger();
+	public void onEnable() {
+		initLogger();
 
         /*
-        Create the command handler for annotation-based commands.
+		Create the command handler for annotation-based commands.
          */
-        commandHandler = new CommandHandler(this);
+		commandHandler = new CommandHandler(this);
 
         /*
-        Create the chat command handler, for when you're lazy but wanna write commands.
+		Create the chat command handler, for when you're lazy but wanna write commands.
          As the chat command handler implements the listener, then we're also going to
          register it as a listener.
          */
-        registerListeners(
-                chatCommandhandler = new ChatCommandHandler(this)
-        );
-        /*
-        Create the thread manager, used to wrap tasks.
+		registerListeners(
+				chatCommandhandler = new ChatCommandHandler(this)
+		);
+		/*
+		Create the thread manager, used to wrap tasks.
          */
-        threadManager = new RunnableManager(this);
+		threadManager = new RunnableManager(this);
 
         /*
-        Create the scoreboard manager, incase you wish to do
+		Create the scoreboard manager, incase you wish to do
         fancy shmancy work with the scoreboard.
          */
-        scoreboardManager = new ScoreboardManager(this, 15l);
+		scoreboardManager = new ScoreboardManager(this, 15l);
 
         /*
-        Create the syncronous promise listener
+		Create the syncronous promise listener
          */
-        syncExecuter = BukkitExecutors.newSynchronous(this);
+		syncExecuter = BukkitExecutors.newSynchronous(this);
 
         /*
-        Create the asyncronous promise listener
+		Create the asyncronous promise listener
          */
-        asyncExecuter = BukkitExecutors.newAsynchronous(this);
+		asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
         /*
-        Create the player glow handler, used as a cosmetic effect!
+		Create the player glow handler, used as a cosmetic effect!
          */
-        playerGlowHandler = new PlayerGlowRed(this);
+		playerGlowHandler = new PlayerGlowRed(this);
 
         /*
-        Create the local serializer! (SimpleXML)
+		Create the local serializer! (SimpleXML)
          */
-        serializer = new Persister();
+		serializer = new Persister();
 
-        if (Plugins.hasProtocolLib()) {
-            /*
-            If protocolLib is enabled then we also want to create the ItemMessage
+		if (Plugins.hasProtocolLib()) {
+			/*
+			If protocolLib is enabled then we also want to create the ItemMessage
             handler, where you use item meta packets to send actionbar-like messages
              */
-            itemMessage = new ItemMessage(this);
-        }
+			itemMessage = new ItemMessage(this);
+		}
 
-        //If the game doesn't have a data folder then make one
-        if (!Plugins.hasDataFolder(this)) {
-            Plugins.makeDataFolder(this);
-        }
+		//If the game doesn't have a data folder then make one
+		if (!Plugins.hasDataFolder(this)) {
+			Plugins.makeDataFolder(this);
+		}
 
-        //Assure we've got our configuration initialized, incase any startup options require it.
-        initConfig();
+		//Assure we've got our configuration initialized, incase any startup options require it.
+		initConfig();
 
-        //Call the startup method, where the game performs its startup logic
-        startup();
-    }
+		//Call the startup method, where the game performs its startup logic
+		startup();
+	}
 
-    public void onDisable() {
-        threadManager.cancelTasks();
-        shutdown();
-        Plugins.unregisterHooks(this);
-    }
+	public void onDisable() {
+		threadManager.cancelTasks();
+		shutdown();
+		Plugins.unregisterHooks(this);
+	}
 
 
-    public abstract void startup();
+	public abstract void startup();
 
-    public abstract void shutdown();
+	public abstract void shutdown();
 
-    @Override
-    public String getVersion() {
-        return getDescription().getVersion();
-    }
+	@Override
+	public String getVersion() {
+		return getDescription().getVersion();
+	}
 
-    public abstract String getAuthor();
+	public abstract String getAuthor();
 
-    public abstract void initConfig();
+	public abstract void initConfig();
 
-    public void registerCommands(Object... commands) {
-        commandHandler.registerCommands(commands);
-    }
+	public void registerCommands(Object... commands) {
+		commandHandler.registerCommands(commands);
+	}
 
-    public boolean registerChatCommands(ChatCommand... commands) {
-        for (ChatCommand cmd : commands) {
-            if (!chatCommandhandler.registerCommand(cmd)) {
-                return false;
-            }
-        }
+	/**
+	 * Iterate through all the classes inside a package, and determine if it's a class that has
+	 * {@link com.caved_in.commons.command.Command} annotations available on any of its methods. If so, attempt to register them.
+	 * Note: Mirror method for {@link com.caved_in.commons.command.CommandHandler}.registerCommandsByPackage(String pkg)
+	 *
+	 * @param pkg Package to scan classes which contain {@link com.caved_in.commons.command.Command} annotations.
+	 */
+	public void registerCommandsByPackage(String pkg) {
+		commandHandler.registerCommandsByPackage(pkg);
+	}
 
-        return true;
-    }
+	public boolean registerChatCommands(ChatCommand... commands) {
+		for (ChatCommand cmd : commands) {
+			if (!chatCommandhandler.registerCommand(cmd)) {
+				return false;
+			}
+		}
 
-    public void registerListeners(Listener... listeners) {
-        Plugins.registerListeners(this, listeners);
-    }
+		return true;
+	}
 
-    public void registerGadgets(Gadget... gadgets) {
-        for (Gadget gadget : gadgets) {
-            Gadgets.registerGadget(gadget);
-        }
-    }
+	public void registerListeners(Listener... listeners) {
+		Plugins.registerListeners(this, listeners);
+	}
 
-    public void registerDebugActions(DebugAction... actions) {
-        Debugger.addDebugAction(actions);
-    }
+	public void registerGadgets(Gadget... gadgets) {
+		for (Gadget gadget : gadgets) {
+			Gadgets.registerGadget(gadget);
+		}
+	}
 
-    public BukkitScheduledExecutorService getSyncExecuter() {
-        return syncExecuter;
-    }
+	public void registerDebugActions(DebugAction... actions) {
+		Debugger.addDebugAction(actions);
+	}
 
-    public BukkitScheduledExecutorService getAsyncExecuter() {
-        return asyncExecuter;
-    }
+	public void registerDebugActionsByPackage(String pkg) {
+		Debugger.addDebugActionsByPackage(pkg);
+	}
 
-    public Serializer getSerializer() {
-        return serializer;
-    }
+	public BukkitScheduledExecutorService getSyncExecuter() {
+		return syncExecuter;
+	}
 
-    public RunnableManager getThreadManager() {
-        return threadManager;
-    }
+	public BukkitScheduledExecutorService getAsyncExecuter() {
+		return asyncExecuter;
+	}
 
-    public ItemMessage getItemMessage() {
-        return itemMessage;
-    }
+	public Serializer getSerializer() {
+		return serializer;
+	}
 
-    public void debug(String... message) {
-        Chat.messageAll(Players.getAllDebugging(), message);
-        for (String m : message) {
-            logger.log(Level.INFO, m);
-        }
-    }
+	public RunnableManager getThreadManager() {
+		return threadManager;
+	}
 
-    public BoardManager getScoreboardManager() {
-        return scoreboardManager;
-    }
+	public ItemMessage getItemMessage() {
+		return itemMessage;
+	}
 
-    public PlayerGlowRed getPlayerGlowHandler() {
-        return playerGlowHandler;
-    }
+	public void debug(String... message) {
+		Chat.messageAll(Players.getAllDebugging(), message);
+		for (String m : message) {
+			logger.log(Level.INFO, m);
+		}
+	}
 
-    public Logger getPluginLogger() {
-        return logger;
-    }
+	public BoardManager getScoreboardManager() {
+		return scoreboardManager;
+	}
 
-    private void initLogger() {
-        logger = new PluginLogger(this);
-        logger.setUseParentHandlers(true);
-    }
+	public PlayerGlowRed getPlayerGlowHandler() {
+		return playerGlowHandler;
+	}
 
+	public Logger getPluginLogger() {
+		return logger;
+	}
+
+	protected void initLogger() {
+		if (logger != null) {
+			return;
+		}
+		logger = new PluginLogger(this);
+		logger.setUseParentHandlers(true);
+	}
 }
