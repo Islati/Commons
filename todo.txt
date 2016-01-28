@@ -1,3 +1,8 @@
+MINIGAME ENGINE
+==================
+	1. Option to force respawn players (Perhaps based on predicate?)
+
+
 Bonemeal Gadget / Command
 =================================
 Gadget / Methods that can simulate the placement of bonemeal, to form grass and things of that nature.
@@ -11,13 +16,6 @@ Configurable Messages!
 
 	Inspiration: https://github.com/BanManagement/BanManager/blob/master/src/main/resources/messages.yml
 				 https://github.com/Frostcast/BukkitPluginUtil/blob/master/src/me/confuser/bukkitutil/Message.java
-
-
-Chat Message Builder
-=======================================
-
-	Build chat messages with a builder interface 
-	Like 'ChatMessage.make().text("Some Text Here").hoverableText("Some Highlight Here").onHover("This is hovered text!").text("");
 
 Commands Module - Upgrade
 =======================================

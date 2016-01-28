@@ -2,69 +2,79 @@ package com.caved_in.commons.nms;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.nms.minecraft_1_8_R3.ActionMessageHandler_18R3;
+import com.caved_in.commons.nms.minecraft_1_8_R3.ForceRespawnHandler_18R3;
 import com.caved_in.commons.nms.minecraft_1_8_R3.TitleHandler_18R3;
 import com.caved_in.commons.nms.minecraft_1_8_R3.UnhandledStackTrace_18R3;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
 import com.caved_in.commons.nms.no_implementation.TitleHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
+import com.caved_in.commons.nms.non_breaking_implementation.ForceRespawnHandlerNonBreaking;
 import com.caved_in.commons.nms.non_breaking_implementation.NonBreakingInventoryHandler;
 import com.caved_in.commons.plugin.Plugins;
 
 public class NMS {
 
-    /*
-    Used to hook the threads for monitoring stack traces!
-    Custom stack trace handler, and manages StackTraceEvent!
-     */
-    private static UnhandledStackTrace stackTraceHandler = null;
+	/*
+	Used to hook the threads for monitoring stack traces!
+	Custom stack trace handler, and manages StackTraceEvent!
+	 */
+	private static UnhandledStackTrace stackTraceHandler = null;
 
-    private static ActionMessageHandler actionMessageHandler = null;
+	private static ActionMessageHandler actionMessageHandler = null;
 
-    private static AbstractTitle.TitleHandler titleHandler = null;
+	private static AbstractTitle.TitleHandler titleHandler = null;
 
-    private static InventoryHandler inventoryHandler = null;
+	private static InventoryHandler inventoryHandler = null;
 
-    private static boolean initialized = false;
+	private static ForceRespawnHandler forceRespawnHandler = null;
 
-    public static void init() {
-        if (initialized) {
-            throw new IllegalAccessError("Unable to re-initialize NMS Handler.");
-        }
+	private static boolean initialized = false;
 
-        Chat.debug("NMS Version is: '" + Plugins.getNmsVersion() + "'");
+	public static void init() {
+		if (initialized) {
+			throw new IllegalAccessError("Unable to re-initialize NMS Handler.");
+		}
 
-        switch (Plugins.getNmsVersion()) {
-            case "v1_8_R3":
-                stackTraceHandler = new UnhandledStackTrace_18R3();
-                actionMessageHandler = new ActionMessageHandler_18R3();
-                titleHandler = new TitleHandler_18R3();
-                break;
-            default:
-                stackTraceHandler = new UnhandledStackTraceNI();
-                actionMessageHandler = new ActionMessageHandlerNI();
-                titleHandler = new TitleHandlerNI();
-                break;
-        }
-        stackTraceHandler.register();
+		Chat.debug("NMS Version is: '" + Plugins.getNmsVersion() + "'");
 
-        inventoryHandler = new NonBreakingInventoryHandler();
+		switch (Plugins.getNmsVersion()) {
+			case "v1_8_R3":
+				stackTraceHandler = new UnhandledStackTrace_18R3();
+				actionMessageHandler = new ActionMessageHandler_18R3();
+				titleHandler = new TitleHandler_18R3();
+				forceRespawnHandler = new ForceRespawnHandler_18R3();
+				break;
+			default:
+				stackTraceHandler = new UnhandledStackTraceNI();
+				actionMessageHandler = new ActionMessageHandlerNI();
+				titleHandler = new TitleHandlerNI();
+				forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
+				break;
+		}
+		stackTraceHandler.register();
 
-        initialized = true;
-    }
+		inventoryHandler = new NonBreakingInventoryHandler();
 
-    public static UnhandledStackTrace getStackTraceHandler() {
-        return stackTraceHandler;
-    }
+		initialized = true;
+	}
 
-    public static ActionMessageHandler getActionMessageHandler() {
-        return actionMessageHandler;
-    }
+	public static UnhandledStackTrace getStackTraceHandler() {
+		return stackTraceHandler;
+	}
 
-    public static AbstractTitle.TitleHandler getTitleHandler() {
-        return titleHandler;
-    }
+	public static ActionMessageHandler getActionMessageHandler() {
+		return actionMessageHandler;
+	}
 
-    public static InventoryHandler getInventoryHandler() {
-        return inventoryHandler;
-    }
+	public static AbstractTitle.TitleHandler getTitleHandler() {
+		return titleHandler;
+	}
+
+	public static InventoryHandler getInventoryHandler() {
+		return inventoryHandler;
+	}
+
+	public static ForceRespawnHandler getForceRespawnHandler() {
+		return forceRespawnHandler;
+	}
 }
