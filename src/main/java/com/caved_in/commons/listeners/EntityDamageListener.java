@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.WorldConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Entity;
@@ -13,12 +13,12 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
 
-    private WorldConfiguration worldConfig;
+    private Configuration config;
 
     private Players playerHandler;
 
     public EntityDamageListener() {
-        worldConfig = Commons.getInstance().getConfiguration().getWorldConfig();
+        config = Commons.getInstance().getConfiguration();
 
         playerHandler = Commons.getInstance().getPlayerHandler();
     }
@@ -27,19 +27,19 @@ public class EntityDamageListener implements Listener {
     public void onEntityDamageEvent(EntityDamageEvent e) {
         EntityDamageEvent.DamageCause cause = e.getCause();
 
-        if (!worldConfig.hasFallDamage()) {
+        Entity damaged = e.getEntity();
+        if (!(damaged instanceof Player)) {
+            return;
+        }
+
+        if (!config.enableFallDamage()) {
             /*
-			As this listener is only registered when fall damage is disabled, we're only
+            As this listener is only registered when fall damage is disabled, we're only
 			going to cancel the event when an entity is damaged via falling.
 			 */
             if (cause == EntityDamageEvent.DamageCause.FALL) {
                 e.setCancelled(true);
             }
-        }
-
-        Entity damaged = e.getEntity();
-        if (!(damaged instanceof Player)) {
-            return;
         }
 
         Player damagedPlayer = (Player) damaged;

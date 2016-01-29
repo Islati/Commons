@@ -1,119 +1,176 @@
 package com.caved_in.commons.config;
 
-import org.simpleframework.xml.Element;
+public interface Configuration {
 
-/**
- * Commons configuration.
- */
-public class Configuration {
+	public boolean hasSqlBackend();
 
-    @Element(name = "mysql-backend")
-    private boolean sqlBackend = false;
+	public void setMysqlBackend(boolean val);
 
-    @Element(name = "database-config", type = SqlConfiguration.class)
-    private SqlConfiguration sqlConfig;
+	public String getMysqlHost();
 
-    @Element(name = "register-commands")
-    private boolean registerCommands = true;
+	public void setMysqlHost(String host);
 
-    @Element(name = "command-config", type = CommandConfiguration.class)
-    private CommandConfiguration commandConfig;
+	public String getMysqlDatabaseName();
 
-    @Element(name = "premium-config", type = PremiumConfiguration.class)
-    private PremiumConfiguration premiumConfig;
+	public void setMysqlDatabaseName(String name);
 
-    @Element(name = "world-config", type = WorldConfiguration.class)
-    private WorldConfiguration worldConfig;
+	public String getMysqlPort();
 
-    @Element(name = "maintenance-config", type = MaintenanceConfiguration.class)
-    private MaintenanceConfiguration maintenanceConfig;
+	public void setMysqlPort(String port);
 
-    @Element(name = "debug-config", type = DebugConfig.class)
-    private DebugConfig debugConfig;
+	public String getMysqlUsername();
 
-    @Element(name = "warp-config", type = WarpConfig.class)
-    private WarpConfig warpConfig;
+	public void setMysqlUsername(String username);
 
-    @Element(name = "server-name")
-    private String serverName = "EDIT THIS";
+	public String getMysqlPassword();
 
-    public Configuration(@Element(name = "world-config", type = WorldConfiguration.class) WorldConfiguration worldConfig,
-                         @Element(name = "database-config", type = SqlConfiguration.class) SqlConfiguration sqlConfig,
-                         @Element(name = "maintenance-config", type = MaintenanceConfiguration.class) MaintenanceConfiguration maintenanceConfig,
-                         @Element(name = "server-name") String serverName,
-                         @Element(name = "premium-config", type = PremiumConfiguration.class) PremiumConfiguration premiumConfig,
-                         @Element(name = "mysql-backend") boolean sqlBackend,
-                         @Element(name = "register-commands") boolean registerCommands,
-                         @Element(name = "debug-config", type = DebugConfig.class) DebugConfig debugConfig,
-                         @Element(name = "warp-config", type = WarpConfig.class) WarpConfig warpConfig,
-                         @Element(name = "command-config", type = CommandConfiguration.class) CommandConfiguration commandConfig) {
-        this.worldConfig = worldConfig;
-        this.sqlConfig = sqlConfig;
-        this.maintenanceConfig = maintenanceConfig;
-        this.serverName = serverName;
-        this.premiumConfig = premiumConfig;
-        this.sqlBackend = sqlBackend;
-        this.registerCommands = registerCommands;
-        this.debugConfig = debugConfig;
-        this.warpConfig = warpConfig;
-        this.commandConfig = commandConfig;
-    }
+	public void setMysqlPassword(String password);
 
-    public Configuration() {
-        this.worldConfig = new WorldConfiguration();
-        this.sqlConfig = new SqlConfiguration();
-        this.maintenanceConfig = new MaintenanceConfiguration();
-        this.premiumConfig = new PremiumConfiguration();
-        this.debugConfig = new DebugConfig();
-        this.warpConfig = new WarpConfig();
-        this.commandConfig = new CommandConfiguration();
-    }
+	public boolean trackOnlinePlayerStatus();
 
-    public MaintenanceConfiguration getMaintenanceConfig() {
-        return maintenanceConfig;
-    }
+	public void setTrackOnlinePlayerStatus(boolean val);
 
-    public WorldConfiguration getWorldConfig() {
-        return worldConfig;
-    }
+	public String getServerName();
 
-    public SqlConfiguration getSqlConfig() {
-        return sqlConfig;
-    }
+	public void setServerName(String name);
 
-    public String getServerName() {
-        return serverName;
-    }
+	public boolean registerCommands();
 
-    public PremiumConfiguration getPremiumConfig() {
-        return premiumConfig;
-    }
+	public void registerCommands(boolean val);
 
-    public boolean hasSqlBackend() {
-        return sqlBackend;
-    }
+	public boolean enableBukkitCommands();
 
-    public boolean registerCommands() {
-        return registerCommands;
-    }
+	public void enableBukkitCommands(boolean val);
 
-    public DebugConfig getDebugConfig() {
-        return debugConfig;
-    }
+	public boolean enablePluginsCommand();
 
-    public WarpConfig getWarpConfig() {
-        return warpConfig;
-    }
+	public void enablePluginsCommand(boolean val);
 
-    public void setSqlBackend(boolean sqlBackend) {
-        this.sqlBackend = sqlBackend;
-    }
+	public boolean enableJoinMessages();
 
-    public void setRegisterCommands(boolean registerCommands) {
-        this.registerCommands = registerCommands;
-    }
+	public void enableJoinMessages(boolean val);
 
-    public CommandConfiguration getCommandConfig() {
-        return commandConfig;
-    }
+	public boolean enableLeaveMessages();
+
+	public void enableLeaveMessages(boolean val);
+
+	public boolean enableKickMessages();
+
+	public void enableKickMessages(boolean val);
+
+	public boolean hasExternalChatPlugin();
+
+	public void externalChatPlugin(boolean val);
+
+	public boolean isChatSilenced();
+
+	public void silenceChat(boolean val);
+
+	public boolean isPremiumOnlyMode();
+
+	public void setPremiumOnlyMode(boolean val);
+
+	public String getPremiumUserPermission();
+
+	public void setPremiumUserPermission(String perm);
+
+	public String getPremiumOnlyModeKickMessage();
+
+	public void premiumOnlyModeKickMessage(String msg);
+
+	public boolean kickNonPremiumPlayerWhenFull();
+
+	public void kickNonPremiumPlayerWhenFull(boolean val);
+
+	public String kickNonPremiumMessage();
+
+	public void setKickNonPremiumMessage(String msg);
+
+	public boolean teleportToSpawnOnJoin();
+
+	public void teleportToSpawnOnJoin(boolean val);
+
+	public boolean disableWeather();
+
+	public void disableWeather(boolean val);
+
+	public boolean disableLightning();
+
+	public void disableLightning(boolean val);
+
+	public boolean disableThunder();
+
+	public void disableThunder(boolean val);
+
+	public boolean disableIceAccumulation();
+
+	public void disableIceAccumulation(boolean val);
+
+	public boolean disableSnowAccumulation();
+
+	public void disableSnowAccumulation(boolean val);
+
+	public boolean disableMyceliumSpread();
+
+	public void disableMyceliumSpread(boolean val);
+
+	public boolean disableFireSpread();
+
+	public void disableFireSpread(boolean val);
+
+	public boolean hasLaunchpadPressurePlates();
+
+	public void launchpadPressurePlates(boolean val);
+
+	public boolean enableBlockBreak();
+
+	public void enableBlockBreak(boolean val);
+
+	public boolean enableItemPickup();
+
+	public void enableItemPickup(boolean val);
+
+	public boolean enableItemDrop();
+
+	public void enableItemDrop(boolean val);
+
+	public boolean enableFoodChange();
+
+	public void enableFoodChange(boolean val);
+
+	public boolean hasExplosionFireworks();
+
+	public void explosionFireworks(boolean val);
+
+	public boolean enableFallDamage();
+
+	public void enableFallDamage(boolean val);
+
+	public boolean isMaintenanceModeEnabled();
+
+	public void setMaintenanceMode(boolean val);
+
+	public String maintenanceModeKickMessage();
+
+	public void maintenanceModeKickMessage(String msg);
+
+	public String maintenanceModeMotd();
+
+	public void maintenanceModeMotd(String msg);
+
+	public boolean enableStackTraceEvent();
+
+	public void enableStackTraceEvent(boolean val);
+
+	public boolean enableStackTraceBook();
+
+	public void enableStackTraceBook(boolean val);
+
+	public boolean enableStackTraceChat();
+
+	public void enableStackTraceChat(boolean val);
+
+	public boolean enableWarpsMenu();
+
+	public void enableWarpsMenu(boolean val);
 }

@@ -50,8 +50,6 @@ public class InventoryListener implements Listener {
 		int index = event.getRawSlot();
 		//if the players selecting within bounds of the inventory, then act accordingly
 		if (index < inventory.getSize()) {
-			//todo optionally pass the way the icon was clicked!
-			//todo Example: RIGHT_CLICK_ITEM, MIDDLE_CLICK_ITEM,SHIFT_CLICK,LEFT_CLICK
 			menu.selectMenuItem(player, index, event.getClick());
 		} else {
 			//If they're gonna mess with their inventory, they don't need a menu open.
@@ -89,6 +87,7 @@ public class InventoryListener implements Listener {
 		}
 
 		if (minecraftPlayer.isInDebugMode()) {
+			//todo implement option to filter debug messages
 			Debugger.debugInventoryClickEvent(player, event);
 		}
 	}

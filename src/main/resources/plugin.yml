@@ -204,6 +204,7 @@ permissions:
         commons.command.*: true
         commons.admin.antikick: true
         commons.armor.*: true
+        commons.silence.bypass: true
    commons.armor.*:
       description: Gives players access to spawning all the armor sets!
       default: op
@@ -359,4 +360,7 @@ permissions:
       default: op
    commons.command.removepremium:
       description: Allows players to use the removepremium command
+      default: op
+   commons.silence.bypass:
+      description: Allows a player to bypass the silenced chat mode
       default: op

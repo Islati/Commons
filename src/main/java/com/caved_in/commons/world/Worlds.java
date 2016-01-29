@@ -26,7 +26,7 @@ public class Worlds {
     private static Commons commons = Commons.getInstance();
 
     public void handleWeather(World World) {
-        if (World.hasStorm() && commons.getConfiguration().getWorldConfig().isWeatherDisabled()) {
+        if (World.hasStorm() && commons.getConfiguration().disableWeather()) {
             World.setStorm(false);
             World.setThundering(false);
         }

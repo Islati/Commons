@@ -14,7 +14,6 @@ public abstract class DatabaseConnector implements TableConnector {
     public DatabaseConnector(SqlConfiguration sqlConfiguration) {
         this.config = sqlConfiguration;
         initConnection();
-
     }
 
     private void initConnection() {

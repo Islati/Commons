@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.Configuration;
+import com.caved_in.commons.config.CommonsXmlConfiguration;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockFormEvent;
 
 public class BlockFormListener implements Listener {
 
-    private Configuration config;
+    private CommonsXmlConfiguration config;
 
     public BlockFormListener() {
         config = Commons.getInstance().getConfiguration();

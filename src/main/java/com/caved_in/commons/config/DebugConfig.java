@@ -33,4 +33,16 @@ public class DebugConfig {
     public boolean isStackTraceEvent() {
         return stackTraceEvent;
     }
+
+    public void setStackTraceEvent(boolean stackTraceEvent) {
+        this.stackTraceEvent = stackTraceEvent;
+    }
+
+    public void setStackTraceBooks(boolean stackTraceBooks) {
+        this.stackTraceBooks = stackTraceBooks;
+    }
+
+    public void setStackTraceChat(boolean stackTraceChat) {
+        this.stackTraceChat = stackTraceChat;
+    }
 }

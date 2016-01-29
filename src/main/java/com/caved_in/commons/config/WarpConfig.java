@@ -1,15 +1,17 @@
 package com.caved_in.commons.config;
 
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "warp-config")
-public class WarpConfig {
+public class WarpConfig extends YamlConfig {
     @Element(name = "enable-warps-menu")
+    @Path("enable-warps-menu")
     private boolean warpsMenu = true;
 
     public WarpConfig() {
-
     }
 
     public WarpConfig(@Element(name = "enable-warps-menu") boolean warpsMenu) {
