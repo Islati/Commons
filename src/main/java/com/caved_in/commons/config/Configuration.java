@@ -118,6 +118,10 @@ public interface Configuration {
 
 	public void disableFireSpread(boolean val);
 
+	public boolean disableLeavesDecay();
+
+	public void disableLeavesDecay(boolean val);
+
 	public boolean hasLaunchpadPressurePlates();
 
 	public void launchpadPressurePlates(boolean val);

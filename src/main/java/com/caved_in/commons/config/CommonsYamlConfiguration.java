@@ -155,7 +155,6 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Comment("When enabled, players will be teleported to their world spawn when joining the server")
 	private boolean teleportToSpawnOnJoin = false;
 
-
 	@Path("Server.Worlds.disable-lightning")
 	@Comment("Changes whether or not lightning will strike during a storm")
 	private boolean disableLightning = false;
@@ -179,6 +178,10 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Path("Server.Worlds.disable-fire-spread")
 	@Comment("Changes whether or not fire will spread")
 	private boolean disableFireSpread = false;
+
+	@Path("Server.Worlds.disable-leaf-decay")
+	@Comment("Changes whether or not leaves will decay over time")
+	private boolean disableLeafDecay = false;
 
 	@Path("Server.Worlds.launchpad-pressure-plates")
 	@Comment("When enabled it changes pressure plates into launch pads, like many server hubs have")
@@ -558,6 +561,16 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Override
 	public void disableFireSpread(boolean val) {
 		disableFireSpread = val;
+	}
+
+	@Override
+	public boolean disableLeavesDecay() {
+		return disableLeafDecay;
+	}
+
+	@Override
+	public void disableLeavesDecay(boolean val) {
+		disableLeafDecay = val;
 	}
 
 	@Override

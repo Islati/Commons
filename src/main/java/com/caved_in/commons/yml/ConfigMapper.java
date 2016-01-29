@@ -76,8 +76,25 @@ public class ConfigMapper extends BaseConfigMapper {
 				continue;
 			}
 
-			String path = (CONFIG_MODE.equals(ConfigMode.PATH_BY_UNDERSCORE)) ? field.getName().replaceAll("_", ".") : field.getName();
+			String path = "";
 
+			switch (CONFIG_MODE) {
+				case PATH_BY_UNDERSCORE:
+					path = field.getName().replace("_", ".");
+					break;
+				case FIELD_IS_KEY:
+					path = field.getName();
+					break;
+				case DEFAULT:
+				default:
+					String fieldName = field.getName();
+					if (fieldName.contains("_")) {
+						path = field.getName().replace("_", ".");
+					} else {
+						path = field.getName();
+					}
+					break;
+			}
 			if (field.isAnnotationPresent(Path.class)) {
 				Path path1 = field.getAnnotation(Path.class);
 				path = path1.value();

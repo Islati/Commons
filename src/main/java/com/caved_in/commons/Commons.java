@@ -199,6 +199,336 @@ public class Commons extends BukkitPlugin {
 		return "Brandon Curtis";
 	}
 
+	public static class TeleportMenuSettings {
+		private List<String> disabledUuids = new ArrayList<>();
+
+		private static TeleportMenuSettings instance;
+
+		private TextFile textFile;
+
+		public static TeleportMenuSettings getInstance() {
+			return instance;
+		}
+
+		public static void init(String path) {
+			instance = new TeleportMenuSettings(path);
+		}
+
+		protected TeleportMenuSettings(String filePath) {
+			textFile = new TextFile(filePath);
+		}
+
+		public boolean hasMenuDisabled(UUID id) {
+			return disabledUuids.contains(id.toString());
+		}
+
+		public void disableMenu(UUID id) {
+			disabledUuids.add(id.toString());
+			save();
+		}
+
+		public void enableMenu(UUID id) {
+			disabledUuids.remove(id.toString());
+			save();
+		}
+
+		private void save() {
+			textFile.overwriteFile(disabledUuids);
+		}
+	}
+
+	public static class Rules {
+		private static List<String> rules = Lists.newArrayList(
+				"1. You may not use vulgar or abusive language.",
+				"2. You musn't be racist.",
+				"3. You musn't use hacks or (unnapproved) mods that give you an unfair advantage",
+				"4. You may not spam",
+				"5. You may not advertise",
+				"6. You musn't use excessive caps",
+				"7. You may not advertise any links that are not Tunnels related",
+				"8. You musn't abuse glitches or game exploits",
+				"9. You may not troll any of the members, or ellicit ill behaviour in any way.",
+				"10. You must be respectful to players",
+				"11. Do not abuse glitches, and report them if found",
+				"12. Do not steal, nor cheat the server or players",
+				"13. AFK Machines are forbidden."
+		);
+
+		private static File file;
+
+		private static Rules instance;
+
+		public static void init(File file) {
+			instance = new Rules(file);
+		}
+
+		public static Rules getInstance() {
+			return instance;
+		}
+
+		protected Rules(File f) {
+			file = f;
+
+			/*
+			If the rules file doesn't exist, then create it!
+
+			 */
+			if (!file.exists()) {
+
+				//todo implement option for players who have their swear filter off, to things like "don't be a dick"
+				try {
+					FileUtils.writeLines(file, rules);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+
+
+			load();
+		}
+
+		public static void load() {
+			try {
+				rules = FileUtils.readLines(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public static void add(String rule) {
+			rules.add(String.format("%s. %s", rules.size() + 1, rule));
+			try {
+				FileUtils.writeLines(file, rules, false);
+			} catch (IOException e) {
+				//unable to add rules.
+				e.printStackTrace();
+			}
+		}
+
+		public static List<String> getRules() {
+			return rules;
+		}
+
+	}
+
+	public static int getServerId() {
+		return 0;
+	}
+
+	private void prepForCustomEnchantments() {
+		ReflectionUtilities.setField(Enchantment.class, "acceptingNew", null, true);
+	}
+
+	private void registerListeners() {
+
+		registerListeners(new ChatListener());
+		debug("&aCreated the Chat Listener");
+
+		if (globalConfig.hasLaunchpadPressurePlates()) {
+			registerListeners(new LauncherListener()); // Register fire pad listener if its enabled
+			debug("&aRegistered the fire pad listener");
+		}
+
+		if (globalConfig.disableIceAccumulation() || globalConfig.disableSnowAccumulation()) {
+			registerListeners(new BlockFormListener());
+			debug("&aRegistered the block spread listener");
+		}
+
+		if (globalConfig.disableMyceliumSpread()) {
+			registerListeners(new BlockSpreadListener());
+			debug("&aRegistered the mycelium spread listener");
+		}
+
+		if (globalConfig.disableThunder()) {
+			registerListeners(new ThungerChangeListener());
+			debug("&aRegistered the thunder listener");
+		}
+
+		if (globalConfig.disableWeather()) {
+			registerListeners(new WeatherChangeListener());
+			debug("&aRegistered the Weather-Change listener");
+		}
+
+		if (globalConfig.disableLightning()) {
+			registerListeners(new LightningStrikeListener());
+			debug("&aRegistered the lightning listener");
+		}
+
+		if (globalConfig.disableFireSpread()) {
+			registerListeners(new FireSpreadListener());
+			debug("&aRegistered the fire-spread listener");
+		}
+
+		if (!globalConfig.enableItemPickup()) {
+			registerListeners(new ItemPickupListener());
+			debug("&aRegistered the item-pickup listener");
+		}
+
+		if (!globalConfig.enableFoodChange()) {
+			registerListeners(new FoodChangeListener());
+			debug("&aRegistered the food change listener");
+		}
+
+		//If the server is backed by SQL, then push the specific listeners
+		if (globalConfig.hasSqlBackend()) {
+			//Used to handle kicking of banned / temp-banned players
+			registerListeners(new PrePlayerLoginListener());
+			debug("&aRegistered the player pre-login listener");
+		}
+
+		registerListeners(
+				//Used for gadgets, interaction restriction, etc.
+				new PlayerInteractListener(),
+				new BlockBreakPlaceListener(),
+				new EntityExplodeListener(),
+				new WorldLoadedListener(),
+				new ServerPingListener(),
+				new PlayerLoginListener(),
+				new PlayerJoinListener(),
+				new PlayerKickListener(),
+				new InventoryListener(),
+				new PlayerTeleportListener(),
+				new PlayerQuitListener(),
+				//Listen to the command pre-process event so we can spit params at debuggers, and drop disabled commands
+				new CommandPreProcessListener(),
+				//Listen to when a player dies so we can get the return location, incase they use /back
+				new PlayerDeathListener(),
+				//Used to handle the dropping of weapons. and items in general.
+				new ItemDropListener(),
+				//Used with the Weapons API.
+				new EntityDamageEntityListener(),
+				new ItemBreakListener(),
+				new ItemDamageListener(),
+				new EntityDamageListener(),
+				new SignEditListener(),
+				new LeavesDecayListener()
+		);
+	}
+
+	public boolean hasDatabaseBackend() {
+		return Commons.getInstance().getConfiguration().hasSqlBackend();
+	}
+
+	public void reloadConfiguration() {
+		getInstance().initConfig();
+	}
+
+	public Configuration getConfiguration() {
+		return globalConfig;
+	}
+
+	public static boolean bukkitVersionMatches(String versionNumber) {
+		return Plugins.getBukkitVersion().contains(versionNumber);
+	}
+
+	public ItemSetManager getItemSetManager() {
+		return itemSetManager;
+	}
+
+	public ServerDatabaseConnector getServerDatabase() {
+		return database;
+	}
+
+	public Players getPlayerHandler() {
+		return players;
+	}
+
+	public PrivateMessageManager getPrivateMessageManager() {
+		return privateMessageManager;
+	}
+
+	public Worlds getWorldHandler() {
+		return worlds;
+	}
+
+	public boolean isServerFull() {
+		return Players.getOnlineCount() >= Bukkit.getMaxPlayers();
+	}
+
+	public ChatMenuCommandListener getChatMenuListener() {
+		return chatMenuListener;
+	}
+
+
+	private void alternateCommonsConfig(Configuration currentConfig, Configuration targetConfig) {
+		/*
+		Configure all the database options!
+		 */
+		targetConfig.setMysqlBackend(currentConfig.hasSqlBackend());
+		targetConfig.setMysqlHost(currentConfig.getMysqlHost());
+		targetConfig.setMysqlPort(currentConfig.getMysqlPort());
+		targetConfig.setMysqlDatabaseName(currentConfig.getMysqlDatabaseName());
+		targetConfig.setMysqlUsername(currentConfig.getMysqlUsername());
+		targetConfig.setMysqlPassword(currentConfig.getMysqlPassword());
+		targetConfig.setTrackOnlinePlayerStatus(currentConfig.trackOnlinePlayerStatus());
+		targetConfig.setServerName(currentConfig.getServerName());
+
+		/*
+		Commands configuration!
+		 */
+		targetConfig.registerCommands(currentConfig.registerCommands());
+		targetConfig.enableBukkitCommands(currentConfig.enableBukkitCommands());
+		targetConfig.enablePluginsCommand(currentConfig.enablePluginsCommand());
+
+		/*
+		Server-specific configuration!
+		 */
+		targetConfig.enableJoinMessages(currentConfig.enableJoinMessages());
+		targetConfig.enableLeaveMessages(currentConfig.enableLeaveMessages());
+		targetConfig.enableKickMessages(currentConfig.enableKickMessages());
+		targetConfig.externalChatPlugin(currentConfig.hasExternalChatPlugin());
+		targetConfig.silenceChat(currentConfig.isChatSilenced());
+
+		/*
+		Premium Only mode configuration!
+		 */
+		targetConfig.setPremiumOnlyMode(currentConfig.isPremiumOnlyMode());
+		targetConfig.setPremiumUserPermission(currentConfig.getPremiumUserPermission());
+		targetConfig.premiumOnlyModeKickMessage(currentConfig.getPremiumOnlyModeKickMessage());
+		targetConfig.kickNonPremiumPlayerWhenFull(currentConfig.kickNonPremiumPlayerWhenFull());
+		targetConfig.setKickNonPremiumMessage(currentConfig.kickNonPremiumMessage());
+
+		/*
+		World configuration!
+		 */
+		targetConfig.teleportToSpawnOnJoin(currentConfig.teleportToSpawnOnJoin());
+		targetConfig.disableWeather(currentConfig.disableWeather());
+		targetConfig.disableLightning(currentConfig.disableLightning());
+		targetConfig.disableThunder(currentConfig.disableThunder());
+		targetConfig.disableIceAccumulation(currentConfig.disableIceAccumulation());
+		targetConfig.disableSnowAccumulation(currentConfig.disableSnowAccumulation());
+		targetConfig.disableMyceliumSpread(currentConfig.disableMyceliumSpread());
+		targetConfig.disableFireSpread(currentConfig.disableFireSpread());
+		targetConfig.launchpadPressurePlates(currentConfig.hasLaunchpadPressurePlates());
+		targetConfig.enableBlockBreak(currentConfig.enableBlockBreak());
+		targetConfig.enableItemDrop(currentConfig.enableItemDrop());
+		targetConfig.enableItemPickup(currentConfig.enableItemPickup());
+		targetConfig.enableFoodChange(currentConfig.enableFoodChange());
+		targetConfig.explosionFireworks(currentConfig.hasExplosionFireworks());
+		targetConfig.enableFallDamage(currentConfig.enableFallDamage());
+		targetConfig.disableLeavesDecay(currentConfig.disableLeavesDecay());
+
+		/*
+		Maintenance mode configuration!
+		 */
+		targetConfig.setMaintenanceMode(currentConfig.isMaintenanceModeEnabled());
+		targetConfig.maintenanceModeKickMessage(currentConfig.maintenanceModeKickMessage());
+		targetConfig.maintenanceModeMotd(currentConfig.maintenanceModeMotd());
+
+		/*
+		Debug configuration!
+		 */
+		targetConfig.enableStackTraceEvent(currentConfig.enableStackTraceEvent());
+		targetConfig.enableStackTraceBook(currentConfig.enableStackTraceBook());
+		targetConfig.enableStackTraceChat(currentConfig.enableStackTraceChat());
+
+		/*
+		Warps Configuration!
+		 */
+		targetConfig.enableWarpsMenu(currentConfig.enableWarpsMenu());
+	}
+
 	@Override
 	public void initConfig() {
 		Serializer configSerializer = new Persister();
@@ -893,332 +1223,5 @@ public class Commons extends BukkitPlugin {
 			}
 
 		}
-	}
-
-	private void alternateCommonsConfig(Configuration currentConfig, Configuration targetConfig) {
-		/*
-		Configure all the database options!
-		 */
-		targetConfig.setMysqlBackend(currentConfig.hasSqlBackend());
-		targetConfig.setMysqlHost(currentConfig.getMysqlHost());
-		targetConfig.setMysqlPort(currentConfig.getMysqlPort());
-		targetConfig.setMysqlDatabaseName(currentConfig.getMysqlDatabaseName());
-		targetConfig.setMysqlUsername(currentConfig.getMysqlUsername());
-		targetConfig.setMysqlPassword(currentConfig.getMysqlPassword());
-		targetConfig.setTrackOnlinePlayerStatus(currentConfig.trackOnlinePlayerStatus());
-		targetConfig.setServerName(currentConfig.getServerName());
-
-		/*
-		Commands configuration!
-		 */
-		targetConfig.registerCommands(currentConfig.registerCommands());
-		targetConfig.enableBukkitCommands(currentConfig.enableBukkitCommands());
-		targetConfig.enablePluginsCommand(currentConfig.enablePluginsCommand());
-
-		/*
-		Server-specific configuration!
-		 */
-		targetConfig.enableJoinMessages(currentConfig.enableJoinMessages());
-		targetConfig.enableLeaveMessages(currentConfig.enableLeaveMessages());
-		targetConfig.enableKickMessages(currentConfig.enableKickMessages());
-		targetConfig.externalChatPlugin(currentConfig.hasExternalChatPlugin());
-		targetConfig.silenceChat(currentConfig.isChatSilenced());
-
-		/*
-		Premium Only mode configuration!
-		 */
-		targetConfig.setPremiumOnlyMode(currentConfig.isPremiumOnlyMode());
-		targetConfig.setPremiumUserPermission(currentConfig.getPremiumUserPermission());
-		targetConfig.premiumOnlyModeKickMessage(currentConfig.getPremiumOnlyModeKickMessage());
-		targetConfig.kickNonPremiumPlayerWhenFull(currentConfig.kickNonPremiumPlayerWhenFull());
-		targetConfig.setKickNonPremiumMessage(currentConfig.kickNonPremiumMessage());
-
-		/*
-		World configuration!
-		 */
-		targetConfig.teleportToSpawnOnJoin(currentConfig.teleportToSpawnOnJoin());
-		targetConfig.disableWeather(currentConfig.disableWeather());
-		targetConfig.disableLightning(currentConfig.disableLightning());
-		targetConfig.disableThunder(currentConfig.disableThunder());
-		targetConfig.disableIceAccumulation(currentConfig.disableIceAccumulation());
-		targetConfig.disableSnowAccumulation(currentConfig.disableSnowAccumulation());
-		targetConfig.disableMyceliumSpread(currentConfig.disableMyceliumSpread());
-		targetConfig.disableFireSpread(currentConfig.disableFireSpread());
-		targetConfig.launchpadPressurePlates(currentConfig.hasLaunchpadPressurePlates());
-		targetConfig.enableBlockBreak(currentConfig.enableBlockBreak());
-		targetConfig.enableItemDrop(currentConfig.enableItemDrop());
-		targetConfig.enableItemPickup(currentConfig.enableItemPickup());
-		targetConfig.enableFoodChange(currentConfig.enableFoodChange());
-		targetConfig.explosionFireworks(currentConfig.hasExplosionFireworks());
-		targetConfig.enableFallDamage(currentConfig.enableFallDamage());
-
-		/*
-		Maintenance mode configuration!
-		 */
-		targetConfig.setMaintenanceMode(currentConfig.isMaintenanceModeEnabled());
-		targetConfig.maintenanceModeKickMessage(currentConfig.maintenanceModeKickMessage());
-		targetConfig.maintenanceModeMotd(currentConfig.maintenanceModeMotd());
-
-		/*
-		Debug configuration!
-		 */
-		targetConfig.enableStackTraceEvent(currentConfig.enableStackTraceEvent());
-		targetConfig.enableStackTraceBook(currentConfig.enableStackTraceBook());
-		targetConfig.enableStackTraceChat(currentConfig.enableStackTraceChat());
-
-		/*
-		Warps Configuration!
-		 */
-		targetConfig.enableWarpsMenu(currentConfig.enableWarpsMenu());
-	}
-
-	public static class TeleportMenuSettings {
-		private List<String> disabledUuids = new ArrayList<>();
-
-		private static TeleportMenuSettings instance;
-
-		private TextFile textFile;
-
-		public static TeleportMenuSettings getInstance() {
-			return instance;
-		}
-
-		public static void init(String path) {
-			instance = new TeleportMenuSettings(path);
-		}
-
-		protected TeleportMenuSettings(String filePath) {
-			textFile = new TextFile(filePath);
-		}
-
-		public boolean hasMenuDisabled(UUID id) {
-			return disabledUuids.contains(id.toString());
-		}
-
-		public void disableMenu(UUID id) {
-			disabledUuids.add(id.toString());
-			save();
-		}
-
-		public void enableMenu(UUID id) {
-			disabledUuids.remove(id.toString());
-			save();
-		}
-
-		private void save() {
-			textFile.overwriteFile(disabledUuids);
-		}
-	}
-
-	public static class Rules {
-		private static List<String> rules = Lists.newArrayList(
-				"1. You may not use vulgar or abusive language.",
-				"2. You musn't be racist.",
-				"3. You musn't use hacks or (unnapproved) mods that give you an unfair advantage",
-				"4. You may not spam",
-				"5. You may not advertise",
-				"6. You musn't use excessive caps",
-				"7. You may not advertise any links that are not Tunnels related",
-				"8. You musn't abuse glitches or game exploits",
-				"9. You may not troll any of the members, or ellicit ill behaviour in any way.",
-				"10. You must be respectful to players",
-				"11. Do not abuse glitches, and report them if found",
-				"12. Do not steal, nor cheat the server or players",
-				"13. AFK Machines are forbidden."
-		);
-
-		private static File file;
-
-		private static Rules instance;
-
-		public static void init(File file) {
-			instance = new Rules(file);
-		}
-
-		public static Rules getInstance() {
-			return instance;
-		}
-
-		protected Rules(File f) {
-			file = f;
-
-			/*
-			If the rules file doesn't exist, then create it!
-			
-			 */
-			if (!file.exists()) {
-
-				//todo implement option for players who have their swear filter off, to things like "don't be a dick"
-				try {
-					FileUtils.writeLines(file, rules);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				return;
-			}
-
-
-			load();
-		}
-
-		public static void load() {
-			try {
-				rules = FileUtils.readLines(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		public static void add(String rule) {
-			rules.add(String.format("%s. %s", rules.size() + 1, rule));
-			try {
-				FileUtils.writeLines(file, rules, false);
-			} catch (IOException e) {
-				//unable to add rules.
-				e.printStackTrace();
-			}
-		}
-
-		public static List<String> getRules() {
-			return rules;
-		}
-
-	}
-
-	public static int getServerId() {
-		return 0;
-	}
-
-	private void prepForCustomEnchantments() {
-		ReflectionUtilities.setField(Enchantment.class, "acceptingNew", null, true);
-	}
-
-	private void registerListeners() {
-
-		registerListeners(new ChatListener());
-		debug("&aCreated the Chat Listener");
-
-		if (globalConfig.hasLaunchpadPressurePlates()) {
-			registerListeners(new LauncherListener()); // Register fire pad listener if its enabled
-			debug("&aRegistered the fire pad listener");
-		}
-
-		if (globalConfig.disableIceAccumulation() || globalConfig.disableSnowAccumulation()) {
-			registerListeners(new BlockFormListener());
-			debug("&aRegistered the block spread listener");
-		}
-
-		if (globalConfig.disableMyceliumSpread()) {
-			registerListeners(new BlockSpreadListener());
-			debug("&aRegistered the mycelium spread listener");
-		}
-
-		if (globalConfig.disableThunder()) {
-			registerListeners(new ThungerChangeListener());
-			debug("&aRegistered the thunder listener");
-		}
-
-		if (globalConfig.disableWeather()) {
-			registerListeners(new WeatherChangeListener());
-			debug("&aRegistered the Weather-Change listener");
-		}
-
-		if (globalConfig.disableLightning()) {
-			registerListeners(new LightningStrikeListener());
-			debug("&aRegistered the lightning listener");
-		}
-
-		if (globalConfig.disableFireSpread()) {
-			registerListeners(new FireSpreadListener());
-			debug("&aRegistered the fire-spread listener");
-		}
-
-		if (!globalConfig.enableItemPickup()) {
-			registerListeners(new ItemPickupListener());
-			debug("&aRegistered the item-pickup listener");
-		}
-
-		if (!globalConfig.enableFoodChange()) {
-			registerListeners(new FoodChangeListener());
-			debug("&aRegistered the food change listener");
-		}
-
-		//If the server is backed by SQL, then push the specific listeners
-		if (globalConfig.hasSqlBackend()) {
-			//Used to handle kicking of banned / temp-banned players
-			registerListeners(new PrePlayerLoginListener());
-			debug("&aRegistered the player pre-login listener");
-		}
-
-		registerListeners(
-				//Used for gadgets, interaction restriction, etc.
-				new PlayerInteractListener(),
-				new BlockBreakPlaceListener(),
-				new EntityExplodeListener(),
-				new WorldLoadedListener(),
-				new ServerPingListener(),
-				new PlayerLoginListener(),
-				new PlayerJoinListener(),
-				new PlayerKickListener(),
-				new InventoryListener(),
-				new PlayerTeleportListener(),
-				new PlayerQuitListener(),
-				//Listen to the command pre-process event so we can spit params at debuggers, and drop disabled commands
-				new CommandPreProcessListener(),
-				//Listen to when a player dies so we can get the return location, incase they use /back
-				new PlayerDeathListener(),
-				//Used to handle the dropping of weapons. and items in general.
-				new ItemDropListener(),
-				//Used with the Weapons API.
-				new EntityDamageEntityListener(),
-				new ItemBreakListener(),
-				new ItemDamageListener(),
-				new EntityDamageListener(),
-				new SignEditListener()
-		);
-	}
-
-	public boolean hasDatabaseBackend() {
-		return Commons.getInstance().getConfiguration().hasSqlBackend();
-	}
-
-	public void reloadConfiguration() {
-		getInstance().initConfig();
-	}
-
-	public Configuration getConfiguration() {
-		return globalConfig;
-	}
-
-	public static boolean bukkitVersionMatches(String versionNumber) {
-		return Plugins.getBukkitVersion().contains(versionNumber);
-	}
-
-	public ItemSetManager getItemSetManager() {
-		return itemSetManager;
-	}
-
-	public ServerDatabaseConnector getServerDatabase() {
-		return database;
-	}
-
-	public Players getPlayerHandler() {
-		return players;
-	}
-
-	public PrivateMessageManager getPrivateMessageManager() {
-		return privateMessageManager;
-	}
-
-	public Worlds getWorldHandler() {
-		return worlds;
-	}
-
-	public boolean isServerFull() {
-		return Players.getOnlineCount() >= Bukkit.getMaxPlayers();
-	}
-
-	public ChatMenuCommandListener getChatMenuListener() {
-		return chatMenuListener;
 	}
 }

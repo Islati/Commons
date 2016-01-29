@@ -376,6 +376,16 @@ public class CommonsXmlConfiguration implements Configuration {
 	}
 
 	@Override
+	public boolean disableLeavesDecay() {
+		return worldConfig.isDisableLeafDecay();
+	}
+
+	@Override
+	public void disableLeavesDecay(boolean val) {
+		worldConfig.setDisableLeafDecay(val);
+	}
+
+	@Override
 	public boolean hasLaunchpadPressurePlates() {
 		return worldConfig.hasLaunchpadPressurePlates();
 	}

@@ -9,25 +9,28 @@ public class WorldConfiguration {
 	private boolean teleportToSpawnOnJoin = false;
 
 	@Element(name = "disable-weather")
-	private boolean disableWeather = true;
+	private boolean disableWeather = false;
 
 	@Element(name = "disable-lightning")
-	private boolean disableLightning = true;
+	private boolean disableLightning = false;
 
 	@Element(name = "disable-thunder")
-	private boolean disableThunder = true;
+	private boolean disableThunder = false;
 
 	@Element(name = "disable-ice-accumulation")
-	private boolean disableIceAccumulation = true;
+	private boolean disableIceAccumulation = false;
 
 	@Element(name = "disable-snow-accumulation")
-	private boolean disableSnowAccumulation = true;
+	private boolean disableSnowAccumulation = false;
 
 	@Element(name = "disable-mycelium-spread")
-	private boolean disableMyceliumSpread = true;
+	private boolean disableMyceliumSpread = false;
 
 	@Element(name = "disable-fire-spread")
-	private boolean disableFireSpread = true;
+	private boolean disableFireSpread = false;
+
+	@Element(name = "disable-leaf-decay", required = false)
+	private boolean disableLeafDecay = false;
 
 	@Element(name = "launchpad-pressure-plates")
 	private boolean launchpadPressurePlates = false;
@@ -57,11 +60,12 @@ public class WorldConfiguration {
 	private boolean externalChatHandler = true;
 
 	@Element(name = "explosion-fireworks")
-	private boolean explosionFireworks = true;
+	private boolean explosionFireworks = false;
 
 	@Element(name = "enable-fall-damage")
 	private boolean fallDamage = true;
 
+	@Element(name = "silence-chat", required = false)
 	private boolean silenceChat = false;
 
 	public WorldConfiguration(
@@ -83,7 +87,9 @@ public class WorldConfiguration {
 			@Element(name = "enable-food-change") boolean enableFoodChange,
 			@Element(name = "disable-fire-spread") boolean disableFireSpread,
 			@Element(name = "explosion-fireworks") boolean explosionFireworks,
-			@Element(name = "enable-fall-damage") boolean fallDamage
+			@Element(name = "enable-fall-damage") boolean fallDamage,
+			@Element(name = "silence-chat", required = false) boolean silenceChat,
+			@Element(name = "disable-leaf-decay", required = false) boolean disableLeafDecay
 	) {
 		this.teleportToSpawnOnJoin = teleportToSpawnOnJoin;
 		this.disableIceAccumulation = disableIceAccumulation;
@@ -104,6 +110,8 @@ public class WorldConfiguration {
 		this.disableFireSpread = disableFireSpread;
 		this.explosionFireworks = explosionFireworks;
 		this.fallDamage = fallDamage;
+		this.silenceChat = silenceChat;
+		this.disableLeafDecay = disableLeafDecay;
 	}
 
 	public WorldConfiguration() {
@@ -312,5 +320,13 @@ public class WorldConfiguration {
 
 	public void setEnableKickMessages(boolean enableKickMessages) {
 		this.enableKickMessages = enableKickMessages;
+	}
+
+	public boolean isDisableLeafDecay() {
+		return disableLeafDecay;
+	}
+
+	public void setDisableLeafDecay(boolean disableLeafDecay) {
+		this.disableLeafDecay = disableLeafDecay;
 	}
 }
