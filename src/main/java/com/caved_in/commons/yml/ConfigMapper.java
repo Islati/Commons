@@ -95,6 +95,7 @@ public class ConfigMapper extends BaseConfigMapper {
 					}
 					break;
 			}
+
 			if (field.isAnnotationPresent(Path.class)) {
 				Path path1 = field.getAnnotation(Path.class);
 				path = path1.value();

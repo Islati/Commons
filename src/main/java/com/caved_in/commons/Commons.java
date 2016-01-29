@@ -666,12 +666,15 @@ public class Commons extends BukkitPlugin {
 			}
 
 			globalConfig = new CommonsYamlConfiguration();
+			CommonsYamlConfiguration ymlConfig = new CommonsYamlConfiguration();
 
 			try {
-				((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
+				ymlConfig.init(ymlConfigFile);
+				globalConfig = ymlConfig;
 			} catch (InvalidConfigurationException e) {
 				e.printStackTrace();
 			}
+			return;
 		}
 
 		if (!dataOptionFile.exists()) {
