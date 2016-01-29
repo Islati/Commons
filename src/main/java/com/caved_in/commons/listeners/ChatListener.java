@@ -3,7 +3,7 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.CommonsXmlConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
@@ -17,7 +17,7 @@ public class ChatListener implements Listener {
 
     private static Commons commons = Commons.getInstance();
 
-    private CommonsXmlConfiguration config;
+    private Configuration config;
 
     public ChatListener() {
         config = commons.getConfiguration();
@@ -27,7 +27,7 @@ public class ChatListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         //Check if the chat is silenced
-        if (config.getWorldConfig().isChatSilenced()) {
+        if (config.isChatSilenced()) {
             if (!Players.canChatWhileSilenced(player)) {
                 //Send the player a message saying the chat's silenced
                 Chat.message(player, Messages.CHAT_SILENCED);
@@ -45,7 +45,7 @@ public class ChatListener implements Listener {
 //			return;
 //		}
 
-        if (config.getWorldConfig().hasExternalChatHandler()) {
+        if (config.hasExternalChatPlugin()) {
             return;
         }
 

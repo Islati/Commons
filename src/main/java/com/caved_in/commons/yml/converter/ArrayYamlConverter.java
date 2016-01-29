@@ -11,10 +11,10 @@ import java.util.Collections;
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  * @author bibo38
  */
-public class Array implements Converter {
+public class ArrayYamlConverter implements Converter {
 	private InternalConverter internalConverter;
 
-	public Array(InternalConverter internalConverter) {
+	public ArrayYamlConverter(InternalConverter internalConverter) {
 		this.internalConverter = internalConverter;
 	}
 

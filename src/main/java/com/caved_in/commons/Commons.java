@@ -281,20 +281,12 @@ public class Commons extends BukkitPlugin {
          */
 		TeleportMenuSettings.init(TELEPORT_MENU_DISABLED_LOCATION);
 
-		boolean freshCommonsInstall = false;
-
-		boolean ymlConfig = false;
-
-		boolean xmlConfig = false;
-
-		boolean convertFromXmlToYml = false;
-		boolean convertFromYmlToXml = false;
-
+		/*
+		This is a fresh install of commons!
+		 */
 		if (!dataOptionFile.exists() && !xmlConfigFile.exists() && !ymlConfigFile.exists()) {
-			freshCommonsInstall = true;
-			ymlConfig = true;
 
-			Chat.messageConsole(
+			debug(
 					"[===============================]",
 					"|        COMMONS NOTICE         |",
 					"|-------------------------------|",
@@ -347,11 +339,8 @@ public class Commons extends BukkitPlugin {
 
 			try {
 				((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-				Chat.debug("Initialized the config.yml Commons configuration file");
-				ymlConfig = true;
 			} catch (InvalidConfigurationException e) {
 				e.printStackTrace();
-				Chat.debug("Unable to initialize the Commons config.yml file");
 			}
 		}
 
@@ -373,7 +362,7 @@ public class Commons extends BukkitPlugin {
 					e.printStackTrace();
 				}
 
-				Chat.messageConsole(
+				debug(
 						"[===============================]",
 						"|        COMMONS NOTICE         |",
 						"|-------------------------------|",
@@ -424,8 +413,6 @@ public class Commons extends BukkitPlugin {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				Chat.debug("Loaded XML based configuration for Commons from Config.xml");
-				xmlConfig = true;
 				return;
 			}
 
@@ -440,7 +427,7 @@ public class Commons extends BukkitPlugin {
 			when it's not required.
 			 */
 			if (ymlConfigFile.exists()) {
-				Chat.messageConsole(
+				debug(
 						"[===============================]",
 						"|        COMMONS NOTICE         |",
 						"|-------------------------------|",
@@ -476,11 +463,9 @@ public class Commons extends BukkitPlugin {
 				globalConfig = new CommonsYamlConfiguration();
 				try {
 					((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-					Chat.debug("Commons configuration has been loaded from config.yml!");
-					ymlConfig = true;
 				} catch (InvalidConfigurationException e) {
 					e.printStackTrace();
-					Chat.debug(
+					debug(
 							"Commons 'plugin.yml' is invalid, and will cause",
 							"the plugin to malfunction without valid",
 							"configuration available....",
@@ -503,7 +488,7 @@ public class Commons extends BukkitPlugin {
 				 available if they choose!
 				 */
 
-				Chat.messageConsole(
+				debug(
 						"[===============================]",
 						"|        COMMONS NOTICE         |",
 						"|-------------------------------|",
@@ -554,8 +539,6 @@ public class Commons extends BukkitPlugin {
 				globalConfig = new CommonsYamlConfiguration();
 				try {
 					((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-					Chat.debug("Commons has been initialized, and created a 'config.yml' file for managing its configuration!");
-					ymlConfig = true;
 				} catch (InvalidConfigurationException e) {
 					//INVALID INITIAL CONFIG?
 					e.printStackTrace();
@@ -585,7 +568,7 @@ public class Commons extends BukkitPlugin {
 			and then disable commons from loading to prevent any further Errors from happening!
 			 */
 			if (dataFileContents == null) {
-				Chat.messageConsole(
+				debug(
 						"[================================]",
 						"|        COMMONS NOTICE          |",
 						"|--------------------------------|",
@@ -627,8 +610,9 @@ public class Commons extends BukkitPlugin {
 			their chosen config format, and perhaps performing a Conversion!
 			 */
 
-			String[] option = dataFileContents.split("commons-data-format=");
-			if (option[1].equalsIgnoreCase("xml")) {
+			String[] options = dataFileContents.split("=");
+			String option = options[1].trim().replace("\n", "").replace("\r", "");
+			if (option.equalsIgnoreCase("xml")) {
 				/*
 				They've chosen to use XMl as the configuration option.
 				We check if they have a YML based configuration file available
@@ -640,13 +624,11 @@ public class Commons extends BukkitPlugin {
 
 				if (ymlConfigFile.exists()) {
 					CommonsYamlConfiguration yamlConfig = new CommonsYamlConfiguration();
-					Chat.debug("Attempting to convert from YML Config to XML Configuration");
 					try {
 						yamlConfig.load(ymlConfigFile);
-						Chat.debug("Loaded the previous config.yml file used to configure Commons!");
 					} catch (InvalidConfigurationException e) {
 						e.printStackTrace();
-						Chat.debug(
+						debug(
 								"Commons 'plugin.yml' is invalid, and will cause",
 								"the plugin to malfunction without valid",
 								"configuration available....",
@@ -676,19 +658,37 @@ public class Commons extends BukkitPlugin {
 					 */
 					alternateCommonsConfig(yamlConfig, cxmlConfig);
 					globalConfig = cxmlConfig;
-
 					/*
 					Delete the previous config.yml file to avoid issues!
 					 */
 					try {
 						FileUtils.forceDelete(ymlConfigFile);
-						Chat.debug("Deleted your previous config.yml file to avoid future issues on startup and confusion.");
 					} catch (IOException e) {
 						e.printStackTrace();
-						Chat.debug("HUUUUGE MISTAKE! THERE'S AN ERROR DELETING config.yml!");
 					}
-					Chat.debug("Successfully converted your previous config.yml file to an XML based Document (Config.xml)");
 
+					debug(
+							"[================================]",
+							"|        COMMONS NOTICE          |",
+							"|--------------------------------|",
+							"|                                |",
+							"|      ~~~ITS A SUCCESS~~~       |",
+							"|                                |",
+							"|  You've converted from using a |",
+							"| yml based config file to using |",
+							"| an xml based configuration file|",
+							"|                                |",
+							"| To convert back simply change  |",
+							"|    the option to yml in your   |",
+							"|  data-option.txt file and then |",
+							"|  restart your server to start  |",
+							"|the automatic conversion process|",
+							"|                                |",
+							"|--------------------------------|",
+							"|                                |",
+							"|  ~Thanks for choosing Commons! |",
+							"[================================]"
+					);
 				} else {
 					/*
 					In this case, they've chosen XML as their configuration, and don't have
@@ -702,18 +702,11 @@ public class Commons extends BukkitPlugin {
 					if (xmlConfigFile.exists()) {
 						try {
 							globalConfig = configSerializer.read(CommonsXmlConfiguration.class, xmlConfigFile);
+							if (globalConfig == null) {
+							} else {
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
-							Chat.debug("Error loading existing Config.xml file! Pleasure assure your config file is valid, and restart your server to try again!");
-							Plugins.disablePlugin(this);
-							return;
-						}
-
-						/*
-						Just to be sure we caught all the errors along the way!
-						 */
-						if (globalConfig == null) {
-							Chat.debug("Error loading existing Config.xml file! Pleasure assure your config file is valid, and restart your server to try again!");
 							Plugins.disablePlugin(this);
 							return;
 						}
@@ -727,14 +720,12 @@ public class Commons extends BukkitPlugin {
 
 						try {
 							configSerializer.write(globalConfig, xmlConfigFile);
-							Chat.debug("Wrote new instance of Config.xml! Did your previous version get deleted?");
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
 				}
-				Chat.debug("Loaded XML based configuration for Commons from Config.xml");
-			} else if (option[1].equalsIgnoreCase("yml")) {
+			} else if (option.equalsIgnoreCase("yml")) {
 
 				/*
 				This means they're converting from a previous configuration file
@@ -744,13 +735,11 @@ public class Commons extends BukkitPlugin {
 				 */
 				if (xmlConfigFile.exists()) {
 					CommonsXmlConfiguration xmlConfiguration = null;
-
-
 					try {
 						xmlConfiguration = configSerializer.read(CommonsXmlConfiguration.class, xmlConfigFile);
 					} catch (Exception e) {
 						e.printStackTrace();
-						Chat.debug(
+						debug(
 								"====================================================",
 								"There was an error while processing your Config.xml",
 								"File inside of plugins/Commons/Config.xml",
@@ -780,19 +769,14 @@ public class Commons extends BukkitPlugin {
 					}
 
 					CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
-					Chat.debug("Transferring content from Config.xml to config.yml");
 					alternateCommonsConfig(xmlConfiguration, yamlConfiguration);
-					Chat.debug("Content transferred from previous Config.xml file!");
 					globalConfig = yamlConfiguration;
-					Chat.debug("Assigned the Commons configuration from the converted Config.xml file!");
 					try {
-						Chat.debug("Attempting to save yaml configuration!");
 						yamlConfiguration.init(ymlConfigFile);
-						Chat.debug("Saved yaml configuration file; Converted from Config.xml");
 					} catch (InvalidConfigurationException e) {
 						e.printStackTrace();
 
-						Chat.debug(
+						debug(
 								"Commons 'plugin.yml' is invalid, and will cause",
 								"the plugin to malfunction without valid",
 								"configuration available....",
@@ -814,12 +798,36 @@ public class Commons extends BukkitPlugin {
 
 					try {
 						FileUtils.forceDelete(xmlConfigFile);
-						Chat.debug("Deleted the previous Config.xml file to avoid confusion, and future potential errors!",
+						debug("Deleted the previous Config.xml file to avoid confusion, and future potential errors!",
 								"Your Commons config is now based out of config.yml");
 					} catch (IOException e) {
 						e.printStackTrace();
-						Chat.debug("Failed to delete the previous Config.xml from your Commons plugin folder.");
+						debug("Failed to delete the previous Config.xml from your Commons plugin folder.");
 					}
+
+
+					debug(
+							"[================================]",
+							"|        COMMONS NOTICE          |",
+							"|--------------------------------|",
+							"|                                |",
+							"|      ~~~ITS A SUCCESS~~~       |",
+							"|                                |",
+							"|  You've converted from using a |",
+							"| xml based config file to using |",
+							"| an yml based configuration file|",
+							"|                                |",
+							"| To convert back simply change  |",
+							"|    the option to xml in your   |",
+							"|  data-option.txt file and then |",
+							"|  restart your server to start  |",
+							"|the automatic conversion process|",
+							"|                                |",
+							"|--------------------------------|",
+							"|                                |",
+							"|  ~Thanks for choosing Commons! |",
+							"[================================]"
+					);
 
 					return;
 				}
@@ -829,59 +837,59 @@ public class Commons extends BukkitPlugin {
 				their plugins/Commons/ folder; Loading this file for configuration.
 				 */
 				if (ymlConfigFile.exists()) {
-					Chat.debug("Beginning to load config.yml");
 
 					CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
 					try {
 						yamlConfiguration.load(ymlConfigFile);
 						globalConfig = yamlConfiguration;
-						Chat.debug("Loaded the previous instance of config.yml");
 					} catch (InvalidConfigurationException e) {
 						e.printStackTrace();
 					}
-				} else {
-					/*
+				}
+
+				/*
 					They've chosen to use yml as their config file, though don't currently have a config.yml file!
 					Send them a notice saying they've likely deleted their previous version of configuration
 					and create a new one for them!
 					 */
-					Chat.messageConsole(
-							"[===============================]",
-							"|        COMMONS NOTICE         |",
-							"|-------------------------------|",
-							"|                               |",
-							"|   Commons now support both    |",
-							"|   XML and YAML (YML) Config   |",
-							"|    as of release 1.8.8-3.     |",
-							"|                               |",
-							"| It seems you no config.yml in |",
-							"|  your Commons plugin folder   |",
-							"|  but have yml as your chosen  |",
-							"| data type in data-option.txt  |",
-							"|                               |",
-							"| A new config.yml file will be |",
-							"| generated for you to use, and |",
-							"| configure accordingly to your |",
-							"|  likings, and servers desire. |",
-							"|                               |",
-							"|  To prevent this issue from   |",
-							"| happening again, please don't |",
-							"|  delete your config.yml file! |",
-							"|                               |",
-							"|-------------------------------|",
-							"|                               |",
-							"|  Thanks for choosing Commons! |",
-							"[===============================]"
-					);
-				}
+				debug(
+						"[===============================]",
+						"|        COMMONS NOTICE         |",
+						"|-------------------------------|",
+						"|                               |",
+						"|   Commons now support both    |",
+						"|   XML and YAML (YML) Config   |",
+						"|    as of release 1.8.8-3.     |",
+						"|                               |",
+						"| It seems you no config.yml in |",
+						"|  your Commons plugin folder   |",
+						"|  but have yml as your chosen  |",
+						"| data type in data-option.txt  |",
+						"|                               |",
+						"| A new config.yml file will be |",
+						"| generated for you to use, and |",
+						"| configure accordingly to your |",
+						"|  likings, and servers desire. |",
+						"|                               |",
+						"|  To prevent this issue from   |",
+						"| happening again, please don't |",
+						"|  delete your config.yml file! |",
+						"|                               |",
+						"|-------------------------------|",
+						"|                               |",
+						"|  Thanks for choosing Commons! |",
+						"[===============================]"
+				);
 
 				CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
 				try {
 					yamlConfiguration.init(ymlConfigFile);
+					globalConfig = yamlConfiguration;
 				} catch (InvalidConfigurationException e) {
 					e.printStackTrace();
 					//Error initializing initial configutration!? SHOULD NEVER HAPPEN
 				}
+			} else {
 			}
 
 		}

@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.configmenu.items;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.CommonsXmlConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.item.Wool;
 import com.caved_in.commons.menu.MenuItem;
 import org.bukkit.entity.Player;
@@ -9,7 +9,7 @@ import org.bukkit.event.inventory.ClickType;
 
 public class HasSqlBackendItem extends MenuItem {
 
-    private CommonsXmlConfiguration config = Commons.getInstance().getConfiguration();
+    private Configuration config = Commons.getInstance().getConfiguration();
 
     public HasSqlBackendItem() {
         super();
@@ -32,7 +32,7 @@ public class HasSqlBackendItem extends MenuItem {
     @Override
 	public void onClick(Player player, ClickType type) {
 		boolean hasSqlBackend = !config.hasSqlBackend();
-        config.setSqlBackend(hasSqlBackend);
+        config.setMysqlBackend(hasSqlBackend);
         init();
         getMenu().updateMenu();
     }

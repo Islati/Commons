@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.configmenu.items;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.CommonsXmlConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.item.Wool;
 import com.caved_in.commons.menu.MenuItem;
 import org.bukkit.entity.Player;
@@ -30,9 +30,9 @@ public class RegisterCommandsItem extends MenuItem {
 
 	@Override
 	public void onClick(Player player, ClickType type) {
-		CommonsXmlConfiguration config = Commons.getInstance().getConfiguration();
+		Configuration config = Commons.getInstance().getConfiguration();
 		boolean registerCommands = !config.registerCommands();
-		config.setRegisterCommands(registerCommands);
+		config.registerCommands(registerCommands);
 		init();
 		getMenu().updateMenu();
 	}

@@ -11,10 +11,10 @@ import java.util.Map;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class Config implements Converter {
+public class YamlConfigConverter implements Converter {
     private InternalConverter internalConverter;
 
-    public Config(InternalConverter internalConverter) {
+    public YamlConfigConverter(InternalConverter internalConverter) {
         this.internalConverter = internalConverter;
     }
 

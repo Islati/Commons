@@ -1,11 +1,10 @@
 package com.caved_in.commons.config;
 
-import com.caved_in.commons.yml.YamlConfig;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root
-public class SqlConfiguration extends YamlConfig {
+public class SqlConfiguration {
     @Element(name = "MySqlHost")
     private String mySqlHost = "localhost";
 
@@ -35,6 +34,7 @@ public class SqlConfiguration extends YamlConfig {
     }
 
     public SqlConfiguration() {
+
     }
 
     public String getHost() {

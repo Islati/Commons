@@ -20,12 +20,12 @@ public class InternalConverter {
 
 	public InternalConverter() {
 		try {
-			addConverter(Primitive.class);
-			addConverter(Config.class);
-			addConverter(List.class);
-			addConverter(Map.class);
-			addConverter(Array.class);
-			addConverter(Set.class);
+			addConverter(PrimitiveYamlConverter.class);
+			addConverter(YamlConfigConverter.class);
+			addConverter(ListYamlConverter.class);
+			addConverter(MapYamlConverter.class);
+			addConverter(ArrayYamlConverter.class);
+			addConverter(SetYamlConverter.class);
 		} catch (InvalidConverterException e) {
 			throw new IllegalStateException(e);
 		}
