@@ -69,7 +69,6 @@ public class YamlConfig extends ConfigMapper implements IConfig {
 				if (annotation instanceof Comment) {
 					Comment comment = (Comment) annotation;
 					comments.add(comment.value());
-
 				}
 
 				if (annotation instanceof Comments) {

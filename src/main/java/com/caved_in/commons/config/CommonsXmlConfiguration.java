@@ -1,10 +1,12 @@
 package com.caved_in.commons.config;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
 /**
  * Commons configuration.
  */
+@Root(name = "Configuration")
 public class CommonsXmlConfiguration implements Configuration {
 
 	@Element(name = "mysql-backend")
