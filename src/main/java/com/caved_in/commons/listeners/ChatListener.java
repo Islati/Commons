@@ -27,7 +27,7 @@ public class ChatListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         //Check if the chat is silenced
-        if (config.getWorldConfig().isChatSilenced()) {
+        if (config.isChatSilenced()) {
             if (!Players.canChatWhileSilenced(player)) {
                 //Send the player a message saying the chat's silenced
                 Chat.message(player, Messages.CHAT_SILENCED);
@@ -45,7 +45,7 @@ public class ChatListener implements Listener {
 //			return;
 //		}
 
-        if (config.getWorldConfig().hasExternalChatHandler()) {
+        if (config.hasExternalChatPlugin()) {
             return;
         }
 

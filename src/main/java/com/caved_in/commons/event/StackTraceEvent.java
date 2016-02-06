@@ -3,7 +3,7 @@ package com.caved_in.commons.event;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.DebugConfig;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
@@ -49,18 +49,17 @@ public class StackTraceEvent extends Event {
     }
 
     public static void handle(StackTraceEvent e) {
-        DebugConfig debugConfig = Commons.getInstance().getConfiguration().getDebugConfig();
-
+        Configuration config = Commons.getInstance().getConfiguration();
         Set<Player> debuggingPlayers = Players.getAllDebugging();
         Throwable eventException = e.getException();
         //If the books for stack-tracing are enabled, then give one to all the debugging players
-        if (debugConfig.isStackTraceBooks()) {
+        if (config.enableStackTraceBook()) {
             ItemStack exceptionBook = Debugger.createExceptionBook(eventException);
             debuggingPlayers.forEach(p -> Players.giveItem(p, exceptionBook));
         }
 
         //If the stack trace messages are to be sent in chat, send em!
-        if (debugConfig.isStackTraceChat()) {
+        if (config.enableStackTraceChat()) {
             String[] exceptionMessages = Messages.exceptionInfo(eventException);
             //For every player that's debugging, send them the exception-info message
             debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));

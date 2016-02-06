@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class Set implements Converter {
+public class SetYamlConverter implements Converter {
 	private InternalConverter internalConverter;
 
-	public Set(InternalConverter internalConverter) {
+	public SetYamlConverter(InternalConverter internalConverter) {
 		this.internalConverter = internalConverter;
 	}
 

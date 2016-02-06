@@ -30,4 +30,12 @@ public class CommandConfiguration {
     public boolean disablePluginsCommand() {
         return disablePluginsCommand;
     }
+
+    public void setDisableBukkitCommands(boolean disableBukkitCommands) {
+        this.disableBukkitCommands = disableBukkitCommands;
+    }
+
+    public void setDisablePluginsCommand(boolean disablePluginsCommand) {
+        this.disablePluginsCommand = disablePluginsCommand;
+    }
 }

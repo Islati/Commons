@@ -3,7 +3,7 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.CommandConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.utilities.StringUtil;
@@ -18,10 +18,9 @@ public class CommandPreProcessListener implements Listener {
 
     private static Commons commons = Commons.getInstance();
 
-    private static CommandConfiguration commandConfig = Commons.getInstance().getConfiguration().getCommandConfig();
+    private static Configuration config = commons.getConfiguration();
 
     public CommandPreProcessListener() {
-
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -31,7 +30,7 @@ public class CommandPreProcessListener implements Listener {
         String command = e.getMessage();
 
         //Check if they're using a bukkit command, and bukkit commands are disabled.
-        if (StringUtil.startsWithIgnoreCase(command, "/bukkit:") && commandConfig.disableBukkitCommands()) {
+        if (StringUtil.startsWithIgnoreCase(command, "/bukkit:") && !config.enableBukkitCommands()) {
             e.setCancelled(true);
             Chat.message(player, Messages.COMMAND_DISABLED);
             return;
@@ -42,7 +41,7 @@ public class CommandPreProcessListener implements Listener {
             case "/pl":
             case "/plugins":
             case "/plugin":
-                if (commandConfig.disablePluginsCommand()) {
+                if (!config.enablePluginsCommand() && !player.isOp()) {
                     e.setCancelled(true);
                     Chat.message(player, Messages.COMMAND_DISABLED);
                     return;

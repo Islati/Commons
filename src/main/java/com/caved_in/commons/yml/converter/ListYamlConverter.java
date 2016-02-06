@@ -9,10 +9,10 @@ import java.util.ArrayList;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class List implements Converter {
+public class ListYamlConverter implements Converter {
 	private InternalConverter internalConverter;
 
-	public List(InternalConverter internalConverter) {
+	public ListYamlConverter(InternalConverter internalConverter) {
 		this.internalConverter = internalConverter;
 	}
 

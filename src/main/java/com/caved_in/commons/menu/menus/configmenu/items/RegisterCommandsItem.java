@@ -32,7 +32,7 @@ public class RegisterCommandsItem extends MenuItem {
 	public void onClick(Player player, ClickType type) {
 		Configuration config = Commons.getInstance().getConfiguration();
 		boolean registerCommands = !config.registerCommands();
-		config.setRegisterCommands(registerCommands);
+		config.registerCommands(registerCommands);
 		init();
 		getMenu().updateMenu();
 	}

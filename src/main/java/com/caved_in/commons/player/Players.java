@@ -1094,11 +1094,13 @@ public class Players {
 	}
 
 	public static Player getRandomNonPremiumPlayer() {
+		//todo move to matching against predicate for player
 		if (!Players.isOnline(1)) {
 			return null;
 		}
 
-		List<MinecraftPlayer> nonPremiums = allPlayerWrappers().stream().filter(p -> !p.isPremium()).collect(Collectors.toList());
+		String premiumPermission = Commons.getInstance().getConfiguration().getPremiumUserPermission();
+		List<Player> nonPremiums = stream().filter(player -> !hasPermission(player, premiumPermission)).collect(Collectors.toList());
 		return ListUtils.getRandom(nonPremiums).getPlayer();
 	}
 

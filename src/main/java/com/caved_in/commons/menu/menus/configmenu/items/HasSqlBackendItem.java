@@ -32,7 +32,7 @@ public class HasSqlBackendItem extends MenuItem {
     @Override
 	public void onClick(Player player, ClickType type) {
 		boolean hasSqlBackend = !config.hasSqlBackend();
-        config.setSqlBackend(hasSqlBackend);
+        config.setMysqlBackend(hasSqlBackend);
         init();
         getMenu().updateMenu();
     }

@@ -20,12 +20,12 @@ public class BlockFormListener implements Listener {
         Material blockType = event.getNewState().getType();
         switch (blockType) {
             case SNOW:
-                if (config.getWorldConfig().isSnowSpreadDisabled()) {
+                if (config.disableSnowAccumulation()) {
                     event.setCancelled(true);
                 }
                 break;
             case ICE:
-                if (config.getWorldConfig().isIceSpreadDisabled()) {
+                if (config.disableIceAccumulation()) {
                     event.setCancelled(true);
                 }
                 break;

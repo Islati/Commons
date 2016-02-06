@@ -10,10 +10,10 @@ import java.util.HashMap;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class Map implements Converter {
+public class MapYamlConverter implements Converter {
 	private InternalConverter internalConverter;
 
-	public Map(InternalConverter internalConverter) {
+	public MapYamlConverter(InternalConverter internalConverter) {
 		this.internalConverter = internalConverter;
 	}
 

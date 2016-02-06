@@ -6,7 +6,6 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.permission.Perms;
-import com.caved_in.commons.player.Players;
 import org.bukkit.command.CommandSender;
 
 public class UnsilenceCommand {
@@ -19,7 +18,7 @@ public class UnsilenceCommand {
 
     @Command(identifier = "unsilence", permissions = Perms.COMMAND_SILENCE, onlyPlayers = false)
     public void unsilenceLobbyCommand(CommandSender sender) {
-        config.getWorldConfig().setChatSilenced(false);
+        config.silenceChat(false);
         Chat.messageAll(Messages.CHAT_UNSILENCED);
     }
 }

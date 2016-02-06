@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.WorldConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import org.bukkit.event.EventHandler;
@@ -10,27 +10,24 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ItemDropListener implements Listener {
-    private WorldConfiguration config;
+    private Configuration config;
 
     public ItemDropListener() {
-        config = Commons.getInstance().getConfiguration().getWorldConfig();
+        config = Commons.getInstance().getConfiguration();
     }
 
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
 
         //todo check if player is in creative and has option for creative drops off, then don't drop items- Just remove them when they're dropped
-        if (!config.isItemDropEnabled()) {
-            event.setCancelled(true);
-            return;
-        }
-
         ItemStack item = event.getItemDrop().getItemStack();
 
         //If we're not dealing with gadgets
         if (!Gadgets.isGadget(item)) {
-            event.setCancelled(!config.isItemDropEnabled());
-            return;
+            if (!config.enableItemDrop()) {
+                event.setCancelled(true);
+                return;
+            }
         }
 
         Gadget gadget = Gadgets.getGadget(item);

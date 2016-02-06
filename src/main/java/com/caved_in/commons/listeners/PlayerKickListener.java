@@ -1,7 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.config.WorldConfiguration;
+import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
@@ -14,15 +14,15 @@ import java.util.UUID;
 
 public class PlayerKickListener implements Listener {
 
-    private WorldConfiguration config;
+    private Configuration config;
 
     public PlayerKickListener() {
-        config = Commons.getInstance().getConfiguration().getWorldConfig();
+        config = Commons.getInstance().getConfiguration();
     }
 
     @EventHandler
     public void onPlayerKicked(PlayerKickEvent event) {
-        if (!config.hasJoinMessages()) {
+        if (!config.enableKickMessages()) {
             event.setLeaveMessage(null);
         }
 
@@ -37,7 +37,9 @@ public class PlayerKickListener implements Listener {
         UUID playerId = player.getUniqueId();
 
         //Update the player's online status in the database
-        Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
+        if (config.hasSqlBackend() && config.trackOnlinePlayerStatus()) {
+            Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
+        }
 
         Players.removeData(playerId);
 //		if (Commons.hasSqlBackend()) {

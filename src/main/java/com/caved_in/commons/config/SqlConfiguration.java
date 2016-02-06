@@ -34,6 +34,7 @@ public class SqlConfiguration {
     }
 
     public SqlConfiguration() {
+
     }
 
     public String getHost() {
@@ -58,5 +59,29 @@ public class SqlConfiguration {
 
     public boolean trackPlayerOnlineStatus() {
         return trackPlayerOnlineStatus;
+    }
+
+    public void setMySqlHost(String mySqlHost) {
+        this.mySqlHost = mySqlHost;
+    }
+
+    public void setMySqlPort(String mySqlPort) {
+        this.mySqlPort = mySqlPort;
+    }
+
+    public void setMySqlDatabaseName(String mySqlDatabaseName) {
+        this.mySqlDatabaseName = mySqlDatabaseName;
+    }
+
+    public void setMySqlUsername(String mySqlUsername) {
+        this.mySqlUsername = mySqlUsername;
+    }
+
+    public void setMySqlPassword(String mySqlPassword) {
+        this.mySqlPassword = mySqlPassword;
+    }
+
+    public void setTrackPlayerOnlineStatus(boolean trackPlayerOnlineStatus) {
+        this.trackPlayerOnlineStatus = trackPlayerOnlineStatus;
     }
 }
