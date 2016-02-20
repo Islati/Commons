@@ -5,22 +5,22 @@
  n: = Note
 -------------
 
-January 22'nd, 2016 (Build 1.8.8-2):
+January 22'nd, 2016 (Build 1.8.8-3):
 	n: Tampering with Reflections (https://github.com/ronmamo/reflections) to write class loading methods!
 		Could be used to load all command classes, debug actions, listeners, and so on in a package; Who knows?
 		If it doesn't pan out I won't include it in Commons.
 
-January 19'th, 2016 (Build 1.8.8-2):
+January 19'th, 2016 (Build 1.8.8-3):
 	+ Implemented ChatMenus under the menus package to better create your text-based menus!
 	+ Implemented an NMS Handler for Inventories, with a non-breaking implementation.
 		- So far it allows renaming of inventory windows.
 
-January 18'th, 2016 (Build 1.8.8-2):
+January 18'th, 2016 (Build 1.8.8-3):
 	+ Updated ThrowableItem.Properties with more properties.
 		- ALlowing cancel of the handle, and a cancel message, to stop actions from processing.
 		- Allow toggling on removal of items.
 
-January 17'th, 2016 (Build 1.8.8-2):
+January 17'th, 2016 (Build 1.8.8-3):
 	~ Updated ReflectionExecutor with more methods and neat hacks!
 		- Removal of final modifier on a field.
 
@@ -42,7 +42,7 @@ January 17'th, 2016 (Build 1.8.8-2):
 		- Coords, again, un-needed.
 		- Properties package... Unfinished unimplemented idea.
 
-January 16'th, 2016 (Build 1.8.8-2):
+January 16'th, 2016 (Build 1.8.8-3):
 	~ Implemented a custom Logger to BukkitPlugin
 	~ Implemented .closeMenu() for all viewers in ItemMenu.
 	~ Implemented .getPluginLogger() in BukkitPlugin.
@@ -54,7 +54,7 @@ January 16'th, 2016 (Build 1.8.8-2):
 		them through a stack trace event.
 
 
-January 14'th, 2016 (Build 1.8.8-2):
+January 14'th, 2016 (Build 1.8.8-3):
 	~ Modified the implementation of Cooldown for better performance and simplicity.
 	~ Modified Entities.launchUpwards() to take a double as the force argument.
 

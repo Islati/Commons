@@ -14,7 +14,9 @@ public class MaintenanceConfiguration {
     @Element(name = "enabled", required = false)
     private boolean maintenanceMode = false;
 
-    public MaintenanceConfiguration(@Element(name = "maintenance-motd") String maintenanceMOTD, @Element(name = "maintenance-kick-message") String maintenanceKickMessage, @Element(name = "enabled", required = false) boolean maintenanceMode) {
+    public MaintenanceConfiguration(@Element(name = "maintenance-motd") String maintenanceMOTD,
+                                    @Element(name = "maintenance-kick-message") String maintenanceKickMessage,
+                                    @Element(name = "enabled", required = false) boolean maintenanceMode) {
         this.maintenanceModeMOTD = maintenanceMOTD;
         this.maintenanceKickMessage = maintenanceKickMessage;
         this.maintenanceMode = maintenanceMode;
