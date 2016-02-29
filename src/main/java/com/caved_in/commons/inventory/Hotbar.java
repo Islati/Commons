@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Root(name = "Hotbar")
+//todo implement yaml serialization
+//todo implement json serialization
 public class Hotbar {
     @ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true)
     private Map<Integer, XmlItemStack> hotbarItems = new HashMap<>();

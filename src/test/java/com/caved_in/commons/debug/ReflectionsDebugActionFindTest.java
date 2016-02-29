@@ -1,4 +1,5 @@
-import com.caved_in.commons.debug.DebugAction;
+package com.caved_in.commons.debug;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;

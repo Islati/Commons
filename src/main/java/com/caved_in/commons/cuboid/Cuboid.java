@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
@@ -20,6 +21,9 @@ import java.util.stream.Stream;
  *
  * @author desht (Original code), KingFaris10 (Editor), TheGamersCave (Editor)
  */
+//todo implement json serialize
+//todo implement yamlConfig extension.
+@SerializableAs("Cuboid")
 public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable {
     @Attribute(name = "world-name")
     private String worldName;

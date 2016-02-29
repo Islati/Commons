@@ -14,6 +14,8 @@ give a super fluid experience.
  */
 @Root(name = "mob-data")
 @ToString(exclude = {"entityType", "skeletalType"}, includeFieldNames = true)
+//todo implement json serialize
+//todo implement YamlSerialize
 public class MobSpawnData {
 
     @Element(name = "mob-type")

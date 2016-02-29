@@ -8,6 +8,8 @@ import org.apache.commons.lang.Validate;
  *
  * @author Glen Husman
  */
+//todo yaml serialize
+//todo json serialize
 public class TextCycler {
     protected final String textPrefix;
     protected final String originalText;

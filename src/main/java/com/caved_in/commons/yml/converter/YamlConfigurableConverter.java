@@ -3,7 +3,7 @@ package com.caved_in.commons.yml.converter;
 
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
-import com.caved_in.commons.yml.YamlConfig;
+import com.caved_in.commons.yml.YamlConfigurable;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
@@ -11,28 +11,34 @@ import java.util.Map;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class YamlConfigConverter implements Converter {
+public class YamlConfigurableConverter implements YamlConverter {
     private InternalConverter internalConverter;
 
-    public YamlConfigConverter(InternalConverter internalConverter) {
+    public YamlConfigurableConverter(InternalConverter internalConverter) {
         this.internalConverter = internalConverter;
     }
 
     @Override
     public Object toConfig(Class<?> type, Object obj, ParameterizedType parameterizedType) throws Exception {
-        return (obj instanceof Map) ? obj : ((YamlConfig) obj).saveToMap(obj.getClass());
+        if (obj instanceof Map) {
+            return obj;
+        }
+
+        YamlConfigurable configurable = (YamlConfigurable) obj;
+        return configurable.getYamlConfigurationSettings().getConfigurationMap();
     }
 
     @Override
     public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception {
-        YamlConfig obj = (YamlConfig) newInstance(type);
+        YamlConfigurable obj = (YamlConfigurable) newInstance(type);
+
 
         // Inject converter stack into subconfig
         for (Class aClass : internalConverter.getCustomConverters()) {
-            obj.addConverter(aClass);
+            obj.getYamlConfigurationSettings().addConverter(aClass);
         }
 
-        obj.loadFromMap((section instanceof Map) ? (Map) section : ((ConfigSection) section).getRawMap(), type);
+        obj.getYamlConfigurationSettings().loadFromConfigurationMap(section instanceof Map ? (Map) section : ((ConfigSection) section).getRawMap());
         return obj;
     }
 
@@ -49,6 +55,6 @@ public class YamlConfigConverter implements Converter {
 
     @Override
     public boolean supports(Class<?> type) {
-        return YamlConfig.class.isAssignableFrom(type);
+        return YamlConfigurable.class.isAssignableFrom(type);
     }
 }

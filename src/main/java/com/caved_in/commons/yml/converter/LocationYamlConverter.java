@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class LocationYamlConverter implements Converter {
+public class LocationYamlConverter implements YamlConverter {
 	public LocationYamlConverter(InternalConverter converter) {
 	}
 

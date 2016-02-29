@@ -11,7 +11,7 @@ import java.util.Collections;
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  * @author bibo38
  */
-public class ArrayYamlConverter implements Converter {
+public class ArrayYamlConverter implements YamlConverter {
 	private InternalConverter internalConverter;
 
 	public ArrayYamlConverter(InternalConverter internalConverter) {
@@ -21,7 +21,7 @@ public class ArrayYamlConverter implements Converter {
 	@Override
 	public Object toConfig(Class<?> type, Object obj, ParameterizedType parameterizedType) throws Exception {
 		Class<?> singleType = type.getComponentType();
-		Converter conv = internalConverter.getConverter(singleType);
+		YamlConverter conv = internalConverter.getConverter(singleType);
 		if (conv == null) {
 			return obj;
 		}
@@ -46,7 +46,7 @@ public class ArrayYamlConverter implements Converter {
 		}
 
 		Object ret = java.lang.reflect.Array.newInstance(singleType, values.size());
-		Converter conv = internalConverter.getConverter(singleType);
+		YamlConverter conv = internalConverter.getConverter(singleType);
 		if (conv == null) {
 			return values.toArray((Object[]) ret);
 		}

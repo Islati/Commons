@@ -5,7 +5,7 @@ import java.lang.reflect.ParameterizedType;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public interface Converter {
+public interface YamlConverter {
 	/**
 	 * This method gets called on save. It gets the Fields Type and the object the Config wants to save into it. This
 	 * is needed to pretty print INTO the config.

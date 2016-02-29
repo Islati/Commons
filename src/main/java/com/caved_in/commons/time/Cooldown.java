@@ -8,6 +8,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 //todo set individual cooldowns for players
+//todo implement yaml serialize
+//todo implement json serializef
 public class Cooldown {
     private HashMap<UUID, Long> cooldowns = new HashMap<>();
     private long cooldownTime = 0;

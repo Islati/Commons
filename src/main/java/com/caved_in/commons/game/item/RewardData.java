@@ -13,6 +13,8 @@ import org.simpleframework.xml.Root;
 /**
  * An internal class used to manage chanced, and randomized reward-data, generally in a container, but is also used for loot selection in minigames.
  */
+//todo implements json serialize
+//todo implements yaml config serialize
 public class RewardData {
     @Attribute(name = "min")
     private int min = 1;

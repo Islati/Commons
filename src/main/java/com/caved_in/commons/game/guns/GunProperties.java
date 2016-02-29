@@ -12,6 +12,8 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 @Root(name = "guns-properties")
+//todo json serialization
+//todo yaml serialization
 public class GunProperties extends WeaponProperties {
     /**
      * The size of our launchers clip. After 20 shots, they'll need to reload.

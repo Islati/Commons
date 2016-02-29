@@ -2,22 +2,27 @@ package com.caved_in.commons.player;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.simpleframework.xml.Element;
 
 import java.util.UUID;
 
-public abstract class User implements PlayerWrapper {
+public abstract class User extends YamlConfig implements PlayerWrapper {
     @Element(name = "name")
+    @Path("name")
     private String name;
 
     private UUID id;
 
     @Element(name = "uuid")
+    @Path("uuid")
     private String uid;
 
     @Element(name = "world")
+    @Path("world")
     private String worldName;
 
     public User(Player p) {

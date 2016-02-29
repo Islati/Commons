@@ -5,6 +5,8 @@ import com.caved_in.commons.effect.ParticleEffects;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import org.simpleframework.xml.Element;
 
+//todo implement json serialization
+//todo implement yaml serialization.
 public class BulletProperties {
     /**
      * How much damage each bullet does.

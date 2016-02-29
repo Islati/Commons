@@ -5,6 +5,8 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+//todo implement yaml serialization
+//todo implement json serialization
 public class ItemCycler {
     private List<ItemStack> items = new ArrayList<>();
 

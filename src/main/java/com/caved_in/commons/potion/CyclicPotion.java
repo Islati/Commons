@@ -4,6 +4,8 @@ import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+//todo impelent json serialization
+//todo yaml serialization
 public class CyclicPotion {
 
     private int durMin;

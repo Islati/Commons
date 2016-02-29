@@ -15,6 +15,8 @@ import java.util.Map;
 
 @Root(name = "armor")
 @ToString(exclude = {"serializableArmorSlots"})
+//todo implement yaml serialization
+//todo implement json serialization
 public class ArmorInventory {
     @ElementMap(name = "items", entry = "slot", value = "item", keyType = Integer.class, valueType = XmlItemStack.class)
     private Map<Integer, XmlItemStack> serializableArmorSlots = new HashMap<>();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class ListYamlConverter implements Converter {
+public class ListYamlConverter implements YamlConverter {
 	private InternalConverter internalConverter;
 
 	public ListYamlConverter(InternalConverter internalConverter) {
@@ -22,7 +22,7 @@ public class ListYamlConverter implements Converter {
 		java.util.List newList = new ArrayList();
 
 		for (Object val : values) {
-			Converter converter = internalConverter.getConverter(val.getClass());
+			YamlConverter converter = internalConverter.getConverter(val.getClass());
 
 			if (converter != null) {
 				newList.add(converter.toConfig(val.getClass(), val, null));
@@ -45,7 +45,7 @@ public class ListYamlConverter implements Converter {
 		java.util.List values = (java.util.List) section;
 
 		if (genericType != null && genericType.getActualTypeArguments()[0] instanceof Class) {
-			Converter converter = internalConverter.getConverter((Class) genericType.getActualTypeArguments()[0]);
+			YamlConverter converter = internalConverter.getConverter((Class) genericType.getActualTypeArguments()[0]);
 
 			if (converter != null) {
 				for (int i = 0; i < values.size(); i++) {

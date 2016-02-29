@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class MapYamlConverter implements Converter {
+public class MapYamlConverter implements YamlConverter {
 	private InternalConverter internalConverter;
 
 	public MapYamlConverter(InternalConverter internalConverter) {
@@ -28,7 +28,7 @@ public class MapYamlConverter implements Converter {
 
 			Class clazz = entry.getValue().getClass();
 
-			Converter converter = internalConverter.getConverter(clazz);
+			YamlConverter converter = internalConverter.getConverter(clazz);
 			map1.put(entry.getKey(), (converter != null) ? converter.toConfig(clazz, entry.getValue(), null) : entry.getValue());
 		}
 
@@ -79,11 +79,11 @@ public class MapYamlConverter implements Converter {
 						clazz = (Class) genericType.getActualTypeArguments()[1];
 					}
 
-					Converter converter = internalConverter.getConverter(clazz);
+					YamlConverter converter = internalConverter.getConverter(clazz);
 					map.put(key, (converter != null) ? converter.fromConfig(clazz, entry.getValue(), (genericType.getActualTypeArguments()[1] instanceof ParameterizedType) ? (ParameterizedType) genericType.getActualTypeArguments()[1] : null) : entry.getValue());
 				}
 			} else {
-				Converter converter = internalConverter.getConverter((Class) genericType.getRawType());
+				YamlConverter converter = internalConverter.getConverter((Class) genericType.getRawType());
 
 				if (converter != null) {
 					return converter.fromConfig((Class) genericType.getRawType(), section, null);

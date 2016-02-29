@@ -362,6 +362,16 @@ public class Inventories {
     }
 
     /**
+     * Create a custom inventory.
+     * @param title Title to give the inventory (Color codes supported with & prefix)
+     * @param size size of the inventory. (slots)
+     * @return an inventory with the title, and rows.
+     */
+    public static Inventory makeInventoryWithSize(String title, int size) {
+        return Bukkit.getServer().createInventory(null, size, StringUtil.formatColorCodes(title));
+    }
+
+    /**
      * Retrieve the first slot that the given item sits in.
      *
      * @param inv  inventory to search

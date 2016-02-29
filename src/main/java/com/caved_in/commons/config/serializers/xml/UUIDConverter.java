@@ -1,4 +1,4 @@
-package com.caved_in.commons.config.serializers;
+package com.caved_in.commons.config.serializers.xml;
 
 import org.simpleframework.xml.convert.Converter;
 import org.simpleframework.xml.stream.InputNode;

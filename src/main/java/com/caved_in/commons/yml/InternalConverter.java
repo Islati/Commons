@@ -11,185 +11,147 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-/**
- * @author geNAZt (fabian.fassbender42@googlemail.com)
- */
 public class InternalConverter {
-	private LinkedHashSet<Converter> converters = new LinkedHashSet<>();
-	private List<Class> customConverters = new ArrayList<>();
+    private LinkedHashSet<YamlConverter> converters = new LinkedHashSet<>();
+    private List<Class> customConverters = new ArrayList<>();
 
-	public InternalConverter() {
-		try {
-			addConverter(PrimitiveYamlConverter.class);
-			addConverter(YamlConfigConverter.class);
-			addConverter(ListYamlConverter.class);
-			addConverter(MapYamlConverter.class);
-			addConverter(ArrayYamlConverter.class);
-			addConverter(SetYamlConverter.class);
-		} catch (InvalidConverterException e) {
-			throw new IllegalStateException(e);
-		}
-	}
+    public InternalConverter() {
+        try {
+            addConverter(PrimitiveYamlConverter.class);
+            addConverter(YamlConfigurableConverter.class);
+            addConverter(ListYamlConverter.class);
+            addConverter(MapYamlConverter.class);
+            addConverter(ArrayYamlConverter.class);
+            addConverter(SetYamlConverter.class);
+        } catch (InvalidConverterException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-	public void addConverter(Class converter) throws InvalidConverterException {
-		if (!Converter.class.isAssignableFrom(converter)) {
-			throw new InvalidConverterException("converter does not implement the Interface converter");
-		}
+    public void addConverter(Class converter) throws InvalidConverterException {
+        if (!YamlConverter.class.isAssignableFrom(converter)) {
+            throw new InvalidConverterException("Class %s does not implement the YamlConverter Interface");
+        }
 
-		try {
-			Converter converter1 = (Converter) converter.getConstructor(InternalConverter.class).newInstance(this);
-			converters.add(converter1);
-		} catch (NoSuchMethodException e) {
-			throw new InvalidConverterException("converter does not implement a Constructor which takes the InternalConverter instance", e);
-		} catch (InvocationTargetException e) {
-			throw new InvalidConverterException("converter could not be invoked", e);
-		} catch (InstantiationException e) {
-			throw new InvalidConverterException("converter could not be instantiated", e);
-		} catch (IllegalAccessException e) {
-			throw new InvalidConverterException("converter does not implement a public Constructor which takes the InternalConverter instance", e);
-		}
-	}
+        try {
+            YamlConverter converter1 = (YamlConverter) converter.getConstructor(InternalConverter.class).newInstance(this);
+            converters.add(converter1);
+        } catch (NoSuchMethodException e) {
+            throw new InvalidConverterException("converter does not implement a Constructor which takes the InternalConverter instance", e);
+        } catch (InvocationTargetException e) {
+            throw new InvalidConverterException("converter could not be invoked", e);
+        } catch (InstantiationException e) {
+            throw new InvalidConverterException("converter could not be instantiated", e);
+        } catch (IllegalAccessException e) {
+            throw new InvalidConverterException("converter does not implement a public Constructor which takes the InternalConverter instance", e);
+        }
+    }
 
-	public Converter getConverter(Class type) {
-		for (Converter converter : converters) {
-			if (converter.supports(type)) {
-				return converter;
-			}
-		}
+    public YamlConverter getConverter(Class type) {
+        for (YamlConverter converter : converters) {
+            if (converter.supports(type)) {
+                return converter;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	public void fromConfig(YamlConfig config, Field field, ConfigSection root, String path) throws Exception {
-		Object obj = field.get(config);
+    public void fromConfig(YamlConfigurable configurable, Field field, ConfigSection root, String path) throws Exception {
+        Object obj = field.get(configurable);
 
-		Converter converter;
+        YamlConverter converter = null;
 
-		if (obj != null) {
-			converter = getConverter(obj.getClass());
+        if (obj != null) {
+            converter = getConverter(obj.getClass());
 
-			if (converter != null) {
-				/*
-					If we're trying to assign a value to a static variable
-                    then assure there's the "PreserveStatic" annotation on there!
-                     */
-				if (Modifier.isStatic(field.getModifiers())) {
-					if (!field.isAnnotationPresent(PreserveStatic.class)) {
-						return;
-					}
+            if (converter != null) {
+                //Check if we're assigning a static field.
+                if (isStaticAssign(field)) {
+                    field.set(null, converter.fromConfig(obj.getClass(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                    return;
+                }
 
-					PreserveStatic staticConfig = field.getAnnotation(PreserveStatic.class);
-					if (!staticConfig.value()) {
-						return;
-					}
+                field.set(configurable, converter.fromConfig(obj.getClass(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                return;
+            } else {
+                converter = getConverter(field.getType());
+                if (converter != null) {
+                    if (isStaticAssign(field)) {
+                        field.set(null, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                        return;
+                    }
 
-					field.set(null, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-					return;
-				}
+                    field.set(configurable, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                    return;
+                }
+            }
+        } else {
+            converter = getConverter(field.getType());
 
-				field.set(config, converter.fromConfig(obj.getClass(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-				return;
-			} else {
-				converter = getConverter(field.getType());
-				if (converter != null) {
-					/*
-					If we're trying to assign a value to a static variable
-                    then assure there's the "PreserveStatic" annotation on there!
-                     */
-					if (Modifier.isStatic(field.getModifiers())) {
-						if (!field.isAnnotationPresent(PreserveStatic.class)) {
-							return;
-						}
+            if (converter != null) {
+                if (isStaticAssign(field)) {
+                    field.set(null, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                    return;
+                }
 
-						PreserveStatic staticConfig = field.getAnnotation(PreserveStatic.class);
-						if (!staticConfig.value()) {
-							return;
-						}
+                field.set(configurable, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+                return;
+            }
+        }
 
-						field.set(null, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-						return;
-					}
-					field.set(config, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-					return;
-				}
-			}
-		} else {
-			converter = getConverter(field.getType());
+        if (isStaticAssign(field)) {
+            field.set(null, root.get(path));
+            return;
+        }
+        field.set(configurable, root.get(path));
+    }
 
-			if (converter != null) {
-				/*
-					If we're trying to assign a value to a static variable
-                    then assure there's the "PreserveStatic" annotation on there!
-                     */
-				if (Modifier.isStatic(field.getModifiers())) {
-					if (!field.isAnnotationPresent(PreserveStatic.class)) {
-						return;
-					}
+    public void toConfig(YamlConfigurable config, Field field, ConfigSection root, String path) throws Exception {
+        Object obj = field.get(config);
 
-					PreserveStatic staticConfig = field.getAnnotation(PreserveStatic.class);
-					if (!staticConfig.value()) {
-						return;
-					}
+        YamlConverter converter = null;
 
-					field.set(null, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-					return;
-				}
+        if (obj != null) {
+            converter = getConverter(obj.getClass());
+        }
 
-				field.set(config, converter.fromConfig(field.getType(), root.get(path), (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-				return;
-			}
-		}
+        if (converter != null) {
+            root.set(path, converter.toConfig(obj.getClass(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+            return;
+        }
 
-		/*
-		If we're trying to assign a value to a static variable
-		then assure there's the "PreserveStatic" annotation on there!
-		 */
-		if (Modifier.isStatic(field.getModifiers())) {
-			if (!field.isAnnotationPresent(PreserveStatic.class)) {
-				return;
-			}
+        converter = getConverter(field.getType());
 
-			PreserveStatic staticConfig = field.getAnnotation(PreserveStatic.class);
-			if (!staticConfig.value()) {
-				return;
-			}
+        if (converter != null) {
+            root.set(path, converter.toConfig(field.getType(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+            return;
+        }
 
-			field.set(null, root.get(path));
-			return;
-		}
+        root.set(path, obj);
+    }
 
-		field.set(config, root.get(path));
-	}
+    public List<Class> getCustomConverters() {
+        return new ArrayList<>(customConverters);
+    }
 
-	public void toConfig(YamlConfig config, Field field, ConfigSection root, String path) throws Exception {
-		Object obj = field.get(config);
+    public void addCustomConverter(Class addConverter) throws InvalidConverterException {
+        addConverter(addConverter);
+        customConverters.add(addConverter);
+    }
 
-		Converter converter;
+    private boolean isStaticAssign(Field field) {
+        if (Modifier.isStatic(field.getModifiers())) {
+            return false;
+        }
+        if (!field.isAnnotationPresent(PreserveStatic.class)) {
+            return false;
+        }
 
-		if (obj != null) {
-			converter = getConverter(obj.getClass());
-
-			if (converter != null) {
-				root.set(path, converter.toConfig(obj.getClass(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-				return;
-			} else {
-				converter = getConverter(field.getType());
-				if (converter != null) {
-					root.set(path, converter.toConfig(field.getType(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
-					return;
-				}
-			}
-		}
-
-		root.set(path, obj);
-	}
-
-	public List<Class> getCustomConverters() {
-		return new ArrayList<>(customConverters);
-	}
-
-	public void addCustomConverter(Class addConverter) throws InvalidConverterException {
-		addConverter(addConverter);
-		customConverters.add(addConverter);
-	}
+        PreserveStatic staticConfig = field.getAnnotation(PreserveStatic.class);
+        if (!staticConfig.value()) {
+            return false;
+        }
+        return true;
+    }
 }

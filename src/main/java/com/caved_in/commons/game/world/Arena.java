@@ -19,6 +19,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Root(name = "arena")
+//todo implements json serialize
+//todo implements yaml config serialize
 public class Arena implements GameArena {
     private static final Random random = new Random();
 

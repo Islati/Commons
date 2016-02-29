@@ -4,6 +4,8 @@ import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 import org.simpleframework.xml.Element;
 
+//todo implement yaml serialize
+//todo implement json serialize
 public class ChunkData {
 
     @Element(name = "world")

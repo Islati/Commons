@@ -7,6 +7,8 @@ import org.bukkit.entity.EntityType;
 import org.simpleframework.xml.Element;
 
 @ToString(exclude = {"spawner"}, callSuper = true)
+//todo implement spawn location json serialize
+//todo implement yaml config serialize
 public class MobSpawnLocation extends XmlLocation {
 
     @Element(name = "spawn-chance")

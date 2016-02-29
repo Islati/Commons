@@ -4,6 +4,8 @@ import com.caved_in.commons.config.XmlSound;
 import org.bukkit.Sound;
 import org.simpleframework.xml.Element;
 
+//todo json serialize
+//todo yaml serialize
 public class SoundData {
     @Element(name = "sound", type = XmlSound.class)
     private XmlSound sound;

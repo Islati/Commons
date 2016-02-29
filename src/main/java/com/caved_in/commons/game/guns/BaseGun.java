@@ -36,6 +36,8 @@ import java.util.UUID;
  * Further development will feature options of removing an itemstack from the players inventory based on the item attached
  * to the "equipped" (associated) bullet, Optionally.
  */
+//todo implement json serialization
+//todo implement yaml serialization.
 public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();

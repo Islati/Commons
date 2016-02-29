@@ -12,6 +12,8 @@ import org.simpleframework.xml.Root;
  * An extension of the GadgetProperties class, it adds a minimum and maximum damage range for the weapon.
  * Currently, this range is unimplemented internally, though if you wished to use it inside your plugin you'd be able to do so.
  */
+//todo implements json serialize
+//todo implements yaml config serialize
 public class WeaponProperties extends GadgetProperties {
     @Element(name = "damage-min")
     private double damageMin = 0;

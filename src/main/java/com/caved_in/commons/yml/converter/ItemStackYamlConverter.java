@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
  */
-public class ItemStackYamlConverter implements Converter {
-    private InternalConverter converter;
+public class ItemStackYamlConverter implements YamlConverter {
+	private InternalConverter converter;
 
 	public ItemStackYamlConverter(InternalConverter converter) {
 		this.converter = converter;
@@ -27,7 +27,7 @@ public class ItemStackYamlConverter implements Converter {
 		saveMap.put("id", itemStack.getType() + ((itemStack.getDurability() > 0) ? ":" + itemStack.getDurability() : ""));
 		saveMap.put("amount", itemStack.getAmount());
 
-		Converter listConverter = converter.getConverter(List.class);
+		YamlConverter listConverter = converter.getConverter(List.class);
 
 		//todo implement enchant serialize
 
@@ -73,7 +73,7 @@ public class ItemStackYamlConverter implements Converter {
 			}
 
 			if (metaMap.get("lore") != null) {
-				Converter listConverter = converter.getConverter(List.class);
+				YamlConverter listConverter = converter.getConverter(List.class);
 				itemStack.getItemMeta().setLore((List<String>) listConverter.fromConfig(List.class, metaMap.get("lore"), null));
 			}
 		}

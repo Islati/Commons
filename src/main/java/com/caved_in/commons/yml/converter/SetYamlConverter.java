@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class SetYamlConverter implements Converter {
+public class SetYamlConverter implements YamlConverter {
 	private InternalConverter internalConverter;
 
 	public SetYamlConverter(InternalConverter internalConverter) {
@@ -24,7 +24,7 @@ public class SetYamlConverter implements Converter {
 		while (iterator.hasNext()) {
 			Object val = iterator.next();
 
-			Converter converter = internalConverter.getConverter(val.getClass());
+			YamlConverter converter = internalConverter.getConverter(val.getClass());
 
 			if (converter != null) {
 				newList.add(converter.toConfig(val.getClass(), val, null));
@@ -47,7 +47,7 @@ public class SetYamlConverter implements Converter {
 		}
 
 		if (genericType != null && genericType.getActualTypeArguments()[0] instanceof Class) {
-			Converter converter = internalConverter.getConverter((Class) genericType.getActualTypeArguments()[0]);
+			YamlConverter converter = internalConverter.getConverter((Class) genericType.getActualTypeArguments()[0]);
 
 			if (converter != null) {
 				for (int i = 0; i < values.size(); i++) {

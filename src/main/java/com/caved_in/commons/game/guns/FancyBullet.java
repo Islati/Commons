@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
+//todo implement yaml serialization
+//todo implement json serialization
 public class FancyBullet extends Bullet {
     private ParticleEffects effect;
 
