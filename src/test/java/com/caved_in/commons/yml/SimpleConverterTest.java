@@ -1,33 +1,34 @@
 package com.caved_in.commons.yml;
 
-import com.caved_in.commons.yml.base.BaseTest;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.ObjectConverter;
 import com.caved_in.commons.yml.data.SimpleObjectConfig;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.io.File;
 
 
-public class SimpleConverterTest extends BaseTest {
-    public void setup() throws Exception {
+public class SimpleConverterTest {
+    static SimpleObjectConfig config = null;
+    static File file;
+
+    @BeforeClass
+    public static void setup() throws Exception {
         config = new SimpleObjectConfig();
         config.getYamlConfigurationSettings().addConverter(ObjectConverter.class);
-        filename = "simpleConverterTest.yml";
-
-        before();
+        file = new File("temp", "simpleConverterTest.yml");
     }
 
     @Test
     public void onInit() throws Exception {
         config.init(file);
 
-        String fileContents = Util.readFile(file);
-
-        assertThat(fileContents.equals(
-                "TestMap:\n" +
-                        "  test: test\n" +
-                        "TestSet:\n" +
-                        "- test\n"));
+        Assert.assertArrayEquals(Util.readFileSplit(file), new String[]{
+                "TestMap:",
+                "  test: test",
+                "TestSet:",
+                "- test"});
     }
 }

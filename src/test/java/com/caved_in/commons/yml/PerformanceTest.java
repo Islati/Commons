@@ -1,27 +1,48 @@
 package com.caved_in.commons.yml;
 
 
-import com.caved_in.commons.yml.base.BaseTest;
 import com.caved_in.commons.yml.data.PerformanceConfig;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PerformanceTest extends BaseTest {
+public class PerformanceTest {
+    private static File file;
+    private static PerformanceConfig config;
 
-    public void setup() throws Exception {
+
+    @BeforeClass
+    public static void setup() throws Exception {
         config = new PerformanceConfig();
-        filename = "performanceConfig.yml";
+        file = new File("temp", "performanceConfig.yml");
+        config.setConfigFile(file);
+
+        if (file.exists()) {
+            FileUtils.forceDelete(file);
+        }
+
+        if (!file.getParentFile().exists()) {
+            FileUtils.deleteDirectory(file.getParentFile());
+        }
     }
 
     @Test
     public void test1loadPerformance() throws InvalidConfigurationException {
         long start = System.currentTimeMillis();
 
-        for (int i = 0; i < 100; i++) config.init(file);
+        assert config != null;
+        assert file != null;
+
+        for (int i = 0; i < 100; i++) {
+            config.init(file);
+        }
 
         long end = System.currentTimeMillis() - start;
 

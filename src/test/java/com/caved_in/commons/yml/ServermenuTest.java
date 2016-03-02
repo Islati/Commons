@@ -1,32 +1,36 @@
 package com.caved_in.commons.yml;
 
-import com.caved_in.commons.yml.base.BaseTest;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.ServermenuConfig;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ServermenuTest extends BaseTest {
-    public void setup() throws Exception {
+import java.io.File;
+
+public class ServermenuTest {
+    private static ServermenuConfig config;
+    private static File file = null;
+
+    @BeforeClass
+    public static void setup() throws Exception {
         config = new ServermenuConfig();
-        filename = "serverMenuConfig.yml";
+        file = new File("temp", "serverMenuConfig.yml");
     }
 
     @Test
     public void onInit() throws Exception {
         config.init(file);
 
-        String fileContents = Util.readFile(file);
-
-        Assert.assertEquals(fileContents, "menus:\n" +
-                "  Game Servers:\n" +
-                "    servers:\n" +
-                "    - displayPlayers: true\n" +
-                "      server: TDM1\n" +
-                "      hostName: guerra.year4000.net\n" +
-                "      port: 26602\n" +
-                "      timeout: null\n" +
-                "      displayMotd: false\n" +
-                "    title: Game Servers\n");
+        Assert.assertArrayEquals(Util.readFileSplit(file), new String[]{"menus:",
+                "  Game Servers:",
+                "    servers:",
+                "    - displayPlayers: true",
+                "      server: TDM1",
+                "      hostName: guerra.year4000.net",
+                "      port: 26602",
+                "      timeout: null",
+                "      displayMotd: false",
+                "    title: Game Servers"});
     }
 }

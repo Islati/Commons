@@ -1,16 +1,11 @@
 package com.caved_in.commons.yml.converter;
 
 
-import com.caved_in.commons.yml.ConfigSection;
-import com.caved_in.commons.yml.InternalConverter;
-import com.caved_in.commons.yml.YamlConfigurable;
+import com.caved_in.commons.yml.*;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
-/**
- * @author geNAZt (fabian.fassbender42@googlemail.com)
- */
 public class YamlConfigurableConverter implements YamlConverter {
     private InternalConverter internalConverter;
 
@@ -20,25 +15,64 @@ public class YamlConfigurableConverter implements YamlConverter {
 
     @Override
     public Object toConfig(Class<?> type, Object obj, ParameterizedType parameterizedType) throws Exception {
+        if (obj == null) {
+            throw new InvalidConfigurationException("Unable to serialize a null object.");
+        }
+
         if (obj instanceof Map) {
             return obj;
         }
 
+        if (!(obj instanceof YamlConfigurable)) {
+            throw new InvalidConverterException(String.format("Unable to convert object of type %s with YamlConfigurableConverter", obj.getClass().getCanonicalName()));
+        }
+
         YamlConfigurable configurable = (YamlConfigurable) obj;
-        return configurable.getYamlConfigurationSettings().getConfigurationMap();
+
+        Map<String, Object> configMap = null;
+        try {
+            configMap = configurable.getYamlConfigurationSettings().getConfigurationMap(configurable);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        if (configMap == null) {
+            throw new InvalidConfigurationException(String.format("Invalid (null) configuration map for class %s", type.getCanonicalName()));
+        }
+
+
+        return configMap;
     }
 
     @Override
     public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception {
         YamlConfigurable obj = (YamlConfigurable) newInstance(type);
 
+        if (obj == null) {
+            throw new IllegalAccessError("Unable to initialize class %s as YamlConfigurable");
+        }
+
+        /*
+        After we attempt to create the object from direct configuration, we HAVE to initialize it in Yamld.
+         */
+        Yamled.init(obj);
 
         // Inject converter stack into subconfig
         for (Class aClass : internalConverter.getCustomConverters()) {
             obj.getYamlConfigurationSettings().addConverter(aClass);
         }
 
-        obj.getYamlConfigurationSettings().loadFromConfigurationMap(section instanceof Map ? (Map) section : ((ConfigSection) section).getRawMap());
+        YamledConfiguration config = obj.getYamlConfigurationSettings();
+
+        if (section instanceof Map) {
+            config.loadFromConfigurationMap(obj, (Map) section);
+        } else if (section instanceof ConfigSection) {
+            config.loadFromConfigurationMap(obj, ((ConfigSection) section).getRawMap());
+        } else {
+            System.out.println(String.format("Unable to parse section of type %s... Class is %s", section.getClass().getCanonicalName(), type.getCanonicalName()));
+            return null;
+        }
+
         return obj;
     }
 

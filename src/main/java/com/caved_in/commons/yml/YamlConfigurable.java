@@ -18,17 +18,27 @@ public interface YamlConfigurable extends IConfig {
 
         YamledConfiguration config = getYamlConfigurationSettings();
 
+        if (config == null) {
+            throw new NullPointerException(String.format("Configuration for Configurable %s is null during save.", getClass().getName()));
+        }
+
         ConfigSection root = config.getRootConfigSection();
 
         if (root == null) {
             root = new ConfigSection();
-            getYamlConfigurationSettings().setRootConfigSection(root);
+            config.setRootConfigSection(root);
         }
 
 
         config.clearComments();
 
-        internalSave(getClass());
+        try {
+            internalSave(getClass());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+
+            throw new InvalidConfigurationException(e);
+        }
         config.saveToYaml(getConfigFile());
     }
 
@@ -72,10 +82,12 @@ public interface YamlConfigurable extends IConfig {
 
             try {
                 configFile.createNewFile();
-                save();
             } catch (IOException e) {
                 throw new InvalidConfigurationException("Could not create new empty Config", e);
             }
+
+            save();
+
         } else {
             load();
         }
@@ -94,7 +106,11 @@ public interface YamlConfigurable extends IConfig {
     @Override
     default void reload() throws InvalidConfigurationException {
         getYamlConfigurationSettings().loadFromYaml(getConfigFile());
-        internalLoad(getClass());
+        try {
+            internalLoad(getClass());
+        } catch (IllegalAccessException e) {
+            throw new InvalidConfigurationException(e);
+        }
     }
 
     @Override
@@ -107,7 +123,11 @@ public interface YamlConfigurable extends IConfig {
 
         conf.loadFromYaml(getConfigFile());
         update(conf.getRootConfigSection());
-        internalLoad(getClass());
+        try {
+            internalLoad(getClass());
+        } catch (IllegalAccessException e) {
+            throw new InvalidConfigurationException(e);
+        }
     }
 
     @Override
@@ -121,10 +141,18 @@ public interface YamlConfigurable extends IConfig {
     }
 
     default YamledConfiguration<?> getYamlConfigurationSettings() {
+        if (!Yamled.hasConfiguration(this)) {
+            try {
+                Yamled.init(this);
+            } catch (InvalidConfigurationException e) {
+                e.printStackTrace();
+            }
+        }
+
         return Yamled.getYamlConfigurationSettings(this);
     }
 
-    default void internalSave(Class<?> clazz) throws InvalidConfigurationException {
+    default void internalSave(Class<?> clazz) throws InvalidConfigurationException, IllegalAccessException {
         if (!clazz.isAssignableFrom(YamlConfigurable.class)) {
             internalSave(clazz.getSuperclass());
         }
@@ -174,12 +202,27 @@ public interface YamlConfigurable extends IConfig {
                 field.setAccessible(true);
             }
 
+            /*
+            Handle errors for saving the data
+             */
             try {
                 converter.toConfig(this, field, root, path);
+            } catch (Exception e) {
+                if (!config.skipFailedObjects()) {
+                    e.printStackTrace();
+
+                    throw new InvalidConfigurationException(String.format("Initialization Error: Unable to save data for field %s at path %s in class %s", field.getName(), path, clazz.getCanonicalName()), e);
+                }
+            }
+
+            /*
+            Also handle specific errors for loading the data.
+             */
+            try {
                 converter.fromConfig(this, field, root, path);
             } catch (Exception e) {
                 if (!config.skipFailedObjects()) {
-                    throw new InvalidConfigurationException("Could not save the Field", e);
+                    throw new InvalidConfigurationException(String.format("Initialization Error: Unable to load path %s, for field %s in class %s", path, field.getName(), clazz.getCanonicalName()), e);
                 }
             }
         }
@@ -196,7 +239,7 @@ public interface YamlConfigurable extends IConfig {
      * @param clazz class to load the structure from.
      * @throws InvalidConfigurationException
      */
-    default void internalLoad(Class<?> clazz) throws InvalidConfigurationException {
+    default void internalLoad(Class<?> clazz) throws InvalidConfigurationException, IllegalAccessException {
         if (!clazz.isAssignableFrom(YamlConfigurable.class)) {
             internalLoad(clazz.getSuperclass());
         }
@@ -226,7 +269,7 @@ public interface YamlConfigurable extends IConfig {
                 try {
                     converter.fromConfig(this, field, root, path);
                 } catch (Exception e) {
-                    throw new InvalidConfigurationException("Could not set field", e);
+                    throw new InvalidConfigurationException(String.format("Unable to serialize path %s for field %s in class %s", path, field.getName(), clazz.getCanonicalName()), e);
                 }
             } else {
                 try {
@@ -236,7 +279,7 @@ public interface YamlConfigurable extends IConfig {
                     save = true;
                 } catch (Exception e) {
                     if (!config.skipFailedObjects()) {
-                        throw new InvalidConfigurationException("Could not get field", e);
+                        throw new InvalidConfigurationException(String.format("Root Has No path %s: Unable to serialize field %s in class %s", path, field.getName(), clazz.getCanonicalName()), e);
                     }
                 }
             }

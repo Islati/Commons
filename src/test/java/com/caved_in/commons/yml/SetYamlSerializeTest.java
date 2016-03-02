@@ -4,7 +4,7 @@ package com.caved_in.commons.yml;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.SetConfig;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -13,13 +13,12 @@ import java.io.File;
 import java.io.IOException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-
 public class SetYamlSerializeTest {
-    private SetConfig setConfig;
-    private File file;
+    private static SetConfig setConfig;
+    private static File file;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         setConfig = new SetConfig();
 
         file = new File("temp", "setConfig.yml");

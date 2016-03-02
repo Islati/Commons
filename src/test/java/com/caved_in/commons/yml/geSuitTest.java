@@ -19,9 +19,17 @@ public class geSuitTest {
     static File file;
 
     @BeforeClass
-    public void setup() throws Exception {
+    public static void setup() throws Exception {
         config = new Announcements();
         file = new File("temp", "geSuitAnnouncements.yml");
+
+        if (file.exists()) {
+            file.delete();
+        }
+
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
     }
 
     @Test

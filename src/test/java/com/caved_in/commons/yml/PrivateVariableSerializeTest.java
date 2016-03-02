@@ -3,7 +3,7 @@ package com.caved_in.commons.yml;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.PrivateConfig;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -13,11 +13,11 @@ import java.io.IOException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PrivateVariableSerializeTest {
-    private PrivateConfig privateConfig;
-    private File file;
+    private static PrivateConfig privateConfig;
+    private static File file;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         privateConfig = new PrivateConfig();
 
         file = new File("temp", "privateConfig.yml");

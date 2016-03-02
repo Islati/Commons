@@ -5,12 +5,15 @@ import com.caved_in.commons.yml.data.MultiValueMapConfig;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MultiValueMapSerializeTest {
     private static MultiValueMapConfig multiValueMapConfig;
     private static File file;
@@ -58,7 +61,7 @@ public class MultiValueMapSerializeTest {
     }
 
     @Test
-    public void addEntryToMap() throws InvalidConfigurationException, IOException {
+    public void test2addEntryToMap() throws InvalidConfigurationException, IOException {
         multiValueMapConfig.getItems().put("test", new ArrayList<String>());
         multiValueMapConfig.getItems().get("example").add("Test");
         multiValueMapConfig.save();

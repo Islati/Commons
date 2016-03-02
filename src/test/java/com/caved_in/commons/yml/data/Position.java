@@ -2,9 +2,6 @@ package com.caved_in.commons.yml.data;
 
 import com.caved_in.commons.yml.base.Config;
 
-/**
- * @author geNAZt (fabian.fassbender42@googlemail.com)
- */
 public class Position extends Config {
     private int x;
     private int y;

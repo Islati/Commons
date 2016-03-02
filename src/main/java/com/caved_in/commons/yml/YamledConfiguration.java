@@ -43,7 +43,7 @@ public class YamledConfiguration<T extends YamlConfigurable> {
 
     private String[] configHeader = null;
 
-    private T objectInstance;
+    private Class<? extends YamlConfigurable> instanceClass = null;
 
     private boolean initialized = false;
     private boolean skipFailedObjects = false;
@@ -53,7 +53,7 @@ public class YamledConfiguration<T extends YamlConfigurable> {
             throw new RuntimeException("Unable to re-initialize an instance of YamledConfiguration once it's been established.");
         }
 
-        this.objectInstance = instance;
+        this.instanceClass = instance.getClass();
 
         DumperOptions yamlOptions = new DumperOptions();
         yamlOptions.setIndent(2);
@@ -61,20 +61,20 @@ public class YamledConfiguration<T extends YamlConfigurable> {
 
         yamlRepresenter.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
-        snakeYaml = new Yaml(new CustomClassLoaderConstructor(objectInstance.getClass().getClassLoader()), yamlRepresenter, yamlOptions);
-
+        snakeYaml = new Yaml(new CustomClassLoaderConstructor(instanceClass.getClassLoader()), yamlRepresenter, yamlOptions);
         /*
         Configure the settings for serializing via the annotations present.
          */
         configureFromSerializeOptionsAnnotation();
+
         initialized = true;
     }
 
     public Class<? extends YamlConfigurable> getConfiguringClass() {
-        if (!initialized) {
+        if (instanceClass == null) {
             throw new IllegalAccessError("Unable to retrieve the configuring class when it's not been initialized");
         }
-        return objectInstance.getClass();
+        return instanceClass;
     }
 
     public String getPath(Field field) {
@@ -82,7 +82,7 @@ public class YamledConfiguration<T extends YamlConfigurable> {
             return null;
         }
 
-        String path = "";
+        String path = null;
 
         switch (getConfigMode()) {
             case PATH_BY_UNDERSCORE:
@@ -95,9 +95,9 @@ public class YamledConfiguration<T extends YamlConfigurable> {
             default:
                 String fieldName = field.getName();
                 if (fieldName.contains("_")) {
-                    path = field.getName().replace("_", ".");
+                    path = fieldName.replace("_", ".");
                 } else {
-                    path = field.getName();
+                    path = fieldName;
                 }
                 break;
         }
@@ -110,39 +110,10 @@ public class YamledConfiguration<T extends YamlConfigurable> {
         return path;
     }
 
-    public Map<String, Object> getConfigurationMap() throws Exception {
+    public <T extends YamlConfigurable> Map<String, Object> getConfigurationMap(YamlConfigurable instance) throws Exception {
         Map<String, Object> mappedConfiguration = new HashMap<>();
 
-        Set<Field> configFields = getAllFields(objectInstance.getClass());
-
-        for (Field field : configFields) {
-            String path = getPath(field);
-
-            if (path == null) {
-                continue;
-            }
-
-            try {
-                mappedConfiguration.put(path, field.get(objectInstance));
-            } catch (IllegalAccessException e) {
-                //todo look for failed objects and perform how it should based on serialize options.
-            }
-        }
-
-        YamlConverter mapConverter = converter.getConverter(Map.class);
-        return (Map<String, Object>) mapConverter.toConfig(HashMap.class, mappedConfiguration, null);
-    }
-
-    public InternalConverter getConverter() {
-        return converter;
-    }
-
-    public YamlConverter getConverter(Class<?> clazz) {
-        return converter.getConverter(clazz);
-    }
-
-    public void loadFromConfigurationMap(Map section) throws Exception {
-        Set<Field> configFields = getAllFields(objectInstance.getClass());
+        Set<Field> configFields = getAllFields(instanceClass);
 
         for (Field field : configFields) {
             String path = getPath(field);
@@ -155,7 +126,45 @@ public class YamledConfiguration<T extends YamlConfigurable> {
                 field.setAccessible(true);
             }
 
-            converter.fromConfig(objectInstance, field, ConfigSection.convertFromMap(section), path);
+            Object value = field.get(instance);
+
+            mappedConfiguration.put(path, value);
+        }
+
+        YamlConverter mapConverter = converter.getConverter(Map.class);
+        Map<String, Object> convertedMapConfig = (Map<String, Object>) mapConverter.toConfig(HashMap.class, mappedConfiguration, null);
+
+        if (convertedMapConfig == null) {
+            System.out.println("Error while converting data to map.");
+            throw new NullPointerException(String.format("Data for class %s returned null during conversion", getConfiguringClass().getCanonicalName()));
+        }
+
+        return convertedMapConfig;
+    }
+
+    public InternalConverter getConverter() {
+        return converter;
+    }
+
+    public YamlConverter getConverter(Class<?> clazz) {
+        return converter.getConverter(clazz);
+    }
+
+    public void loadFromConfigurationMap(T instance, Map section) throws Exception {
+        Set<Field> configFields = getAllFields(instance.getClass());
+
+        for (Field field : configFields) {
+            String path = getPath(field);
+
+            if (path == null) {
+                continue;
+            }
+
+            if (Modifier.isPrivate(field.getModifiers())) {
+                field.setAccessible(true);
+            }
+
+            converter.fromConfig(instance, field, ConfigSection.convertFromMap(section), path);
         }
     }
 
@@ -199,7 +208,7 @@ public class YamledConfiguration<T extends YamlConfigurable> {
     public void saveToYaml(File file) throws InvalidConfigurationException {
         try (OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(file), Charset.forName("UTF-8"))) {
             String[] header = getConfigHeader();
-            if (header != null) {
+            if (header != null && header.length > 0) {
                 for (String line : header) {
                     fileWriter.write("# " + line + "\n");
                 }
@@ -290,7 +299,7 @@ public class YamledConfiguration<T extends YamlConfigurable> {
     }
 
     public ConfigMode getConfigMode() {
-        return ConfigMode.DEFAULT;
+        return configMode;
     }
 
     public void setConfigMode(ConfigMode mode) {
@@ -393,11 +402,11 @@ public class YamledConfiguration<T extends YamlConfigurable> {
      */
     public void configureFromSerializeOptionsAnnotation() {
         //todo implement logic to configure from external class.
-        if (!getClass().isAnnotationPresent(SerializeOptions.class)) {
+        if (!getConfiguringClass().isAnnotationPresent(SerializeOptions.class)) {
             return;
         }
 
-        SerializeOptions options = getClass().getAnnotation(SerializeOptions.class);
+        SerializeOptions options = getConfiguringClass().getAnnotation(SerializeOptions.class);
         setConfigHeader(options.configHeader());
         setConfigMode(options.configMode());
         setSkipFailedObjects(options.skipFailedObjects());

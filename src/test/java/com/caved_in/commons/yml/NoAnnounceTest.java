@@ -1,20 +1,25 @@
 package com.caved_in.commons.yml;
 
-import com.caved_in.commons.yml.base.BaseTest;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.AnnouncerConfig;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class NoAnnounceTest extends BaseTest {
+public class NoAnnounceTest {
+    private static AnnouncerConfig config;
+    private static File file;
 
-    public void setup() throws Exception {
+    @BeforeClass
+    public static void setup() throws Exception {
         config = new AnnouncerConfig();
-        filename = "noAnnounceAnnouncerConfig.yml";
+        file = new File("temp", "noAnnounceAnnouncerConfig.yml");
     }
 
     @Test

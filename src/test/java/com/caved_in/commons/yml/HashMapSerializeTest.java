@@ -19,7 +19,7 @@ public class HashMapSerializeTest {
     private static File file;
 
     @BeforeClass
-    public void before() {
+    public static void before() {
         hashMapConfig = new HashMapConfig();
 
         file = new File("temp", "hashMapConfig.yml");

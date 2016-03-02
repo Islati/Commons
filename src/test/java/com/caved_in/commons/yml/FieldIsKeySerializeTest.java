@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FieldIsKeySerializeTest {
     private static FieldIsKeyConfig fieldIsKeyConfig;
     private static File file;
 
     @BeforeClass
-    public void before() {
+    public static void before() {
         fieldIsKeyConfig = new FieldIsKeyConfig();
 
         file = new File("temp", "fieldIsKeyConfig.yml");
@@ -32,7 +33,11 @@ public class FieldIsKeySerializeTest {
     public void initNull() throws InvalidConfigurationException, IOException {
         fieldIsKeyConfig.init(file);
 
-        assertArrayEquals(Util.readFileSplit(file), new String[]{"MOTD: '&dWelcome to the server {player}!'",
-                "PLAYER_CONNECT_PROXY: '{player}&e has joined the server!'"});
+        assertTrue(fieldIsKeyConfig.getYamlConfigurationSettings().getConfigMode() == ConfigMode.FIELD_IS_KEY);
+
+        assertArrayEquals(Util.readFileSplit(file), new String[]{
+                "MOTD: '&dWelcome to the server {player}!'",
+                "PLAYER_CONNECT_PROXY: '{player}&e has joined the server!'"
+        });
     }
 }

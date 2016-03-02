@@ -12,7 +12,7 @@ public class ArrayConverterTest {
     static File file;
 
     @BeforeClass
-    public void setup() throws Exception {
+    public static void setup() throws Exception {
         config = new ArrayTestConfig();
         file = new File("temp", "arrayConverterTest.yml");
     }

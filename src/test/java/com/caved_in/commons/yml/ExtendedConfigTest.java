@@ -2,7 +2,7 @@ package com.caved_in.commons.yml;
 
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.ExtendedConfigConfig;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -18,11 +18,12 @@ public class ExtendedConfigTest {
     private static ExtendedConfigConfig extendedConfig;
     private static File file;
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void before() {
         extendedConfig = new ExtendedConfigConfig();
 
         file = new File("temp", "extendedConfig.yml");
+        extendedConfig.setConfigFile(file);
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }

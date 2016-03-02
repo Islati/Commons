@@ -1,9 +1,9 @@
 package com.caved_in.commons.yml;
 
-import com.caved_in.commons.yml.base.BaseTest;
 import com.caved_in.commons.yml.base.Util;
 import com.caved_in.commons.yml.data.ExtendTestConfig;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -13,10 +13,12 @@ import java.io.IOException;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SecondExtensionConfigTest extends BaseTest {
-    private ExtendTestConfig extendedConfig;
+public class SecondExtensionConfigTest {
+    private static ExtendTestConfig extendedConfig;
+    private static File file;
 
-    public void setup() {
+    @BeforeClass
+    public static void setup() {
         extendedConfig = new ExtendTestConfig();
 
         file = new File("temp", "extendedTestConfig.yml");
@@ -33,18 +35,17 @@ public class SecondExtensionConfigTest extends BaseTest {
     public void test1initNull() throws InvalidConfigurationException, IOException {
         extendedConfig.init(file);
 
-        String fileContents = Util.readFile(file);
-
-        Assert.assertEquals(fileContents.replace("\r", ""), "action:\n" +
-                "  action: default action\n" +
-                "trigAct:\n" +
-                "  action: default action\n" +
-                "  trigger: default trigger\n" +
-                "actionCtor:\n" +
-                "  action: another action (2)\n" +
-                "trigActCtor:\n" +
-                "  action: yet another action (3)\n" +
-                "  trigger: another trigger (3)\n");
+        Assert.assertArrayEquals(Util.readFileSplit(file), new String[]{
+                "action:",
+                "  action: default action",
+                "trigAct:",
+                "  action: default action",
+                "  trigger: default trigger",
+                "actionCtor:",
+                "  action: another action (2)",
+                "trigActCtor:",
+                "  action: yet another action (3)",
+                "  trigger: another trigger (3)"});
     }
 
     @Test
@@ -52,18 +53,16 @@ public class SecondExtensionConfigTest extends BaseTest {
         extendedConfig.action.action = "test1";
         extendedConfig.save();
 
-        String fileContents = Util.readFile(file);
-
-        Assert.assertEquals(fileContents.replace("\r", ""), "action:\n" +
-                "  action: test1\n" +
-                "trigAct:\n" +
-                "  action: default action\n" +
-                "  trigger: default trigger\n" +
-                "actionCtor:\n" +
-                "  action: another action (2)\n" +
-                "trigActCtor:\n" +
-                "  action: yet another action (3)\n" +
-                "  trigger: another trigger (3)\n");
+        Assert.assertArrayEquals(Util.readFileSplit(file), new String[]{"action:",
+                "  action: test1",
+                "trigAct:",
+                "  action: default action",
+                "  trigger: default trigger",
+                "actionCtor:",
+                "  action: another action (2)",
+                "trigActCtor:",
+                "  action: yet another action (3)",
+                "  trigger: another trigger (3)"});
     }
 
     @Test

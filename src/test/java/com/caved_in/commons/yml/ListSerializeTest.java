@@ -18,7 +18,7 @@ public class ListSerializeTest {
     private static File file;
 
     @BeforeClass
-    public void before() {
+    public static void before() {
         listConfig = new ListConfig();
 
         file = new File("temp", "listConfig.yml");
@@ -50,7 +50,7 @@ public class ListSerializeTest {
     }
 
     @Test
-    public void loadConfig() throws InvalidConfigurationException {
+    public void text3loadConfig() throws InvalidConfigurationException {
         ListConfig listConfig1 = new ListConfig();
         listConfig1.load(file);
 

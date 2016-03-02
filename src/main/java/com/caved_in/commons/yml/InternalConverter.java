@@ -108,6 +108,9 @@ public class InternalConverter {
     }
 
     public void toConfig(YamlConfigurable config, Field field, ConfigSection root, String path) throws Exception {
+        if (config == null) {
+            throw new NullPointerException("Configurable object is null.");
+        }
         Object obj = field.get(config);
 
         YamlConverter converter = null;
@@ -116,15 +119,25 @@ public class InternalConverter {
             converter = getConverter(obj.getClass());
         }
 
+        /*
+        Use the converter specific for the objects class type.
+         */
         if (converter != null) {
-            root.set(path, converter.toConfig(obj.getClass(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+            ParameterizedType genericType = field.getGenericType() instanceof ParameterizedType ? (ParameterizedType) field.getGenericType() : null;
+
+            root.set(path, converter.toConfig(obj.getClass(), obj, genericType));
             return;
         }
 
         converter = getConverter(field.getType());
 
+        /*
+        Use the converter for the Fields type!
+         */
         if (converter != null) {
-            root.set(path, converter.toConfig(field.getType(), obj, (field.getGenericType() instanceof ParameterizedType) ? (ParameterizedType) field.getGenericType() : null));
+            ParameterizedType genericType = field.getGenericType() instanceof ParameterizedType ? (ParameterizedType) field.getGenericType() : null;
+
+            root.set(path, converter.toConfig(field.getType(), obj, genericType));
             return;
         }
 

@@ -61,8 +61,10 @@ public class PerformanceConfig extends Config {
     private String setup_world = "world";
     @Comment("Server to move players to after game over")
     private String setup_hubServer = "hub";
+
     @Comment("Position of the lobby")
     private Position setup_lobbyPosition = new Position(0, 50, 0);
+
     @Comment("Position of each spawns")
     private ArrayList<Position> setup_spawnPosition = new ArrayList<Position>() {{
         for (int i = 0; i < 8; i++) {

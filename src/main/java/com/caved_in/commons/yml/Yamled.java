@@ -6,15 +6,23 @@ import java.util.Map;
 public class Yamled {
     private static Map<Class<? extends YamlConfigurable>, YamledConfiguration> classConfigurationMap = new HashMap<>();
 
+    public static <T extends YamlConfigurable> boolean hasConfiguration(Class<? extends YamlConfigurable> clazz) {
+        return classConfigurationMap.containsKey(clazz);
+    }
+
+    public static <T extends YamlConfigurable> boolean hasConfiguration(T configurable) {
+        return hasConfiguration(configurable.getClass());
+    }
+
     public static <T extends YamlConfigurable> void init(T configurable) throws InvalidConfigurationException {
         /*
         If we've already initialized the configuration, then don't do it again!
+         As configuration is based off classes, not the object itself, we don't require
+         a second instance for any of them!
          */
-        if (getYamlConfigurationSettings(configurable) != null) {
+        if (hasConfiguration(configurable)) {
             return;
         }
-
-        Class<? extends YamlConfigurable> configClass = configurable.getClass();
 
         /*
         Create the container that holds YamlConfiguration Data
@@ -26,24 +34,26 @@ public class Yamled {
          */
         classConfig.init(configurable);
 
-        classConfigurationMap.put(configClass, classConfig);
+        classConfigurationMap.put(configurable.getClass(), classConfig);
     }
 
-    public static <T extends YamlConfigurable> YamledConfiguration<T> getYamlConfigurationSettings(Class<? extends YamlConfigurable> clazz) {
-        if (!classConfigurationMap.containsKey(clazz)) {
-            return null;
+    public static <T extends YamlConfigurable> YamledConfiguration<T> getYamlConfigurationSettings(Class<T> clazz) {
+        YamledConfiguration yamledConfig = classConfigurationMap.get(clazz);
+
+        if (!yamledConfig.getConfiguringClass().equals(clazz)) {
+            throw new IllegalAccessError(String.format("Configurable class %s does not equal instance class %s", clazz.getCanonicalName(), yamledConfig.getConfiguringClass().getCanonicalName()));
         }
 
-        YamledConfiguration<T> configurationSettings = (YamledConfiguration<T>) classConfigurationMap.get(clazz);
-
-        if (!configurationSettings.getConfiguringClass().equals(clazz)) {
-            throw new ClassCastException(String.format("Unable to cast %s to the configurable class of %s", clazz.getCanonicalName(), configurationSettings.getConfiguringClass().getCanonicalName()));
-        }
-
-        return configurationSettings;
+        return (YamledConfiguration<T>) yamledConfig;
     }
 
     public static <T extends YamlConfigurable> YamledConfiguration<T> getYamlConfigurationSettings(T instance) {
-        return getYamlConfigurationSettings(instance.getClass());
+        Class<? extends YamlConfigurable> configClass = instance.getClass();
+        YamledConfiguration yamledConfig = classConfigurationMap.get(configClass);
+        if (!yamledConfig.getConfiguringClass().equals(configClass)) {
+            throw new IllegalAccessError(String.format("Configurable class %s does not equal instance class %s", configClass.getCanonicalName(), yamledConfig.getConfiguringClass().getCanonicalName()));
+        }
+
+        return (YamledConfiguration<T>) yamledConfig;
     }
 }

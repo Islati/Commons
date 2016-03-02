@@ -8,9 +8,9 @@ import com.caved_in.commons.yml.base.Config;
         configMode = ConfigMode.FIELD_IS_KEY
 )
 public class FieldIsKeyConfig extends Config {
-    public FieldIsKeyConfig() {
-    }
-
     public String MOTD = "&dWelcome to the server {player}!";
     public String PLAYER_CONNECT_PROXY = "{player}&e has joined the server!";
+
+    public FieldIsKeyConfig() {
+    }
 }
