@@ -5,6 +5,7 @@ import com.caved_in.commons.nms.minecraft_1_8_R3.ActionMessageHandler_18R3;
 import com.caved_in.commons.nms.minecraft_1_8_R3.ForceRespawnHandler_18R3;
 import com.caved_in.commons.nms.minecraft_1_8_R3.TitleHandler_18R3;
 import com.caved_in.commons.nms.minecraft_1_8_R3.UnhandledStackTrace_18R3;
+import com.caved_in.commons.nms.minecraft_1_9_R1.ActionMessageHandler_19R3;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
 import com.caved_in.commons.nms.no_implementation.TitleHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
@@ -43,6 +44,9 @@ public class NMS {
 				actionMessageHandler = new ActionMessageHandler_18R3();
 				titleHandler = new TitleHandler_18R3();
 				forceRespawnHandler = new ForceRespawnHandler_18R3();
+				break;
+			case "v1_9_R1":
+				actionMessageHandler = new ActionMessageHandler_19R3();
 				break;
 			default:
 				stackTraceHandler = new UnhandledStackTraceNI();

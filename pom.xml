@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.8.8-3</version>
+    <version>1.9.2</version>
 
     <properties>
         <powermock.version>1.6.1</powermock.version>
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.9.2-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.simpleframework</groupId>
