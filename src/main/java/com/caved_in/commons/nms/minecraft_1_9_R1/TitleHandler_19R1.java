@@ -1,4 +1,4 @@
-package com.caved_in.commons.nms.minecraft_1_8_R3;
+package com.caved_in.commons.nms.minecraft_1_9_R1;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.chat.Title;
@@ -7,13 +7,12 @@ import com.caved_in.commons.nms.AbstractTitle;
 import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 
 
-public class TitleHandler_18R3 implements AbstractTitle.TitleHandler {
+public class TitleHandler_19R1 implements AbstractTitle.TitleHandler {
 	private Title blankTitle = TitleBuilder.create().fadeIn(0).stay(0).fadeOut(0).subtitle("").title("").build();
 
 	private Class<?> packetPlayOutTitleClass;
@@ -27,7 +26,7 @@ public class TitleHandler_18R3 implements AbstractTitle.TitleHandler {
 
 	private Class<Enum> enumTitleAction;
 
-	public TitleHandler_18R3() {
+	public TitleHandler_19R1() {
 		packetPlayOutTitleClass = ReflectionUtilities.getNMSClass("PacketPlayOutTitle");
 
 
