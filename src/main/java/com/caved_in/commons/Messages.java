@@ -31,7 +31,7 @@ public class Messages {
     public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
     public static final String PLAYER_HEALED = "&aYou've been healed!";
     public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
-    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your hand";
+    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your main-hand or off-hand";
     public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
     public static final String PLAYER_FED = "&aYou've been fed!";
     public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";

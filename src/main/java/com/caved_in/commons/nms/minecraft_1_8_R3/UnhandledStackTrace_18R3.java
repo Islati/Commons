@@ -6,7 +6,7 @@ import com.caved_in.commons.nms.UnhandledStackTrace;
 import org.bukkit.Bukkit;
 import org.joor.Reflect;
 
-public class UnhandledStackTrace_18R3 implements UnhandledStackTrace {
+public class UnhandledStackTrace_18R3 implements UnhandledStackTrace, Thread.UncaughtExceptionHandler {
 	@Override
 	public void uncaughtException(Thread t, Throwable e) {
 		try {

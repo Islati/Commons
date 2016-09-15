@@ -43,6 +43,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i save", permissions = {Perms.COMMAND_ITEM})
+    //todo implement offhand options
     public void onItemSaveCommand(Player player, @Wildcard @Arg(name = "file name") String name) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(name.trim())) {
             Chat.actionMessage(player, "The items name must not be empty!");
@@ -90,6 +91,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i rename", permissions = Perms.COMMAND_ITEM)
+    //todo implement options to rename the main and or offhand. (OFFHAND SUPPORT)
     public void onRenameCommand(Player player, @Wildcard @Arg(name = "name") String itemName) {
         if (!Players.hasItemInHand(player)) {
             Chat.message(player, "&eYou need an item in your hand.");
@@ -111,6 +113,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i lore add", permissions = Perms.COMMAND_ITEM)
+    //todo implement support for offhand.
     public void onLoreAddCommand(Player player, @Wildcard @Arg(name = "lore", description = "Lore to add to the given item") String lore) {
         if (Players.handIsEmpty(player)) {
             Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
@@ -122,6 +125,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i lore clear", permissions = Perms.COMMAND_ITEM)
+    //todo implement support for offhand.
     public void onLoreClearCommand(Player player) {
         if (Players.handIsEmpty(player)) {
             Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
@@ -134,6 +138,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i lore set", permissions = Perms.COMMAND_ITEM)
+    //todo implement support for offhand
     public void onLoreSetLineCommand(Player player, @Arg(name = "line") int line, @Wildcard @Arg(name = "lore", description = "lore to set at the given line") String lore) {
         if (Players.handIsEmpty(player)) {
             Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
