@@ -9,7 +9,8 @@ public enum ArmorSlot {
     CHEST(3),
     LEGGINGS(2),
     BOOTS(1),
-    WEAPON(0);
+    MAIN_HAND(0),
+    OFF_HAND(5);
 
     private static final Map<Integer, ArmorSlot> slots = new HashMap<>();
 

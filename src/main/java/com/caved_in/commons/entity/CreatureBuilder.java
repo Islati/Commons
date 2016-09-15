@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Create and spawn entities with ease in both syntax and code-flow.
  *
- * @author TheGamersCave (Brandon Curtis)
+ * @author TechnicalBro
  */
 public class CreatureBuilder {
     /* Type of the mob we're spawning */

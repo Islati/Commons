@@ -955,8 +955,11 @@ public class Players {
 			case BOOTS:
 				inventory.setBoots(itemStack);
 				break;
-			case WEAPON:
-				inventory.setItemInHand(itemStack);
+			case MAIN_HAND:
+				inventory.setItemInMainHand(itemStack);
+				break;
+			case OFF_HAND:
+				inventory.setItemInOffHand(itemStack);
 				break;
 			default:
 				break;
@@ -996,8 +999,11 @@ public class Players {
 			case BOOTS:
 				itemStack = playerInventory.getBoots();
 				break;
-			case WEAPON:
-				itemStack = playerInventory.getItemInHand();
+			case MAIN_HAND:
+				itemStack = playerInventory.getItemInMainHand();
+				break;
+			case OFF_HAND:
+				itemStack = playerInventory.getItemInOffHand();
 				break;
 			default:
 				break;

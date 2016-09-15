@@ -37,7 +37,13 @@ public enum MobType {
     WITHER(EntityType.WITHER, true, "wither", "witherboss"),
     SILVERFISH(EntityType.SILVERFISH, true, "silverfish", "silver_fish"),
     RABBIT(EntityType.RABBIT, false, "rabbit", "bunny"),
-    GUARDIAN(EntityType.GUARDIAN, true, "guardian");
+    GUARDIAN(EntityType.GUARDIAN, true, "guardian"),
+    /** New in 1.8 **/
+    ENDERMITE(EntityType.ENDERMITE,true,"endermite","mite"),
+
+    /** New in 1.9 **/
+    SHULKER(EntityType.SHULKER,true,"shulker","shulk");
+
 
     private static Map<String, EntityType> entityTypes = new HashMap<>();
     private static Map<EntityType, Boolean> entityHostilityMap = new HashMap<>();

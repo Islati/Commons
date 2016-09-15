@@ -30,7 +30,10 @@ public enum Enchantments {
     ARROW_KNOCKBACK(Enchantment.ARROW_KNOCKBACK, "arrowknockback", "punch", "ak", "arrowpunch", "arrowkb"),
     ARROW_INFINITE(Enchantment.ARROW_INFINITE, "infinity", "infinitearrows", "infarrow", "infinite", "unlimited", "unlimitedarrows", "ai"),
     LUCK(Enchantment.LUCK, "luck", "luckofsea", "luckofseas", "rodluck"),
-    LURE(Enchantment.LURE, "lure", "rodlure");
+    LURE(Enchantment.LURE, "lure", "rodlure"),
+    /** New In 1.9 **/
+    FROST_WALKER(Enchantment.FROST_WALKER,"frostwalk","frostwalker","frost"),
+    MENDING(Enchantment.MENDING,"mending","mend");
 
     private static Map<String, Enchantment> enchantments = new HashMap<>();
 
