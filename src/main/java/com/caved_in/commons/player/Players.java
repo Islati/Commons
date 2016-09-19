@@ -1474,9 +1474,10 @@ public class Players {
 
     /**
      * Change the item in the players hand (slot) to that specified.
+     *
      * @param player player to change the hand item of.
-     * @param stack stack to set in the players hand
-     * @param slot hand (slot) to set the items in.
+     * @param stack  stack to set in the players hand
+     * @param slot   hand (slot) to set the items in.
      */
     public static void setItemInHand(Player player, ItemStack stack, HandSlot slot) {
         switch (slot) {
@@ -1531,6 +1532,16 @@ public class Players {
     @Deprecated
     public static boolean handIsEmpty(Player player) {
         return !hasItemInHand(player);
+    }
+
+    /**
+     * Check if both of the players hands are empty.
+     *
+     * @param player player to check the hands of
+     * @return true if the player has no item in either their main or off-hand, false otherwise.
+     */
+    public static boolean handsAreEmpty(Player player) {
+        return !hasItemInHand(player, HandSlot.MAIN_HAND) && !hasItemInHand(player, HandSlot.OFF_HAND);
     }
 
     /**

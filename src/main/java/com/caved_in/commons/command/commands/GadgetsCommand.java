@@ -7,6 +7,7 @@ import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.menu.menus.gadgetmenu.GadgetsMenu;
 import com.caved_in.commons.permission.Perms;
+import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 public class GadgetsCommand {
@@ -27,8 +28,7 @@ public class GadgetsCommand {
             Chat.format(player, "&cGadget &e%s&c does not exist", id);
             return;
         }
-
         Gadget gadget = Gadgets.getGadget(id);
-
+        Players.giveItem(player,gadget.getItem());
     }
 }

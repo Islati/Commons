@@ -3,6 +3,7 @@ package com.caved_in.commons.command.handlers;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.*;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.ItemType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
@@ -17,6 +18,7 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
     public ItemStackArgumentHandler() {
         //Add the sender variable,
         addVariable("hand", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("offhand", "item in the off-hand of the command executor", ItemStackHandArgumentVariable.getInstance());
         addVariable("sender", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
 
         for (ItemType itemType : EnumSet.allOf(ItemType.class)) {
@@ -86,12 +88,22 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
                 throw new CommandError(Messages.CANT_AS_CONSOLE);
             }
 
-            Player player = (Player) sender;
-            if (Players.handIsEmpty(player)) {
-                throw new CommandError(Messages.ITEM_IN_HAND_REQUIRED);
+            if (varName.equalsIgnoreCase("offhand")) {
+                Player player = (Player) sender;
+
+                if (Players.handIsEmpty(player, HandSlot.OFF_HAND)) {
+                    throw new CommandError(Messages.itemInHandRequired(HandSlot.OFF_HAND));
+                }
+
+                return Players.getItemInHand(player, HandSlot.OFF_HAND);
             }
 
-            return player.getItemInHand();
+            Player player = (Player) sender;
+            if (Players.handIsEmpty(player, HandSlot.MAIN_HAND)) {
+                throw new CommandError(Messages.itemInHandRequired(HandSlot.MAIN_HAND));
+            }
+
+            return Players.getItemInHand(player, HandSlot.MAIN_HAND);
         }
     }
 }

@@ -9,9 +9,6 @@ import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
-/**
- * User: brandon
- */
 public class ArmorCommand {
 
     @Command(

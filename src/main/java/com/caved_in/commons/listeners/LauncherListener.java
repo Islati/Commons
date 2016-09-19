@@ -26,6 +26,5 @@ public class LauncherListener implements Listener {
             default:
                 break;
         }
-
     }
 }

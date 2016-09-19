@@ -4,6 +4,7 @@ import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.location.PreTeleportLocation;
@@ -32,6 +33,8 @@ public class Messages {
     public static final String PLAYER_HEALED = "&aYou've been healed!";
     public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
     public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your main-hand or off-hand";
+    public static final String ITEM_IN_EITHER_HAND_REQUIRED = "&eYou need to have an item in either of your hands.";
+    public static final String ITEM_IN_BOTH_HANDS_REQUIRED = "&eYou need to have an item in both hands.";
     public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
     public static final String PLAYER_FED = "&aYou've been fed!";
     public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
@@ -109,6 +112,10 @@ public class Messages {
         return String.format("Cuboid: %s,%s,%s,%s => %s,%s,%s", cuboid.getWorldName(), cuboid.getLowerX(), cuboid.getLowerY(), cuboid.getLowerZ(), cuboid.getUpperX(), cuboid.getUpperY(), cuboid.getUpperZ());
     }
 
+    public static String failedToEnchantItem(HandSlot hand) {
+        return String.format("&cFailed to enchant your %s item; Is it a valid enchantment for the item?",hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+    }
+
     public static String gadgetExpired(Gadget gadget) {
         return String.format("&eThe '&6%s&e' gadget has degraded fully.", Items.getName(gadget.getItem()));
     }
@@ -119,6 +126,10 @@ public class Messages {
 
     public static String gunNameAmmoFormat(String name, int ammo) {
         return String.format("%s &r&d<&f%s&d>", name, ammo);
+    }
+
+    public static String itemInHandRequired(HandSlot hand) {
+        return String.format("&eYou need to have an item in your %s.", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
     }
 
     public static String playerDataLoadAttempt(String playerName) {
@@ -291,6 +302,10 @@ public class Messages {
 
     public static String itemEnchantmentAdded(String enchantmentName, int level) {
         return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
+    }
+
+    public static String itemEnchantmentAdded(String enchantmentName, int level,HandSlot hand) {
+        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your %s item", level, enchantmentName, hand == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 
     public static String itemId(ItemStack item) {

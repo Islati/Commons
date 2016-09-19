@@ -2,9 +2,8 @@ package com.caved_in.commons.command.commands;
 
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.command.Arg;
-import com.caved_in.commons.command.Command;
-import com.caved_in.commons.command.Wildcard;
+import com.caved_in.commons.command.*;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.menu.HelpScreen;
@@ -21,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 public class ItemCommand {
     private HelpScreen itemHelpScreen = Menus.generateHelpScreen("Item Command - Command Usage", PageDisplay.DEFAULT, ItemFormat.SINGLE_DASH, ChatColor.GOLD, ChatColor.YELLOW)
             .addEntry("/i <item> [amount]", "Create and receive item from name, id, name:data, or id:data values")
-            .addEntry("/i save <file name>", "Save the item in your hand to file!")
+            .addEntry("/i save (-o) <file name>", "Save the item in your hand to file!")
             .addEntry("/i list", "List all the items saved to file")
             .addEntry("/i load <file name>", "Load the item from file, into your inventory!")
             .addEntry("/i rename <item name>", "Rename the item in your hand!")
@@ -43,19 +42,30 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i save", permissions = {Perms.COMMAND_ITEM})
+    @Flags(identifier = "o")
     //todo implement offhand options
-    public void onItemSaveCommand(Player player, @Wildcard @Arg(name = "file name") String name) {
+    public void onItemSaveCommand(Player player, @FlagArg("o")final boolean offHand, @Wildcard @Arg(name = "file name") String name) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(name.trim())) {
             Chat.actionMessage(player, "The items name must not be empty!");
             return;
         }
 
-        if (Players.handIsEmpty(player)) {
-            Chat.actionMessage(player, Messages.ITEM_IN_HAND_REQUIRED);
+        if (Players.handsAreEmpty(player)) {
+            Chat.message(player, Messages.ITEM_IN_EITHER_HAND_REQUIRED);
             return;
         }
 
-        ItemStack hand = player.getItemInHand();
+        ItemStack hand = null;
+
+        HandSlot slot = offHand ? HandSlot.OFF_HAND : HandSlot.MAIN_HAND;
+
+        if (!Players.hasItemInHand(player, slot)) {
+            Chat.message(player,Messages.itemInHandRequired(slot));
+            return;
+        }
+
+        hand = Players.getItemInHand(player,slot);
+
         boolean saved = SavedItemManager.saveItem(name, hand);
 
         if (saved) {
@@ -91,14 +101,17 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i rename", permissions = Perms.COMMAND_ITEM)
-    //todo implement options to rename the main and or offhand. (OFFHAND SUPPORT)
-    public void onRenameCommand(Player player, @Wildcard @Arg(name = "name") String itemName) {
-        if (!Players.hasItemInHand(player)) {
-            Chat.message(player, "&eYou need an item in your hand.");
+    @Flags(identifier = "o")
+    public void onRenameCommand(Player player, @FlagArg("o")final boolean offHand, @Wildcard @Arg(name = "name") String itemName) {
+        HandSlot hand = offHand ? HandSlot.OFF_HAND : HandSlot.MAIN_HAND;
+
+        if (!Players.hasItemInHand(player,hand)) {
+            Chat.message(player, Messages.itemInHandRequired(hand));
             return;
         }
 
-        Items.setName(player.getItemInHand(), itemName);
+        ItemStack handItem = Players.getItemInHand(player,hand);
+        Items.setName(handItem , itemName);
         Chat.message(player, String.format("&aItem Re-Named to %s", itemName));
     }
 
@@ -113,46 +126,56 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i lore add", permissions = Perms.COMMAND_ITEM)
-    //todo implement support for offhand.
-    public void onLoreAddCommand(Player player, @Wildcard @Arg(name = "lore", description = "Lore to add to the given item") String lore) {
-        if (Players.handIsEmpty(player)) {
-            Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
+    @Flags(identifier = "o")
+    public void onLoreAddCommand(Player player, @FlagArg("o")final boolean offHand, @Wildcard @Arg(name = "lore", description = "Lore to add to the given item") String lore) {
+        HandSlot handSlot = offHand ? HandSlot.OFF_HAND : HandSlot.MAIN_HAND;
+
+        if (Players.handIsEmpty(player,handSlot)) {
+            Chat.message(player, String.format("&c&lTo perform &e&l/i lore&c&l you require an item in your %s-hand.",handSlot == HandSlot.MAIN_HAND ? "main" : "off"));
             return;
         }
 
-        Items.addLore(player.getItemInHand(), lore);
-        Chat.actionMessage(player, "&a&lNew lore has been added to your item!");
+        ItemStack handItem = Players.getItemInHand(player,handSlot);
+
+        Items.addLore(handItem, lore);
+        Chat.message(player, "&a&lNew lore has been added to your item!");
     }
 
     @Command(identifier = "i lore clear", permissions = Perms.COMMAND_ITEM)
-    //todo implement support for offhand.
-    public void onLoreClearCommand(Player player) {
-        if (Players.handIsEmpty(player)) {
-            Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
+    @Flags(identifier = "o")
+    public void onLoreClearCommand(Player player, @FlagArg("o")final boolean offHand) {
+        HandSlot handSlot = offHand ? HandSlot.OFF_HAND : HandSlot.MAIN_HAND;
+        if (Players.handIsEmpty(player,handSlot)) {
+            Chat.actionMessage(player, String.format("&c&lTo perform &e&l/i lore&c&l you require an item in your %s-hand.",offHand ? "hand" : "main"));
             return;
         }
 
-        Items.clearLore(player.getItemInHand());
+        ItemStack handItem = Players.getItemInHand(player,handSlot);
+
+        Items.clearLore(handItem);
 
         Chat.actionMessage(player, "&e&lYour items lore has been cleared!");
     }
 
     @Command(identifier = "i lore set", permissions = Perms.COMMAND_ITEM)
-    //todo implement support for offhand
-    public void onLoreSetLineCommand(Player player, @Arg(name = "line") int line, @Wildcard @Arg(name = "lore", description = "lore to set at the given line") String lore) {
-        if (Players.handIsEmpty(player)) {
-            Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your hand.");
+    @Flags(identifier = "o")
+    public void onLoreSetLineCommand(Player player, @FlagArg("o")final boolean offHand, @Arg(name = "line") int line, @Wildcard @Arg(name = "lore", description = "lore to set at the given line") String lore) {
+        HandSlot handSlot = offHand ? HandSlot.OFF_HAND : HandSlot.MAIN_HAND;
+
+        if (Players.handIsEmpty(player,handSlot)) {
+            Chat.message(player, String.format("&c&lTo perform &e&l/i lore&c&l you require an item in your %s-hand.", offHand ? "off" : "main"));
             return;
         }
 
-        ItemStack playerHand = player.getItemInHand();
 
-        if (!Items.hasLoreAtLine(playerHand, line)) {
-            Chat.actionMessage(player, "&c&lUnable to edit lore at line &e&l" + line + "&6&l:&c&l Only " + Items.getLore(playerHand).size() + " lines available");
+        ItemStack handItem = Players.getItemInHand(player, handSlot);
+
+        if (!Items.hasLoreAtLine(handItem, line)) {
+            Chat.message(player, "&c&lUnable to edit lore at line &e&l" + line + "&6&l:&c&l Only " + Items.getLore(handItem).size() + " lines available");
             return;
-        }
+            }
 
-        Items.setLore(playerHand, line, lore);
+        Items.setLore(handItem, line, lore);
         Chat.actionMessage(player, "&a&lYour items lore has been edited");
     }
 }

@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class RecipeCommand {
     @Command(identifier = "recipe", permissions = Perms.COMMAND_RECIPE)
-    public void onItemRecipeCommand(Player player, @Arg(name = "item", def = "?hand") ItemStack item) {
+    public void onItemRecipeCommand(Player player, @Arg(name = "item") ItemStack item) {
         boolean shown = Items.showRecipe(player, item);
         if (!shown) {
             Chat.message(player, Messages.invalidRecipe(item));

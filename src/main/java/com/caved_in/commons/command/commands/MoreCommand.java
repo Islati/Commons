@@ -14,8 +14,8 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class MoreCommand {
     @Command(identifier = "more", permissions = {Perms.COMMAND_MORE})
-    @Flags(identifier = {"a"})
-    public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems, @FlagArg("m")final boolean mainHand, @FlagArg("o")final boolean offHand) {
+    @Flags(identifier = {"a", "o", "-hands"})
+    public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems, @FlagArg("o") final boolean offHand, @FlagArg("-hands") final boolean hands) {
         if (allItems) {
             PlayerInventory inventory = player.getInventory();
             for (ItemStack item : inventory.getContents()) {
@@ -34,46 +34,41 @@ public class MoreCommand {
         }
 
         // If no hand was specifically noted, then just max out both.
-        if (!mainHand && !offHand) {
-            if(!Players.handIsEmpty(player,HandSlot.MAIN_HAND)) {
+        if (hands) {
+            if (!Players.handIsEmpty(player, HandSlot.MAIN_HAND)) {
                 ItemStack mainHandItem = Players.getItemInHand(player, HandSlot.MAIN_HAND);
                 mainHandItem.setAmount(mainHandItem.getMaxStackSize());
-                Players.setItemInHand(player,mainHandItem,HandSlot.MAIN_HAND);
+                Players.setItemInHand(player, mainHandItem, HandSlot.MAIN_HAND);
             }
 
-            if(!Players.handIsEmpty(player,HandSlot.OFF_HAND)) {
+            if (!Players.handIsEmpty(player, HandSlot.OFF_HAND)) {
                 ItemStack offHandItem = Players.getItemInHand(player, HandSlot.OFF_HAND);
                 offHandItem.setAmount(offHandItem.getMaxStackSize());
-                Players.setItemInHand(player,offHandItem,HandSlot.OFF_HAND);
+                Players.setItemInHand(player, offHandItem, HandSlot.OFF_HAND);
             }
 
             return;
         }
 
-        if (mainHand) {
-            if (Players.handIsEmpty(player,HandSlot.MAIN_HAND)) {
-                Chat.message(player,Messages.ITEM_IN_HAND_REQUIRED);
-                return;
-            }
-
-            ItemStack mainHandItem = Players.getItemInHand(player, HandSlot.MAIN_HAND);
-            mainHandItem.setAmount(mainHandItem.getMaxStackSize());
-            Players.setItemInHand(player,mainHandItem,HandSlot.MAIN_HAND);
-        }
-
         if (offHand) {
-            if (Players.handIsEmpty(player,HandSlot.OFF_HAND)) {
-                Chat.message(player,Messages.ITEM_IN_HAND_REQUIRED);
+            if (Players.handIsEmpty(player, HandSlot.OFF_HAND)) {
+                Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
                 return;
             }
 
             ItemStack offHandItem = Players.getItemInHand(player, HandSlot.OFF_HAND);
             offHandItem.setAmount(offHandItem.getMaxStackSize());
-            Players.setItemInHand(player,offHandItem,HandSlot.OFF_HAND);
+            Players.setItemInHand(player, offHandItem, HandSlot.OFF_HAND);
         }
 
-        ItemStack playerHandItem = player.getItemInHand();
-        playerHandItem.setAmount(64);
-        player.setItemInHand(playerHandItem);
+        if (Players.handIsEmpty(player, HandSlot.MAIN_HAND)) {
+            Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
+            return;
+        }
+
+        ItemStack mainHandItem = Players.getItemInHand(player, HandSlot.MAIN_HAND);
+        mainHandItem.setAmount(mainHandItem.getMaxStackSize());
+        Players.setItemInHand(player, mainHandItem, HandSlot.MAIN_HAND);
+
     }
 }
