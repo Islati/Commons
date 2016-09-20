@@ -67,9 +67,9 @@ public class GunProperties extends WeaponProperties {
         this.parent = parent;
     }
 
-    public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo, @Element(name = "take-ammunition-on-fire", required = false) boolean takeAmmunition) {
-		/* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
-        super(-1, false, false, damageMin, damageMax);
+    public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo, @Element(name = "take-ammunition-on-fire", required = false) boolean takeAmmunition) {
+        /* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
+        super(-1, false, false, offHandEquipable, damageMin, damageMax);
 
         this.clipSize = clipSize;
         this.shotDelay = shotDelay;

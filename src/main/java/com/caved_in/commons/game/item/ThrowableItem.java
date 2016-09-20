@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.game.gadget.GadgetProperties;
 import com.caved_in.commons.game.gadget.ItemGadget;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.TimeHandler;
@@ -40,12 +41,23 @@ public abstract class ThrowableItem extends ItemGadget {
 
     @Override
     public void perform(Player holder) {
+        ItemStack gadgetItem = getItem();
+
+        /*
+        With Dual-Wielding available we need to check the hand slot of where the player has the item.
+         */
+        if (Players.hasItemInHand(holder, gadgetItem, HandSlot.MAIN_HAND)) {
+            Players.removeFromHand(holder, 1, HandSlot.MAIN_HAND);
+        } else {
+            Players.removeFromHand(holder, 1, HandSlot.OFF_HAND);
+        }
+
         //Remove an item from the players hand, taking it out of their total amount for the throwable item.
         Players.removeFromHand(holder, 1);
 
         Location eyeLoc = holder.getEyeLocation();
 
-        final Item thrownItem = Worlds.dropItem(eyeLoc, getItem());
+        final Item thrownItem = Worlds.dropItem(eyeLoc, gadgetItem);
 
         //If the item's not meant to be picked up, then assure it
         //wont be picked up
@@ -158,8 +170,8 @@ public abstract class ThrowableItem extends ItemGadget {
             super();
         }
 
-        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable) {
-            super(durability, isBreakable, isDroppable);
+        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable) {
+            super(durability, isBreakable, isDroppable, offHandEquipable);
         }
 
         public int delay() {

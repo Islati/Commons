@@ -1592,6 +1592,7 @@ public class Players {
      * @param player player to take the items from.
      * @param amount amount of items take from the stack.
      */
+    @Deprecated
     public static void removeFromHand(Player player, int amount) {
         removeFromHand(player, amount, HandSlot.MAIN_HAND);
     }

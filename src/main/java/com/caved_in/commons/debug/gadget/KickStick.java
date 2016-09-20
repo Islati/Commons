@@ -4,6 +4,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.item.BaseWeapon;
+import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
@@ -47,8 +48,9 @@ public class KickStick extends BaseWeapon {
 
     @Override
     public void onAttack(Player p, LivingEntity e) {
+        int kickStickSlot = Inventories.getSlotOf(p.getInventory(),getItem());
         if (!p.hasPermission(Perms.KICK_STICK)) {
-            Players.clearHand(p);
+            Inventories.clearSlot(p.getInventory(),kickStickSlot);
             return;
         }
 

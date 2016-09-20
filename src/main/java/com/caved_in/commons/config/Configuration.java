@@ -2,179 +2,179 @@ package com.caved_in.commons.config;
 
 public interface Configuration {
 
-	public boolean hasSqlBackend();
+	boolean hasSqlBackend();
 
-	public void setMysqlBackend(boolean val);
+	void setMysqlBackend(boolean val);
 
-	public String getMysqlHost();
+	String getMysqlHost();
 
-	public void setMysqlHost(String host);
+	void setMysqlHost(String host);
 
-	public String getMysqlDatabaseName();
+	String getMysqlDatabaseName();
 
-	public void setMysqlDatabaseName(String name);
+	void setMysqlDatabaseName(String name);
 
-	public String getMysqlPort();
+	String getMysqlPort();
 
-	public void setMysqlPort(String port);
+	void setMysqlPort(String port);
 
-	public String getMysqlUsername();
+	String getMysqlUsername();
 
-	public void setMysqlUsername(String username);
+	void setMysqlUsername(String username);
 
-	public String getMysqlPassword();
+	String getMysqlPassword();
 
-	public void setMysqlPassword(String password);
+	void setMysqlPassword(String password);
 
-	public boolean trackOnlinePlayerStatus();
+	boolean trackOnlinePlayerStatus();
 
-	public void setTrackOnlinePlayerStatus(boolean val);
+	void setTrackOnlinePlayerStatus(boolean val);
 
-	public String getServerName();
+	String getServerName();
 
-	public void setServerName(String name);
+	void setServerName(String name);
 
-	public boolean registerCommands();
+	boolean registerCommands();
 
-	public void registerCommands(boolean val);
+	void registerCommands(boolean val);
 
-	public boolean enableBukkitCommands();
+	boolean enableBukkitCommands();
 
-	public void enableBukkitCommands(boolean val);
+	void enableBukkitCommands(boolean val);
 
-	public boolean enablePluginsCommand();
+	boolean enablePluginsCommand();
 
-	public void enablePluginsCommand(boolean val);
+	void enablePluginsCommand(boolean val);
 
-	public boolean enableJoinMessages();
+	boolean enableJoinMessages();
 
-	public void enableJoinMessages(boolean val);
+	void enableJoinMessages(boolean val);
 
-	public boolean enableLeaveMessages();
+	boolean enableLeaveMessages();
 
-	public void enableLeaveMessages(boolean val);
+	void enableLeaveMessages(boolean val);
 
-	public boolean enableKickMessages();
+	boolean enableKickMessages();
 
-	public void enableKickMessages(boolean val);
+	void enableKickMessages(boolean val);
 
-	public boolean hasExternalChatPlugin();
+	boolean hasExternalChatPlugin();
 
-	public void externalChatPlugin(boolean val);
+	void externalChatPlugin(boolean val);
 
-	public boolean isChatSilenced();
+	boolean isChatSilenced();
 
-	public void silenceChat(boolean val);
+	void silenceChat(boolean val);
 
-	public boolean isPremiumOnlyMode();
+	boolean isPremiumOnlyMode();
 
-	public void setPremiumOnlyMode(boolean val);
+	void setPremiumOnlyMode(boolean val);
 
-	public String getPremiumUserPermission();
+	String getPremiumUserPermission();
 
-	public void setPremiumUserPermission(String perm);
+	void setPremiumUserPermission(String perm);
 
-	public String getPremiumOnlyModeKickMessage();
+	String getPremiumOnlyModeKickMessage();
 
-	public void premiumOnlyModeKickMessage(String msg);
+	void premiumOnlyModeKickMessage(String msg);
 
-	public boolean kickNonPremiumPlayerWhenFull();
+	boolean kickNonPremiumPlayerWhenFull();
 
-	public void kickNonPremiumPlayerWhenFull(boolean val);
+	void kickNonPremiumPlayerWhenFull(boolean val);
 
-	public String kickNonPremiumMessage();
+	String kickNonPremiumMessage();
 
-	public void setKickNonPremiumMessage(String msg);
+	void setKickNonPremiumMessage(String msg);
 
-	public boolean teleportToSpawnOnJoin();
+	boolean teleportToSpawnOnJoin();
 
-	public void teleportToSpawnOnJoin(boolean val);
+	void teleportToSpawnOnJoin(boolean val);
 
-	public boolean disableWeather();
+	boolean disableWeather();
 
-	public void disableWeather(boolean val);
+	void disableWeather(boolean val);
 
-	public boolean disableLightning();
+	boolean disableLightning();
 
-	public void disableLightning(boolean val);
+	void disableLightning(boolean val);
 
-	public boolean disableThunder();
+	boolean disableThunder();
 
-	public void disableThunder(boolean val);
+	void disableThunder(boolean val);
 
-	public boolean disableIceAccumulation();
+	boolean disableIceAccumulation();
 
-	public void disableIceAccumulation(boolean val);
+	void disableIceAccumulation(boolean val);
 
-	public boolean disableSnowAccumulation();
+	boolean disableSnowAccumulation();
 
-	public void disableSnowAccumulation(boolean val);
+	void disableSnowAccumulation(boolean val);
 
-	public boolean disableMyceliumSpread();
+	boolean disableMyceliumSpread();
 
-	public void disableMyceliumSpread(boolean val);
+	void disableMyceliumSpread(boolean val);
 
-	public boolean disableFireSpread();
+	boolean disableFireSpread();
 
-	public void disableFireSpread(boolean val);
+	void disableFireSpread(boolean val);
 
-	public boolean disableLeavesDecay();
+	boolean disableLeavesDecay();
 
-	public void disableLeavesDecay(boolean val);
+	void disableLeavesDecay(boolean val);
 
-	public boolean hasLaunchpadPressurePlates();
+	boolean hasLaunchpadPressurePlates();
 
-	public void launchpadPressurePlates(boolean val);
+	void launchpadPressurePlates(boolean val);
 
-	public boolean enableBlockBreak();
+	boolean enableBlockBreak();
 
-	public void enableBlockBreak(boolean val);
+	void enableBlockBreak(boolean val);
 
-	public boolean enableItemPickup();
+	boolean enableItemPickup();
 
-	public void enableItemPickup(boolean val);
+	void enableItemPickup(boolean val);
 
-	public boolean enableItemDrop();
+	boolean enableItemDrop();
 
-	public void enableItemDrop(boolean val);
+	void enableItemDrop(boolean val);
 
-	public boolean enableFoodChange();
+	boolean enableFoodChange();
 
-	public void enableFoodChange(boolean val);
+	void enableFoodChange(boolean val);
 
-	public boolean hasExplosionFireworks();
+	boolean hasExplosionFireworks();
 
-	public void explosionFireworks(boolean val);
+	void explosionFireworks(boolean val);
 
-	public boolean enableFallDamage();
+	boolean enableFallDamage();
 
-	public void enableFallDamage(boolean val);
+	void enableFallDamage(boolean val);
 
-	public boolean isMaintenanceModeEnabled();
+	boolean isMaintenanceModeEnabled();
 
-	public void setMaintenanceMode(boolean val);
+	void setMaintenanceMode(boolean val);
 
-	public String maintenanceModeKickMessage();
+	String maintenanceModeKickMessage();
 
-	public void maintenanceModeKickMessage(String msg);
+	void maintenanceModeKickMessage(String msg);
 
-	public String maintenanceModeMotd();
+	String maintenanceModeMotd();
 
-	public void maintenanceModeMotd(String msg);
+	void maintenanceModeMotd(String msg);
 
-	public boolean enableStackTraceEvent();
+	boolean enableStackTraceEvent();
 
-	public void enableStackTraceEvent(boolean val);
+	void enableStackTraceEvent(boolean val);
 
-	public boolean enableStackTraceBook();
+	boolean enableStackTraceBook();
 
-	public void enableStackTraceBook(boolean val);
+	void enableStackTraceBook(boolean val);
 
-	public boolean enableStackTraceChat();
+	boolean enableStackTraceChat();
 
-	public void enableStackTraceChat(boolean val);
+	void enableStackTraceChat(boolean val);
 
-	public boolean enableWarpsMenu();
+	boolean enableWarpsMenu();
 
-	public void enableWarpsMenu(boolean val);
+	void enableWarpsMenu(boolean val);
 }

@@ -268,7 +268,7 @@ public class CreatureBuilder {
     }
 
     public CreatureBuilder armor(ArmorInventory armor) {
-        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withWeapon(armor.getWeapon());
+        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withMainHand(armor.getMainHand()).withOffHand(armor.getOffHand());
         return this;
     }
 

@@ -113,7 +113,11 @@ public class Messages {
     }
 
     public static String failedToEnchantItem(HandSlot hand) {
-        return String.format("&cFailed to enchant your %s item; Is it a valid enchantment for the item?",hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+        return String.format("&cFailed to enchant your %s item; Is it a valid enchantment for the item?", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+    }
+
+    public static String gadgetEquipError(Gadget gadget, HandSlot slot) {
+        return String.format("&eThe '&6%s&e' gadget is restricted from your &c%s&e slot.", Items.getName(gadget.getItem()), slot == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 
     public static String gadgetExpired(Gadget gadget) {
@@ -304,7 +308,7 @@ public class Messages {
         return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
     }
 
-    public static String itemEnchantmentAdded(String enchantmentName, int level,HandSlot hand) {
+    public static String itemEnchantmentAdded(String enchantmentName, int level, HandSlot hand) {
         return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your %s item", level, enchantmentName, hand == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 

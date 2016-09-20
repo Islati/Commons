@@ -111,7 +111,7 @@ public class Commons extends BukkitPlugin {
         chatMenuListener = new ChatMenuCommandListener(this);
 
 		/*
-		Create the private message manager; used to track private messages for players on the server.
+        Create the private message manager; used to track private messages for players on the server.
          */
         privateMessageManager = new PrivateMessageManager();
 
@@ -403,7 +403,8 @@ public class Commons extends BukkitPlugin {
                 new ItemDamageListener(),
                 new EntityDamageListener(),
                 new SignEditListener(),
-                new LeavesDecayListener()
+                new LeavesDecayListener(),
+                new PlayerSwapHandItemsListener()
         );
     }
 

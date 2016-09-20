@@ -339,7 +339,6 @@ public class Chat {
         messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
     }
 
-    @Deprecated
     /**
      * Sends the given text to all players in debug mode, and the server console; along with logging it in log.txt
      */

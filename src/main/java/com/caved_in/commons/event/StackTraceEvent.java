@@ -64,5 +64,10 @@ public class StackTraceEvent extends Event {
             //For every player that's debugging, send them the exception-info message
             debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
         }
+
+        /*
+        By default we also want to message our console!
+         */
+        Chat.messageConsole(Messages.exceptionInfo(eventException));
     }
 }

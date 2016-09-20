@@ -2,6 +2,8 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.gadget.ItemGadget;
+import com.caved_in.commons.inventory.ArmorSlot;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
@@ -28,8 +30,6 @@ public abstract class BaseArrow extends ItemGadget {
     private static Commons commons = null;
 
     private static Set<UUID> infinityIds = new HashSet<>();
-
-//    private Map<UUID, ItemStack> firedArrows = new HashMap<>();
 
     //todo find a way to equip mobs with custom gear and apply effects to it (hda)
 
@@ -128,18 +128,16 @@ public abstract class BaseArrow extends ItemGadget {
     public abstract boolean onDamage(LivingEntity entity, Player shooter);
 
     @Override
-    public void perform(Player holder) {
-        //todo equip in 1.9
-//        MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(holder);
-//
-//        if (mcPlayer.hasArrowEquipped()) {
-//            ItemStack arrow = mcPlayer.getEquippedArrow();
-//            mcPlayer.unequipArrow();
-//            Chat.message(holder, String.format("&eYou've unequipped your '&c%s&e'", Items.getName(arrow)));
-//        }
-//
-//        mcPlayer.equipArrow(getItem());
-//        Chat.actionMessage(holder,String.format("&aYou've equipped your '&e%s&a'",Items.getName(getItem())));
-        return;
+    public void perform(Player player) {
+        ItemStack arrow = getItem();
+        if (!Players.hasItemInHand(player,arrow, HandSlot.OFF_HAND)) {
+            Players.setArmor(player, ArmorSlot.OFF_HAND,getItem());
+            //todo implement potential sound effects / etc.
+        } else {
+            Players.setItemInHand(player,null,HandSlot.OFF_HAND);
+            Players.giveItem(player,arrow);
+            //todo check if unequip is right.
+        }
+
     }
 }

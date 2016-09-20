@@ -23,8 +23,8 @@ public class WeaponProperties extends GadgetProperties {
 
     }
 
-    public WeaponProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable,@Element(name="mainHandEquipable")boolean mainHandEquippable, @Element(name="offHandEquippable")boolean offHandEquipable @Element(name = "droppable") boolean isDroppable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax) {
-        super(durability, isBreakable, isDroppable);
+    public WeaponProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax) {
+        super(durability, isBreakable, isDroppable,offHandEquipable);
         /* Apply the damage to the instance of weapon properties */
         damage(damageMin, damageMax);
     }

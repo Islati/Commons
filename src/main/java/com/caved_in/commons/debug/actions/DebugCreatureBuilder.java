@@ -17,14 +17,14 @@ public class DebugCreatureBuilder implements DebugAction {
                 .armor()
                 .withHelmet(Items.makeItem(Material.IRON_HELMET))
                 .withBoots(Items.makeItem(Material.GOLD_BOOTS))
-                .withWeapon(Items.makeItem(Material.WOOD_SWORD))
+                .withMainHand(Items.makeItem(Material.WOOD_SWORD))
                 .parent()
                 .spawn(player.getLocation());
 
         LivingEntity skeleton = CreatureBuilder.of(EntityType.SKELETON)
                 .wither()
                 .armor()
-                .withWeapon(Items.makeItem(Material.DIAMOND_SWORD))
+                .withMainHand(Items.makeItem(Material.DIAMOND_SWORD))
                 .parent()
                 .spawn(player.getLocation());
 

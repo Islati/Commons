@@ -37,9 +37,6 @@ public class GadgetProperties {
     @Element(name = "droppable")
     private boolean isDroppable = false;
 
-    @Element(name = "mainHandEquippable")
-    private boolean mainHandEquipable = true;
-
     @Element(name = "offHandEquippable")
     private boolean offHandEquipable = true;
 
@@ -47,11 +44,10 @@ public class GadgetProperties {
 
     }
 
-    public GadgetProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "mainHandEquipable") boolean mainHandEquipable, @Element(name = "offHandEquipable") boolean offHandEquipable) {
+    public GadgetProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable) {
         this.durability = durability;
         this.isBreakable = isBreakable;
         this.isDroppable = isDroppable;
-        this.mainHandEquipable = mainHandEquipable;
         this.offHandEquipable = offHandEquipable;
     }
 
@@ -105,11 +101,6 @@ public class GadgetProperties {
         return this;
     }
 
-    public GadgetProperties mainHandEquippable(boolean equip) {
-        this.mainHandEquipable = equip;
-        return this;
-    }
-
     public GadgetProperties offHandEquippable(boolean equip) {
         this.offHandEquipable = equip;
         return this;
@@ -137,19 +128,11 @@ public class GadgetProperties {
     }
 
     /**
-     * Check whether or not the gadget can be equipped in the given slot.
+     * Check whether or not the gadget can be equipped in the off-hand slot..
      *
-     * @param slot slot to check if the gadget can be equipped in.
-     * @return true if the gadget can be equipped in the given slot, false otherwise.
+     * @return true if the gadget can be equipped in the off-hand slot, false otherwise.
      */
-    public boolean isEquippable(HandSlot slot) {
-        switch (slot) {
-            case MAIN_HAND:
-                return mainHandEquipable;
-            case OFF_HAND:
-                return offHandEquipable;
-            default:
-                return false;
-        }
+    public boolean isOffhandEquippable() {
+        return offHandEquipable;
     }
 }

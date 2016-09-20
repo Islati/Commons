@@ -54,8 +54,12 @@ public class ArmorInventory {
         }
     }
 
-    public ItemStack getWeapon() {
-        return armorSlots.get(ArmorSlot.WEAPON);
+    public ItemStack getMainHand() {
+        return armorSlots.get(ArmorSlot.MAIN_HAND);
+    }
+
+    public ItemStack getOffHand() {
+        return armorSlots.get(ArmorSlot.OFF_HAND);
     }
 
     public ItemStack getHelmet() {

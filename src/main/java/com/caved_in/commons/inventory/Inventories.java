@@ -21,6 +21,8 @@ import java.util.*;
 
 public class Inventories {
 
+    public static final int PLAYER_OFF_HAND_ITEM_SLOT = 40;
+
     /**
      * Get the type of chest that the inventory holder is.
      *

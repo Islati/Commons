@@ -5,22 +5,22 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 @Root(name = "particles")
-public class XmlParticleEffect {
+public class ParticleEffect {
     @Attribute(name = "name")
     private String name;
 
     private ParticleEffects effect;
 
-    public static XmlParticleEffect of(ParticleEffects e) {
-        return new XmlParticleEffect(e);
+    public static ParticleEffect of(ParticleEffects e) {
+        return new ParticleEffect(e);
     }
 
-    public XmlParticleEffect(ParticleEffects effect) {
+    public ParticleEffect(ParticleEffects effect) {
         this.effect = effect;
         this.name = effect.name();
     }
 
-    public XmlParticleEffect(String name) {
+    public ParticleEffect(String name) {
         this.name = name;
     }
 

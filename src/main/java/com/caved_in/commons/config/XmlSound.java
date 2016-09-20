@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "sound")
 public class XmlSound {
     @Attribute(name = "name")
-    private String soundName = Sound.NOTE_STICKS.name();
+    private String soundName = Sound.BLOCK_NOTE_SNARE.name();
 
     public static XmlSound fromSound(Sound sound) {
         return new XmlSound(sound);
