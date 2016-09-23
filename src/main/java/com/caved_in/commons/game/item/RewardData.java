@@ -1,6 +1,6 @@
 package com.caved_in.commons.game.item;
 
-import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Material;
@@ -23,10 +23,10 @@ public class RewardData {
     @Attribute(name = "rarity")
     private int rarity = 100;
 
-    @Element(name = "item", type = XmlItemStack.class)
-    private XmlItemStack itemStack = new XmlItemStack(Items.makeItem(Material.GOLD_BOOTS));
+    @Element(name = "item", type = SerializableItemStack.class)
+    private SerializableItemStack itemStack = new SerializableItemStack(Items.makeItem(Material.GOLD_BOOTS));
 
-    public RewardData(@Attribute(name = "min") int min, @Attribute(name = "max") int max, @Attribute(name = "rarity") int rarity, @Element(name = "item", type = XmlItemStack.class) XmlItemStack itemStack) {
+    public RewardData(@Attribute(name = "min") int min, @Attribute(name = "max") int max, @Attribute(name = "rarity") int rarity, @Element(name = "item", type = SerializableItemStack.class) SerializableItemStack itemStack) {
         this.min = min;
         this.max = max;
         this.rarity = rarity;
@@ -81,6 +81,6 @@ public class RewardData {
     }
 
     public void setItemStack(ItemStack item) {
-        itemStack = new XmlItemStack(item);
+        itemStack = new SerializableItemStack(item);
     }
 }

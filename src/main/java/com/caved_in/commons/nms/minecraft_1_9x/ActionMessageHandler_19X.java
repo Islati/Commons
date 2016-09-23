@@ -1,4 +1,4 @@
-package com.caved_in.commons.nms.minecraft_1_9_R1;
+package com.caved_in.commons.nms.minecraft_1_9x;
 
 import com.caved_in.commons.nms.ActionMessageHandler;
 import com.caved_in.commons.nms.NmsPlayers;
@@ -7,7 +7,7 @@ import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.entity.Player;
 import org.joor.Reflect;
 
-public class ActionMessageHandler_19R1 implements ActionMessageHandler {
+public class ActionMessageHandler_19X implements ActionMessageHandler {
 	@Override
 	public void actionMessage(Player player, String message) {
 

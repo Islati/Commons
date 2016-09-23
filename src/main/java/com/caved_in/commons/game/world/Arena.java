@@ -1,6 +1,6 @@
 package com.caved_in.commons.game.world;
 
-import com.caved_in.commons.config.XmlLocation;
+import com.caved_in.commons.config.SerializableLocation;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaModifiedEvent;
 import com.caved_in.commons.utilities.ListUtils;
@@ -39,8 +39,8 @@ public class Arena implements GameArena {
     @Element(name = "stormy")
     private boolean stormy = false;
 
-    @ElementList(name = "spawn-locations", type = XmlLocation.class, inline = true, entry = "spawn-point")
-    private List<XmlLocation> spawns = new ArrayList<>();
+    @ElementList(name = "spawn-locations", type = SerializableLocation.class, inline = true, entry = "spawn-point")
+    private List<SerializableLocation> spawns = new ArrayList<>();
 
     @ElementList(name = "breakable-blocks", entry = "id", empty = true)
     private List<Integer> breakables = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Arena implements GameArena {
     @ElementList(name = "placeable-blocks", entry = "id", empty = true)
     private List<Integer> placeables = new ArrayList<>();
 
-    public Arena(@Element(name = "id") int id, @Element(name = "name") String arenaName, @Element(name = "world") String worldName, @Element(name = "enabled") boolean enabled, @Element(name = "stormy") boolean stormy, @ElementList(name = "spawn-locations", type = XmlLocation.class, inline = true, entry = "spawn-point") List<XmlLocation> spawns, @ElementList(name = "breakable-blocks", entry = "id", empty = true) List<Integer> breakables, @ElementList(name = "placeable-blocks", entry = "id", empty = true) List<Integer> placeables) {
+    public Arena(@Element(name = "id") int id, @Element(name = "name") String arenaName, @Element(name = "world") String worldName, @Element(name = "enabled") boolean enabled, @Element(name = "stormy") boolean stormy, @ElementList(name = "spawn-locations", type = SerializableLocation.class, inline = true, entry = "spawn-point") List<SerializableLocation> spawns, @ElementList(name = "breakable-blocks", entry = "id", empty = true) List<Integer> breakables, @ElementList(name = "placeable-blocks", entry = "id", empty = true) List<Integer> placeables) {
         this.id = id;
         this.arenaName = arenaName;
         this.worldName = worldName;
@@ -62,7 +62,7 @@ public class Arena implements GameArena {
     public Arena(World world) {
         arenaName = world.getName();
         worldName = world.getName();
-        spawns.add(XmlLocation.fromLocation(Worlds.getSpawn(world)));
+        spawns.add(SerializableLocation.fromLocation(Worlds.getSpawn(world)));
     }
 
     @Override
@@ -130,7 +130,7 @@ public class Arena implements GameArena {
     }
 
     public void addSpawn(Location loc) {
-        spawns.add(XmlLocation.fromLocation(loc));
+        spawns.add(SerializableLocation.fromLocation(loc));
         ArenaModifiedEvent.throwEvent(this);
     }
 

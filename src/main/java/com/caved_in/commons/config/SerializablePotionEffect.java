@@ -9,7 +9,7 @@ import org.simpleframework.xml.Attribute;
 /**
  * Serializable wrapper for Potion effects.
  */
-public class XmlPotionEffect {
+public class SerializablePotionEffect {
     @Attribute(name = "potion-type")
     private String alias = "";
 
@@ -22,7 +22,7 @@ public class XmlPotionEffect {
     private PotionEffect potionEffect;
     private boolean valid = false;
 
-    public XmlPotionEffect(@Attribute(name = "potion-type") String alias, @Attribute(name = "level") int level, @Attribute(name = "duration", required = false) int duration) {
+    public SerializablePotionEffect(@Attribute(name = "potion-type") String alias, @Attribute(name = "level") int level, @Attribute(name = "duration", required = false) int duration) {
         this.alias = alias;
         this.level = level;
         this.duration = duration;
@@ -34,7 +34,7 @@ public class XmlPotionEffect {
         }
     }
 
-    public XmlPotionEffect(PotionEffect effect) {
+    public SerializablePotionEffect(PotionEffect effect) {
         this.alias = effect.getType().getName();
         this.level = effect.getAmplifier();
         this.duration = effect.getDuration();

@@ -3,6 +3,7 @@ package com.caved_in.commons.cuboid;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -20,20 +21,13 @@ import java.util.stream.Stream;
  *
  * @author desht (Original code), KingFaris10 (Editor), TheGamersCave (Editor)
  */
-public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializable {
-    @Attribute(name = "world-name")
+public class Cuboid extends YamlConfig implements Iterable<Block>, Cloneable, ConfigurationSerializable {
     private String worldName;
-    @Element(name = "x-1")
     private int x1;
-    @Element(name = "y-1")
     private int y1;
-    @Element(name = "z-1")
     private int z1;
-    @Element(name = "x-2")
     private int x2;
-    @Element(name = "y-2")
     private int y2;
-    @Element(name = "z-2")
     private int z2;
 
     /**

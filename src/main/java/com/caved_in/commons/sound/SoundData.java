@@ -1,12 +1,12 @@
 package com.caved_in.commons.sound;
 
-import com.caved_in.commons.config.XmlSound;
+import com.caved_in.commons.config.SerializableSound;
 import org.bukkit.Sound;
 import org.simpleframework.xml.Element;
 
 public class SoundData {
-    @Element(name = "sound", type = XmlSound.class)
-    private XmlSound sound;
+    @Element(name = "sound", type = SerializableSound.class)
+    private SerializableSound sound;
 
     @Element(name = "volume")
     private float volume = 1.0f;
@@ -20,7 +20,7 @@ public class SoundData {
         return new SoundData();
     }
 
-    public SoundData(@Element(name = "sound", type = XmlSound.class) XmlSound sound, @Element(name = "volume") float volume, @Element(name = "pitch") float pitch) {
+    public SoundData(@Element(name = "sound", type = SerializableSound.class) SerializableSound sound, @Element(name = "volume") float volume, @Element(name = "pitch") float pitch) {
         this.sound = sound;
         this.volume = volume;
         this.pitch = pitch;
@@ -35,7 +35,7 @@ public class SoundData {
     }
 
     public SoundData sound(Sound sound) {
-        this.sound = XmlSound.fromSound(sound);
+        this.sound = SerializableSound.fromSound(sound);
         return this;
     }
 

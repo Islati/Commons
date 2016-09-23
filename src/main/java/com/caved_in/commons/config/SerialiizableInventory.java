@@ -12,15 +12,15 @@ import java.util.Map;
  * Serializable wrapper for inventories.
  */
 @Root(name = "inventory")
-public class XmlInventory {
-    @ElementMap(name = "items", key = "slot", value = "item", valueType = XmlItemStack.class)
-    private Map<Integer, XmlItemStack> inventoryItems = new HashMap<>();
+public class SerialiizableInventory {
+    @ElementMap(name = "items", key = "slot", value = "item", valueType = SerializableItemStack.class)
+    private Map<Integer, SerializableItemStack> inventoryItems = new HashMap<>();
 
-    public XmlInventory(@ElementMap(name = "items", key = "slot", value = "item", valueType = XmlItemStack.class) Map<Integer, XmlItemStack> inventoryItems) {
+    public SerialiizableInventory(@ElementMap(name = "items", key = "slot", value = "item", valueType = SerializableItemStack.class) Map<Integer, SerializableItemStack> inventoryItems) {
         this.inventoryItems = inventoryItems;
     }
 
-    public XmlInventory(Inventory inventory) {
+    public SerialiizableInventory(Inventory inventory) {
         ItemStack[] contents = inventory.getContents();
         for (int i = 0; i < contents.length; i++) {
             ItemStack item = contents[i];
@@ -28,7 +28,7 @@ public class XmlInventory {
                 continue;
             }
 
-            inventoryItems.put(i, XmlItemStack.fromItem(item));
+            inventoryItems.put(i, SerializableItemStack.fromItem(item));
         }
     }
 

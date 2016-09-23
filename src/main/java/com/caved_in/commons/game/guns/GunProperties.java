@@ -1,6 +1,6 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.game.item.WeaponProperties;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
@@ -37,8 +37,8 @@ public class GunProperties extends WeaponProperties {
     /**
      * What ammunition to use for the guns. By default it's flint.
      */
-    @Element(name = "ammunition", type = XmlItemStack.class)
-    private XmlItemStack ammunition = XmlItemStack.fromItem(Items.makeItem(Material.FLINT));
+    @Element(name = "ammunition", type = SerializableItemStack.class)
+    private SerializableItemStack ammunition = SerializableItemStack.fromItem(Items.makeItem(Material.FLINT));
 
     /**
      * How many bullets each shot takes.
@@ -67,7 +67,7 @@ public class GunProperties extends WeaponProperties {
         this.parent = parent;
     }
 
-    public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = XmlItemStack.class) XmlItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo, @Element(name = "take-ammunition-on-fire", required = false) boolean takeAmmunition) {
+    public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = SerializableItemStack.class) SerializableItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo, @Element(name = "take-ammunition-on-fire", required = false) boolean takeAmmunition) {
         /* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
         super(-1, false, false, offHandEquipable, damageMin, damageMax);
 
@@ -148,7 +148,7 @@ public class GunProperties extends WeaponProperties {
      * @return the gun-properties builder.
      */
     public GunProperties ammunition(ItemStack item) {
-        this.ammunition = XmlItemStack.fromItem(item.clone());
+        this.ammunition = SerializableItemStack.fromItem(item.clone());
         return this;
     }
 

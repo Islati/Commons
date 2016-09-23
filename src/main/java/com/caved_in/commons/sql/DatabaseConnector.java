@@ -1,7 +1,6 @@
 package com.caved_in.commons.sql;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.SqlConfiguration;
 import com.google.common.base.Stopwatch;
 
 import java.sql.*;
@@ -9,11 +8,20 @@ import java.sql.*;
 public abstract class DatabaseConnector implements TableConnector {
 
     private Connection sqlConnection = null;
-    private SqlConfiguration config;
 
-    public DatabaseConnector(SqlConfiguration sqlConfiguration) {
-        this.config = sqlConfiguration;
-        initConnection();
+    private String host;
+    private int port;
+    private String database;
+    private String username;
+    private String password;
+
+
+    public DatabaseConnector(String host, int port, String database, String username, String password) {
+        this.host = host;
+        this.port = port;
+        this.database = database;
+        this.username = username;
+        this.password = password;
     }
 
     private void initConnection() {
@@ -21,9 +29,9 @@ public abstract class DatabaseConnector implements TableConnector {
         try {
             Chat.debug("Attempting to establish a connection the MySQL server!");
             Class.forName("com.mysql.jdbc.Driver");
-            sqlConnection = DriverManager.getConnection("jdbc:mysql://" + config.getHost() + ":" + config.getPort() + "/" + config.getDatabase() + "?autoReconnect=true", config.getUsername(), config.getPassword());
+            sqlConnection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", username, password);
             stopwatch.stop();
-            Chat.debug("Connection to MySQL server established! (" + config.getHost() + ":" + config.getPort() + ")");
+            Chat.debug("Connection to MySQL server established! (" + host + ":" + port + ")");
             Chat.debug("Connection took " + stopwatch + "ms!");
         } catch (SQLException e) {
             Chat.messageConsole("Could not connect to MySQL server! because: " + e.getMessage());
@@ -107,9 +115,5 @@ public abstract class DatabaseConnector implements TableConnector {
             closed[i] = close(statements[i]);
         }
         return closed;
-    }
-
-    public SqlConfiguration getConfig() {
-        return config;
     }
 }

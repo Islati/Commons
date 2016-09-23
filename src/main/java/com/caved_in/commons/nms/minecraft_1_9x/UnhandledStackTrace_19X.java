@@ -1,4 +1,4 @@
-package com.caved_in.commons.nms.minecraft_1_9_R1;
+package com.caved_in.commons.nms.minecraft_1_9x;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.event.StackTraceEvent;
@@ -6,7 +6,7 @@ import com.caved_in.commons.nms.UnhandledStackTrace;
 import org.bukkit.Bukkit;
 import org.joor.Reflect;
 
-public class UnhandledStackTrace_19R1 implements UnhandledStackTrace {
+public class UnhandledStackTrace_19X implements UnhandledStackTrace {
 	@Override
 	public void uncaughtException(Thread t, Throwable e) {
 		try {

@@ -6,7 +6,7 @@ import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ColorCode;
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
@@ -15,7 +15,6 @@ import com.caved_in.commons.inventory.*;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.nms.NMS;
-import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.sound.Sounds;
@@ -32,7 +31,6 @@ import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
-import io.netty.channel.Channel;
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -1703,7 +1701,7 @@ public class Players {
      * @since 1.6
      */
     public static void hidePlayer(Player player, Player target) {
-        hidePlayer(player, target, ParticleEffects.LARGE_SMOKE);
+        hidePlayer(player, target, ParticleEffect.SMOKE_LARGE);
     }
 
     /**
@@ -1714,9 +1712,9 @@ public class Players {
      * @param particles the particles to display when hiding the player.
      * @since 1.6
      */
-    public static void hidePlayer(Player player, Player target, ParticleEffects particles) {
+    public static void hidePlayer(Player player, Player target, ParticleEffect particles) {
         player.hidePlayer(target);
-        ParticleEffects.sendToLocation(particles, target.getLocation(), NumberUtil.getRandomInRange(4, 7));
+        ParticleEffect.sendToLocation(particles, target.getLocation(), NumberUtil.getRandomInRange(4, 7));
     }
 
     /**
@@ -1955,61 +1953,5 @@ public class Players {
                 }
             }
         }, 5l, 5l);
-    }
-
-
-    /**
-     * Sends the packet to the players connection.
-     *
-     * @param player player to send the packet to
-     * @param packet packet to send to the player
-     */
-    @Deprecated
-    public static void sendPacket(Player player, Object packet) {
-        NmsPlayers.sendPacket(player, packet);
-    }
-
-    /**
-     * Get the EntityPlayer from a player
-     *
-     * @param player player to get the EntityPlayer handle of
-     * @return EntityPlayer handle for the player object
-     */
-    @Deprecated
-    public static Object toEntityPlayer(Player player) {
-        return NmsPlayers.toEntityPlayer(player);
-    }
-
-    /**
-     * Get the connection instance for the player object
-     *
-     * @param player player to get the connection for
-     * @return connection for the player, or null if none exists
-     */
-    @Deprecated
-    public static Object getConnection(Player player) {
-        return NmsPlayers.getConnection(player);
-    }
-
-    /**
-     * Get the network manager for a player
-     *
-     * @param player player to get the network manager of
-     * @return network manager object for the player, or null if unable to retrieve
-     */
-    @Deprecated
-    public static Object getNetworkManager(Player player) {
-        return NmsPlayers.getNetworkManager(player);
-    }
-
-    /**
-     * Get the network channel of a player
-     *
-     * @param player player to get the channel of
-     * @return {@link io.netty.channel.Channel} which manages the player
-     */
-    @Deprecated
-    public static Channel getChannel(Player player) {
-        return NmsPlayers.getChannel(player);
     }
 }

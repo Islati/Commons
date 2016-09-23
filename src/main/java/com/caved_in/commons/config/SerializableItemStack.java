@@ -20,7 +20,7 @@ import java.util.Map;
  * Serializable wrapper for ItemStacks.
  */
 @Root(name = "itemstack")
-public class XmlItemStack {
+public class SerializableItemStack {
     @Element(name = "item-id")
     private int id;
 
@@ -37,7 +37,7 @@ public class XmlItemStack {
     private List<String> lore;
 
     @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false)
-    private ArrayList<XmlEnchantment> enchantments;
+    private ArrayList<SerializableEnchantment> enchantments;
 
     @Element(name = "skull-owner", required = false)
     private String skullOwner;
@@ -47,11 +47,11 @@ public class XmlItemStack {
 
     private ItemStack itemStack;
 
-    public static XmlItemStack fromItem(ItemStack item) {
-        return new XmlItemStack(item);
+    public static SerializableItemStack fromItem(ItemStack item) {
+        return new SerializableItemStack(item);
     }
 
-    public XmlItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<XmlEnchantment> enchantments, @Element(name = "skull-owner", required = false) String skullOwner, @ElementList(name = "flags", entry = "flag", type = ItemFlag.class, required = false) List<ItemFlag> flags) {
+    public SerializableItemStack(@Element(name = "item-id") int id, @Element(name = "item-amount", required = false) int amount, @Element(name = "data-value", required = false) int dataVal, @Element(name = "item-name", required = false) String itemName, @ElementList(name = "lore", entry = "line", required = false) ArrayList<String> lore, @ElementList(name = "enchantments", entry = "enchantment", inline = true, required = false) ArrayList<SerializableEnchantment> enchantments, @Element(name = "skull-owner", required = false) String skullOwner, @ElementList(name = "flags", entry = "flag", type = ItemFlag.class, required = false) List<ItemFlag> flags) {
         this.id = id;
         this.dataVal = dataVal;
         this.itemName = itemName;
@@ -62,7 +62,7 @@ public class XmlItemStack {
         this.itemFlags = flags;
     }
 
-    public XmlItemStack(ItemStack item) {
+    public SerializableItemStack(ItemStack item) {
         id = item.getTypeId();
 
         if (Items.isArmor(item) || Items.isWeapon(item)) {
@@ -84,7 +84,7 @@ public class XmlItemStack {
         if (Items.hasEnchantments(item)) {
             enchantments = new ArrayList<>();
             for (Map.Entry<Enchantment, Integer> enchantment : item.getEnchantments().entrySet()) {
-                enchantments.add(new XmlEnchantment(enchantment.getKey(), enchantment.getValue()));
+                enchantments.add(new SerializableEnchantment(enchantment.getKey(), enchantment.getValue()));
             }
         }
 
@@ -132,7 +132,7 @@ public class XmlItemStack {
             }
 
             if (enchantments != null && enchantments.size() > 0) {
-                for (XmlEnchantment enchantment : enchantments) {
+                for (SerializableEnchantment enchantment : enchantments) {
                     Items.addEnchantment(itemStack, enchantment.getEnchantment(), enchantment.getLevel());
                 }
             }

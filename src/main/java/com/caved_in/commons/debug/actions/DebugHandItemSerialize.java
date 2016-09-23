@@ -3,7 +3,7 @@ package com.caved_in.commons.debug.actions;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
@@ -44,7 +44,7 @@ public class DebugHandItemSerialize implements DebugAction {
         }
 
         try {
-            serializer.write(new XmlItemStack(playerHand), itemFile);
+            serializer.write(new SerializableItemStack(playerHand), itemFile);
             Chat.message(player, "Saved item to " + itemFile.toString());
         } catch (Exception e) {
             Chat.message(player, "Error saving item to " + itemFile.toString());

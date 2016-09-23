@@ -3,7 +3,7 @@ package com.caved_in.commons.game.guns;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.ItemGadget;
@@ -40,8 +40,8 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();
 
-    @Element(name = "gun", type = XmlItemStack.class)
-    private XmlItemStack gun;
+    @Element(name = "gun", type = SerializableItemStack.class)
+    private SerializableItemStack gun;
 
     @Element(name = "properties", type = GunProperties.class)
     private GunProperties properties = new GunProperties();
@@ -57,7 +57,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
     private BulletActions actions;
 
-    public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties, @Element(name = "bullet-properties", type = BulletProperties.class) BulletProperties bulletProperties) {
+    public BaseGun(@Element(name = "gun", type = SerializableItemStack.class) SerializableItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties, @Element(name = "bullet-properties", type = BulletProperties.class) BulletProperties bulletProperties) {
         super(gun.getItemStack());
         this.gun = gun;
         this.properties = properties;
@@ -66,12 +66,12 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
     public BaseGun(ItemStack item) {
         super(item);
-        gun = XmlItemStack.fromItem(item);
+        gun = SerializableItemStack.fromItem(item);
     }
 
     public BaseGun(ItemBuilder builder) {
         super(builder);
-        gun = XmlItemStack.fromItem(getItem());
+        gun = SerializableItemStack.fromItem(getItem());
     }
 
     private void initBuilder() {

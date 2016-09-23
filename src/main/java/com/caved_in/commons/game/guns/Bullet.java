@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.effect.ParticleEffect;
+import com.caved_in.commons.effect.Particles;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.time.BasicTicker;
 import org.bukkit.Location;
@@ -31,7 +32,7 @@ public class Bullet extends BaseBullet {
     @Override
     public void onTravel(Location l) {
         if (ticker.allow()) {
-            ParticleEffects.sendToLocation(ParticleEffects.INSTANT_SPELL, l, 2);
+            Particles.sendToLocation(l, ParticleEffect.SPELL_INSTANT, 2);
             ticker.reset();
         } else {
             ticker.tick();

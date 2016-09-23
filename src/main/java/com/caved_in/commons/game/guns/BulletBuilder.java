@@ -1,6 +1,6 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import com.caved_in.commons.item.Items;
@@ -25,7 +25,7 @@ public class BulletBuilder {
 
     private boolean hasLauncher = true;
 
-    private ParticleEffects effect;
+    private ParticleEffect effect;
 
     public static BulletBuilder from(BulletProperties properties) {
         return new BulletBuilder(properties);
@@ -125,7 +125,7 @@ public class BulletBuilder {
      * @param effect effect to trail the bullet.
      * @return this bullet builder.
      */
-    public BulletBuilder trail(ParticleEffects effect) {
+    public BulletBuilder trail(ParticleEffect effect) {
         this.effect = effect;
         return this;
     }

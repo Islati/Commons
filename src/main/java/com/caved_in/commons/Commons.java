@@ -3,10 +3,8 @@ package com.caved_in.commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.chat.PrivateMessageManager;
 import com.caved_in.commons.command.RegisterCommandMethodException;
-import com.caved_in.commons.config.CommonsXmlConfiguration;
 import com.caved_in.commons.config.CommonsYamlConfiguration;
 import com.caved_in.commons.config.Configuration;
-import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.file.TextFile;
 import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
@@ -51,8 +49,7 @@ public class Commons extends BukkitPlugin {
 
     /*
     A(n) instance of the worlds class
-    to internally manage worlds and apply their settings
-    specified in the WorldConfiguration section of Commons Config.
+    to internally manage worlds and apply their settings.
      */
     private Worlds worlds;
 
@@ -116,12 +113,12 @@ public class Commons extends BukkitPlugin {
         privateMessageManager = new PrivateMessageManager();
 
         /*
-		Create the worlds instance
+        Create the worlds instance
          */
         worlds = new Worlds();
 
         /*
-		Create the players instance, used internally to track commons-required
+        Create the players instance, used internally to track commons-required
         player data for methods, and tasks.
 
         Externally the Players class provides a static API
@@ -130,16 +127,8 @@ public class Commons extends BukkitPlugin {
 
         //If the SQL Backend is enabled, then register all the database interfaces
         if (globalConfig.hasSqlBackend()) {
-            SqlConfiguration sqlConfig = new SqlConfiguration(
-                    globalConfig.getMysqlHost(),
-                    globalConfig.getMysqlPort(),
-                    globalConfig.getMysqlDatabaseName(),
-                    globalConfig.getMysqlUsername(),
-                    globalConfig.getMysqlPassword(),
-                    globalConfig.trackOnlinePlayerStatus()
-            );
             //Create the database connection
-            database = new ServerDatabaseConnector(sqlConfig);
+            database = new ServerDatabaseConnector(globalConfig.getMysqlHost(), Integer.parseInt(globalConfig.getMysqlPort()), globalConfig.getMysqlDatabaseName(), globalConfig.getMysqlUsername(), globalConfig.getMysqlPassword());
 
             getThreadManager().runTaskAsync(() -> {
                 database.updateServerOnlineStatus(true);
@@ -180,7 +169,7 @@ public class Commons extends BukkitPlugin {
     @Override
     public void shutdown() {
         /*
-		Update the server-online status for the server that's stopping
+        Update the server-online status for the server that's stopping
         to false!
          */
         if (hasDatabaseBackend()) {
@@ -271,7 +260,7 @@ public class Commons extends BukkitPlugin {
             file = f;
 
 			/*
-			If the rules file doesn't exist, then create it!
+            If the rules file doesn't exist, then create it!
 
 			 */
             if (!file.exists()) {
@@ -455,7 +444,7 @@ public class Commons extends BukkitPlugin {
 
     private void alternateCommonsConfig(Configuration currentConfig, Configuration targetConfig) {
         /*
-		Configure all the database options!
+        Configure all the database options!
 		 */
         targetConfig.setMysqlBackend(currentConfig.hasSqlBackend());
         targetConfig.setMysqlHost(currentConfig.getMysqlHost());
@@ -533,34 +522,7 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public void initConfig() {
-        Serializer configSerializer = new Persister();
-
-        File dataOptionFile = new File(DATA_OPTION_FILE);
-
-        File oldXmlConfigFile = new File(PLUGIN_DATA_FOLDER + "Config.xml");
-
-        File xmlConfigFile = new File(PLUGIN_DATA_FOLDER + "config.xml");
         File ymlConfigFile = new File(PLUGIN_DATA_FOLDER + "config.yml");
-
-        if (oldXmlConfigFile.exists()) {
-            debug("Attempting to move previous Config.xml to config.xml");
-
-            if (xmlConfigFile.exists()) {
-                try {
-                    FileUtils.forceDelete(xmlConfigFile);
-                } catch (IOException e) {
-                    debug("Unable to delete the conflicting XML config file 'config.xml', you have an old 'Config.xml' in the same folder");
-                }
-            }
-
-            try {
-                Files.move(oldXmlConfigFile, xmlConfigFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-                debug("Unable to move the old config file to the new Format.");
-            }
-
-        }
 
 		/*
 		Check if the warps folder exists, and if not
@@ -589,32 +551,34 @@ public class Commons extends BukkitPlugin {
         }
 
         Collection<File> itemSetFiles = FileUtils.listFiles(itemSetsFolder, null, false);
-        if (itemSetFiles.size() > 0) {
-            /* Load all the files in the item folder, into the item set manager */
-            for (File file : itemSetFiles) {
-                try {
-                    ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
+//        if (itemSetFiles.size() > 0) {
+//            /* Load all the files in the item folder, into the item set manager */
+//            for (File file : itemSetFiles) {
+//                try {
+//                    ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
+//
+//                    if (set == null) {
+//                        continue;
+//                    }
+//
+//                    itemSetManager.addSet(set);
+//                    debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
 
-                    if (set == null) {
-                        continue;
-                    }
-
-                    itemSetManager.addSet(set);
-                    debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        //todo write loading of item sets in YML Config
 
         Collection<File> itemFiles = FileUtils.listFiles(itemsFolder, null, false);
-
+        /*
         if (itemFiles.size() > 0) {
-            /* Load all the files in the item folder, into the saved item manager */
+            *//* Load all the files in the item folder, into the saved item manager *//*
             for (File file : itemFiles) {
-                SavedItemManager.loadItem(file);
-            }
-        }
+//                SavedItemManager.loadItem(file); //todo rewrite to use YML files
+//            }
+        }*/
 
 		/*
 		Check if the debug data folder exists, and if not then create it!
@@ -637,56 +601,7 @@ public class Commons extends BukkitPlugin {
 		/*
 		This is a fresh install of commons!
 		 */
-        if (!dataOptionFile.exists() && !xmlConfigFile.exists() && !ymlConfigFile.exists()) {
-
-            debug(
-                    "[===============================]",
-                    "|        COMMONS NOTICE         |",
-                    "|-------------------------------|",
-                    "|                               |",
-                    "|   Commons now support both    |",
-                    "|   XML and YAML (YML) Config   |",
-                    "|    as of release 1.8.8-3.     |",
-                    "|                               |",
-                    "|  From here out, Commons uses  |",
-                    "|     YML based config files    |",
-                    "|           by default.         |",
-                    "|                               |",
-                    "|  This may be the first time   |",
-                    "| you've ever used Commons, or  |",
-                    "| simply the first time you've  |",
-                    "| used it since release 1.8.8-3 |",
-                    "| but either way, please assure |",
-                    "| you've chosen your data type  |",
-                    "| in the 'data-option.txt' file |",
-                    "| inside 'Commons' plugin-data  |",
-                    "|            folder.            |",
-                    "|                               |",
-                    "| This can be changed down the  |",
-                    "| road if you choose to do so,  |",
-                    "| though data and config files  |",
-                    "|  in the opposing format will  |",
-                    "|    have to be converted.      |",
-                    "|   (Conversion is automatic)   |",
-                    "|                               |",
-                    "|   For information regarding   |",
-                    "| this change, and its affects, |",
-                    "|  visit the Commons wiki, or   |",
-                    "|      its release page.        |",
-                    "|                               |",
-                    "|-------------------------------|",
-                    "|                               |",
-                    "|  Thanks for choosing Commons! |",
-                    "[===============================]"
-            );
-
-            try {
-                FileUtils.writeLines(dataOptionFile, Arrays.asList(
-                        "commons-data-format=yml"
-                ));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (!ymlConfigFile.exists()) {
 
             globalConfig = new CommonsYamlConfiguration();
             CommonsYamlConfiguration ymlConfig = new CommonsYamlConfiguration();
@@ -700,554 +615,24 @@ public class Commons extends BukkitPlugin {
             return;
         }
 
-        if (!dataOptionFile.exists()) {
-            /*
-			This usually happens when servers are upgrading from a previous
-			Commons version, to version 1.8.8-3
-
-			If they have an XML Configuration file and no data option file,
-			then we're going to make their default the XML Config (that they had previously)
-			though at the same time inform them of how to convert, and so forth.
-			 */
-            if (xmlConfigFile.exists()) {
-                try {
-                    FileUtils.writeLines(dataOptionFile, Arrays.asList(
-                            "commons-data-format=xml"
-                    ));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                debug(
-                        "[===============================]",
-                        "|        COMMONS NOTICE         |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|   Commons now support both    |",
-                        "|   XML and YAML (YML) Config   |",
-                        "|    as of release 1.8.8-3.     |",
-                        "|                               |",
-                        "|  From here out, Commons uses  |",
-                        "|     YML based config files    |",
-                        "|           by default.         |",
-                        "|                               |",
-                        "|  It seems you've used commons |",
-                        "|  before, and have an existing |",
-                        "|  configuration file available |",
-                        "| so we'll continue using that. |",
-                        "|                               |",
-                        "| To Convert to YML config, you |",
-                        "| must change 'data-option.txt' |",
-                        "| inside Commons plugin folder. |",
-                        "|                               |",
-                        "|     Supported options are     |",
-                        "| 'commons-data-format=yml' and |",
-                        "|    'commons-data-format=xml'  |",
-                        "|   which signal your format.   |",
-                        "|                               |",
-                        "| This can be changed down the  |",
-                        "| road if you choose to do so,  |",
-                        "| though data and config files  |",
-                        "|  in the opposing format will  |",
-                        "|    have to be converted.      |",
-                        "|   (Conversion is automatic)   |",
-                        "|                               |",
-                        "|   For information regarding   |",
-                        "| this change, and its affects, |",
-                        "|  visit the Commons wiki, or   |",
-                        "|      its release page.        |",
-                        "|                               |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|  Thanks for choosing Commons! |",
-                        "[===============================]"
-                );
-
-                //They've got an XML File for config.
-                try {
-                    globalConfig = configSerializer.read(CommonsXmlConfiguration.class, xmlConfigFile);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return;
-            }
-
-			/*
-			If there's no data option file present, and there's a YML file present
-			then it's likely someone deleted their data-option.txt
-
-			We'll send a nice notice to the console, and inform them of the issues caused
-			by doing this. Hopefully warning them to not do it again!
-
-			It's also a fail-safe to prevent loading a different configuration file / type
-			when it's not required.
-			 */
-            if (ymlConfigFile.exists()) {
-                debug(
-                        "[===============================]",
-                        "|        COMMONS NOTICE         |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|   Commons now support both    |",
-                        "|   XML and YAML (YML) Config   |",
-                        "|    as of release 1.8.8-3.     |",
-                        "|                               |",
-                        "| It seems you have config.yml  |",
-                        "|  as your config file, though  |",
-                        "|  you have no data-option.txt  |",
-                        "|                               |",
-                        "|  To properly config and data  |",
-                        "| throughout commons we require |",
-                        "| this file be present. It will |",
-                        "|  be re-created, though please |",
-                        "| don't remove this file again. |",
-                        "|                               |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|  Thanks for choosing Commons! |",
-                        "[===============================]"
-                );
-
-                try {
-                    FileUtils.writeLines(dataOptionFile, Arrays.asList(
-                            "commons-data-format=yml"
-                    ));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                globalConfig = new CommonsYamlConfiguration();
-                try {
-                    ((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-                } catch (InvalidConfigurationException e) {
-                    e.printStackTrace();
-                    debug(
-                            "Commons 'plugin.yml' is invalid, and will cause",
-                            "the plugin to malfunction without valid",
-                            "configuration available....",
-                            "Please check the formatting of your config file, or delete",
-                            "it and regenerate it via restarting the server",
-                            "to continue!",
-                            "----------------",
-                            "COMMONS HAS BEEN DISABLED",
-                            "----------------");
-                    Plugins.disablePlugin(this);
-                    return;
-                }
-            } else {
-                /*
-				No data-option.txt and no config file, then we're going to want to
-				 create the config.yml file by default.
-
-				 Give them a notice of this functionality, and also explain
-				 that an XML based configuration file is also
-				 available if they choose!
-				 */
-
-                debug(
-                        "[===============================]",
-                        "|        COMMONS NOTICE         |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|   Commons now support both    |",
-                        "|   XML and YAML (YML) Config   |",
-                        "|    as of release 1.8.8-3.     |",
-                        "|                               |",
-                        "|  From here out, Commons uses  |",
-                        "|     YML based config files    |",
-                        "|           by default.         |",
-                        "|                               |",
-                        "|  This may be the first time   |",
-                        "| you've ever used Commons, or  |",
-                        "| simply the first time you've  |",
-                        "| used it since release 1.8.8-3 |",
-                        "| but either way, please assure |",
-                        "| you've chosen your data type  |",
-                        "| in the 'data-option.txt' file |",
-                        "| inside 'Commons' plugin-data  |",
-                        "|            folder.            |",
-                        "|                               |",
-                        "| This can be changed down the  |",
-                        "| road if you choose to do so,  |",
-                        "| though data and config files  |",
-                        "|  in the opposing format will  |",
-                        "|    have to be converted.      |",
-                        "|                               |",
-                        "|   For information regarding   |",
-                        "| this change, and its affects, |",
-                        "|  visit the Commons wiki, or   |",
-                        "|      its release page.        |",
-                        "|                               |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|  Thanks for choosing Commons! |",
-                        "[===============================]"
-                );
-
-                try {
-                    FileUtils.writeLines(dataOptionFile, Arrays.asList(
-                            "commons-data-format=yml"
-                    ));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                globalConfig = new CommonsYamlConfiguration();
-                try {
-                    ((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-                } catch (InvalidConfigurationException e) {
-                    //INVALID INITIAL CONFIG?
-                    e.printStackTrace();
-                }
-            }
-
-        } else {
-            /*
-			In this case they actually have a data-option.txt file present,
-			so we're going to parse their file for type of chosen configuration
-			and see if they're converting, or simply loading the previous choice they had made.
-
-			If they're converting, they'll have (for example) commons-data-format=yml
-			in their data-option.txt and a 'Config.xml' file present in their
-			plugin data folder (Or vice versa)
-			 */
-            String dataFileContents = null;
-            try {
-                dataFileContents = FileUtils.readFileToString(dataOptionFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-			/*
-			If there's an error while attempting to load their data-option file
-			then we're going to give them a nice message warning about this,
-			and then disable commons from loading to prevent any further Errors from happening!
-			 */
-            if (dataFileContents == null) {
-                debug(
-                        "[================================]",
-                        "|        COMMONS NOTICE          |",
-                        "|--------------------------------|",
-                        "|                                |",
-                        "| It appears you have an error   |",
-                        "| or invalid format in the file  |",
-                        "|  'data-option.txt' inside of   |",
-                        "|    Commons plugin folder.      |",
-                        "|                                |",
-                        "| Please fix this error/syntax   |",
-                        "| or delete it and then restart  |",
-                        "| your server to regenerate it.  |",
-                        "|                                |",
-                        "| This file is essential to the  |",
-                        "| method Commons uses to convert |",
-                        "|between xml and yml based files |",
-                        "|                                |",
-                        "|            ........            |",
-                        "| Meaning something, or someone  |",
-                        "|along the way broke a key part  |",
-                        "|of Commons functionality! Oops! |",
-                        "|            ........            |",
-                        "|                                |",
-                        "| No big deal. Follow the steps  |",
-                        "| above and everything should go |",
-                        "| back to normal in no time! :)  |",
-                        "|                                |",
-                        "|--------------------------------|",
-                        "|                                |",
-                        "|  ~Thanks for choosing Commons! |",
-                        "[================================]"
-                );
-                Plugins.disablePlugin(this);
-
-                return;
-            }
-            /*
-			Though if it makes it this far then we're going to continue with parsing
-			their chosen config format, and perhaps performing a Conversion!
-			 */
-
-            String[] options = dataFileContents.split("=");
-            String option = options[1].trim().replace("\n", "").replace("\r", "");
-            if (option.equalsIgnoreCase("xml")) {
-                /*
-				They've chosen to use XMl as the configuration option.
-				We check if they have a YML based configuration file available
-				and if they do perform a conversion!
-
-				If they don't have a YML based file, and they have an XML file then they're
-				simply loading the configuration they had previously.
-				 */
-
-                if (ymlConfigFile.exists()) {
-                    CommonsYamlConfiguration yamlConfig = new CommonsYamlConfiguration();
-                    try {
-                        yamlConfig.load(ymlConfigFile);
-                    } catch (InvalidConfigurationException e) {
-                        e.printStackTrace();
-                        debug(
-                                "Commons 'plugin.yml' is invalid, and will cause",
-                                "the plugin to malfunction without valid",
-                                "configuration available....",
-                                "Before continueing with the conversion from yml to XML",
-                                "Please check the formatting of your config file, or delete",
-                                "it and regenerate it via restarting the server",
-                                "to continue!",
-                                "",
-                                "Choosing to regenerate your config file, and deleting config.yml",
-                                "Will render you a fresh configuration!",
-                                "If this is fine by you, then so be it; Just don't say we didn't heave warning :)",
-                                "----------------",
-                                "COMMONS HAS BEEN DISABLED",
-                                "----------------"
-                        );
-                        Plugins.disablePlugin(this);
-                        return;
-                    }
-
-                    CommonsXmlConfiguration cxmlConfig = new CommonsXmlConfiguration();
-
-					/*
-					Attempting to move all the values from the previous config.yml
-					to the new Config.xml file!
-
-					Then after that, we delete the config.yml! (So there's no further confusion :)
-					 */
-                    alternateCommonsConfig(yamlConfig, cxmlConfig);
-                    globalConfig = cxmlConfig;
-                    /*
-					Delete the previous config.yml file to avoid issues!
-					 */
-                    try {
-                        FileUtils.forceDelete(ymlConfigFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    debug(
-                            "[================================]",
-                            "|        COMMONS NOTICE          |",
-                            "|--------------------------------|",
-                            "|                                |",
-                            "|      ~~~ITS A SUCCESS~~~       |",
-                            "|                                |",
-                            "|  You've converted from using a |",
-                            "| yml based config file to using |",
-                            "| an xml based configuration file|",
-                            "|                                |",
-                            "| To convert back simply change  |",
-                            "|    the option to yml in your   |",
-                            "|  data-option.txt file and then |",
-                            "|  restart your server to start  |",
-                            "|the automatic conversion process|",
-                            "|                                |",
-                            "|--------------------------------|",
-                            "|                                |",
-                            "|  ~Thanks for choosing Commons! |",
-                            "[================================]"
-                    );
-                } else {
-                    /*
-					In this case, they've chosen XML as their configuration, and don't have
-					a previous config.yml file to convert from!
-
-					If they have an existing Config.xml file we'll load that bad boy up
-					and use that as configuration (Meaning they already chose xml as the option before)
-					though if not, they must have DELETED their configuration file in a previous attempt....
-					 */
-
-                    if (xmlConfigFile.exists()) {
-                        try {
-                            globalConfig = configSerializer.read(CommonsXmlConfiguration.class, xmlConfigFile);
-                            if (globalConfig == null) {
-                            } else {
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Plugins.disablePlugin(this);
-                            return;
-                        }
-                    } else {
-                        //todo send notice about not deleting configuration
-                        /*
-						In this case, they've chosen XMl as their config type, and don't (or no longer)
-						have their Config.xml file! This is an issue, so we'll sort this out!
-						 */
-                        globalConfig = new CommonsXmlConfiguration();
-
-                        try {
-                            configSerializer.write(globalConfig, xmlConfigFile);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            } else if (option.equalsIgnoreCase("yml")) {
-
-				/*
-				This means they're converting from a previous configuration file
-				and wish to use YML instead!
-
-				Begin the process!
-				 */
-                if (xmlConfigFile.exists()) {
-                    CommonsXmlConfiguration xmlConfiguration = null;
-                    try {
-                        xmlConfiguration = configSerializer.read(CommonsXmlConfiguration.class, xmlConfigFile);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        debug(
-                                "====================================================",
-                                "There was an error while processing your Config.xml",
-                                "File inside of plugins/Commons/Config.xml",
-                                "To prevent this from happening again you need",
-                                "To assure the format and syntax of Config.xml",
-                                "Is correct (in accordance to standard XML Documents",
-                                "",
-                                "COMMONS HAS BEEN DISABLED UNTIL THIS ISSUE IS CORRECTED",
-                                "",
-                                "RESTART YOUR SERVER ONCE FIXED TO CONTINUE AS DESIRED!",
-                                "===================================================="
-                        );
-                        Plugins.disablePlugin(this);
-                        return;
-                    }
-
-					/*
-					If a yml file already exists and so does an XML then delete the previous
-					yml file to avoid issues with instancing a new version! (Such as path changes, and such)
-					 */
-                    if (ymlConfigFile.exists()) {
-                        try {
-                            FileUtils.forceDelete(ymlConfigFile);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
-                    alternateCommonsConfig(xmlConfiguration, yamlConfiguration);
-                    globalConfig = yamlConfiguration;
-                    try {
-                        yamlConfiguration.init(ymlConfigFile);
-                    } catch (InvalidConfigurationException e) {
-                        e.printStackTrace();
-
-                        debug(
-                                "Commons 'plugin.yml' is invalid, and will cause",
-                                "the plugin to malfunction without valid",
-                                "configuration available....",
-                                "Before continueing with the conversion from XML to yml",
-                                "Please check the formatting of your config file, or delete",
-                                "it and regenerate it via restarting the server",
-                                "to continue!",
-                                "",
-                                "Choosing to regenerate your config file, and deleting config.xml/config.yml",
-                                "Will render you a fresh configuration!",
-                                "If this is fine by you, then so be it; Just don't say we didn't heave warning :)",
-                                "----------------",
-                                "COMMONS HAS BEEN DISABLED",
-                                "----------------"
-                        );
-                        Plugins.disablePlugin(this);
-                        return;
-                    }
-
-                    try {
-                        FileUtils.forceDelete(xmlConfigFile);
-                        debug("Deleted the previous Config.xml file to avoid confusion, and future potential errors!",
-                                "Your Commons config is now based out of config.yml");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        debug("Failed to delete the previous Config.xml from your Commons plugin folder.");
-                    }
-
-
-                    debug(
-                            "[================================]",
-                            "|        COMMONS NOTICE          |",
-                            "|--------------------------------|",
-                            "|                                |",
-                            "|      ~~~ITS A SUCCESS~~~       |",
-                            "|                                |",
-                            "|  You've converted from using a |",
-                            "| xml based config file to using |",
-                            "| an yml based configuration file|",
-                            "|                                |",
-                            "| To convert back simply change  |",
-                            "|    the option to xml in your   |",
-                            "|  data-option.txt file and then |",
-                            "|  restart your server to start  |",
-                            "|the automatic conversion process|",
-                            "|                                |",
-                            "|--------------------------------|",
-                            "|                                |",
-                            "|  ~Thanks for choosing Commons! |",
-                            "[================================]"
-                    );
-
-                    return;
-                }
-
-				/*
-				They've previously chosen to use YML as a configuration style and have an existing config file
-				their plugins/Commons/ folder; Loading this file for configuration.
-				 */
-                if (ymlConfigFile.exists()) {
-
-                    CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
-                    try {
-                        yamlConfiguration.load(ymlConfigFile);
-                        globalConfig = yamlConfiguration;
-                    } catch (InvalidConfigurationException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-				/*
-					They've chosen to use yml as their config file, though don't currently have a config.yml file!
-					Send them a notice saying they've likely deleted their previous version of configuration
-					and create a new one for them!
-					 */
-                debug(
-                        "[===============================]",
-                        "|        COMMONS NOTICE         |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|   Commons now support both    |",
-                        "|   XML and YAML (YML) Config   |",
-                        "|    as of release 1.8.8-3.     |",
-                        "|                               |",
-                        "| It seems you no config.yml in |",
-                        "|  your Commons plugin folder   |",
-                        "|  but have yml as your chosen  |",
-                        "| data type in data-option.txt  |",
-                        "|                               |",
-                        "| A new config.yml file will be |",
-                        "| generated for you to use, and |",
-                        "| configure accordingly to your |",
-                        "|  likings, and servers desire. |",
-                        "|                               |",
-                        "|  To prevent this issue from   |",
-                        "| happening again, please don't |",
-                        "|  delete your config.yml file! |",
-                        "|                               |",
-                        "|-------------------------------|",
-                        "|                               |",
-                        "|  Thanks for choosing Commons! |",
-                        "[===============================]"
-                );
-
-                CommonsYamlConfiguration yamlConfiguration = new CommonsYamlConfiguration();
-                try {
-                    yamlConfiguration.init(ymlConfigFile);
-                    globalConfig = yamlConfiguration;
-                } catch (InvalidConfigurationException e) {
-                    e.printStackTrace();
-                    //Error initializing initial configutration!? SHOULD NEVER HAPPEN
-                }
-            } else {
-            }
-
+        globalConfig = new CommonsYamlConfiguration();
+        try {
+            ((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
+        } catch (InvalidConfigurationException e) {
+            e.printStackTrace();
+            debug(
+                    "Commons 'plugin.yml' is invalid, and will cause",
+                    "the plugin to malfunction without valid",
+                    "configuration available....",
+                    "Please check the formatting of your config file, or delete",
+                    "it and regenerate it via restarting the server",
+                    "to continue!",
+                    "----------------",
+                    "COMMONS HAS BEEN DISABLED",
+                    "----------------");
+            Plugins.disablePlugin(this);
+            return;
         }
+
     }
 }

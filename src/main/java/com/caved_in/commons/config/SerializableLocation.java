@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
  * Serializable wrapper for Locations. Extends location class so it can be passed to methods without calling getLocation()
  */
 @Root(name = "location")
-public class XmlLocation extends BaseLocation {
+public class SerializableLocation extends BaseLocation {
     @Element(name = "world")
     private String worldName;
 
@@ -30,11 +30,11 @@ public class XmlLocation extends BaseLocation {
     private float yaw;
 
 
-    public static XmlLocation fromLocation(Location loc) {
-        return new XmlLocation(loc);
+    public static SerializableLocation fromLocation(Location loc) {
+        return new SerializableLocation(loc);
     }
 
-    public XmlLocation(Location location) {
+    public SerializableLocation(Location location) {
         super(location);
         worldName = Worlds.getWorldName(location);
         x = location.getX();
@@ -44,7 +44,7 @@ public class XmlLocation extends BaseLocation {
         yaw = location.getYaw();
     }
 
-    public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
+    public SerializableLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z) {
         super(Worlds.getWorld(worldName), x, y, z);
         this.x = x;
         this.y = y;
@@ -52,7 +52,7 @@ public class XmlLocation extends BaseLocation {
         this.worldName = worldName;
     }
 
-    public XmlLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
+    public SerializableLocation(@Element(name = "world") String worldName, @Element(name = "x-pos") double x, @Element(name = "y-pos") double y, @Element(name = "z-pos") double z, @Element(name = "pitch", required = false) float pitch, @Element(name = "yaw", required = false) float yaw) {
         super(Worlds.getWorld(worldName), x, y, z, pitch, yaw);
         this.worldName = worldName;
         this.x = x;

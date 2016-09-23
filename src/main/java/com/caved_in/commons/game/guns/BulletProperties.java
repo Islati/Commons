@@ -1,7 +1,7 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.config.ParticleEffect;
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.config.SerializableParticleEffect;
+import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import org.simpleframework.xml.Element;
 
@@ -21,14 +21,14 @@ public class BulletProperties {
     @Element(name = "bullet-delay-ticks")
     public long delay = 2l;
 
-    @Element(name = "particles", required = false, type = ParticleEffect.class)
-    private ParticleEffect effect;
+    @Element(name = "particles", required = false, type = SerializableParticleEffect.class)
+    private SerializableParticleEffect effect;
 
     public BulletDamageEntityClause damageCondition;
 
     private Gun parent;
 
-    public BulletProperties(@Element(name = "bullet-damage") double damage, @Element(name = "bullet-speed") double speed, @Element(name = "bullet-spread") double spread, @Element(name = "bullet-delay-ticks") long delay, @Element(name = "particles", required = false, type = ParticleEffect.class) ParticleEffect effect) {
+    public BulletProperties(@Element(name = "bullet-damage") double damage, @Element(name = "bullet-speed") double speed, @Element(name = "bullet-spread") double spread, @Element(name = "bullet-delay-ticks") long delay, @Element(name = "particles", required = false, type = SerializableParticleEffect.class) SerializableParticleEffect effect) {
         this.damage = damage;
         this.speed = speed;
         this.spread = spread;
@@ -68,8 +68,8 @@ public class BulletProperties {
         return this;
     }
 
-    public BulletProperties effect(ParticleEffects effect) {
-        this.effect = ParticleEffect.of(effect);
+    public BulletProperties effect(ParticleEffect effect) {
+        this.effect = SerializableParticleEffect.of(effect);
         return this;
     }
 
@@ -86,7 +86,7 @@ public class BulletProperties {
         return effect.getEffect() != null;
     }
 
-    public ParticleEffects getEffect() {
+    public ParticleEffect getEffect() {
         return effect.getEffect();
     }
 }

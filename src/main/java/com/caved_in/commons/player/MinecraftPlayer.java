@@ -61,6 +61,8 @@ public class MinecraftPlayer extends User {
     @Element(name = "god-mode")
     private boolean godMode = false;
 
+    private boolean forceRespawn = false;
+
     /* Whether or not the player is currently reloading a gun */
     private long reloadEnd = 0;
 
@@ -397,74 +399,14 @@ public class MinecraftPlayer extends User {
     public void setGodMode(boolean godMode) {
         this.godMode = godMode;
     }
-//
-//	/**
-//	 * Get the custom arrow that the player has equipped; Used to take precedence
-//	 * over*
-//	 * @return
-//	 */
-//	public ItemStack getEquippedArrow() {
-//		return equippedArrow;
-//	}
-//
-//	public void unequipArrow() {
-//		equippedArrow = null;
-//	}
-//
-//	public void equipArrow(ItemStack item) {
-//
-//		if (item.getType() != Material.ARROW) {
-//			//todo handle wrongly equipping arrows
-//			return;
-//		}
-//
-//		equippedArrow = item.clone();
-//	}
-//
-//	public boolean hasArrowEquipped() {
-//		if (equippedArrow == null) {
-//			return false;
-//		}
-//
-//		Player p = getPlayer();
-//
-//		return Inventories.contains(p.getInventory(),getEquippedArrow());
-//	}
-//
-//	public boolean takeArrow() {
-//		if (!hasArrowEquipped()) {
-//			return false;
-//		}
-//
-//		Player player = getPlayer();
-//		PlayerInventory playerInv = player.getInventory();
-//
-//		int arrowSlot = Inventories.getSlotOf(playerInv,equippedArrow);
-//
-//		ItemStack customArrow = playerInv.getItem(arrowSlot);
-//
-//		//If we couldn't get the arrows in slot, then we're not able to take it from the player
-//		if (customArrow == null) {
-//			return false;
-//		}
-//
-//		//Remove 1 of the custom arrows from the stack
-//		customArrow = Items.removeFromStack(customArrow,1);
-//
-//		//Though after taking the arrow from the stack of arrows,
-//		//if it's null, then we're all out!
-//		if (customArrow == null) {
-//			Inventories.clearSlot(playerInv,arrowSlot);
-//			//Unequip the arrows from the player!
-//			unequipArrow();
-//			player.updateInventory();
-//			return true;
-//		}
-//
-//		Inventories.setItem(playerInv,arrowSlot,customArrow);
-//		player.updateInventory();
-//		return true;
-//	}
+
+    public void setForceRespawn(boolean force) {
+        this.forceRespawn = force;
+    }
+
+    public boolean hasForceRespawn() {
+        return this.forceRespawn;
+    }
 
     public void setTeleportRequest(TeleportRequest request) {
         this.teleportRequest = request;

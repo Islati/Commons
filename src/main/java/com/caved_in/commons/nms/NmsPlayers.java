@@ -1,16 +1,11 @@
 package com.caved_in.commons.nms;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.reflection.ReflectionUtilities;
-import io.netty.channel.Channel;
 import org.bukkit.entity.Player;
-
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class NmsPlayers {
-    private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
 
     /**
      * Sends the packet to the players connection.
@@ -68,21 +63,6 @@ public class NmsPlayers {
             return ReflectionUtilities.getField(getConnection(player).getClass(), "networkManager").get(getConnection(player));
         } catch (IllegalAccessException e) {
             Chat.debug("Failed to get the NetworkManager of player: " + player.getName());
-            return null;
-        }
-    }
-
-    /**
-     * Get the network channel of a player
-     *
-     * @param player player to get the channel of
-     * @return {@link io.netty.channel.Channel} which manages the player
-     */
-    public static Channel getChannel(Player player) {
-        try {
-            return (Channel) channelField.get(getNetworkManager(player));
-        } catch (IllegalAccessException e) {
-            Chat.debug("Failed to get the channel of player: " + player.getName());
             return null;
         }
     }

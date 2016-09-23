@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 
 public abstract class AbstractTitle {
     /* Title text and color */
-    private String title = "";
+    private String title = null;
     private ChatColor titleColor = ChatColor.WHITE;
     /* Subtitle text and color */
-    private String subtitle = "";
+    private String subtitle = null;
     private ChatColor subtitleColor = ChatColor.WHITE;
     /* Title timings */
     private int fadeInTime = -1;

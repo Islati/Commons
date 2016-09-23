@@ -5,7 +5,7 @@ import com.caved_in.commons.chat.TitleBuilder;
 import org.bukkit.ChatColor;
 import org.simpleframework.xml.Element;
 
-public class XmlTitle {
+public class SerializableTitle {
     @Element(name = "title-text")
     private String titleText;
 
@@ -36,7 +36,7 @@ public class XmlTitle {
 
     private TitleBuilder builder = new TitleBuilder();
 
-    public XmlTitle(Title title) {
+    public SerializableTitle(Title title) {
         this.titleText = title.getTitle();
         this.subTitleText = title.getSubtitle();
         this.fadeIn = title.getFadeInTime();
@@ -52,14 +52,14 @@ public class XmlTitle {
         }
     }
 
-    public XmlTitle(@Element(name = "title-text") String titleText,
-                    @Element(name = "subtitle-text") String subTitleText,
-                    @Element(name = "fade-in-time") int fadeIn,
-                    @Element(name = "stay-time") int stayTime,
-                    @Element(name = "fade-out-time") int fadeOut,
-                    @Element(name = "title-color") String titleColorName,
-                    @Element(name = "subtitle-color") String subtitleColorName,
-                    @Element(name = "time-in-ticks") boolean timeInTicks) {
+    public SerializableTitle(@Element(name = "title-text") String titleText,
+                             @Element(name = "subtitle-text") String subTitleText,
+                             @Element(name = "fade-in-time") int fadeIn,
+                             @Element(name = "stay-time") int stayTime,
+                             @Element(name = "fade-out-time") int fadeOut,
+                             @Element(name = "title-color") String titleColorName,
+                             @Element(name = "subtitle-color") String subtitleColorName,
+                             @Element(name = "time-in-ticks") boolean timeInTicks) {
         this.titleText = titleText;
         this.subTitleText = subTitleText;
         this.fadeIn = fadeIn;
@@ -73,7 +73,7 @@ public class XmlTitle {
         this.timeInTicks = timeInTicks;
     }
 
-    public XmlTitle(TitleBuilder builder) {
+    public SerializableTitle(TitleBuilder builder) {
         this(builder.build());
     }
 

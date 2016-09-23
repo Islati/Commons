@@ -1,49 +1,40 @@
 package com.caved_in.commons.inventory;
 
-import com.caved_in.commons.config.XmlItemStack;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.player.Players;
-import lombok.ToString;
+import com.caved_in.commons.yml.ConfigMode;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.SerializeOptions;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.ElementMap;
-import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Root(name = "armor")
-@ToString(exclude = {"serializableArmorSlots"})
+@SerializeOptions(
+        configMode = ConfigMode.DEFAULT
+)
 public class ArmorInventory {
-    @ElementMap(name = "items", entry = "slot", value = "item", keyType = Integer.class, valueType = XmlItemStack.class)
-    private Map<Integer, XmlItemStack> serializableArmorSlots = new HashMap<>();
 
-    private Map<ArmorSlot, ItemStack> armorSlots = new HashMap<>();
+    @Path("items")
+    private Map<ArmorSlot, SerializableItemStack> armorItems = new HashMap<>();
 
     public ArmorInventory() {
 
-    }
-
-    public ArmorInventory(@ElementMap(name = "items", entry = "slot", value = "item", keyType = Integer.class, valueType = XmlItemStack.class) Map<Integer, XmlItemStack> armor) {
-        serializableArmorSlots.putAll(armor);
-        for (Map.Entry<Integer, XmlItemStack> armorItem : serializableArmorSlots.entrySet()) {
-            armorSlots.put(ArmorSlot.getSlot(armorItem.getKey()), armorItem.getValue().getItemStack());
-        }
     }
 
     public ArmorInventory(ItemStack[] armor) {
         for (int i = 0; i < armor.length; i++) {
             ArmorSlot slot = ArmorSlot.getSlot(i);
             ItemStack item = armor[i];
-            armorSlots.put(slot, item);
-            serializableArmorSlots.put(slot.getSlot(), XmlItemStack.fromItem(item));
+            armorItems.put(slot, SerializableItemStack.fromItem(item));
         }
     }
 
     public void setItem(ArmorSlot slot, ItemStack item) {
-        armorSlots.put(slot, item);
-        serializableArmorSlots.put(slot.getSlot(), XmlItemStack.fromItem(item));
+        armorItems.put(slot, SerializableItemStack.fromItem(item));
     }
 
     public void equip(LivingEntity entity) {
@@ -55,30 +46,36 @@ public class ArmorInventory {
     }
 
     public ItemStack getMainHand() {
-        return armorSlots.get(ArmorSlot.MAIN_HAND);
+        return armorItems.get(ArmorSlot.MAIN_HAND).getItemStack();
     }
 
     public ItemStack getOffHand() {
-        return armorSlots.get(ArmorSlot.OFF_HAND);
+        return armorItems.get(ArmorSlot.OFF_HAND).getItemStack();
     }
 
     public ItemStack getHelmet() {
-        return armorSlots.get(ArmorSlot.HELMET);
+        return armorItems.get(ArmorSlot.HELMET).getItemStack();
     }
 
     public ItemStack getBoots() {
-        return armorSlots.get(ArmorSlot.BOOTS);
+        return armorItems.get(ArmorSlot.BOOTS).getItemStack();
     }
 
     public ItemStack getLegs() {
-        return armorSlots.get(ArmorSlot.LEGGINGS);
+        return armorItems.get(ArmorSlot.LEGGINGS).getItemStack();
     }
 
     public ItemStack getChest() {
-        return armorSlots.get(ArmorSlot.CHEST);
+        return armorItems.get(ArmorSlot.CHEST).getItemStack();
     }
 
     public Map<ArmorSlot, ItemStack> getArmor() {
-        return armorSlots;
+        Map<ArmorSlot, ItemStack> armor = new HashMap<>();
+
+        for (Map.Entry<ArmorSlot, SerializableItemStack> item : armorItems.entrySet()) {
+            armor.put(item.getKey(), item.getValue().getItemStack());
+        }
+
+        return armor;
     }
 }

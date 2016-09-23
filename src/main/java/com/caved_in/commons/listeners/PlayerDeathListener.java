@@ -1,6 +1,7 @@
 package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
@@ -23,5 +24,14 @@ public class PlayerDeathListener implements Listener {
         MinecraftPlayer minecrafter = players.getData(player);
 
         minecrafter.setPreTeleportLocation(player.getLocation(), PreTeleportType.DEATH);
+
+        if (minecrafter.hasForceRespawn()) {
+            try {
+                Players.forceRespawn(player);
+                Chat.message(player,"&7Forced respawn!");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

@@ -1,31 +1,30 @@
 package com.caved_in.commons.config;
 
 import com.caved_in.commons.item.Attributes;
+import com.caved_in.commons.yml.ConfigMode;
+import com.caved_in.commons.yml.SerializeOptions;
+import com.caved_in.commons.yml.Skip;
+import com.caved_in.commons.yml.YamlConfig;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 import java.util.UUID;
 
-@Root(name = "item-attribute")
-public class XmlAttribute {
-    @Attribute(name = "name")
+@SerializeOptions(
+        configMode = ConfigMode.DEFAULT
+)
+public class SerializableItemAttribute extends YamlConfig {
     private String name;
 
-    @Attribute(name = "type")
     private Attributes.AttributeType type;
-
-    @Attribute(name = "operation")
     private Attributes.Operation operation;
-
-    @Attribute(name = "amount")
     private double amount;
-
-    @Attribute(name = "id")
     private String uid;
 
+    @Skip
     private UUID id;
 
-    public XmlAttribute(Attributes.Attribute attibute) {
+    public SerializableItemAttribute(Attributes.Attribute attibute) {
         this.name = attibute.getName();
         this.type = attibute.getAttributeType();
         this.operation = attibute.getOperation();
@@ -34,15 +33,6 @@ public class XmlAttribute {
         this.id = attibute.getUUID();
         this.uid = id.toString();
     }
-
-    public XmlAttribute(@Attribute(name = "name") String name, @Attribute(name = "type") Attributes.AttributeType type, @Attribute(name = "operation") Attributes.Operation operation, @Attribute(name = "amount") double amount, @Attribute(name = "id") String uid) {
-        this.name = name;
-        this.type = type;
-        this.amount = amount;
-        this.uid = uid;
-        this.id = UUID.fromString(uid);
-    }
-
     public String getName() {
         return name;
     }

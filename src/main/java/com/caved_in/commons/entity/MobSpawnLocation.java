@@ -1,13 +1,13 @@
 package com.caved_in.commons.entity;
 
-import com.caved_in.commons.config.XmlLocation;
+import com.caved_in.commons.config.SerializableLocation;
 import lombok.ToString;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.simpleframework.xml.Element;
 
 @ToString(exclude = {"spawner"}, callSuper = true)
-public class MobSpawnLocation extends XmlLocation {
+public class MobSpawnLocation extends SerializableLocation {
 
     @Element(name = "spawn-chance")
     private int spawnChance = 100;

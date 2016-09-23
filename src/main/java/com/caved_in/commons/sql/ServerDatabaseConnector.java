@@ -3,7 +3,6 @@ package com.caved_in.commons.sql;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ServerInfo;
-import com.caved_in.commons.config.SqlConfiguration;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Bukkit;
@@ -63,8 +62,8 @@ public class ServerDatabaseConnector extends DatabaseConnector {
             "CREATE TABLE IF NOT EXISTS `servers` (`svr_id` int(10) unsigned NOT NULL AUTO_INCREMENT, `svr_name` text CHARACTER SET utf8 NOT NULL, `svr_player_count` int(10) unsigned NOT NULL, `svr_player_limit` int(10) unsigned NOT NULL DEFAULT '100', `svr_online` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`svr_id`), UNIQUE KEY `svr_id` (`svr_id`)) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;"
     };
 
-    public ServerDatabaseConnector(SqlConfiguration sqlConfiguration) {
-        super(sqlConfiguration);
+    public ServerDatabaseConnector(String host, int port, String database, String username, String password) {
+        super(host, port, database, username, password);
         executeCreationStatements();
     }
 
@@ -272,7 +271,7 @@ public class ServerDatabaseConnector extends DatabaseConnector {
 
     public void updatePlayerCount() {
         /*
-		If no server info exists then we're gonna
+        If no server info exists then we're gonna
 		create the default data.
 		 */
         if (!hasServerInfo()) {

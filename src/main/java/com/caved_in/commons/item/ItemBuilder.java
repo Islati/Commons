@@ -1,6 +1,6 @@
 package com.caved_in.commons.item;
 
-import com.caved_in.commons.config.XmlEnchantment;
+import com.caved_in.commons.config.SerializableEnchantment;
 import com.caved_in.commons.exceptions.ItemCreationException;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.utilities.SneakyThrow;
@@ -140,8 +140,8 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder enchantments(Collection<XmlEnchantment> enchants) {
-        for (XmlEnchantment e : enchants) {
+    public ItemBuilder enchantments(Collection<SerializableEnchantment> enchants) {
+        for (SerializableEnchantment e : enchants) {
             enchantments.add(new EnchantWrapper(e.getEnchantment(), e.getLevel(), e.hasGlow()));
         }
         return this;

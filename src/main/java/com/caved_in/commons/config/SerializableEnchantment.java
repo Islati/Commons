@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
  */
 @Root(name = "enchantment")
 @ToString(of = {"enchantName", "level", "glow"})
-public class XmlEnchantment {
+public class SerializableEnchantment {
     @Attribute(name = "name")
     private String enchantName;
 
@@ -20,36 +20,36 @@ public class XmlEnchantment {
     @Attribute(name = "glow", required = false)
     private boolean glow = true;
 
-    public static XmlEnchantment fromEnchant(Enchantment enchantment, int level) {
-        return new XmlEnchantment(enchantment, level);
+    public static SerializableEnchantment fromEnchant(Enchantment enchantment, int level) {
+        return new SerializableEnchantment(enchantment, level);
     }
 
-    public XmlEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level, @Attribute(name = "glow", required = false) boolean glow) {
+    public SerializableEnchantment(@Attribute(name = "name") String enchantName, @Attribute(name = "level") int level, @Attribute(name = "glow", required = false) boolean glow) {
         this.level = level;
         this.enchantName = enchantName;
         this.glow = glow;
     }
 
-    public XmlEnchantment(Enchantment enchantment, int level) {
+    public SerializableEnchantment(Enchantment enchantment, int level) {
         this.level = level;
         enchantName = enchantment.getName();
     }
 
-    public XmlEnchantment() {
+    public SerializableEnchantment() {
 
     }
 
-    public XmlEnchantment enchantment(Enchantment enchant) {
+    public SerializableEnchantment enchantment(Enchantment enchant) {
         this.enchantName = enchant.getName();
         return this;
     }
 
-    public XmlEnchantment level(int level) {
+    public SerializableEnchantment level(int level) {
         this.level = level;
         return this;
     }
 
-    public XmlEnchantment glow(boolean glow) {
+    public SerializableEnchantment glow(boolean glow) {
         this.glow = glow;
         return this;
     }

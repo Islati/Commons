@@ -1,6 +1,7 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.inventory.ArmorInventory;
+import com.caved_in.commons.yml.*;
 import com.mysql.jdbc.StringUtils;
 import lombok.ToString;
 import org.bukkit.entity.EntityType;
@@ -12,70 +13,83 @@ import org.simpleframework.xml.Root;
 TODO The mob spawn data is created through a gui in game, and passed through multiple menus and items to
 give a super fluid experience.
  */
-@Root(name = "mob-data")
-@ToString(exclude = {"entityType", "skeletalType"}, includeFieldNames = true)
-public class MobSpawnData {
-
-    @Element(name = "mob-type")
-    private String mobType;
+@SerializeOptions(
+        configMode = ConfigMode.DEFAULT
+)
+public class MobSpawnData extends YamlConfig {
 
     private EntityType entityType;
 
     /* The amount of health the creature will have */
-    @Element(name = "health", required = false)
     private double health = 0;
 
     /* What the creatures maximum health is */
-    @Element(name = "max-health", required = false)
     private double maxHealth = 0;
 
     /* Whether or not it's a baby */
-    @Element(name = "baby", required = false)
     private boolean baby = false;
 
     /* Whether or not it's a villager */
-    @Element(name = "villager", required = false)
     private boolean villager = false;
 
     /* Used to determine whether or not the creature is powered; Only matters if they're a creeper */
-    @Element(name = "powered", required = false)
+    @Comments({
+            "Determines whether or not the entity is powered",
+            "Only valid on creepers"
+    })
     private boolean powered = false;
 
     /* Used to determine whether or not the creature is a wither skeleton; only matters if they're a skeleton */
+
     private Skeleton.SkeletonType skeletonType = Skeleton.SkeletonType.NORMAL;
 
-    @Element(name = "skeleton-type", required = false)
     private String skeletalType;
 
     /* The name of the entity */
-    @Element(name = "name", required = false)
+    @Comments({
+            "The entities custom name, which will be",
+            "shown when the entity is in sight"
+    })
     private String name = "";
 
     /* The age the creature will be */
-    @Element(name = "age", required = false)
     private int age = 0;
 
     /* The minimum age the creature will be */
-    @Element(name = "age-min", required = false)
+    @Comments({
+            "Used when generating attributes",
+            "of the creature at random."
+    })
     private int ageMin = 0;
 
     /* The maximum age the creature will be */
-    @Element(name = "age-max", required = false)
+    @Comments({
+            "Used when generating attributes",
+            "of the creature at random."
+    })
     private int ageMax = 0;
 
     /* Size the slime will be */
-    @Element(name = "slime-size", required = false)
+    @Comments({
+            "Determines the size of the slime"
+    })
     private int size = 0;
 
     /* Minimum size the slime can be */
-    @Element(name = "slime-min", required = false)
+    @Comments({
+            "Used when generating attributes",
+            "of the creature at random."
+    })
     private int sizeMin = 0;
 
     /* Maximum size the slime can be */
-    @Element(name = "size-max", required = false)
+    @Comments({
+            "Used when generating attributes",
+            "of the creature at random."
+    })
     private int sizeMax = 0;
 
-    @Element(name = "armor", type = ArmorInventory.class, required = false)
+    @Path("armor")
     private ArmorInventory armorInventory = new ArmorInventory();
 
     public MobSpawnData(@Element(name = "mob-type") String mobType, @Element(name = "health", required = false) double health, @Element(name = "max-health", required = false) double maxHealth, @Element(name = "baby", required = false) boolean baby, @Element(name = "villager", required = false) boolean villager, @Element(name = "powered", required = false) boolean powered, @Element(name = "skeleton-type", required = false) String skeletalType, @Element(name = "name", required = false) String name, @Element(name = "age", required = false) int age, @Element(name = "age-min", required = false) int ageMin, @Element(name = "age-max", required = false) int ageMax, @Element(name = "slime-size", required = false) int size, @Element(name = "slime-min", required = false) int sizeMin, @Element(name = "size-max", required = false) int sizeMax, @Element(name = "armor", type = ArmorInventory.class, required = false) ArmorInventory armorInventory) {

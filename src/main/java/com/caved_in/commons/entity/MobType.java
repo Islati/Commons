@@ -33,16 +33,20 @@ public enum MobType {
     IRON_GOLEM(EntityType.IRON_GOLEM, true, "golem", "irongolem", "golumn"),
     CHICKEN(EntityType.CHICKEN, false, "chicken", "shicken"),
     HORSE(EntityType.HORSE, false, "horse", "horsey", "foal"),
-    ENDER_DRAGON(EntityType.ENDER_DRAGON,true,"dragon","enderdragon","ender_dragon"),
+    ENDER_DRAGON(EntityType.ENDER_DRAGON, true, "dragon", "enderdragon", "ender_dragon"),
     WITHER(EntityType.WITHER, true, "wither", "witherboss"),
     SILVERFISH(EntityType.SILVERFISH, true, "silverfish", "silver_fish"),
     RABBIT(EntityType.RABBIT, false, "rabbit", "bunny"),
     GUARDIAN(EntityType.GUARDIAN, true, "guardian"),
-    /** New in 1.8 **/
-    ENDERMITE(EntityType.ENDERMITE,true,"endermite","mite"),
+    /**
+     * New in 1.8
+     **/
+    ENDERMITE(EntityType.ENDERMITE, true, "endermite", "mite"),
 
-    /** New in 1.9 **/
-    SHULKER(EntityType.SHULKER,true,"shulker","shulk");
+    /**
+     * New in 1.9
+     **/
+    SHULKER(EntityType.SHULKER, true, "shulker", "shulk");
 
 
     private static Map<String, EntityType> entityTypes = new HashMap<>();
@@ -57,6 +61,8 @@ public enum MobType {
             for (String name : mobType.names) {
                 entityTypes.put(name, mobType.entityType);
             }
+            entityTypes.put(mobType.getEntityType().name().toLowerCase(), mobType.getEntityType());
+
         }
     }
 

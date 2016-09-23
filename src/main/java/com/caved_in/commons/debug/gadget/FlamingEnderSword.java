@@ -1,7 +1,8 @@
 package com.caved_in.commons.debug.gadget;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.effect.ParticleEffect;
+import com.caved_in.commons.effect.Particles;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.Gadgets;
@@ -52,8 +53,8 @@ public class FlamingEnderSword extends BaseWeapon {
 
     @Override
     public void onSwing(Player p) {
-        ParticleEffects.sendToLocation(ParticleEffects.DEPTH_SUSPEND, p.getLocation(), NumberUtil.getRandomInRange(1, 4));
-        ParticleEffects.sendToLocation(ParticleEffects.DEPTH_SUSPEND, Players.getTargetLocation(p, 30), NumberUtil.getRandomInRange(1, 4));
+        Particles.sendToLocation(p.getLocation(), ParticleEffect.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
+        Particles.sendToLocation(Players.getTargetLocation(p, 30), ParticleEffect.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
     }
 
     @Override
