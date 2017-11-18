@@ -5,6 +5,10 @@
  n: = Note
 -------------
 
+November 18'th, 2017 (Build 1.12.2):
+    n: Began updating source code from 1.9.2 to 1.12.2
+    - Removed Cuboid management.
+
 January 22'nd, 2016 (Build 1.8.8-3):
 	n: Tampering with Reflections (https://github.com/ronmamo/reflections) to write class loading methods!
 		Could be used to load all command classes, debug actions, listeners, and so on in a package; Who knows?

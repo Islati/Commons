@@ -1,4 +1,4 @@
-package com.caved_in.commons.fireworks;
+package com.caved_in.commons.effect;
 
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.utilities.ArrayUtils;

@@ -1,4 +1,4 @@
-package com.caved_in.commons.fireworks;
+package com.caved_in.commons.effect;
 
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.FireworkEffect;

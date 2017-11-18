@@ -1,12 +1,9 @@
 package com.caved_in.commons.plugin;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.chat.ChatCommand;
-import com.caved_in.commons.chat.ChatCommandHandler;
 import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
-import com.caved_in.commons.effect.PlayerGlowRed;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.item.ItemMessage;

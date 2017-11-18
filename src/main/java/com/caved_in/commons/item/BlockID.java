@@ -3,7 +3,9 @@ package com.caved_in.commons.item;
 /**
  * List of block IDs.
  *
- * @author sk89q
+ * @Author Sk89Q
+ *
+ * Link to file: https://raw.githubusercontent.com/sk89q/WorldEdit/master/worldedit-core/src/main/java/com/sk89q/worldedit/blocks/BlockID.java
  */
 public final class BlockID {
     public static final int AIR = 0;
@@ -177,15 +179,17 @@ public final class BlockID {
     public static final int LOG2 = 162;
     public static final int ACACIA_STAIRS = 163;
     public static final int DARK_OAK_STAIRS = 164;
+    public static final int SLIME = 165;
+    public static final int BARRIER = 166;
+    public static final int IRON_TRAP_DOOR = 167;
+    public static final int PRISMARINE = 168;
+    public static final int SEA_LANTERN = 169;
     public static final int HAY_BLOCK = 170;
     public static final int CARPET = 171;
     public static final int HARDENED_CLAY = 172;
     public static final int COAL_BLOCK = 173;
     public static final int PACKED_ICE = 174;
     public static final int DOUBLE_PLANT = 175;
-
-	/* 1.8 Items */
-
     public static final int STANDING_BANNER = 176;
     public static final int WALL_BANNER = 177;
     public static final int DAYLIGHT_SENSOR_INVERTED = 178;
@@ -208,9 +212,6 @@ public final class BlockID {
     public static final int JUNGLE_DOOR = 195;
     public static final int ACACIA_DOOR = 196;
     public static final int DARK_OAK_DOOR = 197;
-
-
-    /* 1.9 - 1.10 */
     public static final int END_ROD = 198;
     public static final int CHORUS_PLANT = 199;
     public static final int CHORUS_FLOWER = 200;
@@ -231,11 +232,43 @@ public final class BlockID {
     public static final int RED_NETHER_BRICK = 215;
     public static final int BONE_BLOCK = 216;
     public static final int STRUCTURE_VOID = 217;
+    public static final int OBSERVER = 218;
+    public static final int SHULKER_BOX_WHITE = 219;
+    public static final int SHULKER_BOX_ORANGE = 220;
+    public static final int SHULKER_BOX_MAGENTA = 221;
+    public static final int SHULKER_BOX_LIGHT_BLUE = 222;
+    public static final int SHULKER_BOX_YELLOW = 223;
+    public static final int SHULKER_BOX_LIME = 224;
+    public static final int SHULKER_BOX_PINK = 225;
+    public static final int SHULKER_BOX_GRAY = 226;
+    public static final int SHULKER_BOX_LIGHT_GRAY = 227;
+    public static final int SHULKER_BOX_CYAN = 228;
+    public static final int SHULKER_BOX_PURPLE = 229;
+    public static final int SHULKER_BOX_BLUE = 230;
+    public static final int SHULKER_BOX_BROWN = 231;
+    public static final int SHULKER_BOX_GREEN = 232;
+    public static final int SHULKER_BOX_RED = 233;
+    public static final int SHULKER_BOX_BLACK = 234;
+    public static final int TERRACOTTA_WHITE = 235;
+    public static final int TERRACOTTA_ORANGE = 236;
+    public static final int TERRACOTTA_MAGENTA = 237;
+    public static final int TERRACOTTA_LIGHT_BLUE = 238;
+    public static final int TERRACOTTA_YELLOW = 239;
+    public static final int TERRACOTTA_LIME = 240;
+    public static final int TERRACOTTA_PINK = 241;
+    public static final int TERRACOTTA_GRAY = 242;
+    public static final int TERRACOTTA_LIGHT_GRAY = 243;
+    public static final int TERRACOTTA_CYAN = 244;
+    public static final int TERRACOTTA_PURPLE = 245;
+    public static final int TERRACOTTA_BLUE = 246;
+    public static final int TERRACOTTA_BROWN = 247;
+    public static final int TERRACOTTA_GREEN = 248;
+    public static final int TERRACOTTA_RED = 249;
+    public static final int TERRACOTTA_BLACK = 250;
+    public static final int CONCRETE = 251;
+    public static final int CONCRETE_POWDER = 252;
     public static final int STRUCTURE_BLOCK = 255;
 
-    public static final int PRISMARINE = 168;
-
     private BlockID() {
-
     }
 }

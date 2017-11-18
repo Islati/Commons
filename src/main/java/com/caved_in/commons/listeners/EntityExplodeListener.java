@@ -2,7 +2,7 @@ package com.caved_in.commons.listeners;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
-import com.caved_in.commons.fireworks.Fireworks;
+import com.caved_in.commons.effect.Fireworks;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
