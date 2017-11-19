@@ -41,10 +41,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	private CommandHandler commandHandler;
 
-	private PlayerGlowRed playerGlowHandler;
-
-	private ChatCommandHandler chatCommandhandler;
-
 	public void onEnable() {
 		initLogger();
 
@@ -53,14 +49,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
          */
 		commandHandler = new CommandHandler(this);
 
-        /*
-		Create the chat command handler, for when you're lazy but wanna write commands.
-         As the chat command handler implements the listener, then we're also going to
-         register it as a listener.
-         */
-		registerListeners(
-				chatCommandhandler = new ChatCommandHandler(this)
-		);
 		/*
 		Create the thread manager, used to wrap tasks.
          */
@@ -81,11 +69,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		Create the asyncronous promise listener
          */
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
-
-        /*
-		Create the player glow handler, used as a cosmetic effect!
-         */
-		playerGlowHandler = new PlayerGlowRed(this);
 
         /*
 		Create the local serializer! (SimpleXML)
@@ -147,16 +130,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		commandHandler.registerCommandsByPackage(pkg);
 	}
 
-	public boolean registerChatCommands(ChatCommand... commands) {
-		for (ChatCommand cmd : commands) {
-			if (!chatCommandhandler.registerCommand(cmd)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public void registerListeners(Listener... listeners) {
 		Plugins.registerListeners(this, listeners);
 	}
@@ -204,10 +177,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public BoardManager getScoreboardManager() {
 		return scoreboardManager;
-	}
-
-	public PlayerGlowRed getPlayerGlowHandler() {
-		return playerGlowHandler;
 	}
 
 	public Logger getPluginLogger() {

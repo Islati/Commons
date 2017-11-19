@@ -4,7 +4,6 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,14 +32,7 @@ public class PlayerKickListener implements Listener {
             return;
         }
 
-
         UUID playerId = player.getUniqueId();
-
-        //Update the player's online status in the database
-        if (config.hasSqlBackend() && config.trackOnlinePlayerStatus()) {
-            Commons.getInstance().getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
-        }
-
         Players.removeData(playerId);
 //		if (Commons.hasSqlBackend()) {
 //			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);

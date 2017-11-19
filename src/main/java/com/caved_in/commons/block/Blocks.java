@@ -43,7 +43,7 @@ public class Blocks {
      * Set of the item-ids which materials are hollow
      */
     private static final Set<Material> HOLLOW_MATERIALS = new HashSet<>();
-    public static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
+    public static final HashSet<Material> TRANSPARENT_MATERIALS = new HashSet<>();
 
     /* Initialize the materials which are hollow */
     static {
@@ -90,13 +90,11 @@ public class Blocks {
         }
 
         //All hollow materials are transparant materials
-        for (Material material : HOLLOW_MATERIALS) {
-            Integer id = material.getId();
-            TRANSPARENT_MATERIALS.add(id.byteValue());
-        }
+        TRANSPARENT_MATERIALS.addAll(HOLLOW_MATERIALS);
+
         //Water is transparent, though not hollow
-        TRANSPARENT_MATERIALS.add((byte) Material.WATER.getId());
-        TRANSPARENT_MATERIALS.add((byte) Material.STATIONARY_WATER.getId());
+        TRANSPARENT_MATERIALS.add(Material.WATER);
+        TRANSPARENT_MATERIALS.add(Material.STATIONARY_WATER);
     }
 
     /**

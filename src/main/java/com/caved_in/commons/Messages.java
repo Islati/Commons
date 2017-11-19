@@ -1,7 +1,6 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.block.Direction;
-import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.inventory.HandSlot;
@@ -106,10 +105,6 @@ public class Messages {
 
     public static String arenaSpawnAdded(Arena arena, Location loc) {
         return String.format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
-    }
-
-    public static String cuboidDescription(Cuboid cuboid) {
-        return String.format("Cuboid: %s,%s,%s,%s => %s,%s,%s", cuboid.getWorldName(), cuboid.getLowerX(), cuboid.getLowerY(), cuboid.getLowerZ(), cuboid.getUpperX(), cuboid.getUpperY(), cuboid.getUpperZ());
     }
 
     public static String failedToEnchantItem(HandSlot hand) {

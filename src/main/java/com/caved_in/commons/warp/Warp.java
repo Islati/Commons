@@ -8,6 +8,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 
 
+//Todo change the serialization to yml
 public class Warp {
     @Attribute(name = "name")
     private String name;

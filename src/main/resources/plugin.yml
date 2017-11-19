@@ -5,12 +5,6 @@ description: An all-in-one plugin to provide features to both server owners, and
 author: Brandon Curtis (TechnicalBro/MumbosHut)
 softdepend: [TagAPI, ProtocolLib]
 commands:
-   buypremium:
-      description: Used to add premium (Console only)
-      usage: /<command> <PlayerName>
-   removepremium:
-      description: Used to remove premium (Console only)
-      usage: /<command> <PlayerName>
    msg:
       usage: /msg <player> <message>
       aliases: [m, t, tell, whisper]
@@ -42,8 +36,6 @@ commands:
       usage: /fly
    fw:
       usage: /fw
-   hat:
-      usage: /msg <player>
    gm:
       usage: /gm [Mode]
    god:
@@ -60,12 +52,8 @@ commands:
       usage: /<command> <Name>
    setspawn:
       usage: /setspawn
-   xp:
-      usage: /<command>
    more:
       usage: /<command>
-   addcurrency:
-      usage: /<command> <Player> <Amount>
    heal:
       usage: /<command>
    i:

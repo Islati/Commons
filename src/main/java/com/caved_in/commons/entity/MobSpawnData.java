@@ -3,11 +3,9 @@ package com.caved_in.commons.entity;
 import com.caved_in.commons.inventory.ArmorInventory;
 import com.caved_in.commons.yml.*;
 import com.mysql.jdbc.StringUtils;
-import lombok.ToString;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Skeleton;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 /*
 TODO The mob spawn data is created through a gui in game, and passed through multiple menus and items to
@@ -17,6 +15,8 @@ give a super fluid experience.
         configMode = ConfigMode.DEFAULT
 )
 public class MobSpawnData extends YamlConfig {
+
+    private String mobType;
 
     private EntityType entityType;
 

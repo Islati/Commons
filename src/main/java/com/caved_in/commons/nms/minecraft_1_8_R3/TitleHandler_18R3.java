@@ -7,7 +7,6 @@ import com.caved_in.commons.nms.AbstractTitle;
 import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;

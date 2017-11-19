@@ -309,7 +309,7 @@ public class RegisteredCommand {
     }
 
     public boolean testPermission(CommandSender sender) {
-        return Permissions.hasPermissions(sender, permissions);
+        return Permissions.hasPermissions(sender, this.permissions);
     }
 
 }

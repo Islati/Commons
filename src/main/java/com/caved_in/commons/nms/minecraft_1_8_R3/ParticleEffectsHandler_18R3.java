@@ -20,7 +20,7 @@ public class ParticleEffectsHandler_18R3 implements ParticleEffectsHandler {
     public Object createParticleEffectPacket(ParticleEffect effect, float x, float y, float z, float offsetX, float offsetY, float offsetZ, float speed, int count, int... extra) {
 
         return Reflect.on(particlePacketClass).create()
-                .set("a", enumParticleClass.getEnumConstants()[effect.getId()])
+                .set("a", Reflect.on(this.enumParticleClass).call("valueOf",effect.getName()).get())
                 .set("j", true)
                 .set("b", x)
                 .set("c", y)

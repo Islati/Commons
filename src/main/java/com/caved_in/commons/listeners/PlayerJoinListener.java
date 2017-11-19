@@ -4,7 +4,6 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.entity.Player;
@@ -39,12 +38,6 @@ public class PlayerJoinListener implements Listener {
 
 		//Initialize the wrapped player data
 		commons.getPlayerHandler().addData(player);
-
-		//Update the player's online status in our data-base!
-
-		if (trackOnline) {
-			commons.getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
-		}
 
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (config.teleportToSpawnOnJoin()) {
