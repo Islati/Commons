@@ -1,5 +1,7 @@
 package com.caved_in.commons.nms;
 
+import com.caved_in.commons.time.TimeHandler;
+import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -177,14 +179,23 @@ public abstract class AbstractTitle {
     }
 
     public int getFadeInTime() {
+        if (ticks) {
+            return (int) TimeHandler.getTimeInTicks(fadeInTime, TimeType.SECOND);
+        }
         return fadeInTime;
     }
 
     public int getStayTime() {
+        if (ticks) {
+            return (int) TimeHandler.getTimeInTicks(stayTime, TimeType.SECOND);
+        }
         return stayTime;
     }
 
     public int getFadeOutTime() {
+        if (ticks) {
+            return (int) TimeHandler.getTimeInTicks(fadeOutTime, TimeType.SECOND);
+        }
         return fadeOutTime;
     }
 

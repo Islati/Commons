@@ -5,6 +5,10 @@
  n: = Note
 -------------
 
+November 19'th, 2017 (Build 1.12.2):
+    + Updated title to have static methods for sending to players via the new spigot implementation.
+    ~ Update the title handler to
+s
 November 18'th, 2017 (Build 1.12.2):
     n: Began updating source code from 1.9.2 to 1.12.2
     - Removed Cuboid management.

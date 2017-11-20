@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 public class TitleHandlerNonBreaking implements AbstractTitle.TitleHandler {
     @Override
     public void send(Player player, AbstractTitle title) {
+        title.setTimingsToTicks();
+
         player.sendTitle(title.getTitle(),title.getSubtitle(),title.getFadeInTime(),title.getStayTime(),title.getFadeOutTime());
     }
 

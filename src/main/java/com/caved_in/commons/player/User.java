@@ -1,6 +1,7 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.chat.Title;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -143,6 +144,25 @@ public abstract class User implements PlayerWrapper {
         Chat.actionMessage(getPlayer(), message);
     }
 
+    /**
+     * Send the player a title.
+     * @param title Title (top line) of the message.
+     * @param subtitle Subtitle (bottom line) of the message.
+     * @param fadeIn time to take for the message to fade in.
+     * @param stay time for the title to stay on the players screen.
+     * @param fadeOut time for the title to take when fading out.
+     */
+    public void title(String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        getPlayer().sendTitle(Chat.format(title),Chat.format(subtitle),fadeIn,stay,fadeOut);
+    }
+
+    /**
+     * Send the player the given title.
+     * @param title title object to display for player.
+     */
+    public void title(Title title) {
+        title.send(getPlayer());
+    }
 
     /**
      * Send the player a formatted chat message!
