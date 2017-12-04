@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.world;
 
-import com.caved_in.commons.config.SerializableLocation;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaModifiedEvent;
 import com.caved_in.commons.utilities.ListUtils;

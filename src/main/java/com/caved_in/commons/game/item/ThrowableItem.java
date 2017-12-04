@@ -42,18 +42,22 @@ public abstract class ThrowableItem extends ItemGadget {
     @Override
     public void perform(Player holder) {
         ItemStack gadgetItem = getItem();
+//
+//        /*
+//        With Dual-Wielding available we need to check the hand slot of where the player has the item.
+//         */
+//        if (Players.hasItemInHand(holder, gadgetItem, HandSlot.MAIN_HAND)) {
+//            Players.removeFromHand(holder, 1, HandSlot.MAIN_HAND);
+//        } else {
+//            Players.removeFromHand(holder, 1, HandSlot.OFF_HAND);
+//        }
 
-        /*
-        With Dual-Wielding available we need to check the hand slot of where the player has the item.
-         */
-        if (Players.hasItemInHand(holder, gadgetItem, HandSlot.MAIN_HAND)) {
-            Players.removeFromHand(holder, 1, HandSlot.MAIN_HAND);
-        } else {
-            Players.removeFromHand(holder, 1, HandSlot.OFF_HAND);
-        }
+        //todo get hand slot which item is in.
 
         //Remove an item from the players hand, taking it out of their total amount for the throwable item.
-        Players.removeFromHand(holder, 1);
+        if (properties().takeItem()) {
+            Players.removeFromHand(holder, 1,HandSlot.MAIN_HAND);
+        }
 
         Location eyeLoc = holder.getEyeLocation();
 
@@ -160,6 +164,8 @@ public abstract class ThrowableItem extends ItemGadget {
 
         private boolean removeItem = true;
 
+        private boolean takeItem = true;
+
         private Action action = Action.EXECUTE;
 
         private String cancelMessage = "";
@@ -170,8 +176,9 @@ public abstract class ThrowableItem extends ItemGadget {
             super();
         }
 
-        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable) {
+        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name="takeItem") boolean takeItem) {
             super(durability, isBreakable, isDroppable, offHandEquipable);
+            this.takeItem = takeItem;
         }
 
         public int delay() {
@@ -250,6 +257,15 @@ public abstract class ThrowableItem extends ItemGadget {
 
         public boolean isTicks() {
             return ticks;
+        }
+
+        public boolean takeItem() {
+            return takeItem;
+        }
+
+        public Properties takeItem(boolean value) {
+            this.takeItem = value;
+            return this;
         }
     }
 

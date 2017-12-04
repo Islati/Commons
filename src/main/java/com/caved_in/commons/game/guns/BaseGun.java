@@ -3,7 +3,6 @@ package com.caved_in.commons.game.guns;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.ItemGadget;

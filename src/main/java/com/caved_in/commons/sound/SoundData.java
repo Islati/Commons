@@ -1,6 +1,5 @@
 package com.caved_in.commons.sound;
 
-import com.caved_in.commons.config.SerializableSound;
 import org.bukkit.Sound;
 import org.simpleframework.xml.Element;
 

@@ -1,6 +1,5 @@
 package com.caved_in.commons.item;
 
-import com.caved_in.commons.config.SerializableEnchantment;
 import com.caved_in.commons.exceptions.ItemCreationException;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.utilities.SneakyThrow;

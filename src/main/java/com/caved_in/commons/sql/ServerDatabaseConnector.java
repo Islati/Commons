@@ -2,7 +2,6 @@ package com.caved_in.commons.sql;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.ServerInfo;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Bukkit;

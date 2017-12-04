@@ -2,7 +2,6 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.SerialiizableInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;

@@ -1,295 +1,50 @@
 package com.caved_in.commons.entity;
 
-import com.caved_in.commons.inventory.ArmorInventory;
-import com.caved_in.commons.yml.*;
-import com.mysql.jdbc.StringUtils;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
+import lombok.ToString;
+import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Skeleton;
-import org.simpleframework.xml.Element;
 
-/*
-TODO The mob spawn data is created through a gui in game, and passed through multiple menus and items to
-give a super fluid experience.
- */
-@SerializeOptions(
-        configMode = ConfigMode.DEFAULT
-)
+@ToString(exclude = {"spawner"}, callSuper = true)
 public class MobSpawnData extends YamlConfig {
 
-    private String mobType;
+    @Path("mob")
+    private MobData mobData = new MobData();
 
-    private EntityType entityType;
+    @Path("location")
+    private Location location = null;
 
-    /* The amount of health the creature will have */
-    private double health = 0;
+    private CreatureBuilder spawner = null;
 
-    /* What the creatures maximum health is */
-    private double maxHealth = 0;
+    public MobSpawnData(MobData data, Location loc) {
+        this.mobData = data;
+        this.location = loc;
+    }
 
-    /* Whether or not it's a baby */
-    private boolean baby = false;
-
-    /* Whether or not it's a villager */
-    private boolean villager = false;
-
-    /* Used to determine whether or not the creature is powered; Only matters if they're a creeper */
-    @Comments({
-            "Determines whether or not the entity is powered",
-            "Only valid on creepers"
-    })
-    private boolean powered = false;
-
-    /* Used to determine whether or not the creature is a wither skeleton; only matters if they're a skeleton */
-
-    private Skeleton.SkeletonType skeletonType = Skeleton.SkeletonType.NORMAL;
-
-    private String skeletalType;
-
-    /* The name of the entity */
-    @Comments({
-            "The entities custom name, which will be",
-            "shown when the entity is in sight"
-    })
-    private String name = "";
-
-    /* The age the creature will be */
-    private int age = 0;
-
-    /* The minimum age the creature will be */
-    @Comments({
-            "Used when generating attributes",
-            "of the creature at random."
-    })
-    private int ageMin = 0;
-
-    /* The maximum age the creature will be */
-    @Comments({
-            "Used when generating attributes",
-            "of the creature at random."
-    })
-    private int ageMax = 0;
-
-    /* Size the slime will be */
-    @Comments({
-            "Determines the size of the slime"
-    })
-    private int size = 0;
-
-    /* Minimum size the slime can be */
-    @Comments({
-            "Used when generating attributes",
-            "of the creature at random."
-    })
-    private int sizeMin = 0;
-
-    /* Maximum size the slime can be */
-    @Comments({
-            "Used when generating attributes",
-            "of the creature at random."
-    })
-    private int sizeMax = 0;
-
-    @Path("armor")
-    private ArmorInventory armorInventory = new ArmorInventory();
-
-    public MobSpawnData(@Element(name = "mob-type") String mobType, @Element(name = "health", required = false) double health, @Element(name = "max-health", required = false) double maxHealth, @Element(name = "baby", required = false) boolean baby, @Element(name = "villager", required = false) boolean villager, @Element(name = "powered", required = false) boolean powered, @Element(name = "skeleton-type", required = false) String skeletalType, @Element(name = "name", required = false) String name, @Element(name = "age", required = false) int age, @Element(name = "age-min", required = false) int ageMin, @Element(name = "age-max", required = false) int ageMax, @Element(name = "slime-size", required = false) int size, @Element(name = "slime-min", required = false) int sizeMin, @Element(name = "size-max", required = false) int sizeMax, @Element(name = "armor", type = ArmorInventory.class, required = false) ArmorInventory armorInventory) {
-        this.mobType = mobType;
-        this.entityType = Entities.getTypeByName(mobType);
-        this.health = health;
-        this.maxHealth = maxHealth;
-        this.baby = baby;
-        this.villager = villager;
-        this.powered = powered;
-        this.skeletalType = skeletalType;
-
-        if (skeletalType != null) {
-            this.skeletonType = Skeleton.SkeletonType.valueOf(skeletalType);
-        } else {
-            this.skeletonType = Skeleton.SkeletonType.NORMAL;
+    public void spawn(int amount) {
+        for (int i = 0; i < amount; i++) {
+            spawn();
         }
-
-        this.name = name;
-        this.age = age;
-        this.ageMin = ageMin;
-        this.ageMax = ageMax;
-        this.size = size;
-        this.sizeMin = sizeMin;
-        this.sizeMax = sizeMax;
-        this.armorInventory = armorInventory;
     }
 
-    public MobSpawnData() {
-
+    public void spawn() {
+        spawner().spawn(location);
     }
 
-    public CreatureBuilder toBuilder() {
-        CreatureBuilder builder = CreatureBuilder.of(entityType);
-
-        if (name != null && !StringUtils.isNullOrEmpty(name)) {
-            builder.name(name);
+    private CreatureBuilder spawner() {
+        if (spawner == null) {
+            spawner = mobData.toBuilder();
         }
-
-        if (health > 0) {
-            builder.health(health);
-        }
-
-        if (maxHealth > 0) {
-            builder.maxHealth(maxHealth);
-        }
-
-        if (age > 0) {
-            builder.age(age);
-        }
-
-        if (ageMin > 0 && ageMax > ageMin) {
-            builder.age(ageMin, ageMax);
-        }
-
-        if (size > 0) {
-            builder.size(size);
-        }
-
-        if (sizeMin > 0 && sizeMax > sizeMin) {
-            builder.size(sizeMin, sizeMax);
-        }
-
-        if (powered) {
-            builder.powered();
-        }
-
-        if (skeletonType == Skeleton.SkeletonType.WITHER) {
-            builder.wither();
-        }
-
-        builder.asBaby(baby);
-
-        builder.asVillager(villager);
-
-        builder.armor(armorInventory);
-
-        return builder;
+        return spawner;
     }
 
-
-    public EntityType getEntityType() {
-        return entityType;
+    public MobData getMobData() {
+        return mobData;
     }
 
-    public double getHealth() {
-        return health;
+    public void setMobData(MobData mobData) {
+        this.mobData = mobData;
     }
 
-    public double getMaxHealth() {
-        return maxHealth;
-    }
-
-    public boolean isBaby() {
-        return baby;
-    }
-
-    public boolean isVillager() {
-        return villager;
-    }
-
-    public boolean isPowered() {
-        return powered;
-    }
-
-    public Skeleton.SkeletonType getSkeletonType() {
-        return skeletonType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public int getAgeMin() {
-        return ageMin;
-    }
-
-    public int getAgeMax() {
-        return ageMax;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public int getSizeMin() {
-        return sizeMin;
-    }
-
-    public int getSizeMax() {
-        return sizeMax;
-    }
-
-    public ArmorInventory getArmorInventory() {
-        return armorInventory;
-    }
-
-    public void setEntityType(EntityType entityType) {
-        this.entityType = entityType;
-        mobType = entityType.name();
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public void setMaxHealth(double maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public void setBaby(boolean baby) {
-        this.baby = baby;
-    }
-
-    public void setVillager(boolean villager) {
-        this.villager = villager;
-    }
-
-    public void setPowered(boolean powered) {
-        this.powered = powered;
-    }
-
-    public void setSkeletonType(Skeleton.SkeletonType skeletonType) {
-        this.skeletonType = skeletonType;
-        skeletalType = skeletonType.name();
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setAgeMin(int ageMin) {
-        this.ageMin = ageMin;
-    }
-
-    public void setAgeMax(int ageMax) {
-        this.ageMax = ageMax;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public void setSizeMin(int sizeMin) {
-        this.sizeMin = sizeMin;
-    }
-
-    public void setSizeMax(int sizeMax) {
-        this.sizeMax = sizeMax;
-    }
-
-    public void setArmorInventory(ArmorInventory armorInventory) {
-        this.armorInventory = armorInventory;
-    }
 }

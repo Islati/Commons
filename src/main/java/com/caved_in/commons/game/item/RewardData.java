@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.item;
 
-import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Material;

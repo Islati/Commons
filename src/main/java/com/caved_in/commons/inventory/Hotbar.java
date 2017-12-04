@@ -1,6 +1,5 @@
 package com.caved_in.commons.inventory;
 
-import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

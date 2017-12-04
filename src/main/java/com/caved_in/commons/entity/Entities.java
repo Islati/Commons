@@ -352,7 +352,7 @@ public class Entities {
      * @param inventory armor to parent the entity with.
      */
     public static void setEquipment(LivingEntity entity, ArmorInventory inventory) {
-        inventory.getArmor().entrySet().forEach(entry -> Entities.setEquipment(entity, entry.getKey(), entry.getValue()));
+        inventory.getArmor().forEach((key, value) -> Entities.setEquipment(entity, key, value));
     }
 
     /**
@@ -950,7 +950,7 @@ public class Entities {
         return MobType.isMob(entity.getType());
     }
 
-    public static void assignData(Entity entity, MobSpawnData data) {
+    public static void assignData(Entity entity, MobData data) {
         if (entity instanceof Ageable) {
             Ageable ageable = (Ageable) entity;
             if (data.isBaby()) {

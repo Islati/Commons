@@ -125,7 +125,7 @@ public class EntityDamageEntityListener implements Listener {
         LivingEntity entity = (LivingEntity) attacked;
 
         //If the player has nothing in their hands, quit; we require gadgetsS
-        if (Players.handIsEmpty(player)) {
+        if (!Players.hasItemInHand(player)) {
             return;
         }
 

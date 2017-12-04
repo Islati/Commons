@@ -341,11 +341,11 @@ public class CreatureBuilder {
     }
 
     /**
-     * Create a {@link MobSpawnData} object with the values used in the builder. Can be used to easily create serializable mob-spawn data.
-     * @return a {@link MobSpawnData} object with the values used in the builder.
+     * Create a {@link MobData} object with the values used in the builder. Can be used to easily create serializable mob-spawn data.
+     * @return a {@link MobData} object with the values used in the builder.
      */
-    public MobSpawnData toSpawnData() {
-        MobSpawnData data = new MobSpawnData();
+    public MobData toSpawnData() {
+        MobData data = new MobData();
 
         data.setEntityType(type);
         data.setAge(age);

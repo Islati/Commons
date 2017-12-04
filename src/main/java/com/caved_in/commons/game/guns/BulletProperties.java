@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.config.SerializableParticleEffect;
 import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
 import org.simpleframework.xml.Element;

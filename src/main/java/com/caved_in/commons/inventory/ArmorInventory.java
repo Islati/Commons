@@ -1,11 +1,11 @@
 package com.caved_in.commons.inventory;
 
-import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.yml.ConfigMode;
 import com.caved_in.commons.yml.Path;
 import com.caved_in.commons.yml.SerializeOptions;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -16,10 +16,25 @@ import java.util.Map;
 @SerializeOptions(
         configMode = ConfigMode.DEFAULT
 )
-public class ArmorInventory {
+public class ArmorInventory extends YamlConfig {
 
-    @Path("items")
-    private Map<ArmorSlot, SerializableItemStack> armorItems = new HashMap<>();
+    @Path("main-hand")
+    private ItemStack mainHandItem = null;
+
+    @Path("off-hand")
+    private ItemStack offHandItem = null;
+
+    @Path("helmet")
+    private ItemStack helmet = null;
+
+    @Path("chest")
+    private ItemStack chest = null;
+
+    @Path("leggings")
+    private ItemStack leggings = null;
+
+    @Path("boots")
+    private ItemStack boots = null;
 
     public ArmorInventory() {
 
@@ -28,13 +43,35 @@ public class ArmorInventory {
     public ArmorInventory(ItemStack[] armor) {
         for (int i = 0; i < armor.length; i++) {
             ArmorSlot slot = ArmorSlot.getSlot(i);
-            ItemStack item = armor[i];
-            armorItems.put(slot, SerializableItemStack.fromItem(item));
+            ItemStack item = armor[i].clone();
+
+            setItem(slot,item);
         }
     }
 
     public void setItem(ArmorSlot slot, ItemStack item) {
-        armorItems.put(slot, SerializableItemStack.fromItem(item));
+        switch (slot) {
+            case MAIN_HAND:
+                mainHandItem = item;
+                break;
+            case OFF_HAND:
+                offHandItem = item;
+                break;
+            case HELMET:
+                helmet = item;
+                break;
+            case CHEST:
+                chest = item;
+                break;
+            case LEGGINGS:
+                leggings = item;
+                break;
+            case BOOTS:
+                boots = item;
+                break;
+            default:
+                break;
+        }
     }
 
     public void equip(LivingEntity entity) {
@@ -46,35 +83,38 @@ public class ArmorInventory {
     }
 
     public ItemStack getMainHand() {
-        return armorItems.get(ArmorSlot.MAIN_HAND).getItemStack();
+        return mainHandItem;
     }
 
     public ItemStack getOffHand() {
-        return armorItems.get(ArmorSlot.OFF_HAND).getItemStack();
+        return offHandItem;
     }
 
     public ItemStack getHelmet() {
-        return armorItems.get(ArmorSlot.HELMET).getItemStack();
+        return helmet;
     }
 
     public ItemStack getBoots() {
-        return armorItems.get(ArmorSlot.BOOTS).getItemStack();
+        return boots;
     }
 
     public ItemStack getLegs() {
-        return armorItems.get(ArmorSlot.LEGGINGS).getItemStack();
+        return leggings;
     }
 
     public ItemStack getChest() {
-        return armorItems.get(ArmorSlot.CHEST).getItemStack();
+        return chest;
     }
 
     public Map<ArmorSlot, ItemStack> getArmor() {
         Map<ArmorSlot, ItemStack> armor = new HashMap<>();
 
-        for (Map.Entry<ArmorSlot, SerializableItemStack> item : armorItems.entrySet()) {
-            armor.put(item.getKey(), item.getValue().getItemStack());
-        }
+        armor.put(ArmorSlot.HELMET,helmet);
+        armor.put(ArmorSlot.BOOTS,boots);
+        armor.put(ArmorSlot.LEGGINGS,leggings);
+        armor.put(ArmorSlot.CHEST,chest);
+        armor.put(ArmorSlot.MAIN_HAND,mainHandItem);
+        armor.put(ArmorSlot.OFF_HAND,offHandItem);
 
         return armor;
     }

@@ -1,6 +1,5 @@
 package com.caved_in.commons.game.guns;
 
-import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.game.item.WeaponProperties;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
