@@ -1,17 +1,13 @@
 package com.caved_in.commons.yml.converter;
 
-import com.caved_in.commons.entity.MobType;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
 import org.apache.commons.lang3.reflect.TypeUtils;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.reflections.Reflections;
 
 import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
