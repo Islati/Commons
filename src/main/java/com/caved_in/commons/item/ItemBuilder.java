@@ -127,11 +127,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        return enchantment(enchantment, level, true);
-    }
-
-    public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
-        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, glow));
+        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, false,enchantment.isTreasure()));
         return this;
     }
 
@@ -140,10 +136,11 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder enchantments(Collection<EnchantmentWrapper> enchants) {
-        for (EnchantmentWrapper e : enchants) {
-            enchantments.add(new ItemEnchantmentWrapper(e, e., e.hasGlow()));
+    public ItemBuilder enchantments(Map<Enchantment, Integer> enchantments) {
+        for (Map.Entry<Enchantment, Integer> enchant : enchantments.entrySet()) {
+            enchantment(enchant.getKey(),enchant.getValue());
         }
+
         return this;
     }
 

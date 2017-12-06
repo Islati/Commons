@@ -9,7 +9,7 @@ public class ItemEnchantmentWrapper extends YamlConfig {
     private boolean itemGlow = false;
     private boolean treasure = false;
 
-    public ItemEnchantmentWrapper(Enchantment enchantment, int level, boolean itemGlow) {
+    public ItemEnchantmentWrapper(Enchantment enchantment, int level, boolean itemGlow, boolean treasure) {
         this.enchantment = enchantment;
         this.level = level;
         this.itemGlow = itemGlow;

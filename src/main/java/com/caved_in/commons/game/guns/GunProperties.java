@@ -65,21 +65,6 @@ public class GunProperties extends WeaponProperties {
         this.parent = parent;
     }
 
-    public GunProperties(int durability, boolean isBreakable, boolean isDroppable, boolean offHandEquipable, double damageMin, double damageMax, int clipSize, long shotDelay, int reloadSpeed, int roundsPerShot, ItemStack ammunition, boolean clusterShot, boolean reloadMessage, boolean displayAmmo, boolean takeAmmunition) {
-        /* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
-        super(-1, false, false, offHandEquipable, damageMin, damageMax);
-
-        this.clipSize = clipSize;
-        this.shotDelay = shotDelay;
-        this.reloadSpeed = reloadSpeed;
-        this.roundsPerShot = roundsPerShot;
-        this.ammunition = ammunition;
-        this.clusterShot = clusterShot;
-        this.reloadMessage = reloadMessage;
-        this.displayAmmo = displayAmmo;
-        this.takeAmmunition = takeAmmunition;
-    }
-
     /**
      * Set how much ammo the clip will hold.
      *

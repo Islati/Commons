@@ -1,60 +1,38 @@
 package com.caved_in.commons.yml.converter;
 
 
+import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
-/**
- * @author geNAZt (fabian.fassbender42@googlemail.com)
- * @author bibo38
- */
-public class ArrayYamlConverter implements Converter {
+public class UuidYamlConverter implements Converter {
 	private InternalConverter internalConverter;
 
-	public ArrayYamlConverter(InternalConverter internalConverter) {
+	public UuidYamlConverter(InternalConverter internalConverter) {
 		this.internalConverter = internalConverter;
 	}
 
 	@Override
 	public Object toConfig(Class<?> type, Object obj, ParameterizedType parameterizedType) throws Exception {
-		Class<?> singleType = type.getComponentType();
-		Converter conv = internalConverter.getConverter(singleType);
-		if (conv == null) {
-			return obj;
-		}
-
-		Object[] ret = new Object[java.lang.reflect.Array.getLength(obj)];
-		for (int i = 0; i < ret.length; i++) {
-			ret[i] = conv.toConfig(singleType, java.lang.reflect.Array.get(obj, i), parameterizedType);
-		}
-		return ret;
+		UUID id = (UUID)obj;
+		Map<String, Object> saveMap = new HashMap<>();
+		saveMap.put("uuid",id.toString());
+		return saveMap;
 	}
 
 	@Override
 	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception {
-		Class<?> singleType = type.getComponentType();
-		java.util.List values;
+		Map<String, Object> loadMap = new HashMap<>();
 
-		if (section instanceof java.util.List) {
-			values = (java.util.List) section;
+		if (section instanceof Map) {
+			loadMap = (Map<String, Object>)section;
 		} else {
-			values = new ArrayList();
-			Collections.addAll(values, (Object[]) section);
+			loadMap = (Map<String, Object>)((ConfigSection)section).getRawMap();
 		}
 
-		Object ret = java.lang.reflect.Array.newInstance(singleType, values.size());
-		Converter conv = internalConverter.getConverter(singleType);
-		if (conv == null) {
-			return values.toArray((Object[]) ret);
-		}
-
-		for (int i = 0; i < values.size(); i++) {
-			java.lang.reflect.Array.set(ret, i, conv.fromConfig(singleType, values.get(i), genericType));
-		}
-		return ret;
+		return UUID.fromString((String) loadMap.get("uuid"));
 	}
 
 	@Override

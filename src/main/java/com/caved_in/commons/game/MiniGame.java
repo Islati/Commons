@@ -12,9 +12,6 @@ import com.caved_in.commons.world.Worlds;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -341,7 +338,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 			arenaFolder.mkdirs();
 		}
 
-		Serializer serializer = new Persister();
 		Collection<File> arenas = FileUtils.listFiles(arenaFolder, null, false);
 
 		if (arenas.isEmpty()) {
@@ -351,11 +347,13 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 		for (File file : arenas) {
 			try {
-				Arena arena = serializer.read(Arena.class, file);
+				Arena arena = new Arena(file);
+				arena.load();
 				arenaManager.addArena(arena);
 				logger.info(("Loaded arena " + arena.toString()));
 			} catch (Exception e) {
 				e.printStackTrace();
+				logger.info("Unable to load arena from file: " + file.getName());
 			}
 		}
 
@@ -381,13 +379,13 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	 * @param arena arena to save.
 	 */
 	public void saveArena(Arena arena) {
-		Serializer serializer = new Persister();
-		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".xml");
+		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".yml");
 		try {
-			serializer.write(arena, arenaFile);
+			arena.save(arenaFile);
 			debug("Saved " + arena.toString() + " to " + arenaFile.getPath());
 		} catch (Exception e) {
 			e.printStackTrace();
+			debug("Unable to save arena " + arena.getArenaName() + " to file " + arenaFile.getName());
 		}
 	}
 

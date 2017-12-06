@@ -2,38 +2,6 @@ package com.caved_in.commons.config;
 
 public interface Configuration {
 
-	boolean hasSqlBackend();
-
-	void setMysqlBackend(boolean val);
-
-	String getMysqlHost();
-
-	void setMysqlHost(String host);
-
-	String getMysqlDatabaseName();
-
-	void setMysqlDatabaseName(String name);
-
-	String getMysqlPort();
-
-	void setMysqlPort(String port);
-
-	String getMysqlUsername();
-
-	void setMysqlUsername(String username);
-
-	String getMysqlPassword();
-
-	void setMysqlPassword(String password);
-
-	boolean trackOnlinePlayerStatus();
-
-	void setTrackOnlinePlayerStatus(boolean val);
-
-	String getServerName();
-
-	void setServerName(String name);
-
 	boolean registerCommands();
 
 	void registerCommands(boolean val);
@@ -65,26 +33,6 @@ public interface Configuration {
 	boolean isChatSilenced();
 
 	void silenceChat(boolean val);
-
-	boolean isPremiumOnlyMode();
-
-	void setPremiumOnlyMode(boolean val);
-
-	String getPremiumUserPermission();
-
-	void setPremiumUserPermission(String perm);
-
-	String getPremiumOnlyModeKickMessage();
-
-	void premiumOnlyModeKickMessage(String msg);
-
-	boolean kickNonPremiumPlayerWhenFull();
-
-	void kickNonPremiumPlayerWhenFull(boolean val);
-
-	String kickNonPremiumMessage();
-
-	void setKickNonPremiumMessage(String msg);
 
 	boolean teleportToSpawnOnJoin();
 

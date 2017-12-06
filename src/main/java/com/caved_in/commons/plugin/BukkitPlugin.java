@@ -16,16 +16,12 @@ import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
-
-	private Serializer serializer;
 
 	private BukkitScheduledExecutorService syncExecuter;
 
@@ -69,11 +65,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		Create the asyncronous promise listener
          */
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
-
-        /*
-		Create the local serializer! (SimpleXML)
-         */
-		serializer = new Persister();
 
 		if (Plugins.hasProtocolLib()) {
 			/*
@@ -154,10 +145,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public BukkitScheduledExecutorService getAsyncExecuter() {
 		return asyncExecuter;
-	}
-
-	public Serializer getSerializer() {
-		return serializer;
 	}
 
 	public RunnableManager getThreadManager() {

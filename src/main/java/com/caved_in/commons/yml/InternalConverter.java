@@ -26,6 +26,13 @@ public class InternalConverter {
 			addConverter(MapYamlConverter.class);
 			addConverter(ArrayYamlConverter.class);
 			addConverter(SetYamlConverter.class);
+
+			addConverter(UuidYamlConverter.class);
+			addConverter(BlockYamlConverter.class);
+			addConverter(EntityTypeYamlConverter.class);
+			addConverter(InventoryYamlConverter.class);
+			addConverter(ItemStackYamlConverter.class);
+			addConverter(LocationYamlConverter.class);
 		} catch (InvalidConverterException e) {
 			throw new IllegalStateException(e);
 		}

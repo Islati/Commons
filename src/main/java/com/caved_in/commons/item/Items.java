@@ -286,6 +286,10 @@ public class Items {
     public static boolean hasLoreAtLine(ItemStack item, int line) {
         List<String> loreLines = getLore(item);
 
+        if (loreLines == null) {
+            return false;
+        }
+
         if (loreLines.size() > line) {
             return StringUtils.isNotEmpty(loreLines.get(line));
         }
@@ -789,7 +793,7 @@ public class Items {
         }
 
         for (Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
-            enchants.add(new ItemEnchantmentWrapper(enchant.getKey(), enchant.getValue(), true));
+            enchants.add(new ItemEnchantmentWrapper(enchant.getKey(), enchant.getValue(),false,enchant.getKey().isTreasure()));
         }
 
         return enchants;

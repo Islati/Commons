@@ -11,8 +11,8 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.simpleframework.xml.Element;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -48,6 +48,14 @@ public class Arena extends YamlConfig implements GameArena {
 
     @Path("placeable-blocks")
     private List<Integer> placeables = new ArrayList<>();
+
+    /**
+     * Initiate using a file; Generally used to load a serialized arena.
+     * @param file file to load the arena data from.
+     */
+    public Arena(File file) {
+        super(file);
+    }
 
     public Arena(int id, String arenaName, String worldName, boolean enabled, boolean stormy, List<Location> spawns, List<Integer> breakables, List<Integer> placeables) {
         this.id = id;

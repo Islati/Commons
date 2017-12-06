@@ -1,24 +1,24 @@
 package com.caved_in.commons.world;
 
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
-import org.simpleframework.xml.Element;
 
-public class ChunkData {
+import java.io.File;
 
-    @Element(name = "world")
+public class ChunkData extends YamlConfig {
+
+    @Path("world")
     private String worldName;
 
-    @Element(name = "x-pos")
-    private final int x;
+    @Path("x")
+    private int x;
 
-    @Element(name = "y-pos")
-    private final int z;
+    @Path("y")
+    private int z;
 
-    private final int[] cords;
-
-    @Element(name = "state", type = ChunkState.class)
-    private ChunkState state = ChunkState.UNPROCESSED;
+    private int[] cords;
 
     public ChunkData(Chunk chunk) {
         x = chunk.getX();
@@ -26,12 +26,8 @@ public class ChunkData {
         cords = new int[]{x, z};
     }
 
-    public ChunkData(@Element(name = "world") String worldName, @Element(name = "x-pos") int x,
-                     @Element(name = "z-pos") int z, @Element(name = "state", type = ChunkState.class) ChunkState state) {
-        this.worldName = worldName;
-        this.x = x;
-        this.z = z;
-        this.cords = new int[]{x, z};
+    public ChunkData(File file) {
+        super(file);
     }
 
     public boolean similarTo(Object o) {
@@ -60,10 +56,6 @@ public class ChunkData {
 
     public Chunk getChunk() {
         return Chunks.getChunkAt(Worlds.getWorld(worldName), x, z);
-    }
-
-    public ChunkState getState() {
-        return state;
     }
 
 

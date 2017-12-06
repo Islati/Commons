@@ -15,7 +15,7 @@ public enum TimeType {
     HOUR("h", "hour", "hours"),
     MINUTE("i", "minute", "mins", "min"),
     SECOND("s", "second", "seconds", "secs", "sec"),
-    MILLESECOND("o", "mille", "mil", "millesecond", "milles", "mils");
+    MILLISECOND("o", "mille", "mil", "millesecond", "milles", "mils");
 
     private static Map<String, TimeType> timeTypes = new HashMap<>();
 

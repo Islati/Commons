@@ -5,6 +5,15 @@
  n: = Note
 -------------
 
+December 6'th, 2017 (Build 1.12.2):
+    ~ Modifying DebugItemDeserialize and Debug*ItemSerialize to use yaml.
+    ~ Updated ItemStackYamlConverter to also include item enchantments.
+    - Removed currency from User / Minecraft player
+    ~ Updated Arena to be handled with yaml
+    ~ All previous instances of XML Serialization are migrated to yml. Not sure if bug free yet, but we'll find out.
+    - Removed entire sql module. Not needed and truly bloats commons.
+    - Removed getRandomPremiumPlayer method from Commons.
+
 December 5'th, 2017 (Build 1.12.2):
     + getContentsAsMap in Inventories to aid future ventures.
     ~ Slowly removing SimpleXML by rewriting the instances of classes which depend on it, in order to use yaml effectively and

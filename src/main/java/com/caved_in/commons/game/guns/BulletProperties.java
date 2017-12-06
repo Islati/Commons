@@ -2,37 +2,41 @@ package com.caved_in.commons.game.guns;
 
 import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.game.clause.BulletDamageEntityClause;
-import org.simpleframework.xml.Element;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
+import com.caved_in.commons.yml.YamlConfig;
 
-public class BulletProperties {
+public class BulletProperties extends YamlConfig {
     /**
      * How much damage each bullet does.
      */
-    @Element(name = "bullet-damage")
+    @Path("bullet-damage")
     public double damage = 2;
 
-    @Element(name = "bullet-speed")
+    @Path("bullet-speed")
     public double speed = 6.5;
 
-    @Element(name = "bullet-spread")
+    @Path("bullet-spread")
     public double spread = 0.0;
 
-    @Element(name = "bullet-delay-ticks")
+    @Path("bullet-delay-ticks")
     public long delay = 2l;
 
-    @Element(name = "particles", required = false, type = SerializableParticleEffect.class)
-    private SerializableParticleEffect effect;
+    @Path("particles")
+    private String effect;
 
+    @Skip
     public BulletDamageEntityClause damageCondition;
 
+    @Skip
     private Gun parent;
 
-    public BulletProperties(@Element(name = "bullet-damage") double damage, @Element(name = "bullet-speed") double speed, @Element(name = "bullet-spread") double spread, @Element(name = "bullet-delay-ticks") long delay, @Element(name = "particles", required = false, type = SerializableParticleEffect.class) SerializableParticleEffect effect) {
+    public BulletProperties(double damage, double speed, double spread, long delay, ParticleEffect effect) {
         this.damage = damage;
         this.speed = speed;
         this.spread = spread;
         this.delay = delay;
-        this.effect = effect;
+        this.effect = effect.getName();
     }
 
     public BulletProperties(Gun gun) {
@@ -68,7 +72,7 @@ public class BulletProperties {
     }
 
     public BulletProperties effect(ParticleEffect effect) {
-        this.effect = SerializableParticleEffect.of(effect);
+        this.effect = effect.getName();
         return this;
     }
 
@@ -82,10 +86,10 @@ public class BulletProperties {
     }
 
     public boolean hasEffect() {
-        return effect.getEffect() != null;
+        return effect != null;
     }
 
     public ParticleEffect getEffect() {
-        return effect.getEffect();
+        return ParticleEffect.getEffect(effect);
     }
 }

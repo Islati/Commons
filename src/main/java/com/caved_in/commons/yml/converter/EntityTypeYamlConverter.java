@@ -10,10 +10,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityTypeConverter implements Converter {
+public class EntityTypeYamlConverter implements Converter {
     private InternalConverter converter;
 
-    public EntityTypeConverter(InternalConverter converter) {
+    public EntityTypeYamlConverter(InternalConverter converter) {
         this.converter = converter;
     }
 

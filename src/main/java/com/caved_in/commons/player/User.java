@@ -3,35 +3,31 @@ package com.caved_in.commons.player;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.chat.Title;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.Path;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.simpleframework.xml.Element;
 
 import java.util.UUID;
 
 public abstract class User implements PlayerWrapper {
-    @Element(name = "name")
+    @Path("name")
     private String name;
 
+    @Path("uuid")
     private UUID id;
 
-    @Element(name = "uuid")
-    private String uid;
-
-    @Element(name = "world")
+    @Path("world")
     private String worldName;
 
     public User(Player p) {
         name = p.getName();
         id = p.getUniqueId();
-        uid = id.toString();
         worldName = p.getWorld().getName();
     }
 
-    public User(@Element(name = "name") String name, @Element(name = "uuid") String uid, @Element(name = "world") String world) {
+    public User(String name, UUID id, String world) {
         this.name = name;
-        this.uid = uid;
-        id = UUID.fromString(this.uid);
+        this.id = id;
         this.worldName = world;
     }
 
@@ -45,7 +41,6 @@ public abstract class User implements PlayerWrapper {
 
     public void setId(UUID id) {
         this.id = id;
-        uid = id.toString();
     }
 
     @Override

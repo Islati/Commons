@@ -3,7 +3,6 @@ package com.caved_in.commons.sound;
 import com.caved_in.commons.yml.Path;
 import com.caved_in.commons.yml.Skip;
 import org.bukkit.Sound;
-import org.simpleframework.xml.Element;
 
 public class SoundData {
     @Path("type")

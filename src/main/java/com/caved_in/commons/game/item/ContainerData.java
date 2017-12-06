@@ -1,41 +1,36 @@
 package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.Material;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Root(name = "container-data")
-/**
- * Internal class used for the storage of chest/container contents, tagged with SimpleXML (library shaded with commons) serialization tags..
- */
-public class ContainerData {
-    @Element(name = "enabled")
+public class ContainerData extends YamlConfig {
+    @Path("enabled")
     private boolean enabled = true;
 
-    @Element(name = "container-title")
+    @Path("container-title")
     private String title = "Chest";
 
-    @Element(name = "container-id")
+    @Path("container-id")
     private int blockId = 54;
 
     private Material material = null;
 
-    @ElementList(name = "rewards", type = RewardData.class, entry = "reward", inline = true)
+    @Path("rewards")
     private List<RewardData> rewards = new ArrayList<>();
 
-    @Element(name = "min-items-amount")
+    @Path("min-items-amount")
     private int minChestRewards = 0;
 
-    @Element(name = "max-items-amount")
+    @Path("max-items-amount")
     private int maxChestRewards = 15;
 
-    public ContainerData(@Element(name = "enabled") boolean enabled, @Element(name = "container-title") String title, @Element(name = "container-id") int blockId, @ElementList(name = "rewards", type = RewardData.class, entry = "reward", inline = true) List<RewardData> rewards, @Element(name = "min-items-amount") int minChestRewards, @Element(name = "max-items-amount") int maxChestRewards) {
+    public ContainerData(boolean enabled, String title, int blockId, List<RewardData> rewards, int minChestRewards, int maxChestRewards) {
         this.enabled = enabled;
         this.title = title;
         this.blockId = blockId;

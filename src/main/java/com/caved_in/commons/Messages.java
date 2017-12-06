@@ -187,10 +187,6 @@ public class Messages {
         return String.format("&eYou've been teleported to &a%sx,%sy,%sz", xyz[0], xyz[1], xyz[2]);
     }
 
-    public static String playerXpBalance(Player player) {
-        return String.format("&aYou have &e%s&a XP", (int) Commons.getInstance().getPlayerHandler().getData(player).getCurrency());
-    }
-
     public static String playerTeleportedTo(String item, String target) {
         return String.format("&eYou've teleported &a%s&e to &a%s", item, target);
     }

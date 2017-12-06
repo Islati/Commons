@@ -15,19 +15,15 @@ import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.reflection.ReflectionUtilities;
-import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.warp.Warps;
 import com.caved_in.commons.world.Worlds;
 import com.caved_in.commons.yml.InvalidConfigurationException;
 import com.google.common.collect.Lists;
-import com.google.common.io.Files;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.mcstats.metrics.Metrics;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,12 +67,6 @@ public class Commons extends BukkitPlugin {
     Used to manage private messages between players.
      */
     private PrivateMessageManager privateMessageManager;
-
-    /*
-    Instance of the Commons database connector; Handles
-    saving and loading of data to and from the database.
-     */
-    private ServerDatabaseConnector database = null;
 
     private ChatMenuCommandListener chatMenuListener = null;
 
@@ -125,16 +115,6 @@ public class Commons extends BukkitPlugin {
          */
         players = new Players();
 
-        //If the SQL Backend is enabled, then register all the database interfaces
-        if (globalConfig.hasSqlBackend()) {
-            //Create the database connection
-            database = new ServerDatabaseConnector(globalConfig.getMysqlHost(), Integer.parseInt(globalConfig.getMysqlPort()), globalConfig.getMysqlDatabaseName(), globalConfig.getMysqlUsername(), globalConfig.getMysqlPassword());
-
-            getThreadManager().runTaskAsync(() -> {
-                database.updateServerOnlineStatus(true);
-            });
-        }
-
         //If the commands are to be registered: do so.
         if (getConfiguration().registerCommands()) {
             try {
@@ -168,15 +148,6 @@ public class Commons extends BukkitPlugin {
 
     @Override
     public void shutdown() {
-        /*
-        Update the server-online status for the server that's stopping
-        to false!
-         */
-        if (hasDatabaseBackend()) {
-            database.updateServerOnlineStatus(false);
-            getLogger().info("Updated the online-status for this server to false! b-bye!");
-        }
-
         for (Player player : Players.allPlayers()) {
             UUID playerId = player.getUniqueId();
             Players.removeData(playerId);
@@ -360,13 +331,6 @@ public class Commons extends BukkitPlugin {
             debug("&aRegistered the food change listener");
         }
 
-        //If the server is backed by SQL, then push the specific listeners
-        if (globalConfig.hasSqlBackend()) {
-            //Used to handle kicking of banned / temp-banned players
-            registerListeners(new PrePlayerLoginListener());
-            debug("&aRegistered the player pre-login listener");
-        }
-
         registerListeners(
                 //Used for gadgets, interaction restriction, etc.
                 new PlayerInteractListener(),
@@ -397,10 +361,6 @@ public class Commons extends BukkitPlugin {
         );
     }
 
-    public boolean hasDatabaseBackend() {
-        return Commons.getInstance().getConfiguration().hasSqlBackend();
-    }
-
     public void reloadConfiguration() {
         getInstance().initConfig();
     }
@@ -409,16 +369,8 @@ public class Commons extends BukkitPlugin {
         return globalConfig;
     }
 
-    public static boolean bukkitVersionMatches(String versionNumber) {
-        return Plugins.getBukkitVersion().contains(versionNumber);
-    }
-
     public ItemSetManager getItemSetManager() {
         return itemSetManager;
-    }
-
-    public ServerDatabaseConnector getServerDatabase() {
-        return database;
     }
 
     public Players getPlayerHandler() {
@@ -439,85 +391,6 @@ public class Commons extends BukkitPlugin {
 
     public ChatMenuCommandListener getChatMenuListener() {
         return chatMenuListener;
-    }
-
-
-    private void alternateCommonsConfig(Configuration currentConfig, Configuration targetConfig) {
-        /*
-        Configure all the database options!
-		 */
-        targetConfig.setMysqlBackend(currentConfig.hasSqlBackend());
-        targetConfig.setMysqlHost(currentConfig.getMysqlHost());
-        targetConfig.setMysqlPort(currentConfig.getMysqlPort());
-        targetConfig.setMysqlDatabaseName(currentConfig.getMysqlDatabaseName());
-        targetConfig.setMysqlUsername(currentConfig.getMysqlUsername());
-        targetConfig.setMysqlPassword(currentConfig.getMysqlPassword());
-        targetConfig.setTrackOnlinePlayerStatus(currentConfig.trackOnlinePlayerStatus());
-        targetConfig.setServerName(currentConfig.getServerName());
-
-		/*
-		Commands configuration!
-		 */
-        targetConfig.registerCommands(currentConfig.registerCommands());
-        targetConfig.enableBukkitCommands(currentConfig.enableBukkitCommands());
-        targetConfig.enablePluginsCommand(currentConfig.enablePluginsCommand());
-
-		/*
-		Server-specific configuration!
-		 */
-        targetConfig.enableJoinMessages(currentConfig.enableJoinMessages());
-        targetConfig.enableLeaveMessages(currentConfig.enableLeaveMessages());
-        targetConfig.enableKickMessages(currentConfig.enableKickMessages());
-        targetConfig.externalChatPlugin(currentConfig.hasExternalChatPlugin());
-        targetConfig.silenceChat(currentConfig.isChatSilenced());
-
-		/*
-		Premium Only mode configuration!
-		 */
-        targetConfig.setPremiumOnlyMode(currentConfig.isPremiumOnlyMode());
-        targetConfig.setPremiumUserPermission(currentConfig.getPremiumUserPermission());
-        targetConfig.premiumOnlyModeKickMessage(currentConfig.getPremiumOnlyModeKickMessage());
-        targetConfig.kickNonPremiumPlayerWhenFull(currentConfig.kickNonPremiumPlayerWhenFull());
-        targetConfig.setKickNonPremiumMessage(currentConfig.kickNonPremiumMessage());
-
-		/*
-		World configuration!
-		 */
-        targetConfig.teleportToSpawnOnJoin(currentConfig.teleportToSpawnOnJoin());
-        targetConfig.disableWeather(currentConfig.disableWeather());
-        targetConfig.disableLightning(currentConfig.disableLightning());
-        targetConfig.disableThunder(currentConfig.disableThunder());
-        targetConfig.disableIceAccumulation(currentConfig.disableIceAccumulation());
-        targetConfig.disableSnowAccumulation(currentConfig.disableSnowAccumulation());
-        targetConfig.disableMyceliumSpread(currentConfig.disableMyceliumSpread());
-        targetConfig.disableFireSpread(currentConfig.disableFireSpread());
-        targetConfig.launchpadPressurePlates(currentConfig.hasLaunchpadPressurePlates());
-        targetConfig.enableBlockBreak(currentConfig.enableBlockBreak());
-        targetConfig.enableItemDrop(currentConfig.enableItemDrop());
-        targetConfig.enableItemPickup(currentConfig.enableItemPickup());
-        targetConfig.enableFoodChange(currentConfig.enableFoodChange());
-        targetConfig.explosionFireworks(currentConfig.hasExplosionFireworks());
-        targetConfig.enableFallDamage(currentConfig.enableFallDamage());
-        targetConfig.disableLeavesDecay(currentConfig.disableLeavesDecay());
-
-		/*
-		Maintenance mode configuration!
-		 */
-        targetConfig.setMaintenanceMode(currentConfig.isMaintenanceModeEnabled());
-        targetConfig.maintenanceModeKickMessage(currentConfig.maintenanceModeKickMessage());
-        targetConfig.maintenanceModeMotd(currentConfig.maintenanceModeMotd());
-
-		/*
-		Debug configuration!
-		 */
-        targetConfig.enableStackTraceEvent(currentConfig.enableStackTraceEvent());
-        targetConfig.enableStackTraceBook(currentConfig.enableStackTraceBook());
-        targetConfig.enableStackTraceChat(currentConfig.enableStackTraceChat());
-
-		/*
-		Warps Configuration!
-		 */
-        targetConfig.enableWarpsMenu(currentConfig.enableWarpsMenu());
     }
 
     @Override
@@ -551,34 +424,28 @@ public class Commons extends BukkitPlugin {
         }
 
         Collection<File> itemSetFiles = FileUtils.listFiles(itemSetsFolder, null, false);
-//        if (itemSetFiles.size() > 0) {
-//            /* Load all the files in the item folder, into the item set manager */
-//            for (File file : itemSetFiles) {
-//                try {
-//                    ItemSetManager.ItemSet set = configSerializer.read(ItemSetManager.ItemSet.class, file);
-//
-//                    if (set == null) {
-//                        continue;
-//                    }
-//
-//                    itemSetManager.addSet(set);
-//                    debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+        if (itemSetFiles.size() > 0) {
+            /* Load all the files in the item folder, into the item set manager */
+            for (File file : itemSetFiles) {
+                try {
+                    ItemSetManager.ItemSet set = new ItemSetManager.ItemSet(file);
 
-        //todo write loading of item sets in YML Config
+                    set.load();
+
+                    itemSetManager.addSet(set);
+                    debug(String.format("Loaded itemset '%s' into the ItemSet Manager", set.getName()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         Collection<File> itemFiles = FileUtils.listFiles(itemsFolder, null, false);
-        /*
         if (itemFiles.size() > 0) {
-            *//* Load all the files in the item folder, into the saved item manager *//*
             for (File file : itemFiles) {
-//                SavedItemManager.loadItem(file); //todo rewrite to use YML files
-//            }
-        }*/
+                SavedItemManager.loadItem(file);
+            }
+        }
 
 		/*
 		Check if the debug data folder exists, and if not then create it!

@@ -15,8 +15,8 @@ public class RegisterCommandsItem extends MenuItem {
 	}
 
 	private void init() {
-		boolean hasSqlBackend = Commons.getInstance().getConfiguration().hasSqlBackend();
-		if (hasSqlBackend) {
+		boolean registerCommands = Commons.getInstance().getConfiguration().registerCommands();
+		if (registerCommands) {
 			setText("&aRegister Commands");
 			setIcon(Wool.GREEN_WOOL);
 			setDescriptions("&eClick to disable the Commands for Commons");

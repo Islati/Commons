@@ -5,7 +5,6 @@ import com.caved_in.commons.yml.*;
 import com.mysql.jdbc.StringUtils;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Skeleton;
-import org.simpleframework.xml.Element;
 
 /*
 TODO The mob spawn data is created through a gui in game, and passed through multiple menus and items to
@@ -16,18 +15,23 @@ give a super fluid experience.
 )
 public class MobData extends YamlConfig {
 
+    @Path("type")
     private EntityType entityType;
 
     /* The amount of health the creature will have */
+    @Path("health")
     private double health = 0;
 
     /* What the creatures maximum health is */
+    @Path("max-health")
     private double maxHealth = 0;
 
     /* Whether or not it's a baby */
+    @Path("baby")
     private boolean baby = false;
 
     /* Whether or not it's a villager */
+    @Path("villager")
     private boolean villager = false;
 
     /* Used to determine whether or not the creature is powered; Only matters if they're a creeper */
@@ -35,6 +39,7 @@ public class MobData extends YamlConfig {
             "Determines whether or not the entity is powered",
             "Only valid on creepers"
     })
+    @Path("powered")
     private boolean powered = false;
 
     /* Used to determine whether or not the creature is a wither skeleton; only matters if they're a skeleton */
@@ -46,9 +51,11 @@ public class MobData extends YamlConfig {
             "The entities custom name, which will be",
             "shown when the entity is in sight"
     })
+    @Path("name")
     private String name = "";
 
     /* The age the creature will be */
+    @Path("age")
     private int age = 0;
 
     /* The minimum age the creature will be */
@@ -56,6 +63,7 @@ public class MobData extends YamlConfig {
             "Used when generating attributes",
             "of the creature at random."
     })
+    @Path("age-min")
     private int ageMin = 0;
 
     /* The maximum age the creature will be */
@@ -63,12 +71,14 @@ public class MobData extends YamlConfig {
             "Used when generating attributes",
             "of the creature at random."
     })
+    @Path("age-max")
     private int ageMax = 0;
 
     /* Size the slime will be */
     @Comments({
             "Determines the size of the slime"
     })
+    @Path("size")
     private int size = 0;
 
     /* Minimum size the slime can be */
@@ -76,6 +86,7 @@ public class MobData extends YamlConfig {
             "Used when generating attributes",
             "of the creature at random."
     })
+    @Path("size-min")
     private int sizeMin = 0;
 
     /* Maximum size the slime can be */
@@ -83,6 +94,7 @@ public class MobData extends YamlConfig {
             "Used when generating attributes",
             "of the creature at random."
     })
+    @Path("size-max")
     private int sizeMax = 0;
 
     @Path("armor")

@@ -30,7 +30,7 @@ public class TimeHandler {
             case YEAR:
                 calender.add(Calendar.YEAR, amt);
                 break;
-            case MILLESECOND:
+            case MILLISECOND:
                 return amt;
             case TICK:
                 return TimeUnit.SECONDS.toMillis(amt / 20) / 1000;

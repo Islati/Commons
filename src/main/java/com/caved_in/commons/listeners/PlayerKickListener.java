@@ -34,8 +34,5 @@ public class PlayerKickListener implements Listener {
 
         UUID playerId = player.getUniqueId();
         Players.removeData(playerId);
-//		if (Commons.hasSqlBackend()) {
-//			Commons.disguiseDatabase.deletePlayerDisguiseData(playerName);
-//		}
     }
 }

@@ -27,22 +27,5 @@ public class PlayerLoginListener implements Listener {
 				event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
 			}
 		}
-
-		if (!config.hasSqlBackend()) {
-			return;
-		}
-		/*
-		If the server is in premium-only mode check if
-		the player is premium and if not kick them
-		*/
-		if (!config.isPremiumOnlyMode()) {
-			return;
-		}
-
-		//TODO Hook Vault / Permissions to see if player has permission to join while in premium.
-		if (!Commons.getInstance().getServerDatabase().getPlayerWrapper(player.getUniqueId()).isPremium()) {
-			event.setKickMessage(config.getPremiumOnlyModeKickMessage());
-			event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
-		}
 	}
 }

@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface Path {
 	String value() default "";
+	boolean required() default true;
 }

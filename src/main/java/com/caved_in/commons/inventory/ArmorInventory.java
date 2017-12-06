@@ -10,6 +10,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,10 @@ public class ArmorInventory extends YamlConfig {
 
     @Path("boots")
     private ItemStack boots = null;
+
+    public ArmorInventory(File file) {
+        super(file);
+    }
 
     public ArmorInventory() {
 

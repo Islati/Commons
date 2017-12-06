@@ -41,6 +41,10 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     @Path("item")
     private ItemStack gun;
 
+    @Skip
+    /* Used internally to put the ammo count in a guns name (display) */
+    private String gunBaseName;
+
     @Path("properties")
     private GunProperties properties = new GunProperties();
 
@@ -59,6 +63,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     public BaseGun(ItemStack gun, GunProperties properties, BulletProperties bulletProperties) {
         super(gun);
         this.gun = gun;
+        this.gunBaseName = Items.getName(gun);
         this.properties = properties;
         this.bullets = bulletProperties;
     }
@@ -66,11 +71,13 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     public BaseGun(ItemStack item) {
         super(item);
         gun = item.clone();
+        this.gunBaseName = Items.getName(gun);
     }
 
     public BaseGun(ItemBuilder builder) {
         super(builder);
         gun = getItem();
+        this.gunBaseName = Items.getName(gun);
     }
 
     private void initBuilder() {
@@ -341,12 +348,12 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         int slot = Inventories.getSlotOf(player.getInventory(), gun.getType(), Items.getName(gun));
 
         if (slot == -1) {
-            commons.debug("Unable to get slot of " + Items.getName(getItem()) + " on player " + player.getName());
+            commons.debug("Unable to get slot of " + getItemName() + " on player " + player.getName());
             return;
         }
 
         ItemStack item = Players.getItem(player, slot);
-        Items.setName(item, Messages.gunNameAmmoFormat(gun.getItemName(), getAmmo(player)));
+        Items.setName(item, Messages.gunNameAmmoFormat(getItemName(), getAmmo(player)));
     }
 
     @Override
@@ -375,7 +382,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     }
 
     public String getItemName() {
-        return gun.getItemName();
+        return gunBaseName;
     }
 
     public BulletBuilder getBulletBuilder() {

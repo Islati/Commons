@@ -29,18 +29,5 @@ public class PlayerQuitListener implements Listener {
 
         //Remove the cached player instance!
         Players.removeData(playerId);
-
-        if (!commons.hasDatabaseBackend()) {
-            return;
-        }
-
-//
-//		if (Commons.hasSqlBackend()) {
-//			Commons.disguiseDatabase.deletePlayerDisguiseData(playerId);
-//		}
-
-        commons.getThreadManager().runTaskLaterAsync(() -> {
-            commons.getServerDatabase().updatePlayerCount();
-        }, 20);
     }
 }

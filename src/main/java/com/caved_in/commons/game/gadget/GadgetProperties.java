@@ -1,50 +1,50 @@
 package com.caved_in.commons.game.gadget;
 
-import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.Items;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import lombok.ToString;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
-@Root(name = "gadget-properties")
 @ToString(of = {"durability", "isBreakable", "isDroppable"})
 /**
  * All the properties specific to Gadgets, accessed through any Gadget instance, it manages properties specific
  * to each gadget instance.
  */
-public class GadgetProperties {
+public class GadgetProperties extends YamlConfig {
     /*
     The durability of the item (How many uses it has)
      */
-    @Element(name = "durability")
+    @Path("durability")
     private int durability;
 
     /*
     Whether or not the item is breakable; Has no default value.
      */
-    @Element(name = "breakable")
+    @Path("breakable")
     private boolean isBreakable;
 
     /*
 
     Whether or not the item can be dropped; by default it's false.
      */
-    @Element(name = "droppable")
+    @Path("droppable")
     private boolean isDroppable = false;
 
-    @Element(name = "offHandEquippable")
+    @Path("offhand-allowed")
     private boolean offHandEquipable = true;
 
     public GadgetProperties() {
 
     }
 
-    public GadgetProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable) {
+    public GadgetProperties(File file) {
+        super(file);
+    }
+
+    public GadgetProperties(int durability,boolean isBreakable,boolean isDroppable,boolean offHandEquipable) {
         this.durability = durability;
         this.isBreakable = isBreakable;
         this.isDroppable = isDroppable;

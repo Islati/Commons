@@ -11,10 +11,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InventoryConverter implements Converter {
+public class InventoryYamlConverter implements Converter {
     private InternalConverter converter;
 
-    public InventoryConverter(InternalConverter converter) {
+    public InventoryYamlConverter(InternalConverter converter) {
         this.converter = converter;
     }
 
@@ -65,7 +65,7 @@ public class InventoryConverter implements Converter {
         ParameterizedType mapParamType = TypeUtils.parameterize(contents.getClass(),TypeUtils.parameterize(contentsMapClass,contentsMapClass.getGenericInterfaces()));
         contents = (Map<Integer, Object>)converter.getConverter(contents.getClass()).fromConfig(contents.getClass(),inventoryData.get("contents"),mapParamType);
 
-        InventoryConverter invConverter = (InventoryConverter)converter.getConverter(ItemStack.class);
+        InventoryYamlConverter invConverter = (InventoryYamlConverter)converter.getConverter(ItemStack.class);
         Inventory inventory = Inventories.makeInventory(name,rows);
 
         for(Map.Entry<Integer, Object> itemEntry : contents.entrySet()) {

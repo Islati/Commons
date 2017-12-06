@@ -18,7 +18,6 @@ import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.sound.Sounds;
-import com.caved_in.commons.sql.ServerDatabaseConnector;
 import com.caved_in.commons.threading.tasks.KickPlayerThread;
 import com.caved_in.commons.threading.tasks.NameFetcherCallable;
 import com.caved_in.commons.threading.tasks.UuidFetcherCallable;
@@ -49,10 +48,8 @@ import java.util.stream.Stream;
 public class Players {
     private static Commons commons = Commons.getInstance();
 
-    public static final String DEFAULT_PREFIX = "Member";
     public static final int DEPTH_EQUALIZE_NUMBER = 63;
     private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
-//	private static Map<String, PlayerWrapper> playerData = new HashMap<>();
 
     /* Map of all the players data; Wrapped player elements */
     private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
@@ -111,88 +108,8 @@ public class Players {
         MinecraftPlayer minecraftPlayer;
 
         //If there's no SQL backend for commons, then just load a 'null' / default wrapper
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-            minecraftPlayer = new MinecraftPlayer(playerName, 0);
-            playerData.put(playerId, minecraftPlayer);
-            return;
-        }
-
-        ServerDatabaseConnector database = commons.getServerDatabase();
-
-        //If the player doesn't have data in the database, and the insertion of defaults didnt work send them a message
-        if (!database.hasData(playerId)) {
-            database.insertDefaultData(player);
-        }
-
-        commons.debug(Messages.playerDataLoadAttempt(playerName));
-        //If the player has any cached data: remove it
-        if (hasData(playerId)) {
-            playerData.remove(playerId);
-            commons.debug(Messages.playerDataRemoveCache(playerName));
-        }
-
-        //Create a player wrapper from the data in the database and load it to the cache
-        minecraftPlayer = database.getPlayerWrapper(playerId);
-        minecraftPlayer.setTagColor(getNameTagColor(player));
-        commons.debug("&aLoaded data for " + playerName);
+        minecraftPlayer = new MinecraftPlayer(playerName);
         playerData.put(playerId, minecraftPlayer);
-    }
-
-    public static void giveMoney(Player player, int amount) {
-        giveMoney(player, amount, true);
-    }
-
-    public static void giveMoney(Player player, int amount, boolean message) {
-        //TODO Make Allow data to be added to Minecraft player even if there's no database attached
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-            return;
-        }
-
-        MinecraftPlayer minecraftPlayer = commons.getPlayerHandler().getData(player);
-        minecraftPlayer.addCurrency(minecraftPlayer.isPremium() ? ((double) amount) * 2 : (double) amount);
-        updateData(minecraftPlayer);
-        if (message) {
-            Chat.message(player, Messages.playerEarnedExperience(amount));
-        }
-    }
-
-    public static int getMoney(Player player) {
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-            return 0;
-        }
-
-        return commons.getPlayerHandler().getData(player).getCurrency();
-    }
-
-    public static void removeMoney(Player player, int amount) {
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-            return;
-        }
-
-        commons.getPlayerHandler().getData(player).removeCurrency(amount);
-    }
-
-    /**
-     * Synchronizes the playerwrapper object to their corresponding database entry
-     *
-     * @param minecraftPlayer wrapped player data to synchronize to the database
-     * @see MinecraftPlayer
-     * @since 1.0
-     */
-    public static void updateData(MinecraftPlayer minecraftPlayer) {
-        playerData.put(minecraftPlayer.getId(), minecraftPlayer);
-        //If the commons is being backed
-        if (commons.hasDatabaseBackend()) {
-            commons.getServerDatabase().syncPlayerWrapperData(minecraftPlayer);
-        }
-    }
-
-    public static void updateData(Player player) {
-        if (!commons.hasDatabaseBackend()) {
-            return;
-        }
-
-        commons.getServerDatabase().syncPlayerWrapperData(commons.getPlayerHandler().getData(player));
     }
 
     /**
@@ -206,13 +123,7 @@ public class Players {
      * @since 1.0
      */
     public static void removeData(UUID playerId) {
-        ServerDatabaseConnector database = commons.getServerDatabase();
         Players players = commons.getPlayerHandler();
-        if (Commons.getInstance().getConfiguration().hasSqlBackend() && players.hasData(playerId)) {
-            Chat.messageConsole("&aPreparing to sync " + playerId + "'s data to database");
-            database.syncPlayerWrapperData(playerData.get(playerId));
-            Chat.messageConsole("&a" + playerId + "'s data has been synchronized");
-        }
 
         MinecraftPlayer wrapper = players.getData(playerId);
         wrapper.dispose();
@@ -630,11 +541,7 @@ public class Players {
      * @return true if there was data in the database with the given uuid, or a player with the id is currently online; false otherwise.
      */
     public static boolean hasPlayed(UUID playerId) {
-        boolean online = isOnline(playerId);
-        if (Commons.getInstance().getConfiguration().hasSqlBackend() && !online) {
-            return commons.getServerDatabase().hasData(playerId);
-        }
-        return online;
+        return getOfflinePlayer(playerId).hasPlayedBefore();
     }
 
     /**
@@ -644,11 +551,7 @@ public class Players {
      * @return true if the player has played before and their data resides in the database, or they're currently online; False otherwise.
      */
     public static boolean hasPlayed(String name) {
-        boolean online = isOnline(name);
-        if (Commons.getInstance().getConfiguration().hasSqlBackend() && !online) {
-            return commons.getServerDatabase().hasData(name);
-        }
-        return online;
+        return getOfflinePlayer(name).hasPlayedBefore();
     }
 
     /**
@@ -682,29 +585,6 @@ public class Players {
      */
     public static boolean canChatWhileSilenced(Player player) {
         return (hasPermission(player, Perms.BYPASS_CHAT_SILENCE));
-    }
-
-    /**
-     * Check whether or not the player is premium
-     *
-     * @param playerId uuid of the player to check the premium status of
-     * @return true if the player is premium, false if not.
-     * @since 1.0
-     */
-    public static boolean isPremium(UUID playerId) {
-        return playerData.containsKey(playerId) && playerData.get(playerId).isPremium();
-    }
-
-    /**
-     * Check whether or not the player is premium.
-     *
-     * @param player player to check the premium status of
-     * @return true if they have premium status, false otherwise
-     * @see #isPremium(java.util.UUID)
-     * @since 1.0
-     */
-    public static boolean isPremium(Player player) {
-        return isPremium(player.getUniqueId());
     }
 
     /**
@@ -1092,17 +972,6 @@ public class Players {
      */
     public static Player getRandomPlayer() {
         return ListUtils.getRandom(Lists.newArrayList(allPlayers()));
-    }
-
-    public static Player getRandomNonPremiumPlayer() {
-        //todo move to matching against predicate for player
-        if (!Players.isOnline(1)) {
-            return null;
-        }
-
-        String premiumPermission = Commons.getInstance().getConfiguration().getPremiumUserPermission();
-        List<Player> nonPremiums = stream().filter(player -> !hasPermission(player, premiumPermission)).collect(Collectors.toList());
-        return ListUtils.getRandom(nonPremiums).getPlayer();
     }
 
     /**

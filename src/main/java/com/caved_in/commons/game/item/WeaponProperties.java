@@ -2,31 +2,29 @@ package com.caved_in.commons.game.item;
 
 import com.caved_in.commons.game.gadget.GadgetProperties;
 import com.caved_in.commons.utilities.NumberUtil;
+import com.caved_in.commons.yml.Path;
 import lombok.ToString;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
-@Root(name = "weapon-properties")
+import java.io.File;
+
 @ToString(of = {"damageMin", "damageMax"}, callSuper = true)
 /**
  * An extension of the GadgetProperties class, it adds a minimum and maximum damage range for the weapon.
- * Currently, this range is unimplemented internally, though if you wished to use it inside your plugin you'd be able to do so.
+ * Damage range (min-max) has no integrated function though can be used inside plugins utilizing the weapons.
  */
 public class WeaponProperties extends GadgetProperties {
-    @Element(name = "damage-min")
+    @Path("damage-min")
     private double damageMin = 0;
 
-    @Element(name = "damage-max")
+    @Path("damage-max")
     private double damageMax = 0;
 
     public WeaponProperties() {
 
     }
 
-    public WeaponProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax) {
-        super(durability, isBreakable, isDroppable,offHandEquipable);
-        /* Apply the damage to the instance of weapon properties */
-        damage(damageMin, damageMax);
+    public WeaponProperties(File file) {
+        super(file);
     }
 
     public WeaponProperties damage(double min, double max) {

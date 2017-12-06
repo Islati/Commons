@@ -3,11 +3,10 @@ package com.caved_in.commons.item;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.config.SerializableItemStack;
 import com.caved_in.commons.utilities.StringUtil;
 import org.apache.commons.io.FilenameUtils;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.util.HashMap;
@@ -21,7 +20,6 @@ import java.util.Set;
  * '/i save' and '/i load' Command.
  */
 public class SavedItemManager {
-    private static Serializer serializer = new Persister();
 
     private static final Map<String, ItemStack> items = new HashMap<>();
 
@@ -33,15 +31,13 @@ public class SavedItemManager {
         if (items.containsKey(name)) {
             return false;
         }
-
-        SerializableItemStack xmlItemStack = SerializableItemStack.fromItem(item);
-
+        SerializableItemStack serialItem = new SerializableItemStack(item);
         File itemFile = new File(String.format("%s/%s.xml", Commons.ITEM_DATA_FOLDER, name));
 
         boolean saved = true;
 
         try {
-            serializer.write(xmlItemStack, itemFile);
+            serialItem.save(itemFile);
 
             items.put(name, item);
         } catch (Exception e) {
@@ -55,19 +51,21 @@ public class SavedItemManager {
     public static void loadItem(File file) {
         String itemName = FilenameUtils.removeExtension(file.getName());
 
-        SerializableItemStack item = null;
+        SerializableItemStack fileItem = new SerializableItemStack(file);
         try {
-            item = serializer.read(SerializableItemStack.class, file);
+            fileItem.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ItemStack item = fileItem.getItem();
 
         if (item == null) {
             return;
         }
 
-        items.put(itemName, item.getItemStack());
-        Chat.debug(String.format("Loaded item %s", StringUtil.joinString(Messages.itemInfo(item.getItemStack()), "\n", 0)));
+        items.put(itemName, item);
+        Chat.debug(String.format("Loaded item %s", StringUtil.joinString(Messages.itemInfo(item), "\n", 0)));
     }
 
     public static ItemStack getItem(String name) {

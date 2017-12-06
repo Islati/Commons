@@ -3,8 +3,6 @@ package com.caved_in.commons.warp;
 import com.caved_in.commons.Commons;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.util.*;
@@ -15,7 +13,6 @@ public class Warps {
     private static boolean initialized = false;
     private static boolean updated = false;
     private static Map<String, Warp> warps = new HashMap<>();
-    private static Serializer serializer = new Persister();
 
     private static Map<Integer, List<Warp>> warpPages = new HashMap<>();
 
@@ -111,7 +108,9 @@ public class Warps {
         //Loop through all the files and load warps
         for (File file : warpFiles) {
             try {
-                addWarp(serializer.read(Warp.class, file));
+                Warp warp = new Warp(file);
+                warp.load();
+                addWarp(warp);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -135,7 +134,7 @@ public class Warps {
     public static void saveWarp(Warp warp) {
         File warpFile = new File(Commons.WARP_DATA_FOLDER + warp.getName() + ".xml");
         try {
-            serializer.write(warp, warpFile);
+            warp.save(warpFile);
         } catch (Exception e) {
             e.printStackTrace();
         }

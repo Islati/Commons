@@ -10,12 +10,15 @@ import com.caved_in.commons.player.Players;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.Comment;
+import com.caved_in.commons.yml.Path;
 import org.bukkit.Location;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.simpleframework.xml.Element;
+
+import java.io.File;
 
 public abstract class ThrowableItem extends ItemGadget {
 
@@ -154,32 +157,44 @@ public abstract class ThrowableItem extends ItemGadget {
     }
 
     public class Properties extends GadgetProperties {
+        @Path("force")
+        private double force;
+
+        @Path("delay")
         private int delay = 40;
 
-        private int force;
-
-        private boolean pickupable = false;
-
+        @Path("delay-in-ticks")
         private boolean ticks = false;
 
+        @Path("time-type")
+        private String timeTypeString = TimeType.SECOND.name();
+
+        @Path("pickupable")
+        private boolean pickupable = false;
+
+        @Path("remove-item")
         private boolean removeItem = true;
 
+        @Path("take-item")
+        @Comment("Whether or not the item is taken once thrown (on interact / right click)")
         private boolean takeItem = true;
 
-        private Action action = Action.EXECUTE;
+        @Path("action")
+        @Comment("What action to perform after the item has been thrown")
+        private String action = Action.EXECUTE.name();
 
+        @Path("cancel-message")
         private String cancelMessage = "";
 
-        private TimeType timeType = TimeType.SECOND;
+
+        public Properties(File file) {
+            super(file);
+        }
 
         public Properties() {
             super();
         }
 
-        public Properties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name="takeItem") boolean takeItem) {
-            super(durability, isBreakable, isDroppable, offHandEquipable);
-            this.takeItem = takeItem;
-        }
 
         public int delay() {
             return delay;
@@ -191,7 +206,7 @@ public abstract class ThrowableItem extends ItemGadget {
         }
 
         public Properties delayType(TimeType type) {
-            this.timeType = type;
+            this.timeTypeString = type.name();
             return this;
         }
 
@@ -206,14 +221,14 @@ public abstract class ThrowableItem extends ItemGadget {
         }
 
         public TimeType delayType() {
-            return timeType;
+            return TimeType.valueOf(timeTypeString);
         }
 
-        public int force() {
+        public double force() {
             return force;
         }
 
-        public Properties force(int force) {
+        public Properties force(double force) {
             this.force = force;
             return this;
         }
@@ -228,13 +243,13 @@ public abstract class ThrowableItem extends ItemGadget {
         }
 
         public Properties action(Action action) {
-            this.action = action;
+            this.action = action.name();
             return this;
         }
 
         public Properties cancel(String message) {
             this.cancelMessage = message;
-            this.action = Action.CANCEL;
+            this.action = Action.CANCEL.name();
             return this;
         }
 
@@ -244,7 +259,7 @@ public abstract class ThrowableItem extends ItemGadget {
         }
 
         public Action action() {
-            return action;
+            return Action.valueOf(action);
         }
 
         public String cancelMessage() {
