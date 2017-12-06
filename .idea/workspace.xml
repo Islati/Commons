@@ -10,39 +10,22 @@
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
     <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryConverter.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/commons.iml" afterPath="$PROJECT_DIR$/commons.iml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerialiizableInventory.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableEnchantment.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableItemAttribute.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableItemStack.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableLocation.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableParticleEffect.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializablePotionEffect.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableSound.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableTitle.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ServerInfo.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/serializers/UUIDConverter.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugHandItemSerialize.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugHandItemSerialize.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugItemDeserialize.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugItemDeserialize.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/CreatureBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/CreatureBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobData.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnLocation.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java" />
+      <change beforePath="$PROJECT_DIR$/log.txt" afterPath="$PROJECT_DIR$/log.txt" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseGun.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseGun.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BulletProperties.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BulletProperties.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/GunProperties.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/GunProperties.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/RewardData.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/RewardData.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorInventory.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorInventory.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Hotbar.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Hotbar.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/EnchantWrapper.java" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemSetManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemSetManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/SavedItemManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/SavedItemManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/EntityDamageEntityListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/EntityDamageEntityListener.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sound/SoundData.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sound/SoundData.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/ServerDatabaseConnector.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/ServerDatabaseConnector.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" />
     </list>
     <ignored path="Commons.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,132 +91,90 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LocationYamlConverter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/LocationYamlConverter.java">
+      <file leaf-file-name="InventoryConverter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+            <state relative-caret-position="1050">
+              <caret line="85" column="46" lean-forward="false" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+              <folding>
+                <element signature="e#3345#3346#0" expanded="true" />
+                <element signature="e#3406#3407#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ItemStackYamlConverter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="33" column="69" lean-forward="true" selection-start-line="33" selection-start-column="69" selection-end-line="33" selection-end-column="69" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="YamlConfig.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/YamlConfig.java">
+      <file leaf-file-name="Items.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="208">
+              <caret line="784" column="25" lean-forward="false" selection-start-line="784" selection-start-column="25" selection-end-line="784" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CommonsYamlConfiguration.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/CommonsYamlConfiguration.java">
+      <file leaf-file-name="ItemEnchantmentWrapper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemEnchantmentWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1635">
-              <caret line="109" column="48" lean-forward="true" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YamlConfigConverter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/YamlConfigConverter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MobSpawnData.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
-              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#738#739#0" expanded="true" />
-                <element signature="e#779#780#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MobData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobData.java">
+      <file leaf-file-name="ItemBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3020">
-              <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-              <folding>
-                <element signature="e#5510#5511#0" expanded="true" />
-                <element signature="e#5554#5555#0" expanded="true" />
-                <element signature="e#6044#6045#0" expanded="true" />
-                <element signature="e#6092#6093#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ColorCode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ColorCode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+            <state relative-caret-position="360">
+              <caret line="144" column="61" lean-forward="false" selection-start-line="144" selection-start-column="61" selection-end-line="144" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ThrowableItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java">
+      <file leaf-file-name="ItemSetManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemSetManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-255">
-              <caret line="58" column="63" lean-forward="false" selection-start-line="58" selection-start-column="63" selection-end-line="58" selection-end-column="63" />
+            <state relative-caret-position="347">
+              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding>
-                <element signature="e#5461#5462#0" expanded="true" />
-                <element signature="e#5494#5495#0" expanded="true" />
-                <element signature="e#6059#6060#0" expanded="true" />
-                <element signature="e#6090#6091#0" expanded="true" />
-                <element signature="e#8268#8269#0" expanded="true" />
-                <element signature="e#8307#8308#0" expanded="true" />
+                <element signature="e#2833#2834#0" expanded="true" />
+                <element signature="e#2908#2909#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseWeapon.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/BaseWeapon.java">
+      <file leaf-file-name="Inventories.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-135">
-              <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state relative-caret-position="200">
+              <caret line="136" column="27" lean-forward="false" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArmorInventory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorInventory.java">
+      <file leaf-file-name="log.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/log.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2113#2114#0" expanded="true" />
-                <element signature="e#2148#2149#0" expanded="true" />
-                <element signature="e#2185#2186#0" expanded="true" />
-                <element signature="e#2219#2220#0" expanded="true" />
-                <element signature="e#2255#2256#0" expanded="true" />
-                <element signature="e#2284#2285#0" expanded="true" />
-                <element signature="e#2319#2320#0" expanded="true" />
-                <element signature="e#2347#2348#0" expanded="true" />
-                <element signature="e#2381#2382#0" expanded="true" />
-                <element signature="e#2412#2413#0" expanded="true" />
-                <element signature="e#2447#2448#0" expanded="true" />
-                <element signature="e#2475#2476#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="12" column="99" lean-forward="false" selection-start-line="12" selection-start-column="99" selection-end-line="12" selection-end-column="99" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -278,20 +219,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ParticleEffectsHandler_19X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/effect/ParticleEffect.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_8_R3/ParticleEffectsHandler_18R3.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_9x/ParticleEffectsHandler_19X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ParticleEffectsHandler_1_12X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ForceRespawnHandler_1_12X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_19X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/TitleHandler_1_12X.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/MinecraftPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/BukkitPlugin.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/LoggedPluginManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/TimeType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/warp/Warp.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/world/Worlds.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/ChancedBlock.java" />
@@ -319,7 +246,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/AbstractTitle.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/non_breaking_implementation/TitleHandlerNonBreaking.java" />
-        <option value="$PROJECT_DIR$/log.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryYamlConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/EntityDamageEntityListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" />
@@ -329,6 +255,21 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnLocation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sound/SoundData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/ServerDatabaseConnector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Hotbar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/GunProperties.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseGun.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemSetManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/EnchantmentWrapperConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/EnchantWrapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemEnchantmentWrapper.java" />
+        <option value="$PROJECT_DIR$/log.txt" />
       </list>
     </option>
   </component>
@@ -510,9 +451,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -553,113 +491,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="event" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="gadget" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="guns" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
               <item name="item" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="inventory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="listeners" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="yml" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="yml" type="462c0819:PsiDirectoryNode" />
-              <item name="converter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -669,7 +509,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hcprisons" />
     <property name="SearchEverywhereHistory" value="" />
     <property name="dynamic.classpath" value="false" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
@@ -687,7 +527,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="Wool&#9;PSI&#9;JAVA://com.caved_in.commons.item.Wool&#10;UserMana&#9;PSI&#9;JAVA://com.caved_in.commons.game.players.UserManager&#10;GameCore&#9;PSI&#9;JAVA://com.caved_in.commons.game.GameCore&#10;Play&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java&#10;Players&#9;PSI&#9;JAVA://com.caved_in.commons.player.Players&#10;PlayerJoin&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerJoinListener&#10;egis&#9;PSI&#9;JAVA://com.caved_in.commons.command.RegisteredCommand&#10;MobSpawn&#9;PSI&#9;JAVA://com.caved_in.commons.entity.MobSpawnData&#10;KickListen&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerKickListener&#10;PlayerQUi&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerQuitListener&#10;BackCOmmand&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.BackCommand&#10;Blocks&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/block/Blocks.java&#10;PreTele&#9;PSI&#9;JAVA://com.caved_in.commons.location.PreTeleportLocation&#10;Messages&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;Entities&#9;FILE&#9;file:///home/brandon/Projects/Commons/src/main/java/com/caved_in/commons/entity/Entities.java" />
+    <property name="SearchEverywhereHistoryKey" value="ItemBui&#9;PSI&#9;JAVA://com.caved_in.commons.item.ItemBuilder&#10;Inventories&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/Inventories.java&#10;ItemS&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/item/ItemSetManager.java&#10;MapYaml&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/yml/converter/ListYamlConverter.java&#10;ItemSet&#9;PSI&#9;JAVA://com.caved_in.commons.item.ItemSetManager.ItemSet&#10;hotbar&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/Hotbar.java&#10;ServerD&#9;PSI&#9;JAVA://com.caved_in.commons.sql.ServerDatabaseConnector&#10;ListY&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/yml/converter/ListYamlConverter.java&#10;Arena&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.Arena&#10;BaseGun&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/guns/BaseGun.java&#10;SoundData&#9;PSI&#9;JAVA://com.caved_in.commons.sound.SoundData&#10;Wool&#9;PSI&#9;JAVA://com.caved_in.commons.item.Wool&#10;UserMana&#9;PSI&#9;JAVA://com.caved_in.commons.game.players.UserManager&#10;GameCore&#9;PSI&#9;JAVA://com.caved_in.commons.game.GameCore&#10;Play&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/PlayerJoinListener.java&#10;Players&#9;PSI&#9;JAVA://com.caved_in.commons.player.Players&#10;PlayerJoin&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerJoinListener&#10;egis&#9;PSI&#9;JAVA://com.caved_in.commons.command.RegisteredCommand&#10;MobSpawn&#9;PSI&#9;JAVA://com.caved_in.commons.entity.MobSpawnData&#10;KickListen&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerKickListener&#10;PlayerQUi&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerQuitListener&#10;BackCOmmand&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.BackCommand&#10;Blocks&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/block/Blocks.java&#10;PreTele&#9;PSI&#9;JAVA://com.caved_in.commons.location.PreTeleportLocation&#10;Messages&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;Entities&#9;FILE&#9;file:///home/brandon/Projects/Commons/src/main/java/com/caved_in/commons/entity/Entities.java" />
     <property name="recentsLimit" value="5" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editorconfig.notification" value="Applied .editorconfig settings" />
@@ -2042,17 +1882,16 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26302084" sideWeight="0.38" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15681818" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733078" sideWeight="0.619375" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23026316" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22899505" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30454546" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38385502" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3098485" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -2071,6 +1910,7 @@
       <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -2134,175 +1974,6 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ToolType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/WeaponType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ParticleEffectsHandler_1_12X.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-64">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/UnhandledStackTrace_1_12X.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NMS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_9x/UnhandledStackTrace_19X.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/GameCore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/GrassCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="26" lean-forward="false" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/Cooldown.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-754">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/ActionCooldown.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/players/IUserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-244">
-          <caret line="14" column="17" lean-forward="false" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/players/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="16" column="58" lean-forward="false" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1995">
-          <caret line="160" column="55" lean-forward="false" selection-start-line="160" selection-start-column="55" selection-end-line="160" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/Title.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="45" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/AbstractTitle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/TitleBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/Chat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5085">
-          <caret line="373" column="5" lean-forward="false" selection-start-line="373" selection-start-column="5" selection-end-line="373" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/PlayerWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/non_breaking_implementation/TitleHandlerNonBreaking.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="10" column="128" lean-forward="false" selection-start-line="10" selection-start-column="128" selection-end-line="10" selection-end-column="128" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ListYamlConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3285">
-          <caret line="219" column="37" lean-forward="false" selection-start-line="219" selection-start-column="37" selection-end-line="219" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8370">
-          <caret line="629" column="39" lean-forward="false" selection-start-line="629" selection-start-column="39" selection-end-line="629" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17070">
-          <caret line="1211" column="26" lean-forward="false" selection-start-line="1211" selection-start-column="26" selection-end-line="1211" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Wool.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -2314,13 +1985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="34" column="11" lean-forward="false" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2336,7 +2000,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1680">
           <caret line="127" column="13" lean-forward="false" selection-start-line="127" selection-start-column="13" selection-end-line="127" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2344,31 +2007,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6075">
-          <caret line="444" column="0" lean-forward="false" selection-start-line="444" selection-start-column="0" selection-end-line="444" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Hotbar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="27" column="48" lean-forward="false" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseGun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3405">
-          <caret line="251" column="90" lean-forward="false" selection-start-line="251" selection-start-column="90" selection-end-line="251" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2376,7 +2014,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2405,15 +2042,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1740">
           <caret line="354" column="95" lean-forward="false" selection-start-line="354" selection-start-column="95" selection-end-line="354" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/LocationYamlConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2428,8 +2056,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/CommonsYamlConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1635">
-          <caret line="109" column="48" lean-forward="true" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
-          <folding />
+          <caret line="109" column="48" lean-forward="false" selection-start-line="109" selection-start-column="48" selection-end-line="109" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -2446,52 +2073,30 @@
         <state relative-caret-position="30">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2113#2114#0" expanded="true" />
-            <element signature="e#2148#2149#0" expanded="true" />
-            <element signature="e#2185#2186#0" expanded="true" />
-            <element signature="e#2219#2220#0" expanded="true" />
-            <element signature="e#2255#2256#0" expanded="true" />
-            <element signature="e#2284#2285#0" expanded="true" />
-            <element signature="e#2319#2320#0" expanded="true" />
-            <element signature="e#2347#2348#0" expanded="true" />
-            <element signature="e#2381#2382#0" expanded="true" />
-            <element signature="e#2412#2413#0" expanded="true" />
-            <element signature="e#2447#2448#0" expanded="true" />
-            <element signature="e#2475#2476#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2113#2114#0" expanded="false" />
+            <element signature="e#2148#2149#0" expanded="false" />
+            <element signature="e#2185#2186#0" expanded="false" />
+            <element signature="e#2219#2220#0" expanded="false" />
+            <element signature="e#2255#2256#0" expanded="false" />
+            <element signature="e#2284#2285#0" expanded="false" />
+            <element signature="e#2319#2320#0" expanded="false" />
+            <element signature="e#2347#2348#0" expanded="false" />
+            <element signature="e#2381#2382#0" expanded="false" />
+            <element signature="e#2412#2413#0" expanded="false" />
+            <element signature="e#2447#2448#0" expanded="false" />
+            <element signature="e#2475#2476#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableItemStack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1617">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerialiizableInventory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="30" column="34" lean-forward="false" selection-start-line="30" selection-start-column="34" selection-end-line="30" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ServerInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerializableItemStack.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/SerialiizableInventory.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ServerInfo.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/ColorCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2499,7 +2104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-135">
           <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2508,12 +2112,12 @@
         <state relative-caret-position="-255">
           <caret line="58" column="63" lean-forward="false" selection-start-line="58" selection-start-column="63" selection-end-line="58" selection-end-column="63" />
           <folding>
-            <element signature="e#5461#5462#0" expanded="true" />
-            <element signature="e#5494#5495#0" expanded="true" />
-            <element signature="e#6059#6060#0" expanded="true" />
-            <element signature="e#6090#6091#0" expanded="true" />
-            <element signature="e#8268#8269#0" expanded="true" />
-            <element signature="e#8307#8308#0" expanded="true" />
+            <element signature="e#5461#5462#0" expanded="false" />
+            <element signature="e#5494#5495#0" expanded="false" />
+            <element signature="e#6059#6060#0" expanded="false" />
+            <element signature="e#6090#6091#0" expanded="false" />
+            <element signature="e#8268#8269#0" expanded="false" />
+            <element signature="e#8307#8308#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2522,23 +2126,257 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3020">
           <caret line="16" column="20" lean-forward="false" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-          <folding>
-            <element signature="e#5510#5511#0" expanded="true" />
-            <element signature="e#5554#5555#0" expanded="true" />
-            <element signature="e#6044#6045#0" expanded="true" />
-            <element signature="e#6092#6093#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobSpawnData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="345">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sound/SoundData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="17" column="9" lean-forward="false" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="133" column="23" lean-forward="false" selection-start-line="133" selection-start-column="23" selection-end-line="133" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/sql/ServerDatabaseConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-706">
+          <caret line="347" column="0" lean-forward="true" selection-start-line="347" selection-start-column="0" selection-end-line="347" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Hotbar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/PrimitiveYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/LocationYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ArrayYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/reflect/ParameterizedType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="46" column="17" lean-forward="false" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/BaseConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/GameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/GunProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3120">
+          <caret line="220" column="23" lean-forward="false" selection-start-line="220" selection-start-column="23" selection-end-line="220" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#6396#6397#0" expanded="false" />
+            <element signature="e#6425#6426#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/Bullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseGun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4620">
+          <caret line="340" column="96" lean-forward="false" selection-start-line="340" selection-start-column="96" selection-end-line="340" selection-end-column="96" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ListYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="50" column="57" lean-forward="true" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/Converter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="30" column="56" lean-forward="true" selection-start-line="30" selection-start-column="56" selection-end-line="30" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="219" column="37" lean-forward="false" selection-start-line="219" selection-start-column="37" selection-end-line="219" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/InternalConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-435">
+          <caret line="75" column="24" lean-forward="false" selection-start-line="75" selection-start-column="24" selection-end-line="75" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/MapYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="48" column="44" lean-forward="false" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/Inventories.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="136" column="27" lean-forward="false" selection-start-line="136" selection-start-column="27" selection-end-line="136" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemSetManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding>
+            <element signature="e#2833#2834#0" expanded="true" />
+            <element signature="e#2908#2909#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="85" column="46" lean-forward="false" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+          <folding>
+            <element signature="e#3345#3346#0" expanded="true" />
+            <element signature="e#3406#3407#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/EnchantmentWrapperConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="31" column="8" lean-forward="false" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="33" column="69" lean-forward="true" selection-start-line="33" selection-start-column="69" selection-end-line="33" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="784" column="25" lean-forward="false" selection-start-line="784" selection-start-column="25" selection-end-line="784" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="99" lean-forward="false" selection-start-line="12" selection-start-column="99" selection-end-line="12" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Enchantments.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="32" column="27" lean-forward="false" selection-start-line="32" selection-start-column="27" selection-end-line="32" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.12.2-R0.1-SNAPSHOT/spigot-1.12.2-R0.1-SNAPSHOT.jar!/org/bukkit/enchantments/Enchantment.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="12" column="48" lean-forward="true" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="144" column="61" lean-forward="false" selection-start-line="144" selection-start-column="61" selection-end-line="144" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemEnchantmentWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#779#780#0" expanded="true" />
           </folding>
         </state>
       </provider>

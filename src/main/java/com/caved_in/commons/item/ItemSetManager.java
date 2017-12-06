@@ -2,6 +2,8 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.yml.Path;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.simpleframework.xml.Element;
@@ -86,25 +88,20 @@ public class ItemSetManager {
         }
     }
 
-    @Root(name = "item-set")
     public static class ItemSet {
-        @Element(name = "set-name")
+        @Path("name")
         private String setName;
 
-        @Element(name = "inventory-items", type = SerialiizableInventory.class)
-        private SerialiizableInventory inventory;
+        @Path("inventory")
+        private Inventory inventory;
 
-        public ItemSet(@Element(name = "set-name") String name, @Element(name = "inventory-items", type = SerialiizableInventory.class) SerialiizableInventory inv) {
+        public ItemSet(String name, Inventory inv) {
             this.setName = name;
             this.inventory = inv;
         }
 
-        public ItemSet(String name, Inventory inv) {
-            this(name, new SerialiizableInventory(inv));
-        }
-
         public Map<Integer, ItemStack> getInventoryContents() {
-            return inventory.getInventoryContents();
+            return Inventories.getContentsAsMap(this.inventory);
         }
 
         public String getName() {

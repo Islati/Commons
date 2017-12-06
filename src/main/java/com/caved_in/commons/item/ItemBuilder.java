@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,7 +26,7 @@ public class ItemBuilder {
     private short durability = -101;
 
     private List<String> lore = new ArrayList<>();
-    private List<EnchantWrapper> enchantments = new ArrayList<>();
+    private List<ItemEnchantmentWrapper> enchantments = new ArrayList<>();
 
     private boolean forceEnchantments = false;
 
@@ -130,7 +131,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
-        enchantments.add(new EnchantWrapper(enchantment, level, glow));
+        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, glow));
         return this;
     }
 
@@ -139,9 +140,9 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder enchantments(Collection<SerializableEnchantment> enchants) {
-        for (SerializableEnchantment e : enchants) {
-            enchantments.add(new EnchantWrapper(e.getEnchantment(), e.getLevel(), e.hasGlow()));
+    public ItemBuilder enchantments(Collection<EnchantmentWrapper> enchants) {
+        for (EnchantmentWrapper e : enchants) {
+            enchantments.add(new ItemEnchantmentWrapper(e, e., e.hasGlow()));
         }
         return this;
     }
@@ -180,7 +181,7 @@ public class ItemBuilder {
         }
         //If there's any enchantments added to the itembuilder, add them to the item
         if (!enchantments.isEmpty()) {
-            for (EnchantWrapper enchantWrapper : enchantments) {
+            for (ItemEnchantmentWrapper enchantWrapper : enchantments) {
                 itemMeta.addEnchant(enchantWrapper.getEnchantment(), enchantWrapper.getLevel(), enchantWrapper.isItemGlow());
             }
         }

@@ -1,20 +1,21 @@
 package com.caved_in.commons.entity;
 
 import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
 import com.caved_in.commons.yml.YamlConfig;
 import lombok.ToString;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
 
 @ToString(exclude = {"spawner"}, callSuper = true)
 public class MobSpawnData extends YamlConfig {
 
     @Path("mob")
-    private MobData mobData = new MobData();
+    private MobData mobData;
 
     @Path("location")
     private Location location = null;
 
+    @Skip
     private CreatureBuilder spawner = null;
 
     public MobSpawnData(MobData data, Location loc) {

@@ -115,6 +115,29 @@ public class Inventories {
     }
 
     /**
+     * Get the contents of the inventory as a map. The maps key is the slot the item was present in, and the value is the corresponding itemstack.
+     * @param inventory inventory to get the contents for.
+     * @return a map where each entry is a slot, and itemstack- Even if the inventory is empty, a map will be returned.
+     */
+    public static Map<Integer, ItemStack> getContentsAsMap(Inventory inventory) {
+        ItemStack[] contents = inventory.getContents();
+
+        Map<Integer, ItemStack> invContents = new HashMap<>();
+
+        for(int i = 0; i < contents.length; i++) {
+            ItemStack item = contents[i];
+
+            if (item == null) {
+                continue;
+            }
+
+            invContents.put(i,item);
+        }
+
+        return invContents;
+    }
+
+    /**
      * Check whether or not the inventory is empty.
      *
      * @param inventory inventory to check

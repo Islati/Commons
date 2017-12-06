@@ -11,20 +11,19 @@ import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-
-@Root(name = "projectile-gun")
 /**
  * An absolutely spectacular extension of the {@link ItemGadget} class, which implements the behaviours of a Gun.
  *
@@ -39,15 +38,16 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();
 
-    @Element(name = "gun", type = SerializableItemStack.class)
-    private SerializableItemStack gun;
+    @Path("item")
+    private ItemStack gun;
 
-    @Element(name = "properties", type = GunProperties.class)
+    @Path("properties")
     private GunProperties properties = new GunProperties();
 
-    @Element(name = "bullet-properties", type = BulletProperties.class)
+    @Path("bullet-properties")
     private BulletProperties bullets = new BulletProperties();
 
+    @Skip
     private Map<UUID, Integer> ammoCounts = new HashMap<>();
 
     private Map<UUID, Long> shootDelays = new HashMap<>();
@@ -56,8 +56,8 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
     private BulletActions actions;
 
-    public BaseGun(@Element(name = "gun", type = SerializableItemStack.class) SerializableItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties, @Element(name = "bullet-properties", type = BulletProperties.class) BulletProperties bulletProperties) {
-        super(gun.getItemStack());
+    public BaseGun(ItemStack gun, GunProperties properties, BulletProperties bulletProperties) {
+        super(gun);
         this.gun = gun;
         this.properties = properties;
         this.bullets = bulletProperties;
@@ -65,12 +65,12 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
     public BaseGun(ItemStack item) {
         super(item);
-        gun = SerializableItemStack.fromItem(item);
+        gun = item.clone();
     }
 
     public BaseGun(ItemBuilder builder) {
         super(builder);
-        gun = SerializableItemStack.fromItem(getItem());
+        gun = getItem();
     }
 
     private void initBuilder() {
@@ -338,7 +338,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     }
 
     private void giveGunAmmoCount(Player player) {
-        int slot = Inventories.getSlotOf(player.getInventory(), gun.getMaterial(), gun.getItemName());
+        int slot = Inventories.getSlotOf(player.getInventory(), gun.getType(), Items.getName(gun));
 
         if (slot == -1) {
             commons.debug("Unable to get slot of " + Items.getName(getItem()) + " on player " + player.getName());

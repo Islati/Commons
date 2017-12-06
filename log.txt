@@ -5,6 +5,13 @@
  n: = Note
 -------------
 
+December 5'th, 2017 (Build 1.12.2):
+    + getContentsAsMap in Inventories to aid future ventures.
+    ~ Slowly removing SimpleXML by rewriting the instances of classes which depend on it, in order to use yaml effectively and
+      reduce the overall size of the library.
+    + InventoryConverter for yml is now available.
+    ~ EnchantWrapper modified to ItemEnchantmentWrapper for naming and yml serialization porpoises.
+
 November 19'th, 2017 (Build 1.12.2):
     + Updated title to have static methods for sending to players via the new spigot implementation.
     ~ Update the title handler to

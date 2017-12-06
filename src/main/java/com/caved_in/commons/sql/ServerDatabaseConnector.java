@@ -346,54 +346,6 @@ public class ServerDatabaseConnector extends DatabaseConnector {
         }
     }
 
-    public ServerInfo getServerInfo(String name) {
-        PreparedStatement serverInfoStatement = prepareStatement(RETRIEVE_SERVER_INFO);
-        ServerInfo info = new ServerInfo();
-        try {
-            serverInfoStatement.setString(1, name);
-
-            ResultSet results = serverInfoStatement.executeQuery();
-            if (results.next()) {
-                info.name(results.getString("svr_name"))
-                        .players(results.getInt("svr_player_count"))
-                        .maxPlayers(results.getInt("svr_player_limit"))
-                        .online(results.getBoolean("svr_online"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(serverInfoStatement);
-        }
-
-        return info;
-    }
-
-    public Set<ServerInfo> getAllServerInfo() {
-        Set<ServerInfo> infoSet = new HashSet<>();
-
-        PreparedStatement infoStatement = prepareStatement(RETRIEVE_ALL_SERVER_INFO);
-
-        try {
-            ResultSet results = infoStatement.executeQuery();
-
-            while (results.next()) {
-                ServerInfo info = new ServerInfo()
-                        .name(results.getString("svr_name"))
-                        .players(results.getInt("svr_player_count"))
-                        .maxPlayers(results.getInt("svr_player_limit"))
-                        .online(results.getBoolean("svr_online"));
-
-                infoSet.add(info);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            close(infoStatement);
-        }
-
-        return infoSet;
-    }
-
     public boolean givePlayerMoney(UUID id, int amount) {
         if (!hasData(id)) {
             return false;

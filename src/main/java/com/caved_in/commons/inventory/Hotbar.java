@@ -1,21 +1,19 @@
 package com.caved_in.commons.inventory;
 
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.yml.Path;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.ElementMap;
-import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Root(name = "Hotbar")
 public class Hotbar {
-    @ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = SerializableItemStack.class, attribute = true)
-    private Map<Integer, SerializableItemStack> hotbarItems = new HashMap<>();
+    @Path("items")
+    private Map<Integer, ItemStack> items = new HashMap<>();
 
-    public Hotbar(@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = SerializableItemStack.class, attribute = true) Map<Integer, SerializableItemStack> items) {
-        this.hotbarItems = items;
+    public Hotbar(Map<Integer, ItemStack> items) {
+        this.items = items;
     }
 
     public Hotbar(ItemStack... items) {
@@ -24,7 +22,7 @@ public class Hotbar {
                 break;
             }
 
-            hotbarItems.put(i, SerializableItemStack.fromItem(items[i]));
+            this.items.put(i, items[i].clone());
         }
     }
 
@@ -40,7 +38,7 @@ public class Hotbar {
             slot = 8;
         }
 
-        hotbarItems.put(slot, SerializableItemStack.fromItem(item));
+        items.put(slot, item.clone());
         return this;
     }
 
@@ -50,8 +48,8 @@ public class Hotbar {
      * @param player player to change the hotbar contents of
      */
     public void assign(Player player) {
-        for (Map.Entry<Integer, SerializableItemStack> hotbarEntry : hotbarItems.entrySet()) {
-            Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue().getItemStack());
+        for (Map.Entry<Integer, ItemStack> hotbarEntry : items.entrySet()) {
+            Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue());
         }
     }
 
@@ -61,13 +59,13 @@ public class Hotbar {
     public ItemStack[] getItems() {
         ItemStack[] items = new ItemStack[8];
 
-        for (Map.Entry<Integer, SerializableItemStack> hotbarEntry : hotbarItems.entrySet()) {
+        for (Map.Entry<Integer, ItemStack> hotbarEntry : this.items.entrySet()) {
             int index = hotbarEntry.getKey();
             if (index > items.length) {
                 continue;
             }
 
-            items[index] = hotbarEntry.getValue().getItemStack();
+            items[index] = hotbarEntry.getValue();
         }
         return items;
     }

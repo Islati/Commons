@@ -612,13 +612,13 @@ public class Items {
     }
 
     /**
-     * Add a varying amount of {@link com.caved_in.commons.item.EnchantWrapper} to the item.
+     * Add a varying amount of {@link ItemEnchantmentWrapper} to the item.
      *
      * @param target   item to enchant.
      * @param enchants wrappers to apply to the item.
      */
-    public static void addEnchantment(ItemStack target, EnchantWrapper... enchants) {
-        for (EnchantWrapper wrapper : enchants) {
+    public static void addEnchantment(ItemStack target, ItemEnchantmentWrapper... enchants) {
+        for (ItemEnchantmentWrapper wrapper : enchants) {
             addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
         }
 
@@ -630,8 +630,8 @@ public class Items {
      * @param target   item to enchant
      * @param wrappers Wrappers to enchant the item with.
      */
-    public static void addEnchantments(ItemStack target, Collection<EnchantWrapper> wrappers) {
-        for (EnchantWrapper wrapper : wrappers) {
+    public static void addEnchantments(ItemStack target, Collection<ItemEnchantmentWrapper> wrappers) {
+        for (ItemEnchantmentWrapper wrapper : wrappers) {
             addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
         }
     }
@@ -651,13 +651,13 @@ public class Items {
      * @param target   item to enchant.
      * @param enchants collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to add to the item.
      */
-    public static void setEnchantments(ItemStack target, Set<EnchantWrapper> enchants) {
+    public static void setEnchantments(ItemStack target, Set<ItemEnchantmentWrapper> enchants) {
         ItemMeta meta = getMetadata(target);
 
         //Clear the current enchantments.
         meta.getEnchants().clear();
 
-        for (EnchantWrapper wrapper : enchants) {
+        for (ItemEnchantmentWrapper wrapper : enchants) {
             addEnchantment(target, wrapper.getEnchantment(), wrapper.getLevel());
         }
     }
@@ -724,8 +724,8 @@ public class Items {
         }
 
 
-        Set<EnchantWrapper> enchants = getEnchantments(item);
-        for (EnchantWrapper wrapper : enchants) {
+        Set<ItemEnchantmentWrapper> enchants = getEnchantments(item);
+        for (ItemEnchantmentWrapper wrapper : enchants) {
             if (wrapper.getEnchantment().equals(enchant)) {
                 return true;
             }
@@ -747,8 +747,8 @@ public class Items {
             return false;
         }
 
-        Set<EnchantWrapper> enchants = getEnchantments(item);
-        for (EnchantWrapper wrapper : enchants) {
+        Set<ItemEnchantmentWrapper> enchants = getEnchantments(item);
+        for (ItemEnchantmentWrapper wrapper : enchants) {
             if (wrapper.getEnchantment().equals(enchant) && wrapper.getLevel() == level) {
                 return true;
             }
@@ -779,17 +779,17 @@ public class Items {
      * If the item has no enchantments, and empty hashset is returned.
      *
      * @param item item to get the enchantments from.
-     * @return a HashSet of the {@link com.caved_in.commons.item.EnchantWrapper} that the item has; If no enchants are available, then an empty hash set is returned.
+     * @return a HashSet of the {@link ItemEnchantmentWrapper} that the item has; If no enchants are available, then an empty hash set is returned.
      */
-    public static Set<EnchantWrapper> getEnchantments(ItemStack item) {
-        Set<EnchantWrapper> enchants = Sets.newHashSet();
+    public static Set<ItemEnchantmentWrapper> getEnchantments(ItemStack item) {
+        Set<ItemEnchantmentWrapper> enchants = Sets.newHashSet();
 
         if (!hasEnchantments(item)) {
             return enchants;
         }
 
         for (Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
-            enchants.add(new EnchantWrapper(enchant.getKey(), enchant.getValue(), true));
+            enchants.add(new ItemEnchantmentWrapper(enchant.getKey(), enchant.getValue(), true));
         }
 
         return enchants;

@@ -1,8 +1,10 @@
 package com.caved_in.commons.yml.converter;
 
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
@@ -28,6 +30,8 @@ public class ItemStackYamlConverter implements Converter {
 		saveMap.put("amount", itemStack.getAmount());
 
 		Converter listConverter = converter.getConverter(List.class);
+
+		Map<Enchantment, Integer> itemEnchants = Items.getEnchantments()
 
 		//todo implement enchant serialize
 

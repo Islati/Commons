@@ -5,52 +5,51 @@ import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+
+import com.caved_in.commons.yml.Path;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
-@Root(name = "guns-properties")
+
 public class GunProperties extends WeaponProperties {
     /**
      * The size of our launchers clip. After 20 shots, they'll need to reload.
      */
-    @Element(name = "clip-size")
+    @Path("clip-size")
     public int clipSize = 20;
 
-    @Element(name = "fire-delay-millis")
+    @Path("shot-delay")
     public long shotDelay = 1500l;
 
-    @Element(name = "reload-speed")
+    @Path("reload-speed")
     public int reloadSpeed = 5;
 
-    @Element(name = "reload-message")
+    @Path("reload-message")
     public boolean reloadMessage = true;
 
-    @Element(name = "display-ammo")
+    @Path("display-ammo")
     public boolean displayAmmo = true;
 
-    @Element(name = "block-range")
+    @Path("range")
     public int range = 100;
 
     /**
      * What ammunition to use for the guns. By default it's flint.
      */
-    @Element(name = "ammunition", type = SerializableItemStack.class)
-    private SerializableItemStack ammunition = SerializableItemStack.fromItem(Items.makeItem(Material.FLINT));
+    @Path("ammunition")
+    private ItemStack ammunition = Items.makeItem(Material.FLINT);
 
     /**
      * How many bullets each shot takes.
      */
-    @Element(name = "rounds-per-shot")
+    @Path("rounds-per-shot")
     public int roundsPerShot = 1;
 
-    @Element(name = "cluster-shot")
+    @Path("cluster-shot")
     public boolean clusterShot = false;
 
-    @Element(name = "take-ammunition-on-fire", required = false)
+    @Path("take-ammunition-on-fire")
     public boolean takeAmmunition = true;
-
 
     private Gun parent;
 
@@ -66,7 +65,7 @@ public class GunProperties extends WeaponProperties {
         this.parent = parent;
     }
 
-    public GunProperties(@Element(name = "durability") int durability, @Element(name = "breakable") boolean isBreakable, @Element(name = "droppable") boolean isDroppable, @Element(name = "offHandEquipable") boolean offHandEquipable, @Element(name = "damage-min") double damageMin, @Element(name = "damage-max") double damageMax, @Element(name = "clip-size") int clipSize, @Element(name = "fire-delay-millis") long shotDelay, @Element(name = "reload-speed-seconds") int reloadSpeed, @Element(name = "rounds-per-shot") int roundsPerShot, @Element(name = "ammunition", type = SerializableItemStack.class) SerializableItemStack ammunition, @Element(name = "cluster-shot") boolean clusterShot, @Element(name = "reload-message", required = false) boolean reloadMessage, @Element(name = "display-ammo") boolean displayAmmo, @Element(name = "take-ammunition-on-fire", required = false) boolean takeAmmunition) {
+    public GunProperties(int durability, boolean isBreakable, boolean isDroppable, boolean offHandEquipable, double damageMin, double damageMax, int clipSize, long shotDelay, int reloadSpeed, int roundsPerShot, ItemStack ammunition, boolean clusterShot, boolean reloadMessage, boolean displayAmmo, boolean takeAmmunition) {
         /* The first 3 items, durability, isDroppable, and otherwise are merely placeholders! */
         super(-1, false, false, offHandEquipable, damageMin, damageMax);
 
@@ -147,7 +146,7 @@ public class GunProperties extends WeaponProperties {
      * @return the gun-properties builder.
      */
     public GunProperties ammunition(ItemStack item) {
-        this.ammunition = SerializableItemStack.fromItem(item.clone());
+        this.ammunition = item.clone();
         return this;
     }
 
@@ -216,7 +215,7 @@ public class GunProperties extends WeaponProperties {
     }
 
     public ItemStack ammunition() {
-        return ammunition.getItemStack();
+        return ammunition;
     }
 
     public Gun parent() {
