@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -83,5 +84,9 @@ public class Chunks {
 
     public static Chunk getChunkAt(World world, Block block) {
         return world.getChunkAt(block);
+    }
+
+    public static Chunk getChunk(Player player) {
+        return player.getLocation().getChunk();
     }
 }

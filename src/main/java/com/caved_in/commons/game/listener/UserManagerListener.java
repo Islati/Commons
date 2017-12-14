@@ -1,77 +1,31 @@
 package com.caved_in.commons.game.listener;
 
-import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.players.UserManager;
 import com.caved_in.commons.player.User;
 import com.caved_in.commons.plugin.BukkitPlugin;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.entity.Player;
 
-public class UserManagerListener implements Listener {
-    private BukkitPlugin parent;
-    private UserManager userManager;
+public class UserManagerListener extends AbstractUserManagerListener {
 
-    public UserManagerListener(UserManager manager) {
-        this.userManager = manager;
+    public UserManagerListener(BukkitPlugin plugin, UserManager userManager) {
+        super(plugin,userManager);
     }
 
-    public UserManagerListener(CraftGame game) {
-        parent = game;
-        userManager = game.getUserManager();
+    @Override
+    public void handleJoin(Player player) {
+        getUserManager().addUser(player);
     }
 
-    protected UserManager getUserManager() {
-        return userManager;
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        userManager.addUser(e.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerQuit(PlayerQuitEvent e) {
-        User user = userManager.getUser(e.getPlayer());
-        user.destroy();
-
-        userManager.removeUser(e.getPlayer());
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onPlayerKick(PlayerKickEvent e) {
-        User user = userManager.getUser(e.getPlayer());
+    @Override
+    public void handleLeave(Player player) {
+        User user = getUserManager().getUser(player);
         if (user == null) {
-            parent.getPluginLogger().severe("Unable to retrieve User data (" + userManager.getUserClass().getCanonicalName() + ") for player " + e.getPlayer().getName());
+            getPlugin().getPluginLogger().severe("Unable to retrieve User data (" + getUserManager().getUserClass().getCanonicalName() + ") for player " + player.getName());
             return;
         }
 
         user.destroy();
 
-        userManager.removeUser(e.getPlayer());
-    }
-
-    @EventHandler
-    public void onPlayerWorldChange(PlayerChangedWorldEvent e) {
-        UserManager manager = getUserManager();
-        try {
-            manager.getUser(e.getPlayer()).updateWorld();
-            parent.getPluginLogger().info("Updated world for " + e.getPlayer().getName());
-        } catch (NullPointerException ex) {
-            parent.getThreadManager().runTaskLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        manager.getUser(e.getPlayer()).updateWorld();
-                    } catch (Exception ex1) {
-                        //todo
-                    }
-                }
-            }, 40);
-        }
+        getUserManager().removeUser(player);
     }
 }

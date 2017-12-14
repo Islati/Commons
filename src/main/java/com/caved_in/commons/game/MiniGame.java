@@ -99,7 +99,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 		/* Create the connection listener that handles the managing of game-player data */
 		if (userManagerListener == null) {
-			userManagerListener = new UserManagerListener(this);
+			userManagerListener = new UserManagerListener(this,userManager);
 		}
 
         /* Register the game connection listener */

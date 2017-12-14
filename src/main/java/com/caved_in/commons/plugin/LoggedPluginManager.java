@@ -144,7 +144,7 @@ public abstract class LoggedPluginManager implements PluginManager {
                         Event.class));
             }
         }
-        throw new IllegalPluginAccessException("Unable to find handler list for event " + clazz.getName());
+        throw new IllegalPluginAccessException("Unable to find static getHandlerList method for event " + clazz.getName());
     }
 
     @Override

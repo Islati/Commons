@@ -4,12 +4,13 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.chat.Title;
 import com.caved_in.commons.world.Worlds;
 import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public abstract class User implements PlayerWrapper {
+public abstract class User extends YamlConfig implements PlayerWrapper {
     @Path("name")
     private String name;
 
@@ -96,6 +97,19 @@ public abstract class User implements PlayerWrapper {
         onWorldChange(oldWorld, playerWorld);
     }
 
+    /**
+     * Synchronize the user instances data to the player given.
+     * @param player Player to update user data with.
+     */
+    public void sync(Player player) {
+        this.id = player.getUniqueId();
+        this.name = player.getName();
+        this.worldName = player.getWorld().getName();
+    }
+
+    /**
+     * To be called when the player leaves the server.
+     */
     public void destroy() {
 
     }
