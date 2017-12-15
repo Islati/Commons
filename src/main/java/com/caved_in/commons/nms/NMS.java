@@ -2,11 +2,13 @@ package com.caved_in.commons.nms;
 
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.nms.minecraft_1_12_x.ActionMessageHandler_1_12X;
+import com.caved_in.commons.nms.minecraft_1_12_x.AnvilHandler_1_12X;
 import com.caved_in.commons.nms.minecraft_1_12_x.ParticleEffectsHandler_1_12X;
 import com.caved_in.commons.nms.minecraft_1_12_x.UnhandledStackTrace_1_12X;
 import com.caved_in.commons.nms.minecraft_1_8_R3.*;
 import com.caved_in.commons.nms.minecraft_1_9x.*;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
+import com.caved_in.commons.nms.no_implementation.AnvilHandlerNI;
 import com.caved_in.commons.nms.no_implementation.ParticleEffectsHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
 import com.caved_in.commons.nms.non_breaking_implementation.ForceRespawnHandlerNonBreaking;
@@ -32,6 +34,8 @@ public class NMS {
 
     private static ParticleEffectsHandler particleEffectsHandler = null;
 
+    private static AnvilHandler anvilHandler = null;
+
     private static boolean initialized = false;
 
     public static void init() {
@@ -48,6 +52,7 @@ public class NMS {
                 titleHandler = new TitleHandler_18R3();
                 forceRespawnHandler = new ForceRespawnHandler_18R3();
                 particleEffectsHandler = new ParticleEffectsHandler_18R3();
+                anvilHandler = new AnvilHandler_18R3();
                 break;
             case "v1_9_R1":
             case "v1_9_R2":
@@ -56,6 +61,7 @@ public class NMS {
                 forceRespawnHandler = new ForceRespawnHandler_19X();
                 actionMessageHandler = new ActionMessageHandler_19X();
                 particleEffectsHandler = new ParticleEffectsHandler_19X();
+                anvilHandler = new AnvilHandler_19X();
                 break;
             //todo Implement the other version 1.10 / 1.11
             case "v1_12_R1":
@@ -64,6 +70,7 @@ public class NMS {
                 forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
                 particleEffectsHandler = new ParticleEffectsHandler_1_12X();
                 stackTraceHandler = new UnhandledStackTrace_1_12X();
+                anvilHandler = new AnvilHandler_1_12X();
                 break;
             default:
                 stackTraceHandler = new UnhandledStackTraceNI();
@@ -71,6 +78,7 @@ public class NMS {
                 titleHandler = new TitleHandlerNonBreaking();
                 forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
                 particleEffectsHandler = new ParticleEffectsHandlerNI();
+                anvilHandler = new AnvilHandlerNI();
                 break;
         }
 

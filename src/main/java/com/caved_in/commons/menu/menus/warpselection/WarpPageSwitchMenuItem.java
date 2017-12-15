@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.warpselection;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.menu.MenuItem;
+import com.caved_in.commons.menu.inventory.MenuItem;
 import com.caved_in.commons.warp.Warps;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

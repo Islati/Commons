@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.chat;
 
 import org.bukkit.entity.Player;
 

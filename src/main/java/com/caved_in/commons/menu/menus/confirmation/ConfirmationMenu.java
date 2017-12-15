@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.confirmation;
 
 import com.caved_in.commons.item.Wool;
-import com.caved_in.commons.menu.*;
+import com.caved_in.commons.menu.inventory.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.material.MaterialData;
@@ -35,12 +35,12 @@ public class ConfirmationMenu extends ItemMenu {
 	}
 
 	public ConfirmationMenu onOpen(MenuOpenBehaviour onOpen) {
-		addBehaviour(MenuBehaviourType.OPEN, onOpen);
+		addBehaviour(MenuAction.OPEN, onOpen);
 		return this;
 	}
 
 	public ConfirmationMenu onClose(MenuCloseBehaviour onClose) {
-		addBehaviour(MenuBehaviourType.CLOSE, onClose);
+		addBehaviour(MenuAction.CLOSE, onClose);
 		return this;
 	}
 
@@ -50,7 +50,7 @@ public class ConfirmationMenu extends ItemMenu {
 	}
 
 	public ConfirmationMenu denyOnClose() {
-		addBehaviour(MenuBehaviourType.CLOSE, (menu, player) -> {
+		addBehaviour(MenuAction.CLOSE, (menu, player) -> {
 			if (actionPerformed) {
 				return;
 			}

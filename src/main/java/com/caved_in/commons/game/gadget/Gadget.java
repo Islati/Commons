@@ -1,5 +1,6 @@
 package com.caved_in.commons.game.gadget;
 
+import com.caved_in.commons.menu.inventory.ItemMenu;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -16,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
  * <ul>
  *     <li>The most generic implementation of Gadget, used to attach actions to items: {@link ItemGadget}</li>
  *     <li>An extension of ItemGadget, which limits the amount of times the gadget can be used: {@link LimitedGadget}</li>
- *     <li>An extension of ItemGadget that has a(n) {@link com.caved_in.commons.menu.ItemMenu} attached, so when interacted the menu opens.</li>
+ *     <li>An extension of ItemGadget that has a(n) {@link ItemMenu} attached, so when interacted the menu opens.</li>
  *     <li>An extension of the Gadget interface for Guns: {@link com.caved_in.commons.game.guns.Gun}</li>
  *     <li>An elaborate extension of ItemGadget that provides actions related to guns: {@link com.caved_in.commons.game.guns.BaseGun}</li>
  *     <li>An elaborate extension of ItemGadget and Implementation of Weapon that provides a base for weapons: {@link com.caved_in.commons.game.item.BaseWeapon}</li>

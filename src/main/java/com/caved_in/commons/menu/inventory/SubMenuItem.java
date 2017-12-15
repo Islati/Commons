@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.inventory;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

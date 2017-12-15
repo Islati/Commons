@@ -1,8 +1,8 @@
 package com.caved_in.commons.menu.menus.warpselection;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.menu.ItemMenu;
-import com.caved_in.commons.menu.MenuBehaviourType;
+import com.caved_in.commons.menu.inventory.ItemMenu;
+import com.caved_in.commons.menu.inventory.MenuAction;
 import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.menu.menus.warpselection.behaviours.CleanPaperBehaviour;
 import com.caved_in.commons.warp.Warp;
@@ -26,7 +26,7 @@ public class WarpSelectionMenu extends ItemMenu {
         for (int i = 0; i < warpPages.size(); i++) {
             addMenuItem(new WarpMenuItem(warpPages.get(i)), i >= 45 ? i + 1 : i);
         }
-        addBehaviour(MenuBehaviourType.CLOSE, CleanPaperBehaviour.getInstance());
+        addBehaviour(MenuAction.CLOSE, CleanPaperBehaviour.getInstance());
     }
 
     public static WarpSelectionMenu getMenu(int page) {

@@ -9,7 +9,7 @@ import com.caved_in.commons.file.TextFile;
 import com.caved_in.commons.item.ItemSetManager;
 import com.caved_in.commons.item.SavedItemManager;
 import com.caved_in.commons.listeners.*;
-import com.caved_in.commons.menu.ChatMenuCommandListener;
+import com.caved_in.commons.menu.chat.ChatMenuCommandListener;
 import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.BukkitPlugin;

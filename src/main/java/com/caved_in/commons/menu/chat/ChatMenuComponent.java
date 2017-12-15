@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.chat;
 
 import net.md_5.bungee.api.chat.TextComponent;
 

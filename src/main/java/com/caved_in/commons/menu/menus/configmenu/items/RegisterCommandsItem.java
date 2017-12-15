@@ -3,7 +3,7 @@ package com.caved_in.commons.menu.menus.configmenu.items;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.item.Wool;
-import com.caved_in.commons.menu.MenuItem;
+import com.caved_in.commons.menu.inventory.MenuItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 

@@ -1,12 +1,12 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.item.ItemBuilder;
-import com.caved_in.commons.menu.ItemMenu;
+import com.caved_in.commons.menu.inventory.ItemMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * An extension of {@link com.caved_in.commons.game.gadget.ItemGadget} used to attach an {@link com.caved_in.commons.menu.ItemMenu}
+ * An extension of {@link com.caved_in.commons.game.gadget.ItemGadget} used to attach an {@link ItemMenu}
  * to an item.
  * <p>
  * When the item is interacted with, the gadget will be opened.

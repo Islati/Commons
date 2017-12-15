@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.help;
 
 public enum ItemFormat {
     DOUBLE_DASH("<name> -- <desc>"),

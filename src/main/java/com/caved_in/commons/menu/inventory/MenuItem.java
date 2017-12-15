@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.inventory;
 
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Material;

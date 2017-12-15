@@ -9,9 +9,11 @@ import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menu.ItemMenu;
-import com.caved_in.commons.menu.MenuBehaviour;
-import com.caved_in.commons.menu.MenuBehaviourType;
+import com.caved_in.commons.menu.anvil.AnvilMenu;
+import com.caved_in.commons.menu.anvil.AnvilSlot;
+import com.caved_in.commons.menu.inventory.ItemMenu;
+import com.caved_in.commons.menu.inventory.MenuBehaviour;
+import com.caved_in.commons.menu.inventory.MenuAction;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Material;
@@ -42,6 +44,29 @@ public class InventoryListener implements Listener {
         Player player = (Player) event.getWhoClicked();
 
         InventoryHolder holder = inventory.getHolder();
+
+        if (holder instanceof AnvilMenu) {
+            AnvilMenu menu = (AnvilMenu)holder;
+
+            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
+                if (menu.exitOnClickOutside()) {
+                    menu.closeMenu(player);
+                    return;
+                }
+            }
+
+            if (event.getRawSlot() == AnvilSlot.OUTPUT) {
+                final ItemStack clicked = inventory.getItem(event.getRawSlot());
+
+                if (clicked == null || Items.isAir(clicked)) {
+                    return;
+                }
+
+                String returnValue = menu.handleResponse(player, )
+            }
+            return;
+        }
+
         if (!(holder instanceof ItemMenu)) {
             return;
         }
@@ -131,7 +156,7 @@ public class InventoryListener implements Listener {
         Player player = (Player) e.getPlayer();
         if (holder instanceof ItemMenu) {
             ItemMenu menu = (ItemMenu) holder;
-            List<MenuBehaviour> openBehaviours = menu.getBehaviours(MenuBehaviourType.OPEN);
+            List<MenuBehaviour> openBehaviours = menu.getBehaviours(MenuAction.OPEN);
             if (openBehaviours != null) {
                 openBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(menu, player));
             }
@@ -146,7 +171,7 @@ public class InventoryListener implements Listener {
         InventoryHolder holder = inventory.getHolder();
         if (holder instanceof ItemMenu) {
             ItemMenu menu = (ItemMenu) holder;
-            List<MenuBehaviour> closeBehaviours = menu.getBehaviours(MenuBehaviourType.CLOSE);
+            List<MenuBehaviour> closeBehaviours = menu.getBehaviours(MenuAction.CLOSE);
             if (closeBehaviours != null) {
                 closeBehaviours.stream().filter(behaviour -> behaviour != null).forEach(behaviour -> behaviour.doAction(menu, player));
             }

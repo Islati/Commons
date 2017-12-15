@@ -1,6 +1,11 @@
 package com.caved_in.commons.menu;
 
 import com.caved_in.commons.Commons;
+import com.caved_in.commons.menu.help.HelpScreen;
+import com.caved_in.commons.menu.help.ItemFormat;
+import com.caved_in.commons.menu.help.PageDisplay;
+import com.caved_in.commons.menu.inventory.ItemMenu;
+import com.caved_in.commons.menu.inventory.MenuItem;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -131,11 +136,11 @@ public class Menus {
         return helpScreen;
     }
 
-    public static ItemMenu createMenu(String title, int rows) {
+    public static ItemMenu createItemMenu(String title, int rows) {
         return new ItemMenu(title, rows);
     }
 
-    public static ItemMenu cloneMenu(ItemMenu menu) {
+    public static ItemMenu cloneItemMenu(ItemMenu menu) {
         return menu.clone();
     }
 

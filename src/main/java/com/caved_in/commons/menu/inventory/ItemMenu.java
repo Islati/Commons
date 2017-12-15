@@ -1,6 +1,8 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.inventory;
 
 import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.menu.Menu;
+import com.caved_in.commons.menu.Menus;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
@@ -15,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
-public class ItemMenu implements InventoryHolder {
+public class ItemMenu implements Menu {
 
     private int rows;
 
@@ -26,13 +28,13 @@ public class ItemMenu implements InventoryHolder {
     private Map<Integer, MenuItem> items = new HashMap<>();
     private boolean exitOnClickOutside = true;
 
-    private Map<MenuBehaviourType, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
+    private Map<MenuAction, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
 
     public ItemMenu(String title, int rows) {
         this.title = StringUtil.formatColorCodes(title);
         this.rows = rows;
-        menuActions.put(MenuBehaviourType.OPEN, Lists.newArrayList());
-        menuActions.put(MenuBehaviourType.CLOSE, Lists.newArrayList());
+        menuActions.put(MenuAction.OPEN, Lists.newArrayList());
+        menuActions.put(MenuAction.CLOSE, Lists.newArrayList());
     }
 
     @Override
@@ -51,22 +53,22 @@ public class ItemMenu implements InventoryHolder {
         return inventory;
     }
 
-    public void addBehaviour(MenuBehaviourType type, MenuBehaviour behaviour) {
+    public void addBehaviour(MenuAction type, MenuBehaviour behaviour) {
         menuActions.get(type).add(behaviour);
     }
 
-    public void addBehaviours(MenuBehaviourType type, List<MenuBehaviour> behaviours) {
+    public void addBehaviours(MenuAction type, List<MenuBehaviour> behaviours) {
         if (behaviours == null || behaviours.size() == 0) {
             return;
         }
         menuActions.get(type).addAll(behaviours);
     }
 
-    public void setBehaviours(Map<MenuBehaviourType, ArrayList<MenuBehaviour>> behaviours) {
+    public void setBehaviours(Map<MenuAction, ArrayList<MenuBehaviour>> behaviours) {
         this.menuActions = behaviours;
     }
 
-    public List<MenuBehaviour> getBehaviours(MenuBehaviourType type) {
+    public List<MenuBehaviour> getBehaviours(MenuAction type) {
         return menuActions.get(type);
     }
 
@@ -146,7 +148,7 @@ public class ItemMenu implements InventoryHolder {
         }
         player.openInventory(inventory);
 
-        List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.OPEN);
+        List<MenuBehaviour> behaviours = getBehaviours(MenuAction.OPEN);
         if (behaviours.size() > 0) {
             for (MenuBehaviour behaviour : behaviours) {
                 behaviour.doAction(this, player);
@@ -162,7 +164,7 @@ public class ItemMenu implements InventoryHolder {
 
         inventory.getViewers().remove(player);
         player.closeInventory();
-        List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.CLOSE);
+        List<MenuBehaviour> behaviours = getBehaviours(MenuAction.CLOSE);
         if (behaviours.size() > 0) {
             for (MenuBehaviour behaviour : behaviours) {
                 behaviour.doAction(this, player);
@@ -172,19 +174,31 @@ public class ItemMenu implements InventoryHolder {
 
     public void closeMenu() {
         Inventory inv = getInventory();
-        List<Player> viewers = getViewers();
 
-        for (Player p : viewers) {
-            p.closeInventory();
-        }
+        List<MenuBehaviour> closeActions = getBehaviours(MenuAction.CLOSE);
+        if (closeActions.size() > 0) {
+            for (HumanEntity viewer : getViewers()) {
+                if (!(viewer instanceof Player)) {
+                    continue;
+                }
 
-        List<MenuBehaviour> behaviours = getBehaviours(MenuBehaviourType.CLOSE);
-        if (behaviours.size() > 0) {
-            for (MenuBehaviour behaviour : behaviours) {
-                for (Player p : viewers) {
-                    behaviour.doAction(this, p);
+                Player p = (Player) viewer;
+
+                p.closeInventory();
+
+                for (MenuBehaviour onClose : closeActions) {
+                    onClose.doAction(this, p);
                 }
             }
+            return;
+        }
+
+        for(HumanEntity viewer : getViewers()) {
+            if (!(viewer instanceof Player)) {
+                continue;
+            }
+
+            viewer.closeInventory();
         }
     }
 
@@ -197,7 +211,7 @@ public class ItemMenu implements InventoryHolder {
     }
 
     @Override
-    protected ItemMenu clone() {
+    public ItemMenu clone() {
         ItemMenu clone = new ItemMenu(title, rows);
         clone.setExitOnClickOutside(exitOnClickOutside);
         clone.setBehaviours(menuActions);
@@ -206,12 +220,6 @@ public class ItemMenu implements InventoryHolder {
         }
 
         return clone;
-    }
-
-    public List<Player> getViewers() {
-        List<Player> viewers = new ArrayList<>();
-        getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(p -> viewers.add((Player) p));
-        return viewers;
     }
 
     public void updateMenu(Collection<HumanEntity> viewers) {
@@ -228,11 +236,6 @@ public class ItemMenu implements InventoryHolder {
             return;
         }
         viewers.stream().filter(e -> e instanceof Player).forEach(p -> Players.updateInventory((Player) p));
-    }
-
-    public void updateMenu() {
-        //For every player viewing the menu, update their inventory.
-        getInventory().getViewers().stream().filter(entity -> entity instanceof Player).forEach(entity -> ((Player) entity).updateInventory());
     }
 
     public Map<Integer, MenuItem> getIndexedMenuItems() {

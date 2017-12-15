@@ -1,6 +1,6 @@
 package com.caved_in.commons.menu.menus.configmenu;
 
-import com.caved_in.commons.menu.ItemMenu;
+import com.caved_in.commons.menu.inventory.ItemMenu;
 import com.caved_in.commons.menu.menus.configmenu.items.OpenWorldConfigItem;
 import com.caved_in.commons.menu.menus.configmenu.items.RegisterCommandsItem;
 

@@ -2,8 +2,8 @@ package com.caved_in.commons.menu.menus.warpselection.behaviours;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.inventory.Inventories;
-import com.caved_in.commons.menu.ItemMenu;
-import com.caved_in.commons.menu.MenuCloseBehaviour;
+import com.caved_in.commons.menu.inventory.ItemMenu;
+import com.caved_in.commons.menu.inventory.MenuCloseBehaviour;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;

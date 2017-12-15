@@ -1,6 +1,6 @@
 package com.caved_in.commons.menu.menus.adminmenu;
 
-import com.caved_in.commons.menu.ItemMenu;
+import com.caved_in.commons.menu.inventory.ItemMenu;
 
 @SuppressWarnings("WeakerAccess")
 public class AdminMenu extends ItemMenu {

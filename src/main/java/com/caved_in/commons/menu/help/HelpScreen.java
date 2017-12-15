@@ -1,4 +1,4 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.help;
 
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;

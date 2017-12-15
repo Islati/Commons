@@ -1,7 +1,7 @@
 package com.caved_in.commons.menu.menus.configmenu.items;
 
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menu.MenuItem;
+import com.caved_in.commons.menu.inventory.MenuItem;
 import com.caved_in.commons.menu.menus.configmenu.WorldConfigMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

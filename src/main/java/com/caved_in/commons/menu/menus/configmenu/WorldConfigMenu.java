@@ -1,6 +1,6 @@
 package com.caved_in.commons.menu.menus.configmenu;
 
-import com.caved_in.commons.menu.ItemMenu;
+import com.caved_in.commons.menu.inventory.ItemMenu;
 
 public class WorldConfigMenu extends ItemMenu {
     private static WorldConfigMenu instance;

@@ -66,4 +66,18 @@ public class NmsPlayers {
             return null;
         }
     }
+
+    public static void setContainerDefault(Player player) {
+
+    }
+
+    public static void setActiveContainer(Player player, int id) {
+
+    }
+
+    public void closeInventory(Player player) {
+
+    }
+
+
 }

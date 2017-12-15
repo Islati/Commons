@@ -1,5 +1,6 @@
-package com.caved_in.commons.menu;
+package com.caved_in.commons.menu.inventory;
 
+import com.caved_in.commons.menu.Menus;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang.Validate;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MenuBuilder {
+public class ItemMenuBuilder {
 
     /*
     The title of the menu we're wanting to create
@@ -28,46 +29,46 @@ public class MenuBuilder {
     /*
     Map of all the menu behaviour types and the actions going to be executed.
      */
-    private Map<MenuBehaviourType, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
+    private Map<MenuAction, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
 
-    public MenuBuilder() {
-        menuActions.put(MenuBehaviourType.OPEN, Lists.newArrayList());
-        menuActions.put(MenuBehaviourType.CLOSE, Lists.newArrayList());
+    public ItemMenuBuilder() {
+        menuActions.put(MenuAction.OPEN, Lists.newArrayList());
+        menuActions.put(MenuAction.CLOSE, Lists.newArrayList());
     }
 
-    public MenuBuilder title(String title) {
+    public ItemMenuBuilder title(String title) {
         this.title = title;
         return this;
     }
 
-    public MenuBuilder exitOnClickOutside(boolean val) {
+    public ItemMenuBuilder exitOnClickOutside(boolean val) {
         exitOnClickOutside = val;
         return this;
     }
 
-    public MenuBuilder item(MenuItem item) {
+    public ItemMenuBuilder item(MenuItem item) {
         int freeSlot = Menus.getFirstFreeSlot(items);
         items.put(freeSlot, item);
         return this;
     }
 
-    public MenuBuilder item(int index, MenuItem item) {
+    public ItemMenuBuilder item(int index, MenuItem item) {
         items.put(index, item);
         return this;
     }
 
-    public MenuBuilder addBehaviour(MenuBehaviourType type, MenuBehaviour action) {
+    public ItemMenuBuilder addBehaviour(MenuAction type, MenuBehaviour action) {
         menuActions.get(type).add(action);
         return this;
     }
 
-    public MenuBuilder onMenuOpen(MenuOpenBehaviour action) {
-        addBehaviour(MenuBehaviourType.OPEN, action);
+    public ItemMenuBuilder onMenuOpen(MenuOpenBehaviour action) {
+        addBehaviour(MenuAction.OPEN, action);
         return this;
     }
 
-    public MenuBuilder onMenuClose(MenuCloseBehaviour action) {
-        addBehaviour(MenuBehaviourType.CLOSE, action);
+    public ItemMenuBuilder onMenuClose(MenuCloseBehaviour action) {
+        addBehaviour(MenuAction.CLOSE, action);
         return this;
     }
 
