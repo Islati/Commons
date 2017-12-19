@@ -9,8 +9,6 @@ import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menu.anvil.AnvilMenu;
-import com.caved_in.commons.menu.anvil.AnvilSlot;
 import com.caved_in.commons.menu.inventory.ItemMenu;
 import com.caved_in.commons.menu.inventory.MenuBehaviour;
 import com.caved_in.commons.menu.inventory.MenuAction;
@@ -44,28 +42,6 @@ public class InventoryListener implements Listener {
         Player player = (Player) event.getWhoClicked();
 
         InventoryHolder holder = inventory.getHolder();
-
-        if (holder instanceof AnvilMenu) {
-            AnvilMenu menu = (AnvilMenu)holder;
-
-            if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
-                if (menu.exitOnClickOutside()) {
-                    menu.closeMenu(player);
-                    return;
-                }
-            }
-
-            if (event.getRawSlot() == AnvilSlot.OUTPUT) {
-                final ItemStack clicked = inventory.getItem(event.getRawSlot());
-
-                if (clicked == null || Items.isAir(clicked)) {
-                    return;
-                }
-
-                String returnValue = menu.handleResponse(player, )
-            }
-            return;
-        }
 
         if (!(holder instanceof ItemMenu)) {
             return;

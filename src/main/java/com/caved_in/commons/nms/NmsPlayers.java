@@ -3,6 +3,8 @@ package com.caved_in.commons.nms;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.entity.Player;
+import org.joor.Reflect;
+
 import java.lang.reflect.Method;
 
 public class NmsPlayers {
@@ -68,15 +70,22 @@ public class NmsPlayers {
     }
 
     public static void setContainerDefault(Player player) {
-
+        Object entityPlayer = toEntityPlayer(player);
+        Reflect.on(entityPlayer).set("activeContainer",Reflect.on(entityPlayer).get("defaultContainer"));
     }
 
-    public static void setActiveContainer(Player player, int id) {
+    public static void setActiveContainer(Player player, Object container) {
+        Object entityPlayer = toEntityPlayer(player);
+        Class containerClass = ReflectionUtilities.getNMSClass("Container");
+
+        Reflect.on(entityPlayer).set("activeContainer",containerClass.cast(container));
 
     }
 
     public void closeInventory(Player player) {
+        Class craftEventFactory = ReflectionUtilities.getCBClass("event.CraftEventFactory");
 
+        Reflect.on(craftEventFactory).call("handleInventoryCloseEvent",NmsPlayers.toEntityPlayer(player));
     }
 
 

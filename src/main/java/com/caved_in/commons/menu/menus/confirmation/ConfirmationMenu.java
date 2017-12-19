@@ -55,7 +55,7 @@ public class ConfirmationMenu extends ItemMenu {
 				return;
 			}
 
-			denyItem.action.perform(menu, player);
+			denyItem.action.perform((ItemMenu)menu, player);
 		});
 		return this;
 	}
