@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.world;
 
 import com.caved_in.commons.exceptions.WorldLoadException;
+import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -9,7 +10,7 @@ import org.bukkit.block.Block;
 import java.util.List;
 
 /**
- * Utilized via the {@link com.caved_in.commons.game.MiniGame} and {@link ArenaHandler} to provide cyclable worlds after 'rounds',
+ * Utilized via the {@link MiniGame} and {@link ArenaHandler} to provide cyclable worlds after 'rounds',
  * easy multi-world support, and restoration of maps after a round has been played / completed, etc.
  *
  * Each GameArena wraps a single World, and actions performed on an instance will only affect the world associated.

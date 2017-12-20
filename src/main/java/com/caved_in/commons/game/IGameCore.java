@@ -9,7 +9,7 @@ import com.caved_in.commons.game.players.UserManager;
  * Current implementations: {@link CraftGame}, {@link MiniGame}
  * @param <T> usermanager used to handle all the user-data associated with the game.
  */
-public interface GameCore<T extends UserManager> {
+public interface IGameCore<T extends UserManager> {
 
     /**
      * Operations to perform each game-tick.

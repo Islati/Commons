@@ -1,6 +1,7 @@
 package com.caved_in.commons.menu.menus.confirmation;
 
 import com.caved_in.commons.item.Wool;
+import com.caved_in.commons.menu.Menu;
 import com.caved_in.commons.menu.inventory.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -18,8 +19,8 @@ public class ConfirmationMenu extends ItemMenu {
 
 	protected ConfirmationMenu(String title) {
 		super(title, 1);
-		confirmItem = new ConfirmationMenuItem(MenuConfirmationOption.CONFIRM, ItemMenu::closeMenu);
-		denyItem = new ConfirmationMenuItem(MenuConfirmationOption.DENY, ItemMenu::closeMenu);
+		confirmItem = new ConfirmationMenuItem(MenuConfirmationOption.CONFIRM, Menu::closeMenu);
+		denyItem = new ConfirmationMenuItem(MenuConfirmationOption.DENY, Menu::closeMenu);
 	}
 
 	public ConfirmationMenu onConfirm(Action onConfirm) {
@@ -55,7 +56,7 @@ public class ConfirmationMenu extends ItemMenu {
 				return;
 			}
 
-			denyItem.action.perform((ItemMenu)menu, player);
+			denyItem.action.perform((Menu)menu, player);
 		});
 		return this;
 	}
@@ -99,7 +100,7 @@ public class ConfirmationMenu extends ItemMenu {
 	@FunctionalInterface
 	public interface Action {
 
-		void perform(ItemMenu menu, Player player);
+		void perform(Menu menu, Player player);
 
 	}
 }

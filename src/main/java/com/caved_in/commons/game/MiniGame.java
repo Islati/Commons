@@ -3,6 +3,8 @@ package com.caved_in.commons.game;
 import com.caved_in.commons.game.clause.ServerShutdownClause;
 import com.caved_in.commons.game.listener.UserManagerListener;
 import com.caved_in.commons.game.players.UserManager;
+import com.caved_in.commons.game.state.GameState;
+import com.caved_in.commons.game.state.IGameState;
 import com.caved_in.commons.game.world.Arena;
 import com.caved_in.commons.game.world.ArenaManager;
 import com.caved_in.commons.player.Players;
@@ -24,15 +26,7 @@ import java.util.logging.Logger;
  */
 public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
-	private Map<Integer, GameState> gameStates = new HashMap<>();
-
 	private Set<ServerShutdownClause> shutdownClauses = new HashSet<>();
-
-	private int activeState = -1;
-
-	private boolean externalListeners = false;
-
-	private boolean registeredStateListeners = false;
 
 	private boolean gameOver = false;
 
@@ -121,70 +115,10 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	@Override
 	public void update() {
-		GameState activeState = getActiveState();
-
-        /*
-        If we've got an active state, then continue. Otherwise we're not able to
-        register the listeners (They'll be null)
-         */
-		if (activeState != null) {
-
-			//If there were no listeners registered when supposed to be
-			if (!hasExternalListeners() && !registeredStateListeners) {
-				Plugins.registerListeners(this, activeState);
-				registeredStateListeners = true;
-			}
-
-			activeState.update();
-		}
-
-		switchStates();
+		super.update();
 
 		if (!shutdownClauses.isEmpty() && doShutdown()) {
 			onDisable();
-		}
-	}
-
-	public void switchStates() {
-
-		GameState gameState = getActiveState();
-
-		if (gameState == null) {
-			return;
-		}
-
-		/* If the active game state hasn't already been setup, then do so*/
-		if (!gameState.isSetup()) {
-			gameState.setup();
-		}
-
-		/* Check if we're able to switch states (conditions have been met)
-		* and if not, then halt execution!
-		*/
-		if (!getActiveState().switchState()) {
-			return;
-		}
-
-		/* Call the destroy method for the gamestate, or what happens when it's "Shut down" */
-		gameState.destroy();
-
-		/* Change the state to no longer be setup, to avoid issues */
-		gameState.setSetup(false);
-
-		/* Get and set the next active state */
-		GameState nextState = getNextState();
-		setActiveState(nextState);
-
-		/*
-		If the plugin isn't using exclusively external listeners, then
-		unregister all the state listeners from the active state and register
-		them for the next state.
-		 */
-		if (!hasExternalListeners()) {
-			HandlerList.unregisterAll(gameState);
-			//Get the next game state, and then
-			Plugins.registerListeners(this, nextState);
-			registeredStateListeners = true;
 		}
 	}
 
@@ -202,88 +136,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 		return false;
 	}
 
-	/**
-	 * Register a {@link GameState} with the minigames engine.
-	 * If a game-state with the given ID already exists, it's overwritten.
-	 *
-	 * @param state state to register.
-	 */
-	public void registerGameState(GameState state) {
-		gameStates.put(state.id(), state);
-	}
-
-	/**
-	 * Assign if the MiniGame requires external listeners.
-	 * If true, you'll have to register your own player connection listeners, as opposed to using the ones that already exist.
-	 *
-	 * @param value true to use external listeners, false otherwise.
-	 */
-	@Deprecated
-	public void setExternalListeners(boolean value) {
-		this.externalListeners = value;
-	}
-
-	/**
-	 * @return Whether or not the MiniGame has external listers handling connections.
-	 */
-	public boolean hasExternalListeners() {
-		return externalListeners;
-	}
-
-	protected GameState getActiveState() {
-		if (activeState == -1) {
-			activeState = gameStates.keySet().stream().mapToInt((x) -> x).summaryStatistics().getMin();
-		}
-		return gameStates.get(activeState);
-	}
-
-	protected void setActiveState(GameState state) {
-		activeState = state.id();
-	}
-
-	protected GameState getNextState() {
-		return gameStates.get(getActiveState().nextState());
-	}
-
-	/**
-	 * Check whether or not the state of the given id has been active, or not.
-	 *
-	 * @param id id of the state to check
-	 * @return true if the state is currently active, or was previously active; False otherwise.
-	 */
-	public boolean hasStateBeenActive(int id) {
-		return isActiveState(id) || isAfterState(id);
-	}
-
-	/**
-	 * Check whether or not the given state-id is currently active.
-	 *
-	 * @param id id of the state to check
-	 * @return true if the state with the given id is currently active, false otherwise.
-	 */
-	public boolean isActiveState(int id) {
-		return activeState == id;
-	}
-
-	/**
-	 * Check if the active state is passed that of the id given.
-	 *
-	 * @param id id of the state to check.
-	 * @return true if the state requested has already passed, false otherwise.
-	 */
-	public boolean isAfterState(int id) {
-		return activeState > id;
-	}
-
-	/**
-	 * Check if the active state is before that of the id given.
-	 *
-	 * @param id id of the state to check.
-	 * @return true if the active state comes before the requested ID, false otherwise.
-	 */
-	public boolean isBeforeState(int id) {
-		return activeState < id;
-	}
 
 	/**
 	 * Register {@link ServerShutdownClause}'s, that if passed will force the server to stop.
@@ -292,17 +144,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	 */
 	public void registerShutdownClauses(ServerShutdownClause... clauses) {
 		Collections.addAll(shutdownClauses, clauses);
-	}
-
-	/**
-	 * Register the given {@link GameState}(s) with the minigame engine.
-	 *
-	 * @param states states to register.
-	 */
-	public void registerGameStates(GameState... states) {
-		for (GameState state : states) {
-			registerGameState(state);
-		}
 	}
 
 	/**

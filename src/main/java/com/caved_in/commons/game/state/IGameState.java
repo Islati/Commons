@@ -1,8 +1,8 @@
-package com.caved_in.commons.game;
+package com.caved_in.commons.game.state;
 
 import org.bukkit.event.Listener;
 
-public interface GameState extends Listener {
+public interface IGameState extends Listener {
     /**
      * Operations to perform when initializing the game state.
      */
@@ -20,7 +20,7 @@ public interface GameState extends Listener {
 
     /**
      * Change the value of the state setup.
-     * If not set to true after the initial setup, the game engine will continue to call {@link GameState#setup()}
+     * If not set to true after the initial setup, the game engine will continue to call {@link IGameState#setup()}
      * @param val value to assign.
      */
     void setSetup(boolean val);

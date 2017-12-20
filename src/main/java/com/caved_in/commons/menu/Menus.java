@@ -144,7 +144,7 @@ public class Menus {
         return menu.clone();
     }
 
-    public static void removeMenu(ItemMenu menu) {
+    public static void removeMenu(Menu menu) {
         for (HumanEntity viewer : menu.getInventory().getViewers()) {
             if (viewer instanceof Player) {
                 menu.closeMenu((Player) viewer);
@@ -154,7 +154,7 @@ public class Menus {
         }
     }
 
-    public static void switchMenu(final Player player, ItemMenu fromMenu, ItemMenu toMenu) {
+    public static void switchMenu(final Player player, Menu fromMenu, Menu toMenu) {
         fromMenu.closeMenu(player);
         Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> toMenu.openMenu(player));
     }
