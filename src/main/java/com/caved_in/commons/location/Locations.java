@@ -1,5 +1,6 @@
 package com.caved_in.commons.location;
 
+import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
