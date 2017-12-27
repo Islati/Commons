@@ -202,7 +202,7 @@ public class ItemMenu implements Menu {
         }
     }
 
-    public void switchMenu(Player player, ItemMenu toMenu) {
+    public void switchMenu(Player player, Menu toMenu) {
         Menus.switchMenu(player, this, toMenu);
     }
 

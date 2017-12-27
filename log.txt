@@ -5,6 +5,12 @@
  n: = Note
 -------------
 
+December 27'th 2017 (Build 1.12.2):
+    ~ Modified Menus to use Menu interface not ItemMenu class.
+    + randomDouble method added to numberutils
+    + getRandomLocationInArea(Loc,Loc) is inside Locations
+    + isInsideArea(Loc, Loc) is inside locations.
+
 December 13'th, 2017 (Build 1.12.2):
     + Created interface for UserManagerListener(s) to implement, to define proper behaviours.
     ~ Updated User with sync(Player) method, for use in loading user data from disk.

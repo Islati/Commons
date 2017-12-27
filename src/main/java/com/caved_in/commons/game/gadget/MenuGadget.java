@@ -1,6 +1,7 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.item.ItemBuilder;
+import com.caved_in.commons.menu.Menu;
 import com.caved_in.commons.menu.inventory.ItemMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
  */
 public abstract class MenuGadget extends ItemGadget {
 
-    private ItemMenu menu;
+    private Menu menu;
 
     /**
      * Create a new instance of MenuGadget, with the item, menu, and ID assigned.
@@ -21,7 +22,7 @@ public abstract class MenuGadget extends ItemGadget {
      * @param builder item builder used to create the item from, which the gadget will attach to.
      * @param menu    menu to open when the item is interacted with.
      */
-    public MenuGadget(ItemBuilder builder, ItemMenu menu) {
+    public MenuGadget(ItemBuilder builder, Menu menu) {
         super(builder);
         this.menu = menu;
     }
@@ -32,7 +33,7 @@ public abstract class MenuGadget extends ItemGadget {
      * @param item item to attach the gadget to.
      * @param menu menu to open when the item is interacted with.
      */
-    public MenuGadget(ItemStack item, ItemMenu menu) {
+    public MenuGadget(ItemStack item, Menu menu) {
         super(item);
         this.menu = menu;
     }

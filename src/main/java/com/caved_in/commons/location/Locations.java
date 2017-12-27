@@ -2,6 +2,7 @@ package com.caved_in.commons.location;
 
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.utilities.NumberUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -19,6 +20,47 @@ public class Locations {
     private static final int FALSE_CIRCLE = 0;
 
     public static boolean USE_TRUE_CIRCLE = false;
+
+    public static Location getRandomLocationInArea(Location loc1, Location loc2) {
+        if (!loc1.getWorld().getName().equals(loc2.getWorld().getName())) {
+            return null;
+        }
+
+        double minX = Math.min(loc1.getX(), loc2.getX());
+        double minY = Math.min(loc1.getY(), loc2.getY());
+        double minZ = Math.min(loc1.getZ(), loc2.getZ());
+
+        double maxX = Math.max(loc1.getX(), loc2.getX());
+        double maxY = Math.max(loc1.getY(), loc2.getY());
+        double maxZ = Math.max(loc1.getZ(), loc2.getZ());
+
+        return new Location(loc1.getWorld(), NumberUtil.randomDouble(minX, maxX), NumberUtil.randomDouble(minY, maxY), NumberUtil.randomDouble(minZ, maxZ));
+    }
+
+    public static boolean isInsideArea(Location loc, Location areaPointA, Location areaPointB, boolean checkY) {
+        String mainLocWorldName = loc.getWorld().getName();
+        //If they're not all in the same world then we don't check.
+        if (!mainLocWorldName.equals(areaPointA.getWorld().getName()) || !mainLocWorldName.equals(areaPointB.getWorld().getName())) {
+            return false;
+        }
+
+        //Check the X Coordinate.
+        if ((loc.getBlockX() >= areaPointA.getBlockX() && loc.getBlockX() <= areaPointB.getBlockX()) || (loc.getBlockX() <= areaPointA.getBlockX() && loc.getBlockX() >= areaPointB.getBlockX())) {
+            //Check the Z
+            if ((loc.getBlockZ() >= areaPointA.getBlockZ() && loc.getBlockZ() <= areaPointB.getBlockZ()) || (loc.getBlockZ() <= areaPointA.getBlockZ() && loc.getBlockZ() >= areaPointB.getBlockZ())) {
+
+                /* If we're not checking the y coordinate then it's inside the loc */
+                if (!checkY) {
+                    return true;
+                }
+
+                /* Otherwise return the results from the final check as the result. */
+                return ((loc.getBlockY() >= areaPointA.getBlockY() && loc.getBlockY() <= areaPointB.getBlockY()) || (loc.getBlockY() <= areaPointA.getBlockY() && loc.getBlockY() >= areaPointB.getBlockY()));
+
+            }
+        }
+        return false;
+    }
 
     public static Set<Player> getPlayersInRadius(Location location, double radius) {
         Set<Player> playerInRadius = new HashSet<>();

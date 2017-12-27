@@ -1,3 +1,7 @@
+GUNS & BULLETS DAMAGE OPTION
+=================
+Will reduce damage and accuracy over the distance the entity (bullet) has travelled.
+
 MINIGAME ENGINE
 ==================
 	1. Option to force respawn players (Perhaps based on predicate?)

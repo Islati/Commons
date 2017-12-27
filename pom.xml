@@ -68,6 +68,7 @@
                                     <include>org.jooq:joor:jar:*</include>
                                     <include>org.reflections:reflections:jar:*</include>
                                     <include>org.javassist:javassist:jar:*</include>
+                                    <include>joda-time:joda-time:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>

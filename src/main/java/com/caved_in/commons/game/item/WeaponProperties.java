@@ -34,7 +34,7 @@ public class WeaponProperties extends GadgetProperties {
     }
 
     public double getDamage() {
-        return NumberUtil.getRandomInRange(damageMin, damageMax);
+        return NumberUtil.randomDouble(damageMin, damageMax);
     }
 
     public double getMinDamage() {

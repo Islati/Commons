@@ -1,37 +1,38 @@
 package com.caved_in.commons.menu.inventory;
 
+import com.caved_in.commons.menu.Menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.material.MaterialData;
 
 public class SubMenuItem extends MenuItem {
-	private ItemMenu itemMenu;
+	private Menu menu;
 
-	public SubMenuItem(ItemMenu itemMenu) {
-		this.itemMenu = itemMenu;
+	public SubMenuItem(Menu menu) {
+		this.menu = menu;
 	}
 
-	public SubMenuItem(String text, ItemMenu itemMenu) {
+	public SubMenuItem(String text, Menu menu) {
 		super(text);
-		this.itemMenu = itemMenu;
+		this.menu = menu;
 	}
 
-	public SubMenuItem(String text, MaterialData icon, ItemMenu itemMenu) {
+	public SubMenuItem(String text, MaterialData icon, Menu menu) {
 		super(text, icon);
-		this.itemMenu = itemMenu;
+		this.menu = menu;
 	}
 
-	public SubMenuItem(String text, MaterialData icon, int number, ItemMenu itemMenu) {
+	public SubMenuItem(String text, MaterialData icon, int number, Menu menu) {
 		super(text, icon, number);
-		this.itemMenu = itemMenu;
+		this.menu = menu;
 	}
 
-	public ItemMenu getSubMenu() {
-		return itemMenu;
+	public Menu getSubMenu() {
+		return menu;
 	}
 
 	@Override
 	public void onClick(Player player, ClickType type) {
-		getMenu().switchMenu(player, itemMenu);
+		getMenu().switchMenu(player, menu);
 	}
 }
