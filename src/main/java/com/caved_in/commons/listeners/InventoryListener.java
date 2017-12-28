@@ -9,9 +9,9 @@ import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menu.inventory.ItemMenu;
-import com.caved_in.commons.menu.inventory.MenuBehaviour;
-import com.caved_in.commons.menu.inventory.MenuAction;
+import com.caved_in.commons.inventory.menu.ItemMenu;
+import com.caved_in.commons.inventory.menu.MenuBehaviour;
+import com.caved_in.commons.inventory.menu.MenuAction;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
 import org.bukkit.Material;
@@ -48,7 +48,7 @@ public class InventoryListener implements Listener {
         }
         event.setCancelled(true);
         ItemMenu menu = (ItemMenu) holder;
-        //If the player is clicking outside the menu, and it closes when clicking outside, then close it!
+        //If the player is clicking outside the menus, and it closes when clicking outside, then close it!
 
         if (event.getSlotType() == InventoryType.SlotType.OUTSIDE) {
             if (menu.exitOnClickOutside()) {
@@ -60,7 +60,7 @@ public class InventoryListener implements Listener {
         if (index < inventory.getSize()) {
             menu.selectMenuItem(player, index, event.getClick());
         } else {
-            //If they're gonna mess with their inventory, they don't need a menu open.
+            //If they're gonna mess with their inventory, they don't need a menus open.
             if (menu.exitOnClickOutside()) {
                 menu.closeMenu(player);
             }
@@ -102,7 +102,7 @@ public class InventoryListener implements Listener {
                     }
 
                     if (Gadgets.isGadget(cursorItem)) {
-                        Chat.formatDebug("Cursor item %s is a gadget", Items.getName(cursorItem));
+                        Chat.formatDebug("Cursor firstPageEnabled %s is a gadget", Items.getName(cursorItem));
 
                         Gadget movingGadget = Gadgets.getGadget(cursorItem);
                         if (!movingGadget.properties().isOffhandEquippable()) {

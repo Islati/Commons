@@ -2,7 +2,7 @@ package com.caved_in.commons.debug.actions;
 
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.entity.Entities;
-import com.caved_in.commons.menu.menus.confirmation.ConfirmationMenu;
+import com.caved_in.commons.menus.confirmation.ConfirmationMenu;
 import com.caved_in.commons.time.TimeType;
 import org.bukkit.entity.Player;
 

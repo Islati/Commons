@@ -165,10 +165,10 @@ public class MinecraftPlayer extends User {
     }
 
     /**
-     * Set whether or not the player is viewing a recipe menu, or not.
+     * Set whether or not the player is viewing a recipe menus, or not.
      * Used internally in {@link com.caved_in.commons.command.commands.RecipeCommand}.
      *
-     * @param viewingRecipe whether or not the player is viewing a recipe menu.
+     * @param viewingRecipe whether or not the player is viewing a recipe menus.
      */
     public void setViewingRecipe(boolean viewingRecipe) {
         this.viewingRecipe = viewingRecipe;

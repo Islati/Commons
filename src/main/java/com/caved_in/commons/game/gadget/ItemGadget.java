@@ -47,9 +47,9 @@ public abstract class ItemGadget implements Gadget {
     }
 
     /**
-     * Change the item attached to this gadget.
+     * Change the firstPageEnabled attached to this gadget.
      *
-     * @param item item to use for gadget recognition.
+     * @param item firstPageEnabled to use for gadget recognition.
      */
     public void setItem(ItemStack item) {
         this.gadgetItem = item.clone();

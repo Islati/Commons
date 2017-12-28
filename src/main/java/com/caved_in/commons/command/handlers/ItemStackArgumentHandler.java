@@ -17,15 +17,15 @@ import java.util.EnumSet;
 public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
     public ItemStackArgumentHandler() {
         //Add the sender variable,
-        addVariable("hand", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
-        addVariable("offhand", "item in the off-hand of the command executor", ItemStackHandArgumentVariable.getInstance());
-        addVariable("sender", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("hand", "firstPageEnabled in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("offhand", "firstPageEnabled in the off-hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("sender", "firstPageEnabled in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
 
         for (ItemType itemType : EnumSet.allOf(ItemType.class)) {
             //Add the items ID as a valid identifier.
             addVariable(String.valueOf(itemType.getID()), itemType.getName(), ItemStackArgumentVariable.getInstance());
 
-            //For every alias that exists in the items data, register the variable for that item.
+            //For every alias that exists in the items data, register the variable for that firstPageEnabled.
             for (String alias : itemType.getAliases()) {
                 addVariable(alias, itemType.getName(), ItemStackArgumentVariable.getInstance());
             }

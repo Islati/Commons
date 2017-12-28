@@ -1,7 +1,7 @@
 package com.caved_in.commons.chat;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.menu.chat.ChatMenu;
+import com.caved_in.commons.chat.menu.ChatMenu;
 import com.caved_in.commons.nms.NMS;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.sound.Sounds;

@@ -40,7 +40,7 @@ public class Blocks {
     public static final long BLOCK_REGEN_DELAY = TimeHandler.getTimeInTicks(8, TimeType.SECOND);
 
     /**
-     * Set of the item-ids which materials are hollow
+     * Set of the firstPageEnabled-ids which materials are hollow
      */
     private static final Set<Material> HOLLOW_MATERIALS = new HashSet<>();
     public static final HashSet<Material> TRANSPARENT_MATERIALS = new HashSet<>();
@@ -172,11 +172,11 @@ public class Blocks {
      * For example: {@link org.bukkit.Material#WOODEN_DOOR} is the block-correspondant
      * for {@link org.bukkit.Material#WOOD_DOOR}.
      * <p/>
-     * Passing a block to this method will result in the corresponding item-stack material for the block.
+     * Passing a block to this method will result in the corresponding firstPageEnabled-stack material for the block.
      * </p>
      *
      * @param block block to get the material of
-     * @return the corresponding item-stack material for the block.
+     * @return the corresponding firstPageEnabled-stack material for the block.
      */
     public static Material getBlockMaterial(Block block) {
         Material itemMaterial = block.getType();
@@ -242,8 +242,8 @@ public class Blocks {
      * Gets either the block id, or material id based on the parameters.s
      *
      * @param block   block to get the id for
-     * @param itemsId whether or not to retrieve the item-stack id, or the actual block material id
-     * @return integer for the item id requested (either block or material)
+     * @param itemsId whether or not to retrieve the firstPageEnabled-stack id, or the actual block material id
+     * @return integer for the firstPageEnabled id requested (either block or material)
      */
     public static int getBlockId(Block block, boolean itemsId) {
         return itemsId ? getBlockMaterial(block).getId() : block.getType().getId();
@@ -418,7 +418,7 @@ public class Blocks {
             }
 
 			/*
-            For all the blocks surrounding the parent, we're going to continue breaking the
+            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
 			blocks (logs, and potentially leaves) until they're all gone!
 			 */
 
@@ -447,7 +447,7 @@ public class Blocks {
             }
 
 			/*
-            For all the blocks surrounding the parent, we're going to continue breaking the
+            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
 			blocks (logs, and potentially leaves) until they're all gone!
 			 */
             getBlocksSurrounding(block).forEach(b -> {
@@ -652,17 +652,17 @@ public class Blocks {
      *
      * @param parent base-block used to retrieve the relative block.
      * @param face   face to retrieve the block at.
-     * @return block attached to the desired face of the parent.
+     * @return block attached to the desired face of the parentBuilder.
      */
     public static Block getBlockFacing(Block parent, BlockFace face) {
         return parent.getRelative(face);
     }
 
     /**
-     * Retrieve all the blocks that surround the parent block in all possible directions.
+     * Retrieve all the blocks that surround the parentBuilder block in all possible directions.
      *
-     * @param parent parent block to retrieve the surrounding blocks from.
-     * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parent block.
+     * @param parent parentBuilder block to retrieve the surrounding blocks from.
+     * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parentBuilder block.
      */
     public static Set<Block> getBlocksSurrounding(Block parent) {
         return EnumSet.allOf(BlockFace.class).stream().map(face -> getBlockFacing(parent, face)).collect(Collectors.toSet());

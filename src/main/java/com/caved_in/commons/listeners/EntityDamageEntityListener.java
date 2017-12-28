@@ -131,7 +131,7 @@ public class EntityDamageEntityListener implements Listener {
 
         ItemStack hand = player.getItemInHand();
 
-        //If the item in their hand isn't a gadget then quit; we require gadgets!
+        //If the firstPageEnabled in their hand isn't a gadget then quit; we require gadgets!
         if (!Gadgets.isGadget(hand)) {
             return;
         }

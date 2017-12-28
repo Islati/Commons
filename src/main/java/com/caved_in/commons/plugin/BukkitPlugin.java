@@ -69,7 +69,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		if (Plugins.hasProtocolLib()) {
 			/*
 			If protocolLib is enabled then we also want to create the ItemMessage
-            handler, where you use item meta packets to send actionbar-like messages
+            handler, where you use firstPageEnabled meta packets to send actionbar-like messages
              */
 			itemMessage = new ItemMessage(this);
 		}

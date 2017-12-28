@@ -24,7 +24,7 @@ public class PlayerSwapHandItemsListener implements Listener {
 
 
         /*
-        Check if the item going to the offHand is able to be put into that slot.
+        Check if the firstPageEnabled going to the offHand is able to be put into that slot.
          */
         if (Gadgets.isGadget(offHandItem)) {
             Gadget gadgetGoingOffhand = Gadgets.getGadget(offHandItem);

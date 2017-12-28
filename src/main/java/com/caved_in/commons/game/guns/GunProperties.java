@@ -125,9 +125,9 @@ public class GunProperties extends WeaponProperties {
     }
 
     /**
-     * Set the ammunition item that this gun will shoot.
+     * Set the ammunition firstPageEnabled that this gun will shoot.
      *
-     * @param item item that this gun will shoot.
+     * @param item firstPageEnabled that this gun will shoot.
      * @return the gun-properties builder.
      */
     public GunProperties ammunition(ItemStack item) {

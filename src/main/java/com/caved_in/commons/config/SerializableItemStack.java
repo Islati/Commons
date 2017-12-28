@@ -7,13 +7,13 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 
 /**
- * Simple means to serialize a single item to a file.
+ * Simple means to serialize a single firstPageEnabled to a file.
  * If your intent is not to save a single ItemStack to a file (with no other fields)
  * then you're best off simply declaring a path variable on your ItemStack
  * and serializing that way.
  */
 public class SerializableItemStack extends YamlConfig {
-    @Path("item")
+    @Path("firstPageEnabled")
     private ItemStack item;
 
     public SerializableItemStack(File file) {

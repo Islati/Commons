@@ -59,7 +59,7 @@ public class CreatureBuilder {
     /* Maximum size the slime can be */
     private int sizeMax = 0;
 
-    /* The armor builder, used to continue the builder experience and parent our creature */
+    /* The armor builder, used to continue the builder experience and parentBuilder our creature */
     private ArmorBuilder armorBuilder = new ArmorBuilder();
 
     public static CreatureBuilder clone(Entity entity) {

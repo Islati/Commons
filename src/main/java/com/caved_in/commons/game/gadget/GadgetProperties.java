@@ -15,20 +15,20 @@ import java.io.File;
  */
 public class GadgetProperties extends YamlConfig {
     /*
-    The durability of the item (How many uses it has)
+    The durability of the firstPageEnabled (How many uses it has)
      */
     @Path("durability")
     private int durability;
 
     /*
-    Whether or not the item is breakable; Has no default value.
+    Whether or not the firstPageEnabled is breakable; Has no default value.
      */
     @Path("breakable")
     private boolean isBreakable;
 
     /*
 
-    Whether or not the item can be dropped; by default it's false.
+    Whether or not the firstPageEnabled can be dropped; by default it's false.
      */
     @Path("droppable")
     private boolean isDroppable = false;
@@ -86,9 +86,9 @@ public class GadgetProperties extends YamlConfig {
     }
 
     /**
-     * Assign the durability of the item to that of the given item stack.
+     * Assign the durability of the firstPageEnabled to that of the given firstPageEnabled stack.
      *
-     * @param item item to clone the durability from.
+     * @param item firstPageEnabled to clone the durability from.
      * @return the gadget properties.
      */
     public GadgetProperties durability(ItemStack item) {

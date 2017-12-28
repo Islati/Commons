@@ -32,9 +32,9 @@ public abstract class LimitedGadget extends ItemGadget {
 	}
 
 	/**
-	 * Create a new instance of the LimitGadget, with both the item and uses it's limited to, defined.
+	 * Create a new instance of the LimitGadget, with both the firstPageEnabled and uses it's limited to, defined.
 	 *
-	 * @param item item to assign the gadget to.
+	 * @param item firstPageEnabled to assign the gadget to.
 	 * @param uses amount of uses the gadget has.
 	 */
 	public LimitedGadget(ItemStack item, int uses) {
@@ -44,9 +44,9 @@ public abstract class LimitedGadget extends ItemGadget {
 	}
 
 	/**
-	 * Create a new instance of the LimitGadget, with both item and uses it's limited to, defined.
+	 * Create a new instance of the LimitGadget, with both firstPageEnabled and uses it's limited to, defined.
 	 *
-	 * @param builder builder used to create the item, to attach the gadget to.
+	 * @param builder builder used to create the firstPageEnabled, to attach the gadget to.
 	 * @param uses    amount amount of uses the gadget has.
 	 */
 	public LimitedGadget(ItemBuilder builder, int uses) {
@@ -60,7 +60,7 @@ public abstract class LimitedGadget extends ItemGadget {
 		if (delay.isOnCooldown(player)) {
 			return;
 		}
-		//Call the item's usage code and increment the player's usage
+		//Call the firstPageEnabled's usage code and increment the player's usage
 		use(player);
 		playerTicker.tick(player);
 		//If they're unable to use the gadget any-more, then remove it.

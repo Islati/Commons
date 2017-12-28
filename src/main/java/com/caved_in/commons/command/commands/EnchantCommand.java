@@ -22,7 +22,7 @@ public class EnchantCommand {
     public void enchantCommand(Player player, @Arg(name = "enchantment") Enchantment enchant, @Arg(name = "level") int level, @FlagArg("o") final boolean offHand, @FlagArg("-both") final boolean bothHands) {
 
         /*
-        If they're saying to enchant both hands, and they don't hae an item in both
+        If they're saying to enchant both hands, and they don't hae an firstPageEnabled in both
         hands then we send them a message stating the proper usage of such.
          */
         if (bothHands && (!Players.hasItemInHand(player, HandSlot.MAIN_HAND) || !Players.hasItemInHand(player, HandSlot.OFF_HAND))) {
@@ -31,7 +31,7 @@ public class EnchantCommand {
         }
 
         /*
-        Check if the player has an item in either of their hands.
+        Check if the player has an firstPageEnabled in either of their hands.
          */
         if (!Players.hasItemInHand(player)) {
             Chat.message(player, Messages.ITEM_IN_EITHER_HAND_REQUIRED);

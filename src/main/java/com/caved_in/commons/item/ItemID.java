@@ -1,7 +1,7 @@
 package com.caved_in.commons.item;
 
 /**
- * List of item IDs.
+ * List of firstPageEnabled IDs.
  */
 public final class ItemID {
 

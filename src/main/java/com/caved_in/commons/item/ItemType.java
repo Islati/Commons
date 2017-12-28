@@ -397,7 +397,7 @@ public enum ItemType {
     FIREWORK_STAR(ItemID.FIREWORK_STAR, "Firework star", "fireworkstar", "fireworkcharge"),
     ENCHANTED_BOOK(ItemID.ENCHANTED_BOOK, "Enchanted book", "enchantedbook", "spellbook", "enchantedtome", "tome"),
     COMPARATOR(ItemID.COMPARATOR, "Comparator", "comparator", "capacitor"),
-    NETHER_BRICK_ITEM(ItemID.NETHER_BRICK, "Nether Brick (item)", "netherbrickitem"),
+    NETHER_BRICK_ITEM(ItemID.NETHER_BRICK, "Nether Brick (firstPageEnabled)", "netherbrickitem"),
     NETHER_QUARTZ(ItemID.NETHER_QUARTZ, "Nether Quartz", "netherquartz", "quartz"),
     TNT_MINECART(ItemID.TNT_MINECART, "Minecart with TNT", "minecraftwithtnt", "tntminecart", "minecarttnt"),
     HOPPER_MINECART(ItemID.HOPPER_MINECART, "Minecart with Hopper", "minecraftwithhopper", "hopperminecart", "minecarthopper"),
@@ -489,9 +489,9 @@ public enum ItemType {
     /**
      * Construct the type.
      *
-     * @param id the type ID of the item
-     * @param name the name of the item
-     * @param lookupKey a name to refer to the item type by
+     * @param id the type ID of the firstPageEnabled
+     * @param name the name of the firstPageEnabled
+     * @param lookupKey a name to refer to the firstPageEnabled type by
      */
     ItemType(int id, String name, String lookupKey) {
         this.id = id;
@@ -502,9 +502,9 @@ public enum ItemType {
     /**
      * Construct the type.
      *
-     * @param id the type ID of the item
-     * @param name the name of the item
-     * @param lookupKeys a list of names to refer to the item type by
+     * @param id the type ID of the firstPageEnabled
+     * @param name the name of the firstPageEnabled
+     * @param lookupKeys a list of names to refer to the firstPageEnabled type by
      */
     ItemType(int id, String name, String... lookupKeys) {
         this.id = id;
@@ -515,8 +515,8 @@ public enum ItemType {
     /**
      * Return type from ID. May return null.
      *
-     * @param id the type ID of the item
-     * @return an item type or null
+     * @param id the type ID of the firstPageEnabled
+     * @return an firstPageEnabled type or null
      */
     @Nullable
     public static ItemType fromID(int id) {
@@ -524,12 +524,12 @@ public enum ItemType {
     }
 
     /**
-     * Get a name for the item.
+     * Get a name for the firstPageEnabled.
      *
-     * <p>If the item type is not null, the numeric ID will be returned.</p>
+     * <p>If the firstPageEnabled type is not null, the numeric ID will be returned.</p>
      *
-     * @param id the type ID of the item
-     * @return a name for the item
+     * @param id the type ID of the firstPageEnabled
+     * @return a name for the firstPageEnabled
      */
     public static String toName(int id) {
         ItemType type = ids.get(id);
@@ -541,12 +541,12 @@ public enum ItemType {
     }
 
     /**
-     * Get a name for a held item.
+     * Get a name for a held firstPageEnabled.
      *
-     * <p>If the item type is not null, the numeric ID will be returned.</p>
+     * <p>If the firstPageEnabled type is not null, the numeric ID will be returned.</p>
      *
-     * @param id the type ID of the item
-     * @return the name of the item
+     * @param id the type ID of the firstPageEnabled
+     * @return the name of the firstPageEnabled
      */
     public static String toHeldName(int id) {
         if (id == 0) {
@@ -588,18 +588,18 @@ public enum ItemType {
     }
 
     /**
-     * Get item numeric ID.
+     * Get firstPageEnabled numeric ID.
      *
-     * @return the type ID of this item
+     * @return the type ID of this firstPageEnabled
      */
     public int getID() {
         return id;
     }
 
     /**
-     * Get user-friendly item name.
+     * Get user-friendly firstPageEnabled name.
      *
-     * @return a name of this item
+     * @return a name of this firstPageEnabled
      */
     public String getName() {
         return name;
@@ -704,10 +704,10 @@ public enum ItemType {
     }
 
     /**
-     * Returns true if an item should not be stacked.
+     * Returns true if an firstPageEnabled should not be stacked.
      *
-     * @param id the type ID of the item
-     * @return true if the item should not stack
+     * @param id the type ID of the firstPageEnabled
+     * @return true if the firstPageEnabled should not stack
      */
     public static boolean shouldNotStack(int id) {
         return shouldNotStack.contains(id);
@@ -755,11 +755,11 @@ public enum ItemType {
     }
 
     /**
-     * Returns true if an item uses its damage value for something
+     * Returns true if an firstPageEnabled uses its damage value for something
      * other than damage.
      *
-     * @param id the type ID of the item
-     * @return true if the item uses its damage value
+     * @param id the type ID of the firstPageEnabled
+     * @return true if the firstPageEnabled uses its damage value
      */
     public static boolean usesDamageValue(int id) {
         return usesDamageValue.contains(id);

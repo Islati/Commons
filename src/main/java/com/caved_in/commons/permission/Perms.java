@@ -18,7 +18,7 @@ public class Perms {
 
     public static final String COMMAND_WORKBENCH = "commons.command.workbench";
 
-    public static final String COMMAND_RENAME = "commons.command.item.rename";
+    public static final String COMMAND_RENAME = "commons.command.firstPageEnabled.rename";
 
     public static final String COMMAND_REPAIR = "commons.command.repair";
 
@@ -73,7 +73,7 @@ public class Perms {
 
     public static final String COMMAND_ID = "commons.command.id";
 
-    public static final String COMMAND_ITEM = "commons.command.item";
+    public static final String COMMAND_ITEM = "commons.command.firstPageEnabled";
 
     public static final String COMMAND_MORE = "commons.command.more";
 
@@ -147,7 +147,7 @@ public class Perms {
     public static final String TELEPORT_BACK_NETHER_PORTAL = ("commons.back.netherportal");
     public static final String TELEPORT_BACK_ON_WARP = ("commons.back.warp");
 
-    public static final String COMMAND_ITEM_LORE = "commons.command.item.lore";
+    public static final String COMMAND_ITEM_LORE = "commons.command.firstPageEnabled.lore";
     public static final String COMMAND_TPA = "commons.command.tpa";
     public static final String COMMAND_TREE = "commons.command.tree";
 }

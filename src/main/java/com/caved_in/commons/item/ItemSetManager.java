@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Internally used to manage item sets for Commons /set command.
+ * Internally used to manage firstPageEnabled sets for Commons /set command.
  */
 public class ItemSetManager {
 
@@ -25,7 +25,7 @@ public class ItemSetManager {
     }
 
     /**
-     * Add the item set to this item set manager.
+     * Add the firstPageEnabled set to this firstPageEnabled set manager.
      *
      * @param set set to add to the manager.
      */
@@ -77,10 +77,10 @@ public class ItemSetManager {
 
         try {
             set.save(itemSetFile);
-            Chat.debug(String.format("Saved item-set %s to file", set.getName()));
+            Chat.debug(String.format("Saved firstPageEnabled-set %s to file", set.getName()));
         } catch (InvalidConfigurationException e) {
             e.printStackTrace();
-            Chat.debug("Failed to save item set. Please check the console for error log");
+            Chat.debug("Failed to save firstPageEnabled set. Please check the console for error log");
         }
     }
 

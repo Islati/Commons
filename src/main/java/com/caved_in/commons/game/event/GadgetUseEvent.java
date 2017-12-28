@@ -98,7 +98,7 @@ public class GadgetUseEvent extends Event implements Cancellable {
             return;
         }
 
-        //TODO Handle the usage of gadgets that have durability that's not an item based durability.
+        //TODO Handle the usage of gadgets that have durability that's not an firstPageEnabled based durability.
 
 
         //If the gadget's a hand-held weapon, then handle it respectively

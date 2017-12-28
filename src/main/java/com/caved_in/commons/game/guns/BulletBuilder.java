@@ -57,7 +57,7 @@ public class BulletBuilder {
 
     /**
      * Clone an itemstack to be the bullet.
-     * @param item item to clone, for the bullet.
+     * @param item firstPageEnabled to clone, for the bullet.
      * @return this bullet builder.
      */
     public BulletBuilder type(ItemStack item) {
@@ -143,7 +143,7 @@ public class BulletBuilder {
     /**
      * Fire the bullet upon its path, with the gun and shooter assigned.
      * @return the bullet that was shot.
-     * @throws ProjectileCreationException Will be thrown if the shooter is null, the gun has a launcher assigned but the gun is null, or the type/item for the bullet isn't defined.
+     * @throws ProjectileCreationException Will be thrown if the shooter is null, the gun has a launcher assigned but the gun is null, or the type/firstPageEnabled for the bullet isn't defined.
      */
     public Bullet shoot() throws ProjectileCreationException {
 

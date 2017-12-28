@@ -125,11 +125,11 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Comment("Changes whether or not blocks can be broken outside of creative")
 	private boolean enableBlockBreak = true;
 
-	@Path("Server.Worlds.enable-item-pickup")
+	@Path("Server.Worlds.enable-firstPageEnabled-pickup")
 	@Comment("Changes if players are able to pick up items that are dropped")
 	private boolean enableItemPickup = true;
 
-	@Path("Server.Worlds.enable-item-drop")
+	@Path("Server.Worlds.enable-firstPageEnabled-drop")
 	@Comment("Changes if players are able to drop their items")
 	private boolean enableItemDrop = true;
 
@@ -203,7 +203,7 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 			"with warps.",
 			"",
 			"If it's disabled, and a player does /warps, they'll receive",
-			"a chat based menu with pages detailing the available warps."
+			"a chat based menus with pages detailing the available warps."
 	})
 	private boolean enableWarpsMenu = true;
 
