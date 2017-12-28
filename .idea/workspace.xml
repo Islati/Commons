@@ -10,22 +10,15 @@
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
     <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGeneratorSettings.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/InlineMenuItem.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItemClickHandler.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenu.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/log.txt" afterPath="$PROJECT_DIR$/log.txt" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/MenuGadget.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/MenuGadget.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/WeaponProperties.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/WeaponProperties.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/SubMenuItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/SubMenuItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/TimeHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/TimeHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/NumberUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/NumberUtil.java" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" afterPath="$PROJECT_DIR$/todo.txt" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenuBuilder.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGeneratorSettings.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageSettings.java" />
     </list>
     <ignored path="Commons.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,60 +83,76 @@
     <favorites_list name="Commons" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Locations.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="MenuItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-              <folding>
-                <element signature="e#13447#13448#0" expanded="true" />
-                <element signature="e#13499#13500#0" expanded="true" />
-                <element signature="e#13570#13571#0" expanded="true" />
-                <element signature="e#13621#13622#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WeaponProperties.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/WeaponProperties.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="36" column="39" lean-forward="false" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+            <state relative-caret-position="0">
+              <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarpPageSwitchMenuItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/menus/warpselection/WarpPageSwitchMenuItem.java">
+      <file leaf-file-name="MenuItemClickHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItemClickHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InlineMenuItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/InlineMenuItem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
-              <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MultiPageItemMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+              <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="20" />
               <folding>
-                <element signature="e#203#204#0" expanded="true" />
-                <element signature="e#234#235#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#333#334#0" expanded="true" />
+                <element signature="e#360#361#0" expanded="true" />
+                <element signature="e#421#422#0" expanded="true" />
+                <element signature="e#454#455#0" expanded="true" />
+                <element signature="e#527#528#0" expanded="true" />
+                <element signature="e#568#569#0" expanded="true" />
+                <element signature="e#616#617#0" expanded="true" />
+                <element signature="e#646#647#0" expanded="true" />
+                <element signature="e#711#712#0" expanded="true" />
+                <element signature="e#749#750#0" expanded="true" />
+                <element signature="e#821#822#0" expanded="true" />
+                <element signature="e#870#871#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PageGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java">
+      <file leaf-file-name="PageSettings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
+            <state relative-caret-position="-345">
+              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="32" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#918#919#0" expanded="true" />
+                <element signature="e#945#946#0" expanded="true" />
+                <element signature="e#1005#1006#0" expanded="true" />
+                <element signature="e#1048#1049#0" expanded="true" />
+                <element signature="e#1977#1978#0" expanded="true" />
+                <element signature="e#2013#2014#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultiPageItemMenuBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenuBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="42" column="10" lean-forward="false" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,39 +160,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MultiPageGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java">
+      <file leaf-file-name="MultiPageMenu.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+            <state relative-caret-position="272">
+              <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#662#663#0" expanded="true" />
-                <element signature="e#689#690#0" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#1156#1157#0" expanded="true" />
+                <element signature="e#1210#1211#0" expanded="true" />
+                <element signature="e#1256#1257#0" expanded="true" />
+                <element signature="e#1290#1291#0" expanded="true" />
+                <element signature="e#1323#1324#0" expanded="true" />
+                <element signature="e#1366#1367#0" expanded="true" />
+                <element signature="e#1404#1405#0" expanded="true" />
+                <element signature="e#1445#1446#0" expanded="true" />
+                <element signature="e#1483#1484#0" expanded="true" />
+                <element signature="e#4123#4124#0" expanded="true" />
+                <element signature="e#4150#4151#0" expanded="true" />
+                <element signature="e#4207#4208#0" expanded="true" />
+                <element signature="e#4235#4236#0" expanded="true" />
+                <element signature="e#4405#4406#0" expanded="true" />
+                <element signature="e#4432#4433#0" expanded="true" />
+                <element signature="e#4485#4486#0" expanded="true" />
+                <element signature="e#4512#4513#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PageGeneratorSettings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGeneratorSettings.java">
+      <file leaf-file-name="ItemMenu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#825#826#0" expanded="true" />
-                <element signature="e#852#853#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InventoryListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/InventoryListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="123" column="37" lean-forward="false" selection-start-line="123" selection-start-column="37" selection-end-line="123" selection-end-column="37" />
+            <state relative-caret-position="60">
+              <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -192,7 +203,7 @@
       <file leaf-file-name="Debugger.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
+            <state relative-caret-position="1665">
               <caret line="139" column="23" lean-forward="false" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
               <folding />
             </state>
@@ -202,16 +213,16 @@
       <file leaf-file-name="ItemPage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+            <state relative-caret-position="468">
+              <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#596#597#0" expanded="true" />
-                <element signature="e#630#631#0" expanded="true" />
-                <element signature="e#852#853#0" expanded="true" />
-                <element signature="e#884#885#0" expanded="true" />
-                <element signature="e#1015#1016#0" expanded="true" />
-                <element signature="e#1042#1043#0" expanded="true" />
+                <element signature="e#628#629#0" expanded="true" />
+                <element signature="e#662#663#0" expanded="true" />
+                <element signature="e#888#889#0" expanded="true" />
+                <element signature="e#920#921#0" expanded="true" />
+                <element signature="e#1064#1065#0" expanded="true" />
+                <element signature="e#1096#1097#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -259,12 +270,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/Menu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/anvil/AnvilSlot.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/AnvilPacketType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/anvil/AnvilReturnValue.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/anvil/AnvilInputHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_9x/AnvilHandler_19X.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/AnvilHandler_19X.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/AnvilHandler_1_12_X.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_8_R3/AnvilHandler_18R3.java" />
@@ -306,10 +311,16 @@
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MultiPageItemMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/PageGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageSettings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItemClickHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/InlineMenuItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenuBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageSettings.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenu.java" />
       </list>
     </option>
   </component>
@@ -496,6 +507,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -632,7 +644,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -2022,7 +2033,8 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733078" sideWeight="0.619375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22899505" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3439394" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2047,7 +2059,6 @@
       <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -2111,41 +2122,6 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NmsPlayers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="87" column="106" lean-forward="false" selection-start-line="87" selection-start-column="106" selection-end-line="87" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/jooq/joor/0.9.5/joor-0.9.5.jar!/org/joor/Reflect.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="212" column="19" lean-forward="false" selection-start-line="212" selection-start-column="19" selection-end-line="212" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.12.2-R0.1-SNAPSHOT/spigot-1.12.2-R0.1-SNAPSHOT.jar!/net/minecraft/server/v1_12_R1/ChatComponentText.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.12.2-R0.1-SNAPSHOT/spigot-1.12.2-R0.1-SNAPSHOT.jar!/net/minecraft/server/v1_12_R1/ChatBaseComponent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="14" column="22" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.12.2-R0.1-SNAPSHOT/spigot-1.12.2-R0.1-SNAPSHOT.jar!/net/minecraft/server/v1_12_R1/ChatMessage.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="39" lean-forward="false" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/AnvilHandler_1_12X.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/org/spigotmc/spigot/1.12.2-R0.1-SNAPSHOT/spigot-1.12.2-R0.1-SNAPSHOT.jar!/net/minecraft/server/v1_12_R1/IChatBaseComponent.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -2293,7 +2269,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="136" column="21" lean-forward="false" selection-start-line="136" selection-start-column="21" selection-end-line="136" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2308,7 +2283,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
           <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2316,7 +2290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="32" column="48" lean-forward="false" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2324,7 +2297,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-90">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2332,7 +2304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2340,7 +2311,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2348,21 +2318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-          <folding>
-            <element signature="e#678#679#0" expanded="false" />
-            <element signature="e#696#697#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="205" column="36" lean-forward="false" selection-start-line="205" selection-start-column="36" selection-end-line="205" selection-end-column="36" />
-          <folding>
-            <element signature="e#6197#6198#0" expanded="false" />
-            <element signature="e#6251#6252#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2370,7 +2325,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="49" lean-forward="false" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2378,20 +2332,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
+        <state relative-caret-position="1320">
           <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding>
-            <element signature="e#13447#13448#0" expanded="true" />
-            <element signature="e#13499#13500#0" expanded="true" />
-            <element signature="e#13570#13571#0" expanded="true" />
-            <element signature="e#13621#13622#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2399,21 +2346,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="36" column="39" lean-forward="false" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/menus/warpselection/WarpPageSwitchMenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding />
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/InventoryListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
+        <state relative-caret-position="1440">
           <caret line="123" column="37" lean-forward="false" selection-start-line="123" selection-start-column="37" selection-end-line="123" selection-end-column="37" />
           <folding />
         </state>
@@ -2421,7 +2366,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
+        <state relative-caret-position="1665">
           <caret line="139" column="23" lean-forward="false" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
           <folding />
         </state>
@@ -2431,7 +2376,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2443,63 +2387,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGeneratorSettings.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItemClickHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#825#826#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/InlineMenuItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        <state relative-caret-position="165">
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="20" />
           <folding>
-            <element signature="e#203#204#0" expanded="true" />
-            <element signature="e#234#235#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#333#334#0" expanded="true" />
+            <element signature="e#360#361#0" expanded="true" />
+            <element signature="e#421#422#0" expanded="true" />
+            <element signature="e#454#455#0" expanded="true" />
+            <element signature="e#527#528#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#749#750#0" expanded="true" />
+            <element signature="e#821#822#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenuBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="42" column="10" lean-forward="false" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-345">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="32" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#918#919#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#1005#1006#0" expanded="true" />
+            <element signature="e#1048#1049#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2013#2014#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        <state relative-caret-position="468">
+          <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#596#597#0" expanded="true" />
-            <element signature="e#630#631#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
-            <element signature="e#884#885#0" expanded="true" />
-            <element signature="e#1015#1016#0" expanded="true" />
-            <element signature="e#1042#1043#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="8" lean-forward="false" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#628#629#0" expanded="true" />
             <element signature="e#662#663#0" expanded="true" />
-            <element signature="e#689#690#0" expanded="true" />
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
+            <element signature="e#1096#1097#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="543" column="6" lean-forward="false" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1156#1157#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#1256#1257#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
+            <element signature="e#1323#1324#0" expanded="true" />
+            <element signature="e#1366#1367#0" expanded="true" />
+            <element signature="e#1404#1405#0" expanded="true" />
+            <element signature="e#1445#1446#0" expanded="true" />
+            <element signature="e#1483#1484#0" expanded="true" />
+            <element signature="e#4123#4124#0" expanded="true" />
+            <element signature="e#4150#4151#0" expanded="true" />
+            <element signature="e#4207#4208#0" expanded="true" />
+            <element signature="e#4235#4236#0" expanded="true" />
+            <element signature="e#4405#4406#0" expanded="true" />
+            <element signature="e#4432#4433#0" expanded="true" />
+            <element signature="e#4485#4486#0" expanded="true" />
+            <element signature="e#4512#4513#0" expanded="true" />
           </folding>
         </state>
       </provider>

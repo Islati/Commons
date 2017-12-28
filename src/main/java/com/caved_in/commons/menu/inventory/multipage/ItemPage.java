@@ -4,17 +4,18 @@ import com.caved_in.commons.menu.inventory.ItemMenu;
 import com.caved_in.commons.menu.inventory.ItemMenuBuilder;
 import com.caved_in.commons.menu.inventory.MenuItem;
 
+import java.util.List;
 import java.util.Map;
 
 public class ItemPage {
-    private Map<Integer, MenuItem> pageItems;
-    private int page;
-    private String itemPageTitleFormat = "{title} - Page {page}";
+    private List<MenuItem> pageItems;
+    private int pageIndex;
+    private String itemPageTitleFormat = "{title} - Page {pageIndex}";
     private String title;
 
-    public ItemPage(int page, Map<Integer, MenuItem> items) {
+    public ItemPage(int pageIndex, List<MenuItem> items) {
         this.pageItems = items;
-        this.page = page;
+        this.pageIndex = pageIndex;
     }
 
     public void setTitle(String title){
@@ -22,29 +23,29 @@ public class ItemPage {
     }
 
     /**
-     * The collection of items, indexed by their slot in the inventory, to build this menu page.
+     * The collection of items, indexed by their slot in the inventory, to build this menu pageIndex.
      * @return Map of keyvalue for the item slot, and actual menu item
      */
-    Map<Integer, MenuItem> items() {
+    public List<MenuItem> items() {
         return pageItems;
     }
 
     /**
      * This pages index (1 being the first) in the overall menu.
-     * @return page number.
+     * @return pageIndex number.
      */
-    Integer page() {
-        return page;
+    public int pageIndex() {
+        return pageIndex;
     }
 
     public ItemMenu getPageMenu() {
         ItemMenuBuilder builder = new ItemMenuBuilder();
 
-        for(Map.Entry<Integer, MenuItem> item : pageItems.entrySet()) {
-            builder.item(item.getKey(),item.getValue());
+        for(MenuItem item : pageItems) {
+            builder.item(item);
         }
 
-        builder.title(itemPageTitleFormat.replace("{title}",title).replace("{page}","" + page));
+        builder.title(itemPageTitleFormat.replace("{title}",title).replace("{pageIndex}","" + pageIndex + 1));
 
         return builder.getMenu();
     }
