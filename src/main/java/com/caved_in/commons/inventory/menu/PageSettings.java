@@ -1,4 +1,4 @@
-package com.caved_in.commons.inventory.menu.multipage;
+package com.caved_in.commons.inventory.menu;
 
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.yml.Path;

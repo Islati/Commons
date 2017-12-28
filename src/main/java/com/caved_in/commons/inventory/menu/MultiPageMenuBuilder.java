@@ -1,12 +1,10 @@
-package com.caved_in.commons.inventory.menu.multipage;
-
-import com.caved_in.commons.inventory.menu.MenuItem;
+package com.caved_in.commons.inventory.menu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class MultiPageMenuBuilder {
+public class MultiPageMenuBuilder {
 
     private static final String MENU_TITLE_BASE = "{title} - Page {page}";
 
@@ -27,6 +25,11 @@ public abstract class MultiPageMenuBuilder {
 
     public MultiPageMenuBuilder addItems(MenuItem... items) {
         menuItems.addAll(Arrays.asList(items));
+        return this;
+    }
+
+    public MultiPageMenuBuilder addItems(List<MenuItem> items) {
+        menuItems.addAll(items);
         return this;
     }
 

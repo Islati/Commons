@@ -1,8 +1,4 @@
-package com.caved_in.commons.inventory.menu.multipage;
-
-import com.caved_in.commons.inventory.*;
-import com.caved_in.commons.inventory.menu.*;
-import com.caved_in.commons.menus.inventory.*;
+package com.caved_in.commons.inventory.menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;

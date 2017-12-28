@@ -1,10 +1,7 @@
-package com.caved_in.commons.inventory.menu.multipage;
+package com.caved_in.commons.inventory.menu;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.inventory.*;
-import com.caved_in.commons.inventory.menu.*;
 import com.caved_in.commons.item.Items;
-import com.caved_in.commons.menus.inventory.*;
 import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
