@@ -28,3 +28,5 @@ buildNumber.properties
 docs
 target
 temp
+
+*workspace.*

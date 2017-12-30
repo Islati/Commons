@@ -6,63 +6,7 @@
   <component name="ChangeListManager">
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
-    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/commons.iml" afterPath="$PROJECT_DIR$/commons.iml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Commons.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/Title.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/TitleBuilder.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/CommandHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/CommandHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/EnchantCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/EnchantCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/GamemodeCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/GamemodeCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/IdCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/IdCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/ItemCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/ItemCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/MoreCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/MoreCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/SpawnMobCommand.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/SpawnMobCommand.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/ItemStackArgumentHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/ItemStackArgumentHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/CommonsYamlConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/CommonsYamlConfiguration.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Configuration.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/config/Configuration.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugArmorBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugArmorBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugCreatureBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugCreatureBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugTitle.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FlamingEnderSword.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FlamingEnderSword.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/CreatureBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/CreatureBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/MobType.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/event/StackTraceEvent.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/event/StackTraceEvent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/event/GadgetUseEvent.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/event/GadgetUseEvent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseArrow.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/guns/BaseArrow.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorInventory.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorInventory.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorSlot.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/ArmorSlot.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/HandSlot.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Enchantments.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Enchantments.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ExtraItems.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ExtraItems.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemEnchantmentWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemEnchantmentWrapper.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ToolType.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ToolType.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/InventoryListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/InventoryListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerInteractListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerInteractListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerSwapHandItemsListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NMS.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NMS.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_8_R3/ForceRespawnHandler_18R3.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_8_R3/ForceRespawnHandler_18R3.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_8_R3/TitleHandler_18R3.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_9x/TitleHandler_19X.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/non_breaking_implementation/TitleHandlerNonBreaking.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/User.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/StringUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/StringUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryYamlConverter.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryYamlConverter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" />
-    </list>
+    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)" />
     <ignored path="Commons.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1956,10 +1900,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15681818" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733078" sideWeight="0.619375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22899505" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22899505" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27424243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27424243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
