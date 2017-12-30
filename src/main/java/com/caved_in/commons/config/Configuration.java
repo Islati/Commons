@@ -114,10 +114,6 @@ public interface Configuration {
 
 	void enableStackTraceEvent(boolean val);
 
-	boolean enableStackTraceBook();
-
-	void enableStackTraceBook(boolean val);
-
 	boolean enableStackTraceChat();
 
 	void enableStackTraceChat(boolean val);

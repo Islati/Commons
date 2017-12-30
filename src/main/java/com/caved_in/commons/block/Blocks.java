@@ -43,7 +43,7 @@ public class Blocks {
      * Set of the firstPageEnabled-ids which materials are hollow
      */
     private static final Set<Material> HOLLOW_MATERIALS = new HashSet<>();
-    public static final HashSet<Material> TRANSPARENT_MATERIALS = new HashSet<>();
+    public static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
 
     /* Initialize the materials which are hollow */
     static {
@@ -89,12 +89,13 @@ public class Blocks {
             Chat.debug(Messages.OUTDATED_VERSION);
         }
 
-        //All hollow materials are transparant materials
-        TRANSPARENT_MATERIALS.addAll(HOLLOW_MATERIALS);
+        for(Material hollow : HOLLOW_MATERIALS) {
+            TRANSPARENT_MATERIALS.add((byte)hollow.getId());
+        }
 
         //Water is transparent, though not hollow
-        TRANSPARENT_MATERIALS.add(Material.WATER);
-        TRANSPARENT_MATERIALS.add(Material.STATIONARY_WATER);
+        TRANSPARENT_MATERIALS.add((byte)Material.WATER.getId());
+        TRANSPARENT_MATERIALS.add((byte)Material.STATIONARY_WATER.getId());
     }
 
     /**

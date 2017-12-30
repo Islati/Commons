@@ -9,8 +9,7 @@ public enum ArmorSlot {
     CHEST(3),
     LEGGINGS(2),
     BOOTS(1),
-    MAIN_HAND(0), //Main slot is the farthest left of the hot bar, not always the players active slot though.
-    OFF_HAND(5);
+    MAIN_HAND(0); //Main slot is the farthest left of the hot bar, not always the players active slot though.
 
     private static final Map<Integer, ArmorSlot> slots = new HashMap<>();
 

@@ -4,7 +4,7 @@ import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
-import org.apache.commons.lang3.reflect.TypeUtils;
+import net.minecraft.util.org.apache.commons.lang3.reflect.TypeUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;

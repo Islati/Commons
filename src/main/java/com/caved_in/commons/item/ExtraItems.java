@@ -135,10 +135,6 @@ public enum ExtraItems {
     CHISELED_QUARTZ(Material.QUARTZ_BLOCK,1,"chiseled_quartz","chiseledquartz"),
     PILLAR_QUARTZ(Material.QUARTZ_BLOCK,2,"quartz_pillar","quartzpillar"),
 
-    /* Prismarine */
-    PRISMARINE_BRICK(Material.PRISMARINE,1,"prismarine_brick","prisbrick","prismarinebrick"),
-    DARK_PRISMARINE(Material.PRISMARINE,2,"dark_prismarine","darkprismarine","darkpris"),
-
     /* Coloured Carped */
     YELLOW_CARPET(Material.CARPET, 4, "yellow_carpet", "yellowcarpet"),
     LIGHT_GRAY_CARPET(Material.CARPET, 8, "light_gray_carpet", "lightgraycarpet"),
@@ -155,12 +151,6 @@ public enum ExtraItems {
     MAGENTA_CARPET(Material.CARPET, 2, "magenta_carpet", "magentacarpet"),
     BLACK_CARPET(Material.CARPET, 15, "black_carpet", "blackcarpet"),
     GREEN_CARPET(Material.CARPET, 13, "green_carpet", "greencarpet"),
-
-    /*
-    Sandstone Types
-     */
-    CHISELED_RED_SANDSTONE(Material.RED_SANDSTONE,1,"chiseled_redsandstone","chiseled_red_sandstone","chiseledredsandstone"),
-    SMOOTH_RED_SANDSTONE(Material.RED_SANDSTONE,2,"smooth_red_sandstone","smoothredsandstone","smooth_redsandstone"),
 
     /* Alternative Stone Materials */
     GRANITE(Material.STONE, 1, "granite"),

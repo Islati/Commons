@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 public class SpawnMobCommand {
     //todo implement options for max-health / health, name.
     @Command(identifier = "spawnmob", permissions = Perms.COMMAND_MOB_SPAWN)
-    @Flags(identifier = {"baby", "age", "size", "villager", "powered", "wither", "helmet", "chest", "legs", "boots", "mainhand", "offhand"})
+    @Flags(identifier = {"baby", "age", "size", "villager", "powered", "wither", "helmet", "chest", "legs", "boots", "hand"})
     public void onSpawnMobCommand(Player player, @Arg(name = "mob type") EntityType type, @Arg(name = "amount", def = "1") int amount,
                                   @FlagArg("baby") boolean baby,
                                   @FlagArg("age") @Arg(name = "age", def = "0") int age,
@@ -30,8 +30,7 @@ public class SpawnMobCommand {
                                   @FlagArg("chest") @Arg(name = "chest", def = "0") ItemStack chest,
                                   @FlagArg("legs") @Arg(name = "legs", def = "0") ItemStack legs,
                                   @FlagArg("boots") @Arg(name = "boots", def = "0") ItemStack boots,
-                                  @FlagArg("mainhand") @Arg(name = "mainhand", def = "0") ItemStack mainHand,
-                                  @FlagArg("offhand") @Arg(name = "offhand", def = "0") ItemStack offHand) {
+                                  @FlagArg("hand") @Arg(name = "hand", def = "0") ItemStack mainHand) {
         if (type == null) {
             return;
         }
@@ -72,11 +71,7 @@ public class SpawnMobCommand {
         }
 
         if (mainHand != null && mainHand.getType() != Material.AIR) {
-            spawner.armor().withMainHand(mainHand);
-        }
-
-        if (offHand != null && offHand.getType() != Material.AIR) {
-            spawner.armor().withOffHand(offHand);
+            spawner.armor().withHand(mainHand);
         }
 
         spawner.spawn(Players.getTargetLocation(player), amount);

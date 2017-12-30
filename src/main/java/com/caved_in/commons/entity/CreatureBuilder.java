@@ -89,12 +89,13 @@ public class CreatureBuilder {
             builder.powered(creeper.isPowered());
         }
 
-        if (Entities.hasName(entity)) {
-            builder.name(entity.getCustomName());
-        }
-
         if (entity instanceof LivingEntity) {
             LivingEntity creature = (LivingEntity) entity;
+
+            if (Entities.hasName(creature)) {
+                builder.name(creature.getCustomName());
+            }
+
             builder.maxHealth(Entities.getMaxHealth(creature))
                     .health(Entities.getCurrentHealth(creature))
                     .armor(new ArmorInventory(creature.getEquipment().getArmorContents()));
@@ -268,7 +269,7 @@ public class CreatureBuilder {
     }
 
     public CreatureBuilder armor(ArmorInventory armor) {
-        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withMainHand(armor.getMainHand()).withOffHand(armor.getOffHand());
+        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withHand(armor.getHand());
         return this;
     }
 

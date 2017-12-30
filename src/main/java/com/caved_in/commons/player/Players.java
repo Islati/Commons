@@ -112,6 +112,10 @@ public class Players {
         playerData.put(playerId, minecraftPlayer);
     }
 
+    public static Stream<Player> stream() {
+        return allPlayers().stream();
+    }
+
     /**
      * Removes the {@link MinecraftPlayer} object for a player.
      * <p>
@@ -203,19 +207,6 @@ public class Players {
 
     public static OfflinePlayer getOfflinePlayer(String name) {
         return Bukkit.getOfflinePlayer(name);
-    }
-
-    public static Set<Player> getPlayersWithPermission(String... permission) {
-        return stream().filter(p -> {
-            boolean pass = true;
-            for (String s : permission) {
-                if (!p.hasPermission(s)) {
-                    pass = false;
-                    break;
-                }
-            }
-            return pass;
-        }).collect(Collectors.toSet());
     }
 
     /**
@@ -608,8 +599,6 @@ public class Players {
             case ADVENTURE:
                 player.setGameMode(GameMode.SURVIVAL);
                 break;
-            case SPECTATOR:
-                player.setGameMode(GameMode.SPECTATOR);
             default:
                 player.setGameMode(GameMode.SURVIVAL);
                 break;
@@ -658,7 +647,7 @@ public class Players {
             player.getInventory().setArmorContents(new ItemStack[]{null, null, null, null});
         }
 
-		/* Update the players inventory, to prevent any errors or firstPageEnabled misplacement. */
+		/* Update the players inventory, to prevent any errors or item misplacement. */
         player.updateInventory();
     }
 
@@ -689,9 +678,9 @@ public class Players {
     }
 
     /**
-     * Places an firstPageEnabled into the players inventory but does NOT call an update to their inventory
+     * Places an item into the players inventory but does NOT call an update to their inventory
      *
-     * @param player    player to give an firstPageEnabled to
+     * @param player    player to give an item to
      * @param itemStack itemstack to give to the player
      * @since 1.0
      */
@@ -700,12 +689,12 @@ public class Players {
     }
 
     /**
-     * Give the player an firstPageEnabled, optionally dropping it if they have no free room in their inventory.
+     * Give the player an item, optionally dropping it if they have no free room in their inventory.
      *
-     * @param player    player to give the firstPageEnabled to.
-     * @param itemStack firstPageEnabled to give to the player.,
-     * @param drop      whether or not to drop the firstPageEnabled if there's no free space.
-     * @return true if the player received the firstPageEnabled, false if there was no free space and the firstPageEnabled wasn't dropped.
+     * @param player    player to give the item to.
+     * @param itemStack item to give to the player.,
+     * @param drop      whether or not to drop the item if there's no free space.
+     * @return true if the player received the item, false if there was no free space and the item wasn't dropped.
      */
     public static boolean giveItem(Player player, ItemStack itemStack, boolean drop) {
         PlayerInventory inventory = player.getInventory();
@@ -721,11 +710,11 @@ public class Players {
     }
 
     /**
-     * Get an firstPageEnabled at a specific slot in the players inventory.
+     * Get an item at a specific slot in the players inventory.
      *
-     * @param player player to get the firstPageEnabled from.
-     * @param slot   slot to get the firstPageEnabled in.
-     * @return the firstPageEnabled that's at the given slot in the players inventory, potentially null or Material.AIR
+     * @param player player to get the item from.
+     * @param slot   slot to get the item in.
+     * @return the item that's at the given slot in the players inventory, potentially null or Material.AIR
      */
     @Nullable
     public static ItemStack getItem(Player player, int slot) {
@@ -733,11 +722,11 @@ public class Players {
     }
 
     /**
-     * Set the firstPageEnabled at a specific slot in the players inventory.
+     * Set the item at a specific slot in the players inventory.
      *
      * @param player player to operate on.
-     * @param slot   slot to assign the firstPageEnabled to.
-     * @param item   firstPageEnabled to put in the given slot.
+     * @param slot   slot to assign the item to.
+     * @param item   item to put in the given slot.
      */
     public static void setItem(Player player, int slot, ItemStack item) {
         Inventories.setItem(player.getInventory(), slot, item);
@@ -759,10 +748,10 @@ public class Players {
     }
 
     /**
-     * Sets an firstPageEnabled in the players hotbar to the firstPageEnabled given
+     * Sets an item in the players hotbar to the item given
      *
-     * @param player player to give the firstPageEnabled to
-     * @param item   firstPageEnabled to set in slot
+     * @param player player to give the item to
+     * @param item   item to set in slot
      * @param slot   slot to change
      */
     public static void setHotbarItem(Player player, ItemStack item, int slot) {
@@ -814,7 +803,7 @@ public class Players {
      *
      * @param player    player to change the armor of.
      * @param armorSlot slot to assign the armor to.
-     * @param itemStack firstPageEnabled to assign as armor in the given slot.
+     * @param itemStack item to assign as armor in the given slot.
      */
     public static void setArmor(Player player, ArmorSlot armorSlot, ItemStack itemStack) {
         if (itemStack == null || armorSlot == null) {
@@ -836,10 +825,7 @@ public class Players {
                 inventory.setBoots(itemStack);
                 break;
             case MAIN_HAND:
-                inventory.setItemInMainHand(itemStack);
-                break;
-            case OFF_HAND:
-                inventory.setItemInOffHand(itemStack);
+                inventory.setItemInHand(itemStack);
                 break;
             default:
                 break;
@@ -861,7 +847,7 @@ public class Players {
      *
      * @param player    player to get the armor of.
      * @param armorSlot which armor slot to get the armor from.
-     * @return the firstPageEnabled equipped in the given slot, or null if none is equipped.
+     * @return the item equipped in the given slot, or null if none is equipped.
      */
     public static ItemStack getArmor(Player player, ArmorSlot armorSlot) {
         PlayerInventory playerInventory = player.getInventory();
@@ -880,10 +866,7 @@ public class Players {
                 itemStack = playerInventory.getBoots();
                 break;
             case MAIN_HAND:
-                itemStack = playerInventory.getItemInMainHand();
-                break;
-            case OFF_HAND:
-                itemStack = playerInventory.getItemInOffHand();
+                itemStack = playerInventory.getItemInHand();
                 break;
             default:
                 break;
@@ -945,13 +928,6 @@ public class Players {
 
     public static Set<Player> allPlayers() {
         return Sets.newHashSet(Bukkit.getOnlinePlayers());
-    }
-
-    /**
-     * @return Lambda stream of all the currently online players.
-     */
-    public static Stream<Player> stream() {
-        return allPlayers().stream();
     }
 
     /**
@@ -1293,106 +1269,33 @@ public class Players {
     }
 
     /**
-     * Check whether or not the player has an firstPageEnabled in either of their hands (Main, or Offhand).
+     * Check whether or not the player has an item in either of their hands (Main, or Offhand).
      *
      * @param player player to check for items
-     * @return true if the player has an firstPageEnabled in either their main or offhand slot, otherwise false.
+     * @return true if the player has an item in either their main or offhand slot, otherwise false.
      */
     public static boolean hasItemInHand(Player player) {
         PlayerInventory playerInv = player.getInventory();
-        ItemStack mainHand = playerInv.getItemInMainHand();
-        ItemStack offHand = playerInv.getItemInOffHand();
+        ItemStack mainHand = playerInv.getItemInHand();
 
-        return (mainHand != null && mainHand.getType() != Material.AIR) || (offHand != null && offHand.getType() != Material.AIR);
-    }
-
-    /**
-     * Check whether or not the player has an firstPageEnabled in the specified hand
-     *
-     * @param player player to check the hand of.
-     * @param slot   hand (slot) to check
-     * @return true if the specified slot has an firstPageEnabled in it, false otherwise.
-     */
-    public static boolean hasItemInHand(Player player, HandSlot slot) {
-        switch (slot) {
-            case MAIN_HAND:
-                ItemStack mainHand = player.getInventory().getItemInMainHand();
-                return mainHand != null && mainHand.getType() != Material.AIR;
-            case OFF_HAND:
-                ItemStack offHand = player.getInventory().getItemInOffHand();
-                return offHand != null && offHand.getType() != Material.AIR;
-            default:
-                return false;
-        }
-    }
-
-    /**
-     * Retrieve the firstPageEnabled in the players specified hand (slot).
-     *
-     * @param player player to retrieve the firstPageEnabled from
-     * @param slot   hand (slot) to get the firstPageEnabled in
-     * @return firstPageEnabled in the players specified hand slot.
-     */
-    public static ItemStack getItemInHand(Player player, HandSlot slot) {
-        switch (slot) {
-            case MAIN_HAND:
-                return player.getInventory().getItemInMainHand();
-            case OFF_HAND:
-                return player.getInventory().getItemInOffHand();
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Change the firstPageEnabled in the players hand (slot) to that specified.
-     *
-     * @param player player to change the hand firstPageEnabled of.
-     * @param stack  stack to set in the players hand
-     * @param slot   hand (slot) to set the items in.
-     */
-    public static void setItemInHand(Player player, ItemStack stack, HandSlot slot) {
-        switch (slot) {
-            case MAIN_HAND:
-                player.getInventory().setItemInMainHand(stack);
-                break;
-            case OFF_HAND:
-                player.getInventory().setItemInOffHand(stack);
-                break;
-            default:
-                break;
-        }
+        return (mainHand != null && mainHand.getType() != Material.AIR);
     }
 
 
     /**
-     * Check whether a player has an firstPageEnabled similar to the compare firstPageEnabled in either their main or offhand.
+     * Check whether a player has an item similar to the compare item in either their main or offhand.
      *
      * @param player  player to check items for
-     * @param compare firstPageEnabled to check for in the players hands
-     * @return true if the player has an firstPageEnabled similar to the comparing firstPageEnabled in main or offhand, false otherwise.
+     * @param compare item to check for in the players hands
+     * @return true if the player has an item similar to the comparing item in main or offhand, false otherwise.
      */
-    @Deprecated
     public static boolean hasItemInHand(Player player, ItemStack compare) {
         PlayerInventory inv = player.getInventory();
 
-        ItemStack mainHand = inv.getItemInMainHand();
-        ItemStack offHand = inv.getItemInOffHand();
+        ItemStack mainHand = inv.getItemInHand();
 
 
-        return mainHand.isSimilar(compare) || offHand.isSimilar(compare);
-    }
-
-    /**
-     * Check whether or not the player has a specific firstPageEnabled in a specific hand slot (main or offhand)
-     *
-     * @param player  player to check the hands of
-     * @param compare firstPageEnabled to check for in players hand
-     * @param slot    which hand (slot) to check for the firstPageEnabled in.
-     * @return true if the player has the desired firstPageEnabled in their hand, false otherwise.
-     */
-    public static boolean hasItemInHand(Player player, ItemStack compare, HandSlot slot) {
-        return hasItemInHand(player, slot) && getItemInHand(player, slot).isSimilar(compare);
+        return mainHand.isSimilar(compare);
     }
 
     /**
@@ -1401,110 +1304,44 @@ public class Players {
      * @param player player to check.
      * @return true if the player has nothing in their hand, false otherwise.
      */
-    @Deprecated
     public static boolean handIsEmpty(Player player) {
         return !hasItemInHand(player);
-    }
-
-    /**
-     * Check if both of the players hands are empty.
-     *
-     * @param player player to check the hands of
-     * @return true if the player has no firstPageEnabled in either their main or off-hand, false otherwise.
-     */
-    public static boolean handsAreEmpty(Player player) {
-        return !hasItemInHand(player, HandSlot.MAIN_HAND) && !hasItemInHand(player, HandSlot.OFF_HAND);
-    }
-
-    /**
-     * Check if the players hand (slot) is empty.
-     *
-     * @param player player to check the hand of
-     * @param slot   hand (slot) to check
-     * @return true if the players hand is empty, false otherwise
-     */
-    public static boolean handIsEmpty(Player player, HandSlot slot) {
-        return !hasItemInHand(player, slot);
-    }
-
-    /**
-     * Clear the items in each of the players hands.
-     *
-     * @param player player to clear the hands of.
-     */
-    public static void clearHands(Player player) {
-        PlayerInventory inv = player.getInventory();
-
-        inv.setItemInMainHand(null);
-        inv.setItemInOffHand(null);
     }
 
     /**
      * Clear the items in the players specific hand slot .
      *
      * @param player player to clear the hand of.
-     * @param slot   hand (slot) to clear the items from in the players hand.
      */
-    public static void clearHand(Player player, HandSlot slot) {
-        switch (slot) {
-            case MAIN_HAND:
-                player.getInventory().setItemInMainHand(null);
-                break;
-            case OFF_HAND:
-                player.getInventory().setItemInOffHand(null);
-                break;
-            default:
-                break;
-        }
+    public static void clearHand(Player player) {
+        player.getInventory().setItemInHand(null);
     }
 
-    /**
-     * Remove a specific amount of items from the stack the player's holding in their main hand.
-     *
-     * @param player player to take the items from.
-     * @param amount amount of items take from the stack.
-     */
-    @Deprecated
-    public static void removeFromHand(Player player, int amount) {
-        removeFromHand(player, amount, HandSlot.MAIN_HAND);
-    }
 
     /**
      * Remove an amount of items from the players specified hand.
      *
      * @param player player to remove the items from.
      * @param amount amount of items to remove from the players hand
-     * @param slot   which hand to remove the items from
      */
-    public static void removeFromHand(Player player, int amount, HandSlot slot) {
-        if (!hasItemInHand(player, slot)) {
+    public static void removeFromHand(Player player, int amount) {
+        if (!hasItemInHand(player)) {
             return;
         }
 
-        ItemStack handItem = Items.removeFromStack(getItemInHand(player, slot), amount);
-
-        switch (slot) {
-            case MAIN_HAND:
-                player.getInventory().setItemInMainHand(handItem);
-                break;
-            case OFF_HAND:
-                player.getInventory().setItemInOffHand(handItem);
-                break;
-            default:
-                break;
-        }
-
+        ItemStack handItem = Items.removeFromStack(player.getItemInHand(), amount);
+        player.setItemInHand(handItem);
         updateInventory(player);
     }
 
     /**
-     * Check the players inventory for an firstPageEnabled with a specific material and name
-     * Uses a fuzzy search to determine if the firstPageEnabled is in their inventory
+     * Check the players inventory for an item with a specific material and name
+     * Uses a fuzzy search to determine if the item is in their inventory
      *
      * @param player   player who's inventory we're checking
      * @param material The material type were checking for
      * @param name     The name we're doing a fuzzy search against for
-     * @return true if they have the firstPageEnabled, false otherwise
+     * @return true if they have the item, false otherwise
      * @see com.caved_in.commons.inventory.Inventories#contains(org.bukkit.inventory.Inventory, org.bukkit.Material, String)
      */
     public static boolean hasItem(Player player, Material material, String name) {
@@ -1512,11 +1349,11 @@ public class Players {
     }
 
     /**
-     * Check if the player has any items in their inventory matching the given firstPageEnabled.
+     * Check if the player has any items in their inventory matching the given item.
      *
      * @param player player to check.
-     * @param item   firstPageEnabled to search for.
-     * @return true if the player has an firstPageEnabled matching the given firstPageEnabled, false otherwise.
+     * @param item   item to search for.
+     * @return true if the player has an item matching the given item, false otherwise.
      */
     public static boolean hasItem(Player player, ItemStack item) {
         return Inventories.contains(player.getInventory(), item);
@@ -1548,22 +1385,10 @@ public class Players {
      * Check whether or not the player has a gadget in their main hand.
      *
      * @param player player to check for gadgets.
-     * @return true if the firstPageEnabled in the players hand is a gadget, false otherwise.
+     * @return true if the item in the players hand is a gadget, false otherwise.
      */
-    @Deprecated
     public static boolean hasGadgetInHand(Player player) {
-        return Gadgets.isGadget(getItemInHand(player, HandSlot.MAIN_HAND));
-    }
-
-    /**
-     * Check whether or not the player has a gadget in the specified hand/
-     *
-     * @param player player to check for gadgets.
-     * @param slot   hand (slot) to check for items in
-     * @return true if the firstPageEnabled in the players hand is a gadget, false otherwise.
-     */
-    public static boolean hasGadgetInHand(Player player, HandSlot slot) {
-        return Gadgets.isGadget(getItemInHand(player, slot));
+        return Gadgets.isGadget(player.getItemInHand());
     }
 
     /**

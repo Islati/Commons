@@ -5,7 +5,6 @@ import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Constructor;
 import java.util.ConcurrentModificationException;
 
 public class ForceRespawnHandler_18R3 implements ForceRespawnHandler {

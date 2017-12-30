@@ -3,7 +3,7 @@ package com.caved_in.commons.yml.converter;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
-import org.apache.commons.lang3.reflect.TypeUtils;
+import net.minecraft.util.org.apache.commons.lang3.reflect.TypeUtils;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

@@ -117,7 +117,7 @@ public class Items {
     /**
      * Retrive the NMS object used to manage the given itemstack
      *
-     * @param stack firstPageEnabled to get the nms object for
+     * @param stack item to get the nms object for
      * @return NMS object used to manage the given itemstack
      */
     public static Object toNMS(ItemStack stack) {
@@ -125,20 +125,20 @@ public class Items {
     }
 
     /**
-     * Check whether or not an firstPageEnabled has enchantments.
+     * Check whether or not an item has enchantments.
      *
      * @param itemStack itemstack to check for enchantments on.
-     * @return true if the firstPageEnabled has any enchantments, false otherwise.
+     * @return true if the item has any enchantments, false otherwise.
      */
     public static boolean hasEnchantments(ItemStack itemStack) {
         return hasMetadata(itemStack) && getMetadata(itemStack).hasEnchants();
     }
 
     /**
-     * Check whether or not an firstPageEnabled has metadata
+     * Check whether or not an item has metadata
      *
      * @param itemStack itemstack to check for metadata on.
-     * @return true if the firstPageEnabled has metadata, false otherwise
+     * @return true if the item has metadata, false otherwise
      */
     public static boolean hasMetadata(ItemStack itemStack) {
         if (itemStack == null) {
@@ -152,7 +152,7 @@ public class Items {
      * Get the metadata attached to an itemstack
      *
      * @param itemStack
-     * @return ItemMeta of the firstPageEnabled if it exists, otherwise null.
+     * @return ItemMeta of the item if it exists, otherwise null.
      */
     public static ItemMeta getMetadata(ItemStack itemStack) {
         return itemStack.getItemMeta();
@@ -161,8 +161,8 @@ public class Items {
     /**
      * Set the MetaData on an Item Stack
      *
-     * @param itemStack firstPageEnabled stack to set the metadata on
-     * @param itemMeta  The metadata to set on our firstPageEnabled
+     * @param itemStack item stack to set the metadata on
+     * @param itemMeta  The metadata to set on our item
      * @return The itemstack passed, but with its metadata changed.
      */
     public static ItemStack setMetadata(ItemStack itemStack, ItemMeta itemMeta) {
@@ -171,16 +171,16 @@ public class Items {
     }
 
     /**
-     * Clear existing lore on an firstPageEnabled.
+     * Clear existing lore on an item.
      *
-     * @param item firstPageEnabled to remove the lore from.
+     * @param item item to remove the lore from.
      */
     public static void clearLore(ItemStack item) {
         setLore(item, Arrays.asList());
     }
 
     /**
-     * Get lore of firstPageEnabled at specific line
+     * Get lore of item at specific line
      *
      * @param itemStack Item to get lore of
      * @param line      Index of lore to get
@@ -199,10 +199,10 @@ public class Items {
     }
 
     /**
-     * Add lines of lore to an firstPageEnabled
+     * Add lines of lore to an item
      *
-     * @param itemStack firstPageEnabled stack to add lore on
-     * @param loreLines the lore lines to add to the firstPageEnabled
+     * @param itemStack item stack to add lore on
+     * @param loreLines the lore lines to add to the item
      * @return itemstack with the new lore lines added
      */
     public static ItemStack addLore(ItemStack itemStack, String... loreLines) {
@@ -210,14 +210,14 @@ public class Items {
     }
 
     /**
-     * Add lines of lore to an firstPageEnabled
+     * Add lines of lore to an item
      *
-     * @param itemStack firstPageEnabled stack to add lore on
-     * @param loreLines the lore lines to add to the firstPageEnabled
+     * @param itemStack item stack to add lore on
+     * @param loreLines the lore lines to add to the item
      * @return itemstack with the new lore lines added
      */
     public static ItemStack addLore(ItemStack itemStack, List<String> loreLines) {
-        //Get the metadata for our firstPageEnabled
+        //Get the metadata for our item
         ItemMeta itemMeta = getMetadata(itemStack);
         //Boolean statements; Woo! Our newItemLore = the current items lore, if it has lore; otherwise a blank arraylist
         List<String> newItemLore = hasLore(itemMeta) ? getLore(itemMeta) : new ArrayList<>();
@@ -234,7 +234,7 @@ public class Items {
     }
 
     /**
-     * Check if an firstPageEnabled has lore
+     * Check if an item has lore
      *
      * @param itemStack itemstack to check
      * @return true if the itemstack has lore, false otherwise
@@ -244,7 +244,7 @@ public class Items {
     }
 
     /**
-     * Check if an firstPageEnabled has lore
+     * Check if an item has lore
      *
      * @param itemMeta Metadata to check for lore
      * @return true if the metadata has lore, false otherwise
@@ -254,10 +254,10 @@ public class Items {
     }
 
     /**
-     * Retrieve the lore of an firstPageEnabled if available.
+     * Retrieve the lore of an item if available.
      *
      * @param itemStack itemstack to get the lore of.
-     * @return null if the firstPageEnabled has no lore, otherwise a(n) list of lore-lines.
+     * @return null if the item has no lore, otherwise a(n) list of lore-lines.
      */
     public static List<String> getLore(ItemStack itemStack) {
         if (!hasLore(itemStack)) {
@@ -277,11 +277,11 @@ public class Items {
     }
 
     /**
-     * Check if the firstPageEnabled has lore available at a specific line. 0-based index.
+     * Check if the item has lore available at a specific line. 0-based index.
      *
-     * @param item firstPageEnabled to get the lore of.
+     * @param item item to get the lore of.
      * @param line line to get the lore at.
-     * @return true if the firstPageEnabled has a non-empty line of at the given index, false otherwise.
+     * @return true if the item has a non-empty line of at the given index, false otherwise.
      */
     public static boolean hasLoreAtLine(ItemStack item, int line) {
         List<String> loreLines = getLore(item);
@@ -300,7 +300,7 @@ public class Items {
     /**
      * Retrieve the line of text in the items lore where it contains a specific string.
      *
-     * @param item firstPageEnabled to search the lore on.
+     * @param item item to search the lore on.
      * @param text text to search for in the items lore.
      * @return The line of text containing the search variable, if available; Otherwise null is returned.
      */
@@ -328,7 +328,7 @@ public class Items {
     /**
      * Get the line number which contains the given text in an items lore.
      *
-     * @param item firstPageEnabled to search the lore on.
+     * @param item item to search the lore on.
      * @param text text to search for within the lore.
      * @return line number which the text resides if it exists, if it doesn't exist -1 is returned.
      */
@@ -353,9 +353,9 @@ public class Items {
     }
 
     /**
-     * Retrieve all the lines of lore on an firstPageEnabled which contain a specific piece of text. (Future: Match against regex)
+     * Retrieve all the lines of lore on an item which contain a specific piece of text. (Future: Match against regex)
      *
-     * @param item firstPageEnabled to retrieve the lore from.
+     * @param item item to retrieve the lore from.
      * @param text text to search for in each line of lore.
      * @return List of all the lore lines which contained the desired text.
      */
@@ -383,9 +383,9 @@ public class Items {
     }
 
     /**
-     * Set the lore at a specific line for the given firstPageEnabled. If there's currently no lore at the line, the operation will fail.
+     * Set the lore at a specific line for the given item. If there's currently no lore at the line, the operation will fail.
      *
-     * @param item firstPageEnabled to assign the lore to
+     * @param item item to assign the lore to
      * @param line line to set the lore at
      * @param lore lore to assign at the given slot. (Note: Formats color codes)
      */
@@ -401,11 +401,11 @@ public class Items {
     }
 
     /**
-     * Set the lore on an firstPageEnabled.
+     * Set the lore on an item.
      *
-     * @param itemStack firstPageEnabled to set the lore on
-     * @param loreLines lore to assign to the firstPageEnabled. (Note: Formats color codes)
-     * @return the firstPageEnabled modified to have the lore assigned.
+     * @param itemStack item to set the lore on
+     * @param loreLines lore to assign to the item. (Note: Formats color codes)
+     * @return the item modified to have the lore assigned.
      */
     public static ItemStack setLore(ItemStack itemStack, List<String> loreLines) {
         ItemMeta itemMeta = getMetadata(itemStack);
@@ -424,7 +424,7 @@ public class Items {
      * Change the lore assigned to an instance of ItemMeta.
      *
      * @param itemMeta  metadata to assign the lore to.
-     * @param loreLines lines of lore to assign to the firstPageEnabled. (Note: Formats color codes)
+     * @param loreLines lines of lore to assign to the item. (Note: Formats color codes)
      * @return itemmeta with the formatted lore applied.
      */
     public static ItemMeta setLore(ItemMeta itemMeta, List<String> loreLines) {
@@ -436,8 +436,8 @@ public class Items {
      * Checks if an items lore contains specific text
      *
      * @param itemStack Item to check
-     * @param text      Text to check the firstPageEnabled for
-     * @return true if the firstPageEnabled has the text in its lore, otherwise false.
+     * @param text      Text to check the item for
+     * @return true if the item has the text in its lore, otherwise false.
      */
     public static boolean loreContains(ItemStack itemStack, String text) {
         if (!hasLore(itemStack)) {
@@ -463,7 +463,7 @@ public class Items {
      * Set the name of an Item
      *
      * @param item Item to set the name of
-     * @param name The name to give the firstPageEnabled
+     * @param name The name to give the item
      */
     public static ItemStack setName(ItemStack item, String name) {
         ItemMeta meta = getMetadata(item);
@@ -484,15 +484,15 @@ public class Items {
     }
 
     /**
-     * Get the name of an firstPageEnabled
+     * Get the name of an item
      *
      * @param itemStack Item to get the name of
-     * @return Name of the firstPageEnabled if it has a name, otherwise its material type in
+     * @return Name of the item if it has a name, otherwise its material type in
      * lowercase
      */
     public static String getName(ItemStack itemStack) {
         if (itemStack == null) {
-            throw new NullPointerException("Unable to get the name of a null firstPageEnabled");
+            throw new NullPointerException("Unable to get the name of a null item");
         }
 
         if (!hasName(itemStack)) {
@@ -502,21 +502,21 @@ public class Items {
     }
 
     /**
-     * Check whether or not the firstPageEnabled has a display name.
+     * Check whether or not the item has a display name.
      *
-     * @param itemStack firstPageEnabled to check
-     * @return true if the firstPageEnabled has a display name, false otherwise.
+     * @param itemStack item to check
+     * @return true if the item has a display name, false otherwise.
      */
     public static boolean hasName(ItemStack itemStack) {
         return (hasMetadata(itemStack) && getMetadata(itemStack).hasDisplayName());
     }
 
     /**
-     * Check if the firstPageEnabled has the given material-data value assigned to it.
+     * Check if the item has the given material-data value assigned to it.
      *
-     * @param item firstPageEnabled to check.
+     * @param item item to check.
      * @param id   material-data value to search for.
-     * @return true if the firstPageEnabled has the given data-value assigned, false otherwise.
+     * @return true if the item has the given data-value assigned, false otherwise.
      */
     public static boolean hasMaterialData(ItemStack item, int id) {
         return item.getData().getData() == id;
@@ -527,14 +527,14 @@ public class Items {
      *
      * @param item itemStack to check the name of
      * @param text text to check the items name for
-     * @return true if the firstPageEnabled name contains the text, false otherwise
+     * @return true if the item name contains the text, false otherwise
      */
     public static boolean nameContains(ItemStack item, String text) {
         return StringUtils.containsIgnoreCase(getName(item), text);
     }
 
     /**
-     * Remove an amount of items from the given firstPageEnabled stack.
+     * Remove an amount of items from the given item stack.
      *
      * @param itemStack stack of items to modify
      * @param amount    amount of items to remove from the stack
@@ -574,13 +574,13 @@ public class Items {
 
 
     /**
-     * Add an enchantment to the given firstPageEnabled
+     * Add an enchantment to the given item
      *
      * @param itemStack          itemstack to apply the enchantment to
-     * @param enchantment        enchantment to add to the firstPageEnabled.
+     * @param enchantment        enchantment to add to the item.
      * @param enchantmentLevel   level to give the enchantment
-     * @param ignoreRestrictions whether or not to ignore level and firstPageEnabled restrictions on the firstPageEnabled (unsafe enchanting)
-     * @return true if the enchantment was added to the firstPageEnabled, false otherwise.
+     * @param ignoreRestrictions whether or not to ignore level and item restrictions on the item (unsafe enchanting)
+     * @return true if the enchantment was added to the item, false otherwise.
      */
     public static boolean addEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel, boolean ignoreRestrictions) {
         ItemMeta meta = getMetadata(itemStack);
@@ -590,12 +590,12 @@ public class Items {
     }
 
     /**
-     * Add an enchantment to the given firstPageEnabled.
+     * Add an enchantment to the given item.
      *
      * @param itemStack        itemstack to enchant
-     * @param enchantment      enchantment to add to the firstPageEnabled
+     * @param enchantment      enchantment to add to the item
      * @param enchantmentLevel level to give to the enchantment.
-     * @return true if the enchantment was added to the firstPageEnabled, false otherwise.
+     * @return true if the enchantment was added to the item, false otherwise.
      */
     public static boolean addUnsafeEnchantment(ItemStack itemStack, Enchantment enchantment, int enchantmentLevel) {
         itemStack.addUnsafeEnchantment(enchantment, enchantmentLevel);
@@ -604,10 +604,10 @@ public class Items {
     }
 
     /**
-     * Add an enchantment to the firstPageEnabled, following all enchantment restrictions.
+     * Add an enchantment to the item, following all enchantment restrictions.
      *
-     * @param itemStack        firstPageEnabled to enchant.
-     * @param enchantment      enchatment to add to the firstPageEnabled.
+     * @param itemStack        item to enchant.
+     * @param enchantment      enchatment to add to the item.
      * @param enchantmentLevel level to give the enchantment.
      * @return true if the enchantment as added, false otherwise.
      */
@@ -616,10 +616,10 @@ public class Items {
     }
 
     /**
-     * Add a varying amount of {@link ItemEnchantmentWrapper} to the firstPageEnabled.
+     * Add a varying amount of {@link ItemEnchantmentWrapper} to the item.
      *
-     * @param target   firstPageEnabled to enchant.
-     * @param enchants wrappers to apply to the firstPageEnabled.
+     * @param target   item to enchant.
+     * @param enchants wrappers to apply to the item.
      */
     public static void addEnchantment(ItemStack target, ItemEnchantmentWrapper... enchants) {
         for (ItemEnchantmentWrapper wrapper : enchants) {
@@ -629,10 +629,10 @@ public class Items {
     }
 
     /**
-     * Add a collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to the firstPageEnabled target.
+     * Add a collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to the item target.
      *
-     * @param target   firstPageEnabled to enchant
-     * @param wrappers Wrappers to enchant the firstPageEnabled with.
+     * @param target   item to enchant
+     * @param wrappers Wrappers to enchant the item with.
      */
     public static void addEnchantments(ItemStack target, Collection<ItemEnchantmentWrapper> wrappers) {
         for (ItemEnchantmentWrapper wrapper : wrappers) {
@@ -641,19 +641,19 @@ public class Items {
     }
 
     /**
-     * Remove all the enchantments from an firstPageEnabled.
+     * Remove all the enchantments from an item.
      *
-     * @param item firstPageEnabled to clear of enchantments.
+     * @param item item to clear of enchantments.
      */
     public static void clearEnchantments(ItemStack item) {
         getMetadata(item).getEnchants().clear();
     }
 
     /**
-     * Assign a collection of enchantments, and levels, to the given firstPageEnabled.
+     * Assign a collection of enchantments, and levels, to the given item.
      *
-     * @param target   firstPageEnabled to enchant.
-     * @param enchants collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to add to the firstPageEnabled.
+     * @param target   item to enchant.
+     * @param enchants collection of {@link org.bukkit.enchantments.EnchantmentWrapper} to add to the item.
      */
     public static void setEnchantments(ItemStack target, Set<ItemEnchantmentWrapper> enchants) {
         ItemMeta meta = getMetadata(target);
@@ -669,7 +669,7 @@ public class Items {
     /**
      * Replace a substring inside the given items name!
      *
-     * @param target  firstPageEnabled to rename.
+     * @param target  item to rename.
      * @param search  string to search for, that will be replaced.
      * @param replace replacement for the searched string.
      * @return the ItemStack that's been renamed.
@@ -691,8 +691,8 @@ public class Items {
     /**
      * Compare the enchantments of 2 items and see if they match.
      *
-     * @param item        firstPageEnabled to match the enchantments against.
-     * @param compareItem comparing firstPageEnabled, to see if the enchantments match against the first.
+     * @param item        item to match the enchantments against.
+     * @param compareItem comparing item, to see if the enchantments match against the first.
      * @return true if both items have the same enchantments, false otherwise.
      */
     public static boolean hasSameEnchantments(ItemStack item, ItemStack compareItem) {
@@ -716,11 +716,11 @@ public class Items {
     }
 
     /**
-     * Check if the given firstPageEnabled has the queried enchantment. Doesn't match against levels for the enchantment.
+     * Check if the given item has the queried enchantment. Doesn't match against levels for the enchantment.
      *
-     * @param item    firstPageEnabled to check enchantments for.
-     * @param enchant enchantment to check for on the firstPageEnabled.
-     * @return true if the firstPageEnabled has the enchantment in question, false otherwise.
+     * @param item    item to check enchantments for.
+     * @param enchant enchantment to check for on the item.
+     * @return true if the item has the enchantment in question, false otherwise.
      */
     public static boolean hasEnchantment(ItemStack item, Enchantment enchant) {
         if (!Items.hasEnchantments(item)) {
@@ -739,12 +739,12 @@ public class Items {
     }
 
     /**
-     * Check if the given firstPageEnabled has the enchantment of the desired level on it.
+     * Check if the given item has the enchantment of the desired level on it.
      *
-     * @param item    firstPageEnabled to search for enchantments on.
-     * @param enchant enchantment to look for on the firstPageEnabled.
+     * @param item    item to search for enchantments on.
+     * @param enchant enchantment to look for on the item.
      * @param level   level of the enchantment to match against.
-     * @return true if the firstPageEnabled has the enchantment of the given level, false otherwise.
+     * @return true if the item has the enchantment of the given level, false otherwise.
      */
     public static boolean hasEnchantment(ItemStack item, Enchantment enchant, int level) {
         if (!Items.hasEnchantments(item)) {
@@ -761,11 +761,11 @@ public class Items {
     }
 
     /**
-     * Filter a collection of items where the enchantments match that of the firstPageEnabled param.
+     * Filter a collection of items where the enchantments match that of the item param.
      *
-     * @param item         the firstPageEnabled we wish to match enchantments against
+     * @param item         the item we wish to match enchantments against
      * @param itemsToCheck items to search for matching enchantments on
-     * @return an arraylist of the items that have enchantments similar to the firstPageEnabled param.
+     * @return an arraylist of the items that have enchantments similar to the item param.
      */
     public static List<ItemStack> findSimilarEnchantedItems(ItemStack item, Collection<ItemStack> itemsToCheck) {
         List<ItemStack> items = new ArrayList<>();
@@ -779,11 +779,11 @@ public class Items {
     }
 
     /**
-     * Retrieve the enchantments that an firstPageEnabled has in a set of EnchantmentWrappers.
-     * If the firstPageEnabled has no enchantments, and empty hashset is returned.
+     * Retrieve the enchantments that an item has in a set of EnchantmentWrappers.
+     * If the item has no enchantments, and empty hashset is returned.
      *
-     * @param item firstPageEnabled to get the enchantments from.
-     * @return a HashSet of the {@link ItemEnchantmentWrapper} that the firstPageEnabled has; If no enchants are available, then an empty hash set is returned.
+     * @param item item to get the enchantments from.
+     * @return a HashSet of the {@link ItemEnchantmentWrapper} that the item has; If no enchants are available, then an empty hash set is returned.
      */
     public static Set<ItemEnchantmentWrapper> getEnchantments(ItemStack item) {
         Set<ItemEnchantmentWrapper> enchants = Sets.newHashSet();
@@ -793,41 +793,17 @@ public class Items {
         }
 
         for (Entry<Enchantment, Integer> enchant : item.getEnchantments().entrySet()) {
-            enchants.add(new ItemEnchantmentWrapper(enchant.getKey(), enchant.getValue(),false,enchant.getKey().isTreasure()));
+            enchants.add(new ItemEnchantmentWrapper(enchant.getKey(), enchant.getValue(),false));
         }
 
         return enchants;
     }
 
     /**
-     * Add ItemFlag's to the given firstPageEnabled.
-     *
-     * @param item firstPageEnabled to add flags to.
-     * @param flag flags to add to the firstPageEnabled.
-     */
-    public static void addFlags(ItemStack item, ItemFlag... flag) {
-        ItemMeta meta = getMetadata(item);
-        meta.addItemFlags(flag);
-        setMetadata(item, meta);
-    }
-
-    /**
-     * Add a collection of ItemFlags to the given ItemStack
-     *
-     * @param item  firstPageEnabled to have flags added on.
-     * @param flags collection of ItemFlags to add to the Item.
-     */
-    public static void addFlags(ItemStack item, Collection<ItemFlag> flags) {
-        ItemMeta meta = getMetadata(item);
-        flags.forEach(flag -> meta.addItemFlags(flag));
-        setMetadata(item, meta);
-    }
-
-    /**
-     * Make a new firstPageEnabled stack with the given material
+     * Make a new itemstack with the given material
      *
      * @param material Material to create the itemstack with
-     * @return a new firstPageEnabled stack of the given material
+     * @return a new itemstack of the given material
      */
     public static ItemStack makeItem(Material material) {
         return new ItemStack(material);
@@ -836,9 +812,9 @@ public class Items {
     /**
      * Check if the ItemStack is of the given material type.
      *
-     * @param itemStack firstPageEnabled to check the type of.
-     * @param material  material to compare the firstPageEnabled to.
-     * @return true if the firstPageEnabled is of the given type, false otherwise.
+     * @param itemStack item to check the type of.
+     * @param material  material to compare the item to.
+     * @return true if the item is of the given type, false otherwise.
      */
     public static boolean isType(ItemStack itemStack, Material material) {
         return itemStack != null && material == itemStack.getType();
@@ -847,8 +823,8 @@ public class Items {
     /**
      * Check if the ItemStack is a piece of armor.
      *
-     * @param itemStack firstPageEnabled to check.
-     * @return true if the firstPageEnabled is a piece of armor, false otherwise.
+     * @param itemStack item to check.
+     * @return true if the item is a piece of armor, false otherwise.
      */
     public static boolean isArmor(ItemStack itemStack) {
         return isArmor(itemStack.getType());
@@ -865,10 +841,10 @@ public class Items {
     }
 
     /**
-     * Check if the firstPageEnabled of the given type is a weapon or not.
+     * Check if the item of the given type is a weapon or not.
      *
-     * @param itemStack firstPageEnabled to check.
-     * @return true if the firstPageEnabled is a weapon, false otherwise.
+     * @param itemStack item to check.
+     * @return true if the item is a weapon, false otherwise.
      */
     public static boolean isWeapon(ItemStack itemStack) {
         return WeaponType.isItemWeapon(itemStack);
@@ -892,19 +868,19 @@ public class Items {
     /**
      * Check if the Item is a tool; Hoe, Axe, Shovel, Flint & Tinder, etc!
      *
-     * @param item firstPageEnabled to check.
-     * @return true if the firstPageEnabled is that of any of the tool types, false otherwise.
+     * @param item item to check.
+     * @return true if the item is that of any of the tool types, false otherwise.
      */
     public static boolean isTool(ItemStack item) {
         return isTool(item.getType());
     }
 
     /**
-     * Check if the firstPageEnabled is of the given tool type.
+     * Check if the item is of the given tool type.
      *
-     * @param item firstPageEnabled to check.
-     * @param type type to compare the firstPageEnabled to.
-     * @return true if the firstPageEnabled is the of any of the materials matched by the given {@link ToolType}
+     * @param item item to check.
+     * @param type type to compare the item to.
+     * @return true if the item is the of any of the materials matched by the given {@link ToolType}
      */
     public static boolean isTool(ItemStack item, ToolType type) {
         return isTool(item.getType(), type);
@@ -932,7 +908,7 @@ public class Items {
     }
 
     /**
-     * Check whether or not an firstPageEnabled is an ore.
+     * Check whether or not an item is an ore.
      *
      * @param item Item to check if it's an ore.
      * @return true if the items material is the ore-block of coal, iron, diamond, emerald, redstone, gold, or lapis
@@ -958,7 +934,7 @@ public class Items {
     }
 
     /**
-     * Check whether or not the firstPageEnabled is of a smeltable ore.
+     * Check whether or not the item is of a smeltable ore.
      *
      * @param item Item to check whether or not is a smeltable ore.
      * @return true if it's a smeltable ore, otherwise false.
@@ -985,12 +961,12 @@ public class Items {
      *
      * @param type      type of ToolSet to create.
      * @param stackSize size to set each of the ItemStacks to.
-     * @return a hashset with each firstPageEnabled in the Tools Type
+     * @return a hashset with each item in the Tools Type
      */
     public static Set<ItemStack> getToolSet(ToolType type, int stackSize) {
         /*
-        Create a set of firstPageEnabled stacks by mapping the values of each individual material
-		type to an firstPageEnabled of the desired type, collecting it into a set!
+        Create a set of item stacks by mapping the values of each individual material
+		type to an item of the desired type, collecting it into a set!
 		 */
         Set<ItemStack> items = type.getMaterialTypes().stream()
                 .map(itemType -> ItemBuilder.of(itemType).amount(stackSize).item())
@@ -1009,10 +985,10 @@ public class Items {
     }
 
     /**
-     * Create an firstPageEnabled with the given material, and data value.
+     * Create an item with the given material, and data value.
      *
-     * @param material material of the firstPageEnabled
-     * @param dataVal  data value to assign the firstPageEnabled.
+     * @param material material of the item
+     * @param dataVal  data value to assign the item.
      * @return itemstack of the given material and data value.
      */
     public static ItemStack makeItem(Material material, int dataVal) {
@@ -1020,12 +996,12 @@ public class Items {
     }
 
     /**
-     * Create a leather firstPageEnabled, customizing it's name, lore, enchantments and color.
+     * Create a leather item, customizing it's name, lore, enchantments and color.
      *
-     * @param material     material of the firstPageEnabled to create
-     * @param itemName     name to assign to the firstPageEnabled
-     * @param itemLore     lore to assign to the firstPageEnabled
-     * @param enchantments enchantments to give the firstPageEnabled
+     * @param material     material of the item to create
+     * @param itemName     name to assign to the item
+     * @param itemLore     lore to assign to the item
+     * @param enchantments enchantments to give the item
      * @param itemColor    color to dye the leather
      * @return itemstack with the given material, custon name, custom lore, enchantments, and color.
      */
@@ -1038,11 +1014,11 @@ public class Items {
     }
 
     /**
-     * Create a leather firstPageEnabled of the given material, and color.
+     * Create a leather item of the given material, and color.
      *
-     * @param material     material to make the firstPageEnabled of
+     * @param material     material to make the item of
      * @param leatherColor color to assign to the leather
-     * @return the leather firstPageEnabled, dyed to the color passed.
+     * @return the leather item, dyed to the color passed.
      */
     public static ItemStack makeLeatherItem(Material material, Color leatherColor) {
         ItemStack itemStack = new ItemStack(material);
@@ -1050,10 +1026,10 @@ public class Items {
     }
 
     /**
-     * Check whether or not the firstPageEnabled is a player skull.
+     * Check whether or not the item is a player skull.
      * Compares material types, data value, and checks if the skull has an owner / skin.
      *
-     * @param item firstPageEnabled to check if it's a player skull.
+     * @param item item to check if it's a player skull.
      * @return true if the skull is a human skull with an owner, false otherwise.
      */
     public static boolean isPlayerSkull(ItemStack item) {
@@ -1092,8 +1068,8 @@ public class Items {
     /**
      * Retrieve the items type in a user-friendly formatted string.
      *
-     * @param itemStack firstPageEnabled to get the user-friendly name for.
-     * @return the name of the firstPageEnabled type in a friendly, formatted string.
+     * @param itemStack item to get the user-friendly name for.
+     * @return the name of the item type in a friendly, formatted string.
      */
     public static String getFormattedMaterialName(ItemStack itemStack) {
         return getFormattedMaterialName(itemStack.getType());
@@ -1136,10 +1112,10 @@ public class Items {
     }
 
     /**
-     * Create a new dye firstPageEnabled based on the color passed.
+     * Create a new dye item based on the color passed.
      *
      * @param dyeColor color of the dye
-     * @return dye firstPageEnabled with the associated color.
+     * @return dye item with the associated color.
      */
     public static Dye getDye(DyeColor dyeColor) {
         Dye dye = new Dye();
@@ -1148,10 +1124,10 @@ public class Items {
     }
 
     /**
-     * Retrieve a material-data object based on the firstPageEnabled:data / itemname:data string passed
+     * Retrieve a material-data object based on the item:data / itemname:data string passed
      *
      * @param idDatavalue string to parse to retrieve a material-data object from.
-     * @return a material-data object based on the firstPageEnabled:data / itemname:data string passed
+     * @return a material-data object based on the item:data / itemname:data string passed
      * @throws InvalidMaterialNameException
      */
     public static MaterialData getMaterialDataFromString(String idDatavalue) throws InvalidMaterialNameException {
@@ -1201,7 +1177,7 @@ public class Items {
         }
 
         Material itemMaterial = getMaterialById(itemId);
-        //Use the extra-items class to search for the given firstPageEnabled and datavalue
+        //Use the extra-items class to search for the given item and datavalue
         return ExtraItems.getItem(itemMaterial, dataName);
     }
 
@@ -1240,8 +1216,8 @@ public class Items {
     /**
      * Retrieve all the recipes associated with crafting the given itemstack.
      *
-     * @param itemStack firstPageEnabled to get the recipes for.
-     * @return list of all the recipes used to craft the given firstPageEnabled.
+     * @param itemStack item to get the recipes for.
+     * @return list of all the recipes used to craft the given item.
      */
     public static List<Recipe> getRecipes(ItemStack itemStack) {
         return Bukkit.getServer().getRecipesFor(itemStack);
@@ -1271,7 +1247,7 @@ public class Items {
         Map<Integer, ItemStack> recipeItems = new HashMap<>();
         MinecraftPlayer minecraftPlayer = Commons.getInstance().getPlayerHandler().getData(player);
 
-        //Put each firstPageEnabled in their respective spot
+        //Put each item in their respective spot
         for (int i = 0; i < recipeIngredients.size(); i++) {
             recipeItems.put(i + 1, recipeIngredients.get(i));
         }
@@ -1303,7 +1279,7 @@ public class Items {
             String recipeRow = recipeShape[shapeIterator];
             char[] rowCharacters = recipeRow.toCharArray();
             //Loop through all the characters in the rowCharachers array and add the
-            //Respective itemstack to the retrieved firstPageEnabled
+            //Respective itemstack to the retrieved item
             for (int ingredientIterator = 0; ingredientIterator < recipeRow.length(); ingredientIterator++) {
                 ItemStack itemStack = itemIngredients.get(rowCharacters[ingredientIterator]);
                 itemStack.setAmount(0);
@@ -1313,17 +1289,17 @@ public class Items {
 
         //Open the workbench view
         InventoryView inventoryView = Inventories.openWorkbench(player);
-        //Set the firstPageEnabled recipe
+        //Set the item recipe
         Inventories.setViewItems(inventoryView, itemRecipe);
         minecraftPlayer.setViewingRecipe(true);
     }
 
     /**
      * NOTE: UNTESTED / BUGGY
-     * Show the recipe for an firstPageEnabled to the player.
+     * Show the recipe for an item to the player.
      *
      * @param player       player to show the recipe to
-     * @param itemStack    firstPageEnabled to get the recipe for
+     * @param itemStack    item to get the recipe for
      * @param recipeNumber number of recipe to show, if more than 1 are available this would change- 1 by default.
      * @return true if the player was shown the given recipe, false otherwise.
      */
@@ -1340,7 +1316,7 @@ public class Items {
         }
 
         if (recipeNumber >= 0 && (recipeNumber < recipeCount)) {
-            //Get the recipe requested for the firstPageEnabled requested
+            //Get the recipe requested for the item requested
             Recipe recipe = recipes.get(recipeNumber);
             //Get the wrapped player data
             if (recipe instanceof FurnaceRecipe) {
@@ -1363,7 +1339,7 @@ public class Items {
      * Show the first recipe used to craft the passed itemstack to the player
      *
      * @param player    player to show the recipe to
-     * @param itemStack firstPageEnabled we're getting the recipe for
+     * @param itemStack item we're getting the recipe for
      * @return true if they were shown the recipe, false otherwise
      */
     public static boolean showRecipe(Player player, ItemStack itemStack) {
@@ -1373,7 +1349,7 @@ public class Items {
     /**
      * Sets an items durability to either full-red or full-orange based on arguments
      *
-     * @param itemStack firstPageEnabled stack to change the durability bar on
+     * @param itemStack item stack to change the durability bar on
      * @param isRed     whether or not we want the bar to be red; if false, the bar will be orange
      */
     public static void colouredDurability(ItemStack itemStack, boolean isRed) {
@@ -1383,8 +1359,8 @@ public class Items {
     /**
      * Repair an items durability
      *
-     * @param itemStack firstPageEnabled to repair
-     * @return true if the firstPageEnabled was repaired; false if the firstPageEnabled is a block, or unable to be repaired
+     * @param itemStack item to repair
+     * @return true if the item was repaired; false if the item is a block, or unable to be repaired
      */
     public static boolean repairItem(ItemStack itemStack) {
         if (itemStack == null || itemStack.getDurability() == 0 || itemStack.getType().isBlock()) {
@@ -1395,7 +1371,7 @@ public class Items {
     }
 
     /**
-     * Repair multiple firstPageEnabled stacks
+     * Repair multiple item stacks
      *
      * @param itemStacks items to be repaired
      * @return integer of how many items were repaired
@@ -1406,7 +1382,7 @@ public class Items {
             if (itemStack == null || itemStack.getType() == Material.AIR) {
                 continue;
             }
-            //If the firstPageEnabled was repaired successfully, increment the repaired items count
+            //If the item was repaired successfully, increment the repaired items count
             //Otherwise don't add anything
             repairedItems += repairItem(itemStack) ? 1 : 0;
         }
@@ -1414,30 +1390,30 @@ public class Items {
     }
 
     /**
-     * Check whether or not the given firstPageEnabled is air.
+     * Check whether or not the given item is air.
      *
-     * @param itemStack firstPageEnabled to check
-     * @return true if the firstPageEnabled is null / air, false otherwise.
+     * @param itemStack item to check
+     * @return true if the item is null / air, false otherwise.
      */
     public static boolean isAir(ItemStack itemStack) {
         return itemStack == null || itemStack.getType() == Material.AIR;
     }
 
     /**
-     * Check whether or not the given firstPageEnabled is a book.
+     * Check whether or not the given item is a book.
      *
-     * @param itemStack firstPageEnabled to check
-     * @return true if the firstPageEnabled is a book, false otherwise.
+     * @param itemStack item to check
+     * @return true if the item is a book, false otherwise.
      */
     public static boolean isBook(ItemStack itemStack) {
         return (getMetadata(itemStack) instanceof BookMeta);
     }
 
     /**
-     * Check whether or not the given firstPageEnabled is a flower
+     * Check whether or not the given item is a flower
      *
-     * @param item firstPageEnabled to check.
-     * @return true if the firstPageEnabled is a flower, false otherwise.
+     * @param item item to check.
+     * @return true if the item is a flower, false otherwise.
      */
     public static boolean isFlower(ItemStack item) {
         switch (item.getType()) {
@@ -1483,8 +1459,8 @@ public class Items {
     /**
      * Get the data value on the given itemstack.
      *
-     * @param item firstPageEnabled to get the datavalue for.
-     * @return data value of the firstPageEnabled (if available), 0 if no data.
+     * @param item item to get the datavalue for.
+     * @return data value of the item (if available), 0 if no data.
      */
     public static int getDataValue(ItemStack item) {
         return item.getData().getData();
@@ -1502,26 +1478,6 @@ public class Items {
 
     public static Color getRandomColor() {
         return ListUtils.getRandom(colors);
-    }
-
-    /**
-     * Whether or not the firstPageEnabled has any flags on it.
-     *
-     * @param item firstPageEnabled to check for flags
-     * @return true if the firstPageEnabled has any flags, false otherwise.
-     */
-    public static boolean hasFlags(ItemStack item) {
-        return getMetadata(item).getItemFlags().size() > 0;
-    }
-
-    /**
-     * Retrieve all the flags on an firstPageEnabled.
-     *
-     * @param item firstPageEnabled to get the flags for
-     * @return set of all the firstPageEnabled flags attached to the firstPageEnabled.
-     */
-    public static Set<ItemFlag> getFlags(ItemStack item) {
-        return getMetadata(item).getItemFlags();
     }
 
 }

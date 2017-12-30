@@ -4,7 +4,6 @@ import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.item.Weapon;
-import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.plugin.Plugins;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -20,26 +19,16 @@ public class GadgetUseEvent extends Event implements Cancellable {
     public static final HandlerList handler = new HandlerList();
 
     private Action action;
-    private HandSlot hand;
 
     private boolean cancelled = false;
 
     private Player player;
     private Gadget gadget;
 
-    public GadgetUseEvent(Player player, Action action, ItemStack item, HandSlot hand) {
+    public GadgetUseEvent(Player player, Action action, Gadget gadget) {
         this.player = player;
-        this.gadget = Gadgets.getGadget(item);
         this.action = action;
-        this.hand = hand;
-    }
-
-
-    public GadgetUseEvent(Player player, Action action, Gadget gadget, HandSlot hand) {
-        this.player = player;
         this.gadget = gadget;
-        this.action = action;
-        this.hand = hand;
     }
 
     @Override
@@ -80,10 +69,6 @@ public class GadgetUseEvent extends Event implements Cancellable {
      */
     public Action getAction() {
         return action;
-    }
-
-    public HandSlot getHand() {
-        return hand;
     }
 
     public static void handle(GadgetUseEvent e) {

@@ -4,7 +4,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.handlers.*;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.plugin.BukkitPlugin;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;

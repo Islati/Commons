@@ -4,7 +4,6 @@ import com.caved_in.commons.nms.ActionMessageHandler;
 import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.utilities.StringUtil;
-import net.minecraft.server.v1_12_R1.ChatMessageType;
 import org.bukkit.entity.Player;
 import org.joor.Reflect;
 

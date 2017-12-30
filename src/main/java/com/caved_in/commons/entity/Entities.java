@@ -213,7 +213,7 @@ public class Entities {
         entity.setCustomNameVisible(isVisible);
     }
 
-    public static String getName(Entity entity) {
+    public static String getName(LivingEntity entity) {
         if (!hasName(entity)) {
             return getDefaultName(entity.getType());
         } else {
@@ -221,7 +221,7 @@ public class Entities {
         }
     }
 
-    public static boolean hasName(Entity entity) {
+    public static boolean hasName(LivingEntity entity) {
         return entity.getCustomName() != null;
     }
 
@@ -335,10 +335,7 @@ public class Entities {
                 inv.setLeggings(item);
                 break;
             case MAIN_HAND:
-                inv.setItemInMainHand(item);
-                break;
-            case OFF_HAND:
-                inv.setItemInOffHand(item);
+                inv.setItemInHand(item);
                 break;
             default:
                 break;

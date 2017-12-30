@@ -356,8 +356,7 @@ public class Commons extends BukkitPlugin {
                 new ItemDamageListener(),
                 new EntityDamageListener(),
                 new SignEditListener(),
-                new LeavesDecayListener(),
-                new PlayerSwapHandItemsListener()
+                new LeavesDecayListener()
         );
     }
 

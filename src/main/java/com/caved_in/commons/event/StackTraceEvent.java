@@ -52,11 +52,6 @@ public class StackTraceEvent extends Event {
         Configuration config = Commons.getInstance().getConfiguration();
         Set<Player> debuggingPlayers = Players.getAllDebugging();
         Throwable eventException = e.getException();
-        //If the books for stack-tracing are enabled, then give one to all the debugging players
-        if (config.enableStackTraceBook()) {
-            ItemStack exceptionBook = Debugger.createExceptionBook(eventException);
-            debuggingPlayers.forEach(p -> Players.giveItem(p, exceptionBook));
-        }
 
         //If the stack trace messages are to be sent in chat, send em!
         if (config.enableStackTraceChat()) {

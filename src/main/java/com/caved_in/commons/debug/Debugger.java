@@ -7,7 +7,6 @@ import com.caved_in.commons.chat.menu.HelpScreen;
 import com.caved_in.commons.chat.menu.ItemFormat;
 import com.caved_in.commons.inventory.menu.Menus;
 import com.caved_in.commons.chat.menu.PageDisplay;
-import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.base.Splitter;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
@@ -16,13 +15,11 @@ import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.inventory.ItemStack;
 import org.joor.Reflect;
 import org.joor.ReflectException;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -159,12 +156,5 @@ public class Debugger {
 		}
 		String message = String.format(COMMAND_PREPROCESS_MESSAGE, command, argLength, addition);
 		Chat.message(player, message);
-	}
-
-	private static Splitter bookSplitter = Splitter.fixedLength(250).limit(50);
-
-	public static ItemStack createExceptionBook(Throwable ex) {
-		List<String> bookPages = bookSplitter.splitToList(StringUtil.getStackStr(ex));
-		return Items.makeBook(ex.getClass().getCanonicalName(), "ERROR", bookPages);
 	}
 }

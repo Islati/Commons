@@ -6,7 +6,6 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.debug.Debugger;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
-import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.inventory.menu.ItemMenu;
@@ -84,33 +83,6 @@ public class InventoryListener implements Listener {
                 //If the player's viewing a recipe, don't let them click / manipulate
                 if (minecraftPlayer.isViewingRecipe()) {
                     event.setCancelled(true);
-                }
-                break;
-            case PLAYER:
-                PlayerInventory pInv = (PlayerInventory) inventory;
-                InventoryAction action = event.getAction();
-                int slot = event.getSlot();
-
-                /*
-                Check if the slot that was clicked is the players offhand inventory slot.
-                 */
-                if (slot == Inventories.PLAYER_OFF_HAND_ITEM_SLOT) {
-                    ItemStack cursorItem = event.getCursor();
-
-                    if (cursorItem != null && cursorItem.getType() != Material.AIR) {
-                        break;
-                    }
-
-                    if (Gadgets.isGadget(cursorItem)) {
-                        Chat.formatDebug("Cursor firstPageEnabled %s is a gadget", Items.getName(cursorItem));
-
-                        Gadget movingGadget = Gadgets.getGadget(cursorItem);
-                        if (!movingGadget.properties().isOffhandEquippable()) {
-                            Chat.message(player, Messages.gadgetEquipError(movingGadget, HandSlot.OFF_HAND));
-                            event.setCancelled(true);
-                            break;
-                        }
-                    }
                 }
                 break;
             case CHEST:

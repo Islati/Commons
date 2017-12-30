@@ -8,8 +8,6 @@ import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentWrapper;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
@@ -29,8 +27,6 @@ public class ItemBuilder {
     private List<ItemEnchantmentWrapper> enchantments = new ArrayList<>();
 
     private boolean forceEnchantments = false;
-
-    private List<ItemFlag> flags = new ArrayList<>();
 
     private Attributes attributes;
     private List<Attributes.Attribute> attributeList = new ArrayList<>();
@@ -93,14 +89,6 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addFlags(ItemFlag... flags) {
-        for (ItemFlag flag : flags) {
-            this.flags.add(flag);
-        }
-
-        return this;
-    }
-
     public ItemBuilder amount(int amount) {
         this.amount = amount;
         return this;
@@ -127,7 +115,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, false,enchantment.isTreasure()));
+        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, false,false));
         return this;
     }
 
@@ -195,10 +183,6 @@ public class ItemBuilder {
 
         //Set the items breakability status.
         itemStack.getItemMeta().spigot().setUnbreakable(unbreakable);
-
-        if (flags.size() > 0) {
-            Items.addFlags(itemStack, flags);
-        }
 
 		/*
 		If there's been any attributes added to the firstPageEnabled,

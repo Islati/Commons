@@ -59,9 +59,6 @@ public class ArmorInventory extends YamlConfig {
             case MAIN_HAND:
                 mainHandItem = item;
                 break;
-            case OFF_HAND:
-                offHandItem = item;
-                break;
             case HELMET:
                 helmet = item;
                 break;
@@ -87,12 +84,8 @@ public class ArmorInventory extends YamlConfig {
         }
     }
 
-    public ItemStack getMainHand() {
+    public ItemStack getHand() {
         return mainHandItem;
-    }
-
-    public ItemStack getOffHand() {
-        return offHandItem;
     }
 
     public ItemStack getHelmet() {
@@ -119,7 +112,6 @@ public class ArmorInventory extends YamlConfig {
         armor.put(ArmorSlot.LEGGINGS,leggings);
         armor.put(ArmorSlot.CHEST,chest);
         armor.put(ArmorSlot.MAIN_HAND,mainHandItem);
-        armor.put(ArmorSlot.OFF_HAND,offHandItem);
 
         return armor;
     }

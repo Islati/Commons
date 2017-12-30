@@ -11,7 +11,6 @@ import com.caved_in.commons.nms.no_implementation.ParticleEffectsHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
 import com.caved_in.commons.nms.non_breaking_implementation.ForceRespawnHandlerNonBreaking;
 import com.caved_in.commons.nms.non_breaking_implementation.NonBreakingInventoryHandler;
-import com.caved_in.commons.nms.non_breaking_implementation.TitleHandlerNonBreaking;
 import com.caved_in.commons.plugin.Plugins;
 
 public class NMS {
@@ -45,14 +44,12 @@ public class NMS {
             case "v1_8_R3":
                 stackTraceHandler = new UnhandledStackTrace_18R3();
                 actionMessageHandler = new ActionMessageHandler_18R3();
-                titleHandler = new TitleHandler_18R3();
                 forceRespawnHandler = new ForceRespawnHandler_18R3();
                 particleEffectsHandler = new ParticleEffectsHandler_18R3();
                 break;
             case "v1_9_R1":
             case "v1_9_R2":
                 stackTraceHandler = new UnhandledStackTrace_19X();
-                titleHandler = new TitleHandler_19X();
                 forceRespawnHandler = new ForceRespawnHandler_19X();
                 actionMessageHandler = new ActionMessageHandler_19X();
                 particleEffectsHandler = new ParticleEffectsHandler_19X();
@@ -60,7 +57,6 @@ public class NMS {
             //todo Implement the other version 1.10 / 1.11
             case "v1_12_R1":
                 actionMessageHandler = new ActionMessageHandler_1_12X();
-                titleHandler = new TitleHandlerNonBreaking();
                 forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
                 particleEffectsHandler = new ParticleEffectsHandler_1_12X();
                 stackTraceHandler = new UnhandledStackTrace_1_12X();
@@ -68,7 +64,6 @@ public class NMS {
             default:
                 stackTraceHandler = new UnhandledStackTraceNI();
                 actionMessageHandler = new ActionMessageHandlerNI();
-                titleHandler = new TitleHandlerNonBreaking();
                 forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
                 particleEffectsHandler = new ParticleEffectsHandlerNI();
                 break;

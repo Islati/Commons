@@ -17,8 +17,7 @@ public class DebugArmorBuilder implements DebugAction {
                 .withHelmet(Items.makeItem(Material.DIAMOND_HELMET))
                 .withBoots(Items.makeItem(Material.IRON_BOOTS))
                 .withChest(Items.makeItem(Material.LEATHER_CHESTPLATE))
-                .withMainHand(Items.makeItem(Material.WOOD_SWORD))
-                .withOffHand(Items.makeItem(Material.SHIELD))
+                .withHand(Items.makeItem(Material.WOOD_SWORD))
                 .withLeggings(Items.makeItem(Material.LEATHER_LEGGINGS))
                 .toInventory();
 

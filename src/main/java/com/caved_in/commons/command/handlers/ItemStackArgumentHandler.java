@@ -3,7 +3,6 @@ package com.caved_in.commons.command.handlers;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.*;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
-import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.ItemType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
@@ -88,22 +87,12 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
                 throw new CommandError(Messages.CANT_AS_CONSOLE);
             }
 
-            if (varName.equalsIgnoreCase("offhand")) {
-                Player player = (Player) sender;
-
-                if (Players.handIsEmpty(player, HandSlot.OFF_HAND)) {
-                    throw new CommandError(Messages.itemInHandRequired(HandSlot.OFF_HAND));
-                }
-
-                return Players.getItemInHand(player, HandSlot.OFF_HAND);
-            }
-
             Player player = (Player) sender;
-            if (Players.handIsEmpty(player, HandSlot.MAIN_HAND)) {
-                throw new CommandError(Messages.itemInHandRequired(HandSlot.MAIN_HAND));
+            if (Players.handIsEmpty(player)) {
+                throw new CommandError(Messages.ITEM_IN_HAND_REQUIRED);
             }
 
-            return Players.getItemInHand(player, HandSlot.MAIN_HAND);
+            return player.getItemInHand();
         }
     }
 }

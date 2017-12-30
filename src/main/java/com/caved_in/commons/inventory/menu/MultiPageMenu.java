@@ -55,8 +55,6 @@ public class MultiPageMenu implements Menu {
         }
     }
 
-    //todo
-
     public ItemPage getNextPage() {
         int index = getNextPageIndex(pageActive);
 

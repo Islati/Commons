@@ -3,7 +3,6 @@ package com.caved_in.commons.game.guns;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.game.gadget.ItemGadget;
 import com.caved_in.commons.inventory.ArmorSlot;
-import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
@@ -129,15 +128,6 @@ public abstract class BaseArrow extends ItemGadget {
 
     @Override
     public void perform(Player player) {
-        ItemStack arrow = getItem();
-        if (!Players.hasItemInHand(player,arrow, HandSlot.OFF_HAND)) {
-            Players.setArmor(player, ArmorSlot.OFF_HAND,getItem());
-            //todo implement potential sound effects / etc.
-        } else {
-            Players.setItemInHand(player,null,HandSlot.OFF_HAND);
-            Players.giveItem(player,arrow);
-            //todo check if unequip is right.
-        }
-
+        //todo find interactions
     }
 }

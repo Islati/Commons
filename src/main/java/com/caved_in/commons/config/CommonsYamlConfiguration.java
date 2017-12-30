@@ -125,11 +125,11 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Comment("Changes whether or not blocks can be broken outside of creative")
 	private boolean enableBlockBreak = true;
 
-	@Path("Server.Worlds.enable-firstPageEnabled-pickup")
+	@Path("Server.Worlds.enable-item-pickup")
 	@Comment("Changes if players are able to pick up items that are dropped")
 	private boolean enableItemPickup = true;
 
-	@Path("Server.Worlds.enable-firstPageEnabled-drop")
+	@Path("Server.Worlds.enable-item-drop")
 	@Comment("Changes if players are able to drop their items")
 	private boolean enableItemDrop = true;
 
@@ -175,15 +175,6 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 			"in an easy and fun manner!"
 	})
 	private boolean stackTraceEvent = true;
-
-	@Path("Debug.stack-trace-book")
-	@Comments({
-			"When enabled in conjunction with stack-trace-event",
-			"users in debug mode will receive a Book in-game outlining",
-			"The error which happened, and it's stack trace written in the books",
-			"pages!"
-	})
-	private boolean stackTraceBook = false;
 
 	@Path("Debug.stack-trace-chat")
 	@Comments({
@@ -485,16 +476,6 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Override
 	public void enableStackTraceEvent(boolean val) {
 		stackTraceEvent = val;
-	}
-
-	@Override
-	public boolean enableStackTraceBook() {
-		return stackTraceBook;
-	}
-
-	@Override
-	public void enableStackTraceBook(boolean val) {
-		stackTraceBook = val;
 	}
 
 	@Override

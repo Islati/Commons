@@ -53,13 +53,8 @@ public class ArmorBuilder {
         return this;
     }
 
-    public ArmorBuilder withMainHand(ItemStack item) {
+    public ArmorBuilder withHand(ItemStack item) {
         setItem(ArmorSlot.MAIN_HAND, item);
-        return this;
-    }
-
-    public ArmorBuilder withOffHand(ItemStack item) {
-        setItem(ArmorSlot.OFF_HAND,item);
         return this;
     }
 
