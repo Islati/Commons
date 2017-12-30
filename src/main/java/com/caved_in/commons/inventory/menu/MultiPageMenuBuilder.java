@@ -28,7 +28,7 @@ public class MultiPageMenuBuilder {
         return this;
     }
 
-    public MultiPageMenuBuilder addItems(List<MenuItem> items) {
+    public MultiPageMenuBuilder addItems(List<? extends MenuItem> items) {
         menuItems.addAll(items);
         return this;
     }
@@ -41,6 +41,11 @@ public class MultiPageMenuBuilder {
 
     public MultiPageMenu build() {
         MultiPageMenu menu = new MultiPageMenu(title);
+
+        if (settings == null) {
+            settings = new PageSettings();
+        }
+
         menu.setSettings(settings);
 
         menu.populate(menuItems);

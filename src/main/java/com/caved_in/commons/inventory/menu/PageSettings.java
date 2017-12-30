@@ -33,7 +33,7 @@ public class PageSettings extends YamlConfig {
     public boolean pageFirstEnabled = false;
 
     @Path("first-page.slot")
-    public int slotFirstPage;
+    public int slotFirstPage =-1;
 
     @Path("first-page.item")
     public ItemStack itemPageFirst = ItemBuilder.of(Material.PAPER).name("&a[&7&oFirst Page&r&a]").lore("&5Click to see the first page").item();

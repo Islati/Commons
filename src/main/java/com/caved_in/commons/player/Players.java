@@ -126,6 +126,11 @@ public class Players {
         Players players = commons.getPlayerHandler();
 
         MinecraftPlayer wrapper = players.getData(playerId);
+
+        if (wrapper == null) {
+            return;
+        }
+
         wrapper.dispose();
         playerData.remove(playerId);
     }

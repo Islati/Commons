@@ -48,8 +48,14 @@ public class MultiPageMenu implements Menu {
     }
 
     public ItemPage getPage(int index) {
-        return pages.get(index);
+        try {
+            return pages.get(index);
+        } catch (IndexOutOfBoundsException ex) {
+            return null;
+        }
     }
+
+    //todo
 
     public ItemPage getNextPage() {
         int index = getNextPageIndex(pageActive);
@@ -131,6 +137,10 @@ public class MultiPageMenu implements Menu {
 
         int utilitySlot = 0;
 
+        if (settings == null) {
+            throw new NullPointerException("Settings Object is Null");
+        }
+
         if (settings.pageFirstEnabled) {
             utilitySlot += 1;
         }
@@ -144,6 +154,11 @@ public class MultiPageMenu implements Menu {
         }
 
         List<ItemPage> generatedPages = new ArrayList<>();
+
+        if (items.size() == 0) {
+            generatedPages.add(new ItemPage(0,new ArrayList<>()));
+        }
+
         List<List<MenuItem>> itemPages = Lists.partition(items, settings.getPageSlotCount() - utilitySlot);
 
         for (List<MenuItem> pageItems : itemPages) {
