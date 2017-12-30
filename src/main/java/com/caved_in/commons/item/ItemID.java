@@ -1,28 +1,7 @@
-// $Id$
-/*
- * WorldEdit
- * Copyright (C) 2010 sk89q <http://www.sk89q.com> and contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.caved_in.commons.item;
 
 /**
- * List of item IDs.
- *
- * @author sk89q
+ * List of firstPageEnabled IDs.
  */
 public final class ItemID {
 
@@ -179,6 +158,14 @@ public final class ItemID {
     public static final int NETHER_QUARTZ = 406;
     public static final int TNT_MINECART = 407;
     public static final int HOPPER_MINECART = 408;
+    public static final int PRISMARINE_SHARD = 409;
+    public static final int PRISMARINE_CRYSTALS = 410;
+    public static final int RABBIT = 411;
+    public static final int COOKED_RABBIT = 412;
+    public static final int RABBIT_STEW = 413;
+    public static final int RABBIT_FOOT = 414;
+    public static final int RABBIT_HIDE = 415;
+    public static final int ARMOR_STAND = 416;
     public static final int HORSE_ARMOR_IRON = 417;
     public static final int HORSE_ARMOR_GOLD = 418;
     public static final int HORSE_ARMOR_DIAMOND = 419;
@@ -188,17 +175,36 @@ public final class ItemID {
     public static final int MUTTON = 423;
     public static final int COOKED_MUTTON = 424;
     public static final int BANNER = 425;
-    // Nothing at 456
+    public static final int END_CRYSTAL = 426;
     public static final int SPRUCE_DOOR = 427;
     public static final int BIRCH_DOOR = 428;
     public static final int JUNGLE_DOOR = 429;
     public static final int ACACIA_DOOR = 430;
     public static final int DARK_OAK_DOOR = 431;
+    public static final int CHORUS_FRUIT = 432;
+    public static final int CHORUS_FRUIT_POPPED = 433;
+    public static final int BEETROOT = 434;
+    public static final int BEETROOT_SEEDS = 435;
+    public static final int BEETROOT_SOUP = 436;
+    public static final int DRAGON_BREATH = 437;
+    public static final int SPLASH_POTION = 438;
+    public static final int SPECTRAL_ARROW = 439;
+    public static final int TIPPED_ARROW = 440;
+    public static final int LINGERING_POTION = 441;
+    public static final int SHIELD = 442;
+    public static final int ELYTRA = 443;
+    public static final int SPRUCE_BOAT = 444;
+    public static final int BIRCH_BOAT = 445;
+    public static final int JUNGLE_BOAT = 446;
+    public static final int ACACIA_BOAT = 447;
+    public static final int DARK_OAK_BOAT = 448;
+    public static final int TOTEM_OF_UNDYING = 449;
+    public static final int SHULKER_SHELL = 450;
+    public static final int IRON_NUGGET = 452;
+    public static final int KNOWLEDGE_BOOK = 453;
 
-    @Deprecated
-    public static final int GOLD_RECORD = 2256; // deprecated, but leave it there
-    @Deprecated
-    public static final int GREEN_RECORD = 2257; // deprecated, but leave it there
+    @Deprecated public static final int GOLD_RECORD = 2256; // deprecated, but leave it there
+    @Deprecated public static final int GREEN_RECORD = 2257; // deprecated, but leave it there
     public static final int DISC_13 = 2256;
     public static final int DISC_CAT = 2257;
     public static final int DISC_BLOCKS = 2258;

@@ -1,10 +1,8 @@
 package com.caved_in.commons.location;
 
-import com.caved_in.commons.permission.Permissible;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
-public class PreTeleportLocation extends BaseLocation implements Permissible {
+public class PreTeleportLocation extends BaseLocation {
 
     private PreTeleportType type;
 
@@ -15,15 +13,5 @@ public class PreTeleportLocation extends BaseLocation implements Permissible {
 
     public PreTeleportType getType() {
         return type;
-    }
-
-    @Override
-    public String getPermission() {
-        return getType().getPermission();
-    }
-
-    @Override
-    public boolean hasPermission(Player p) {
-        return p.hasPermission(getPermission());
     }
 }

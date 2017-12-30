@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * An implementation of the {@link ItemGadget} class which implements the {@link Weapon} interface.
  *
- * Provides unimplemented methods to handle whenever the item is activated (right clicked), swung, damages a(n) entity(entities), when it's dropped,
+ * Provides unimplemented methods to handle whenever the firstPageEnabled is activated (right clicked), swung, damages a(n) entity(entities), when it's dropped,
  * when it's broken, and so forth.
  *
  * Extending this class will be a sure route to creating custom swords, axes, and tools of that nature.

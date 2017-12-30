@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.8.8-3</version>
+    <version>1.12.2</version>
 
     <properties>
         <powermock.version>1.6.1</powermock.version>
@@ -62,29 +62,16 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <artifactSet>
                                 <includes>
-                                    <include>org.simpleframework:simple-xml:jar:*</include>
                                     <include>commons-io:commons-io:jar:*</include>
-                                    <include>org.hamcrest:hamcrest-all:jar:*</include>
-                                    <include>org.objenesis:objenesis:jar:*</include>
                                     <include>org.projectlombok:lombok:jar:*</include>
-                                    <include>cglib:cglib-nodep:jar:*</include>
                                     <include>org.javatuples:javatuples:jar:*</include>
                                     <include>org.jooq:joor:jar:*</include>
                                     <include>org.reflections:reflections:jar:*</include>
                                     <include>org.javassist:javassist:jar:*</include>
+                                    <include>joda-time:joda-time:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
-                                <filter>
-                                    <artifact>org.simpleframework:simple-xml:jar:*</artifact>
-                                    <excludes>
-                                        <exclude>templates/**</exclude>
-                                        <exclude>META-INF/*.xml</exclude>
-                                        <exclude>META-INF/*.txt</exclude>
-                                        <exclude>**/LICENSE</exclude>
-                                        <exclude>**/*.java</exclude>
-                                    </excludes>
-                                </filter>
                                 <filter>
                                     <artifact>commons-io:commons-io:jar:*</artifact>
                                     <excludes>
@@ -136,16 +123,13 @@
     </repositories>
 
     <dependencies>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.simpleframework</groupId>
-            <artifactId>simple-xml</artifactId>
-            <version>2.7.1</version>
-        </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -165,7 +149,7 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>3.6.4</version>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>

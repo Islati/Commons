@@ -5,11 +5,11 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.debug.Debugger;
+import com.caved_in.commons.nms.NMS;
+import com.caved_in.commons.nms.UnhandledStackTrace;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
-import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -19,7 +19,7 @@ import org.joor.Reflect;
 import java.util.Set;
 
 public class StackTraceEvent extends Event {
-    private static StackTraceErrorHandler errorHandler = StackTraceErrorHandler.getInstance();
+    private static UnhandledStackTrace errorHandler = NMS.getStackTraceHandler();
 
     private static final HandlerList handler = new HandlerList();
     private Throwable throwable;
@@ -64,41 +64,10 @@ public class StackTraceEvent extends Event {
             //For every player that's debugging, send them the exception-info message
             debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
         }
-    }
 
-    public static class StackTraceErrorHandler implements Thread.UncaughtExceptionHandler {
-        private static StackTraceErrorHandler instance = null;
-
-        public static StackTraceErrorHandler getInstance() {
-            if (instance == null) {
-                instance = new StackTraceErrorHandler();
-            }
-            return instance;
-        }
-
-        protected StackTraceErrorHandler() {
-
-        }
-
-        public static void register() {
-            Thread.setDefaultUncaughtExceptionHandler(getInstance());
-            MinecraftServer server = ((CraftServer) Bukkit.getServer()).getServer();
-
-            Thread serverThread = Reflect.on(server).get("serverThread");
-            serverThread.setUncaughtExceptionHandler(getInstance());
-
-            Thread primaryThread = Reflect.on(server).get("primaryThread");
-            primaryThread.setUncaughtExceptionHandler(getInstance());
-            Chat.messageConsole("Registered uncaught exception handler for serverThread and PrimaryThread");
-        }
-
-        @Override
-        public void uncaughtException(Thread t, Throwable e) {
-            try {
-                StackTraceEvent.call(e);
-            } catch (Throwable th) {
-                e.printStackTrace();
-            }
-        }
+        /*
+        By default we also want to message our console!
+         */
+        Chat.messageConsole(Messages.exceptionInfo(eventException));
     }
 }

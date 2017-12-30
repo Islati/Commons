@@ -2,38 +2,43 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.utilities.StringUtil;
 
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * ItemType types.
- *
- * @author sk89q
+ * An enum of types of items.
  */
 public enum ItemType {
+
     // Blocks
     AIR(BlockID.AIR, "Air", "air"),
     STONE(BlockID.STONE, "Stone", "stone", "rock"),
     GRASS(BlockID.GRASS, "Grass", "grass"),
     DIRT(BlockID.DIRT, "Dirt", "dirt"),
     COBBLESTONE(BlockID.COBBLESTONE, "Cobblestone", "cobblestone", "cobble"),
-    WOOD(BlockID.WOOD, "Wood", "wood", "woodplank", "plank", "woodplanks", "planks", "woodenplanks"),
-    SAPLING(BlockID.SAPLING, "Sapling", "sapling", "seedling", "sappling"),
-    BEDROCK(BlockID.BEDROCK, "Bedrock", "adminium", "bedrock", "bed rock"),
+    WOOD(BlockID.WOOD, "Wood", "wood", "woodplank", "plank", "woodplanks", "planks"),
+    SAPLING(BlockID.SAPLING, "Sapling", "sapling", "seedling"),
+    BEDROCK(BlockID.BEDROCK, "Bedrock", "adminium", "bedrock"),
     WATER(BlockID.WATER, "Water", "watermoving", "movingwater", "flowingwater", "waterflowing"),
     STATIONARY_WATER(BlockID.STATIONARY_WATER, "Water (stationary)", "water", "waterstationary", "stationarywater", "stillwater"),
     LAVA(BlockID.LAVA, "Lava", "lavamoving", "movinglava", "flowinglava", "lavaflowing"),
     STATIONARY_LAVA(BlockID.STATIONARY_LAVA, "Lava (stationary)", "lava", "lavastationary", "stationarylava", "stilllava"),
-    SAND(BlockID.SAND, "Sand", "sand", "yellowsand", "yellow sand", "desert sand"),
+    SAND(BlockID.SAND, "Sand", "sand"),
     GRAVEL(BlockID.GRAVEL, "Gravel", "gravel"),
-    GOLD_ORE(BlockID.GOLD_ORE, "Gold ore", "goldore", "gold_ore"),
-    IRON_ORE(BlockID.IRON_ORE, "Iron ore", "ironore", "iron_ore"),
-    COAL_ORE(BlockID.COAL_ORE, "Coal ore", "coalore", "coal_ore"),
+    GOLD_ORE(BlockID.GOLD_ORE, "Gold ore", "goldore"),
+    IRON_ORE(BlockID.IRON_ORE, "Iron ore", "ironore"),
+    COAL_ORE(BlockID.COAL_ORE, "Coal ore", "coalore"),
     LOG(BlockID.LOG, "Log", "log", "tree", "pine", "oak", "birch", "redwood"),
-    LEAVES(BlockID.LEAVES, "Leaves", "leaves", "leaf", "foliage"),
+    LEAVES(BlockID.LEAVES, "Leaves", "leaves", "leaf"),
     SPONGE(BlockID.SPONGE, "Sponge", "sponge"),
     GLASS(BlockID.GLASS, "Glass", "glass"),
-    LAPIS_LAZULI_ORE(BlockID.LAPIS_LAZULI_ORE, "Lapis lazuli ore", "lapislazuliore", "blueore", "lapisore", "lapis_ore"),
-    LAPIS_LAZULI(BlockID.LAPIS_LAZULI_BLOCK, "Lapis lazuli", "lapislazuli", "lapislazuliblock", "bluerock", "lapis_block", "lapisblock"),
+    LAPIS_LAZULI_ORE(BlockID.LAPIS_LAZULI_ORE, "Lapis lazuli ore", "lapislazuliore", "blueore", "lapisore"),
+    LAPIS_LAZULI(BlockID.LAPIS_LAZULI_BLOCK, "Lapis lazuli", "lapislazuli", "lapislazuliblock", "bluerock"),
     DISPENSER(BlockID.DISPENSER, "Dispenser", "dispenser"),
     SANDSTONE(BlockID.SANDSTONE, "Sandstone", "sandstone"),
     NOTE_BLOCK(BlockID.NOTE_BLOCK, "Note block", "musicblock", "noteblock", "note", "music", "instrument"),
@@ -41,7 +46,7 @@ public enum ItemType {
     POWERED_RAIL(BlockID.POWERED_RAIL, "Powered Rail", "poweredrail", "boosterrail", "poweredtrack", "boostertrack", "booster"),
     DETECTOR_RAIL(BlockID.DETECTOR_RAIL, "Detector Rail", "detectorrail", "detector"),
     PISTON_STICKY_BASE(BlockID.PISTON_STICKY_BASE, "Sticky Piston", "stickypiston"),
-    WEB(BlockID.WEB, "Web", "web", "spiderweb", "spider_web"),
+    WEB(BlockID.WEB, "Web", "web", "spiderweb"),
     LONG_GRASS(BlockID.LONG_GRASS, "Long grass", "longgrass", "tallgrass"),
     DEAD_BUSH(BlockID.DEAD_BUSH, "Shrub", "deadbush", "shrub", "deadshrub", "tumbleweed"),
     PISTON_BASE(BlockID.PISTON_BASE, "Piston", "piston"),
@@ -52,15 +57,14 @@ public enum ItemType {
     RED_FLOWER(BlockID.RED_FLOWER, "Red rose", "redflower", "redrose", "rose"),
     BROWN_MUSHROOM(BlockID.BROWN_MUSHROOM, "Brown mushroom", "brownmushroom", "mushroom"),
     RED_MUSHROOM(BlockID.RED_MUSHROOM, "Red mushroom", "redmushroom"),
-    GOLD_BLOCK(BlockID.GOLD_BLOCK, "Gold block", "gold", "goldblock", "gold_block"),
-    IRON_BLOCK(BlockID.IRON_BLOCK, "Iron block", "iron", "ironblock", "iron_block"),
+    GOLD_BLOCK(BlockID.GOLD_BLOCK, "Gold block", "gold", "goldblock"),
+    IRON_BLOCK(BlockID.IRON_BLOCK, "Iron block", "iron", "ironblock"),
     DOUBLE_STEP(BlockID.DOUBLE_STEP, "Double step", "doubleslab", "doublestoneslab", "doublestep"),
     STEP(BlockID.STEP, "Step", "slab", "stoneslab", "step", "halfstep"),
     BRICK(BlockID.BRICK, "Brick", "brick", "brickblock"),
     TNT(BlockID.TNT, "TNT", "tnt", "c4", "explosive"),
     BOOKCASE(BlockID.BOOKCASE, "Bookcase", "bookshelf", "bookshelves", "bookcase", "bookcases"),
-    MOSSY_COBBLESTONE(BlockID.MOSSY_COBBLESTONE, "Cobblestone (mossy)", "mossycobblestone", "mossstone", "mossystone", "mosscobble", "mossycobble", "moss",
-            "mossy", "sossymobblecone"),
+    MOSSY_COBBLESTONE(BlockID.MOSSY_COBBLESTONE, "Cobblestone (mossy)", "mossycobblestone", "mossstone", "mossystone", "mosscobble", "mossycobble", "moss", "mossy", "sossymobblecone"),
     OBSIDIAN(BlockID.OBSIDIAN, "Obsidian", "obsidian"),
     TORCH(BlockID.TORCH, "Torch", "torch", "light", "candle"),
     FIRE(BlockID.FIRE, "Fire", "fire", "flame", "flames"),
@@ -68,7 +72,7 @@ public enum ItemType {
     WOODEN_STAIRS(BlockID.OAK_WOOD_STAIRS, "Wooden stairs", "woodstair", "woodstairs", "woodenstair", "woodenstairs"),
     CHEST(BlockID.CHEST, "Chest", "chest", "storage", "storagechest"),
     REDSTONE_WIRE(BlockID.REDSTONE_WIRE, "Redstone wire", "redstone", "redstoneblock"),
-    DIAMOND_ORE(BlockID.DIAMOND_ORE, "Diamond ore", "diamondore", "diamond_ore"),
+    DIAMOND_ORE(BlockID.DIAMOND_ORE, "Diamond ore", "diamondore"),
     DIAMOND_BLOCK(BlockID.DIAMOND_BLOCK, "Diamond block", "diamond", "diamondblock"),
     WORKBENCH(BlockID.WORKBENCH, "Workbench", "workbench", "table", "craftingtable", "crafting"),
     CROPS(BlockID.CROPS, "Crops", "crops", "crop", "plant", "plants"),
@@ -84,8 +88,7 @@ public enum ItemType {
     LEVER(BlockID.LEVER, "Lever", "lever", "switch", "stonelever", "stoneswitch"),
     STONE_PRESSURE_PLATE(BlockID.STONE_PRESSURE_PLATE, "Stone pressure plate", "stonepressureplate", "stoneplate"),
     IRON_DOOR(BlockID.IRON_DOOR, "Iron Door", "irondoor"),
-    WOODEN_PRESSURE_PLATE(BlockID.WOODEN_PRESSURE_PLATE, "Wooden pressure plate", "woodpressureplate", "woodplate", "woodenpressureplate", "woodenplate",
-            "plate", "pressureplate"),
+    WOODEN_PRESSURE_PLATE(BlockID.WOODEN_PRESSURE_PLATE, "Wooden pressure plate", "woodpressureplate", "woodplate", "woodenpressureplate", "woodenplate", "plate", "pressureplate"),
     REDSTONE_ORE(BlockID.REDSTONE_ORE, "Redstone ore", "redstoneore"),
     GLOWING_REDSTONE_ORE(BlockID.GLOWING_REDSTONE_ORE, "Glowing redstone ore", "glowingredstoneore"),
     REDSTONE_TORCH_OFF(BlockID.REDSTONE_TORCH_OFF, "Redstone torch (off)", "redstonetorchoff", "rstorchoff"),
@@ -100,8 +103,7 @@ public enum ItemType {
     JUKEBOX(BlockID.JUKEBOX, "Jukebox", "jukebox", "stereo", "recordplayer"),
     FENCE(BlockID.FENCE, "Fence", "fence"),
     PUMPKIN(BlockID.PUMPKIN, "Pumpkin", "pumpkin"),
-    NETHERRACK(BlockID.NETHERRACK, "Netherrack", "redmossycobblestone", "redcobblestone", "redmosstone", "redcobble", "netherstone", "netherrack", "nether",
-            "hellstone"),
+    NETHERRACK(BlockID.NETHERRACK, "Netherrack", "redmossycobblestone", "redcobblestone", "redmosstone", "redcobble", "netherstone", "netherrack", "nether", "hellstone"),
     SOUL_SAND(BlockID.SLOW_SAND, "Soul sand", "slowmud", "mud", "soulsand", "hellmud"),
     GLOWSTONE(BlockID.LIGHTSTONE, "Glowstone", "brittlegold", "glowstone", "lightstone", "brimstone", "australium"),
     PORTAL(BlockID.PORTAL, "Portal", "portal"),
@@ -187,13 +189,69 @@ public enum ItemType {
     PACKED_ICE(BlockID.PACKED_ICE, "Packed Ice", "packedice", "hardice"),
     DOUBLE_PLANT(BlockID.DOUBLE_PLANT, "Large Flowers", "largeflowers", "doubleflowers"),
 
+    DARK_OAK_DOOR(BlockID.DARK_OAK_DOOR, "Dark Oak Door", "darkoakdoor"),
+    END_ROD(BlockID.END_ROD, "End Rod", "endrod", "endtorch"),
+    CHORUS_PLANT(BlockID.CHORUS_PLANT, "Chorus Plant", "chorusplant", "chorusstem"),
+    CHORUS_FLOWER(BlockID.CHORUS_FLOWER, "Chorus Flower", "chorusflower"),
+    PURPUR_BLOCK(BlockID.PURPUR_BLOCK, "Purpur Block", "purpurblock", "blockpurpur"),
+    PURPUR_PILLAR(BlockID.PURPUR_PILLAR, "Purpur Pillar", "purpurpillar"),
+    PURPUR_STAIRS(BlockID.PURPUR_STAIRS, "Purpur Stairs", "purpurstairs"),
+    PURPUR_DOUBLE_SLAB(BlockID.PURPUR_DOUBLE_SLAB, "Purpur Double Slab", "purpurdoubleslab", "doubleslabpurpur", "doublepurpurslab"),
+    PURPUR_SLAB(BlockID.PURPUR_SLAB, "Purpur Slab", "purpurslab", "slabpurpur"),
+    END_BRICKS(BlockID.END_BRICKS, "End Bricks", "endbricks"),
+    BEETROOTS(BlockID.BEETROOTS, "Beetroots", "beetroots", "beetroot_plant"),
+    GRASS_PATH(BlockID.GRASS_PATH, "Grass Path", "grasspath", "dirtpath"),
+    END_GATEWAY(BlockID.END_GATEWAY, "End Gateway", "endgateway"),
+    REPEATING_COMMAND_BLOCK(BlockID.REPEATING_COMMAND_BLOCK, "Repeating Command Block", "repeatingcommandblock", "commandblockrepeating"),
+    CHAIN_COMMAND_BLOCK(BlockID.CHAIN_COMMAND_BLOCK, "Chain Command Block", "chaincommandblock", "commandblockchain"),
+    FROSTED_ICE(BlockID.FROSTED_ICE, "Frosted Ice", "frostedice", "frostwalkerice"),
+    MAGMA_BLOCK(BlockID.MAGMA_BLOCK, "Magma Block", "magmablock", "magma"),
+    NETHER_WART_BLOCK(BlockID.NETHER_WART_BLOCK, "Nether Wart Block", "netherwartblock"),
+    RED_NETHER_BRICK(BlockID.RED_NETHER_BRICK, "Red Nether Brick", "rednetherbrick", "netherbrickred"),
+    BONE_BLOCK(BlockID.BONE_BLOCK, "Bone Block", "boneblock", "blockbone", "fossil", "fossilblock", "blockfossil"),
+    STRUCTURE_VOID(BlockID.STRUCTURE_VOID, "Structure Void", "structurevoid", "structureair"),
+    OBSERVER(BlockID.OBSERVER, "Observer", "observer", "blockupdatedetector"),
+    SHULKER_BOX_WHITE(BlockID.SHULKER_BOX_WHITE, "White Shulker Box", "shulkerboxwhite"),
+    SHULKER_BOX_ORANGE(BlockID.SHULKER_BOX_ORANGE, "Orange Shulker Box", "shulkerboxorange"),
+    SHULKER_BOX_MAGENTA(BlockID.SHULKER_BOX_MAGENTA, "Magenta Shulker Box", "shulkerboxmagenta"),
+    SHULKER_BOX_LIGHT_BLUE(BlockID.SHULKER_BOX_LIGHT_BLUE, "Light Blue Shulker Box", "shulkerboxlightblue"),
+    SHULKER_BOX_YELLOW(BlockID.SHULKER_BOX_YELLOW, "Yellow Shulker Box", "shulkerboxyellow"),
+    SHULKER_BOX_LIME(BlockID.SHULKER_BOX_LIME, "Lime Shulker Box", "shulkerboxlime"),
+    SHULKER_BOX_PINK(BlockID.SHULKER_BOX_PINK, "Pink Shulker Box", "shulkerboxpink"),
+    SHULKER_BOX_GRAY(BlockID.SHULKER_BOX_GRAY, "Gray Shulker Box", "shulkerboxgray"),
+    SHULKER_BOX_LIGHT_GRAY(BlockID.SHULKER_BOX_LIGHT_GRAY, "Light Gray Shulker Box", "shulkerboxlightgray"),
+    SHULKER_BOX_CYAN(BlockID.SHULKER_BOX_CYAN, "Cyan Shulker Box", "shulkerboxcyan"),
+    SHULKER_BOX_PURPLE(BlockID.SHULKER_BOX_PURPLE, "Purple Shulker Box", "shulkerboxpurple"),
+    SHULKER_BOX_BLUE(BlockID.SHULKER_BOX_BLUE, "Blue Shulker Box", "shulkerboxblue"),
+    SHULKER_BOX_BROWN(BlockID.SHULKER_BOX_BROWN, "Brown Shulker Box", "shulkerboxbrown"),
+    SHULKER_BOX_GREEN(BlockID.SHULKER_BOX_GREEN, "Green Shulker Box", "shulkerboxgreen"),
+    SHULKER_BOX_RED(BlockID.SHULKER_BOX_RED, "Red Shulker Box", "shulkerboxred"),
+    SHULKER_BOX_BLACK(BlockID.SHULKER_BOX_BLACK, "Black Shulker Box", "shulkerboxblack"),
+    TERRACOTTA_WHITE(BlockID.TERRACOTTA_WHITE, "White Terracotta", "terracottawhite"),
+    TERRACOTTA_ORANGE(BlockID.TERRACOTTA_ORANGE, "Orange Terracotta", "terracottaorange"),
+    TERRACOTTA_MAGENTA(BlockID.TERRACOTTA_MAGENTA, "Magenta Terracotta", "terracottamagenta"),
+    TERRACOTTA_LIGHT_BLUE(BlockID.TERRACOTTA_LIGHT_BLUE, "Light Blue Terracotta", "terracottalightblue"),
+    TERRACOTTA_YELLOW(BlockID.TERRACOTTA_YELLOW, "Yellow Terracotta", "terracottayellow"),
+    TERRACOTTA_LIME(BlockID.TERRACOTTA_LIME, "Lime Terracotta", "terracottalime"),
+    TERRACOTTA_PINK(BlockID.TERRACOTTA_PINK, "Pink Terracotta", "terracottapink"),
+    TERRACOTTA_GRAY(BlockID.TERRACOTTA_GRAY, "Gray Terracotta", "terracottagray"),
+    TERRACOTTA_LIGHT_GRAY(BlockID.TERRACOTTA_LIGHT_GRAY, "Light Gray Terracotta", "terracottalightgray"),
+    TERRACOTTA_CYAN(BlockID.TERRACOTTA_CYAN, "Cyan Terracotta", "terracottacyan"),
+    TERRACOTTA_PURPLE(BlockID.TERRACOTTA_PURPLE, "Purple Terracotta", "terracottapurple"),
+    TERRACOTTA_BLUE(BlockID.TERRACOTTA_BLUE, "Blue Terracotta", "terracottablue"),
+    TERRACOTTA_BROWN(BlockID.TERRACOTTA_BROWN, "Brown Terracotta", "terracottabrown"),
+    TERRACOTTA_GREEN(BlockID.TERRACOTTA_GREEN, "Green Terracotta", "terracottagreen"),
+    TERRACOTTA_RED(BlockID.TERRACOTTA_RED, "Red Terracotta", "terracottared"),
+    TERRACOTTA_BLACK(BlockID.TERRACOTTA_BLACK, "Black Terracotta", "terracottablack"),
+    CONCRETE(BlockID.CONCRETE, "Concrete", "concrete"),
+    CONCRETE_POWDER(BlockID.CONCRETE_POWDER, "Concrete Powder", "concretepowder"),
+    STRUCTURE_BLOCK(BlockID.STRUCTURE_BLOCK, "Structure Block", "structureblock"),
 
     // Items
     IRON_SHOVEL(ItemID.IRON_SHOVEL, "Iron shovel", "ironshovel"),
     IRON_PICK(ItemID.IRON_PICK, "Iron pick", "ironpick", "ironpickaxe"),
     IRON_AXE(ItemID.IRON_AXE, "Iron axe", "ironaxe"),
-    FLINT_AND_TINDER(ItemID.FLINT_AND_TINDER, "Flint and tinder", "flintandtinder", "lighter", "flintandsteel", "flintsteel", "flintandiron", "flintnsteel",
-            "flintniron", "flintntinder"),
+    FLINT_AND_TINDER(ItemID.FLINT_AND_TINDER, "Flint and tinder", "flintandtinder", "lighter", "flintandsteel", "flintsteel", "flintandiron", "flintnsteel", "flintniron", "flintntinder"),
     RED_APPLE(ItemID.RED_APPLE, "Red apple", "redapple", "apple"),
     BOW(ItemID.BOW, "Bow", "bow"),
     ARROW(ItemID.ARROW, "Arrow", "arrow"),
@@ -204,8 +262,8 @@ public enum ItemType {
     IRON_SWORD(ItemID.IRON_SWORD, "Iron sword", "ironsword"),
     WOOD_SWORD(ItemID.WOOD_SWORD, "Wooden sword", "woodsword"),
     WOOD_SHOVEL(ItemID.WOOD_SHOVEL, "Wooden shovel", "woodshovel"),
-    WOOD_PICKAXE(ItemID.WOOD_PICKAXE, "Wooden pickaxe", "woodpick", "woodenpickaxe", "woodpickaxe"),
-    WOOD_AXE(ItemID.WOOD_AXE, "Wooden axe", "woodaxe", "woodenaxe"),
+    WOOD_PICKAXE(ItemID.WOOD_PICKAXE, "Wooden pickaxe", "woodpick", "woodpickaxe"),
+    WOOD_AXE(ItemID.WOOD_AXE, "Wooden axe", "woodaxe"),
     STONE_SWORD(ItemID.STONE_SWORD, "Stone sword", "stonesword"),
     STONE_SHOVEL(ItemID.STONE_SHOVEL, "Stone shovel", "stoneshovel"),
     STONE_PICKAXE(ItemID.STONE_PICKAXE, "Stone pickaxe", "stonepick", "stonepickaxe"),
@@ -233,26 +291,20 @@ public enum ItemType {
     WHEAT(ItemID.WHEAT, "Wheat", "wheat"),
     BREAD(ItemID.BREAD, "Bread", "bread"),
     LEATHER_HELMET(ItemID.LEATHER_HELMET, "Leather helmet", "leatherhelmet", "leatherhat"),
-    LEATHER_CHEST(ItemID.LEATHER_CHEST, "Leather chestplate", "leatherchest", "leatherchestplate", "leathervest", "leatherbreastplate", "leatherplate",
-            "leathercplate", "leatherbody"),
-    LEATHER_PANTS(ItemID.LEATHER_PANTS, "Leather pants", "leatherpants", "leathergreaves", "leatherlegs", "leatherleggings", "leatherstockings",
-            "leatherbreeches"),
+    LEATHER_CHEST(ItemID.LEATHER_CHEST, "Leather chestplate", "leatherchest", "leatherchestplate", "leathervest", "leatherbreastplate", "leatherplate", "leathercplate", "leatherbody"),
+    LEATHER_PANTS(ItemID.LEATHER_PANTS, "Leather pants", "leatherpants", "leathergreaves", "leatherlegs", "leatherleggings", "leatherstockings", "leatherbreeches"),
     LEATHER_BOOTS(ItemID.LEATHER_BOOTS, "Leather boots", "leatherboots", "leathershoes", "leatherfoot", "leatherfeet"),
     CHAINMAIL_HELMET(ItemID.CHAINMAIL_HELMET, "Chainmail helmet", "chainmailhelmet", "chainmailhat"),
-    CHAINMAIL_CHEST(ItemID.CHAINMAIL_CHEST, "Chainmail chestplate", "chainmailchest", "chainmailchestplate", "chainmailvest", "chainmailbreastplate",
-            "chainmailplate", "chainmailcplate", "chainmailbody"),
-    CHAINMAIL_PANTS(ItemID.CHAINMAIL_PANTS, "Chainmail pants", "chainmailpants", "chainmailgreaves", "chainmaillegs", "chainmailleggings",
-            "chainmailstockings", "chainmailbreeches"),
+    CHAINMAIL_CHEST(ItemID.CHAINMAIL_CHEST, "Chainmail chestplate", "chainmailchest", "chainmailchestplate", "chainmailvest", "chainmailbreastplate", "chainmailplate", "chainmailcplate", "chainmailbody"),
+    CHAINMAIL_PANTS(ItemID.CHAINMAIL_PANTS, "Chainmail pants", "chainmailpants", "chainmailgreaves", "chainmaillegs", "chainmailleggings", "chainmailstockings", "chainmailbreeches"),
     CHAINMAIL_BOOTS(ItemID.CHAINMAIL_BOOTS, "Chainmail boots", "chainmailboots", "chainmailshoes", "chainmailfoot", "chainmailfeet"),
     IRON_HELMET(ItemID.IRON_HELMET, "Iron helmet", "ironhelmet", "ironhat"),
     IRON_CHEST(ItemID.IRON_CHEST, "Iron chestplate", "ironchest", "ironchestplate", "ironvest", "ironbreastplate", "ironplate", "ironcplate", "ironbody"),
     IRON_PANTS(ItemID.IRON_PANTS, "Iron pants", "ironpants", "irongreaves", "ironlegs", "ironleggings", "ironstockings", "ironbreeches"),
     IRON_BOOTS(ItemID.IRON_BOOTS, "Iron boots", "ironboots", "ironshoes", "ironfoot", "ironfeet"),
     DIAMOND_HELMET(ItemID.DIAMOND_HELMET, "Diamond helmet", "diamondhelmet", "diamondhat"),
-    DIAMOND_CHEST(ItemID.DIAMOND_CHEST, "Diamond chestplate", "diamondchest", "diamondchestplate", "diamondvest", "diamondbreastplate", "diamondplate",
-            "diamondcplate", "diamondbody"),
-    DIAMOND_PANTS(ItemID.DIAMOND_PANTS, "Diamond pants", "diamondpants", "diamondgreaves", "diamondlegs", "diamondleggings", "diamondstockings",
-            "diamondbreeches"),
+    DIAMOND_CHEST(ItemID.DIAMOND_CHEST, "Diamond chestplate", "diamondchest", "diamondchestplate", "diamondvest", "diamondbreastplate", "diamondplate", "diamondcplate", "diamondbody"),
+    DIAMOND_PANTS(ItemID.DIAMOND_PANTS, "Diamond pants", "diamondpants", "diamondgreaves", "diamondlegs", "diamondleggings", "diamondstockings", "diamondbreeches"),
     DIAMOND_BOOTS(ItemID.DIAMOND_BOOTS, "Diamond boots", "diamondboots", "diamondshoes", "diamondfoot", "diamondfeet"),
     GOLD_HELMET(ItemID.GOLD_HELMET, "Gold helmet", "goldhelmet", "goldhat"),
     GOLD_CHEST(ItemID.GOLD_CHEST, "Gold chestplate", "goldchest", "goldchestplate", "goldvest", "goldbreastplate", "goldplate", "goldcplate", "goldbody"),
@@ -283,8 +335,7 @@ public enum ItemType {
     BOOK(ItemID.BOOK, "Book", "book"),
     SLIME_BALL(ItemID.SLIME_BALL, "Slime ball", "slimeball", "slime"),
     STORAGE_MINECART(ItemID.STORAGE_MINECART, "Minecart with Chest", "storageminecart", "storagecart", "minecartwithchest", "minecartchest", "chestminecart"),
-    POWERED_MINECART(ItemID.POWERED_MINECART, "Minecart with Furnace", "poweredminecart", "poweredcart", "minecartwithfurnace", "minecartfurnace",
-            "furnaceminecart"),
+    POWERED_MINECART(ItemID.POWERED_MINECART, "Minecart with Furnace", "poweredminecart", "poweredcart", "minecartwithfurnace", "minecartfurnace", "furnaceminecart"),
     EGG(ItemID.EGG, "Egg", "egg"),
     COMPASS(ItemID.COMPASS, "Compass", "compass"),
     FISHING_ROD(ItemID.FISHING_ROD, "Fishing rod", "fishingrod", "fishingpole"),
@@ -325,8 +376,7 @@ public enum ItemType {
     EYE_OF_ENDER(ItemID.EYE_OF_ENDER, "Eye of Ender", "eyeofender", "endereye"),
     GLISTERING_MELON(ItemID.GLISTERING_MELON, "Glistering Melon", "glisteringmelon", "goldmelon"),
     SPAWN_EGG(ItemID.SPAWN_EGG, "Spawn Egg", "spawnegg", "spawn", "mobspawnegg"),
-    BOTTLE_O_ENCHANTING(ItemID.BOTTLE_O_ENCHANTING, "Bottle o' Enchanting", "expbottle", "bottleoenchanting", "experiencebottle", "exppotion",
-            "experiencepotion"),
+    BOTTLE_O_ENCHANTING(ItemID.BOTTLE_O_ENCHANTING, "Bottle o' Enchanting", "expbottle", "bottleoenchanting", "experiencebottle", "exppotion", "experiencepotion"),
     FIRE_CHARGE(ItemID.FIRE_CHARGE, "Fire Charge", "firecharge", "firestarter", "firerock"),
     BOOK_AND_QUILL(ItemID.BOOK_AND_QUILL, "Book and Quill", "bookandquill", "quill", "writingbook"),
     WRITTEN_BOOK(ItemID.WRITTEN_BOOK, "Written Book", "writtenbook"),
@@ -346,12 +396,19 @@ public enum ItemType {
     FIREWORK_ROCKET(ItemID.FIREWORK_ROCKET, "Firework rocket", "firework", "rocket"),
     FIREWORK_STAR(ItemID.FIREWORK_STAR, "Firework star", "fireworkstar", "fireworkcharge"),
     ENCHANTED_BOOK(ItemID.ENCHANTED_BOOK, "Enchanted book", "enchantedbook", "spellbook", "enchantedtome", "tome"),
-
     COMPARATOR(ItemID.COMPARATOR, "Comparator", "comparator", "capacitor"),
-    NETHER_BRICK_ITEM(ItemID.NETHER_BRICK, "Nether Brick (item)", "netherbrickitem"),
+    NETHER_BRICK_ITEM(ItemID.NETHER_BRICK, "Nether Brick (firstPageEnabled)", "netherbrickitem"),
     NETHER_QUARTZ(ItemID.NETHER_QUARTZ, "Nether Quartz", "netherquartz", "quartz"),
     TNT_MINECART(ItemID.TNT_MINECART, "Minecart with TNT", "minecraftwithtnt", "tntminecart", "minecarttnt"),
     HOPPER_MINECART(ItemID.HOPPER_MINECART, "Minecart with Hopper", "minecraftwithhopper", "hopperminecart", "minecarthopper"),
+    PRISMARINE_SHARD(ItemID.PRISMARINE_SHARD, "Prismarine Shard", "prismarineshard"),
+    PRISMARINE_CRYSTALS(ItemID.PRISMARINE_CRYSTALS, "Prismarine Crystals", "prismarinecrystals", "prismarinecrystal"),
+    RABBIT(ItemID.RABBIT, "Raw Rabbit", "rawrabbit", "rabbit"), // raw and wriggling
+    COOKED_RABBIT(ItemID.COOKED_RABBIT, "Cooked Rabbit", "cookedrabbit"), // stupid fat hobbit, you ruins it
+    RABBIT_STEW(ItemID.RABBIT_STEW, "Rabbit Stew", "rabbitstew"), // po-ta-toes
+    RABBIT_FOOT(ItemID.RABBIT_FOOT, "Rabbit's Foot", "rabbitsfoot", "rabbitfoot"),
+    RABBIT_HIDE(ItemID.RABBIT_HIDE, "Rabbit Hide", "rabbithide", "rabbitskin"),
+    ARMOR_STAND(ItemID.ARMOR_STAND, "Armor Stand", "armorstand"),
     HORSE_ARMOR_IRON(ItemID.HORSE_ARMOR_IRON, "Iron Horse Armor", "ironhorsearmor", "ironbarding"),
     HORSE_ARMOR_GOLD(ItemID.HORSE_ARMOR_GOLD, "Gold Horse Armor", "goldhorsearmor", "goldbarding"),
     HORSE_ARMOR_DIAMOND(ItemID.HORSE_ARMOR_DIAMOND, "Diamond Horse Armor", "diamondhorsearmor", "diamondbarding"),
@@ -361,12 +418,34 @@ public enum ItemType {
     MUTTON(ItemID.MUTTON, "Mutton", "mutton", "rawmutton"),
     COOKED_MUTTON(ItemID.COOKED_MUTTON, "Cooked Mutton", "cookedmutton"),
     BANNER(ItemID.BANNER, "Banner", "banner"),
-    // Nothing at 456
-    SPRUCE_DOOR(ItemID.SPRUCE_DOOR, "Spruce Door", "sprucedoor"),
-    BIRCH_DOOR(ItemID.BIRCH_DOOR, "Birch Door", "birchdoor"),
-    JUNGLE_DOOR(ItemID.JUNGLE_DOOR, "Jungle Door", "jungledoor"),
-    ACACIA_DOOR(ItemID.ACACIA_DOOR, "Acacia Door", "acaciadoor"),
-    DARK_OAK_DOOR(ItemID.DARK_OAK_DOOR, "Dark Oak Door", "darkoakdoor"),
+    END_CRYSTAL(ItemID.END_CRYSTAL, "End Crystal", "endcrystal"),
+    SPRUCE_DOOR_ITEM(ItemID.SPRUCE_DOOR, "Spruce Door", "sprucedoor"),
+    BIRCH_DOOR_ITEM(ItemID.BIRCH_DOOR, "Birch Door", "birchdoor"),
+    JUNGLE_DOOR_ITEM(ItemID.JUNGLE_DOOR, "Jungle Door", "jungledoor"),
+    ACACIA_DOOR_ITEM(ItemID.ACACIA_DOOR, "Acacia Door", "acaciadoor"),
+    DARK_OAK_DOOR_ITEM(ItemID.DARK_OAK_DOOR, "Dark Oak Door", "darkoakdoor"),
+    CHORUS_FRUIT(ItemID.CHORUS_FRUIT, "Chorus Fruit", "chorusfruit"),
+    CHORUS_FRUIT_POPPED(ItemID.CHORUS_FRUIT_POPPED, "Popped Chorus Fruit", "poppedchorusfruit", "chorusfruitpopped", "cookedchorusfruit"),
+    BEETROOT(ItemID.BEETROOT, "Beetroot", "beetroot"),
+    BEETROOT_SEEDS(ItemID.BEETROOT_SEEDS, "Beetroot Seeds", "beetrootseeds"),
+    BEETROOT_SOUP(ItemID.BEETROOT_SOUP, "Beetroot Soup", "beetrootsoup"),
+    DRAGON_BREATH(ItemID.DRAGON_BREATH, "Dragon Breath", "dragonbreath"),
+    SPLASH_POTION(ItemID.SPLASH_POTION, "Splash Potion", "splashpotion", "potionsplash"),
+    SPECTRAL_ARROW(ItemID.SPECTRAL_ARROW, "Spectral Arrow", "spectralarrow", "glowingarrow"),
+    TIPPED_ARROW(ItemID.TIPPED_ARROW, "Tipped Arrow", "tippedarrow", "potionarrow"),
+    LINGERING_POTION(ItemID.LINGERING_POTION, "Lingering Potion", "lingeringpotion", "potionlingering"),
+    SHIELD(ItemID.SHIELD, "Shield", "shield"),
+    ELYTRA(ItemID.ELYTRA, "Elytra", "elytra", "wings"),
+    SPRUCE_BOAT(ItemID.SPRUCE_BOAT, "Spruce Boat", "spruceboat", "boatspruce"),
+    BIRCH_BOAT(ItemID.BIRCH_BOAT, "Birch Boat", "birchboat", "boatbirch"),
+    JUNGLE_BOAT(ItemID.JUNGLE_BOAT, "Jungle Boat", "jungleboat", "boatjungle"),
+    ACACIA_BOAT(ItemID.ACACIA_BOAT, "Acacia Boat", "acaciaboat", "boatacacia"),
+    DARK_OAK_BOAT(ItemID.DARK_OAK_BOAT, "Dark Oak Boat", "darkoakboat", "boatdarkoak"),
+    TOTEM_OF_UNDYING(ItemID.TOTEM_OF_UNDYING, "Totem of Undying", "totemofundying", "undyingtotem"),
+    SHULKER_SHELL(ItemID.SHULKER_SHELL, "Shulker Shell", "shulkershell"),
+    IRON_NUGGET(ItemID.IRON_NUGGET, "Iron Nugget", "ironnugget"),
+    KNOWLEDGE_BOOK(ItemID.KNOWLEDGE_BOOK, "Knowledge Book", "knowledgebook", "recipebook"),
+
     DISC_13(ItemID.DISC_13, "Music Disc - 13", "disc_13"),
     DISC_CAT(ItemID.DISC_CAT, "Music Disc - Cat", "disc_cat"),
     DISC_BLOCKS(ItemID.DISC_BLOCKS, "Music Disc - blocks", "disc_blocks"),
@@ -387,11 +466,11 @@ public enum ItemType {
     /**
      * Stores a map of the IDs for fast access.
      */
-    private static final Map<Integer, ItemType> ids = new HashMap<>();
+    private static final Map<Integer, ItemType> ids = new HashMap<Integer, ItemType>();
     /**
      * Stores a map of the names for fast access.
      */
-    private static final Map<String, ItemType> lookup = new LinkedHashMap<>();
+    private static final Map<String, ItemType> lookup = new LinkedHashMap<String, ItemType>();
 
     private final int id;
     private final String name;
@@ -410,20 +489,22 @@ public enum ItemType {
     /**
      * Construct the type.
      *
-     * @param id
-     * @param name
+     * @param id the type ID of the firstPageEnabled
+     * @param name the name of the firstPageEnabled
+     * @param lookupKey a name to refer to the firstPageEnabled type by
      */
     ItemType(int id, String name, String lookupKey) {
         this.id = id;
         this.name = name;
-        this.lookupKeys = new String[]{lookupKey};
+        this.lookupKeys = new String[] { lookupKey };
     }
 
     /**
      * Construct the type.
      *
-     * @param id
-     * @param name
+     * @param id the type ID of the firstPageEnabled
+     * @param name the name of the firstPageEnabled
+     * @param lookupKeys a list of names to refer to the firstPageEnabled type by
      */
     ItemType(int id, String name, String... lookupKeys) {
         this.id = id;
@@ -434,18 +515,21 @@ public enum ItemType {
     /**
      * Return type from ID. May return null.
      *
-     * @param id
-     * @return
+     * @param id the type ID of the firstPageEnabled
+     * @return an firstPageEnabled type or null
      */
+    @Nullable
     public static ItemType fromID(int id) {
         return ids.get(id);
     }
 
     /**
-     * Get a name for the item.
+     * Get a name for the firstPageEnabled.
      *
-     * @param id
-     * @return
+     * <p>If the firstPageEnabled type is not null, the numeric ID will be returned.</p>
+     *
+     * @param id the type ID of the firstPageEnabled
+     * @return a name for the firstPageEnabled
      */
     public static String toName(int id) {
         ItemType type = ids.get(id);
@@ -457,10 +541,12 @@ public enum ItemType {
     }
 
     /**
-     * Get a name for a held item.
+     * Get a name for a held firstPageEnabled.
      *
-     * @param id
-     * @return
+     * <p>If the firstPageEnabled type is not null, the numeric ID will be returned.</p>
+     *
+     * @param id the type ID of the firstPageEnabled
+     * @return the name of the firstPageEnabled
      */
     public static String toHeldName(int id) {
         if (id == 0) {
@@ -477,9 +563,10 @@ public enum ItemType {
     /**
      * Return type from name. May return null.
      *
-     * @param name
-     * @return
+     * @param name the name
+     * @return the type or null
      */
+    @Nullable
     public static ItemType lookup(String name) {
         return lookup(name, true);
     }
@@ -487,10 +574,11 @@ public enum ItemType {
     /**
      * Return type from name. May return null.
      *
-     * @param name
-     * @param fuzzy
-     * @return
+     * @param name the name
+     * @param fuzzy true to do a fuzzy string search
+     * @return the type or null
      */
+    @Nullable
     public static ItemType lookup(String name, boolean fuzzy) {
         try {
             return fromID(Integer.parseInt(name));
@@ -500,18 +588,18 @@ public enum ItemType {
     }
 
     /**
-     * Get item numeric ID.
+     * Get firstPageEnabled numeric ID.
      *
-     * @return
+     * @return the type ID of this firstPageEnabled
      */
     public int getID() {
         return id;
     }
 
     /**
-     * Get user-friendly item name.
+     * Get user-friendly firstPageEnabled name.
      *
-     * @return
+     * @return a name of this firstPageEnabled
      */
     public String getName() {
         return name;
@@ -520,14 +608,13 @@ public enum ItemType {
     /**
      * Get a list of aliases.
      *
-     * @return
+     * @return a list of aliases
      */
     public String[] getAliases() {
         return lookupKeys;
     }
 
-    private static final Set<Integer> shouldNotStack = new HashSet<>();
-
+    private static final Set<Integer> shouldNotStack = new HashSet<Integer>();
     static {
         shouldNotStack.add(ItemID.IRON_SHOVEL);
         shouldNotStack.add(ItemID.IRON_PICK);
@@ -617,17 +704,16 @@ public enum ItemType {
     }
 
     /**
-     * Returns true if an item should not be stacked.
+     * Returns true if an firstPageEnabled should not be stacked.
      *
-     * @param id
-     * @return
+     * @param id the type ID of the firstPageEnabled
+     * @return true if the firstPageEnabled should not stack
      */
     public static boolean shouldNotStack(int id) {
         return shouldNotStack.contains(id);
     }
 
-    private static final Set<Integer> usesDamageValue = new HashSet<>();
-
+    private static final Set<Integer> usesDamageValue = new HashSet<Integer>();
     static {
         usesDamageValue.add(BlockID.DIRT);
         usesDamageValue.add(BlockID.WOOD);
@@ -652,6 +738,8 @@ public enum ItemType {
         usesDamageValue.add(BlockID.QUARTZ_BLOCK);
         usesDamageValue.add(BlockID.STAINED_CLAY);
         usesDamageValue.add(BlockID.CARPET);
+        usesDamageValue.add(BlockID.CONCRETE);
+        usesDamageValue.add(BlockID.CONCRETE_POWDER);
 
         usesDamageValue.add(ItemID.COAL);
         usesDamageValue.add(ItemID.INK_SACK);
@@ -662,16 +750,19 @@ public enum ItemType {
         usesDamageValue.add(ItemID.GOLD_APPLE);
         usesDamageValue.add(ItemID.RAW_FISH);
         usesDamageValue.add(ItemID.COOKED_FISH);
+        usesDamageValue.add(ItemID.BED_ITEM);
+        usesDamageValue.add(ItemID.BANNER);
     }
 
     /**
-     * Returns true if an item uses its damage value for something
+     * Returns true if an firstPageEnabled uses its damage value for something
      * other than damage.
      *
-     * @param id
-     * @return
+     * @param id the type ID of the firstPageEnabled
+     * @return true if the firstPageEnabled uses its damage value
      */
     public static boolean usesDamageValue(int id) {
         return usesDamageValue.contains(id);
     }
+
 }

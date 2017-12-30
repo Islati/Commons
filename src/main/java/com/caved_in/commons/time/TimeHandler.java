@@ -1,12 +1,9 @@
 package com.caved_in.commons.time;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class TimeHandler {
@@ -30,7 +27,7 @@ public class TimeHandler {
             case YEAR:
                 calender.add(Calendar.YEAR, amt);
                 break;
-            case MILLESECOND:
+            case MILLISECOND:
                 return amt;
             case TICK:
                 return TimeUnit.SECONDS.toMillis(amt / 20) / 1000;
@@ -54,31 +51,6 @@ public class TimeHandler {
                 return 0L;
         }
     }
-
-    @Deprecated /* Broken as hell */
-    public static long parseStringForDuration(String string) {
-        long millesDuration = 0L;
-        TimeType timeType;
-        StringBuilder sb = new StringBuilder();
-        char[] charArray = string.toCharArray();
-        for (char character : charArray) {
-            String s = String.valueOf(character);
-            /*If it's a number that's being parsed then add it to the string builder
-			so we can create a whole number (ie. 1m22d would only equal 1 month 2 days otherwise
-			as it wouldn't concat the string*/
-            if (StringUtils.isNumeric(s)) {
-                sb.append(s);
-            } else if (TimeType.isTimeType(s)) {
-                //Parse the time type and the time amount, then calculate it to a duration in milleseconds
-                timeType = TimeType.getTimeType(s);
-                int timeAmount = Integer.parseInt(sb.toString());
-                millesDuration += getTimeInMilles(timeAmount, timeType);
-                sb = new StringBuilder();
-            }
-        }
-        return millesDuration;
-    }
-
     public static String timeDurationToWords(long duration) {
         return DurationFormatUtils.formatDurationWords(duration, true, true);
     }
@@ -109,6 +81,7 @@ public class TimeHandler {
     }
 
     private static SimpleDateFormat wordDateFormat = new SimpleDateFormat("MMMM dd, yyyyy");
+
     public static String dateToStringWords(Date date) {
         return wordDateFormat.format(date);
     }

@@ -3,7 +3,6 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -30,21 +29,5 @@ public class PlayerQuitListener implements Listener {
 
         //Remove the cached player instance!
         Players.removeData(playerId);
-
-        if (!commons.hasDatabaseBackend()) {
-            return;
-        }
-
-        //Change the player's online status.
-        commons.getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(playerId, false));
-
-//
-//		if (Commons.hasSqlBackend()) {
-//			Commons.disguiseDatabase.deletePlayerDisguiseData(playerId);
-//		}
-
-        commons.getThreadManager().runTaskLaterAsync(() -> {
-            commons.getServerDatabase().updatePlayerCount();
-        }, 20);
     }
 }

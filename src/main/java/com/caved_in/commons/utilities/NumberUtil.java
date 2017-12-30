@@ -3,6 +3,7 @@ package com.caved_in.commons.utilities;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class NumberUtil {
     private static Random random = new Random();
@@ -17,11 +18,8 @@ public class NumberUtil {
         return random.nextInt((max - min) + 1) + min;
     }
 
-    public static double getRandomInRange(double min, double max) {
-        double range = max - min;
-        double scaled = random.nextDouble() * range;
-        double shifted = scaled + min;
-        return shifted; // == (rand.nextDouble() * (max-min)) + min;
+    public static double randomDouble(double min, double max) {
+        return min + ThreadLocalRandom.current().nextDouble(Math.abs(max - min + 1));
     }
 
     public static double round(double num, int decimalPlaces) {

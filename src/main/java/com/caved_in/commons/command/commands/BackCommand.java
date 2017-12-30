@@ -31,10 +31,11 @@ public class BackCommand {
 
         PreTeleportLocation preTeleLoc = minecraftPlayer.getPreTeleportLocation();
 
-        if (!preTeleLoc.hasPermission(player)) {
-            Chat.message(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
-            return;
-        }
+        //todo implement permission check
+//        if (!preTeleLoc.hasPermission(player)) {
+//            Chat.message(player, Messages.insufficientPreTeleportPermissions(preTeleLoc));
+//            return;
+//        }
 
         Players.teleport(player, preTeleLoc);
     }

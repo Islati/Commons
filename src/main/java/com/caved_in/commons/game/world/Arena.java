@@ -1,54 +1,63 @@
 package com.caved_in.commons.game.world;
 
-import com.caved_in.commons.config.XmlLocation;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaModifiedEvent;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
+import com.caved_in.commons.yml.YamlConfig;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-@Root(name = "arena")
-public class Arena implements GameArena {
+public class Arena extends YamlConfig implements GameArena {
+    @Skip
     private static final Random random = new Random();
 
+    @Skip
     private MiniGame game;
 
-    @Element(name = "id")
+    @Path("id")
     private int id = 0;
 
-    @Element(name = "name")
+    @Path("name")
     private String arenaName;
 
-    @Element(name = "world")
+    @Path("world")
     private String worldName;
 
-    @Element(name = "enabled")
+    @Path("enabled")
     private boolean enabled = true;
 
-    @Element(name = "stormy")
+    @Path("stormy")
     private boolean stormy = false;
 
-    @ElementList(name = "spawn-locations", type = XmlLocation.class, inline = true, entry = "spawn-point")
-    private List<XmlLocation> spawns = new ArrayList<>();
+    @Path("spawns")
+    private List<Location> spawns = new ArrayList<>();
 
-    @ElementList(name = "breakable-blocks", entry = "id", empty = true)
+    @Path("breakable-blocks")
     private List<Integer> breakables = new ArrayList<>();
 
-    @ElementList(name = "placeable-blocks", entry = "id", empty = true)
+    @Path("placeable-blocks")
     private List<Integer> placeables = new ArrayList<>();
 
-    public Arena(@Element(name = "id") int id, @Element(name = "name") String arenaName, @Element(name = "world") String worldName, @Element(name = "enabled") boolean enabled, @Element(name = "stormy") boolean stormy, @ElementList(name = "spawn-locations", type = XmlLocation.class, inline = true, entry = "spawn-point") List<XmlLocation> spawns, @ElementList(name = "breakable-blocks", entry = "id", empty = true) List<Integer> breakables, @ElementList(name = "placeable-blocks", entry = "id", empty = true) List<Integer> placeables) {
+    /**
+     * Initiate using a file; Generally used to load a serialized arena.
+     * @param file file to load the arena data from.
+     */
+    public Arena(File file) {
+        super(file);
+    }
+
+    public Arena(int id, String arenaName, String worldName, boolean enabled, boolean stormy, List<Location> spawns, List<Integer> breakables, List<Integer> placeables) {
         this.id = id;
         this.arenaName = arenaName;
         this.worldName = worldName;
@@ -62,7 +71,7 @@ public class Arena implements GameArena {
     public Arena(World world) {
         arenaName = world.getName();
         worldName = world.getName();
-        spawns.add(XmlLocation.fromLocation(Worlds.getSpawn(world)));
+        spawns.add(Worlds.getSpawn(world));
     }
 
     @Override
@@ -130,7 +139,7 @@ public class Arena implements GameArena {
     }
 
     public void addSpawn(Location loc) {
-        spawns.add(XmlLocation.fromLocation(loc));
+        spawns.add(loc);
         ArenaModifiedEvent.throwEvent(this);
     }
 

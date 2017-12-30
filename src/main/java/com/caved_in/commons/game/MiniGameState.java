@@ -1,11 +1,13 @@
 package com.caved_in.commons.game;
 
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.game.state.GameState;
+import com.caved_in.commons.game.state.IGameState;
 
 /**
- * Barebones implementation of a game state, overriding the defaults defined in {@link GameState} to provide functionality.
+ * Barebones implementation of a game state, overriding the defaults defined in {@link IGameState} to provide functionality.
  */
-public abstract class MiniGameState implements GameState {
+public abstract class MiniGameState extends GameState {
     private boolean setup = false;
 
     public abstract void update();

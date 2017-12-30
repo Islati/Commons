@@ -3,7 +3,6 @@ package com.caved_in.commons.game.guns;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.ProjectileCreationException;
 import com.caved_in.commons.game.gadget.ItemGadget;
@@ -12,20 +11,19 @@ import com.caved_in.commons.item.ItemBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;
+
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-
-@Root(name = "projectile-gun")
 /**
  * An absolutely spectacular extension of the {@link ItemGadget} class, which implements the behaviours of a Gun.
  *
@@ -33,22 +31,27 @@ import java.util.UUID;
  *
  * Guns also contain a per-player ammo variable, and handles reloading whenever the ammo reaches 0.
  *
- * Further development will feature options of removing an itemstack from the players inventory based on the item attached
+ * Further development will feature options of removing an itemstack from the players inventory based on the firstPageEnabled attached
  * to the "equipped" (associated) bullet, Optionally.
  */
 public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();
 
-    @Element(name = "gun", type = XmlItemStack.class)
-    private XmlItemStack gun;
+    @Path("firstPageEnabled")
+    private ItemStack gun;
 
-    @Element(name = "properties", type = GunProperties.class)
+    @Skip
+    /* Used internally to put the ammo count in a guns name (display) */
+    private String gunBaseName;
+
+    @Path("properties")
     private GunProperties properties = new GunProperties();
 
-    @Element(name = "bullet-properties", type = BulletProperties.class)
+    @Path("bullet-properties")
     private BulletProperties bullets = new BulletProperties();
 
+    @Skip
     private Map<UUID, Integer> ammoCounts = new HashMap<>();
 
     private Map<UUID, Long> shootDelays = new HashMap<>();
@@ -57,21 +60,24 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
     private BulletActions actions;
 
-    public BaseGun(@Element(name = "gun", type = XmlItemStack.class) XmlItemStack gun, @Element(name = "properties", type = GunProperties.class) GunProperties properties, @Element(name = "bullet-properties", type = BulletProperties.class) BulletProperties bulletProperties) {
-        super(gun.getItemStack());
+    public BaseGun(ItemStack gun, GunProperties properties, BulletProperties bulletProperties) {
+        super(gun);
         this.gun = gun;
+        this.gunBaseName = Items.getName(gun);
         this.properties = properties;
         this.bullets = bulletProperties;
     }
 
     public BaseGun(ItemStack item) {
         super(item);
-        gun = XmlItemStack.fromItem(item);
+        gun = item.clone();
+        this.gunBaseName = Items.getName(gun);
     }
 
     public BaseGun(ItemBuilder builder) {
         super(builder);
-        gun = XmlItemStack.fromItem(getItem());
+        gun = getItem();
+        this.gunBaseName = Items.getName(gun);
     }
 
     private void initBuilder() {
@@ -190,7 +196,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         addCooldown(holder);
 
 		/*
-		Handle the on-fire of the gun, what the item's meant to do.
+		Handle the on-fire of the gun, what the firstPageEnabled's meant to do.
 		 */
         onFire(holder);
 
@@ -339,15 +345,15 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     }
 
     private void giveGunAmmoCount(Player player) {
-        int slot = Inventories.getSlotOf(player.getInventory(), gun.getMaterial(), gun.getItemName());
+        int slot = Inventories.getSlotOf(player.getInventory(), gun.getType(), Items.getName(gun));
 
         if (slot == -1) {
-            commons.debug("Unable to get slot of " + Items.getName(getItem()) + " on player " + player.getName());
+            commons.debug("Unable to get slot of " + getItemName() + " on player " + player.getName());
             return;
         }
 
         ItemStack item = Players.getItem(player, slot);
-        Items.setName(item, Messages.gunNameAmmoFormat(gun.getItemName(), getAmmo(player)));
+        Items.setName(item, Messages.gunNameAmmoFormat(getItemName(), getAmmo(player)));
     }
 
     @Override
@@ -376,7 +382,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
     }
 
     public String getItemName() {
-        return gun.getItemName();
+        return gunBaseName;
     }
 
     public BulletBuilder getBulletBuilder() {

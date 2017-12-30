@@ -1,10 +1,11 @@
 package com.caved_in.commons.game.world;
 
+import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.player.Players;
 import org.bukkit.entity.Player;
 
 /**
- * The managing interfaced used to handle all the {@link Arena} inside of a(n) {@link com.caved_in.commons.game.MiniGame}.
+ * The managing interfaced used to handle all the {@link Arena} inside of a(n) {@link MiniGame}.
  *
  * Currently, the default implementation for a MiniGames ArenaHandler is {@link ArenaManager}
  */

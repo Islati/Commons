@@ -43,7 +43,6 @@ public class DebugModeCommand {
         if (action == null || action.isEmpty()) {
             minecraftPlayer.setInDebugMode(!minecraftPlayer.isInDebugMode());
             Chat.message(player, Messages.playerDebugModeChange(minecraftPlayer));
-            Players.updateData(minecraftPlayer);
             return;
         }
 

@@ -5,7 +5,7 @@ import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
 import com.caved_in.commons.command.FlagArg;
 import com.caved_in.commons.command.Flags;
-import com.caved_in.commons.fireworks.Fireworks;
+import com.caved_in.commons.effect.Fireworks;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.threading.RunnableManager;
 import org.bukkit.Location;

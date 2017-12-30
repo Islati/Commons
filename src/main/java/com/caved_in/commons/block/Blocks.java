@@ -40,62 +40,61 @@ public class Blocks {
     public static final long BLOCK_REGEN_DELAY = TimeHandler.getTimeInTicks(8, TimeType.SECOND);
 
     /**
-     * Set of the item-ids which materials are hollow
+     * Set of the firstPageEnabled-ids which materials are hollow
      */
-    private static final Set<Integer> HOLLOW_MATERIALS = new HashSet<>();
-    public static final HashSet<Byte> TRANSPARENT_MATERIALS = new HashSet<>();
+    private static final Set<Material> HOLLOW_MATERIALS = new HashSet<>();
+    public static final HashSet<Material> TRANSPARENT_MATERIALS = new HashSet<>();
 
     /* Initialize the materials which are hollow */
     static {
-        HOLLOW_MATERIALS.add(Material.AIR.getId());
-        HOLLOW_MATERIALS.add(Material.SAPLING.getId());
-        HOLLOW_MATERIALS.add(Material.POWERED_RAIL.getId());
-        HOLLOW_MATERIALS.add(Material.DETECTOR_RAIL.getId());
-        HOLLOW_MATERIALS.add(Material.LONG_GRASS.getId());
-        HOLLOW_MATERIALS.add(Material.DEAD_BUSH.getId());
-        HOLLOW_MATERIALS.add(Material.YELLOW_FLOWER.getId());
-        HOLLOW_MATERIALS.add(Material.RED_ROSE.getId());
-        HOLLOW_MATERIALS.add(Material.BROWN_MUSHROOM.getId());
-        HOLLOW_MATERIALS.add(Material.RED_MUSHROOM.getId());
-        HOLLOW_MATERIALS.add(Material.TORCH.getId());
-        HOLLOW_MATERIALS.add(Material.REDSTONE_WIRE.getId());
-        HOLLOW_MATERIALS.add(Material.SEEDS.getId());
-        HOLLOW_MATERIALS.add(Material.SIGN_POST.getId());
-        HOLLOW_MATERIALS.add(Material.WOODEN_DOOR.getId());
-        HOLLOW_MATERIALS.add(Material.LADDER.getId());
-        HOLLOW_MATERIALS.add(Material.RAILS.getId());
-        HOLLOW_MATERIALS.add(Material.WALL_SIGN.getId());
-        HOLLOW_MATERIALS.add(Material.LEVER.getId());
-        HOLLOW_MATERIALS.add(Material.STONE_PLATE.getId());
-        HOLLOW_MATERIALS.add(Material.IRON_DOOR_BLOCK.getId());
-        HOLLOW_MATERIALS.add(Material.WOOD_PLATE.getId());
-        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_OFF.getId());
-        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_ON.getId());
-        HOLLOW_MATERIALS.add(Material.STONE_BUTTON.getId());
-        HOLLOW_MATERIALS.add(Material.SNOW.getId());
-        HOLLOW_MATERIALS.add(Material.SUGAR_CANE_BLOCK.getId());
-        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_OFF.getId());
-        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_ON.getId());
-        HOLLOW_MATERIALS.add(Material.PUMPKIN_STEM.getId());
-        HOLLOW_MATERIALS.add(Material.MELON_STEM.getId());
-        HOLLOW_MATERIALS.add(Material.VINE.getId());
-        HOLLOW_MATERIALS.add(Material.FENCE_GATE.getId());
-        HOLLOW_MATERIALS.add(Material.WATER_LILY.getId());
-        HOLLOW_MATERIALS.add(Material.NETHER_WARTS.getId());
+        HOLLOW_MATERIALS.add(Material.AIR);
+        HOLLOW_MATERIALS.add(Material.SAPLING);
+        HOLLOW_MATERIALS.add(Material.POWERED_RAIL);
+        HOLLOW_MATERIALS.add(Material.DETECTOR_RAIL);
+        HOLLOW_MATERIALS.add(Material.LONG_GRASS);
+        HOLLOW_MATERIALS.add(Material.DEAD_BUSH);
+        HOLLOW_MATERIALS.add(Material.YELLOW_FLOWER);
+        HOLLOW_MATERIALS.add(Material.RED_ROSE);
+        HOLLOW_MATERIALS.add(Material.BROWN_MUSHROOM);
+        HOLLOW_MATERIALS.add(Material.RED_MUSHROOM);
+        HOLLOW_MATERIALS.add(Material.TORCH);
+        HOLLOW_MATERIALS.add(Material.REDSTONE_WIRE);
+        HOLLOW_MATERIALS.add(Material.SEEDS);
+        HOLLOW_MATERIALS.add(Material.SIGN_POST);
+        HOLLOW_MATERIALS.add(Material.WOODEN_DOOR);
+        HOLLOW_MATERIALS.add(Material.LADDER);
+        HOLLOW_MATERIALS.add(Material.RAILS);
+        HOLLOW_MATERIALS.add(Material.WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.LEVER);
+        HOLLOW_MATERIALS.add(Material.STONE_PLATE);
+        HOLLOW_MATERIALS.add(Material.IRON_DOOR_BLOCK);
+        HOLLOW_MATERIALS.add(Material.WOOD_PLATE);
+        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_OFF);
+        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_ON);
+        HOLLOW_MATERIALS.add(Material.STONE_BUTTON);
+        HOLLOW_MATERIALS.add(Material.SNOW);
+        HOLLOW_MATERIALS.add(Material.SUGAR_CANE_BLOCK);
+        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_OFF);
+        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_ON);
+        HOLLOW_MATERIALS.add(Material.PUMPKIN_STEM);
+        HOLLOW_MATERIALS.add(Material.MELON_STEM);
+        HOLLOW_MATERIALS.add(Material.VINE);
+        HOLLOW_MATERIALS.add(Material.FENCE_GATE);
+        HOLLOW_MATERIALS.add(Material.WATER_LILY);
+        HOLLOW_MATERIALS.add(Material.NETHER_WARTS);
 
         try {
-            HOLLOW_MATERIALS.add(Material.CARPET.getId());
+            HOLLOW_MATERIALS.add(Material.CARPET);
         } catch (NoSuchFieldError e) {
             Chat.debug(Messages.OUTDATED_VERSION);
         }
 
         //All hollow materials are transparant materials
-        for (Integer integer : HOLLOW_MATERIALS) {
-            TRANSPARENT_MATERIALS.add(integer.byteValue());
-        }
+        TRANSPARENT_MATERIALS.addAll(HOLLOW_MATERIALS);
+
         //Water is transparent, though not hollow
-        TRANSPARENT_MATERIALS.add((byte) Material.WATER.getId());
-        TRANSPARENT_MATERIALS.add((byte) Material.STATIONARY_WATER.getId());
+        TRANSPARENT_MATERIALS.add(Material.WATER);
+        TRANSPARENT_MATERIALS.add(Material.STATIONARY_WATER);
     }
 
     /**
@@ -173,11 +172,11 @@ public class Blocks {
      * For example: {@link org.bukkit.Material#WOODEN_DOOR} is the block-correspondant
      * for {@link org.bukkit.Material#WOOD_DOOR}.
      * <p/>
-     * Passing a block to this method will result in the corresponding item-stack material for the block.
+     * Passing a block to this method will result in the corresponding firstPageEnabled-stack material for the block.
      * </p>
      *
      * @param block block to get the material of
-     * @return the corresponding item-stack material for the block.
+     * @return the corresponding firstPageEnabled-stack material for the block.
      */
     public static Material getBlockMaterial(Block block) {
         Material itemMaterial = block.getType();
@@ -243,8 +242,8 @@ public class Blocks {
      * Gets either the block id, or material id based on the parameters.s
      *
      * @param block   block to get the id for
-     * @param itemsId whether or not to retrieve the item-stack id, or the actual block material id
-     * @return integer for the item id requested (either block or material)
+     * @param itemsId whether or not to retrieve the firstPageEnabled-stack id, or the actual block material id
+     * @return integer for the firstPageEnabled id requested (either block or material)
      */
     public static int getBlockId(Block block, boolean itemsId) {
         return itemsId ? getBlockMaterial(block).getId() : block.getType().getId();
@@ -419,7 +418,7 @@ public class Blocks {
             }
 
 			/*
-            For all the blocks surrounding the parent, we're going to continue breaking the
+            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
 			blocks (logs, and potentially leaves) until they're all gone!
 			 */
 
@@ -448,7 +447,7 @@ public class Blocks {
             }
 
 			/*
-            For all the blocks surrounding the parent, we're going to continue breaking the
+            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
 			blocks (logs, and potentially leaves) until they're all gone!
 			 */
             getBlocksSurrounding(block).forEach(b -> {
@@ -653,17 +652,17 @@ public class Blocks {
      *
      * @param parent base-block used to retrieve the relative block.
      * @param face   face to retrieve the block at.
-     * @return block attached to the desired face of the parent.
+     * @return block attached to the desired face of the parentBuilder.
      */
     public static Block getBlockFacing(Block parent, BlockFace face) {
         return parent.getRelative(face);
     }
 
     /**
-     * Retrieve all the blocks that surround the parent block in all possible directions.
+     * Retrieve all the blocks that surround the parentBuilder block in all possible directions.
      *
-     * @param parent parent block to retrieve the surrounding blocks from.
-     * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parent block.
+     * @param parent parentBuilder block to retrieve the surrounding blocks from.
+     * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parentBuilder block.
      */
     public static Set<Block> getBlocksSurrounding(Block parent) {
         return EnumSet.allOf(BlockFace.class).stream().map(face -> getBlockFacing(parent, face)).collect(Collectors.toSet());

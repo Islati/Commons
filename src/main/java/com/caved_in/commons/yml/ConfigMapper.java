@@ -67,7 +67,7 @@ public class ConfigMapper extends BaseConfigMapper {
 	}
 
 	public void loadFromMap(Map section, Class clazz) throws Exception {
-		if (!clazz.getSuperclass().equals(YamlConfig.class) && !clazz.getSuperclass().equals(YamlConfig.class)) {
+		if (!clazz.getSuperclass().equals(YamlConfig.class)) {
 			loadFromMap(section, clazz.getSuperclass());
 		}
 
@@ -100,6 +100,8 @@ public class ConfigMapper extends BaseConfigMapper {
 				Path path1 = field.getAnnotation(Path.class);
 				path = path1.value();
 			}
+
+
 
 			if (Modifier.isPrivate(field.getModifiers())) {
 				field.setAccessible(true);

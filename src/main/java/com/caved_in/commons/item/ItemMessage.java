@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * Minecraft displays the item tooltip to the player briefly when it's changed.  Let's (ab)use that to
+ * Minecraft displays the firstPageEnabled tooltip to the player briefly when it's changed.  Let's (ab)use that to
  * send a "popup" message to the player via one of these tooltips.  This is nice for temporary messages
  * where you don't want to clutter up the chat window.
  */
@@ -39,8 +39,8 @@ public class ItemMessage {
     private static final int DEFAULT_PRIORITY = 0;
     private static final String DEF_FORMAT_1 = "%s";
     private static final String DEF_FORMAT_2 = " %s ";
-    private static final String METADATA_Q_KEY = "item-message:msg-queue";
-    private static final String METADATA_ID_KEY = "item-message:id";
+    private static final String METADATA_Q_KEY = "firstPageEnabled-message:msg-queue";
+    private static final String METADATA_ID_KEY = "firstPageEnabled-message:id";
     private final Plugin plugin;
 
     private String[] formats = new String[]{DEF_FORMAT_1, DEF_FORMAT_2};
@@ -67,7 +67,7 @@ public class ItemMessage {
     }
 
     /**
-     * Set which item the player should held if he receives a message
+     * Set which firstPageEnabled the player should held if he receives a message
      * without having something in his hand. Default is a snow layer
      *
      * @param material
@@ -112,7 +112,7 @@ public class ItemMessage {
     public void sendMessage(Player player, String message, int duration, int priority) {
         if (player.getGameMode() == GameMode.CREATIVE) {
             /*
-			As we're unable to send the player an item-message if they're in creative,
+			As we're unable to send the player an firstPageEnabled-message if they're in creative,
 			due to the way minecraft functions, we'll send them an action message.
 			 */
             Chat.actionMessage(player, message);
@@ -248,10 +248,10 @@ public class ItemMessage {
             Player player = playerRef.get();
             if (player != null) {
                 if (iterations-- <= 0) {
-                    // finished - restore the previous item data and tidy up
+                    // finished - restore the previous firstPageEnabled data and tidy up
                     finish(player);
                 } else {
-                    // refresh the item data
+                    // refresh the firstPageEnabled data
                     refresh(player);
                 }
             } else {
@@ -279,14 +279,14 @@ public class ItemMessage {
             ItemStack stack0 = player.getInventory().getItem(slot);
             ItemStack stack;
             if (stack0 == null || stack0.getType() == Material.AIR) {
-                // an empty slot can't display any custom item name, so we need to fake an item
+                // an empty slot can't display any custom firstPageEnabled name, so we need to fake an firstPageEnabled
                 // a snow layer is a good choice, since it's visually quite unobtrusive
                 stack = new ItemStack(emptyHandReplacement, 1);
             } else {
                 stack = new ItemStack(stack0.getType(), stack0.getAmount(), stack0.getDurability());
             }
             ItemMeta meta = Bukkit.getItemFactory().getItemMeta(stack.getType());
-            // fool the client into thinking the item name has changed, so it actually (re)displays it
+            // fool the client into thinking the firstPageEnabled name has changed, so it actually (re)displays it
             meta.setDisplayName(String.format(formats[iterations % formats.length], message));
             stack.setItemMeta(meta);
             return stack;

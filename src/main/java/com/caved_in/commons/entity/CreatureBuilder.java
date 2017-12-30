@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Create and spawn entities with ease in both syntax and code-flow.
  *
- * @author TheGamersCave (Brandon Curtis)
+ * @author TechnicalBro
  */
 public class CreatureBuilder {
     /* Type of the mob we're spawning */
@@ -59,7 +59,7 @@ public class CreatureBuilder {
     /* Maximum size the slime can be */
     private int sizeMax = 0;
 
-    /* The armor builder, used to continue the builder experience and parent our creature */
+    /* The armor builder, used to continue the builder experience and parentBuilder our creature */
     private ArmorBuilder armorBuilder = new ArmorBuilder();
 
     public static CreatureBuilder clone(Entity entity) {
@@ -268,7 +268,7 @@ public class CreatureBuilder {
     }
 
     public CreatureBuilder armor(ArmorInventory armor) {
-        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withWeapon(armor.getWeapon());
+        armor().withHelmet(armor.getHelmet()).withBoots(armor.getBoots()).withChest(armor.getChest()).withLeggings(armor.getLegs()).withMainHand(armor.getMainHand()).withOffHand(armor.getOffHand());
         return this;
     }
 
@@ -341,11 +341,11 @@ public class CreatureBuilder {
     }
 
     /**
-     * Create a {@link MobSpawnData} object with the values used in the builder. Can be used to easily create serializable mob-spawn data.
-     * @return a {@link MobSpawnData} object with the values used in the builder.
+     * Create a {@link MobData} object with the values used in the builder. Can be used to easily create serializable mob-spawn data.
+     * @return a {@link MobData} object with the values used in the builder.
      */
-    public MobSpawnData toSpawnData() {
-        MobSpawnData data = new MobSpawnData();
+    public MobData toSpawnData() {
+        MobData data = new MobData();
 
         data.setEntityType(type);
         data.setAge(age);

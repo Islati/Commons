@@ -36,4 +36,12 @@ public class Title extends AbstractTitle {
     public void resetTitle(Player player) {
         NMS.getTitleHandler().resetTitle(player);
     }
+
+    public static void send(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
+        player.sendTitle(Chat.format(title),Chat.format(subtitle),fadeIn,stay,fadeOut);
+    }
+
+    public static void send(Player player, Title title) {
+        title.send(player);
+    }
 }

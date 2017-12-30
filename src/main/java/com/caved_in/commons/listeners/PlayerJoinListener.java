@@ -3,9 +3,6 @@ package com.caved_in.commons.listeners;
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.player.MinecraftPlayer;
-import com.caved_in.commons.player.Players;
-import com.caved_in.commons.threading.tasks.UpdateOnlineStatusThread;
-import com.caved_in.commons.utilities.StringUtil;
 import com.caved_in.commons.world.Worlds;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,7 +19,6 @@ public class PlayerJoinListener implements Listener {
 
 	public PlayerJoinListener() {
 		config = Commons.getInstance().getConfiguration();
-		trackOnline = config.trackOnlinePlayerStatus() && config.hasSqlBackend();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -40,27 +36,9 @@ public class PlayerJoinListener implements Listener {
 		//Initialize the wrapped player data
 		commons.getPlayerHandler().addData(player);
 
-		//Update the player's online status in our data-base!
-
-		if (trackOnline) {
-			commons.getThreadManager().runTaskAsync(new UpdateOnlineStatusThread(player.getUniqueId(), true));
-		}
-
 		//If the players in the lobby, teleport them to the spawn when they join
 		if (config.teleportToSpawnOnJoin()) {
 			player.teleport(Worlds.getSpawn(player), PlayerTeleportEvent.TeleportCause.PLUGIN);
-		}
-
-		MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(player);
-
-		if (commons.isServerFull() && mcPlayer.isPremium()) {
-			Players.kick(Players.getRandomNonPremiumPlayer(), StringUtil.colorize(config.kickNonPremiumMessage()));
-		}
-
-		if (commons.hasDatabaseBackend()) {
-			commons.getThreadManager().runTaskAsync(() -> {
-				commons.getServerDatabase().updatePlayerCount();
-			});
 		}
 	}
 }

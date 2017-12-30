@@ -1,6 +1,5 @@
 package com.caved_in.commons.item;
 
-import com.caved_in.commons.config.XmlEnchantment;
 import com.caved_in.commons.exceptions.ItemCreationException;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.utilities.SneakyThrow;
@@ -9,6 +8,7 @@ import com.google.common.collect.Lists;
 import com.mysql.jdbc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,7 +26,7 @@ public class ItemBuilder {
     private short durability = -101;
 
     private List<String> lore = new ArrayList<>();
-    private List<EnchantWrapper> enchantments = new ArrayList<>();
+    private List<ItemEnchantmentWrapper> enchantments = new ArrayList<>();
 
     private boolean forceEnchantments = false;
 
@@ -35,7 +35,7 @@ public class ItemBuilder {
     private Attributes attributes;
     private List<Attributes.Attribute> attributeList = new ArrayList<>();
 
-    /* Whether or not the item is unbreakable, by default false, as most items break! */
+    /* Whether or not the firstPageEnabled is unbreakable, by default false, as most items break! */
     private boolean unbreakable = false;
 
     public static ItemBuilder of(Material material) {
@@ -127,11 +127,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        return enchantment(enchantment, level, true);
-    }
-
-    public ItemBuilder enchantment(Enchantment enchantment, int level, boolean glow) {
-        enchantments.add(new EnchantWrapper(enchantment, level, glow));
+        enchantments.add(new ItemEnchantmentWrapper(enchantment, level, false,enchantment.isTreasure()));
         return this;
     }
 
@@ -140,10 +136,11 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder enchantments(Collection<XmlEnchantment> enchants) {
-        for (XmlEnchantment e : enchants) {
-            enchantments.add(new EnchantWrapper(e.getEnchantment(), e.getLevel(), e.hasGlow()));
+    public ItemBuilder enchantments(Map<Enchantment, Integer> enchantments) {
+        for (Map.Entry<Enchantment, Integer> enchant : enchantments.entrySet()) {
+            enchantment(enchant.getKey(),enchant.getValue());
         }
+
         return this;
     }
 
@@ -164,14 +161,14 @@ public class ItemBuilder {
 
     public ItemStack item() {
         if (material == null || material == Material.AIR) {
-            SneakyThrow.sneaky(new ItemCreationException("Unable to create an item with air (or null) materials"));
+            SneakyThrow.sneaky(new ItemCreationException("Unable to create an firstPageEnabled with air (or null) materials"));
         }
 
         ItemStack itemStack = new ItemStack(material, amount);
 
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        //If the name for the builders been set then set the name on the item
+        //If the name for the builders been set then set the name on the firstPageEnabled
         if (!StringUtils.isNullOrEmpty(name)) {
             itemMeta.setDisplayName(name);
         }
@@ -179,13 +176,13 @@ public class ItemBuilder {
         if (lore != null && !lore.isEmpty()) {
             itemMeta.setLore(StringUtil.formatColorCodes(lore));
         }
-        //If there's any enchantments added to the itembuilder, add them to the item
+        //If there's any enchantments added to the itembuilder, add them to the firstPageEnabled
         if (!enchantments.isEmpty()) {
-            for (EnchantWrapper enchantWrapper : enchantments) {
+            for (ItemEnchantmentWrapper enchantWrapper : enchantments) {
                 itemMeta.addEnchant(enchantWrapper.getEnchantment(), enchantWrapper.getLevel(), enchantWrapper.isItemGlow());
             }
         }
-        //Set the item metadata
+        //Set the firstPageEnabled metadata
         itemStack.setItemMeta(itemMeta);
         //Check if the durability has been changed, if so set it
         if (durability != -101) {
@@ -204,7 +201,7 @@ public class ItemBuilder {
         }
 
 		/*
-		If there's been any attributes added to the item,
+		If there's been any attributes added to the firstPageEnabled,
 		then we can go ahead and add them all in!
 		 */
         if (attributeList.size() > 0) {

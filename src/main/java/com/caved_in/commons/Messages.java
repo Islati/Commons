@@ -1,9 +1,9 @@
 package com.caved_in.commons;
 
 import com.caved_in.commons.block.Direction;
-import com.caved_in.commons.cuboid.Cuboid;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.world.Arena;
+import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.location.PreTeleportLocation;
@@ -27,15 +27,17 @@ public class Messages {
     public static final String INVENTORY_CLEARED = "&aYour inventory has been cleared";
     public static final String PLAYER_OFFLINE = "&cThe requested player is offline";
     public static final String CHAT_SILENCED = "&7Chat is currently silenced, you are only able to chat if you have the required permissions";
-    public static final String HELP_INCLUDE_PAGE_NUMBER = "&cPlease include a page number for the help menu";
+    public static final String HELP_INCLUDE_PAGE_NUMBER = "&cPlease include a page number for the help menus";
     public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
     public static final String PLAYER_HEALED = "&aYou've been healed!";
     public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
-    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your hand";
-    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
+    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an firstPageEnabled in your main-hand or off-hand";
+    public static final String ITEM_IN_EITHER_HAND_REQUIRED = "&eYou need to have an firstPageEnabled in either of your hands.";
+    public static final String ITEM_IN_BOTH_HANDS_REQUIRED = "&eYou need to have an firstPageEnabled in both hands.";
+    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your firstPageEnabled; Is it a valid enchantment for the firstPageEnabled?";
     public static final String PLAYER_FED = "&aYou've been fed!";
     public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
-    public static final String ITEMS_REPAIRED = "&aYour item(s) has been repaired";
+    public static final String ITEMS_REPAIRED = "&aYour firstPageEnabled(s) has been repaired";
     public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
     public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance " +
             "toggle";
@@ -62,7 +64,7 @@ public class Messages {
 
     public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
-    public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an item in your hand to use this debug action";
+    public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an firstPageEnabled in your hand to use this debug action";
 
     public static final String GADGET_RELOADED = "&7Your gadget's been reloaded.";
 
@@ -105,8 +107,12 @@ public class Messages {
         return String.format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
     }
 
-    public static String cuboidDescription(Cuboid cuboid) {
-        return String.format("Cuboid: %s,%s,%s,%s => %s,%s,%s", cuboid.getWorldName(), cuboid.getLowerX(), cuboid.getLowerY(), cuboid.getLowerZ(), cuboid.getUpperX(), cuboid.getUpperY(), cuboid.getUpperZ());
+    public static String failedToEnchantItem(HandSlot hand) {
+        return String.format("&cFailed to enchant your %s firstPageEnabled; Is it a valid enchantment for the firstPageEnabled?", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+    }
+
+    public static String gadgetEquipError(Gadget gadget, HandSlot slot) {
+        return String.format("&eThe '&6%s&e' gadget is restricted from your &c%s&e slot.", Items.getName(gadget.getItem()), slot == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 
     public static String gadgetExpired(Gadget gadget) {
@@ -119,6 +125,10 @@ public class Messages {
 
     public static String gunNameAmmoFormat(String name, int ammo) {
         return String.format("%s &r&d<&f%s&d>", name, ammo);
+    }
+
+    public static String itemInHandRequired(HandSlot hand) {
+        return String.format("&eYou need to have an firstPageEnabled in your %s.", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
     }
 
     public static String playerDataLoadAttempt(String playerName) {
@@ -175,10 +185,6 @@ public class Messages {
 
     public static String playerTeleportedTo(double[] xyz) {
         return String.format("&eYou've been teleported to &a%sx,%sy,%sz", xyz[0], xyz[1], xyz[2]);
-    }
-
-    public static String playerXpBalance(Player player) {
-        return String.format("&aYou have &e%s&a XP", (int) Commons.getInstance().getPlayerHandler().getData(player).getCurrency());
     }
 
     public static String playerTeleportedTo(String item, String target) {
@@ -286,11 +292,15 @@ public class Messages {
     }
 
     public static String itemEnchantmentAdded(String enchantmentName) {
-        return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
+        return String.format("&aYou've added the '&e%s&a' enchantment to your firstPageEnabled", enchantmentName);
     }
 
     public static String itemEnchantmentAdded(String enchantmentName, int level) {
-        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
+        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your firstPageEnabled", level, enchantmentName);
+    }
+
+    public static String itemEnchantmentAdded(String enchantmentName, int level, HandSlot hand) {
+        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your %s firstPageEnabled", level, enchantmentName, hand == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 
     public static String itemId(ItemStack item) {
@@ -463,7 +473,7 @@ public class Messages {
     }
 
     public static String invalidItem(String itemName) {
-        return String.format("&cSorry, but &e%s&c isn't a valid item", itemName);
+        return String.format("&cSorry, but &e%s&c isn't a valid firstPageEnabled", itemName);
     }
 
     public static String invalidItemData(String input) {

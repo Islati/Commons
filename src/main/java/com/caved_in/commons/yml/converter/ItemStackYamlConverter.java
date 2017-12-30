@@ -1,10 +1,17 @@
 package com.caved_in.commons.yml.converter;
 
+import com.caved_in.commons.item.ItemBuilder;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.yml.ConfigSection;
 import com.caved_in.commons.yml.InternalConverter;
+import org.apache.commons.lang3.reflect.TypeUtils;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +31,27 @@ public class ItemStackYamlConverter implements Converter {
 		org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) obj;
 
 		Map<String, Object> saveMap = new HashMap<>();
-		saveMap.put("id", itemStack.getType() + ((itemStack.getDurability() > 0) ? ":" + itemStack.getDurability() : ""));
+		saveMap.put("id", itemStack.getTypeId());
+
+		if (itemStack.getDurability() > 0) {
+			saveMap.put("data",itemStack.getDurability());
+		}
+
 		saveMap.put("amount", itemStack.getAmount());
 
 		Converter listConverter = converter.getConverter(List.class);
+
+		Map<Enchantment, Integer> itemEnchantments = itemStack.getEnchantments();
+
+		if (itemEnchantments.size() > 0) {
+		    Map<String, Object> saveEnchantMap = new HashMap<>();
+
+		    for(Map.Entry<Enchantment, Integer> enchants : itemEnchantments.entrySet()) {
+		        saveEnchantMap.put(enchants.getKey().getName(),enchants.getValue());
+            }
+
+            saveMap.put("enchantments",converter.getConverter(saveEnchantMap.getClass()).toConfig(saveEnchantMap.getClass(),saveEnchantMap, TypeUtils.parameterize(saveEnchantMap.getClass(),saveEnchantMap.getClass().getGenericInterfaces())));
+        }
 
 		//todo implement enchant serialize
 
@@ -45,45 +69,75 @@ public class ItemStackYamlConverter implements Converter {
 
 	@Override
 	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception {
-		Map itemstackMap;
-		Map metaMap = null;
+		Map<String, Object> itemstackMap;
+		Map<String, Object> metaMap = null;
 
-		if (section instanceof Map) {
-			itemstackMap = (Map) section;
-			metaMap = (Map) itemstackMap.get("meta");
-		} else {
-			itemstackMap = ((ConfigSection) section).getRawMap();
-            if (itemstackMap.get("meta") != null) {
-                metaMap = ((ConfigSection) itemstackMap.get("meta")).getRawMap();
-            }
+		if (section == null) {
+			throw new NullPointerException("Item configuration section is null");
 		}
 
-		String[] temp = ((String) itemstackMap.get("id")).split(":");
-		org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack)
-				type.getConstructor(Material.class).newInstance(Material.valueOf(temp[0]));
-		itemStack.setAmount((int) itemstackMap.get("amount"));
+		if (section instanceof Map) {
+			itemstackMap = (Map<String, Object>) section;
+			metaMap = (Map<String, Object>) itemstackMap.get("meta");
+		} else {
+			itemstackMap = (Map<String, Object>)((ConfigSection) section).getRawMap();
 
-		if (temp.length == 2) {
-			itemStack.setDurability(Short.valueOf(temp[1]));
+			if (itemstackMap.containsKey("meta")) {
+				metaMap = (Map<String, Object>)((ConfigSection) itemstackMap.get("meta")).getRawMap();
+			}
+		}
+
+		int id = (int)itemstackMap.get("id");
+		ItemBuilder itemBuilder = ItemBuilder.of(Items.getMaterialById(id));
+
+		if (itemstackMap.containsKey("data")) {
+			short data = (short)itemstackMap.get("data");
+			itemBuilder.durability(data);
+		}
+
+		if (itemstackMap.containsKey("amount")) {
+			int amount = (int)itemstackMap.get("amount");
+			itemBuilder.amount(amount);
 		}
 
 		if (metaMap != null) {
-			if (metaMap.get("name") != null) {
-				itemStack.getItemMeta().setDisplayName((String) metaMap.get("name"));
+			if (metaMap.containsKey("name")) {
+				itemBuilder.name((String)metaMap.get("name"));
 			}
 
-			if (metaMap.get("lore") != null) {
+			if (metaMap.containsKey("lore")) {
 				Converter listConverter = converter.getConverter(List.class);
-				itemStack.getItemMeta().setLore((List<String>) listConverter.fromConfig(List.class, metaMap.get("lore"), null));
+				List<String> lore = new ArrayList<>();
+
+				lore = (List<String>)listConverter.fromConfig(List.class,metaMap.get("lore"),null);
+
+				itemBuilder.lore(lore);
 			}
 		}
 
-		return itemStack;
+		/*
+		If there's enchantments listed in the yml file for this firstPageEnabled, then we're going to parse
+		that section of the configuration, and then add it to the firstPageEnabled.
+		 */
+		if (itemstackMap.containsKey("enchantments")) {
+
+		    Map<String, Object> enchantmentMap = new HashMap<>();
+
+		    enchantmentMap = ((ConfigSection)converter.getConverter(enchantmentMap.getClass()).fromConfig(enchantmentMap.getClass(),itemstackMap.get("enchantments"),TypeUtils.parameterize(enchantmentMap.getClass(),enchantmentMap.getClass().getGenericInterfaces()))).getRawMap();
+
+		    for (Map.Entry<String, Object> enchant : enchantmentMap.entrySet()) {
+		        Enchantment enchantment = Enchantment.getByName(enchant.getKey());
+		        itemBuilder.enchantment(enchantment,(int)enchant.getValue());
+            }
+
+		}
+
+		return itemBuilder.item();
 	}
 
 	@Override
 	public boolean supports(Class<?> type) {
-		return org.bukkit.inventory.ItemStack.class.isAssignableFrom(type);
+		return ItemStack.class.isAssignableFrom(type);
 	}
 
 }

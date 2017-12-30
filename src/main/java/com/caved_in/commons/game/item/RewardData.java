@@ -1,40 +1,41 @@
 package com.caved_in.commons.game.item;
 
-import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.NumberUtil;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
-@Root(name = "reward-data")
+import java.io.File;
+
 /**
  * An internal class used to manage chanced, and randomized reward-data, generally in a container, but is also used for loot selection in minigames.
  */
-public class RewardData {
-    @Attribute(name = "min")
+public class RewardData extends YamlConfig {
+    @Path("min-amount")
     private int min = 1;
 
-    @Attribute(name = "max")
+    @Path("max-amount")
     private int max = 1;
 
-    @Attribute(name = "rarity")
-    private int rarity = 100;
+    @Path("spawn-chance")
+    private int spawnChance = 100;
 
-    @Element(name = "item", type = XmlItemStack.class)
-    private XmlItemStack itemStack = new XmlItemStack(Items.makeItem(Material.GOLD_BOOTS));
-
-    public RewardData(@Attribute(name = "min") int min, @Attribute(name = "max") int max, @Attribute(name = "rarity") int rarity, @Element(name = "item", type = XmlItemStack.class) XmlItemStack itemStack) {
-        this.min = min;
-        this.max = max;
-        this.rarity = rarity;
-        this.itemStack = itemStack;
-    }
+    @Path("firstPageEnabled")
+    private ItemStack itemStack = new ItemStack(Items.makeItem(Material.GOLD_BOOTS));
 
     public RewardData() {
-        rarity = NumberUtil.getRandomInRange(1, 100);
+
+    }
+
+    public RewardData(File file) {}
+
+    public RewardData(int min, int max, int spawnChance, ItemStack itemStack) {
+        this.min = min;
+        this.max = max;
+        this.spawnChance = spawnChance;
+        this.itemStack = itemStack;
     }
 
     public int getMin() {
@@ -53,21 +54,22 @@ public class RewardData {
         this.max = max;
     }
 
-    public int getRarity() {
-        return rarity;
+    public int getSpawnChance() {
+        return spawnChance;
     }
 
-    public void setRarity(int rarity) {
-        this.rarity = rarity;
+    public void setSpawnChance(int spawnChance) {
+        this.spawnChance = spawnChance;
     }
 
     public ItemStack generateRewardItem() {
-        if (!NumberUtil.percentCheck(getRarity())) {
+        if (!NumberUtil.percentCheck(getSpawnChance())) {
             return null;
         }
 
-        ItemStack item = itemStack.getItemStack();
-        //Set the item amount to be a random between the min and max value
+        ItemStack item = itemStack.clone();
+
+        //Set the firstPageEnabled amount to be a random between the min and max value
         if (getMin() >= getMax()) {
             item.setAmount(getMax());
         } else {
@@ -77,10 +79,10 @@ public class RewardData {
     }
 
     public ItemStack getItemStack() {
-        return itemStack.getItemStack();
+        return itemStack;
     }
 
     public void setItemStack(ItemStack item) {
-        itemStack = new XmlItemStack(item);
+        itemStack = item.clone();
     }
 }

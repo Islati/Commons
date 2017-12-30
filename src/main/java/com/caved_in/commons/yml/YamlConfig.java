@@ -18,6 +18,10 @@ public class YamlConfig extends ConfigMapper implements IConfig {
 		CONFIG_FILE = new File(filename + (filename.endsWith(".yml") ? "" : ".yml"));
 	}
 
+	public YamlConfig(File file) {
+		CONFIG_FILE = file;
+	}
+
 	@Override
 	public void save() throws InvalidConfigurationException {
 		if (CONFIG_FILE == null) {

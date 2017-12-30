@@ -1,22 +1,19 @@
 package com.caved_in.commons.inventory;
 
-import com.caved_in.commons.config.XmlItemStack;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.yml.Path;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.ElementMap;
-import org.simpleframework.xml.Root;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Root(name = "Hotbar")
 public class Hotbar {
-    @ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true)
-    private Map<Integer, XmlItemStack> hotbarItems = new HashMap<>();
+    @Path("items")
+    private Map<Integer, ItemStack> items = new HashMap<>();
 
-    public Hotbar(@ElementMap(name = "items", entry = "item", value = "data", key = "slot", keyType = Integer.class, valueType = XmlItemStack.class, attribute = true) Map<Integer, XmlItemStack> items) {
-        this.hotbarItems = items;
+    public Hotbar(Map<Integer, ItemStack> items) {
+        this.items = items;
     }
 
     public Hotbar(ItemStack... items) {
@@ -25,15 +22,15 @@ public class Hotbar {
                 break;
             }
 
-            hotbarItems.put(i, XmlItemStack.fromItem(items[i]));
+            this.items.put(i, items[i].clone());
         }
     }
 
     /**
-     * Assign a slot (1 to 9) an item.
+     * Assign a slot (1 to 9) an firstPageEnabled.
      *
-     * @param slot slot to set the item in (1 to 9)
-     * @param item item to set in the slot.
+     * @param slot slot to set the firstPageEnabled in (1 to 9)
+     * @param item firstPageEnabled to set in the slot.
      * @return the hotbar instance.
      */
     public Hotbar set(int slot, ItemStack item) {
@@ -41,7 +38,7 @@ public class Hotbar {
             slot = 8;
         }
 
-        hotbarItems.put(slot, XmlItemStack.fromItem(item));
+        items.put(slot, item.clone());
         return this;
     }
 
@@ -51,8 +48,8 @@ public class Hotbar {
      * @param player player to change the hotbar contents of
      */
     public void assign(Player player) {
-        for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
-            Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue().getItemStack());
+        for (Map.Entry<Integer, ItemStack> hotbarEntry : items.entrySet()) {
+            Players.setItem(player, hotbarEntry.getKey(), hotbarEntry.getValue());
         }
     }
 
@@ -62,13 +59,13 @@ public class Hotbar {
     public ItemStack[] getItems() {
         ItemStack[] items = new ItemStack[8];
 
-        for (Map.Entry<Integer, XmlItemStack> hotbarEntry : hotbarItems.entrySet()) {
+        for (Map.Entry<Integer, ItemStack> hotbarEntry : this.items.entrySet()) {
             int index = hotbarEntry.getKey();
             if (index > items.length) {
                 continue;
             }
 
-            items[index] = hotbarEntry.getValue().getItemStack();
+            items[index] = hotbarEntry.getValue();
         }
         return items;
     }

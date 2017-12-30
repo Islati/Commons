@@ -1,7 +1,8 @@
 package com.caved_in.commons.debug.gadget;
 
 import com.caved_in.commons.effect.Effects;
-import com.caved_in.commons.effect.ParticleEffects;
+import com.caved_in.commons.effect.ParticleEffect;
+import com.caved_in.commons.effect.Particles;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.guns.BulletActions;
@@ -41,7 +42,7 @@ public class FishCannon extends BaseGun {
 
     private void initProperties() {
         properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
-        bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffects.BUBBLE);
+        bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffect.WATER_BUBBLE);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class FishCannon extends BaseGun {
 
         @Override
         public void onHit(Player player, Block block) {
-            ParticleEffects.sendToLocation(ParticleEffects.CLOUD, block.getLocation(), NumberUtil.getRandomInRange(1, 3));
+            Particles.sendToLocation(block.getLocation(), ParticleEffect.CLOUD, NumberUtil.getRandomInRange(1, 3));
         }
     }
 }

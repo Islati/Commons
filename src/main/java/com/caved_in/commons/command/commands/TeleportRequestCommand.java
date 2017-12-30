@@ -4,7 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;
 import com.caved_in.commons.command.Command;
-import com.caved_in.commons.menu.menus.confirmation.ConfirmationMenu;
+import com.caved_in.commons.menus.confirmation.ConfirmationMenu;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.MinecraftPlayer;
 import com.caved_in.commons.player.Players;

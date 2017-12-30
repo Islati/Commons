@@ -15,12 +15,12 @@ public class TeleportMenuCommand {
             case "enable":
             case "on":
                 Commons.TeleportMenuSettings.getInstance().enableMenu(player.getUniqueId());
-                Chat.actionMessage(player, "&aYour teleport menu has been enabled!");
+                Chat.actionMessage(player, "&aYour teleport menus has been enabled!");
                 break;
             case "disable":
             case "off":
                 Commons.TeleportMenuSettings.getInstance().disableMenu(player.getUniqueId());
-                Chat.actionMessage(player, "&cYour teleport menu has been disabled");
+                Chat.actionMessage(player, "&cYour teleport menus has been disabled");
                 break;
             default:
                 Chat.message(player, Messages.invalidCommandUsage("(enable/on) / (disable/off)"));

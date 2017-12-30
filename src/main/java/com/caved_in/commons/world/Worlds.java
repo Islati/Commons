@@ -5,7 +5,6 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.entity.Entities;
 import com.caved_in.commons.exceptions.WorldLoadException;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.threading.tasks.ClearDroppedItemsThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
@@ -16,13 +15,11 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 public class Worlds {
-    private static final Method GET_HANDLE = ReflectionUtilities.getMethod(ReflectionUtilities.getCBClass("CraftWorld"), "getHandle");
     private static Commons commons = Commons.getInstance();
 
     public void handleWeather(World World) {

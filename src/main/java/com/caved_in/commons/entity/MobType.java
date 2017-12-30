@@ -33,11 +33,43 @@ public enum MobType {
     IRON_GOLEM(EntityType.IRON_GOLEM, true, "golem", "irongolem", "golumn"),
     CHICKEN(EntityType.CHICKEN, false, "chicken", "shicken"),
     HORSE(EntityType.HORSE, false, "horse", "horsey", "foal"),
-    ENDER_DRAGON(EntityType.ENDER_DRAGON,true,"dragon","enderdragon","ender_dragon"),
+    ENDER_DRAGON(EntityType.ENDER_DRAGON, true, "dragon", "enderdragon", "ender_dragon"),
     WITHER(EntityType.WITHER, true, "wither", "witherboss"),
     SILVERFISH(EntityType.SILVERFISH, true, "silverfish", "silver_fish"),
     RABBIT(EntityType.RABBIT, false, "rabbit", "bunny"),
-    GUARDIAN(EntityType.GUARDIAN, true, "guardian");
+    GUARDIAN(EntityType.GUARDIAN, true, "guardian"),
+    /**
+     * New in 1.8
+     **/
+    ENDERMITE(EntityType.ENDERMITE, true, "endermite", "mite"),
+
+    /**
+     * New in 1.9
+     **/
+    SHULKER(EntityType.SHULKER, true, "shulker", "shulk"),
+
+    /**
+     * New in 1.10
+     */
+
+    POLAR_BEAR(EntityType.POLAR_BEAR,true,"bear","polarbear","polar-bear","polar_bear"),
+    STRAY(EntityType.STRAY,true,"stray","strayskeleton"),
+    HUSK(EntityType.HUSK,true,"husk","husk"),
+
+    /**
+     * New in 1.11
+     */
+    VINDICATOR(EntityType.VINDICATOR,true,"vindicator","vindicate"),
+    EVOKER(EntityType.EVOKER,true,"evoker","evoke","evo"),
+    VEX(EntityType.VEX,true,"vex"),
+    LLAMA(EntityType.LLAMA,false,"llama","longhorse"),
+
+
+    /**
+     * New in 1.12
+     */
+    ILLUSIONER(EntityType.ILLUSIONER,true,"illusioner","illager","ill"),
+    PARROTS(EntityType.PARROT,false,"parrot","birb");
 
     private static Map<String, EntityType> entityTypes = new HashMap<>();
     private static Map<EntityType, Boolean> entityHostilityMap = new HashMap<>();
@@ -51,6 +83,8 @@ public enum MobType {
             for (String name : mobType.names) {
                 entityTypes.put(name, mobType.entityType);
             }
+            entityTypes.put(mobType.getEntityType().name().toLowerCase(), mobType.getEntityType());
+
         }
     }
 

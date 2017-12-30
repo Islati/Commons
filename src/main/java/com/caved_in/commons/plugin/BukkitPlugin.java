@@ -1,12 +1,9 @@
 package com.caved_in.commons.plugin;
 
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.chat.ChatCommand;
-import com.caved_in.commons.chat.ChatCommandHandler;
 import com.caved_in.commons.command.CommandHandler;
 import com.caved_in.commons.debug.DebugAction;
 import com.caved_in.commons.debug.Debugger;
-import com.caved_in.commons.effect.PlayerGlowRed;
 import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.item.ItemMessage;
@@ -19,16 +16,12 @@ import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
-
-	private Serializer serializer;
 
 	private BukkitScheduledExecutorService syncExecuter;
 
@@ -44,10 +37,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	private CommandHandler commandHandler;
 
-	private PlayerGlowRed playerGlowHandler;
-
-	private ChatCommandHandler chatCommandhandler;
-
 	public void onEnable() {
 		initLogger();
 
@@ -56,14 +45,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
          */
 		commandHandler = new CommandHandler(this);
 
-        /*
-		Create the chat command handler, for when you're lazy but wanna write commands.
-         As the chat command handler implements the listener, then we're also going to
-         register it as a listener.
-         */
-		registerListeners(
-				chatCommandhandler = new ChatCommandHandler(this)
-		);
 		/*
 		Create the thread manager, used to wrap tasks.
          */
@@ -85,20 +66,10 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
          */
 		asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
-        /*
-		Create the player glow handler, used as a cosmetic effect!
-         */
-		playerGlowHandler = new PlayerGlowRed(this);
-
-        /*
-		Create the local serializer! (SimpleXML)
-         */
-		serializer = new Persister();
-
 		if (Plugins.hasProtocolLib()) {
 			/*
 			If protocolLib is enabled then we also want to create the ItemMessage
-            handler, where you use item meta packets to send actionbar-like messages
+            handler, where you use firstPageEnabled meta packets to send actionbar-like messages
              */
 			itemMessage = new ItemMessage(this);
 		}
@@ -150,16 +121,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		commandHandler.registerCommandsByPackage(pkg);
 	}
 
-	public boolean registerChatCommands(ChatCommand... commands) {
-		for (ChatCommand cmd : commands) {
-			if (!chatCommandhandler.registerCommand(cmd)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public void registerListeners(Listener... listeners) {
 		Plugins.registerListeners(this, listeners);
 	}
@@ -186,10 +147,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		return asyncExecuter;
 	}
 
-	public Serializer getSerializer() {
-		return serializer;
-	}
-
 	public RunnableManager getThreadManager() {
 		return threadManager;
 	}
@@ -207,10 +164,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public BoardManager getScoreboardManager() {
 		return scoreboardManager;
-	}
-
-	public PlayerGlowRed getPlayerGlowHandler() {
-		return playerGlowHandler;
 	}
 
 	public Logger getPluginLogger() {

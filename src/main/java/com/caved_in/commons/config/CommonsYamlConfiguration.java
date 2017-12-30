@@ -12,35 +12,6 @@ import com.caved_in.commons.yml.*;
 )
 
 public class CommonsYamlConfiguration extends YamlConfig implements Configuration {
-	@Path("Database.Mysql.enable")
-	private boolean sqlBackend = false;
-
-	@Path("Database.Mysql.host")
-	private String mysqlHost = "localhost";
-
-	@Path("Database.Mysql.port")
-	private String mysqlPort = "3306";
-
-	@Path("Database.Mysql.database-name")
-	private String mysqlDatabaseName = "minecraft";
-
-	@Path("Database.Mysql.username")
-	private String mysqlUsername = "username";
-
-	@Path("Database.Mysql.password")
-	private String mysqlPassword;
-
-	@Path("Database.track-online-status")
-	//todo implement optional var in config. If its not present it's ok.
-	private boolean trackOnlinePlayerStatus = false;
-
-	@Path("Database.server-name")
-	@Comments({
-			"Used in the chosen database implementation",
-			"to identify the server.",
-	})
-	private String serverName = "EDIT THIS";
-
 	@Path("Commands.register-commands")
 	@Comments({
 			"By default Commons includes a plethora of commands",
@@ -102,43 +73,6 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	})
 	private boolean silenceChat = false;
 
-	@Path("Server.Premium.kick-when-full")
-	@Comments({
-			"Determines whether or not to kick a non-premium player",
-			"when a premium user joins the server, and the server",
-			"is currently full.",
-			"Premium users are determined by the 'premium-user-permission'",
-			"node below."
-	})
-	private boolean kickNonPremiumPlayerWhenFull = false;
-
-	@Path("Server.Premium.kick-when-full-message")
-	@Comments({
-			"Message to display to non-premium users after being",
-			"kicked to make room for a premium user."
-	})
-	private String kickNonPremiumMessage = "&eYou were kicked to make room for a Premium User. Sorry.";
-
-
-	@Path("Server.Premium.premium-only-mode")
-	@Comments({
-			"When enabled, only users with premium (defined by a permission below)",
-			"will be able to join your server.",
-			"Those without premium will be displayed a configurable message"
-	})
-	private boolean premiumOnlyMode = false;
-
-	@Path("Server.Premium.premium-only-mode-kick-message")
-	@Comment("This message will be shown to non-premium users who join during premium-only mode.")
-	private String premiumOnlyModeKickMessage = "&cThis server is currently in premium mode";
-
-	@Path("Server.Premium.premium-user-permission")
-	@Comments({
-			"Used to restrict access during premium only mode",
-			"To players who have this permission"
-	})
-	private String premiumModePermission = "commons.premiumuser";
-
 	@Path("Server.Worlds.disable-weather")
 	@Comments({
 			"All the options beneath this are used to control",
@@ -191,11 +125,11 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Comment("Changes whether or not blocks can be broken outside of creative")
 	private boolean enableBlockBreak = true;
 
-	@Path("Server.Worlds.enable-item-pickup")
+	@Path("Server.Worlds.enable-firstPageEnabled-pickup")
 	@Comment("Changes if players are able to pick up items that are dropped")
 	private boolean enableItemPickup = true;
 
-	@Path("Server.Worlds.enable-item-drop")
+	@Path("Server.Worlds.enable-firstPageEnabled-drop")
 	@Comment("Changes if players are able to drop their items")
 	private boolean enableItemDrop = true;
 
@@ -269,89 +203,9 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 			"with warps.",
 			"",
 			"If it's disabled, and a player does /warps, they'll receive",
-			"a chat based menu with pages detailing the available warps."
+			"a chat based menus with pages detailing the available warps."
 	})
 	private boolean enableWarpsMenu = true;
-
-	@Override
-	public boolean hasSqlBackend() {
-		return sqlBackend;
-	}
-
-	@Override
-	public void setMysqlBackend(boolean val) {
-		sqlBackend = val;
-	}
-
-	@Override
-	public String getMysqlHost() {
-		return mysqlHost;
-	}
-
-	@Override
-	public void setMysqlHost(String host) {
-		mysqlHost = host;
-	}
-
-	@Override
-	public String getMysqlDatabaseName() {
-		return mysqlDatabaseName;
-	}
-
-	@Override
-	public void setMysqlDatabaseName(String name) {
-		mysqlDatabaseName = name;
-	}
-
-	@Override
-	public String getMysqlPort() {
-		return mysqlPort;
-	}
-
-	@Override
-	public void setMysqlPort(String port) {
-		mysqlPort = port;
-	}
-
-	@Override
-	public String getMysqlUsername() {
-		return mysqlUsername;
-	}
-
-	@Override
-	public void setMysqlUsername(String username) {
-		mysqlUsername = username;
-	}
-
-	@Override
-	public String getMysqlPassword() {
-		return mysqlPassword;
-	}
-
-	@Override
-	public void setMysqlPassword(String password) {
-		mysqlPassword = password;
-	}
-
-	@Override
-	public boolean trackOnlinePlayerStatus() {
-		return trackOnlinePlayerStatus;
-	}
-
-	@Override
-	public void setTrackOnlinePlayerStatus(boolean val) {
-		trackOnlinePlayerStatus = val;
-	}
-
-	@Override
-	public String getServerName() {
-		return serverName;
-	}
-
-	@Override
-	public void setServerName(String name) {
-		serverName = name;
-	}
 
 	@Override
 	public boolean registerCommands() {
@@ -431,56 +285,6 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Override
 	public void silenceChat(boolean val) {
 		silenceChat = val;
-	}
-
-	@Override
-	public boolean isPremiumOnlyMode() {
-		return premiumOnlyMode;
-	}
-
-	@Override
-	public void setPremiumOnlyMode(boolean val) {
-		premiumOnlyMode = val;
-	}
-
-	@Override
-	public String getPremiumUserPermission() {
-		return premiumModePermission;
-	}
-
-	@Override
-	public void setPremiumUserPermission(String perm) {
-		premiumModePermission = perm;
-	}
-
-	@Override
-	public String getPremiumOnlyModeKickMessage() {
-		return premiumOnlyModeKickMessage;
-	}
-
-	@Override
-	public void premiumOnlyModeKickMessage(String msg) {
-		premiumOnlyModeKickMessage = msg;
-	}
-
-	@Override
-	public boolean kickNonPremiumPlayerWhenFull() {
-		return kickNonPremiumPlayerWhenFull;
-	}
-
-	@Override
-	public void kickNonPremiumPlayerWhenFull(boolean val) {
-		kickNonPremiumPlayerWhenFull = val;
-	}
-
-	@Override
-	public String kickNonPremiumMessage() {
-		return kickNonPremiumMessage;
-	}
-
-	@Override
-	public void setKickNonPremiumMessage(String msg) {
-		kickNonPremiumMessage = msg;
 	}
 
 	@Override

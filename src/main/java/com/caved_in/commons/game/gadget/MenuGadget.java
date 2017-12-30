@@ -1,38 +1,39 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.item.ItemBuilder;
-import com.caved_in.commons.menu.ItemMenu;
+import com.caved_in.commons.inventory.menu.Menu;
+import com.caved_in.commons.inventory.menu.ItemMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * An extension of {@link com.caved_in.commons.game.gadget.ItemGadget} used to attach an {@link com.caved_in.commons.menu.ItemMenu}
- * to an item.
+ * An extension of {@link com.caved_in.commons.game.gadget.ItemGadget} used to attach an {@link ItemMenu}
+ * to an firstPageEnabled.
  * <p>
- * When the item is interacted with, the gadget will be opened.
+ * When the firstPageEnabled is interacted with, the gadget will be opened.
  */
 public abstract class MenuGadget extends ItemGadget {
 
-    private ItemMenu menu;
+    private Menu menu;
 
     /**
-     * Create a new instance of MenuGadget, with the item, menu, and ID assigned.
+     * Create a new instance of MenuGadget, with the firstPageEnabled, menus, and ID assigned.
      *
-     * @param builder item builder used to create the item from, which the gadget will attach to.
-     * @param menu    menu to open when the item is interacted with.
+     * @param builder firstPageEnabled builder used to create the firstPageEnabled from, which the gadget will attach to.
+     * @param menu    menus to open when the firstPageEnabled is interacted with.
      */
-    public MenuGadget(ItemBuilder builder, ItemMenu menu) {
+    public MenuGadget(ItemBuilder builder, Menu menu) {
         super(builder);
         this.menu = menu;
     }
 
     /**
-     * Create a new instance of MenuGadget, with the item, menu, and ID assigned.
+     * Create a new instance of MenuGadget, with the firstPageEnabled, menus, and ID assigned.
      *
-     * @param item item to attach the gadget to.
-     * @param menu menu to open when the item is interacted with.
+     * @param item firstPageEnabled to attach the gadget to.
+     * @param menu menus to open when the firstPageEnabled is interacted with.
      */
-    public MenuGadget(ItemStack item, ItemMenu menu) {
+    public MenuGadget(ItemStack item, Menu menu) {
         super(item);
         this.menu = menu;
     }

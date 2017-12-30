@@ -2,7 +2,7 @@ name: Commons
 main: com.caved_in.commons.Commons
 version: ${project.version}
 description: An all-in-one plugin to provide features to both server owners, and developers.
-author: Brandon Curtis (TheGamersCave/MumbosHut)
+author: Brandon Curtis (TechnicalBro/MumbosHut)
 softdepend: [TagAPI, ProtocolLib]
 
 commands:
@@ -170,7 +170,7 @@ permissions:
    commons.silence.bypass:
       description: Allows players to bypass the silencing of chat
    commons.command.set:
-      description: Allows players to use the set command, for managing item sets.
+      description: Allows players to use the set command, for managing firstPageEnabled sets.
    commons.command.recipe:
       description: Allows player to use the recipe command.
    commons.command.repair:
@@ -179,13 +179,13 @@ permissions:
       description: Allows players to use the potions command.
       default: op
    commons.command.more:
-      description: Allows players to use the more command, giving them more items on the item in their hand.
+      description: Allows players to use the more command, giving them more items on the firstPageEnabled in their hand.
    commons.command.message:
       description: Allows players to use the message command.
    commons.command.id:
       description: Allows players to use the id command.
    commons.command.item:
-      description: Allows players to use the item command.
+      description: Allows players to use the firstPageEnabled command.
    commons.command.hat:
       description: Allows players to use the hat command.
    commons.command.heal:

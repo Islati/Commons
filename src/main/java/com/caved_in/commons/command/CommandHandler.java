@@ -175,7 +175,7 @@ public class CommandHandler implements CommandExecutor {
 		registerArgumentHandler(Enchantment.class, new EnchantmentArgumentHandler());
 
 		//Allow creation of ItemStacks via arguments, and also has variables so you
-		//can default to an itemstack using item names, ids, and id:data values!
+		//can default to an itemstack using firstPageEnabled names, ids, and id:data values!
 		registerArgumentHandler(ItemStack.class, new ItemStackArgumentHandler());
 
 	}

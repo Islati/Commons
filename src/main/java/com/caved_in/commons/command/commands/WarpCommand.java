@@ -1,6 +1,5 @@
 package com.caved_in.commons.command.commands;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.command.Arg;

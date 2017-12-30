@@ -2,21 +2,19 @@ package com.caved_in.commons.item;
 
 import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
-import com.caved_in.commons.config.XmlInventory;
+import com.caved_in.commons.inventory.Inventories;
+import com.caved_in.commons.yml.InvalidConfigurationException;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Internally used to manage item sets for Commons /set command.
+ * Internally used to manage firstPageEnabled sets for Commons /set command.
  */
 public class ItemSetManager {
 
@@ -27,7 +25,7 @@ public class ItemSetManager {
     }
 
     /**
-     * Add the item set to this item set manager.
+     * Add the firstPageEnabled set to this firstPageEnabled set manager.
      *
      * @param set set to add to the manager.
      */
@@ -74,38 +72,36 @@ public class ItemSetManager {
     }
 
     private void save(ItemSet set) {
-        String fileName = String.format("%s%s.xml", Commons.ITEM_SET_DATA_FOLDER, set.getName());
+        String fileName = String.format("%s%s.yml", Commons.ITEM_SET_DATA_FOLDER, set.getName());
         File itemSetFile = new File(fileName);
 
-        Serializer serializer = new Persister();
-
         try {
-            serializer.write(set, itemSetFile);
-            Chat.debug("Saved item-set %s to file");
-        } catch (Exception e) {
+            set.save(itemSetFile);
+            Chat.debug(String.format("Saved firstPageEnabled-set %s to file", set.getName()));
+        } catch (InvalidConfigurationException e) {
             e.printStackTrace();
+            Chat.debug("Failed to save firstPageEnabled set. Please check the console for error log");
         }
     }
 
-    @Root(name = "item-set")
-    public static class ItemSet {
-        @Element(name = "set-name")
+    public static class ItemSet extends YamlConfig {
+        @Path("name")
         private String setName;
 
-        @Element(name = "inventory-items", type = XmlInventory.class)
-        private XmlInventory inventory;
+        @Path("inventory")
+        private Inventory inventory;
 
-        public ItemSet(@Element(name = "set-name") String name, @Element(name = "inventory-items", type = XmlInventory.class) XmlInventory inv) {
+        public ItemSet(File file) {
+            super(file);
+        }
+
+        public ItemSet(String name, Inventory inv) {
             this.setName = name;
             this.inventory = inv;
         }
 
-        public ItemSet(String name, Inventory inv) {
-            this(name, new XmlInventory(inv));
-        }
-
         public Map<Integer, ItemStack> getInventoryContents() {
-            return inventory.getInventoryContents();
+            return Inventories.getContentsAsMap(this.inventory);
         }
 
         public String getName() {

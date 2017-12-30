@@ -7,59 +7,53 @@ import com.caved_in.commons.location.PreTeleportLocation;
 import com.caved_in.commons.location.PreTeleportType;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.Skip;
 import lombok.ToString;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
 import java.util.UUID;
 
-@Root(name = "Player")
 public class MinecraftPlayer extends User {
     private static Commons commons = Commons.getInstance();
 
-    @Element(name = "last-online")
+    @Path("last-online")
     private long lastOnline = 0L;
 
-    @Element(name = "is-premium")
+    @Path("is-premium")
     private boolean isPremium = false;
     //	private FriendList friendsList;
 
     /* If the players in debug mode, they'll receive messages when they do practically anything. */
-    @Element(name = "debug-mode")
+    @Path("debug-mode")
     private boolean debugMode = false;
 
-    @Element(name = "in-staff-chat")
-    private boolean inStaffChat = false;
-
-    @Element(name = "hiding-other-players")
+    @Path("hiding-other-players")
     private boolean hidingOtherPlayers = false;
 
+    @Skip
     private boolean viewingRecipe = false;
 
-    @Element(name = "walk-speed")
+    @Path("walk-speed")
     private double walkSpeed = 0.22;
-    @Element(name = "fly-speed")
+
+    @Path("fly-speed")
     private double flySpeed = 0.1;
 
+    @Skip
     public static final double DEFAULT_WALK_SPEED = 0.22;
+
+    @Skip
     public static final double DEFAULT_FLY_SPEED = 0.1;
 
-    private String currentServer = "";
-
-    @Element(name = "currency-amount")
-    private int currencyAmount = 0;
-
-    private ChatColor tagColor = ChatColor.WHITE;
-
-    @Element(name = "prefix")
-    private String prefix = "";
-
-    @Element(name = "god-mode")
+    @Path("god-mode")
     private boolean godMode = false;
+
+    @Skip
+    private boolean forceRespawn = false;
 
     /* Whether or not the player is currently reloading a gun */
     private long reloadEnd = 0;
@@ -80,12 +74,10 @@ public class MinecraftPlayer extends User {
      * PlayerWrapper  initialization with assigning their currency to {@param currencyAmount}
      *
      * @param playerName     name of the player to be instanced
-     * @param currencyAmount currency the player has
      */
     @Deprecated
-    public MinecraftPlayer(String playerName, int currencyAmount) {
+    public MinecraftPlayer(String playerName) {
         setName(playerName);
-        this.currencyAmount = currencyAmount;
         initWrapper();
     }
 
@@ -99,125 +91,9 @@ public class MinecraftPlayer extends User {
     }
 
     private void initWrapper() {
-        currentServer = commons.getConfiguration().getServerName();
         lastOnline = System.currentTimeMillis();
         setId(Players.getPlayer(getName()).getUniqueId());
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-//			friendsList = new FriendList(id);
-            //TODO: Assign default prefix to user
-            return;
-        }
     }
-
-    /**
-     * Change if the player is in the staff chat
-     *
-     * @param inStaffChat true if they're in staff chat, false otherwise
-     */
-    public void setInStaffChat(boolean inStaffChat) {
-        this.inStaffChat = inStaffChat;
-    }
-
-    /**
-     * Whether or not the player's in the staff chat
-     *
-     * @return true if they are, false otherwise
-     */
-    public boolean isInStaffChat() {
-        return inStaffChat;
-    }
-
-    /**
-     * Adds an amount of currency defined by <i>amountToAdd</i> to the player
-     *
-     * @param amountToAdd how much currency to add to the player
-     * @return The players currency after having <i>amountToAdd</i> added to it
-     */
-    public int addCurrency(double amountToAdd) {
-        currencyAmount += amountToAdd;
-        return currencyAmount;
-    }
-
-    /**
-     * Remove an amount of currency defined by <i>amountToRemove</i> from the player
-     *
-     * @param amountToRemove how much currency to remove from the player
-     * @return The players currency after having <i>amountToRemove</i> from it
-     */
-    public int removeCurrency(double amountToRemove) {
-        currencyAmount -= amountToRemove;
-        return currencyAmount;
-    }
-
-    /**
-     * Check if the player has atleast the amount of currency defined by <i>amount</i>
-     *
-     * @param amount amount to check
-     * @return true if the player has the same or more than <i>amount</i>, false otherwise
-     */
-    public boolean hasCurrency(double amount) {
-        return currencyAmount >= amount;
-    }
-
-    /**
-     * @return Players current currency amount
-     */
-    public int getCurrency() {
-        return currencyAmount;
-    }
-
-    /**
-     * Set the players amount of currency
-     *
-     * @param amount what the players currency is being set to
-     */
-    public void setCurrency(int amount) {
-        currencyAmount = amount;
-    }
-
-    /**
-     * Get the players current server
-     *
-     * @return
-     */
-    public String getServer() {
-        return currentServer;
-    }
-
-    /**
-     * Check if the player is a premium member
-     *
-     * @return
-     */
-    public boolean isPremium() {
-        return isPremium;
-    }
-
-    /**
-     * Set the users premium status
-     *
-     * @param isPremium
-     * @return
-     */
-    public void setPremium(boolean isPremium) {
-        if (!Commons.getInstance().getConfiguration().hasSqlBackend()) {
-            return;
-        }
-
-        this.isPremium = isPremium;
-//		Commons.database.updatePlayerPremium(this);
-    }
-
-    @Deprecated
-    public ChatColor getTagColor() {
-        return tagColor;
-    }
-
-    @Deprecated
-    public void setTagColor(ChatColor tagColor) {
-        this.tagColor = tagColor;
-    }
-
 
     /**
      * Check whether or not the player has a custom walk speed.
@@ -244,21 +120,6 @@ public class MinecraftPlayer extends User {
      */
     public double getWalkSpeed() {
         return walkSpeed;
-    }
-
-    @Deprecated
-    public String getPrefix() {
-        return prefix;
-    }
-
-    /**
-     * Change the players prefix.
-     *
-     * @param prefix prefix to give the player.
-     */
-    @Deprecated
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
     }
 
     /**
@@ -304,10 +165,10 @@ public class MinecraftPlayer extends User {
     }
 
     /**
-     * Set whether or not the player is viewing a recipe menu, or not.
+     * Set whether or not the player is viewing a recipe menus, or not.
      * Used internally in {@link com.caved_in.commons.command.commands.RecipeCommand}.
      *
-     * @param viewingRecipe whether or not the player is viewing a recipe menu.
+     * @param viewingRecipe whether or not the player is viewing a recipe menus.
      */
     public void setViewingRecipe(boolean viewingRecipe) {
         this.viewingRecipe = viewingRecipe;
@@ -397,74 +258,14 @@ public class MinecraftPlayer extends User {
     public void setGodMode(boolean godMode) {
         this.godMode = godMode;
     }
-//
-//	/**
-//	 * Get the custom arrow that the player has equipped; Used to take precedence
-//	 * over*
-//	 * @return
-//	 */
-//	public ItemStack getEquippedArrow() {
-//		return equippedArrow;
-//	}
-//
-//	public void unequipArrow() {
-//		equippedArrow = null;
-//	}
-//
-//	public void equipArrow(ItemStack item) {
-//
-//		if (item.getType() != Material.ARROW) {
-//			//todo handle wrongly equipping arrows
-//			return;
-//		}
-//
-//		equippedArrow = item.clone();
-//	}
-//
-//	public boolean hasArrowEquipped() {
-//		if (equippedArrow == null) {
-//			return false;
-//		}
-//
-//		Player p = getPlayer();
-//
-//		return Inventories.contains(p.getInventory(),getEquippedArrow());
-//	}
-//
-//	public boolean takeArrow() {
-//		if (!hasArrowEquipped()) {
-//			return false;
-//		}
-//
-//		Player player = getPlayer();
-//		PlayerInventory playerInv = player.getInventory();
-//
-//		int arrowSlot = Inventories.getSlotOf(playerInv,equippedArrow);
-//
-//		ItemStack customArrow = playerInv.getItem(arrowSlot);
-//
-//		//If we couldn't get the arrows in slot, then we're not able to take it from the player
-//		if (customArrow == null) {
-//			return false;
-//		}
-//
-//		//Remove 1 of the custom arrows from the stack
-//		customArrow = Items.removeFromStack(customArrow,1);
-//
-//		//Though after taking the arrow from the stack of arrows,
-//		//if it's null, then we're all out!
-//		if (customArrow == null) {
-//			Inventories.clearSlot(playerInv,arrowSlot);
-//			//Unequip the arrows from the player!
-//			unequipArrow();
-//			player.updateInventory();
-//			return true;
-//		}
-//
-//		Inventories.setItem(playerInv,arrowSlot,customArrow);
-//		player.updateInventory();
-//		return true;
-//	}
+
+    public void setForceRespawn(boolean force) {
+        this.forceRespawn = force;
+    }
+
+    public boolean hasForceRespawn() {
+        return this.forceRespawn;
+    }
 
     public void setTeleportRequest(TeleportRequest request) {
         this.teleportRequest = request;

@@ -141,8 +141,9 @@ public class ReflectionUtilities {
     private Class<?>[] toPrimitiveTypeArray(Class<?>[] classes) {
         int a = classes != null ? classes.length : 0;
         Class<?>[] types = new Class<?>[a];
-        for (int i = 0; i < a; i++)
+        for (int i = 0; i < a; i++) {
             types[i] = getPrimitiveType(classes[i]);
+        }
         return types;
     }
 
@@ -150,8 +151,25 @@ public class ReflectionUtilities {
      * Method stuff
      */
 
+    public static Method getMethod(Class<?> clazz, String methodName) {
+        try {
+
+            Method method = clazz.getMethod(methodName);
+
+            if (!method.isAccessible()) {
+                method.setAccessible(true);
+            }
+
+            return method;
+        } catch (NoSuchMethodException e) {
+            Chat.debug("No such method: " + methodName + " on class" + clazz.getCanonicalName() + "!");
+        }
+        return null;
+    }
+
     public static Method getMethod(Class<?> clazz, String methodName, Class<?>... params) {
         try {
+
             Method method = clazz.getDeclaredMethod(methodName, params);
 
             if (!method.isAccessible()) {
@@ -324,6 +342,16 @@ public class ReflectionUtilities {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+        return null;
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static Enum<?> getEnum(Class<Enum> enumClass, String enumFullName) {
+        String[] x = enumFullName.split("\\.(?=[^\\.]+$)");
+        if (x.length == 2) {
+            String enumName = x[1];
+            return Enum.valueOf(enumClass, enumName);
         }
         return null;
     }

@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 public class SetCommand {
     private static ItemSetManager sets;
 
-    //todo move item sets to a menu
+    //todo move firstPageEnabled sets to a menus
 
     public SetCommand() {
         sets = Commons.getInstance().getItemSetManager();
@@ -36,7 +36,7 @@ public class SetCommand {
         }
 
         Players.setInventory(player, set.getInventoryContents(), true);
-        Chat.message(player, String.format("&eYour inventory has been set to the '&a%s&e' item set", set.getName()));
+        Chat.message(player, String.format("&eYour inventory has been set to the '&a%s&e' firstPageEnabled set", set.getName()));
     }
 
     @Command(identifier = "set list")

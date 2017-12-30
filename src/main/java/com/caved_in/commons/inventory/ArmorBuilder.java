@@ -53,8 +53,13 @@ public class ArmorBuilder {
         return this;
     }
 
-    public ArmorBuilder withWeapon(ItemStack item) {
-        setItem(ArmorSlot.WEAPON, item);
+    public ArmorBuilder withMainHand(ItemStack item) {
+        setItem(ArmorSlot.MAIN_HAND, item);
+        return this;
+    }
+
+    public ArmorBuilder withOffHand(ItemStack item) {
+        setItem(ArmorSlot.OFF_HAND,item);
         return this;
     }
 

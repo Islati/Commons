@@ -5,6 +5,46 @@
  n: = Note
 -------------
 
+December 28'th 2017 (Build 1.12.2):
+    ~ ItemMenuBuilder onMenuOpen and onMenuClose have argument type reduced to MenuBehaviour)
+    ~ MultiPageMenu structure rehaul; No generator interface or garb like that just good hackery.
+
+December 27'th 2017 (Build 1.12.2):
+    ~ Modified Menus to use Menu interface not ItemMenu class.
+    + randomDouble method added to numberutils
+    + getRandomLocationInArea(Loc,Loc) is inside Locations
+    + isInsideArea(Loc, Loc) is inside locations.
+    + Began creating MultiPageMenu for generating menus with multiple pages/
+
+December 13'th, 2017 (Build 1.12.2):
+    + Created interface for UserManagerListener(s) to implement, to define proper behaviours.
+    ~ Updated User with sync(Player) method, for use in loading user data from disk.
+    + Created AbstractUserManagerListener to abstract away most the process of registering a user manager
+
+December 6'th, 2017 (Build 1.12.2):
+    ~ Modifying DebugItemDeserialize and Debug*ItemSerialize to use yaml.
+    ~ Updated ItemStackYamlConverter to also include item enchantments.
+    - Removed currency from User / Minecraft player
+    ~ Updated Arena to be handled with yaml
+    ~ All previous instances of XML Serialization are migrated to yml. Not sure if bug free yet, but we'll find out.
+    - Removed entire sql module. Not needed and truly bloats commons.
+    - Removed getRandomPremiumPlayer method from Commons.
+
+December 5'th, 2017 (Build 1.12.2):
+    + getContentsAsMap in Inventories to aid future ventures.
+    ~ Slowly removing SimpleXML by rewriting the instances of classes which depend on it, in order to use yaml effectively and
+      reduce the overall size of the library.
+    + InventoryConverter for yml is now available.
+    ~ EnchantWrapper modified to ItemEnchantmentWrapper for naming and yml serialization porpoises.
+
+November 19'th, 2017 (Build 1.12.2):
+    + Updated title to have static methods for sending to players via the new spigot implementation.
+    ~ Update the title handler to
+
+November 18'th, 2017 (Build 1.12.2):
+    n: Began updating source code from 1.9.2 to 1.12.2
+    - Removed Cuboid management.
+
 January 22'nd, 2016 (Build 1.8.8-3):
 	n: Tampering with Reflections (https://github.com/ronmamo/reflections) to write class loading methods!
 		Could be used to load all command classes, debug actions, listeners, and so on in a package; Who knows?

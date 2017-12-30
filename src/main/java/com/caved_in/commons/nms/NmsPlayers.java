@@ -1,16 +1,13 @@
 package com.caved_in.commons.nms;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.reflection.ReflectionUtilities;
-import io.netty.channel.Channel;
 import org.bukkit.entity.Player;
+import org.joor.Reflect;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class NmsPlayers {
-    private static final Field channelField = ReflectionUtilities.getField(ReflectionUtilities.getNMSClass("NetworkManager"), "k");
 
     /**
      * Sends the packet to the players connection.
@@ -72,18 +69,24 @@ public class NmsPlayers {
         }
     }
 
-    /**
-     * Get the network channel of a player
-     *
-     * @param player player to get the channel of
-     * @return {@link io.netty.channel.Channel} which manages the player
-     */
-    public static Channel getChannel(Player player) {
-        try {
-            return (Channel) channelField.get(getNetworkManager(player));
-        } catch (IllegalAccessException e) {
-            Chat.debug("Failed to get the channel of player: " + player.getName());
-            return null;
-        }
+    public static void setContainerDefault(Player player) {
+        Object entityPlayer = toEntityPlayer(player);
+        Reflect.on(entityPlayer).set("activeContainer",Reflect.on(entityPlayer).get("defaultContainer"));
     }
+
+    public static void setActiveContainer(Player player, Object container) {
+        Object entityPlayer = toEntityPlayer(player);
+        Class containerClass = ReflectionUtilities.getNMSClass("Container");
+
+        Reflect.on(entityPlayer).set("activeContainer",containerClass.cast(container));
+
+    }
+
+    public void closeInventory(Player player) {
+        Class craftEventFactory = ReflectionUtilities.getCBClass("event.CraftEventFactory");
+
+        Reflect.on(craftEventFactory).call("handleInventoryCloseEvent",NmsPlayers.toEntityPlayer(player));
+    }
+
+
 }
