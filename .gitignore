@@ -23,8 +23,8 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-.sync
-.idea
+.sync/*
+.idea/*
 docs
 target
 temp
