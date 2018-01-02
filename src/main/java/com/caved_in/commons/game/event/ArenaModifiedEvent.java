@@ -18,7 +18,7 @@ public class ArenaModifiedEvent extends Event implements Cancellable {
 
     public ArenaModifiedEvent(Arena arena) {
         this.arena = arena;
-        this.cancelled = !arena.getGame().autoSave();
+        this.cancelled = false;
     }
 
     public Arena getArena() {
@@ -34,9 +34,6 @@ public class ArenaModifiedEvent extends Event implements Cancellable {
         if (e.isCancelled()) {
             return;
         }
-
-        Arena arena = e.getArena();
-        arena.getGame().saveArena(arena);
     }
 
     public static void throwEvent(Arena arena) {

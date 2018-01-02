@@ -11,6 +11,7 @@ import com.caved_in.commons.player.Players;
 import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.reflection.ReflectionUtilities;
 import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.InvalidConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -57,12 +58,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	public void onEnable() {
 		initLogger();
 
-		arenaManager = new ArenaManager(this);
-		loadArenas();
-		if (!arenaManager.hasArenas()) {
-			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
-		}
-
 		super.onEnable();
 
 		for (Player player : Players.allPlayers()) {
@@ -103,9 +98,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	@Override
 	public void onDisable() {
 		super.onDisable();
-		if (arenaManager.hasArenas()) {
-			saveArenas();
-		}
 
 		shutdown();
 
@@ -161,82 +153,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-
-	/**
-	 * @return The folder in which arena data resides in, related to the minigame.
-	 */
-	public File getArenaFolder() {
-		return new File("plugins/" + getName() + "/Arenas/");
-	}
-
-	/**
-	 * Load the arenas into the arena manager; Used internally. Shouldn't be called.
-	 */
-	public void loadArenas() {
-		Logger logger = getLogger();
-		File arenaFolder = getArenaFolder();
-		if (!arenaFolder.exists()) {
-			arenaFolder.mkdirs();
-		}
-
-		Collection<File> arenas = FileUtils.listFiles(arenaFolder, null, false);
-
-		if (arenas.isEmpty()) {
-			logger.info("No arenas loaded for " + getName());
-			return;
-		}
-
-		for (File file : arenas) {
-			try {
-				Arena arena = new Arena(file);
-				arena.load();
-				arenaManager.addArena(arena);
-				logger.info(("Loaded arena " + arena.toString()));
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.info("Unable to load arena from file: " + file.getName());
-			}
-		}
-
-	}
-
-	/**
-	 * @return the {@link ArenaManager} used to handle all the worlds / arenas associated with this minigame.
-	 */
-	public ArenaManager getArenaManager() {
-		return arenaManager;
-	}
-
-	/**
-	 * @return {@link Arena} that's currently active.
-	 */
-	public Arena getActiveArena() {
-		return arenaManager.getActiveArena();
-	}
-
-	/**
-	 * Save the given arena to file.
-	 *
-	 * @param arena arena to save.
-	 */
-	public void saveArena(Arena arena) {
-		File arenaFile = new File(getArenaFolder(), arena.getWorldName() + ".yml");
-		try {
-			arena.save(arenaFile);
-			debug("Saved " + arena.toString() + " to " + arenaFile.getPath());
-		} catch (Exception e) {
-			e.printStackTrace();
-			debug("Unable to save arena " + arena.getArenaName() + " to file " + arenaFile.getName());
-		}
-	}
-
-	/**
-	 * Save all the arenas currently handled by the arena manager, to file.
-	 */
-	public void saveArenas() {
-		getArenaManager().getArenas().forEach(this::saveArena);
-	}
-
 	/**
 	 * @return whether or not auto-save data is enabled.
 	 */

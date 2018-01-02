@@ -1,5 +1,6 @@
 package com.caved_in.commons.game.world;
 
+import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.event.ArenaModifiedEvent;
 import com.caved_in.commons.utilities.ListUtils;
@@ -23,7 +24,7 @@ public class Arena extends YamlConfig implements GameArena {
     private static final Random random = new Random();
 
     @Skip
-    private MiniGame game;
+    private CraftGame game;
 
     @Path("id")
     private int id = 0;
@@ -68,6 +69,10 @@ public class Arena extends YamlConfig implements GameArena {
         this.placeables = placeables;
     }
 
+    public Arena() {
+
+    }
+
     public Arena(World world) {
         arenaName = world.getName();
         worldName = world.getName();
@@ -96,7 +101,7 @@ public class Arena extends YamlConfig implements GameArena {
 
     @Override
     public List<Location> getSpawnLocations() {
-        List<Location> locs = spawns.stream().collect(Collectors.toList());
+        List<Location> locs = new ArrayList<>(spawns);
         return locs;
     }
 
@@ -172,11 +177,11 @@ public class Arena extends YamlConfig implements GameArena {
         ArenaModifiedEvent.throwEvent(this);
     }
 
-    public MiniGame getGame() {
+    public CraftGame getGame() {
         return game;
     }
 
-    public void setGame(MiniGame game) {
+    public void setGame(CraftGame game) {
         this.game = game;
     }
 

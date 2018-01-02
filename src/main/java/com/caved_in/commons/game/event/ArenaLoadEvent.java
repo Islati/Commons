@@ -1,5 +1,6 @@
 package com.caved_in.commons.game.event;
 
+import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.world.Arena;
 import org.bukkit.event.Event;
@@ -13,9 +14,9 @@ public class ArenaLoadEvent extends Event {
 
     private Arena loaded;
 
-    private MiniGame game;
+    private CraftGame game;
 
-    public ArenaLoadEvent(MiniGame game, Arena loaded) {
+    public ArenaLoadEvent(CraftGame game, Arena loaded) {
         this.game = game;
         this.loaded = loaded;
     }
@@ -33,7 +34,7 @@ public class ArenaLoadEvent extends Event {
         return handlers;
     }
 
-    public MiniGame getGame() {
+    public CraftGame getGame() {
         return game;
     }
 }

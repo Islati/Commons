@@ -11,8 +11,6 @@ import com.caved_in.commons.player.Players;
 import com.caved_in.commons.scoreboard.BoardManager;
 import com.caved_in.commons.scoreboard.ScoreboardManager;
 import com.caved_in.commons.threading.RunnableManager;
-import com.caved_in.commons.threading.executors.BukkitExecutors;
-import com.caved_in.commons.threading.executors.BukkitScheduledExecutorService;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,10 +20,6 @@ import java.util.logging.Logger;
 
 
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
-
-	private BukkitScheduledExecutorService syncExecuter;
-
-	private BukkitScheduledExecutorService asyncExecuter;
 
 	private BoardManager scoreboardManager;
 
@@ -55,16 +49,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
         fancy shmancy work with the scoreboard.
          */
 		scoreboardManager = new ScoreboardManager(this, 15l);
-
-        /*
-		Create the syncronous promise listener
-         */
-		syncExecuter = BukkitExecutors.newSynchronous(this);
-
-        /*
-		Create the asyncronous promise listener
-         */
-		asyncExecuter = BukkitExecutors.newAsynchronous(this);
 
 		if (Plugins.hasProtocolLib()) {
 			/*
@@ -137,14 +121,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public void registerDebugActionsByPackage(String pkg) {
 		Debugger.addDebugActionsByPackage(pkg);
-	}
-
-	public BukkitScheduledExecutorService getSyncExecuter() {
-		return syncExecuter;
-	}
-
-	public BukkitScheduledExecutorService getAsyncExecuter() {
-		return asyncExecuter;
 	}
 
 	public RunnableManager getThreadManager() {

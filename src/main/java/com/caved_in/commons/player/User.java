@@ -14,20 +14,20 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
     private String name;
 
     @Path("uuid")
-    private UUID id;
+    private String id;
 
     @Path("world")
     private String worldName;
 
     public User(Player p) {
         name = p.getName();
-        id = p.getUniqueId();
+        id = p.getUniqueId().toString();
         worldName = p.getWorld().getName();
     }
 
     public User(String name, UUID id, String world) {
         this.name = name;
-        this.id = id;
+        this.id = id.toString();
         this.worldName = world;
     }
 
@@ -40,7 +40,7 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
     }
 
     public void setId(UUID id) {
-        this.id = id;
+        this.id = id.toString();
     }
 
     @Override
@@ -50,7 +50,7 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
 
     @Override
     public UUID getId() {
-        return id;
+        return UUID.fromString(id);
     }
 
     @Override
@@ -101,7 +101,7 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
      * @param player Player to update user data with.
      */
     public void sync(Player player) {
-        this.id = player.getUniqueId();
+        this.id = player.getUniqueId().toString();
         this.name = player.getName();
         this.worldName = player.getWorld().getName();
     }

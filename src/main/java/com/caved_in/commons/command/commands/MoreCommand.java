@@ -13,19 +13,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class MoreCommand {
     @Command(identifier = "more", permissions = {Perms.COMMAND_MORE})
-    public void onMoreCommand(Player player, @FlagArg("a") final boolean allItems) {
-        if (allItems) {
-            PlayerInventory inventory = player.getInventory();
-            for (ItemStack item : inventory.getContents()) {
-                if (item == null) {
-                    continue;
-                }
-
-                item.setAmount(item.getMaxStackSize());
-            }
-            return;
-        }
-
+    public void onMoreCommand(Player player) {
         if (!Players.hasItemInHand(player)) {
             Chat.message(player, Messages.ITEM_IN_HAND_REQUIRED);
             return;

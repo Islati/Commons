@@ -8,7 +8,13 @@ import com.caved_in.commons.game.state.GameState;
 import com.caved_in.commons.game.state.GameStateManager;
 import com.caved_in.commons.game.state.IGameState;
 import com.caved_in.commons.game.thread.GameUpdateThread;
+import com.caved_in.commons.game.world.Arena;
+import com.caved_in.commons.game.world.ArenaHandler;
+import com.caved_in.commons.game.world.ArenaManager;
+import com.caved_in.commons.game.world.GameArena;
 import com.caved_in.commons.plugin.BukkitPlugin;
+import com.caved_in.commons.world.Worlds;
+import com.caved_in.commons.yml.InvalidConfigurationException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,6 +49,11 @@ public abstract class CraftGame<T extends UserManager> extends BukkitPlugin impl
         //Create the core update thread and begin running it immediately, with the desired delay.
         GameUpdateThread updateThread = new GameUpdateThread(this);
         getThreadManager().registerSyncRepeatTask("Game Update", updateThread, 20, tickDelay());
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
     }
 
     public abstract void startup();

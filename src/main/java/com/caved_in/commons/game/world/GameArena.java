@@ -70,4 +70,8 @@ public interface GameArena {
 
     boolean isPlaceable(Block block);
 
+    default boolean isRegion() {
+        return false;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.caved_in.commons.game.event;
 
+import com.caved_in.commons.game.CraftGame;
 import com.caved_in.commons.game.MiniGame;
 import com.caved_in.commons.game.world.Arena;
 import org.bukkit.World;
@@ -19,9 +20,9 @@ public class ArenaCycleEvent extends Event implements Cancellable {
 
     private Arena to;
 
-    private MiniGame game;
+    private CraftGame game;
 
-    public ArenaCycleEvent(MiniGame game, Arena from, Arena to) {
+    public ArenaCycleEvent(CraftGame game, Arena from, Arena to) {
         this.game = game;
         this.from = from;
         this.to = to;
@@ -50,15 +51,15 @@ public class ArenaCycleEvent extends Event implements Cancellable {
         return to;
     }
 
-    public void setTo(World world) {
-        to = getGame().getArenaManager().getArena(world);
+    public void setTo(Arena arena) {
+        this.to = arena;
     }
 
     public static HandlerList getHandlerList() {
         return handlers;
     }
 
-    public MiniGame getGame() {
+    public CraftGame getGame() {
         return game;
     }
 }

@@ -41,7 +41,7 @@ public class ItemCommand {
     }
 
     @Command(identifier = "i save", permissions = {Perms.COMMAND_ITEM})
-    public void onItemSaveCommand(Player player, @FlagArg("o")final boolean offHand, @Wildcard @Arg(name = "file name") String name) {
+    public void onItemSaveCommand(Player player, @Wildcard @Arg(name = "file name") String name) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(name.trim())) {
             Chat.actionMessage(player, "The items name must not be empty!");
             return;

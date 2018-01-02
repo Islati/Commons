@@ -1,10 +1,8 @@
 package com.caved_in.commons.player;
 
 import com.caved_in.commons.Commons;
-import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.block.Direction;
-import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.config.ColorCode;
 import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.entity.Entities;
@@ -29,7 +27,6 @@ import com.caved_in.commons.world.WorldHeight;
 import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.gson.Gson;
 import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -42,7 +39,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Players {
@@ -53,8 +49,6 @@ public class Players {
 
     /* Map of all the players data; Wrapped player elements */
     private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
-
-    private static Gson gson = new Gson();
 
     /**
      * Check if a player has loaded data

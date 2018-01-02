@@ -69,6 +69,7 @@
                                     <include>org.reflections:reflections:jar:*</include>
                                     <include>org.javassist:javassist:jar:*</include>
                                     <include>joda-time:joda-time:jar:*</include>
+                                    <include>com.google.guava:guava:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
@@ -210,6 +211,12 @@
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.20.0-GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 </project>
