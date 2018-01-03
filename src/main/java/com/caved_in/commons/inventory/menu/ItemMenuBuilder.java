@@ -27,6 +27,11 @@ public class ItemMenuBuilder {
     private boolean exitOnClickOutside = false;
 
     /*
+    If there's no items, it'll default to building a single row.
+     */
+    private int rows = 1;
+
+    /*
     Map of all the menus behaviour types and the actions going to be executed.
      */
     private Map<MenuAction, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
@@ -57,6 +62,11 @@ public class ItemMenuBuilder {
         return this;
     }
 
+    public ItemMenuBuilder rows(int count) {
+        this.rows = count;
+        return this;
+    }
+
     public ItemMenuBuilder addBehaviour(MenuAction type, MenuBehaviour action) {
         menuActions.get(type).add(action);
         return this;
@@ -74,18 +84,25 @@ public class ItemMenuBuilder {
 
     public ItemMenu getMenu() {
         Validate.notNull(title);
-        Validate.notEmpty(items);
 
         /*
         Retrieve the rows required to fit the furthest firstPageEnabled
         on the menus; Thus everything falls before that firstPageEnabled and
         fits.
          */
-        int rows = Menus.getRowsForIndex(Menus.getHighestIndex(items));
+        int rowCount = 0;
 
-        ItemMenu menu = new ItemMenu(title, rows);
+        if (items.isEmpty()) {
+            rowCount = this.rows;
+        } else {
+            rowCount = Menus.getRowsForIndex(Menus.getHighestIndex(items));
+        }
+
+        ItemMenu menu = new ItemMenu(title, rowCount);
         menu.setBehaviours(menuActions);
-        menu.setMenuItems(items);
+        if (!items.isEmpty()) {
+            menu.setMenuItems(items);
+        }
         return menu;
     }
 

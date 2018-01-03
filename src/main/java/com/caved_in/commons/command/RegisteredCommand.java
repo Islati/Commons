@@ -309,7 +309,13 @@ public class RegisteredCommand {
     }
 
     public boolean testPermission(CommandSender sender) {
-        return Permissions.hasPermissions(sender, this.permissions);
+        for(String s : this.permissions) {
+            if (!sender.hasPermission(s)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

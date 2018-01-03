@@ -1,3 +1,5 @@
+* ItemGridBuilder to put in empty rows?
+
 GUNS & BULLETS DAMAGE OPTION
 =================
 Will reduce damage and accuracy over the distance the entity (bullet) has travelled.

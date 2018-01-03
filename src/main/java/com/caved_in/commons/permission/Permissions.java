@@ -6,6 +6,10 @@ import org.bukkit.entity.Player;
 public class Permissions {
 
     public static boolean hasPermission(Player player, Permissible item) {
+        if (player == null || item == null) {
+            return false;
+        }
+
         return player.hasPermission(item.getPermission());
     }
 
