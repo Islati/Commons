@@ -35,13 +35,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	private ArenaManager arenaManager;
 
-	private UserManagerListener userManagerListener = null;
-
-	/* The class which our user manager is created from */
-	private Class<? extends UserManager> userManagerClass = null;
-
-	private T userManager = null;
-
 	/**
 	 * Initialize the minigame without direct registration of any classes
 	 */
@@ -49,50 +42,9 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 	}
 
-	@Deprecated
-	public MiniGame(Class<? extends UserManager> userManager) {
-		registerUserManager(userManager);
-	}
-
 	@Override
 	public void onEnable() {
-		initLogger();
-
 		super.onEnable();
-
-		for (Player player : Players.allPlayers()) {
-			userManager.addUser(player);
-		}
-
-		if (userManager == null) {
-			boolean hasClass = userManagerClass == null;
-			debug(String.format("User manager class %s", hasClass ? "is null" : "isn't null"));
-
-			if (hasClass) {
-				Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
-				/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
-				this.userManager = ReflectionUtilities.invokeConstructor(constructor);
-				debug("Created usermanager of class " + userManagerClass.getCanonicalName());
-			} else {
-				debug("Unable to locate the usermanager class");
-			}
-		}
-
-        /*
-        Now if the user manager has been initialized, we want to make sure that we're
-        able to get the parent plugin from the UserManager- So assign it to be so! :)
-         */
-		if (userManager != null) {
-			userManager.setParent(this);
-		}
-
-		/* Create the connection listener that handles the managing of game-player data */
-		if (userManagerListener == null) {
-			userManagerListener = new UserManagerListener(this,userManager);
-		}
-
-        /* Register the game connection listener */
-		registerListeners(userManagerListener);
 	}
 
 	@Override
@@ -101,8 +53,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 		shutdown();
 
-		userManager.disposeAll();
-		userManager = null;
+		getUserManager().disposeAll();
 	}
 
 	@Override
@@ -170,35 +121,6 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	}
 
 	/**
-	 * Register the given class as the MiniGames {@link UserManager}.
-	 * Loaded via reflection, must contain the default constructor for a UserManager.
-	 *
-	 * @param userManagerClass class to register as the user manager.
-	 */
-	public void registerUserManager(Class<? extends UserManager> userManagerClass) {
-		this.userManagerClass = userManagerClass;
-
-		/* Create the constructor the the user-manager class */
-		Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
-
-		/* Invoke the user-manager constructor with the user class, and create the user-manager from it */
-		this.userManager = ReflectionUtilities.invokeConstructor(constructor);
-	}
-
-	public void setUserManagerListener(UserManagerListener listener) {
-		userManagerListener = listener;
-	}
-
-	/**
-	 * Retrieve the UserManager used to handle all the instanced player data, specific to this MiniGame.
-	 *
-	 * @return the usermanager used to handle player data.
-	 */
-	public T getUserManager() {
-		return userManager;
-	}
-
-	/**
 	 * Operations to perform when the MiniGame is being initialized.
 	 */
 	public abstract void startup();
@@ -219,4 +141,10 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	 * Initialize configuration in this method. Called before {@link MiniGame#startup()}
 	 */
 	public abstract void initConfig();
+
+	/**
+	 * Retrieve the user manager for this minigame.
+	 * @return User manager for the game.
+	 */
+	public abstract T getUserManager();
 }
