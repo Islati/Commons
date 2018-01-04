@@ -30,6 +30,9 @@ public class GameStateManager {
         return gameStates.get(activeState);
     }
 
+    public int getActiveStateId() {
+        return getActiveState().id();
+    }
 
     public void update() {
         GameState activeState = getActiveState();
