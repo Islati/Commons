@@ -4,6 +4,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.nms.minecraft_1_12_x.ActionMessageHandler_1_12X;
 import com.caved_in.commons.nms.minecraft_1_12_x.ParticleEffectsHandler_1_12X;
 import com.caved_in.commons.nms.minecraft_1_12_x.UnhandledStackTrace_1_12X;
+import com.caved_in.commons.nms.minecraft_v1_7_R4.ParticleEffectHandler_1710;
 import com.caved_in.commons.nms.minecraft_1_8_R3.*;
 import com.caved_in.commons.nms.minecraft_1_9x.*;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
@@ -41,6 +42,8 @@ public class NMS {
         Chat.debug("NMS Version is: '" + Plugins.getNmsVersion() + "'");
 
         switch (Plugins.getNmsVersion()) {
+            case "v1_7_R4":
+                particleEffectsHandler = new ParticleEffectHandler_1710();
             case "v1_8_R3":
                 stackTraceHandler = new UnhandledStackTrace_18R3();
                 actionMessageHandler = new ActionMessageHandler_18R3();

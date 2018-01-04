@@ -36,6 +36,10 @@ public class RegionArena extends YamlConfig implements GameArena {
     @Path("placeable-blocks")
     private List<Integer> placeableBlockIds = new ArrayList<>();
 
+    public RegionArena() {
+
+    }
+
     public RegionArena(File file) {
         super(file);
     }
@@ -106,6 +110,10 @@ public class RegionArena extends YamlConfig implements GameArena {
 
     public Location getLowerBound() {
         return lowerBound;
+    }
+
+    public void setArenaName(String name) {
+        this.name = name;
     }
 
     public boolean isInside(Location location) {

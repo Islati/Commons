@@ -1,4 +1,6 @@
 * ItemGridBuilder to put in empty rows?
+* Implement rollback to region arena
+* Implement fix for item temporarily entering inventory on 1.7.10
 
 GUNS & BULLETS DAMAGE OPTION
 =================
