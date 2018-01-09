@@ -3,6 +3,7 @@ package com.caved_in.commons.nms.minecraft_1_8_R3;
 import com.caved_in.commons.nms.ForceRespawnHandler;
 import com.caved_in.commons.nms.NmsPlayers;
 import com.caved_in.commons.reflection.ReflectionUtilities;
+import net.minecraft.server.v1_7_R4.EnumClientCommand;
 import org.bukkit.entity.Player;
 
 import java.util.ConcurrentModificationException;
@@ -15,7 +16,7 @@ public class ForceRespawnHandler_18R3 implements ForceRespawnHandler {
 			//Retrieve the packetplayinclientcommand class which we'll be using to force a respawn
 			Class<?> packetPlayInClientCommandClass = ReflectionUtilities.getNMSClass("PacketPlayInClientCommand");
 			//Retrieve the enumClientCommand class which is used to send the "PERFORM_RESPAWN" param (enum) as part of the packet.
-			Class<?> enumClientCommandClass = ReflectionUtilities.getNMSClass("PacketPlayInClientCommand.EnumClientCommand");
+			Class<?> enumClientCommandClass = ReflectionUtilities.getNMSClass("EnumClientCommand");
 			Class<Enum> enumClientCommand = (Class<Enum>) enumClientCommandClass;
 
 			//Now we translate the above class into an enum value, as per requried by the packet we're sending
@@ -31,6 +32,6 @@ public class ForceRespawnHandler_18R3 implements ForceRespawnHandler {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-//		((CraftPlayer) player).getHandle().playerConnection.a(new PacketPlayInClientCommand(PacketPlayInClientCommand.EnumClientCommand.PERFORM_RESPAWN));
+//		((CraftPlayer) player).getHandle().playerConnection.a(new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN));
 	}
 }

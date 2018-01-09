@@ -32,7 +32,7 @@ public class ItemPage {
 
     private List<MenuItem> pageItems;
     private int pageIndex;
-    private String itemPageTitleFormat = "{title} - Page {pageIndex}";
+    private String itemPageTitleFormat = "{displayName} - Page {pageIndex}";
     private String title;
 
     private Map<MenuAction, List<MenuBehaviour>> behaviours = new HashMap<>();
@@ -73,7 +73,7 @@ public class ItemPage {
     }
 
     public ItemMenu getPageMenu() {
-        ItemPage.Menu pageMenu = new ItemPage.Menu(itemPageTitleFormat.replace("{title}",title).replace("{pageIndex}","" + pageIndex + 1), Menus.getRows(pageItems.size()));
+        ItemPage.Menu pageMenu = new ItemPage.Menu(itemPageTitleFormat.replace("{displayName}",title).replace("{pageIndex}","" + pageIndex + 1), Menus.getRows(pageItems.size()));
 
         pageMenu.setPage(pageIndex);
 

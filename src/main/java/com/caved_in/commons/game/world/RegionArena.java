@@ -3,6 +3,8 @@ package com.caved_in.commons.game.world;
 import com.caved_in.commons.location.Locations;
 import com.caved_in.commons.yml.Path;
 import com.caved_in.commons.yml.YamlConfig;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -16,18 +18,23 @@ public class RegionArena extends YamlConfig implements GameArena {
     private int id;
 
     @Path("name")
+    @Getter @Setter
     private String name;
 
     @Path("enabled")
+    @Getter @Setter
     private boolean enabled;
 
     @Path("upper-bound")
+    @Getter @Setter
     private Location upperBound;
 
     @Path("lower-bound")
+    @Getter @Setter
     private Location lowerBound;
 
     @Path("spawn-points")
+    @Getter
     private List<Location> spawns = new ArrayList<>();
 
     @Path("breakable-blocks")

@@ -12,7 +12,7 @@ import java.util.Map;
 public class ItemMenuBuilder {
 
     /*
-    The title of the menus we're wanting to create
+    The displayName of the menus we're wanting to create
     */
     private String title = null;
 

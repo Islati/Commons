@@ -14,7 +14,7 @@ import static com.caved_in.commons.inventory.menu.MenuAction.OPEN;
 public class MultiPageMenu implements Menu {
     private List<ItemPage> pages;
 
-    private String titleFormat = "{title} - Page {page}";
+    private String titleFormat = "{displayName} - Page {page}";
     private String title = "";
 
     private int pageActive = 0;

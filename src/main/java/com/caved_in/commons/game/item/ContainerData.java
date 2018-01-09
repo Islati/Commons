@@ -13,7 +13,7 @@ public class ContainerData extends YamlConfig {
     @Path("enabled")
     private boolean enabled = true;
 
-    @Path("container-title")
+    @Path("container-displayName")
     private String title = "Chest";
 
     @Path("container-id")

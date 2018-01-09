@@ -21,7 +21,7 @@ public abstract class AbstractTitle {
     private boolean ticks = false;
 
     /**
-     * Create a new 1.8 title
+     * Create a new 1.8 displayName
      *
      * @param title Title
      */
@@ -30,7 +30,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Create a new 1.8 title
+     * Create a new 1.8 displayName
      *
      * @param title    Title text
      * @param subtitle Subtitle text
@@ -41,12 +41,12 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Copy 1.8 title
+     * Copy 1.8 displayName
      *
      * @param title Title
      */
     public AbstractTitle(AbstractTitle title) {
-// Copy title
+// Copy displayName
         this.title = title.title;
         this.subtitle = title.subtitle;
         this.titleColor = title.titleColor;
@@ -58,7 +58,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Create a new 1.8 title
+     * Create a new 1.8 displayName
      *
      * @param title       Title text
      * @param subtitle    Subtitle text
@@ -76,7 +76,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Set title text
+     * Set displayName text
      *
      * @param title Title
      */
@@ -85,7 +85,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Get title text
+     * Get displayName text
      *
      * @return Title text
      */
@@ -112,7 +112,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Set the title color
+     * Set the displayName color
      *
      * @param color Chat color
      */
@@ -130,7 +130,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Set title fade in time
+     * Set displayName fade in time
      *
      * @param time Time
      */
@@ -139,7 +139,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Set title fade out time
+     * Set displayName fade out time
      *
      * @param time Time
      */
@@ -148,7 +148,7 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Set title stay time
+     * Set displayName stay time
      *
      * @param time Time
      */
@@ -204,14 +204,14 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Send the title to a player
+     * Send the displayName to a player
      *
      * @param player Player
      */
     public abstract void send(Player player);
 
     /**
-     * Broadcast the title to all players
+     * Broadcast the displayName to all players
      */
     public void broadcast() {
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -220,14 +220,14 @@ public abstract class AbstractTitle {
     }
 
     /**
-     * Clear the title
+     * Clear the displayName
      *
      * @param player Player
      */
     public abstract void clearTitle(Player player);
 
     /**
-     * Reset the title settings
+     * Reset the displayName settings
      *
      * @param player Player
      */

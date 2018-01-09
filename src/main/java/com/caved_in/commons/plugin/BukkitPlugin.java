@@ -8,8 +8,6 @@ import com.caved_in.commons.game.gadget.Gadget;
 import com.caved_in.commons.game.gadget.Gadgets;
 import com.caved_in.commons.item.ItemMessage;
 import com.caved_in.commons.player.Players;
-import com.caved_in.commons.scoreboard.BoardManager;
-import com.caved_in.commons.scoreboard.ScoreboardManager;
 import com.caved_in.commons.threading.RunnableManager;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginLogger;
@@ -20,8 +18,6 @@ import java.util.logging.Logger;
 
 
 public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
-
-	private BoardManager scoreboardManager;
 
 	private RunnableManager threadManager;
 
@@ -43,12 +39,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		Create the thread manager, used to wrap tasks.
          */
 		threadManager = new RunnableManager(this);
-
-        /*
-		Create the scoreboard manager, incase you wish to do
-        fancy shmancy work with the scoreboard.
-         */
-		scoreboardManager = new ScoreboardManager(this, 15l);
 
 		if (Plugins.hasProtocolLib()) {
 			/*
@@ -136,10 +126,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		for (String m : message) {
 			logger.log(Level.INFO, m);
 		}
-	}
-
-	public BoardManager getScoreboardManager() {
-		return scoreboardManager;
 	}
 
 	public Logger getPluginLogger() {

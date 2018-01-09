@@ -1428,24 +1428,24 @@ public class Items {
     }
 
     /**
-     * Create a book with custom title, author and pages.
+     * Create a book with custom displayName, author and pages.
      *
-     * @param title  title of the book
+     * @param title  displayName of the book
      * @param author author of the book
      * @param pages  pages to scribe the book with
-     * @return the book with custom title, author, and pages assigned.
+     * @return the book with custom displayName, author, and pages assigned.
      */
     public static ItemStack makeBook(String title, String author, String... pages) {
         return makeBook(title, author, Arrays.asList(pages));
     }
 
     /**
-     * Create a book with custom title, author, and pages.
+     * Create a book with custom displayName, author, and pages.
      *
-     * @param title  title of the book
+     * @param title  displayName of the book
      * @param author author of the book
      * @param pages  pages the book has.
-     * @return the book with custom title, author, and pages assigned.
+     * @return the book with custom displayName, author, and pages assigned.
      */
     public static ItemStack makeBook(String title, String author, List<String> pages) {
         ItemStack book = makeItem(Material.WRITTEN_BOOK);

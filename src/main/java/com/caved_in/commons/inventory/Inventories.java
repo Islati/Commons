@@ -378,9 +378,9 @@ public class Inventories {
     /**
      * Create a custom inventory.
      *
-     * @param title title to give the inventory (color codes supported with & prefix)
+     * @param title displayName to give the inventory (color codes supported with & prefix)
      * @param rows  rows to give the inventory
-     * @return an inventory with the title, and rows.
+     * @return an inventory with the displayName, and rows.
      */
     public static Inventory makeInventory(String title, int rows) {
         return Bukkit.getServer().createInventory(null, rows * 9, StringUtil.formatColorCodes(title));
@@ -477,7 +477,7 @@ public class Inventories {
      * of NMS and a version of {@link com.caved_in.commons.nms.InventoryHandler}
      *
      * @param inv   inventory to change
-     * @param title new title to assign the inventory
+     * @param title new displayName to assign the inventory
      */
     public static void rename(Inventory inv, String title) {
         NMS.getInventoryHandler().changeTitle(inv, title);

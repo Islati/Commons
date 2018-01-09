@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MultiPageMenuBuilder {
 
-    private static final String MENU_TITLE_BASE = "{title} - Page {page}";
+    private static final String MENU_TITLE_BASE = "{displayName} - Page {page}";
 
     private List<MenuItem> menuItems = new ArrayList<>();
 

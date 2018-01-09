@@ -28,7 +28,7 @@ public class NonBreakingInventoryHandler implements InventoryHandler {
     public void changeTitle(Inventory inv, String title) {
         try {
             Object minecrafInventory = ReflectionUtilities.setAccessible(obcCraftInventory.getDeclaredField("inventory")).get(inv);
-            ReflectionUtilities.setAccessible(obcMinecraftInventory.getDeclaredField("title")).set(minecrafInventory, title);
+            ReflectionUtilities.setAccessible(obcMinecraftInventory.getDeclaredField("displayName")).set(minecrafInventory, title);
         } catch (Exception e) {
             e.printStackTrace();
         }

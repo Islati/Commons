@@ -2,7 +2,7 @@ package com.caved_in.commons.game.world;
 
 import org.bukkit.Location;
 
-public class RegionArenaSelectionData {
+public class RegionSelectionData {
 
     private Location upperBound = null;
 
@@ -10,21 +10,21 @@ public class RegionArenaSelectionData {
 
     private String name = null;
 
-    public RegionArenaSelectionData() {
+    public RegionSelectionData() {
 
     }
 
-    public RegionArenaSelectionData upper(Location loc) {
+    public RegionSelectionData upper(Location loc) {
         this.upperBound = loc;
         return this;
     }
 
-    public RegionArenaSelectionData lower(Location loc) {
+    public RegionSelectionData lower(Location loc) {
         this.lowerBound = loc;
         return this;
     }
 
-    public RegionArenaSelectionData name(String name) {
+    public RegionSelectionData name(String name) {
         this.name = name;
         return this;
     }
@@ -39,5 +39,17 @@ public class RegionArenaSelectionData {
 
     public String getName() {
         return name;
+    }
+
+    public boolean hasLowerBound() {
+        return getLowerBound() != null;
+    }
+
+    public boolean hasUpperBound() {
+        return getUpperBound() != null;
+    }
+
+    public boolean hasName() {
+        return getName() != null;
     }
 }
