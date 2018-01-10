@@ -8,15 +8,16 @@ public interface PlayerWrapper {
     /**
      * @return name of the player
      */
-    public String getName();
+    String getName();
 
     /**
      * @return the players uuid
      */
-    public UUID getId();
+    UUID getId();
 
     /**
      * @return player whose data is being wrapped.
      */
-    public Player getPlayer();
+    Player getPlayer();
+
 }

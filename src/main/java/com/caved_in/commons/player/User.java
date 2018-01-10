@@ -161,4 +161,8 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
     public void format(String msg, Object... args) {
         Chat.format(getPlayer(), msg, args);
     }
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
