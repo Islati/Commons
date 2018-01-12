@@ -1,5 +1,6 @@
 package com.caved_in.commons.command;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.permission.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -309,6 +310,18 @@ public class RegisteredCommand {
     }
 
     public boolean testPermission(CommandSender sender) {
+        if (sender == null) {
+            Chat.debug("Command Sender in testPermission [RegisteredCommand.java] is null.");
+            return false;
+        }
+
+        if (permissions == null) {
+            Chat.debug("There are no permissions to test against.");
+            return true;
+        }
+
+
+
         for(String s : this.permissions) {
             if (!sender.hasPermission(s)) {
                 return false;

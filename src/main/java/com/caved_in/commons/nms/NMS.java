@@ -45,6 +45,7 @@ public class NMS {
             case "v1_7_R4":
                 particleEffectsHandler = new ParticleEffectHandler_1710();
                 forceRespawnHandler = new ForceRespawnHandler_18R3(); //Also works for 1.7
+                break;
             case "v1_8_R3":
                 stackTraceHandler = new UnhandledStackTrace_18R3();
                 actionMessageHandler = new ActionMessageHandler_18R3();

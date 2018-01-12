@@ -18,20 +18,21 @@ public class UnhandledStackTrace_18R3 implements UnhandledStackTrace, Thread.Unc
 
 	@Override
 	public void register() {
-		Thread.setDefaultUncaughtExceptionHandler(this);
-
-		try {
-			Object minecraftServer = Reflect.on(Bukkit.getServer()).call("getServer").get();
-
-			Thread serverThread = Reflect.on(minecraftServer).get("serverThread");
-			serverThread.setUncaughtExceptionHandler(this);
-
-			Thread primaryThread = Reflect.on(minecraftServer).get("primaryThread");
-			primaryThread.setUncaughtExceptionHandler(this);
-			Chat.messageConsole("Registered uncaught exception handler for serverThread and PrimaryThread");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		//todo fix.
+//		Thread.setDefaultUncaughtExceptionHandler(this);
+//
+//		try {
+//			Object minecraftServer = Reflect.on(Bukkit.getServer()).call("getServer").get();
+//
+//			Thread serverThread = Reflect.on(minecraftServer).get("serverThread");
+//			serverThread.setUncaughtExceptionHandler(this);
+//
+//			Thread primaryThread = Reflect.on(minecraftServer).get("primaryThread");
+//			primaryThread.setUncaughtExceptionHandler(this);
+//			Chat.messageConsole("Registered uncaught exception handler for serverThread and PrimaryThread");
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
 
 	}
 }
