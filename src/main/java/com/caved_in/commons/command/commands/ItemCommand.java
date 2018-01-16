@@ -37,13 +37,14 @@ public class ItemCommand {
     public void onItemCommand(Player player, @Arg(name = "firstPageEnabled") ItemStack item, @Arg(name = "amount", def = "1") int amount) {
         item.setAmount(amount);
         Players.giveItem(player, item);
-        Chat.actionMessage(player, Messages.playerItemsGiven(Items.getFormattedMaterialName(item.getType()), amount));
+
+        Chat.message(player, Messages.playerItemsGiven(Items.getFormattedMaterialName(item.getType()), amount));
     }
 
     @Command(identifier = "i save", permissions = {Perms.COMMAND_ITEM})
     public void onItemSaveCommand(Player player, @Wildcard @Arg(name = "file name") String name) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(name.trim())) {
-            Chat.actionMessage(player, "The items name must not be empty!");
+            Chat.message(player, "The items name must not be empty!");
             return;
         }
 
@@ -64,28 +65,28 @@ public class ItemCommand {
         boolean saved = SavedItemManager.saveItem(name, hand);
 
         if (saved) {
-            Chat.actionMessage(player, String.format("&e%s&a has been saved!", name));
+            Chat.message(player, String.format("&e%s&a has been saved!", name));
         } else {
-            Chat.actionMessage(player, String.format("&cFailed to save &e%s", name));
+            Chat.message(player, String.format("&cFailed to save &e%s", name));
         }
     }
 
     @Command(identifier = "i load", permissions = {Perms.COMMAND_ITEM})
     public void onItemLoadCommand(Player player, @Wildcard @Arg(name = "file name") String name) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(name.trim())) {
-            Chat.actionMessage(player, "The items name must not be empty!");
+            Chat.message(player, "The items name must not be empty!");
             return;
         }
 
         ItemStack item = SavedItemManager.getItem(name);
 
         if (item == null) {
-            Chat.actionMessage(player, String.format("&eThe item &c%s&e doesn't exist.", name));
+            Chat.message(player, String.format("&eThe item &c%s&e doesn't exist.", name));
             return;
         }
 
         Players.giveItem(player, item);
-        Chat.actionMessage(player, "&aEnjoy!");
+        Chat.message(player, "&aEnjoy!");
     }
 
     @Command(identifier = "i list", permissions = {Perms.COMMAND_ITEM})
@@ -134,7 +135,7 @@ public class ItemCommand {
     @Command(identifier = "i lore clear", permissions = Perms.COMMAND_ITEM)
     public void onLoreClearCommand(Player player) {
         if (Players.handIsEmpty(player)) {
-            Chat.actionMessage(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your %s-hand.");
+            Chat.message(player, "&c&lTo perform &e&l/i lore&c&l you require an item in your %s-hand.");
             return;
         }
 
@@ -142,7 +143,7 @@ public class ItemCommand {
 
         Items.clearLore(handItem);
 
-        Chat.actionMessage(player, "&e&lYour items lore has been cleared!");
+        Chat.message(player, "&e&lYour items lore has been cleared!");
     }
 
     @Command(identifier = "i lore set", permissions = Perms.COMMAND_ITEM)
@@ -162,6 +163,6 @@ public class ItemCommand {
             }
 
         Items.setLore(handItem, line, lore);
-        Chat.actionMessage(player, "&a&lYour items lore has been edited");
+        Chat.message(player, "&a&lYour items lore has been edited");
     }
 }

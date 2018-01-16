@@ -53,7 +53,13 @@ public class Menus {
     }
 
     public static int getHighestIndex(Map<Integer, MenuItem> menuItems) {
-        return menuItems.keySet().stream().mapToInt(i -> i).max().getAsInt();
+        int high = 0;
+        for (Map.Entry<Integer, MenuItem> item : menuItems.entrySet()) {
+            if (item.getKey() > high) {
+                high = item.getKey();
+            }
+        }
+        return high;
     }
 
     /**

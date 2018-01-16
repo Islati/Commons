@@ -12,6 +12,11 @@ public class ConfirmationMenu extends ItemMenu {
 
 	private boolean actionPerformed = false;
 
+	private boolean switchMenuAfterSelection = false;
+	private Menu selectionSwitchMenu;
+
+	private boolean exitMenuAfterSelection = false;
+
 	public static ConfirmationMenu of(String title) {
 		return new ConfirmationMenu(title);
 	}
@@ -46,6 +51,17 @@ public class ConfirmationMenu extends ItemMenu {
 
 	public ConfirmationMenu exitOnClickOutside(boolean exit) {
 		setExitOnClickOutside(exit);
+		return this;
+	}
+
+	public ConfirmationMenu switchAfterSelection(boolean switchAfterSelection, Menu menu) {
+		this.selectionSwitchMenu = menu;
+		this.switchMenuAfterSelection = switchAfterSelection;
+		return this;
+	}
+
+	public ConfirmationMenu exitAfterSelection() {
+		this.exitMenuAfterSelection = true;
 		return this;
 	}
 
@@ -93,6 +109,15 @@ public class ConfirmationMenu extends ItemMenu {
 		public void onClick(Player player, ClickType type) {
 			actionPerformed = true;
 			action.perform(getMenu(), player);
+
+			if (switchMenuAfterSelection) {
+				getMenu().switchMenu(player,selectionSwitchMenu);
+				return;
+			}
+
+			if (exitMenuAfterSelection) {
+				getMenu().closeMenu(player);
+			}
 		}
 	}
 
