@@ -1,5 +1,6 @@
 package com.caved_in.commons.inventory.menu;
 
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -102,7 +103,8 @@ public abstract class MenuItem {
 	}
 
 	protected ItemStack getItemStack() {
-		ItemStack itemStack = new ItemStack(getIcon().getItemType(), getNumber(), getIcon().getData());
+		ItemStack itemStack = getIcon().toItemStack();
+		itemStack.setAmount(number);
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.setLore(descriptions);
 		meta.setDisplayName(StringUtil.formatColorCodes(getText()));

@@ -464,41 +464,5 @@ public class Commons extends BukkitPlugin {
          */
         TeleportMenuSettings.init(TELEPORT_MENU_DISABLED_LOCATION);
 
-		/*
-		This is a fresh install of commons!
-		 */
-        if (!ymlConfigFile.exists()) {
-
-            globalConfig = new CommonsYamlConfiguration();
-            CommonsYamlConfiguration ymlConfig = new CommonsYamlConfiguration();
-
-            try {
-                ymlConfig.init(ymlConfigFile);
-                globalConfig = ymlConfig;
-            } catch (InvalidConfigurationException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
-        globalConfig = new CommonsYamlConfiguration();
-        try {
-            ((CommonsYamlConfiguration) globalConfig).init(ymlConfigFile);
-        } catch (InvalidConfigurationException e) {
-            e.printStackTrace();
-            debug(
-                    "Commons 'plugin.yml' is invalid, and will cause",
-                    "the plugin to malfunction without valid",
-                    "configuration available....",
-                    "Please check the formatting of your config file, or delete",
-                    "it and regenerate it via restarting the server",
-                    "to continue!",
-                    "----------------",
-                    "COMMONS HAS BEEN DISABLED",
-                    "----------------");
-            Plugins.disablePlugin(this);
-            return;
-        }
-
     }
 }

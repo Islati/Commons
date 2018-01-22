@@ -58,7 +58,7 @@ public abstract class User extends YamlConfig implements PlayerWrapper {
      * Retrieve the {@link org.bukkit.entity.Player} for the wrapped user object.
      */
     public Player getPlayer() {
-        return Players.getPlayer(id);
+        return Players.getPlayer(UUID.fromString(id));
     }
 
     /**

@@ -31,7 +31,7 @@ public class ItemBuilder {
     private Attributes attributes;
     private List<Attributes.Attribute> attributeList = new ArrayList<>();
 
-    /* Whether or not the firstPageEnabled is unbreakable, by default false, as most items break! */
+    /* Whether or not the item is unbreakable, by default false, as most items break! */
     private boolean unbreakable = false;
 
     public static ItemBuilder of(Material material) {
@@ -149,14 +149,14 @@ public class ItemBuilder {
 
     public ItemStack item() {
         if (material == null || material == Material.AIR) {
-            SneakyThrow.sneaky(new ItemCreationException("Unable to create an firstPageEnabled with air (or null) materials"));
+            SneakyThrow.sneaky(new ItemCreationException("Unable to create an item with air (or null) materials"));
         }
 
         ItemStack itemStack = new ItemStack(material, amount);
 
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        //If the name for the builders been set then set the name on the firstPageEnabled
+        //If the name for the builders been set then set the name on the item
         if (!StringUtils.isNullOrEmpty(name)) {
             itemMeta.setDisplayName(name);
         }
@@ -164,13 +164,13 @@ public class ItemBuilder {
         if (lore != null && !lore.isEmpty()) {
             itemMeta.setLore(StringUtil.formatColorCodes(lore));
         }
-        //If there's any enchantments added to the itembuilder, add them to the firstPageEnabled
+        //If there's any enchantments added to the itembuilder, add them to the item
         if (!enchantments.isEmpty()) {
             for (ItemEnchantmentWrapper enchantWrapper : enchantments) {
                 itemMeta.addEnchant(enchantWrapper.getEnchantment(), enchantWrapper.getLevel(), enchantWrapper.isItemGlow());
             }
         }
-        //Set the firstPageEnabled metadata
+        //Set the item metadata
         itemStack.setItemMeta(itemMeta);
         //Check if the durability has been changed, if so set it
         if (durability != -101) {
@@ -185,7 +185,7 @@ public class ItemBuilder {
         itemStack.getItemMeta().spigot().setUnbreakable(unbreakable);
 
 		/*
-		If there's been any attributes added to the firstPageEnabled,
+		If there's been any attributes added to the item,
 		then we can go ahead and add them all in!
 		 */
         if (attributeList.size() > 0) {

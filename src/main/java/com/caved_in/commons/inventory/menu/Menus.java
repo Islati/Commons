@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.chat.menu.HelpScreen;
 import com.caved_in.commons.chat.menu.ItemFormat;
 import com.caved_in.commons.chat.menu.PageDisplay;
+import lombok.NonNull;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -158,7 +159,8 @@ public class Menus {
         }
     }
 
-    public static void switchMenu(final Player player, Menu fromMenu, Menu toMenu) {
+    public static void switchMenu(@NonNull Player player, @NonNull Menu fromMenu, @NonNull Menu toMenu) {
+
         fromMenu.closeMenu(player);
         Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> toMenu.openMenu(player));
     }
