@@ -27,7 +27,7 @@ public interface GameArena {
      * The name of the arena.
      * @return name of the arena.
      */
-    String getArenaName();
+    String getName();
 
     /**
      * Name of the world which this arena manages.

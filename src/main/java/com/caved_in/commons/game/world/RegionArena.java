@@ -67,11 +67,6 @@ public class RegionArena extends YamlConfig implements GameArena {
     }
 
     @Override
-    public String getArenaName() {
-        return name;
-    }
-
-    @Override
     public String getWorldName() {
         return upperBound.getWorld().getName();
     }
@@ -125,5 +120,9 @@ public class RegionArena extends YamlConfig implements GameArena {
 
     public boolean isInside(Location location) {
         return Locations.isInsideArea(location,upperBound,lowerBound,true);
+    }
+
+    public void addSpawn(Location loc) {
+        spawns.add(loc);
     }
 }
