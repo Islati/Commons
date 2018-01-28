@@ -33,10 +33,10 @@ public class RegionArena extends YamlConfig implements GameArena {
     @Getter @Setter
     private Location lowerBound;
 
+
     @Path("spawn-points")
     @Getter
-    private List<Location> spawns = new ArrayList<>();
-
+    private List<Location> spawnLocations = new ArrayList<>();
     @Path("breakable-blocks")
     private List<Integer> breakableBlockIds = new ArrayList<>();
 
@@ -74,11 +74,6 @@ public class RegionArena extends YamlConfig implements GameArena {
     @Override
     public World getWorld() {
         return upperBound.getWorld();
-    }
-
-    @Override
-    public List<Location> getSpawnLocations() {
-        return spawns;
     }
 
     @Override
@@ -123,6 +118,6 @@ public class RegionArena extends YamlConfig implements GameArena {
     }
 
     public void addSpawn(Location loc) {
-        spawns.add(loc);
+        spawnLocations.add(loc);
     }
 }

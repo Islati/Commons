@@ -2,14 +2,19 @@ package com.caved_in.commons.block;
 
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.NumberUtil;
+import com.caved_in.commons.yml.Path;
+import com.caved_in.commons.yml.YamlConfig;
 import org.bukkit.Material;
 
 /**
  * Wrapped data of a material, datavalue, and chance- Used internally with grass-regrowth, can also be used to place blocks with a chance.
  */
-public class ChancedBlock {
+public class ChancedBlock extends YamlConfig {
+    @Path("material")
     private Material mat;
+    @Path("block-data")
     private byte data;
+    @Path("chance")
     private int chance;
 
     /**

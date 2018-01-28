@@ -8,6 +8,8 @@ import com.caved_in.commons.world.Worlds;
 import com.caved_in.commons.yml.Path;
 import com.caved_in.commons.yml.Skip;
 import com.caved_in.commons.yml.YamlConfig;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -30,7 +32,9 @@ public class Arena extends YamlConfig implements GameArena {
     private int id = 0;
 
     @Path("name")
-    private String arenaName;
+    @Getter
+    @Setter
+    private String name;
 
     @Path("world")
     private String worldName;
@@ -60,7 +64,7 @@ public class Arena extends YamlConfig implements GameArena {
 
     public Arena(int id, String arenaName, String worldName, boolean enabled, boolean stormy, List<Location> spawns, List<Integer> breakables, List<Integer> placeables) {
         this.id = id;
-        this.arenaName = arenaName;
+        this.name = arenaName;
         this.worldName = worldName;
         this.enabled = enabled;
         this.stormy = stormy;
@@ -74,7 +78,7 @@ public class Arena extends YamlConfig implements GameArena {
     }
 
     public Arena(World world) {
-        arenaName = world.getName();
+        name= world.getName();
         worldName = world.getName();
         spawns.add(Worlds.getSpawn(world));
     }
@@ -82,11 +86,6 @@ public class Arena extends YamlConfig implements GameArena {
     @Override
     public int id() {
         return id;
-    }
-
-    @Override
-    public String getArenaName() {
-        return arenaName;
     }
 
     @Override
@@ -101,8 +100,7 @@ public class Arena extends YamlConfig implements GameArena {
 
     @Override
     public List<Location> getSpawnLocations() {
-        List<Location> locs = new ArrayList<>(spawns);
-        return locs;
+        return spawns;
     }
 
     public int getSpawnCount() {
@@ -187,6 +185,6 @@ public class Arena extends YamlConfig implements GameArena {
 
     @Override
     public String toString() {
-        return String.format("Arena Name: %s\nWorld Name: %s\nSpawn Amount: %s", getArenaName(), getWorldName(), getSpawnLocations().size());
+        return String.format("Arena Name: %s\nWorld Name: %s\nSpawn Amount: %s", getName(), getWorldName(), getSpawnLocations().size());
     }
 }

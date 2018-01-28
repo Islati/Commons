@@ -116,15 +116,13 @@ public class Commons extends BukkitPlugin {
         players = new Players();
 
         //If the commands are to be registered: do so.
-        if (getConfiguration().registerCommands()) {
-            try {
-                registerCommandsByPackage("com.caved_in.commons.command.commands");
-            } catch (RegisterCommandMethodException e) {
-                e.printStackTrace();
-                debug("Unable to register commands; If you're using the no-commands version of commons assure '<register-commands>' inside of Config.xml is set to false. Otherwise, send the stack trace to our developers for assistance.");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            registerCommandsByPackage("com.caved_in.commons.command.commands");
+        } catch (RegisterCommandMethodException e) {
+            e.printStackTrace();
+            debug("Unable to register commands; If you're using the no-commands version of commons assure '<register-commands>' inside of Config.xml is set to false. Otherwise, send the stack trace to our developers for assistance.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Register the debugger actions and triggers to 'case test' features in-game
@@ -333,7 +331,6 @@ public class Commons extends BukkitPlugin {
 
         registerListeners(
                 //Used for gadgets, interaction restriction, etc.
-                new PlayerInteractListener(),
                 new BlockBreakPlaceListener(),
                 new EntityExplodeListener(),
                 new WorldLoadedListener(),
@@ -352,11 +349,10 @@ public class Commons extends BukkitPlugin {
                 new ItemDropListener(),
                 //Used with the Weapons API.
                 new EntityDamageEntityListener(),
-                new ItemBreakListener(),
-                new ItemDamageListener(),
                 new EntityDamageListener(),
                 new SignEditListener(),
-                new LeavesDecayListener()
+                new LeavesDecayListener(),
+                new GadgetActionListener()
         );
     }
 
@@ -395,6 +391,9 @@ public class Commons extends BukkitPlugin {
     @Override
     public void initConfig() {
         File ymlConfigFile = new File(PLUGIN_DATA_FOLDER + "config.yml");
+
+        globalConfig = new CommonsYamlConfiguration();
+
 
 		/*
 		Check if the warps folder exists, and if not

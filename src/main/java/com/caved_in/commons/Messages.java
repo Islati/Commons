@@ -106,7 +106,7 @@ public class Messages {
     }
 
     public static String arenaSpawnAdded(Arena arena, Location loc) {
-        return format("&aSpawn point added to &e%s&a at &6%s", arena.getArenaName(), locationCoords(loc));
+        return format("&aSpawn point added to &e%s&a at &6%s", arena.getName(), locationCoords(loc));
     }
 
     public static String gadgetExpired(Gadget gadget) {

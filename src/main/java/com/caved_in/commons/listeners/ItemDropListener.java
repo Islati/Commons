@@ -15,7 +15,6 @@ public class ItemDropListener implements Listener {
     public ItemDropListener() {
         config = Commons.getInstance().getConfiguration();
     }
-
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
 
@@ -29,20 +28,5 @@ public class ItemDropListener implements Listener {
                 return;
             }
         }
-
-        Gadget gadget = Gadgets.getGadget(item);
-
-        // Not a gadget! We don't need to do anything.
-        if (gadget == null) {
-            return;
-        }
-
-        if (!gadget.properties().isDroppable()) {
-            event.setCancelled(true);
-            gadget.onDrop(event.getPlayer(), null);
-            return;
-        }
-
-        gadget.onDrop(event.getPlayer(), event.getItemDrop());
     }
 }

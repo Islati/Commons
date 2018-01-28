@@ -121,37 +121,5 @@ public class EntityDamageEntityListener implements Listener {
              */
             e.setDamage(pvpEvent.getDamage());
         }
-
-        LivingEntity entity = (LivingEntity) attacked;
-
-        //If the player has nothing in their hands, quit; we require gadgetsS
-        if (!Players.hasItemInHand(player)) {
-            return;
-        }
-
-        ItemStack hand = player.getItemInHand();
-
-        //If the firstPageEnabled in their hand isn't a gadget then quit; we require gadgets!
-        if (!Gadgets.isGadget(hand)) {
-            return;
-        }
-
-        Gadget gadget = Gadgets.getGadget(hand);
-
-        //In this case, we only need to worry about weapons; if it's not a weapon, quit.
-        if (!(gadget instanceof Weapon)) {
-            return;
-        }
-
-        Weapon weapon = (Weapon) gadget;
-
-        //If the player wielding the weapon isn't able to damage this entity, then quit!
-        if (!weapon.canDamage(player, entity)) {
-            e.setCancelled(true);
-            return;
-        }
-
-        //Lastly, attack the mob if all is well!
-        weapon.onAttack(player, entity);
     }
 }

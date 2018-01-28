@@ -1,8 +1,11 @@
 package com.caved_in.commons.inventory.menu;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.inventory.menu.Menu;
 import com.caved_in.commons.inventory.menu.Menus;
+import com.caved_in.commons.item.ItemBuilder;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
@@ -29,6 +32,8 @@ public class ItemMenu implements Menu {
     private boolean exitOnClickOutside = true;
 
     private Map<MenuAction, ArrayList<MenuBehaviour>> menuActions = new HashMap<>();
+
+    private MenuItem emptySlotItem = null;
 
     public ItemMenu(String title, int rows) {
         this.title = StringUtil.formatColorCodes(title);
@@ -78,16 +83,28 @@ public class ItemMenu implements Menu {
 
     private void setMenuItems(Inventory inv, Map<Integer, MenuItem> items) {
         this.items = items;
-        for (Map.Entry<Integer, MenuItem> menuItems : items.entrySet()) {
-            int index = menuItems.getKey();
+
+        if (emptySlotItem != null) {
+            emptySlotItem.addToMenu(this);
+            for (int i = 0; i <= rows * 9; i++) {
+                try {
+                    setItem(i, this.items.getOrDefault(i, emptySlotItem));
+                } catch (Exception ex) {
+                    Chat.debug("Exception rendering menu at index [" + i + "]");
+                }
+            }
+            return;
+        }
+
+        for (Map.Entry<Integer, MenuItem> menuItem : items.entrySet()) {
+            int index = menuItem.getKey();
             ItemStack slot = inv.getItem(index);
 
             if (slot != null && slot.getType() != Material.AIR) {
                 continue;
             }
 
-            inv.setItem(index, slot);
-            menuItems.getValue().addToMenu(this);
+            setItem(index, menuItem.getValue());
         }
     }
 
@@ -274,5 +291,13 @@ public class ItemMenu implements Menu {
         }
         this.title = title;
         Inventories.rename(getInventory(), StringUtil.formatColorCodes(title));
+    }
+
+    public void setEmptySlotItem(MenuItem item) {
+        this.emptySlotItem = item;
+    }
+
+    public void useDefaultEmptySlotItem() {
+        emptySlotItem = new PlaceHolderMenuItem(Items.getMaterialData(Material.STAINED_GLASS_PANE,8),"","");
     }
 }

@@ -40,7 +40,7 @@ public class ArenaManager extends YamlConfig implements ArenaHandler<Arena> {
 
     @Override
     public boolean addArena(Arena arena) {
-        arenas.put(arena.getArenaName(), arena);
+        arenas.put(arena.getName(), arena);
 
 		/*
         Call the arena load event!
@@ -94,7 +94,7 @@ public class ArenaManager extends YamlConfig implements ArenaHandler<Arena> {
                 return;
             }
 
-            randomArena = cycleEvent.getTo().getArenaName();
+            randomArena = cycleEvent.getTo().getName();
         }
 
         activeArena = randomArena;
@@ -141,7 +141,7 @@ public class ArenaManager extends YamlConfig implements ArenaHandler<Arena> {
 
     @Override
     public void removeArena(Arena arena) {
-        arenas.remove(arena.getArenaName());
+        arenas.remove(arena.getName());
     }
 
     @Override
