@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class LocationYamlConverter implements Converter {
 	public LocationYamlConverter(InternalConverter converter) {
+
 	}
 
 	@Override
@@ -31,6 +32,10 @@ public class LocationYamlConverter implements Converter {
 
 	@Override
 	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception {
+		if (section == null) {
+			throw new Exception("Config section for expected location is null");
+		}
+
 		Map<String, Object> locationMap;
 		if (section instanceof Map) {
 			locationMap = (Map<String, Object>) section;
