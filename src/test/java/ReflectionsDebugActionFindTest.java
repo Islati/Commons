@@ -1,4 +1,4 @@
-import com.caved_in.commons.debug.DebugAction;
+import com.devsteady.onyx.debug.DebugAction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -14,7 +14,7 @@ public class ReflectionsDebugActionFindTest {
 
 	@Test
 	public void reflectForDebugActions() {
-		Reflections reflections = new Reflections("com.caved_in.commons.debug.actions");
+		Reflections reflections = new Reflections("com.devsteady.onyx.debug.actions");
 
 		Set<Class<? extends DebugAction>> debugActions = reflections.getSubTypesOf(DebugAction.class);
 
