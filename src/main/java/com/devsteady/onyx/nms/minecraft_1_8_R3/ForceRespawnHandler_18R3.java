@@ -2,7 +2,7 @@ package com.devsteady.onyx.nms.minecraft_1_8_R3;
 
 import com.devsteady.onyx.nms.ForceRespawnHandler;
 import com.devsteady.onyx.nms.NmsPlayers;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.entity.Player;
 
 import java.util.ConcurrentModificationException;

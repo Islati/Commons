@@ -1,6 +1,6 @@
 package com.devsteady.onyx.plugin;
 
-public interface CommonPlugin {
+public interface OnyxPlugin {
     /**
      * Equal to the {@link org.bukkit.plugin.java.JavaPlugin#onEnable} method.
      * All operations that you want to be called when the plugin is enabled will

@@ -14,13 +14,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.joor.Reflect;
-import org.joor.ReflectException;
-import org.reflections.Reflections;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Used to process and debug information from within minecraft.
@@ -42,37 +38,6 @@ public class Debugger {
 		for (DebugAction action : actions) {
 			debugActions.put(action.getActionName().toLowerCase(), action);
 		}
-	}
-
-	/**
-	 * Using Reflections, iterate through all the classes in a package and register
-	 * the debug actions containing. Does not do nested package searching, so you must
-	 * be specific.
-	 *
-	 * @param pkg Package to scan for debug actions.
-	 */
-	public static void addDebugActionsByPackage(String pkg) {
-		Reflections reflect = new Reflections(pkg);
-		Set<Class<? extends DebugAction>> debugActionClasses = reflect.getSubTypesOf(DebugAction.class);
-
-		if (debugActionClasses.isEmpty()) {
-			Chat.debug("Unable to find any DebugActions in the package '" + pkg + "'");
-			return;
-		}
-
-		StringBuilder actionNames = new StringBuilder();
-		Chat.debug("Found " + debugActionClasses.size() + " Classes that implement DebugAction");
-		for (Class<? extends DebugAction> actionClass : debugActionClasses) {
-			try {
-				DebugAction action = Reflect.on(actionClass).create().get();
-				debugActions.put(action.getActionName().toLowerCase(), action);
-				actionNames.append(action.getActionName()).append(" ");
-			} catch (ReflectException e) {
-				e.printStackTrace();
-			}
-		}
-
-		Chat.debug("Registered the following debug actions: " + actionNames.toString());
 	}
 
 	/**

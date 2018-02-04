@@ -7,7 +7,6 @@ import com.devsteady.onyx.effect.ParticleEffect;
 import com.devsteady.onyx.entity.Entities;
 import com.devsteady.onyx.game.gadget.Gadget;
 import com.devsteady.onyx.game.gadget.Gadgets;
-import com.devsteady.onyx.game.world.Arena;
 import com.devsteady.onyx.inventory.ArmorInventory;
 import com.devsteady.onyx.inventory.ArmorSlot;
 import com.devsteady.onyx.inventory.Hotbar;
@@ -15,7 +14,6 @@ import com.devsteady.onyx.inventory.Inventories;
 import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.location.Locations;
 import com.devsteady.onyx.nms.NMS;
-import com.devsteady.onyx.permission.Perms;
 import com.devsteady.onyx.plugin.Plugins;
 import com.devsteady.onyx.sound.Sounds;
 import com.devsteady.onyx.threading.tasks.KickPlayerThread;
@@ -43,95 +41,13 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class Players {
-    private static Onyx commons = Onyx.getInstance();
+    private static Onyx onyx = Onyx.getInstance();
 
     public static final int DEPTH_EQUALIZE_NUMBER = 63;
     private static final int MAX_BLOCK_TARGET_DISTANCE = 30;
 
-    /* Map of all the players data; Wrapped player elements */
-    private static Map<UUID, MinecraftPlayer> playerData = new HashMap<>();
-
-    /**
-     * Check if a player has loaded data
-     *
-     * @param playerId UUID to check if data exists for
-     * @return true if the player has loaded data, false otherwise
-     */
-    public boolean hasData(UUID playerId) {
-        return playerData.containsKey(playerId);
-    }
-
-    /**
-     * Gets the playerwrapper instance for a player with the given name
-     *
-     * @param playerId uuid of the player to get the playerwrapper for
-     * @return PlayerWrapper for the given player, otherwise null if none exists
-     * @see MinecraftPlayer
-     * @since 1.0
-     */
-    public MinecraftPlayer getData(UUID playerId) {
-        return playerData.get(playerId);
-    }
-
-    /**
-     * Gets the playerwrapper instance for the given player
-     *
-     * @param player player to get the wrapped data for
-     * @return PlayerWrapper for the given player, otherwise null if none exists
-     * @see MinecraftPlayer
-     * @since 1.0
-     */
-    public MinecraftPlayer getData(Player player) {
-        return playerData.get(player.getUniqueId());
-    }
-
-    /**
-     * Loads a {@link MinecraftPlayer} for the given player.
-     * <p>
-     * If no data exists in the database for the given player, default data will be inserted
-     * into the database and an object will be returned based on the default data.
-     * </p>
-     *
-     * @param player player to initiate the data for
-     * @since 1.0
-     */
-    @SuppressWarnings("deprecation")
-    public void addData(Player player) {
-        UUID playerId = player.getUniqueId();
-        String playerName = player.getName();
-
-        MinecraftPlayer minecraftPlayer;
-
-        //If there's no SQL backend for commons, then just load a 'null' / default wrapper
-        minecraftPlayer = new MinecraftPlayer(playerName);
-        playerData.put(playerId, minecraftPlayer);
-    }
-
     public static Stream<Player> stream() {
         return allPlayers().stream();
-    }
-
-    /**
-     * Removes the {@link MinecraftPlayer} object for a player.
-     * <p>
-     * Calling this method will synchronize the playerwrapper data to the database
-     * before removing it.
-     * </p>
-     *
-     * @param playerId name of the player to remove the data for
-     * @since 1.0
-     */
-    public static void removeData(UUID playerId) {
-        Players players = commons.getPlayerHandler();
-
-        MinecraftPlayer wrapper = players.getData(playerId);
-
-        if (wrapper == null) {
-            return;
-        }
-
-        wrapper.dispose();
-        playerData.remove(playerId);
     }
 
     /**
@@ -235,14 +151,14 @@ public class Players {
     }
 
     /**
-     * Gets a player based on the {@link MinecraftPlayer} passed
+     * Gets a player based on the {@link OnyxPlayer} passed
      *
      * @param minecraftPlayer wrapped player object to get the actual player object of
      * @return Player that was wrapped by the playerwrapper; null if there is no player online with matching credentials
-     * @see MinecraftPlayer
+     * @see OnyxPlayer
      * @since 1.2.2
      */
-    public static Player getPlayer(MinecraftPlayer minecraftPlayer) {
+    public static Player getPlayer(OnyxPlayer minecraftPlayer) {
         return getPlayer(minecraftPlayer.getId());
     }
 
@@ -275,11 +191,6 @@ public class Players {
     public static UUID getUUIDFromName(String name) throws Exception {
         return UuidFetcherCallable.getUUIDOf(name);
     }
-
-    public static UUID getUniqueId(Player player) {
-        return player.getUniqueId();
-    }
-
 
     /**
      * Kicks the player for the reason defined
@@ -334,19 +245,6 @@ public class Players {
         }
     }
 
-    public static void kickAllWithoutPermission(Perms permission, String reason) {
-        kickAllWithoutPermission(permission.toString(), reason);
-    }
-
-    /**
-     * Set the players level.
-     *
-     * @param player player to change the level of
-     * @param lvl    level to set the player
-     */
-    public static void setLevel(Player player, int lvl) {
-        player.setLevel(lvl);
-    }
 
     /**
      * Remove the given amount of levels from the player.
@@ -359,15 +257,6 @@ public class Players {
     }
 
     /**
-     * Decrease the players level by 1.
-     *
-     * @param player player to decrease the level of.
-     */
-    public static void removeLevel(Player player) {
-        removeLevel(player, 1);
-    }
-
-    /**
      * Increase the players level
      *
      * @param player player to increase the level of
@@ -375,15 +264,6 @@ public class Players {
      */
     public static void addLevel(Player player, int amount) {
         player.setLevel(player.getLevel() + amount);
-    }
-
-    /**
-     * Increase the players level by one.
-     *
-     * @param player the player to increase the level of
-     */
-    public static void addLevel(Player player) {
-        addLevel(player, 1);
     }
 
     /**
@@ -427,36 +307,6 @@ public class Players {
         Validate.notNull(player);
         player.teleport(Locations.getLocation(player.getWorld(), xyz));
     }
-
-    /**
-     * Teleport the player to the spawn of the given world.
-     *
-     * @param player player to teleport.
-     * @param world  world to teleport the player to.
-     */
-    public static void teleportToSpawn(Player player, World world) {
-        teleport(player, Worlds.getSpawn(world));
-    }
-
-    /**
-     * Teleport the player to the spawn of the given arena.
-     *
-     * @param player player to teleport.
-     * @param arena  arena to teleport the player to.
-     */
-    public static void teleportToSpawn(Player player, Arena arena) {
-        teleportToSpawn(player, arena.getWorld());
-    }
-
-    /**
-     * Teleport all players to the spawn of the given arena.
-     *
-     * @param arena arena to teleport all players to.
-     */
-    public static void teleportAllToSpawn(Arena arena) {
-        stream().forEach(p -> teleportToSpawn(p, arena));
-    }
-
     /**
      * Forces the player to chat the given message
      *
@@ -493,28 +343,6 @@ public class Players {
     }
 
     /**
-     * Check if the player has a specific permission node.
-     *
-     * @param player     player to check permission for.
-     * @param permission permission to check for.
-     * @return true if the player has the given permission, false otherwise.
-     */
-    public static boolean hasPermission(Player player, String permission) {
-        return player.hasPermission(permission);
-    }
-
-    /**
-     * Check if the player has a specific permission node.
-     *
-     * @param player     player to check permissions for.
-     * @param permission permission to check for.
-     * @return true if the player has the given permission, false otherwise.
-     */
-    public static boolean hasPermission(Player player, Perms permission) {
-        return hasPermission(player, permission.toString());
-    }
-
-    /**
      * Check if a player with the given UUID has played before.
      *
      * @param playerId id to search for.
@@ -532,17 +360,6 @@ public class Players {
      */
     public static boolean hasPlayed(String name) {
         return getOfflinePlayer(name).hasPlayedBefore();
-    }
-
-    /**
-     * Check whether or not the player can speak in the chat when it's silenced.
-     *
-     * @param player player to check permissions for
-     * @return true if they can chat while its silenced (has premium), false otherwise
-     * @since 1.2.2
-     */
-    public static boolean canChatWhileSilenced(Player player) {
-        return (hasPermission(player, Perms.BYPASS_CHAT_SILENCE));
     }
 
     /**
@@ -619,7 +436,7 @@ public class Players {
      * @param player player who's inventory shall be updated.
      */
     public static void updateInventory(Player player) {
-        commons.getThreadManager().runTaskLater(player::updateInventory, 1);
+        onyx.getThreadManager().runTaskLater(player::updateInventory, 1);
     }
 
     /**
@@ -631,11 +448,12 @@ public class Players {
         ItemStack[] inventoryContents = player.getInventory().getContents();
         Players.clearInventory(player);
 
+        Location playerLoc = player.getLocation();
         for (ItemStack item : inventoryContents) {
             if (item == null) {
                 continue;
             }
-            Worlds.dropItemNaturally(player, item);
+            Worlds.dropItem(playerLoc, item,true);
         }
     }
 
@@ -662,7 +480,7 @@ public class Players {
         PlayerInventory inventory = player.getInventory();
         if (inventory.firstEmpty() == -1) {
             if (drop) {
-                Worlds.dropItem(player, itemStack, false);
+                Worlds.dropItem(player.getLocation(), itemStack, false);
                 return true;
             }
             return false;
@@ -691,7 +509,7 @@ public class Players {
      * @param item   item to put in the given slot.
      */
     public static void setItem(Player player, int slot, ItemStack item) {
-        Inventories.setItem(player.getInventory(), slot, item);
+        player.getInventory().setItem(slot,item);
         player.updateInventory();
     }
 
@@ -893,22 +711,6 @@ public class Players {
     }
 
     /**
-     * Get a set of all the online operators.
-     *
-     * @return a hashset of all the currently online operators.
-     */
-    public static Set<Player> onlineOperators() {
-        Set<Player> players = new HashSet<>();
-        for (Player player : allPlayers()) {
-            if (player.isOp()) {
-                players.add(player);
-            }
-        }
-        return players;
-    }
-
-
-    /**
      * Retrieve a random player of those currently online.
      *
      * @return a random online player.
@@ -928,18 +730,11 @@ public class Players {
     }
 
     /**
-     * @return a collection of all the player wrappers used by commons.
-     */
-    public static Collection<MinecraftPlayer> allPlayerWrappers() {
-        return playerData.values();
-    }
-
-    /**
      * @return a set of all players who's currently in debug mode.
      */
     public static Set<Player> getAllDebugging() {
         Set<Player> players = new HashSet<>();
-        for (MinecraftPlayer wrapper : playerData.values()) {
+        for (OnyxPlayer wrapper : onyx.getPlayerHandler().allUsers()) {
             if (wrapper.isOnline() && wrapper.isInDebugMode()) {
                 players.add(getPlayer(wrapper));
             }
@@ -954,7 +749,7 @@ public class Players {
      * @return true if the player's in debug mode, false otherwise.
      */
     public static boolean isDebugging(Player player) {
-        return commons.getPlayerHandler().getData(player).isInDebugMode();
+        return onyx.getPlayerHandler().getUser(player).isInDebugMode();
     }
 
     /**
@@ -1187,17 +982,8 @@ public class Players {
      */
     public static void heal(Player player) {
         Players.removePotionEffects(player);
-        removeFire(player);
+        player.setFireTicks(0);
         Entities.setHealth(player, Entities.getMaxHealth(player));
-    }
-
-    /**
-     * Stop the player from burning.
-     *
-     * @param player player to stop the fire on.
-     */
-    public static void removeFire(Player player) {
-        Entities.removeFire(player);
     }
 
     /**
@@ -1428,7 +1214,7 @@ public class Players {
         for (Player p : allPlayers()) {
             player.hidePlayer(p);
         }
-        commons.getPlayerHandler().getData(player).setHidingOtherPlayers(true);
+        onyx.getPlayerHandler().getUser(player).setHidingOtherPlayers(true);
     }
 
     /**
@@ -1440,7 +1226,7 @@ public class Players {
         for (Player p : allPlayers()) {
             player.showPlayer(p);
         }
-        commons.getPlayerHandler().getData(player).setHidingOtherPlayers(false);
+        onyx.getPlayerHandler().getUser(player).setHidingOtherPlayers(false);
     }
 
 
@@ -1564,8 +1350,8 @@ public class Players {
      * @param multiplier multiplier to increase the players speed by.
      */
     public static void setSpeed(Player p, int multiplier) {
-        double walkSpeed = MinecraftPlayer.DEFAULT_WALK_SPEED * multiplier;
-        double flySpeed = MinecraftPlayer.DEFAULT_FLY_SPEED * multiplier;
+        double walkSpeed = OnyxPlayer.DEFAULT_WALK_SPEED * multiplier;
+        double flySpeed = OnyxPlayer.DEFAULT_FLY_SPEED * multiplier;
         p.setWalkSpeed((float) walkSpeed);
         p.setFlySpeed((float) flySpeed);
     }
@@ -1576,8 +1362,8 @@ public class Players {
      * @param p player to reset the walk and fly speed for.
      */
     public static void resetSpeed(Player p) {
-        p.setWalkSpeed((float) MinecraftPlayer.DEFAULT_WALK_SPEED);
-        p.setFlySpeed((float) MinecraftPlayer.DEFAULT_FLY_SPEED);
+        p.setWalkSpeed((float) OnyxPlayer.DEFAULT_WALK_SPEED);
+        p.setFlySpeed((float) OnyxPlayer.DEFAULT_FLY_SPEED);
     }
 
     /**

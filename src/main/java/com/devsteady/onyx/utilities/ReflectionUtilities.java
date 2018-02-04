@@ -1,4 +1,4 @@
-package com.devsteady.onyx.reflection;
+package com.devsteady.onyx.utilities;
 
 import com.devsteady.onyx.chat.Chat;
 import org.bukkit.Bukkit;

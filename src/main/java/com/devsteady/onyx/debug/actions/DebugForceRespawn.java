@@ -4,13 +4,13 @@ package com.devsteady.onyx.debug.actions;
 import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.chat.Chat;
 import com.devsteady.onyx.debug.DebugAction;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
 import org.bukkit.entity.Player;
 
 public class DebugForceRespawn implements DebugAction {
     @Override
     public void doAction(Player player, String... args) {
-        MinecraftPlayer mcPlayer = Onyx.getInstance().getPlayerHandler().getData(player);
+        OnyxPlayer mcPlayer = Onyx.getInstance().getPlayerHandler().getUser(player);
 
         if (mcPlayer.hasForceRespawn()) {
             mcPlayer.setForceRespawn(false);

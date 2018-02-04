@@ -50,6 +50,7 @@ public class Chat {
      * @param message message to send to players action bars.
      */
     public static void broadcastActionMessage(String message) {
+        //todo implement version check
         Players.stream().forEach(p -> actionMessage(p, message));
     }
 
@@ -85,6 +86,7 @@ public class Chat {
      * @param message message to send.
      */
     public static void actionMessage(Player player, String message) {
+        //todo implement version check.
         NMS.getActionMessageHandler().actionMessage(player, message);
     }
 
@@ -96,23 +98,6 @@ public class Chat {
      */
     public static void message(CommandSender target, String... messages) {
         sendMessage(target, messages);
-    }
-
-
-    /**
-     * Sends a message to all online players.
-     *
-     * @param message message to send
-     * @see #sendMessage(org.bukkit.command.CommandSender, String)
-     * @since 1.0
-     */
-    public static void messageAll(String message) {
-        for (Player player : Players.allPlayers()) {
-            if (player == null) {
-                continue;
-            }
-            sendMessage(player, message);
-        }
     }
 
     /**
@@ -192,14 +177,6 @@ public class Chat {
         }
     }
 
-    /**
-     * Send the player
-     *
-     * @param receiver
-     * @param sound
-     * @param delay
-     * @param messages
-     */
     public static void sendSoundedMessage(Player receiver, Sound sound, int delay, String... messages) {
         int index = 1;
         RunnableManager threadManager = Onyx.getInstance().getThreadManager();
@@ -207,16 +184,6 @@ public class Chat {
             threadManager.runTaskLater(new DelayedMessage(receiver, message, sound), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
             index += 1;
         }
-    }
-
-
-    /**
-     * Send message(s) to all the online operators.
-     *
-     * @param messages messages to send to the operators
-     */
-    public static void messageOps(String... messages) {
-        messageAll(Players.onlineOperators(), messages);
     }
 
     /**
@@ -304,6 +271,10 @@ public class Chat {
         @Override
         public void run() {
             Player player = Players.getPlayer(receiverId);
+
+            if (player == null) {
+                return;
+            }
 
             message(player, message);
             if (sound != null) {

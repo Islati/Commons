@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ArmorBuilder {
+    //todo document.
     private Map<ArmorSlot, ItemStack> armor = new HashMap<>();
 
     private CreatureBuilder creatureBuilder;

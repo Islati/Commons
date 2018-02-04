@@ -2,7 +2,7 @@ package com.devsteady.onyx.listeners;
 
 import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.event.PlayerDamagePlayerEvent;
-import com.devsteady.onyx.player.Players;
+import com.devsteady.onyx.player.OnyxPlayerManager;
 import com.devsteady.onyx.plugin.Plugins;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -13,7 +13,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class EntityDamageEntityListener implements Listener {
 
-    private Players playerDataHandler = null;
+    private OnyxPlayerManager playerDataHandler = null;
 
     public EntityDamageEntityListener() {
         playerDataHandler = Onyx.getInstance().getPlayerHandler();
@@ -86,7 +86,7 @@ public class EntityDamageEntityListener implements Listener {
         Below we're checking if the player attacked is in GodMode, and if they are
         then stop damage!
          */
-        if (pAttacked != null && playerDataHandler.getData(pAttacked).hasGodMode()) {
+        if (pAttacked != null && playerDataHandler.getUser(pAttacked).hasGodMode()) {
             e.setCancelled(true);
             return;
         }

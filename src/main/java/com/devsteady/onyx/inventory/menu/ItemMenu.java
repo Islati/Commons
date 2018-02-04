@@ -58,13 +58,6 @@ public class ItemMenu implements Menu {
         menuActions.get(type).add(behaviour);
     }
 
-    public void addBehaviours(MenuAction type, List<MenuBehaviour> behaviours) {
-        if (behaviours == null || behaviours.size() == 0) {
-            return;
-        }
-        menuActions.get(type).addAll(behaviours);
-    }
-
     public void setBehaviours(Map<MenuAction, ArrayList<MenuBehaviour>> behaviours) {
         this.menuActions = behaviours;
     }

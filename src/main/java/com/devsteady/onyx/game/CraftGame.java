@@ -82,22 +82,11 @@ public abstract class CraftGame<T extends UserManager> extends BukkitPlugin impl
         registerListeners(features);
     }
 
-    /**
-     * Register a {@link IGameState} with the minigames engine.
-     * If a game-state with the given ID already exists, it's overwritten.
-     *
-     * @param state state to register.
-     */
     public void registerGameState(GameState state) {
         getStateManager().addGameState(state);
     }
 
 
-    /**
-     * Register the given {@link IGameState}(s) with the minigame engine.
-     *
-     * @param states states to register.
-     */
     public void registerGameStates(GameState... states) {
         for (GameState state : states) {
             registerGameState(state);

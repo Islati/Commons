@@ -21,9 +21,6 @@ import java.util.Random;
 
 public class Arena extends YamlConfig implements GameArena {
     @Skip
-    private static final Random random = new Random();
-
-    @Skip
     private CraftGame game;
 
     @Path("id")
@@ -78,7 +75,7 @@ public class Arena extends YamlConfig implements GameArena {
     public Arena(World world) {
         name= world.getName();
         worldName = world.getName();
-        spawns.add(Worlds.getSpawn(world));
+        spawns.add(world.getSpawnLocation());
     }
 
     @Override

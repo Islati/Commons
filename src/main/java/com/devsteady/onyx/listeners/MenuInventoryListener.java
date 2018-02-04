@@ -5,7 +5,8 @@ import com.devsteady.onyx.debug.Debugger;
 import com.devsteady.onyx.inventory.menu.ItemMenu;
 import com.devsteady.onyx.inventory.menu.MenuAction;
 import com.devsteady.onyx.inventory.menu.MenuBehaviour;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
+import com.devsteady.onyx.player.OnyxPlayerManager;
 import com.devsteady.onyx.player.Players;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class MenuInventoryListener implements Listener {
 
-    private static Players playerManager = null;
+    private static OnyxPlayerManager playerManager = null;
 
     public MenuInventoryListener() {
         playerManager = Onyx.getInstance().getPlayerHandler();
@@ -68,7 +69,7 @@ public class MenuInventoryListener implements Listener {
             return;
         }
 
-        MinecraftPlayer minecraftPlayer = playerManager.getData(player);
+        OnyxPlayer minecraftPlayer = playerManager.getUser(player);
         switch (inventoryType) {
             case WORKBENCH:
                 //If the player's viewing a recipe, don't let them click / manipulate
@@ -116,7 +117,7 @@ public class MenuInventoryListener implements Listener {
             }
         }
         //Get the wrapped player data
-        MinecraftPlayer minecraftPlayer = playerManager.getData(player);
+        OnyxPlayer minecraftPlayer = playerManager.getUser(player);
         switch (inventoryType) {
             case WORKBENCH:
                 //If the player's viewing a recipe, clear the inventory and update the inventory on close

@@ -2,7 +2,7 @@ package com.devsteady.onyx.nms.minecraft_1_9x;
 
 import com.devsteady.onyx.effect.ParticleEffect;
 import com.devsteady.onyx.nms.ParticleEffectsHandler;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.joor.Reflect;
 
 public class ParticleEffectsHandler_19X implements ParticleEffectsHandler {

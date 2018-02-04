@@ -61,7 +61,7 @@ public abstract class ThrowableItem extends ItemGadget {
 
         Location eyeLoc = holder.getEyeLocation();
 
-        final Item thrownItem = Worlds.dropItem(eyeLoc, gadgetItem);
+        final Item thrownItem = Worlds.dropItem(eyeLoc, gadgetItem,true);
 
         //If the firstPageEnabled's not meant to be picked up, then assure it
         //wont be picked up

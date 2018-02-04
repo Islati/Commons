@@ -3,9 +3,7 @@ package com.devsteady.onyx.entity;
 import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.inventory.ArmorInventory;
 import com.devsteady.onyx.inventory.ArmorSlot;
-import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.location.Locations;
-import com.devsteady.onyx.potion.Potions;
 import com.devsteady.onyx.time.TimeHandler;
 import com.devsteady.onyx.time.TimeType;
 import com.devsteady.onyx.utilities.NumberUtil;
@@ -119,18 +117,6 @@ public class Entities {
     }
 
     /**
-     * Spawn a random coloured sheep at a specific location.
-     *
-     * @param location location at which to spawn the sheep.
-     * @return the sheep that was spawned.
-     */
-    public static Sheep spawnRandomSheep(Location location) {
-        Sheep sheep = (Sheep) spawnLivingEntity(EntityType.SHEEP, location);
-        sheep.setColor(Items.getRandomDyeColor());
-        return sheep;
-    }
-
-    /**
      * Spawn an invisible, invincible {@link org.bukkit.entity.Bat} at the given location
      *
      * @param loc location to spawn the bat at.
@@ -142,7 +128,7 @@ public class Entities {
         /*
 		 Give the bat invisibility..
 		 */
-        addPotionEffect(bat, Potions.getPotionEffect(PotionEffectType.INVISIBILITY, 1, Integer.MAX_VALUE));
+        addPotionEffect(bat, new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
 		/*
         .. and also stop them from taking any damage for a loooong time!
 		 */
@@ -174,10 +160,6 @@ public class Entities {
             healthBarColor = ChatColor.RED;
         }
         return healthBarColor;
-    }
-
-    public static boolean hasKiller(LivingEntity entity) {
-        return entity.getKiller() != null;
     }
 
     /**
@@ -222,16 +204,6 @@ public class Entities {
 
     public static boolean hasName(LivingEntity entity) {
         return entity.getCustomName() != null;
-    }
-
-    /**
-     * Get the entities name (derived from their type), fully formatted and capitalized properly.
-     *
-     * @param entity the entity to get the name of
-     * @return the entities name fully formatted and capitalized properly.
-     */
-    public static String getDefaultName(LivingEntity entity) {
-        return getDefaultName(entity.getType());
     }
 
     /**
@@ -628,6 +600,7 @@ public class Entities {
      * @return a set of items that were found on the ground. If none were found, an empty hashset is returned.
      */
     public static Set<Item> getDroppedItemsNearLocation(Location center, int radius) {
+        //todo move to another class.
         Set<Item> items = new HashSet<>();
         for (Item item : center.getWorld().getEntitiesByClass(Item.class)) {
             if (Locations.isEntityInRadius(center, radius, item)) {
@@ -669,7 +642,7 @@ public class Entities {
      */
     public static void damage(Damageable target, double damage) {
         if (target instanceof Player) {
-            if (Onyx.getInstance().getPlayerHandler().getData((Player) target).hasGodMode()) {
+            if (Onyx.getInstance().getPlayerHandler().getUser((Player) target).hasGodMode()) {
                 return;
             }
         }
@@ -687,7 +660,7 @@ public class Entities {
      */
     public static void damage(Damageable target, double damage, LivingEntity damager) {
         if (target instanceof Player) {
-            if (Onyx.getInstance().getPlayerHandler().getData((Player) target).hasGodMode()) {
+            if (Onyx.getInstance().getPlayerHandler().getUser((Player) target).hasGodMode()) {
                 return;
             }
         }
@@ -752,16 +725,6 @@ public class Entities {
         for (PotionEffect effect : entity.getActivePotionEffects()) {
             entity.removePotionEffect(effect.getType());
         }
-    }
-
-    /**
-     * Stop the entity from burning
-     *
-     * @param entity entity to stop burning
-     * @see org.bukkit.entity.Entity#setFireTicks(int)
-     */
-    public static void removeFire(Entity entity) {
-        entity.setFireTicks(0);
     }
 
     /**

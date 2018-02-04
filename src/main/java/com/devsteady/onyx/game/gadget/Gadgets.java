@@ -87,37 +87,10 @@ public class Gadgets {
     }
 
     /**
-     * Spawn the gadget at the given location.
-     *
-     * @param gadget   gadget to drop at the location
-     * @param location location to spawn the gadget at
-     */
-    public static void spawnGadget(Gadget gadget, Location location) {
-        Worlds.dropItem(location, gadget.getItem());
-    }
-
-    /**
-     * Retrieve a random gadget from the list of currently registered gadgets
-     *
-     * @return random gadget of the registered gadgets
-     */
-    public static Gadget getRandomGadget() {
-        List<Gadget> gadgetList = Lists.newArrayList(gadgets.values());
-        return gadgetList.get(random.nextInt(gadgetList.size()));
-    }
-
-    /**
      * @return a collection of all the currently registered gadgets
      */
     public static Collection<Gadget> getAllGadgets() {
         return gadgets.values();
-    }
-
-    /**
-     * @return the amount of registered gadgets
-     */
-    public static int getGadgetCount() {
-        return gadgets.size();
     }
 
 

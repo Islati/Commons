@@ -143,7 +143,7 @@ public abstract class BaseBullet implements Metadatable {
 
         World pw = p.getWorld();
 
-        Item bullet = Worlds.dropItem(p.getLocation(), itemStack);
+        Item bullet = Worlds.dropItem(p.getLocation(), itemStack,true);
         bullet.setPickupDelay(PICKUP_DELAY);
         bullet.setVelocity(Vectors.direction(p.getEyeLocation(), Players.getTargetLocation(p)).multiply(force * 2));
 

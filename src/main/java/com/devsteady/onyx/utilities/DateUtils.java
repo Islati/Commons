@@ -1,4 +1,4 @@
-package com.devsteady.onyx.time;
+package com.devsteady.onyx.utilities;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

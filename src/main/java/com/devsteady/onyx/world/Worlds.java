@@ -10,25 +10,14 @@ import com.devsteady.onyx.time.TimeHandler;
 import com.devsteady.onyx.time.TimeType;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
-import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 public class Worlds {
-    private static Onyx commons = Onyx.getInstance();
-
-    public void handleWeather(World World) {
-        if (World.hasStorm() && commons.getConfiguration().disableWeather()) {
-            World.setStorm(false);
-            World.setThundering(false);
-        }
-    }
-
     public static World getWorld(String worldName) {
         if (!exists(worldName)) {
             boolean loaded = false;
@@ -50,61 +39,8 @@ public class Worlds {
         return Bukkit.getWorld(worldUUID);
     }
 
-    public static World getWorld(Entity entity) {
-        return entity.getWorld();
-    }
-
-    public static String getWorldName(Entity entity) {
-        return getWorld(entity).getName();
-    }
-
-    public static String getWorldName(Location location) {
-        Validate.notNull(location, "Unable to get the name for a null location ");
-
-        World world = location.getWorld();
-        Validate.notNull(world, "Unable to get the name for the location as its associated world is null!");
-
-        return location.getWorld().getName();
-    }
-
     public static boolean exists(String worldName) {
         return Bukkit.getWorld(worldName) != null;
-    }
-
-    public static Location getSpawn(UUID worldUUID) {
-        return getSpawn(getWorld(worldUUID));
-    }
-
-    public static Location getSpawn(String worldName) {
-        return getSpawn(getWorld(worldName));
-    }
-
-    public static Location getSpawn(World world) {
-        return world.getSpawnLocation();
-    }
-
-    public static Location getSpawn(Entity entity) {
-        return getSpawn(getWorld(entity));
-    }
-
-    public static boolean setSpawn(World world, int x, int y, int z) {
-        return world.setSpawnLocation(x, y, z);
-    }
-
-    public static boolean setSpawn(String world, int x, int y, int z) {
-        return setSpawn(getWorld(world), x, y, z);
-    }
-
-    public static boolean setSpawn(World world, int[] XYZ) {
-        return setSpawn(world, XYZ[0], XYZ[1], XYZ[2]);
-    }
-
-    public static boolean setSpawn(World world, Location location) {
-        return setSpawn(world, Locations.getXYZ(location));
-    }
-
-    public static boolean unload(String worldName) {
-        return Bukkit.getServer().unloadWorld(getWorld(worldName), false);
     }
 
     public static boolean unload(World world) {
@@ -125,32 +61,11 @@ public class Worlds {
         return exists(worldName);
     }
 
-    public static List<World> allWorlds() {
-        return Bukkit.getWorlds();
-    }
-
-    public static void setTime(World world, long time) {
-        world.setTime(time);
-    }
-
     public static void setTime(World world, WorldTime time) {
         world.setTime(time.getTime());
     }
 
-    public static void setTimeDawn(World world) {
-        setTime(world, WorldTime.DAWN);
-    }
-
-    public static void setTimeNight(World world) {
-        setTime(world, WorldTime.NIGHT);
-    }
-
-    public static void setTimeDay(World world) {
-        setTime(world, WorldTime.DAY);
-    }
-
-    public static Item dropItem(World world, Location location, ItemStack item, boolean natural) {
-        Preconditions.checkNotNull(world);
+    public static Item dropItem(Location location, ItemStack item, boolean natural) {
         Preconditions.checkNotNull(location);
         Preconditions.checkNotNull(item);
 
@@ -158,23 +73,12 @@ public class Worlds {
             return null;
         }
 
+        World world = location.getWorld();
         if (natural) {
             return world.dropItemNaturally(location, item);
         } else {
             return world.dropItem(location, item);
         }
-    }
-
-    public static Item dropItem(Entity entity, ItemStack item, boolean natural) {
-        return dropItem(entity.getWorld(), entity.getLocation(), item, natural);
-    }
-
-    public static Item dropItem(Location location, ItemStack itemStack) {
-        return dropItem(location.getWorld(), location, itemStack, true);
-    }
-
-    public static Item dropItemNaturally(Entity entity, ItemStack item) {
-        return dropItem(entity, item, true);
     }
 
     public static World getDefaultWorld() {

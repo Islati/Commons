@@ -3,7 +3,6 @@ package com.devsteady.onyx.event;
 import com.devsteady.onyx.Messages;
 import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.chat.Chat;
-import com.devsteady.onyx.config.Configuration;
 import com.devsteady.onyx.nms.NMS;
 import com.devsteady.onyx.nms.UnhandledStackTrace;
 import com.devsteady.onyx.player.Players;
@@ -45,16 +44,13 @@ public class StackTraceEvent extends Event {
     }
 
     public static void handle(StackTraceEvent e) {
-        Configuration config = Onyx.getInstance().getConfiguration();
         Set<Player> debuggingPlayers = Players.getAllDebugging();
         Throwable eventException = e.getException();
 
         //If the stack trace messages are to be sent in chat, send em!
-        if (config.enableStackTraceChat()) {
-            String[] exceptionMessages = Messages.exceptionInfo(eventException);
-            //For every player that's debugging, send them the exception-info message
-            debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
-        }
+        String[] exceptionMessages = Messages.exceptionInfo(eventException);
+        //For every player that's debugging, send them the exception-info message
+        debuggingPlayers.forEach(p -> Chat.message(p.getPlayer(), exceptionMessages));
 
         /*
         By default we also want to message our console!

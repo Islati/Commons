@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
+public abstract class BukkitPlugin extends JavaPlugin implements OnyxPlugin {
 
 	private RunnableManager threadManager;
 
@@ -85,17 +85,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 		commandHandler.registerCommands(commands);
 	}
 
-	/**
-	 * Iterate through all the classes inside a package, and determine if it's a class that has
-	 * {@link Command} annotations available on any of its methods. If so, attempt to register them.
-	 * Note: Mirror method for {@link CommandHandler}.registerCommandsByPackage(String pkg)
-	 *
-	 * @param pkg Package to scan classes which contain {@link Command} annotations.
-	 */
-	public void registerCommandsByPackage(String pkg) {
-		commandHandler.registerCommandsByPackage(pkg);
-	}
-
 	public void registerListeners(Listener... listeners) {
 		Plugins.registerListeners(this, listeners);
 	}
@@ -108,10 +97,6 @@ public abstract class BukkitPlugin extends JavaPlugin implements CommonPlugin {
 
 	public void registerDebugActions(DebugAction... actions) {
 		Debugger.addDebugAction(actions);
-	}
-
-	public void registerDebugActionsByPackage(String pkg) {
-		Debugger.addDebugActionsByPackage(pkg);
 	}
 
 	public RunnableManager getThreadManager() {

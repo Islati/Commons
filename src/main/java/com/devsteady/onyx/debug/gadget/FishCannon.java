@@ -69,7 +69,7 @@ public class FishCannon extends BaseGun {
 
             List<Location> circle = Locations.getCircle(hitLoc, 3);
             circle.forEach(l -> {
-                Item dropItem = Worlds.dropItem(l, item);
+                Item dropItem = Worlds.dropItem(l, item,false);
                 dropItem.setFireTicks((int) TimeHandler.getTimeInTicks(4, TimeType.SECOND));
             });
 

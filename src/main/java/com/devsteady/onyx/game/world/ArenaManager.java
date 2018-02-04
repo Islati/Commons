@@ -105,10 +105,6 @@ public class ArenaManager extends YamlConfig implements ArenaHandler<Arena> {
         activeArena = arena.getWorldName();
     }
 
-    public void setActiveArena(String world) {
-        activeArena = world;
-    }
-
     @Override
     public Arena getActiveArena() {
         if (Strings.isNullOrEmpty(activeArena)) {

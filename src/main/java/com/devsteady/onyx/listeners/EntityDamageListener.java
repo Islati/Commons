@@ -1,8 +1,8 @@
 package com.devsteady.onyx.listeners;
 
 import com.devsteady.onyx.Onyx;
-import com.devsteady.onyx.config.Configuration;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
+import com.devsteady.onyx.player.OnyxPlayerManager;
 import com.devsteady.onyx.player.Players;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -13,13 +13,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityDamageListener implements Listener {
 
-    private Configuration config;
-
-    private Players playerHandler;
+    private OnyxPlayerManager playerHandler;
 
     public EntityDamageListener() {
-        config = Onyx.getInstance().getConfiguration();
-
         playerHandler = Onyx.getInstance().getPlayerHandler();
     }
 
@@ -33,7 +29,7 @@ public class EntityDamageListener implements Listener {
         }
 
         Player damagedPlayer = (Player) damaged;
-        MinecraftPlayer mcPlayer = playerHandler.getData(damagedPlayer);
+        OnyxPlayer mcPlayer = playerHandler.getUser(damagedPlayer);
 
         if (mcPlayer.hasGodMode()) {
 //			if (!damagedPlayer.hasPermission(Perms.COMMAND_GOD_MODE)) {

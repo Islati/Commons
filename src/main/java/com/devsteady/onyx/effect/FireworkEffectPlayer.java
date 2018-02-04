@@ -1,6 +1,6 @@
 package com.devsteady.onyx.effect;
 
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -46,15 +46,6 @@ public class FireworkEffectPlayer {
         playFirework(loc.getWorld(), loc, fe);
     }
 
-    /**
-     * Play a pretty firework at the location with the FireworkEffect when
-     * called
-     *
-     * @param world
-     * @param loc
-     * @param fe
-     * @throws Exception
-     */
     public void playFirework(World world, Location loc, FireworkEffect fe) throws Exception {
         // Bukkity load (CraftFirework)
         Firework fw = world.spawn(loc, Firework.class);

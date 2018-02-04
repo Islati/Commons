@@ -6,10 +6,9 @@ import com.devsteady.onyx.game.world.Arena;
 import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.location.Locations;
 import com.devsteady.onyx.location.PreTeleportLocation;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
 import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.utilities.StringUtil;
-import com.devsteady.onyx.world.Worlds;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -35,10 +34,10 @@ public class Messages {
     public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an itemin your main-hand or off-hand";
     public static final String ITEM_IN_EITHER_HAND_REQUIRED = "&eYou need to have an itemin either of your hands.";
     public static final String ITEM_IN_BOTH_HANDS_REQUIRED = "&eYou need to have an itemin both hands.";
-    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your firstPageEnabled; Is it a valid enchantment for the firstPageEnabled?";
+    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your ; Is it a valid enchantment for the ?";
     public static final String PLAYER_FED = "&aYou've been fed!";
     public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
-    public static final String ITEMS_REPAIRED = "&aYour firstPageEnabled(s) has been repaired";
+    public static final String ITEMS_REPAIRED = "&aYour (s) has been repaired";
     public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
     public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance " +
             "toggle";
@@ -214,7 +213,7 @@ public class Messages {
         return format("&e%s &ahas been kicked with the reason being: '&e%s&a'", player, reason);
     }
 
-    public static String playerDebugModeChange(MinecraftPlayer minecraftPlayer) {
+    public static String playerDebugModeChange(OnyxPlayer minecraftPlayer) {
         return format("&aYou're &e%s&a in debug mode.", minecraftPlayer.isInDebugMode() ? "now" : "no longer");
     }
 
@@ -283,7 +282,7 @@ public class Messages {
     }
 
     public static String itemEnchantmentAdded(String enchantmentName) {
-        return format("&aYou've added the '&e%s&a' enchantment to your firstPageEnabled", enchantmentName);
+        return format("&aYou've added the '&e%s&a' enchantment to your ", enchantmentName);
     }
 
     public static String itemEnchantmentAdded(String enchantmentName, int level) {
@@ -341,7 +340,7 @@ public class Messages {
         int[] xyz = Locations.getXYZ(location);
         return new String[]{
                 "&aLocation information:",
-                format("%s&aWorld Name: &l%s", YELLOW_INDENT_ARROW, Worlds.getWorldName(location)),
+                format("%s&aWorld Name: &l%s", YELLOW_INDENT_ARROW, location.getWorld().getName()),
                 format("%s&X: &l%s", YELLOW_INDENT_ARROW, xyz[0]),
                 format("%s&Y: &l%s", YELLOW_INDENT_ARROW, xyz[1]),
                 format("%s&Z: &l%s", YELLOW_INDENT_ARROW, xyz[2]),
@@ -418,7 +417,7 @@ public class Messages {
     }
 
     public static String invalidItem(String itemName) {
-        return format("&cSorry, but &e%s&c isn't a valid firstPageEnabled", itemName);
+        return format("&cSorry, but &e%s&c isn't a valid ", itemName);
     }
 
     public static String invalidItemData(String input) {

@@ -6,8 +6,8 @@ import com.devsteady.onyx.block.Blocks;
 import com.devsteady.onyx.chat.Chat;
 import com.devsteady.onyx.exceptions.InvalidMaterialNameException;
 import com.devsteady.onyx.inventory.Inventories;
-import com.devsteady.onyx.player.MinecraftPlayer;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.player.OnyxPlayer;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import com.devsteady.onyx.utilities.ListUtils;
 import com.devsteady.onyx.utilities.StringUtil;
 import com.google.common.collect.Lists;
@@ -1245,7 +1245,7 @@ public class Items {
         List<ItemStack> recipeIngredients = shapelessRecipe.getIngredientList();
         //Create a map for the recipes items
         Map<Integer, ItemStack> recipeItems = new HashMap<>();
-        MinecraftPlayer minecraftPlayer = Onyx.getInstance().getPlayerHandler().getData(player);
+        OnyxPlayer minecraftPlayer = Onyx.getInstance().getPlayerHandler().getUser(player);
 
         //Put each item in their respective spot
         for (int i = 0; i < recipeIngredients.size(); i++) {
@@ -1272,7 +1272,7 @@ public class Items {
         String[] recipeShape = shapedRecipe.getShape();
         //Create a new list used to create the inventory
         Map<Integer, ItemStack> itemRecipe = new HashMap<>();
-        MinecraftPlayer minecraftPlayer = Onyx.getInstance().getPlayerHandler().getData(player);
+        OnyxPlayer minecraftPlayer = Onyx.getInstance().getPlayerHandler().getUser(player);
         player.closeInventory();
         //Loop through all the items of the shapes (row 1, 2, and 3)
         for (int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
@@ -1464,14 +1464,6 @@ public class Items {
      */
     public static int getDataValue(ItemStack item) {
         return item.getData().getData();
-    }
-
-    /**
-     * @return a random dye color, of the available colors.
-     */
-    public static DyeColor getRandomDyeColor() {
-        DyeColor[] dyeColors = DyeColor.values();
-        return dyeColors[new Random().nextInt(dyeColors.length)];
     }
 
     private static List<Color> colors = Lists.newArrayList(Color.AQUA, Color.BLACK, Color.BLUE, Color.FUCHSIA, Color.GRAY, Color.GREEN, Color.LIME, Color.MAROON, Color.NAVY, Color.OLIVE, Color.ORANGE, Color.PURPLE, Color.RED, Color.SILVER, Color.YELLOW, Color.WHITE, Color.TEAL);

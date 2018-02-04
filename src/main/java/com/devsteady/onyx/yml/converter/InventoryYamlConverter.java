@@ -71,7 +71,7 @@ public class InventoryYamlConverter implements Converter {
         for(Map.Entry<Integer, Object> itemEntry : contents.entrySet()) {
             int slot = itemEntry.getKey();
             ItemStack item = (ItemStack)invConverter.fromConfig(ItemStack.class,itemEntry.getValue(),null);
-            Inventories.setItem(inventory,slot,item);
+            inventory.setItem(slot,item);
         }
 
         return inventory;

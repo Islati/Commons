@@ -1,20 +1,13 @@
 package com.devsteady.onyx.block;
 
 import com.devsteady.onyx.Messages;
-import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.chat.Chat;
 import com.devsteady.onyx.effect.Effects;
 import com.devsteady.onyx.item.BlockID;
 import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.location.Locations;
-import com.devsteady.onyx.plugin.Plugins;
-import com.devsteady.onyx.threading.tasks.BlockRegenThread;
-import com.devsteady.onyx.threading.tasks.BlocksRegenThread;
-import com.devsteady.onyx.time.TimeHandler;
-import com.devsteady.onyx.time.TimeType;
 import com.devsteady.onyx.utilities.ListUtils;
 import com.devsteady.onyx.utilities.NumberUtil;
-import com.devsteady.onyx.world.Worlds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.bukkit.Location;
@@ -24,10 +17,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 import java.util.*;
@@ -94,16 +84,6 @@ public class Blocks {
         //Water is transparent, though not hollow
         TRANSPARENT_MATERIALS.add((byte)Material.WATER.getId());
         TRANSPARENT_MATERIALS.add((byte)Material.STATIONARY_WATER.getId());
-    }
-
-    /**
-     * Convert a list of locations into a list of blocks!
-     *
-     * @param locs locations to get the blocks for.
-     * @return list of all the locations that the blocks are at.
-     */
-    public static List<Block> getBlocks(List<Location> locs) {
-        return locs.stream().map(Location::getBlock).collect(Collectors.toList());
     }
 
     /**
@@ -227,17 +207,6 @@ public class Blocks {
     }
 
     /**
-     * Gets the material id for the block passed
-     *
-     * @param block block to get the id for
-     * @return id of the block
-     * @see #getBlockId(org.bukkit.block.Block, boolean)
-     */
-    public static int getBlockId(Block block) {
-        return getBlockId(block, true);
-    }
-
-    /**
      * Gets either the block id, or material id based on the parameters.s
      *
      * @param block   block to get the id for
@@ -249,23 +218,13 @@ public class Blocks {
     }
 
     /**
-     * Check whether or not a block at a specific location is a solid or not.
-     *
-     * @param loc location to check if the block is solid.
-     * @return true if the block is a solid block, false if it's hollow, air, or liquid (Not solid).
-     */
-    public static boolean isSolid(Location loc) {
-        return getBlockAt(loc).getType().isSolid();
-    }
-
-    /**
      * Check whether or not a block is hollow
      *
      * @param block block to check
      * @return true if the block is hollow (meaning it can't be stood on / walked over without falling through), false otherwise
      */
     public static boolean isHollowBlock(Block block) {
-        return HOLLOW_MATERIALS.contains(getBlockId(block, false));
+        return HOLLOW_MATERIALS.contains(block.getType());
     }
 
     /**
@@ -276,18 +235,6 @@ public class Blocks {
      */
     public static boolean isTransparentBlock(Block block) {
         return TRANSPARENT_MATERIALS.contains((byte) getBlockId(block, false));
-    }
-
-    /**
-     * Determine whether or not the block above the block passed is air
-     *
-     * @param block block to check
-     * @return true if the block above the block passed is air, false otherwise
-     * @see #isHollowBlock(org.bukkit.block.Block)
-     * @see #isBlockAboveAir(org.bukkit.block.Block)
-     */
-    public static boolean isBlockAboveAir(Block block) {
-        return isHollowBlock(getBlockAbove(block));
     }
 
     /**
@@ -307,7 +254,7 @@ public class Blocks {
             case BED_BLOCK:
                 return true;
             default:
-                return !HOLLOW_MATERIALS.contains(getBlockId(block, false)) || !HOLLOW_MATERIALS.contains(getBlockId(getBlockAbove(block), false));
+                return !HOLLOW_MATERIALS.contains(block.getType()) || !HOLLOW_MATERIALS.contains(getBlockAbove(block).getType());
         }
     }
 
@@ -319,35 +266,6 @@ public class Blocks {
      */
     public static Block getBlockAt(Location blockLocation) {
         return blockLocation.getWorld().getBlockAt(blockLocation);
-    }
-
-    /**
-     * Breaks the block at specific location without showing the block-break effect
-     *
-     * @param blockLocation location to break the block
-     * @param natural       whether or not to break naturally
-     * @return true if the block was broken, false if it doesn't exist or wasn't broken
-     * @see #breakBlock(org.bukkit.block.Block, boolean, boolean)
-     */
-    public static boolean breakBlockAt(Location blockLocation, boolean natural) {
-        return breakBlockAt(blockLocation, natural, false);
-    }
-
-    /**
-     * Breaks the block at a specific location
-     *
-     * @param blockLocation location to break the block
-     * @param natural       whether or not to break naturally
-     * @param playeffect    whether or not to play the block-break effect
-     * @return true if the block was broken, false if it wasn't broken, or no block is at the location
-     * @see #breakBlock(org.bukkit.block.Block, boolean)
-     */
-    public static boolean breakBlockAt(Location blockLocation, boolean natural, boolean playeffect) {
-        Block block = getBlockAt(blockLocation);
-        if (block != null) {
-            return breakBlock(block, natural, playeffect);
-        }
-        return false;
     }
 
     /**
@@ -387,47 +305,6 @@ public class Blocks {
     }
 
     /**
-     * CURRENTLY BROKEN: WILL FIX / OPTIMISE.
-     * Force a player to break a tree, optionally the leaves and whether or not to drop items when breaking the blocks.
-     * <p>
-     * Calls a block-break-event for each block that's attempting to be broken, that way not allowing any bypass of plugins & protections.
-     *
-     * @param player    player to break the tree.
-     * @param block     base block of the tree.
-     * @param leaves    whether or not to break the leaves.
-     * @param dropItems whether or not to drop the items when blocks are broken.
-     */
-    @Deprecated
-    public static void breakTreeSafely(Player player, Block block, boolean leaves, boolean dropItems) {
-        Material type = block.getType();
-        ItemStack drop = null;
-        if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
-            drop = Items.convertBlockToItem(block);
-            BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
-
-            Plugins.callEvent(breakEvent);
-
-            if (breakEvent.isCancelled()) {
-                return;
-            }
-
-            breakBlock(block, true);
-            if (dropItems) {
-                Worlds.dropItem(block.getLocation(), drop);
-            }
-
-			/*
-            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
-			blocks (logs, and potentially leaves) until they're all gone!
-			 */
-
-            for (Block b : getBlocksSurrounding(block)) {
-                breakTreeSafely(player, b, leaves, dropItems);
-            }
-        }
-    }
-
-    /**
      * Changes the block to the data contained by {@param blockData}
      *
      * @param block     block to change
@@ -454,6 +331,10 @@ public class Blocks {
         setBlock(loc.getBlock(), data);
     }
 
+    public static void setBlock(Location loc, Material material) {
+        setBlock(getBlockAt(loc),material);
+    }
+
     /**
      * Change the material of a block
      *
@@ -464,16 +345,6 @@ public class Blocks {
         block.setType(changeMaterial);
         block.getState().setType(changeMaterial);
         block.getState().update(true);
-    }
-
-    /**
-     * Change the material of a block at a specific location.
-     *
-     * @param location location to change the block at.
-     * @param material material to assign to the block
-     */
-    public static void setBlock(Location location, Material material) {
-        setBlock(getBlockAt(location), material);
     }
 
     /**
@@ -596,12 +467,6 @@ public class Blocks {
         return parent.getRelative(face);
     }
 
-    /**
-     * Retrieve all the blocks that surround the parentBuilder block in all possible directions.
-     *
-     * @param parent parentBuilder block to retrieve the surrounding blocks from.
-     * @return a {@link java.util.HashSet} of all the {@link org.bukkit.block.Block} surrounding the parentBuilder block.
-     */
     public static Set<Block> getBlocksSurrounding(Block parent) {
         return EnumSet.allOf(BlockFace.class).stream().map(face -> getBlockFacing(parent, face)).collect(Collectors.toSet());
     }
@@ -666,7 +531,7 @@ public class Blocks {
      * @param locations places to be set on fire.
      */
     public static void setFire(Collection<Location> locations) {
-        locations.forEach(l -> Blocks.setBlock(l, Material.FIRE));
+        locations.forEach(l -> Blocks.setBlock(getBlockAt(l), Material.FIRE));
     }
 
     /**
@@ -814,14 +679,5 @@ public class Blocks {
             }
         }
 //		//todo implement size check for potential brushes?
-    }
-
-    private static double getDistance(Location pos1, Location pos2) {
-        double ySize = pos1.getY() - pos2.getY();
-        double zSize = pos1.getZ() - pos2.getZ();
-        double xSize = pos1.getX() - pos2.getX();
-
-        double distance = Math.sqrt((xSize * xSize) + (ySize * ySize) + (zSize + zSize));
-        return distance;
     }
 }

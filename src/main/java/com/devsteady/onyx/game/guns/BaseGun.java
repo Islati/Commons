@@ -9,7 +9,7 @@ import com.devsteady.onyx.game.gadget.ItemGadget;
 import com.devsteady.onyx.inventory.Inventories;
 import com.devsteady.onyx.item.ItemBuilder;
 import com.devsteady.onyx.item.Items;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
 import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.yml.Path;
 import com.devsteady.onyx.yml.Skip;
@@ -30,14 +30,14 @@ import java.util.UUID;
  *
  * Guns also contain a per-player ammo variable, and handles reloading whenever the ammo reaches 0.
  *
- * Further development will feature options of removing an itemstack from the players inventory based on the firstPageEnabled attached
+ * Further development will feature options of removing an itemstack from the players inventory based on the item attached
  * to the "equipped" (associated) bullet, Optionally.
  */
 public abstract class BaseGun extends ItemGadget implements Gun {
-    private static final Onyx commons = Onyx.getInstance();
+    private static final Onyx onyx = Onyx.getInstance();
     private static final Random random = new Random();
 
-    @Path("firstPageEnabled")
+    @Path("item")
     private ItemStack gun;
 
     @Skip
@@ -195,7 +195,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         addCooldown(holder);
 
 		/*
-		Handle the on-fire of the gun, what the firstPageEnabled's meant to do.
+		Handle the on-fire of the gun, what the item's meant to do.
 		 */
         onFire(holder);
 
@@ -213,7 +213,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 
         UUID id = player.getUniqueId();
 
-        final MinecraftPlayer mcPlayer = commons.getPlayerHandler().getData(id);
+        final OnyxPlayer mcPlayer = onyx.getPlayerHandler().getUser(id);
 
 		/*
 		If the player's already reloading,
@@ -228,7 +228,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
 		/*
 		Reload according to the guns reload speed!
 		 */
-        commons.getThreadManager().runTaskLater(() -> {
+        onyx.getThreadManager().runTaskLater(() -> {
 
 			/*
 			If the player reloading isn't online anymore then we're going to cancel.
@@ -347,7 +347,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         int slot = Inventories.getSlotOf(player.getInventory(), gun.getType(), Items.getName(gun));
 
         if (slot == -1) {
-            commons.debug("Unable to get slot of " + getItemName() + " on player " + player.getName());
+            onyx.debug("Unable to get slot of " + getItemName() + " on player " + player.getName());
             return;
         }
 

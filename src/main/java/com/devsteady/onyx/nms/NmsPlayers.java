@@ -1,7 +1,7 @@
 package com.devsteady.onyx.nms;
 
 import com.devsteady.onyx.chat.Chat;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.entity.Player;
 import org.joor.Reflect;
 

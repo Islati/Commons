@@ -1,7 +1,7 @@
 package com.devsteady.onyx.nms.non_breaking_implementation;
 
 import com.devsteady.onyx.nms.InventoryHandler;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.inventory.Inventory;
 
 public class NonBreakingInventoryHandler implements InventoryHandler {

@@ -64,12 +64,7 @@
                                 <includes>
                                     <include>commons-io:commons-io:jar:*</include>
                                     <include>org.projectlombok:lombok:jar:*</include>
-                                    <include>org.javatuples:javatuples:jar:*</include>
                                     <include>org.jooq:joor:jar:*</include>
-                                    <include>org.reflections:reflections:jar:*</include>
-                                    <include>org.javassist:javassist:jar:*</include>
-                                    <include>joda-time:joda-time:jar:*</include>
-                                    <include>com.google.guava:guava:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
@@ -189,34 +184,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.javatuples</groupId>
-            <artifactId>javatuples</artifactId>
-            <version>LATEST</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>joor</artifactId>
             <version>0.9.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.20.0-GA</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>LATEST</version>
         </dependency>
     </dependencies>
 </project>

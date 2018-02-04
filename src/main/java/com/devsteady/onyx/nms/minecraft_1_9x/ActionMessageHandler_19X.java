@@ -2,7 +2,7 @@ package com.devsteady.onyx.nms.minecraft_1_9x;
 
 import com.devsteady.onyx.nms.ActionMessageHandler;
 import com.devsteady.onyx.nms.NmsPlayers;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import com.devsteady.onyx.utilities.StringUtil;
 import org.bukkit.entity.Player;
 import org.joor.Reflect;

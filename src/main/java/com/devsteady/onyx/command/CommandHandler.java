@@ -2,9 +2,7 @@ package com.devsteady.onyx.command;
 
 import com.devsteady.onyx.chat.Chat;
 import com.devsteady.onyx.command.handlers.*;
-import com.devsteady.onyx.player.MinecraftPlayer;
-import com.devsteady.onyx.plugin.BukkitPlugin;
-import org.apache.commons.lang.StringUtils;
+import com.devsteady.onyx.player.OnyxPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,14 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.joor.Reflect;
-import org.reflections.ReflectionUtils;
-import org.reflections.Reflections;
-import org.reflections.scanners.ResourcesScanner;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.FilterBuilder;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -165,9 +155,6 @@ public class CommandHandler implements CommandExecutor {
 
 		registerArgumentHandler(Material.class, new MaterialArgumentHandler());
 
-		//Allow the getting of Commons MinecraftPlayer object.
-		registerArgumentHandler(MinecraftPlayer.class, new MinecraftPlayerArgumentHandler());
-
 		//Allow the getting of MaterialData, via id:data and id values!
 		registerArgumentHandler(MaterialData.class, new MaterialDataArgumentHandler());
 
@@ -251,54 +238,6 @@ public class CommandHandler implements CommandExecutor {
 			}
 
 			mainCommand.set(commands, method);
-		}
-	}
-
-	/**
-	 * Iterate through all the classes inside a package, and determine if it's a class that has
-	 * {@link com.devsteady.onyx.command.Command} annotations available on any of its methods. If so, attempt to register them.
-	 *
-	 * @param pkg Package to scan classes which contain {@link com.devsteady.onyx.command.Command} annotations.
-	 */
-	public void registerCommandsByPackage(String pkg) {
-		List<ClassLoader> classLoadersList = new LinkedList<ClassLoader>();
-		classLoadersList.add(ClasspathHelper.contextClassLoader());
-		classLoadersList.add(ClasspathHelper.staticClassLoader());
-
-		Reflections reflections = new Reflections(new ConfigurationBuilder()
-				.setScanners(new SubTypesScanner(false /* don't exclude Object.class */), new ResourcesScanner())
-				.setUrls(ClasspathHelper.forClassLoader(classLoadersList.toArray(new ClassLoader[0])))
-				.filterInputsBy(new FilterBuilder().include(FilterBuilder.prefix(pkg))));
-
-		Set<Class<?>> commandClasses = reflections.getSubTypesOf(Object.class);
-
-
-		Set<Object> commandClassInstances = new HashSet<>();
-
-		StringBuilder commandsRegistered = new StringBuilder();
-
-		for (Class<?> clazz : commandClasses) {
-			Set<Method> commandMethods = ReflectionUtils.getMethods(clazz, ReflectionUtils.withAnnotation(Command.class));
-			if (commandMethods.isEmpty()) {
-				continue;
-			}
-
-			commandClassInstances.add(Reflect.on(clazz).create().get());
-			commandsRegistered.append(String.format("%s", StringUtils.substringAfterLast(clazz.getCanonicalName(), "."))).append(",");
-		}
-
-		if (commandClassInstances.isEmpty()) {
-			return;
-		}
-
-		for (Object commandObj : commandClassInstances) {
-			registerCommand(commandObj);
-		}
-
-		if (plugin instanceof BukkitPlugin) {
-			((BukkitPlugin) plugin).getPluginLogger().info("Registered the following commands: " + commandsRegistered.toString());
-		} else {
-			plugin.getLogger().info("Registered the following commands: " + commandsRegistered.toString());
 		}
 	}
 

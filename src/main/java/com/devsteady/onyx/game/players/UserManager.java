@@ -4,7 +4,7 @@ import com.devsteady.onyx.game.event.UserJoinEvent;
 import com.devsteady.onyx.game.event.UserQuitEvent;
 import com.devsteady.onyx.player.User;
 import com.devsteady.onyx.plugin.Plugins;
-import com.devsteady.onyx.reflection.ReflectionUtilities;
+import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -3,7 +3,7 @@ package com.devsteady.onyx.nms;
 import com.devsteady.onyx.Onyx;
 import com.devsteady.onyx.effect.ParticleEffect;
 import com.devsteady.onyx.location.Locations;
-import com.devsteady.onyx.player.MinecraftPlayer;
+import com.devsteady.onyx.player.OnyxPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -88,7 +88,7 @@ public interface ParticleEffectsHandler {
         try {
             Object packet = createParticleEffectPacket(effect, loc, offsetX, offsetY, offsetZ, speed, count, 0);
             for (Player player : Locations.getPlayersInRadius(loc, radius)) {
-                MinecraftPlayer mcPlayer = Onyx.getInstance().getPlayerHandler().getData(player);
+                OnyxPlayer mcPlayer = Onyx.getInstance().getPlayerHandler().getUser(player);
                 if (mcPlayer.isHidingOtherPlayers()) {
                     continue;
                 }

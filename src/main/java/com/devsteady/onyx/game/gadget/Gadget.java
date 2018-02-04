@@ -1,7 +1,6 @@
 package com.devsteady.onyx.game.gadget;
 
 import com.devsteady.onyx.debug.gadget.FishCannon;
-import com.devsteady.onyx.debug.gadget.FlamingEnderSword;
 import com.devsteady.onyx.debug.gadget.ThrowableBrick;
 import com.devsteady.onyx.game.guns.BaseArrow;
 import com.devsteady.onyx.game.guns.BaseGun;
@@ -31,7 +30,6 @@ import org.bukkit.inventory.ItemStack;
  *     <li>An elaborate extension of ItemGadget that provides actions related to guns: {@link BaseGun}</li>
  *     <li>An elaborate extension of ItemGadget and Implementation of Weapon that provides a base for weapons: {@link BaseWeapon}</li>
  *     <li>An extension interface of Gadget, which provides methods related to creating weapons (Ie. Sword, Wand, Etc): {@link Weapon}</li>
- *     <li>An implementation of the above Weapon Interface, using {@link BaseWeapon} for a base, which will kill enderman with one swift hit: {@link FlamingEnderSword}</li>
  *     <li>An extension of {@link ItemGadget}, that allows items to be thrown: {@link ThrowableItem}</li>
  *     <li>An extension of {@link ItemGadget} that provides custom actions for arrows: {@link BaseArrow}</li>
  *     <li>A {@link BaseGun} implementation that shoots flaming fish: {@link FishCannon}</li>
