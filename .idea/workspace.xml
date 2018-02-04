@@ -3,114 +3,7 @@
   <component name="ChangeListManager">
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
-    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/commons.iml" afterPath="$PROJECT_DIR$/commons.iml" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Messages.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/BlockData.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/Blocks.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/Blocks.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/TextMarkup.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/command/CommandHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/command/CommandHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/command/handlers/MinecraftPlayerArgumentHandler.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/config/Configuration.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/config/OnyxConfig.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/Debugger.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/Debugger.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugFlamingEnderSword.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugForceRespawn.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugForceRespawn.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugKickStick.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugReflectionsPackageScan.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/FishCannon.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/FishCannon.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/FlamingEnderSword.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/KickStick.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/effect/FireworkEffectPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/effect/FireworkEffectPlayer.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/entity/Entities.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/entity/Entities.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/event/StackTraceEvent.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/event/StackTraceEvent.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/ArenaException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/EventCreationException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/GadgetInitializeError.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/InvalidChunkStateException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/InvalidEnchantmentException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/ItemCreationException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/LocationException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/exceptions/TitleCreationException.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/CraftGame.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/CraftGame.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/gadget/Gadget.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/gadget/Gadget.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/gadget/Gadgets.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/gadget/Gadgets.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/guns/BaseBullet.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/guns/BaseBullet.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/guns/BaseGun.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/guns/BaseGun.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/ContainerData.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/RewardData.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/ThrowableItem.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/ThrowableItem.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/listener/GameConnectionListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/players/UserManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/players/UserManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/world/Arena.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/world/Arena.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/world/ArenaManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/world/ArenaManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/ArmorBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/ArmorBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/Inventories.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/Inventories.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/ItemMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/ItemMenu.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/ItemMenuBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/ItemMenuBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/ItemPage.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/MultiPageMenu.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/MultiPageMenuBuilder.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/inventory/menu/PageSettings.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ArmorSet.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ItemCycler.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ItemEnchantmentWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ItemEnchantmentWrapper.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ItemSetManager.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/Items.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/Items.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/BlockBreakPlaceListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/CommandPreProcessListener.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/DebugModeListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/DebugModeListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/EntityDamageEntityListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/EntityDamageEntityListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/EntityDamageListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/EntityDamageListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/MenuInventoryListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/MenuInventoryListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/PlayerConnectionListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/PlayerConnectionListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/menus/gadgetmenu/GadgetsMenu.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/NmsPlayers.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/NmsPlayers.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/ParticleEffectsHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/ParticleEffectsHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_12_x/ParticleEffectsHandler_1_12X.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_12_x/ParticleEffectsHandler_1_12X.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ActionMessageHandler_18R3.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ActionMessageHandler_18R3.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ForceRespawnHandler_18R3.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ForceRespawnHandler_18R3.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ParticleEffectsHandler_18R3.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_8_R3/ParticleEffectsHandler_18R3.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_9x/ActionMessageHandler_19X.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_9x/ActionMessageHandler_19X.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_9x/ParticleEffectsHandler_19X.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_1_9x/ParticleEffectsHandler_19X.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_v1_7_R4/ParticleEffectHandler_1710.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/minecraft_v1_7_R4/ParticleEffectHandler_1710.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/non_breaking_implementation/NonBreakingInventoryHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/non_breaking_implementation/NonBreakingInventoryHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/permission/Permissible.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/permission/Permissions.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/permission/Perms.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/MinecraftPlayer.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/BukkitPlugin.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/BukkitPlugin.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/CommonPlugin.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/OnyxPlugin.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/potion/CyclicPotion.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/potion/PotionType.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/potion/Potions.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/reflection/ReflectionExecutor.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/reflection/ReflectionUtilities.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/reflection/SafeField.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/sound/SoundData.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/sound/SoundPlayer.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/sound/Sounds.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/sound/Sounds.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/threading/tasks/BlockRegenThread.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/threading/tasks/BlocksRegenThread.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/time/DateUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/DateUtils.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/ColourWave.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/CommonUtils.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/ExperienceManager.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/LogFile.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/LogicUtil.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/PastebinReporter.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/world/Worlds.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/world/Worlds.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/yml/converter/InventoryYamlConverter.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/yml/converter/InventoryYamlConverter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/mcstats/metrics/Metrics.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ReflectionsDebugActionFindTest.java" afterPath="" />
-    </list>
+    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)" />
     <ignored path="Commons.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -656,6 +549,15 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="onyx" type="462c0819:PsiDirectoryNode" />
               <item name="listeners" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="onyx" type="462c0819:PsiDirectoryNode" />
+              <item name="player" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
