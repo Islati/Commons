@@ -26,6 +26,12 @@ import java.util.UUID;
  * Used to messages to players, console, specific permission groups, users with permissions, action messages, titles, and more.
  */
 public class Chat {
+
+    /**
+     * The pixel dimensions of Minecraft's Chat Box.
+     */
+    private static final int CENTER_PX = 154;
+
     private static Onyx onyx = Onyx.getInstance();
 
     private static ConsoleCommandSender commandSender = Bukkit.getConsoleSender();
@@ -334,6 +340,59 @@ public class Chat {
         message(p, format(text, args));
     }
 
+    /**
+     * Based on the default font information for Minecraft, center the users text.
+     *
+     * @param text text that you wish to center.
+     * @return String with padding / maths performed to center it.
+     */
+    public static String center(String text) {
+        text = format(text);
+
+        int messagePxSize = 0;
+        boolean previousCode = false;
+        boolean isBold = false;
+
+        for (char c : text.toCharArray()) {
+            if (c == '§') {
+                previousCode = true;
+                continue;
+            } else if (previousCode) {
+                previousCode = false;
+                if (c == 'l' || c == 'L') {
+                    isBold = true;
+                } else {
+                    isBold = false;
+                }
+            } else {
+                DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
+                messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
+                messagePxSize++;
+            }
+        }
+
+        int halvedMessageSize = messagePxSize / 2;
+        int toCompensate = CENTER_PX - halvedMessageSize;
+        int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
+        int compensated = 0;
+        StringBuilder sb = new StringBuilder();
+        while (compensated < toCompensate) {
+            sb.append(" ");
+            compensated += spaceLength;
+        }
+        return sb.toString() + text;
+    }
+
+    /**
+     * Send the target (a) centered message(s) .
+     * @param target target receiving the message
+     * @param messages message(s) to send the target.
+     */
+    public static void centerMessage(CommandSender target, String... messages) {
+        for(String s : messages) {
+            message(target,center(s));
+        }
+    }
     /**
      * Initialize a builder of which you can create {@link ChatMenu} by.
      * Allows actions to be registered on click, and handled appropriately.

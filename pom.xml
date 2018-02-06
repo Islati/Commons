@@ -63,7 +63,6 @@
                             <artifactSet>
                                 <includes>
                                     <include>commons-io:commons-io:jar:*</include>
-                                    <include>org.projectlombok:lombok:jar:*</include>
                                     <include>org.jooq:joor:jar:*</include>
                                 </includes>
                             </artifactSet>

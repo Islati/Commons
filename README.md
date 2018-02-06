@@ -1,16 +1,18 @@
-Commons - Everything you'll need for Bukkit
+Onyx - Power your Plugins
 ==========
 
-During the release of Minecraft 1.5.X and having made plenty of Bukkit plugins, I always
-wanted a framework that removed all the boiler-plating possible, so I could focus
-more on core plugin development. I wanted an all in one library with power, flexibility, fluency,
-and verbosity.. None existed, so I created *commons*.
+Onyx has been under careful development since the release of Minecraft 1.5.
+Get some gas and keep that backend lit.
 
-Features
+Feature Tour
 --------
-  
-  *MiniGames Framework*'
-  
+  * Interact with the Blocks *(Blocks.java)*, Mobs *(Entities.java)*, and World *(Worlds.java)*
+  * Check out (Locations.java), it'll save ya time.
+  * ItemStack creation & maniuplation (Items.java, ItemBuilder.java, ArmorBuilder. java)
+  * Inventory searching, creation, and manipulation (Inventories.java, ArmorInventory.java)
+  * Create a custom user class to save data (UserManager.java, User.java) [Click here for Tutorial]
+
+  *MiniGames Framework*
     * Minigame framework through extending MiniGame<>
     * State-based gameplay managment.
     * Arena auto-loading and managment through MiniGame
