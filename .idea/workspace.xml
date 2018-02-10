@@ -4,11 +4,22 @@
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
     <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/DefaultFontInfo.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/ChancedBlock.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/ChancedBlock.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenu.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuCommandListener.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponent.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponentCheckbox.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuListener.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineBuilder.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineCallback.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ValueListener.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugDelayedMessage.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugDelayedMessage.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" afterPath="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" />
     </list>
     <ignored path="Commons.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,101 +88,79 @@
     <favorites_list name="Commons" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="105">
-                <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenu.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="OnyxPlayerManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1785">
-              <caret line="142" column="19" lean-forward="false" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LineBuilder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineBuilder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-705">
-              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatMenuComponent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatMenuComponentCheckbox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponentCheckbox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-131">
-              <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValueListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ValueListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1453">
-              <caret line="63" column="42" lean-forward="false" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DefaultFontInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/DefaultFontInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1905">
-              <caret line="128" column="1" lean-forward="false" selection-start-line="128" selection-start-column="1" selection-end-line="128" selection-end-column="1" />
+            <state relative-caret-position="330">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding>
-                <element signature="e#2046#2047#0" expanded="true" />
-                <element signature="e#2083#2084#0" expanded="true" />
-                <element signature="e#2113#2114#0" expanded="true" />
-                <element signature="e#2147#2148#0" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
+                <element signature="e#545#546#0" expanded="true" />
+                <element signature="e#605#606#0" expanded="true" />
+                <element signature="e#639#640#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chat.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java">
+      <file leaf-file-name="OnyxPlayer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="388" column="53" lean-forward="false" selection-start-line="388" selection-start-column="53" selection-end-line="388" selection-end-column="53" />
+            <state relative-caret-position="-1230">
+              <caret line="69" column="22" lean-forward="false" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+              <folding>
+                <element signature="e#1902#1903#0" expanded="true" />
+                <element signature="e#1931#1932#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IUserManagerHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/listener/IUserManagerHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Onyx.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1364">
+              <caret line="93" column="48" lean-forward="false" selection-start-line="93" selection-start-column="48" selection-end-line="93" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#711#712#0" expanded="true" />
+                <element signature="e#740#741#0" expanded="true" />
+                <element signature="e#2205#2206#0" expanded="true" />
+                <element signature="e#2235#2236#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/players/UserManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-390">
+              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Players.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="756" column="0" lean-forward="false" selection-start-line="756" selection-start-column="0" selection-end-line="756" selection-end-column="0" />
+              <folding>
+                <element signature="e#25295#25296#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -226,9 +215,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/ChancedBlock.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ItemBuilder.java" />
-        <option value="$PROJECT_DIR$/src/test/java/ReflectionsDebugActionFindTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/world/Worlds.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/CraftGame.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/effect/FireworkEffectPlayer.java" />
@@ -247,9 +233,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/utilities/ReflectionUtilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Messages.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/BukkitPlugin.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/PlayerConnectionListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ArmorSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/entity/Entities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/event/StackTraceEvent.java" />
@@ -257,13 +241,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/DebugModeListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/EntityDamageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/listeners/MenuInventoryListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/Blocks.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/FlamingEnderSword.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/KickStick.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/Debugger.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/gadget/Gadget.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/ThrowableItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/nms/ParticleEffectsHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/Items.java" />
@@ -276,7 +258,14 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/DefaultFontInfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/ChancedBlock.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugDelayedMessage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java" />
       </list>
     </option>
   </component>
@@ -454,8 +443,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -524,6 +511,25 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="onyx" type="462c0819:PsiDirectoryNode" />
+              <item name="debug" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="onyx" type="462c0819:PsiDirectoryNode" />
+              <item name="debug" type="462c0819:PsiDirectoryNode" />
+              <item name="actions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="onyx" type="462c0819:PsiDirectoryNode" />
               <item name="inventory" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -534,6 +540,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="onyx" type="462c0819:PsiDirectoryNode" />
               <item name="item" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="onyx" type="462c0819:PsiDirectoryNode" />
+              <item name="nms" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Commons" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="onyx" type="462c0819:PsiDirectoryNode" />
+              <item name="nms" type="462c0819:PsiDirectoryNode" />
+              <item name="minecraft_v1_7_R4" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
@@ -552,6 +577,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -580,7 +607,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/README.md&#10;BaseG&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.BaseGun&#10;CommandHandler&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/command/CommandHandler.java&#10;InventoryYaml&#9;PSI&#9;JAVA://com.devsteady.onyx.yml.converter.InventoryYamlConverter&#10;FishCann&#9;PSI&#9;JAVA://com.devsteady.onyx.debug.gadget.FishCannon&#10;EntityDam&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.EntityDamageEntityListener&#10;EntityDama&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/listeners/EntityDamageListener.java&#10;OnyxPlayerMana&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java&#10;Items&#9;PSI&#9;JAVA://com.devsteady.onyx.item.Items&#10;ParticleEff&#9;PSI&#9;JAVA://com.devsteady.onyx.nms.ParticleEffectsHandler&#10;ThrowableItem&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.ThrowableItem&#10;OnyxPl&#9;PSI&#9;JAVA://com.devsteady.onyx.player.OnyxPlayer&#10;Gadget&#9;PSI&#9;JAVA://com.devsteady.onyx.game.gadget.Gadget&#10;FlamingEn&#9;PSI&#9;JAVA://com.devsteady.onyx.debug.gadget.FlamingEnderSword&#10;Blocks&#9;PSI&#9;JAVA://com.devsteady.onyx.block.Blocks&#10;BlockBreak&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.BlockBreakPlaceListener&#10;StackTraceEvent&#9;PSI&#9;JAVA://com.devsteady.onyx.event.StackTraceEvent&#10;Entities&#9;PSI&#9;JAVA://com.devsteady.onyx.entity.Entities&#10;BlockRegen&#9;PSI&#9;JAVA://com.devsteady.onyx.threading.tasks.BlockRegenThread&#10;EntityDamageLIs&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.EntityDamageListener&#10;ArmorSet&#9;PSI&#9;JAVA://com.devsteady.onyx.item.ArmorSet&#10;I&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/item/ItemBuilder.java&#10;SneakyThrow&#9;PSI&#9;JAVA://com.devsteady.onyx.utilities.SneakyThrow&#10;Chanced&#9;PSI&#9;JAVA://com.devsteady.onyx.block.ChancedBlock&#10;HelpScreen&#9;PSI&#9;JAVA://com.devsteady.onyx.chat.menu.HelpScreen&#10;Tool&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.Tool&#10;BulletAc&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.BulletActions&#10;Gun&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.Gun&#10;Weapon&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.Weapon&#10;Particle&#9;PSI&#9;JAVA://com.devsteady.onyx.nms.ParticleEffectsHandler&#10;LocationYamlC&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.LocationYamlConverter&#10;ConversationFacto&#9;PSI&#9;JAVA://org.bukkit.conversations.ConversationFactory&#10;RegionArena&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/world/RegionArena.java&#10;EntityType&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.EntityTypeYamlConverter&#10;ArenaManager&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.ArenaManager&#10;Messa&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;Arena&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.Arena&#10;ItemBu&#9;PSI&#9;JAVA://com.caved_in.commons.item.ItemBuilder&#10;MenuItem&#9;PSI&#9;JAVA://com.caved_in.commons.inventory.menu.MenuItem&#10;User&#9;FILE&#9;file:///home/brandon/Projects/Commons/src/main/java/com/caved_in/commons/player/User.java&#10;Confirmation&#9;PSI&#9;JAVA://com.caved_in.commons.menus.confirmation.ConfirmationMenu&#10;Menus&#9;PSI&#9;JAVA://com.caved_in.commons.inventory.menu.Menus&#10;RegisteredCommand&#9;PSI&#9;JAVA://com.caved_in.commons.command.RegisteredCommand&#10;Unhandled&#9;PSI&#9;JAVA://com.caved_in.commons.nms.minecraft_1_8_R3.UnhandledStackTrace_18R3&#10;Inventory&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.InventoryYamlConverter&#10;ListUtil&#9;PSI&#9;JAVA://com.caved_in.commons.utilities.ListUtils&#10;DebugScoreb&#9;PSI&#9;JAVA://com.caved_in.commons.debug.actions.DebugScoreboardBuilder&#10;ParticleE&#9;PSI&#9;JAVA://com.caved_in.commons.effect.ParticleEffect&#10;minigame&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/MiniGame.java&#10;RegionAre&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/world/RegionArena.java" />
+    <property name="SearchEverywhereHistoryKey" value="Players&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/player/Players.java&#10;BaseG&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.BaseGun&#10;CommandHandler&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/command/CommandHandler.java&#10;InventoryYaml&#9;PSI&#9;JAVA://com.devsteady.onyx.yml.converter.InventoryYamlConverter&#10;FishCann&#9;PSI&#9;JAVA://com.devsteady.onyx.debug.gadget.FishCannon&#10;EntityDam&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.EntityDamageEntityListener&#10;EntityDama&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/listeners/EntityDamageListener.java&#10;OnyxPlayerMana&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java&#10;Items&#9;PSI&#9;JAVA://com.devsteady.onyx.item.Items&#10;ParticleEff&#9;PSI&#9;JAVA://com.devsteady.onyx.nms.ParticleEffectsHandler&#10;ThrowableItem&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.ThrowableItem&#10;OnyxPl&#9;PSI&#9;JAVA://com.devsteady.onyx.player.OnyxPlayer&#10;Gadget&#9;PSI&#9;JAVA://com.devsteady.onyx.game.gadget.Gadget&#10;FlamingEn&#9;PSI&#9;JAVA://com.devsteady.onyx.debug.gadget.FlamingEnderSword&#10;Blocks&#9;PSI&#9;JAVA://com.devsteady.onyx.block.Blocks&#10;BlockBreak&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.BlockBreakPlaceListener&#10;StackTraceEvent&#9;PSI&#9;JAVA://com.devsteady.onyx.event.StackTraceEvent&#10;Entities&#9;PSI&#9;JAVA://com.devsteady.onyx.entity.Entities&#10;BlockRegen&#9;PSI&#9;JAVA://com.devsteady.onyx.threading.tasks.BlockRegenThread&#10;EntityDamageLIs&#9;PSI&#9;JAVA://com.devsteady.onyx.listeners.EntityDamageListener&#10;ArmorSet&#9;PSI&#9;JAVA://com.devsteady.onyx.item.ArmorSet&#10;I&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/devsteady/onyx/item/ItemBuilder.java&#10;SneakyThrow&#9;PSI&#9;JAVA://com.devsteady.onyx.utilities.SneakyThrow&#10;Chanced&#9;PSI&#9;JAVA://com.devsteady.onyx.block.ChancedBlock&#10;HelpScreen&#9;PSI&#9;JAVA://com.devsteady.onyx.chat.menu.HelpScreen&#10;Tool&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.Tool&#10;BulletAc&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.BulletActions&#10;Gun&#9;PSI&#9;JAVA://com.devsteady.onyx.game.guns.Gun&#10;Weapon&#9;PSI&#9;JAVA://com.devsteady.onyx.game.item.Weapon&#10;Particle&#9;PSI&#9;JAVA://com.devsteady.onyx.nms.ParticleEffectsHandler&#10;LocationYamlC&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.LocationYamlConverter&#10;ConversationFacto&#9;PSI&#9;JAVA://org.bukkit.conversations.ConversationFactory&#10;RegionArena&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/world/RegionArena.java&#10;EntityType&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.EntityTypeYamlConverter&#10;ArenaManager&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.ArenaManager&#10;Messa&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;Arena&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.Arena&#10;ItemBu&#9;PSI&#9;JAVA://com.caved_in.commons.item.ItemBuilder&#10;MenuItem&#9;PSI&#9;JAVA://com.caved_in.commons.inventory.menu.MenuItem&#10;User&#9;FILE&#9;file:///home/brandon/Projects/Commons/src/main/java/com/caved_in/commons/player/User.java&#10;Confirmation&#9;PSI&#9;JAVA://com.caved_in.commons.menus.confirmation.ConfirmationMenu&#10;Menus&#9;PSI&#9;JAVA://com.caved_in.commons.inventory.menu.Menus&#10;RegisteredCommand&#9;PSI&#9;JAVA://com.caved_in.commons.command.RegisteredCommand&#10;Unhandled&#9;PSI&#9;JAVA://com.caved_in.commons.nms.minecraft_1_8_R3.UnhandledStackTrace_18R3&#10;Inventory&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.InventoryYamlConverter&#10;ListUtil&#9;PSI&#9;JAVA://com.caved_in.commons.utilities.ListUtils&#10;DebugScoreb&#9;PSI&#9;JAVA://com.caved_in.commons.debug.actions.DebugScoreboardBuilder&#10;ParticleE&#9;PSI&#9;JAVA://com.caved_in.commons.effect.ParticleEffect&#10;minigame&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/MiniGame.java&#10;RegionAre&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/world/RegionArena.java" />
     <property name="recentsLimit" value="5" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editorconfig.notification" value="Applied .editorconfig settings" />
@@ -1921,7 +1948,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="1366" height="738" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3261944" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1930,9 +1956,9 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15681818" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733078" sideWeight="0.619375" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2520593" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2520593" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26818183" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27272728" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2025,42 +2051,6 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/command/CommandUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/plugin/BukkitPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="99" column="5" lean-forward="false" selection-start-line="99" selection-start-column="5" selection-end-line="99" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/players/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="723" column="6" lean-forward="false" selection-start-line="723" selection-start-column="6" selection-end-line="723" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#25132#25133#0" expanded="false" />
-            <element signature="e#25210#25211#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/item/ArmorSet.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/threading/tasks/BlockRegenThread.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/entity/Entities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -2104,20 +2094,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="95" column="5" lean-forward="true" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2782#2783#0" expanded="false" />
-            <element signature="e#2812#2813#0" expanded="false" />
-            <element signature="e#2872#2873#0" expanded="false" />
-            <element signature="e#2911#2912#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/FlamingEnderSword.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugKickStick.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/gadget/KickStick.java" />
@@ -2142,18 +2118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="132" column="5" lean-forward="false" selection-start-line="132" selection-start-column="5" selection-end-line="132" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1898#1899#0" expanded="false" />
-            <element signature="e#1963#1964#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/item/ThrowableItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -2165,6 +2129,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="107" column="55" lean-forward="false" selection-start-line="107" selection-start-column="55" selection-end-line="107" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2173,13 +2138,6 @@
         <state relative-caret-position="150">
           <caret line="1058" column="7" lean-forward="false" selection-start-line="1058" selection-start-column="7" selection-end-line="1058" selection-end-column="7" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2201,7 +2159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
           <caret line="71" column="45" lean-forward="false" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2209,7 +2166,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="77" column="5" lean-forward="false" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2218,7 +2174,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="155" column="79" lean-forward="false" selection-start-line="155" selection-start-column="79" selection-end-line="155" selection-end-column="79" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2228,7 +2183,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2286,12 +2240,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="105">
@@ -2301,81 +2249,142 @@
           <second_editor />
         </state>
       </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/libs/spigot-1.7.jar!/net/md_5/bungee/api/chat/BaseComponent.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-135">
           <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenu.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponent.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponentCheckbox.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ValueListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuListener.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineBuilder.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenu.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/debug/actions/DebugDelayedMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="142" column="19" lean-forward="false" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="19" />
+        <state relative-caret-position="210">
+          <caret line="17" column="77" lean-forward="false" selection-start-line="17" selection-start-column="77" selection-end-line="17" selection-end-column="77" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/LineBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-705">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ChatMenuComponentCheckbox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-131">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/menu/ValueListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/DefaultFontInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="128" column="1" lean-forward="false" selection-start-line="128" selection-start-column="1" selection-end-line="128" selection-end-column="1" />
-          <folding>
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#2083#2084#0" expanded="true" />
-            <element signature="e#2113#2114#0" expanded="true" />
-            <element signature="e#2147#2148#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/Chat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="388" column="53" lean-forward="false" selection-start-line="388" selection-start-column="53" selection-end-line="388" selection-end-column="53" />
+        <state relative-caret-position="255">
+          <caret line="394" column="5" lean-forward="false" selection-start-line="394" selection-start-column="5" selection-end-line="394" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#10804#10805#0" expanded="false" />
+            <element signature="e#10839#10840#0" expanded="false" />
+            <element signature="e#10927#10928#0" expanded="false" />
+            <element signature="e#10985#10986#0" expanded="false" />
+            <element signature="e#11033#11034#0" expanded="false" />
+            <element signature="e#11089#11090#0" expanded="false" />
+            <element signature="e#11302#11303#0" expanded="false" />
+            <element signature="e#11348#11349#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/chat/DefaultFontInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="128" column="1" lean-forward="false" selection-start-line="128" selection-start-column="1" selection-end-line="128" selection-end-column="1" />
+          <folding>
+            <element signature="e#2046#2047#0" expanded="false" />
+            <element signature="e#2083#2084#0" expanded="false" />
+            <element signature="e#2113#2114#0" expanded="false" />
+            <element signature="e#2147#2148#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/block/ChancedBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1453">
+        <state relative-caret-position="0">
           <caret line="63" column="42" lean-forward="false" selection-start-line="63" selection-start-column="42" selection-end-line="63" selection-end-column="42" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/Onyx.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1364">
+          <caret line="93" column="48" lean-forward="false" selection-start-line="93" selection-start-column="48" selection-end-line="93" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#711#712#0" expanded="true" />
+            <element signature="e#740#741#0" expanded="true" />
+            <element signature="e#2205#2206#0" expanded="true" />
+            <element signature="e#2235#2236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/Players.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="756" column="0" lean-forward="false" selection-start-line="756" selection-start-column="0" selection-end-line="756" selection-end-column="0" />
+          <folding>
+            <element signature="e#25295#25296#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/listener/IUserManagerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/game/players/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-390">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayerManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#605#606#0" expanded="true" />
+            <element signature="e#639#640#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/devsteady/onyx/player/OnyxPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1230">
+          <caret line="69" column="22" lean-forward="false" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+          <folding>
+            <element signature="e#1902#1903#0" expanded="true" />
+            <element signature="e#1931#1932#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

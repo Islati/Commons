@@ -1,7 +1,6 @@
 package com.devsteady.onyx.chat;
 
 import com.devsteady.onyx.Onyx;
-import com.devsteady.onyx.chat.menu.ChatMenu;
 import com.devsteady.onyx.nms.NMS;
 import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.sound.Sounds;
@@ -9,8 +8,9 @@ import com.devsteady.onyx.threading.RunnableManager;
 import com.devsteady.onyx.time.Cooldown;
 import com.devsteady.onyx.time.TimeHandler;
 import com.devsteady.onyx.time.TimeType;
-import com.devsteady.onyx.utilities.ArrayUtils;
 import com.devsteady.onyx.utilities.StringUtil;
+import lombok.NonNull;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 /**
  * Used to messages to players, console, specific permission groups, users with permissions, action messages, titles, and more.
@@ -46,6 +47,16 @@ public class Chat {
     public static void broadcast(String... messages) {
         for (String message : messages) {
             Bukkit.broadcastMessage(StringUtil.formatColorCodes(message));
+        }
+    }
+
+    /**
+     * Broadcast the base components that will be used to display your message.
+     * @param components component(s) to be broadcasted.
+     */
+    public static void broadcast(BaseComponent... components) {
+        for(BaseComponent component : components) {
+            Players.allPlayers().forEach(player -> player.spigot().sendMessage(component));
         }
     }
 
@@ -102,8 +113,19 @@ public class Chat {
      * @param target   receiver of the message(s)
      * @param messages message(s) to send
      */
-    public static void message(CommandSender target, String... messages) {
-        sendMessage(target, messages);
+    public static void message(@NonNull CommandSender target, String... messages) {
+        for(String msg : messages) {
+            target.sendMessage(format(msg));
+        }
+    }
+
+    /**
+     * Send messages in the form of base components to the player.
+     * @param target player receiving the message(s).
+     * @param components message (components) to send.
+     */
+    public static void message(Player target, BaseComponent... components) {
+        Stream.of(components).forEach((message) -> target.spigot().sendMessage(message));
     }
 
     /**
@@ -117,38 +139,36 @@ public class Chat {
             if (player == null) {
                 continue;
             }
-            sendMessage(player, messages);
+            message(player, messages);
         }
     }
 
-    /**
-     * Sends messages to all players <i>with</i> a specific permission
-     *
-     * @param permission permission to check for on players
-     * @param messages   messages to send to the players
-     * @see #sendMessage(org.bukkit.command.CommandSender, String...)
-     * @since 1.0
-     */
+    public static void messageAll(Collection<Player> receivers, BaseComponent... components) {
+        receivers.forEach(p -> message(p,components));
+    }
+
     public static void messageAllWithPermission(String permission, String... messages) {
         for (Player player : Players.allPlayers()) {
             if (player.hasPermission(permission)) {
-                sendMessage(player, messages);
+                message(player, messages);
             }
         }
     }
 
-    /**
-     * Sends a message to all players <i>without</i> a specific permission
-     *
-     * @param permission permission to check for on players
-     * @param message    message to send
-     * @see #sendMessage(org.bukkit.command.CommandSender, String)
-     * @since 1.0
-     */
+    public static void messageAllWithPermission(String permission, BaseComponent... components) {
+        for(Player player : Players.allPlayers()) {
+            if (!player.hasPermission(permission)) {
+                continue;
+            }
+
+            message(player,components);
+        }
+    }
+
     public static void messageAllWithoutPermission(String permission, String message) {
         for (Player player : Players.allPlayers()) {
             if (player.hasPermission(permission)) {
-                sendMessage(player, message);
+                message(player, message);
             }
         }
     }
@@ -164,26 +184,23 @@ public class Chat {
         for (Player player : Players.allPlayers()) {
             if (!player.hasPermission(permission)) {
                 for (String message : messages) {
-                    sendMessage(player, message);
+                    message(player, message);
                 }
             }
         }
     }
 
-    /**
-     * Sends messages to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
-     *
-     * @param messageReceiver commandsender to send the message to
-     * @param messages        messages to send
-     * @since 1.0
-     */
-    public static void sendMessage(CommandSender messageReceiver, String... messages) {
-        for (String message : messages) {
-            sendMessage(messageReceiver, message);
+    public static void messageAllWithoutPermission(String permission, BaseComponent... components) {
+        for(Player player : Players.allPlayers()) {
+            if (player.hasPermission(permission)) {
+                continue;
+            }
+
+            message(player,components);
         }
     }
 
-    public static void sendSoundedMessage(Player receiver, Sound sound, int delay, String... messages) {
+    public static void messageSounded(Player receiver, Sound sound, int delay, String... messages) {
         int index = 1;
         RunnableManager threadManager = Onyx.getInstance().getThreadManager();
         for (String message : messages) {
@@ -192,51 +209,16 @@ public class Chat {
         }
     }
 
-    /**
-     * Sends messages to all online players
-     *
-     * @param messages messages to send
-     * @see #sendMessage(org.bukkit.command.CommandSender, String)
-     * @since 1.0
-     */
     public static void messageAll(String... messages) {
         for (Player player : Players.allPlayers()) {
-            sendMessage(player, messages);
+            message(player, messages);
         }
     }
 
-    /**
-     * Send a message to all the players excluding those passed as arguments.
-     *
-     * @param message    message to send to the players.
-     * @param exceptions players to exclude from receiving the message
-     */
-    public static void messageAllExcept(String message, Player... exceptions) {
-        UUID[] playerIds = ArrayUtils.getIdArray(exceptions);
-        messageAll(Players.allPlayersExcept(playerIds), message);
-    }
-
-    /**
-     * Send the player a message, and disallow them from receiving the same message
-     * for a restricted amount of time.
-     *
-     * @param p        player receiving the message
-     * @param cooldown amount of seconds between receiving the message.
-     * @param message  message to send to the player.
-     */
-    public static void sendMessageOnCooldown(Player p, int cooldown, String message) {
-        if (!messageCooldowns.containsKey(message)) {
-            messageCooldowns.put(message, new Cooldown(cooldown));
+    public static void messageAll(BaseComponent... components) {
+        for (Player player : Players.allPlayers()) {
+            message(player,components);
         }
-
-        Cooldown cool = messageCooldowns.get(message);
-
-        if (cool.isOnCooldown(p)) {
-            return;
-        }
-
-        cool.setOnCooldown(p);
-        sendMessage(p, message);
     }
 
     /**
@@ -246,12 +228,20 @@ public class Chat {
      * @param delay    delay between each message being received.
      * @param messages messages to send to the player.
      */
-    public static void sendDelayedMessage(Player receiver, int delay, final String... messages) {
+    public static void messageDelayed(Player receiver, int delay, final String... messages) {
         int index = 1;
         RunnableManager threadManager = Onyx.getInstance().getThreadManager();
         for (String message : messages) {
             threadManager.runTaskLater(new DelayedMessage(receiver, message), TimeHandler.getTimeInTicks(index * delay, TimeType.SECOND));
             index += 1;
+        }
+    }
+
+    public static void messageDelayed(Player receiver, int delay, BaseComponent... components) {
+        int index = 1;
+        RunnableManager threads = Onyx.getInstance().getThreadManager();
+        for(BaseComponent component : components) {
+            threads.runTaskLater(new DelayedMessage(receiver,component),TimeHandler.getTimeInTicks(index * delay,TimeType.SECOND));
         }
     }
 
@@ -264,6 +254,8 @@ public class Chat {
         private Sound sound = null;
         private UUID receiverId;
 
+        private BaseComponent component = null;
+
         public DelayedMessage(Player player, String message) {
             this.receiverId = player.getUniqueId();
             this.message = StringUtil.colorize(message);
@@ -271,6 +263,17 @@ public class Chat {
 
         public DelayedMessage(Player player, String message, Sound sound) {
             this(player, message);
+            this.sound = sound;
+        }
+
+        public DelayedMessage(Player player, BaseComponent component) {
+            this.receiverId = player.getUniqueId();
+            this.component = component;
+        }
+
+        public DelayedMessage(Player player, BaseComponent component, Sound sound) {
+            this.receiverId = player.getUniqueId();
+            this.component = component;
             this.sound = sound;
         }
 
@@ -282,7 +285,12 @@ public class Chat {
                 return;
             }
 
-            message(player, message);
+            if (component != null) {
+                message(player,component);
+            } else {
+                message(player, message);
+            }
+
             if (sound != null) {
                 Sounds.playSound(player, sound);
             }
@@ -296,24 +304,16 @@ public class Chat {
      * @param message         message to send to the receiver
      * @param messageAmount   how many times the message is to be sent
      */
-    public static void sendRepeatedMessage(CommandSender messageReceiver, String message, int messageAmount) {
+    public static void messageRepeated(CommandSender messageReceiver, String message, int messageAmount) {
         for (int i = 0; i < messageAmount; i++) {
-            sendMessage(messageReceiver, message);
+            message(messageReceiver, message);
         }
     }
 
-    /**
-     * Sends a message to the commandsender; Automagically formats '&' to their {@link org.bukkit.ChatColor} correspondants
-     *
-     * @param messageReceiver receiver of the message
-     * @param message         message to send
-     * @since 1.0
-     */
-    public static void sendMessage(CommandSender messageReceiver, String message) {
-        if (messageReceiver == null || message == null) {
-            return;
+    public static void messageRepeat(Player player, BaseComponent component, int count) {
+        for (int i = 0; i < count; i++) {
+            message(player,component);
         }
-        messageReceiver.sendMessage(StringUtil.formatColorCodes(message));
     }
 
     /**
@@ -388,19 +388,10 @@ public class Chat {
      * @param target target receiving the message
      * @param messages message(s) to send the target.
      */
-    public static void centerMessage(CommandSender target, String... messages) {
+    public static void messageCentered(CommandSender target, String... messages) {
         for(String s : messages) {
             message(target,center(s));
         }
-    }
-    /**
-     * Initialize a builder of which you can create {@link ChatMenu} by.
-     * Allows actions to be registered on click, and handled appropriately.
-     *
-     * @return a newly created {@link ChatMenu} for creating awesome text-menus.
-     */
-    public static ChatMenu createMenu() {
-        return new ChatMenu();
     }
 
 }

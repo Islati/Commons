@@ -12,6 +12,7 @@ import com.devsteady.onyx.time.TimeType;
 import com.devsteady.onyx.yml.Path;
 import com.devsteady.onyx.yml.Skip;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -63,6 +64,10 @@ public class OnyxPlayer extends User {
         setId(id);
         setName(Players.getPlayer(id).getName());
         initWrapper();
+    }
+
+    public OnyxPlayer(Player player) {
+        super(player);
     }
 
     public void dispose() {

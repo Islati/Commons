@@ -1,7 +1,5 @@
 package com.devsteady.onyx;
 
-import com.devsteady.onyx.chat.Chat;
-import com.devsteady.onyx.chat.menu.ChatMenuCommandListener;
 import com.devsteady.onyx.listeners.*;
 import com.devsteady.onyx.nms.NMS;
 import com.devsteady.onyx.player.OnyxPlayerManager;
@@ -9,12 +7,9 @@ import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.plugin.BukkitPlugin;
 import com.devsteady.onyx.plugin.Plugins;
 import com.devsteady.onyx.utilities.ReflectionUtilities;
-import com.devsteady.onyx.world.Worlds;
-import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.*;
 
 public class Onyx extends BukkitPlugin {
@@ -26,16 +21,11 @@ public class Onyx extends BukkitPlugin {
      */
     private OnyxPlayerManager players;
 
-    private ChatMenuCommandListener chatMenuListener = null;
-
     public static synchronized Onyx getInstance() {
-        if (plugin == null) {
-            plugin = (Onyx) Plugins.getPlugin("Onyx");
-        }
         return plugin;
     }
 
-
+    @Override
     public void startup() {
         /*
         Initialize all NMS!
@@ -45,21 +35,13 @@ public class Onyx extends BukkitPlugin {
         //Use reflection to prepare for custom enchants.
         prepForCustomEnchantments();
 
-        chatMenuListener = new ChatMenuCommandListener(this);
-
-        /*
-        Create the players instance, used internally to track commons-required
-        player data for methods, and tasks.
-
-        Externally the Players class provides a static API
-         */
-        players = new OnyxPlayerManager();
-
         registerListeners(); // Register all our event listeners
 
         //Load all the players data
-        for (Player player : Players.allPlayers()) {
-            players.addUser(player);
+        if (Players.getOnlineCount() > 0) {
+            for (Player player : Players.allPlayers()) {
+                players.addUser(player);
+            }
         }
     }
 
@@ -73,7 +55,7 @@ public class Onyx extends BukkitPlugin {
 
     @Override
     public String getAuthor() {
-        return "Brandon Curtis";
+        return "TheGamersCave";
     }
 
     private void prepForCustomEnchantments() {
@@ -99,12 +81,16 @@ public class Onyx extends BukkitPlugin {
         return players;
     }
 
-    public ChatMenuCommandListener getChatMenuListener() {
-        return chatMenuListener;
-    }
-
     @Override
     public void initConfig() {
-        //todo add handling of messages class.
+        plugin = this;
+
+        /*
+        Create the players instance, used internally to track commons-required
+        player data for methods, and tasks.
+
+        Externally the Players class provides a static API
+         */
+        players = new OnyxPlayerManager(plugin);
     }
 }

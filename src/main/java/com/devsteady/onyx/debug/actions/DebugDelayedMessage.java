@@ -19,7 +19,7 @@ public class DebugDelayedMessage implements DebugAction {
             };
         }
 
-        Chat.sendDelayedMessage(player, delay, messages);
+        Chat.messageDelayed(player, delay, messages);
     }
 
     @Override

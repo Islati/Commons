@@ -4,6 +4,7 @@ import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.utilities.NumberUtil;
 import com.devsteady.onyx.yml.Path;
 import com.devsteady.onyx.yml.YamlConfig;
+import lombok.Getter;
 import org.bukkit.Material;
 
 /**
@@ -15,6 +16,7 @@ public class ChancedBlock extends YamlConfig {
     @Path("block-data")
     private byte data;
     @Path("chance")
+    @Getter
     private int chance;
 
     /**

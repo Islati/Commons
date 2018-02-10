@@ -734,6 +734,11 @@ public class Players {
      */
     public static Set<Player> getAllDebugging() {
         Set<Player> players = new HashSet<>();
+
+        if (Players.getOnlineCount() == 0) {
+            return players;
+        }
+
         for (OnyxPlayer wrapper : onyx.getPlayerHandler().allUsers()) {
             if (wrapper.isOnline() && wrapper.isInDebugMode()) {
                 players.add(getPlayer(wrapper));
