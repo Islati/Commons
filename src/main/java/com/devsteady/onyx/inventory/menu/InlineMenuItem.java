@@ -27,8 +27,9 @@ public class InlineMenuItem extends MenuItem {
         return handler;
     }
 
-    public void setClickHandler(MenuItemClickHandler handler) {
+    public InlineMenuItem setClickHandler(MenuItemClickHandler handler) {
         this.handler = handler;
+        return this;
     }
 
     @Override

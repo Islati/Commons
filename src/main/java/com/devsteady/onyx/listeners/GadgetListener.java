@@ -1,5 +1,6 @@
 package com.devsteady.onyx.listeners;
 
+import com.devsteady.onyx.chat.Chat;
 import com.devsteady.onyx.game.event.LauncherFireEvent;
 import com.devsteady.onyx.game.gadget.Gadget;
 import com.devsteady.onyx.game.gadget.Gadgets;
@@ -182,6 +183,8 @@ public class GadgetListener implements Listener {
                 e.setCancelled(true);
             }
         }
+
+        gadget.perform(player);
     }
 
     @EventHandler
@@ -221,17 +224,17 @@ public class GadgetListener implements Listener {
         will be called.
          */
         if (e.isCancelled()) {
+            Chat.debug("Interaction failed to perform gadget check due to cancellation");
             return;
         }
 
         Player player = e.getPlayer();
-        ItemStack itemInHand = e.getItem();
 
         if (!Gadgets.isGadget(e.getItem())) {
             return;
         }
 
-        Gadget gadget = Gadgets.getGadget(itemInHand);
+        Gadget gadget = Gadgets.getGadget(e.getItem());
 
         /* If our gadget is a tool then we'll handle it as expected */
         if (gadget instanceof Tool) {
@@ -241,12 +244,17 @@ public class GadgetListener implements Listener {
                 case RIGHT_CLICK_AIR:
                     tool.perform(player);
                     return;
+                case LEFT_CLICK_BLOCK:
+                    tool.onBlockDamage(player,e.getClickedBlock());
+                    break;
                 case RIGHT_CLICK_BLOCK:
                     tool.onInteract(player, e.getClickedBlock());
                     return;
                 case LEFT_CLICK_AIR:
                     tool.onSwing(player);
                     return;
+                case PHYSICAL:
+                    break;
                 default:
                     return;
             }
@@ -266,7 +274,9 @@ public class GadgetListener implements Listener {
                     return;
                 case LEFT_CLICK_AIR:
                 case LEFT_CLICK_BLOCK:
-//					weapon.onSwing(player);
+					weapon.onSwing(player);
+                case PHYSICAL:
+                    break;
                 default:
                     break;
             }
