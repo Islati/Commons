@@ -4,6 +4,7 @@ import com.devsteady.onyx.event.StackTraceEvent;
 import com.devsteady.onyx.utilities.LogUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -187,5 +188,17 @@ public class Plugins {
 
     public static String getNmsVersion() {
         return Bukkit.getServer().getClass().getPackage().getName().substring(23);
+    }
+
+    public static void runCommands(CommandSender executor, String... commands) {
+        for(String command : commands) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),command);
+        }
+    }
+
+    public static void runCommandsAsServer(String... commands) {
+        for (String command : commands) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+        }
     }
 }

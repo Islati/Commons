@@ -1,5 +1,6 @@
 package com.devsteady.onyx;
 
+import com.devsteady.onyx.commands.DebugModeCommand;
 import com.devsteady.onyx.listeners.*;
 import com.devsteady.onyx.nms.NMS;
 import com.devsteady.onyx.player.OnyxPlayerManager;
@@ -36,6 +37,8 @@ public class Onyx extends BukkitPlugin {
         prepForCustomEnchantments();
 
         registerListeners(); // Register all our event listeners
+
+        registerCommands(new DebugModeCommand());
 
         //Load all the players data
         if (Players.getOnlineCount() > 0) {

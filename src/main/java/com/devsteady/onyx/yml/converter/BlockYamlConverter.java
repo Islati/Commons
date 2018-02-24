@@ -35,7 +35,7 @@ public class BlockYamlConverter implements Converter {
 	@Override
 	public Object fromConfig(Class type, Object section, ParameterizedType genericType) {
 		Map<String, Object> blockMap = (Map<String, Object>) ((ConfigSection) section).getRawMap();
-		Map<String, Object> locationMap = (Map<String, Object>) ((ConfigSection) blockMap.get("location")).getRawMap();
+		Map<String, Object> locationMap = (Map<String, Object>) blockMap.get("location");
 
 		Location location = new org.bukkit.Location(Bukkit.getWorld((String) locationMap.get("world")), (Double) locationMap.get("x"), (Double) locationMap.get("y"), (Double) locationMap.get("z"));
 		org.bukkit.block.Block block = location.getBlock();

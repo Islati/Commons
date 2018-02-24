@@ -104,7 +104,11 @@ public class Chat {
      */
     public static void actionMessage(Player player, String message) {
         //todo implement version check.
-        NMS.getActionMessageHandler().actionMessage(player, message);
+        try {
+            NMS.getActionMessageHandler().actionMessage(player, message);
+        } catch (Exception ex) {
+            message(player,message);
+        }
     }
 
     /**

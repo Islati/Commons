@@ -3,3 +3,11 @@ main: com.devsteady.onyx.Onyx
 version: ${project.version}
 description: Power your plugins with Onyx.
 author: TheGamersCave
+commands:
+   debug:
+      usage: /debug
+      description: Toggle debug mode.
+permissions:
+   onyx.debug:
+      description: Used to enable players to enter debug mode.
+      default: op
