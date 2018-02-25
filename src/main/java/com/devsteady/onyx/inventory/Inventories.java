@@ -239,6 +239,16 @@ public class Inventories {
     }
 
     /**
+     * Clean the inventory removing all items.
+     * @param inv inventory to clear.
+     */
+    public static void clear(Inventory inv) {
+        for(int i = 0; i < inv.getSize(); i++) {
+            clearSlot(inv,i);
+        }
+    }
+
+    /**
      * Check whether or not the inventory contains the given material.
      *
      * @param inventory inventory to search
