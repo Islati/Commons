@@ -3,7 +3,7 @@ package com.devsteady.onyx.yml.converter;
 import com.devsteady.onyx.inventory.Inventories;
 import com.devsteady.onyx.yml.ConfigSection;
 import com.devsteady.onyx.yml.InternalConverter;
-import net.minecraft.util.org.apache.commons.lang3.reflect.TypeUtils;
+import org.apache.commons.lang3.reflect.TypeUtils;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

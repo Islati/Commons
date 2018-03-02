@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.devsteady</groupId>
     <artifactId>onyx</artifactId>
-    <version>1.7.10</version>
+    <version>1.8.8</version>
 
     <properties>
         <powermock.version>1.6.1</powermock.version>
@@ -126,9 +126,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.7.10</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/spigot-1.7.jar</systemPath>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

@@ -6,7 +6,6 @@ import com.devsteady.onyx.nms.NMS;
 import com.devsteady.onyx.player.OnyxPlayerManager;
 import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.plugin.BukkitPlugin;
-import com.devsteady.onyx.plugin.Plugins;
 import com.devsteady.onyx.utilities.ReflectionUtilities;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

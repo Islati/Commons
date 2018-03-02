@@ -4,7 +4,7 @@ import com.devsteady.onyx.item.ItemBuilder;
 import com.devsteady.onyx.item.Items;
 import com.devsteady.onyx.yml.ConfigSection;
 import com.devsteady.onyx.yml.InternalConverter;
-import net.minecraft.util.org.apache.commons.lang3.reflect.TypeUtils;
+import org.apache.commons.lang3.reflect.TypeUtils;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 

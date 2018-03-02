@@ -12,15 +12,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="Maven: org.spigotmc:spigot:1.7.10">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/spigot-1.7.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: com.github.github:site-maven-plugin:0.9" level="project" />
     <orderEntry type="library" name="Maven: com.github.github:github-maven-core:0.9" level="project" />
