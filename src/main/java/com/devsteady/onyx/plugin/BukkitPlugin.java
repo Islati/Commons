@@ -1,20 +1,19 @@
 package com.devsteady.onyx.plugin;
 
-import com.devsteady.onyx.chat.Chat;
-import com.devsteady.onyx.command.Command;
 import com.devsteady.onyx.command.CommandHandler;
 import com.devsteady.onyx.debug.DebugAction;
+import com.devsteady.onyx.debug.DebugHandler;
 import com.devsteady.onyx.debug.Debugger;
 import com.devsteady.onyx.game.gadget.Gadget;
 import com.devsteady.onyx.game.gadget.Gadgets;
 import com.devsteady.onyx.item.ItemMessage;
-import com.devsteady.onyx.player.Players;
 import com.devsteady.onyx.threading.RunnableManager;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginLogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -28,8 +27,17 @@ public abstract class BukkitPlugin extends JavaPlugin implements OnyxPlugin {
 
 	private CommandHandler commandHandler;
 
+	/**
+	 * Debug Handler defines the actions to take when performing a debug.
+	 **/
+	@Getter
+	@Setter
+	private DebugHandler debugHandler = null;
+
 	public void onEnable() {
 		initLogger();
+
+		debugHandler = new DebugHandler(this);
 
         /*
 		Create the command handler for annotation-based commands.
@@ -108,10 +116,7 @@ public abstract class BukkitPlugin extends JavaPlugin implements OnyxPlugin {
 	}
 
 	public void debug(String... message) {
-		Chat.messageAll(Players.getAllDebugging(), message);
-		for (String m : message) {
-			logger.log(Level.INFO, m);
-		}
+		getDebugHandler().process(message);
 	}
 
 	public Logger getPluginLogger() {
