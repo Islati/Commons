@@ -71,7 +71,7 @@ public class PageSettings extends YamlConfig {
         return this;
     }
 
-    public PageSettings firstPageEnabled(boolean enabled) {
+    public PageSettings item(boolean enabled) {
         this.pageFirstEnabled = enabled;
         return this;
     }

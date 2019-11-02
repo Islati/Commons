@@ -56,7 +56,7 @@ public class Commons extends BukkitPlugin {
     private Players players;
 
     /*
-    Create the firstPageEnabled-set manager, which allows us to save a players inventories
+    Create the item-set manager, which allows us to save a players inventories
     and swap them out at any time; Useful for creative, kits, etc.
 
     Initialized on a class-level so there's no discrepancies before the setup method is called.
@@ -323,7 +323,7 @@ public class Commons extends BukkitPlugin {
 
         if (!globalConfig.enableItemPickup()) {
             registerListeners(new ItemPickupListener());
-            debug("&aRegistered the firstPageEnabled-pickup listener");
+            debug("&aRegistered the item-pickup listener");
         }
 
         if (!globalConfig.enableFoodChange()) {
@@ -416,7 +416,7 @@ public class Commons extends BukkitPlugin {
         }
 
         /*
-		Create the sets folder for the firstPageEnabled manager; used to save and load- track and update firstPageEnabled sets.
+		Create the sets folder for the item manager; used to save and load- track and update item sets.
          */
         File itemSetsFolder = new File(ITEM_SET_DATA_FOLDER);
         if (!itemSetsFolder.exists()) {
@@ -425,7 +425,7 @@ public class Commons extends BukkitPlugin {
 
         Collection<File> itemSetFiles = FileUtils.listFiles(itemSetsFolder, null, false);
         if (itemSetFiles.size() > 0) {
-            /* Load all the files in the firstPageEnabled folder, into the firstPageEnabled set manager */
+            /* Load all the files in the item folder, into the item set manager */
             for (File file : itemSetFiles) {
                 try {
                     ItemSetManager.ItemSet set = new ItemSetManager.ItemSet(file);

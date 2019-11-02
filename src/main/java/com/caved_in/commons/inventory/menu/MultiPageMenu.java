@@ -257,7 +257,7 @@ public class MultiPageMenu implements Menu {
 
         /* Create a new page settings object */
         PageSettings newSettings = new PageSettings();
-        newSettings.firstPageEnabled(settings.pageFirstEnabled).firstPageItem(settings.itemPageFirst).firstPageSlot(settings.slotFirstPage)
+        newSettings.item(settings.pageFirstEnabled).firstPageItem(settings.itemPageFirst).firstPageSlot(settings.slotFirstPage)
                 .nextPageItem(settings.itemPageNext.clone())
                 .nextPageSlot(settings.slotPageNext)
                 .previousPageItem(settings.itemPagePrevious.clone())

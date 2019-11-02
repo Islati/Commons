@@ -47,7 +47,7 @@ public abstract class ThrowableItem extends ItemGadget {
         ItemStack gadgetItem = getItem();
 //
 //        /*
-//        With Dual-Wielding available we need to check the hand slot of where the player has the firstPageEnabled.
+//        With Dual-Wielding available we need to check the hand slot of where the player has the item.
 //         */
 //        if (Players.hasItemInHand(holder, gadgetItem, HandSlot.MAIN_HAND)) {
 //            Players.removeFromHand(holder, 1, HandSlot.MAIN_HAND);
@@ -55,18 +55,26 @@ public abstract class ThrowableItem extends ItemGadget {
 //            Players.removeFromHand(holder, 1, HandSlot.OFF_HAND);
 //        }
 
-        //todo get hand slot which firstPageEnabled is in.
+        //todo get hand slot which item is in.
 
-        //Remove an firstPageEnabled from the players hand, taking it out of their total amount for the throwable firstPageEnabled.
+        //Remove an item from the players hand, taking it out of their total amount for the throwable item.
         if (properties().takeItem()) {
-            Players.removeFromHand(holder, 1,HandSlot.MAIN_HAND);
+            //Attempt to fix bug of server crashing upon removing item from hand, by waiting a tick.
+            Commons.getInstance().getThreadManager().runTaskOneTickLater(() -> {
+                Players.removeFromHand(holder, 1, HandSlot.MAIN_HAND);
+            });
         }
 
         Location eyeLoc = holder.getEyeLocation();
 
         final Item thrownItem = Worlds.dropItem(eyeLoc, gadgetItem);
 
-        //If the firstPageEnabled's not meant to be picked up, then assure it
+        if (thrownItem == null) {
+//            Chat.message(holder, "&cUnable to find thrown item");
+            return;
+        }
+
+        //If the item's not meant to be picked up, then assure it
         //wont be picked up
         if (!properties().canPickup()) {
             thrownItem.setPickupDelay(Integer.MAX_VALUE);
@@ -77,20 +85,27 @@ public abstract class ThrowableItem extends ItemGadget {
         Action action = properties().action();
         switch (action) {
             case DELAY:
-                //After the delay is up, we want to handle the firstPageEnabled!
-                Commons.getInstance().getThreadManager().runTaskLater(() -> {
-                    //Call the handle, for any implementations to do as they wish!
-                    handle(holder, thrownItem);
+                Commons.getInstance().getThreadManager().runTaskLater(new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (thrownItem == null) {
+                            cancel();
+                            return;
+                        }
 
-                    if (properties().action() == Action.CANCEL) {
-                        Chat.actionMessage(holder, properties().cancelMessage());
-                        properties().action(Action.DELAY);
-                        return;
-                    }
+                        //Call the handle, for any implementations to do as they wish!
+                        handle(holder, thrownItem);
 
-                    //Remove the firstPageEnabled after the handle is called!
-                    if (properties().removeItem()) {
-                        thrownItem.remove();
+                        if (properties().action() == Action.CANCEL) {
+                            Chat.actionMessage(holder, properties().cancelMessage());
+                            properties().action(Action.DELAY);
+                            return;
+                        }
+
+                        //Remove the item after the handle is called!
+                        if (properties().removeItem()) {
+                            thrownItem.remove();
+                        }
                     }
                 }, TimeHandler.getTimeInTicks(properties().delay(), properties().delayType()));
                 break;
@@ -105,11 +120,16 @@ public abstract class ThrowableItem extends ItemGadget {
                 Commons.getInstance().getThreadManager().registerSyncRepeatTask("Gadget[" + thrownItem.getUniqueId().toString() + "-TICK]", new BukkitRunnable() {
                     @Override
                     public void run() {
-                        //Handle the thrown firstPageEnabled just as specified
+                        if (thrownItem == null) {
+                            cancel();
+                            return;
+                        }
+
+                        //Handle the thrown item just as specified
                         handle(holder, thrownItem);
 
-                        //Though if the firstPageEnabled is no longer available, then cancel the task!!
-                        //This means that the firstPageEnabled must be removed within the handle method, to cancel this task.
+                        //Though if the item is no longer available, then cancel the task!!
+                        //This means that the item must be removed within the handle method, to cancel this task.
                         if (!thrownItem.isValid()) {
                             cancel();
                         }
@@ -118,7 +138,7 @@ public abstract class ThrowableItem extends ItemGadget {
                 break;
             case EXECUTE:
                 long exTicks = properties().isTicks() ? properties().delay() : 50l;
-                //Execute the task 2.5 seconds later, as it gives the firstPageEnabled time to travel!
+                //Execute the task 2.5 seconds later, as it gives the item time to travel!
                 Commons.getInstance().getThreadManager().runTaskLater(() -> {
                     handle(holder, thrownItem);
 
@@ -172,15 +192,15 @@ public abstract class ThrowableItem extends ItemGadget {
         @Path("pickupable")
         private boolean pickupable = false;
 
-        @Path("remove-firstPageEnabled")
+        @Path("remove-item")
         private boolean removeItem = true;
 
-        @Path("take-firstPageEnabled")
-        @Comment("Whether or not the firstPageEnabled is taken once thrown (on interact / right click)")
+        @Path("take-item")
+        @Comment("Whether or not the item is taken once thrown (on interact / right click)")
         private boolean takeItem = true;
 
         @Path("action")
-        @Comment("What action to perform after the firstPageEnabled has been thrown")
+        @Comment("What action to perform after the item has been thrown")
         private String action = Action.EXECUTE.name();
 
         @Path("cancel-message")

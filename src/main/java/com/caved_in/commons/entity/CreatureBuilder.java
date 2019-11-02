@@ -35,9 +35,6 @@ public class CreatureBuilder {
     /* Used to determine whether or not the creature is powered; Only matters if they're a creeper */
     private boolean powered = false;
 
-    /* Used to determine whether or not the creature is a wither skeleton; only matters if they're a skeleton */
-    private Skeleton.SkeletonType skeletonType = Skeleton.SkeletonType.NORMAL;
-
     /* The name of the entity */
     private String name = "";
 
@@ -100,13 +97,6 @@ public class CreatureBuilder {
                     .armor(new ArmorInventory(creature.getEquipment().getArmorContents()));
 
 
-        }
-
-
-        if (entity instanceof Skeleton) {
-            Skeleton skeleton = (Skeleton) entity;
-
-            builder.skeletonType = skeleton.getSkeletonType();
         }
 
         if (entity instanceof Slime) {
@@ -224,17 +214,6 @@ public class CreatureBuilder {
     }
 
     /**
-     * Set the skeleton type to be wither.
-     * Only used if the creature is a skeleton.
-     *
-     * @return the creature builder
-     */
-    public CreatureBuilder wither() {
-        this.skeletonType = Skeleton.SkeletonType.WITHER;
-        return this;
-    }
-
-    /**
      * Whether or not the creature is a baby.
      * Checked if the creature is able to be a baby, or is age-able (ie. Chickens, cows, pig)
      *
@@ -301,12 +280,7 @@ public class CreatureBuilder {
         if (entity instanceof Zombie) {
             Zombie zombie = (Zombie) entity;
             zombie.setBaby(baby);
-            zombie.setVillager(villager);
-        }
-
-        if (entity instanceof Skeleton) {
-            Skeleton skeleton = (Skeleton) entity;
-            skeleton.setSkeletonType(skeletonType);
+//            zombie.setVillager(villager);
         }
 
         if (entity instanceof Slime) {
@@ -357,7 +331,7 @@ public class CreatureBuilder {
         data.setBaby(baby);
         data.setVillager(villager);
         data.setName(name);
-        data.setSkeletonType(skeletonType);
+//        data.setSkeletonType(skeletonType);
         data.setPowered(powered);
         data.setSize(size);
         data.setSizeMin(sizeMin);
@@ -403,10 +377,6 @@ public class CreatureBuilder {
 
     protected boolean isPowered() {
         return powered;
-    }
-
-    protected Skeleton.SkeletonType getSkeletonType() {
-        return skeletonType;
     }
 
     protected String getName() {

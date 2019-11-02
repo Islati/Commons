@@ -116,8 +116,8 @@ public class ItemStackYamlConverter implements Converter {
 		}
 
 		/*
-		If there's enchantments listed in the yml file for this firstPageEnabled, then we're going to parse
-		that section of the configuration, and then add it to the firstPageEnabled.
+		If there's enchantments listed in the yml file for this item, then we're going to parse
+		that section of the configuration, and then add it to the item.
 		 */
 		if (itemstackMap.containsKey("enchantments")) {
 

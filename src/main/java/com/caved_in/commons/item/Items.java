@@ -12,6 +12,7 @@ import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.NonNull;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
@@ -851,6 +852,10 @@ public class Items {
      * @return true if the item is a piece of armor, false otherwise.
      */
     public static boolean isArmor(ItemStack itemStack) {
+        if (itemStack == null) {
+            return false;
+        }
+
         return isArmor(itemStack.getType());
     }
 
@@ -861,6 +866,9 @@ public class Items {
      * @return true if the material is a piece of armor, false otherwise.
      */
     public static boolean isArmor(Material material) {
+        if (material == null) {
+            return false;
+        }
         return armorMaterials.contains(material);
     }
 
@@ -1072,7 +1080,7 @@ public class Items {
      * @return skull with the given player for the skin.
      */
     public static ItemStack getSkull(String playerName) {
-        ItemStack skullStack = new MaterialData(Material.SKELETON_SKULL, (byte) 3).toItemStack();
+        ItemStack skullStack = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullStack.getItemMeta();
         skullMeta.setOwner(playerName);
         skullStack.setItemMeta(skullMeta);
@@ -1110,6 +1118,8 @@ public class Items {
         return Material.valueOf(string.toUpperCase().replaceAll(" ", "_"));
     }
 
+    //todo reimplement aliases.
+
     /**
      * Retrieve a material by its name, or commonly known alias
      *
@@ -1118,14 +1128,19 @@ public class Items {
      * @throws com.caved_in.commons.exceptions.InvalidMaterialNameException if no material has a name or alias matching the search
      */
     public static Material getMaterialByName(String search) throws InvalidMaterialNameException {
-        Material material = Material.getMaterial(search);
-        if (material == null) {
-            material = Material.getMaterial(search, true);
-
-            if (material == null) {
-                throw new InvalidMaterialNameException(search + " is not a valid material name.");
-            }
+        try {
+            Material.valueOf(search.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidMaterialNameException(String.format(Chat.format("&e%s &cis not a valid material name."), search));
         }
+
+        Material material = null;
+        try {
+            material = Material.valueOf(search.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidMaterialNameException(String.format(Chat.format("&e%s &cis not a valid material name."), search));
+        }
+
         return material;
     }
 
@@ -1169,32 +1184,6 @@ public class Items {
         }
 
         return new MaterialData(material);
-
-//        //If no data-value was given, and it's a word, then look er' up and see
-//        //if its material data
-//        if (materialSplit == null) {
-//
-//            if (itemType == null) {
-//                throw new InvalidMaterialNameException(StringUtil.stripColor(Messages.invalidItem(idDatavalue)));
-//            }
-//            return new MaterialData(itemType.getID());
-//        }
-//
-//        itemType = ItemType.lookup(materialSplit[0]);
-//        String dataName = materialSplit[1];
-//        if (itemType == null) {
-//            throw new InvalidMaterialNameException(Messages.invalidItem(idDatavalue));
-//        }
-//        int itemId = itemType.getID();
-//
-//        //If they're combining names and numbers, then parse it accordingly
-//        if (StringUtils.isNumeric(dataName)) {
-//            return getMaterialData(itemId, Integer.parseInt(dataName));
-//        }
-//
-//        Material itemMaterial = getMaterialById(itemId);
-//        //Use the extra-items class to search for the given item and datavalue
-//        return ExtraItems.getItem(itemMaterial, dataName);
     }
 
     /**
@@ -1216,139 +1205,6 @@ public class Items {
      */
     public static ItemStack convertBlockToItem(Block block) {
         return new ItemStack(Blocks.getBlockMaterial(block));
-    }
-
-    /**
-     * Retrieve all the recipes associated with crafting the given itemstack.
-     *
-     * @param itemStack item to get the recipes for.
-     * @return list of all the recipes used to craft the given item.
-     */
-    public static List<Recipe> getRecipes(ItemStack itemStack) {
-        return Bukkit.getServer().getRecipesFor(itemStack);
-    }
-
-    /**
-     * NOTE: UNTESTED / BUGGY
-     * Show a furnace recipe to the player
-     *
-     * @param player        player to show the recipe to
-     * @param furnaceRecipe recipe to display.
-     */
-    public static void showFurnaceRecipe(Player player, FurnaceRecipe furnaceRecipe) {
-        Chat.message(player, Messages.recipeFurnace(furnaceRecipe.getResult(), furnaceRecipe.getInput()));
-    }
-
-    /**
-     * Show the player details of the shapeless recipe
-     *
-     * @param player          player to show the recipe to
-     * @param shapelessRecipe recipe to display
-     */
-    public static void showShapelessRecipe(Player player, ShapelessRecipe shapelessRecipe) {
-        //Get the ingredients required for this recipe
-        List<ItemStack> recipeIngredients = shapelessRecipe.getIngredientList();
-        //Create a map for the recipes items
-        Map<Integer, ItemStack> recipeItems = new HashMap<>();
-        MinecraftPlayer minecraftPlayer = Commons.getInstance().getPlayerHandler().getData(player);
-
-        //Put each item in their respective spot
-        for (int i = 0; i < recipeIngredients.size(); i++) {
-            recipeItems.put(i + 1, recipeIngredients.get(i));
-        }
-
-        //Open the workbench inventory
-        InventoryView inventoryView = Inventories.openWorkbench(player);
-        //Set the items in our inventory
-        Inventories.setViewItems(inventoryView, recipeItems);
-        minecraftPlayer.setViewingRecipe(true);
-    }
-
-    /**
-     * Show the player a shaped recipe in an inventory view.
-     *
-     * @param player       player to show the recipe to
-     * @param shapedRecipe recipe to show the player.
-     */
-    public static void showShapedRecipe(Player player, ShapedRecipe shapedRecipe) {
-        //Get a map of all our ingredients
-        Map<Character, ItemStack> itemIngredients = shapedRecipe.getIngredientMap();
-        //Get the shape of our recipe
-        String[] recipeShape = shapedRecipe.getShape();
-        //Create a new list used to create the inventory
-        Map<Integer, ItemStack> itemRecipe = new HashMap<>();
-        MinecraftPlayer minecraftPlayer = Commons.getInstance().getPlayerHandler().getData(player);
-        player.closeInventory();
-        //Loop through all the items of the shapes (row 1, 2, and 3)
-        for (int shapeIterator = 0; shapeIterator < recipeShape.length; shapeIterator++) {
-            String recipeRow = recipeShape[shapeIterator];
-            char[] rowCharacters = recipeRow.toCharArray();
-            //Loop through all the characters in the rowCharachers array and add the
-            //Respective itemstack to the retrieved item
-            for (int ingredientIterator = 0; ingredientIterator < recipeRow.length(); ingredientIterator++) {
-                ItemStack itemStack = itemIngredients.get(rowCharacters[ingredientIterator]);
-                itemStack.setAmount(0);
-                itemRecipe.put(shapeIterator * 3 + ingredientIterator + 1, itemStack);
-            }
-        }
-
-        //Open the workbench view
-        InventoryView inventoryView = Inventories.openWorkbench(player);
-        //Set the item recipe
-        Inventories.setViewItems(inventoryView, itemRecipe);
-        minecraftPlayer.setViewingRecipe(true);
-    }
-
-    /**
-     * NOTE: UNTESTED / BUGGY
-     * Show the recipe for an item to the player.
-     *
-     * @param player       player to show the recipe to
-     * @param itemStack    item to get the recipe for
-     * @param recipeNumber number of recipe to show, if more than 1 are available this would change- 1 by default.
-     * @return true if the player was shown the given recipe, false otherwise.
-     */
-    public static boolean showRecipe(Player player, ItemStack itemStack, int recipeNumber) {
-        //todo validate functionality, shit seems to be broken?
-        if (itemStack == null || itemStack.getType() == Material.AIR) {
-            return false;
-        }
-
-        List<Recipe> recipes = getRecipes(itemStack);
-        int recipeCount = recipes.size();
-        if (recipeCount == 0) {
-            return false;
-        }
-
-        if (recipeNumber >= 0 && (recipeNumber < recipeCount)) {
-            //Get the recipe requested for the item requested
-            Recipe recipe = recipes.get(recipeNumber);
-            //Get the wrapped player data
-            if (recipe instanceof FurnaceRecipe) {
-                //Show the furnace recipe to the player
-                showFurnaceRecipe(player, (FurnaceRecipe) recipe);
-            } else if (recipe instanceof ShapedRecipe) {
-                //Show the shaped recipe to the player
-                showShapedRecipe(player, (ShapedRecipe) recipe);
-            } else if (recipe instanceof ShapelessRecipe) {
-                //Show the shapeless recipe to the player
-                showShapelessRecipe(player, (ShapelessRecipe) recipe);
-            }
-            //Set their wrapper object as viewing a recipe
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Show the first recipe used to craft the passed itemstack to the player
-     *
-     * @param player    player to show the recipe to
-     * @param itemStack item we're getting the recipe for
-     * @return true if they were shown the recipe, false otherwise
-     */
-    public static boolean showRecipe(Player player, ItemStack itemStack) {
-        return showRecipe(player, itemStack, 0);
     }
 
     /**

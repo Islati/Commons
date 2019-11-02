@@ -31,14 +31,14 @@ import java.util.UUID;
  *
  * Guns also contain a per-player ammo variable, and handles reloading whenever the ammo reaches 0.
  *
- * Further development will feature options of removing an itemstack from the players inventory based on the firstPageEnabled attached
+ * Further development will feature options of removing an itemstack from the players inventory based on the item attached
  * to the "equipped" (associated) bullet, Optionally.
  */
 public abstract class BaseGun extends ItemGadget implements Gun {
     private static final Commons commons = Commons.getInstance();
     private static final Random random = new Random();
 
-    @Path("firstPageEnabled")
+    @Path("item")
     private ItemStack gun;
 
     @Skip
@@ -196,7 +196,7 @@ public abstract class BaseGun extends ItemGadget implements Gun {
         addCooldown(holder);
 
 		/*
-		Handle the on-fire of the gun, what the firstPageEnabled's meant to do.
+		Handle the on-fire of the gun, what the item's meant to do.
 		 */
         onFire(holder);
 

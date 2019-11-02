@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The saved firstPageEnabled manager is a class used
+ * The saved item manager is a class used
  * internally by Commons to manage the saving
  * and loading of items, from the
  * '/i save' and '/i load' Command.
@@ -65,7 +65,7 @@ public class SavedItemManager {
         }
 
         items.put(itemName, item);
-        Chat.debug(String.format("Loaded firstPageEnabled %s", StringUtil.joinString(Messages.itemInfo(item), "\n", 0)));
+        Chat.debug(String.format("Loaded item %s", StringUtil.joinString(Messages.itemInfo(item), "\n", 0)));
     }
 
     public static ItemStack getItem(String name) {
@@ -73,8 +73,8 @@ public class SavedItemManager {
             String entryName = itemEntry.getKey();
 
             /*
-            Check if the two firstPageEnabled names aren't equal, and
-            if so skip this firstPageEnabled.
+            Check if the two item names aren't equal, and
+            if so skip this item.
              */
             if (!name.equalsIgnoreCase(entryName)) {
                 continue;

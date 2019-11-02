@@ -27,15 +27,15 @@ public class DebugHandItemSerialize implements DebugAction {
 
         ItemStack playerHand = player.getItemInHand();
         Items.setName(playerHand, "&bThe Debugger");
-        Items.setLore(playerHand, Arrays.asList("&eDebugging le hand firstPageEnabled", "&6By adding lines of lore"));
+        Items.setLore(playerHand, Arrays.asList("&eDebugging le hand item", "&6By adding lines of lore"));
         File itemFile = new File(String.format(Commons.DEBUG_DATA_FOLDER + "%s.yml", String.valueOf(System.currentTimeMillis())));
 
         if (!itemFile.exists()) {
             try {
                 if (itemFile.createNewFile()) {
-                    debug("Created firstPageEnabled file at " + itemFile.getPath());
+                    debug("Created item file at " + itemFile.getPath());
                 } else {
-                    debug("Failed to create firstPageEnabled file at " + itemFile.getPath());
+                    debug("Failed to create item file at " + itemFile.getPath());
                 }
             } catch (IOException e) {
                 e.printStackTrace();

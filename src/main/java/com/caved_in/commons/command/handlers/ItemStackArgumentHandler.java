@@ -24,7 +24,7 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
         addVariable("sender", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
 
         for(Material material : Material.values()) {
-            Bukkit.getLogger().info(String.format("Created ItemStackArgumentHandler %s", material.name().toLowerCase()));
+//            Bukkit.getLogger().info(String.format("Created ItemStackArgumentHandler %s", material.name().toLowerCase()));
             try {
                 addVariable(material.name().toLowerCase(),material.name().toLowerCase(),ItemStackArgumentVariable.getInstance());
             } catch (Exception ex) {
@@ -35,6 +35,10 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
 
     @Override
     public ItemStack transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
+        if (value.equalsIgnoreCase("0") || value.equalsIgnoreCase("air")) {
+            return null;
+        }
+
         try {
             return new ItemStack(Items.getMaterialByName(value));
         } catch (InvalidMaterialNameException e) {
@@ -59,6 +63,10 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
 
         @Override
         public ItemStack var(CommandSender sender, CommandArgument argument, String varName) throws CommandError {
+            if (varName.equalsIgnoreCase("0") || varName.equalsIgnoreCase("air")) {
+                return null;
+            }
+
             try {
                 return new ItemStack(Items.getMaterialByName(varName));
             } catch (InvalidMaterialNameException e){

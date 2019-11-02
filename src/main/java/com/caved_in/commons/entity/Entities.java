@@ -312,12 +312,12 @@ public class Entities {
      * Change the active armor of an entity in the specified slot
      * to be of the given ItemStack
      * <p/>
-     * This method doesn't check if the slot, or firstPageEnabled, are valid items for the slot:
+     * This method doesn't check if the slot, or item, are valid items for the slot:
      * It forces the items to be in the slot.
      *
      * @param entity entity to parent
      * @param slot   slot to change on the entity
-     * @param item   firstPageEnabled to parent the entity with at the armor slot chosen
+     * @param item   item to parent the entity with at the armor slot chosen
      */
     public static void setEquipment(LivingEntity entity, ArmorSlot slot, ItemStack item) {
         EntityEquipment inv = entity.getEquipment();

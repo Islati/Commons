@@ -77,8 +77,8 @@ public class ItemMenuBuilder {
         Validate.notEmpty(items);
 
         /*
-        Retrieve the rows required to fit the furthest firstPageEnabled
-        on the menus; Thus everything falls before that firstPageEnabled and
+        Retrieve the rows required to fit the furthest item
+        on the menus; Thus everything falls before that item and
         fits.
          */
         int rows = Menus.getRowsForIndex(Menus.getHighestIndex(items));

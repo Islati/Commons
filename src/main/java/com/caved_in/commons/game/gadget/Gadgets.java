@@ -25,7 +25,7 @@ public class Gadgets {
     //todo Move Gadgets class to a manager for each plugin made with commons
 
     /**
-     * Register the given gadget, enabling it's effects to be utilized whenever the associated firstPageEnabled is used.
+     * Register the given gadget, enabling it's effects to be utilized whenever the associated item is used.
      * Note: Every gadget must have a unique id, if not, the previously registered gadget will be overwritten.
      *
      * @param gadget gadget to register.
@@ -38,8 +38,8 @@ public class Gadgets {
     /**
      * Check whether or not the given itemstack is a gadget / has gadget data associated with it.
      *
-     * @param item firstPageEnabled to check
-     * @return true if the firstPageEnabled is a gadget, false otherwisse.
+     * @param item item to check
+     * @return true if the item is a gadget, false otherwisse.
      */
     public static boolean isGadget(ItemStack item) {
         return getGadget(item) != null;
@@ -56,9 +56,9 @@ public class Gadgets {
     }
 
     /**
-     * Retrieve a gadget its associated firstPageEnabled stack.
+     * Retrieve a gadget its associated item stack.
      *
-     * @param item firstPageEnabled to get the gadget container for.
+     * @param item item to get the gadget container for.
      * @return the gadget associated with the given itemstack, or null if no gadget is associated.
      */
     public static Gadget getGadget(ItemStack item) {
@@ -153,7 +153,7 @@ public class Gadgets {
      * Retrieve the ID of the gadget associated with the itemstack if it's a gadget.
      *
      * @param item itemstack of the gadget to retrieve the ID for.
-     * @return -1 if the firstPageEnabled isn't a gadget, otherwise the id of the associated gadget.
+     * @return -1 if the item isn't a gadget, otherwise the id of the associated gadget.
      */
     public static int getId(ItemStack item) {
         if (!isGadget(item)) {

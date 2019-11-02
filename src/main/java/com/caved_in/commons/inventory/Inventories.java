@@ -115,7 +115,7 @@ public class Inventories {
     }
 
     /**
-     * Get the contents of the inventory as a map. The maps key is the slot the firstPageEnabled was present in, and the value is the corresponding itemstack.
+     * Get the contents of the inventory as a map. The maps key is the slot the item was present in, and the value is the corresponding itemstack.
      * @param inventory inventory to get the contents for.
      * @return a map where each entry is a slot, and itemstack- Even if the inventory is empty, a map will be returned.
      */
@@ -156,7 +156,7 @@ public class Inventories {
      * Check whether or not the inventory is absolutely full.
      *
      * @param inv inventory to check.
-     * @return true if every slot in the inventory has an firstPageEnabled in it. False Otherwise.
+     * @return true if every slot in the inventory has an item in it. False Otherwise.
      */
     public static boolean isFull(Inventory inv) {
         return inv.firstEmpty() == -1;
@@ -173,11 +173,11 @@ public class Inventories {
     }
 
     /**
-     * Set the firstPageEnabled at a specific slot for the given inventory.
+     * Set the item at a specific slot for the given inventory.
      *
      * @param inventory inventory to modify.
      * @param slot      slot to modify in the inventory.
-     * @param item      firstPageEnabled to assign in the given slot.
+     * @param item      item to assign in the given slot.
      */
     public static void setItem(Inventory inventory, int slot, ItemStack item) {
         inventory.setItem(slot, item);
@@ -194,23 +194,23 @@ public class Inventories {
     }
 
     /**
-     * Set the firstPageEnabled at a specific slot in the inventory view.
+     * Set the item at a specific slot in the inventory view.
      * DOES NOT PERFORM AN UPDATE FOR EVERYONE CURRENTLY LOOKING.
      *
      * @param inventoryView inventory view to modify
-     * @param itemSlot      slot to set the firstPageEnabled at
-     * @param itemStack     firstPageEnabled to set in the chosen slot
+     * @param itemSlot      slot to set the item at
+     * @param itemStack     item to set in the chosen slot
      */
     public static void setViewItemAtSlot(InventoryView inventoryView, int itemSlot, ItemStack itemStack) {
         inventoryView.setItem(itemSlot, itemStack);
     }
 
     /**
-     * Change the items in an inventory view, will overwrite if any firstPageEnabled already exists in the slot indicated by the map key.
+     * Change the items in an inventory view, will overwrite if any item already exists in the slot indicated by the map key.
      * DOES NOT UPDATE THE VIEW FOR THOSE LOOKING.
      *
      * @param inventoryView  view to modify the items of
-     * @param inventoryItems map of index -> firstPageEnabled entries to set the view to.
+     * @param inventoryItems map of index -> item entries to set the view to.
      */
     public static void setViewItems(InventoryView inventoryView, Map<Integer, ItemStack> inventoryItems) {
         for (Map.Entry<Integer, ItemStack> itemEntry : inventoryItems.entrySet()) {
@@ -224,7 +224,7 @@ public class Inventories {
      * @param inventory inventory to search
      * @param material  material to search for
      * @param itemName  name to match against
-     * @return true if the firstPageEnabled is in the inventory, false otherwise.
+     * @return true if the item is in the inventory, false otherwise.
      */
     public static boolean contains(Inventory inventory, Material material, String itemName) {
         return getSlotOf(inventory, material, itemName) != -1;
@@ -236,7 +236,7 @@ public class Inventories {
      * @param inventory inventory to search
      * @param material  material to search for
      * @param itemName  name of the material to match
-     * @return slot of the named-firstPageEnabled if it exists in the inventory, -1 otherwise.
+     * @return slot of the named-item if it exists in the inventory, -1 otherwise.
      */
     public static Integer getSlotOf(Inventory inventory, Material material, String itemName) {
         HashMap<Integer, ? extends ItemStack> items = inventory.all(material);
@@ -249,11 +249,11 @@ public class Inventories {
     }
 
     /**
-     * Get the slot of the given firstPageEnabled.
+     * Get the slot of the given item.
      *
      * @param inventory  inventory to search
-     * @param searchItem firstPageEnabled to search for
-     * @return slot of the firstPageEnabled if the inventory contains it, -1 otherwise.
+     * @param searchItem item to search for
+     * @return slot of the item if the inventory contains it, -1 otherwise.
      */
     public static Integer getSlotOf(Inventory inventory, ItemStack searchItem) {
         Map<Integer, ? extends ItemStack> items = inventory.all(searchItem);
@@ -266,21 +266,21 @@ public class Inventories {
     }
 
     /**
-     * Check whether or not an inventory contains more than one stack of a specific firstPageEnabled in the inventory.
+     * Check whether or not an inventory contains more than one stack of a specific item in the inventory.
      *
      * @param inv        inventory to search through.
-     * @param searchItem firstPageEnabled to search for.
-     * @return true if there's more than one slot containing the firstPageEnabled, false otherwise.
+     * @param searchItem item to search for.
+     * @return true if there's more than one slot containing the item, false otherwise.
      */
     public static boolean hasMultipleStacks(Inventory inv, ItemStack searchItem) {
         return getSlotsOf(inv, searchItem).size() > 1;
     }
 
     /**
-     * Retrieve all the slots and associated amount of a specific firstPageEnabled inside the inventory.
+     * Retrieve all the slots and associated amount of a specific item inside the inventory.
      *
      * @param inv        inventory of which to search.
-     * @param searchItem firstPageEnabled to search for in the inventory.
+     * @param searchItem item to search for in the inventory.
      * @return A HashMap with the Slot (Integer) as a key, and Value being the count of items in that slot.
      */
     public static Map<Integer, Integer> getSlotsCount(Inventory inv, ItemStack searchItem) {
@@ -298,11 +298,11 @@ public class Inventories {
     }
 
     /**
-     * Retrieve all the slots in which a specific firstPageEnabled resides. If any.
+     * Retrieve all the slots in which a specific item resides. If any.
      *
-     * @param inventory  Inventory to search for the firstPageEnabled in.
-     * @param searchItem firstPageEnabled to search for inside the inventory
-     * @return A HashMap of Integers, each of which being a slot that the searched firstPageEnabled resides in.
+     * @param inventory  Inventory to search for the item in.
+     * @param searchItem item to search for inside the inventory
+     * @return A HashMap of Integers, each of which being a slot that the searched item resides in.
      */
     public static Set<Integer> getSlotsOf(Inventory inventory, ItemStack searchItem) {
         Set<Integer> itemSlots = new HashSet<>();
@@ -318,11 +318,11 @@ public class Inventories {
     }
 
     /**
-     * Check if the inventory contains any of the given firstPageEnabled.
+     * Check if the inventory contains any of the given item.
      *
      * @param inventory inventory to search
      * @param itemStack itemstack to check for
-     * @return true if the inventory has any of the firstPageEnabled, false otherwise.
+     * @return true if the inventory has any of the item, false otherwise.
      */
     public static boolean contains(Inventory inventory, ItemStack itemStack) {
         return getSlotOf(inventory, itemStack) != -1;
@@ -387,11 +387,11 @@ public class Inventories {
     }
 
     /**
-     * Retrieve the first slot that the given firstPageEnabled sits in.
+     * Retrieve the first slot that the given item sits in.
      *
      * @param inv  inventory to search
-     * @param item firstPageEnabled to search for
-     * @return the first slot the firstPageEnabled resides in if available, -1 otherwise.
+     * @param item item to search for
+     * @return the first slot the item resides in if available, -1 otherwise.
      */
     public static int getFirst(Inventory inv, ItemStack item) {
         Map<Integer, ? extends ItemStack> matchingItems = inv.all(item.getType());
@@ -449,10 +449,10 @@ public class Inventories {
     }
 
     /**
-     * Retrieve how many of the given firstPageEnabled resides within the inventory.
+     * Retrieve how many of the given item resides within the inventory.
      *
      * @param inv  inventory to check
-     * @param item firstPageEnabled to search for within the inventory
+     * @param item item to search for within the inventory
      * @return amount of the searched items in the given inventory.
      */
     public static int getCount(Inventory inv, ItemStack item) {

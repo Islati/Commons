@@ -58,7 +58,7 @@ public class ItemPage {
 
     /**
      * The collection of items, indexed by their slot in the inventory, to build this menus pageIndex.
-     * @return Map of keyvalue for the firstPageEnabled slot, and actual menus firstPageEnabled
+     * @return Map of keyvalue for the item slot, and actual menus item
      */
     public List<MenuItem> items() {
         return pageItems;

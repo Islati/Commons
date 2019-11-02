@@ -164,10 +164,6 @@ public class MobData extends YamlConfig {
             builder.powered();
         }
 
-        if (skeletonType == Skeleton.SkeletonType.WITHER) {
-            builder.wither();
-        }
-
         builder.asBaby(baby);
 
         builder.asVillager(villager);

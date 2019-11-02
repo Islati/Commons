@@ -1,10 +1,6 @@
 package com.caved_in.commons.effect;
 
-import com.caved_in.commons.Commons;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.nms.NMS;
-import com.caved_in.commons.nms.NmsPlayers;
-import com.caved_in.commons.player.MinecraftPlayer;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -15,7 +11,7 @@ public class Particles {
     private static Random rand = new Random();
 
     public static void sendToPlayer(Player player, Particle effect, Location loc, int count) {
-        sendToPlayer(player, effect, loc,  count);
+        player.spawnParticle(effect,loc,count);
     }
 
     /**

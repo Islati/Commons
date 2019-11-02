@@ -81,10 +81,6 @@ public class InventoryListener implements Listener {
         MinecraftPlayer minecraftPlayer = playerManager.getData(player);
         switch (inventoryType) {
             case WORKBENCH:
-                //If the player's viewing a recipe, don't let them click / manipulate
-                if (minecraftPlayer.isViewingRecipe()) {
-                    event.setCancelled(true);
-                }
                 break;
             case PLAYER:
                 PlayerInventory pInv = (PlayerInventory) inventory;
@@ -102,7 +98,7 @@ public class InventoryListener implements Listener {
                     }
 
                     if (Gadgets.isGadget(cursorItem)) {
-                        Chat.formatDebug("Cursor firstPageEnabled %s is a gadget", Items.getName(cursorItem));
+                        Chat.formatDebug("Cursor item %s is a gadget", Items.getName(cursorItem));
 
                         Gadget movingGadget = Gadgets.getGadget(cursorItem);
                         if (!movingGadget.properties().isOffhandEquippable()) {
@@ -156,12 +152,6 @@ public class InventoryListener implements Listener {
         MinecraftPlayer minecraftPlayer = playerManager.getData(player);
         switch (inventoryType) {
             case WORKBENCH:
-                //If the player's viewing a recipe, clear the inventory and update the inventory on close
-                if (minecraftPlayer.isViewingRecipe()) {
-                    minecraftPlayer.setViewingRecipe(false);
-                    inventory.clear();
-                    player.updateInventory();
-                }
                 break;
             case PLAYER:
                 break;

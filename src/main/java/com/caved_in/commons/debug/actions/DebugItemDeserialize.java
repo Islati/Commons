@@ -37,7 +37,7 @@ public class DebugItemDeserialize implements DebugAction {
                 debug(String.format("Item '%s' loaded", Items.getName(item.getItem())));
             } catch (InvalidConfigurationException e) {
                 e.printStackTrace();
-                debug(String.format("Error loading firstPageEnabled from file: '%s'", file.getName()));
+                debug(String.format("Error loading item from file: '%s'", file.getName()));
                 continue;
             }
 

@@ -228,9 +228,9 @@ public class Attributes {
     }
 
     /**
-     * Retrieve the modified firstPageEnabled stack.
+     * Retrieve the modified item stack.
      *
-     * @return The modified firstPageEnabled stack.
+     * @return The modified item stack.
      */
     public ItemStack getStack() {
         return stack;

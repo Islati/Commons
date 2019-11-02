@@ -1,13 +1,14 @@
 package com.caved_in.commons.game.gadget;
 
 import com.caved_in.commons.inventory.menu.ItemMenu;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Gadgets attach actions to specific firstPageEnabled-stacks, so all you need to worry about is specifying what happens when they're interacted with, and
+ * Gadgets attach actions to specific item-stacks, so all you need to worry about is specifying what happens when they're interacted with, and
  * when actions happen to them!
  *
  * Each gadget requires a unique ID, which is used to cache it and handle all actions related to the gadget itself.
@@ -55,11 +56,20 @@ public interface Gadget extends Listener {
 
     /**
      * Actions to perform whenever the player drops the gadget.
-     * @param player player dropping the firstPageEnabled.
-     * @param item firstPageEnabled that was dropped.
+     * @param player player dropping the item.
+     * @param item item that was dropped.
      */
     default void onDrop(Player player, Item item) {
 
+    }
+
+    /**
+     * Called when the player interacts (right clicks) a block.
+     * @param player player using the gadget
+     * @param block block that was right clicked.
+     */
+    default void onRightClockBlock(Player player, Block block) {
+        perform(player);
     }
 
     /**

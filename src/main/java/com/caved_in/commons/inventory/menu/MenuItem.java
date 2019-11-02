@@ -33,11 +33,11 @@ public abstract class MenuItem {
 	}
 
 	/**
-	 * Create a new menus firstPageEnabled with the given title, using the given MaterialData for its icon, and displaying the number given.
+	 * Create a new menus item with the given title, using the given MaterialData for its icon, and displaying the number given.
 	 *
 	 * @param text   the title text to display on mouse over
 	 * @param icon   the material to use as its icon
-	 * @param number the number to display on the firstPageEnabled (must be greater than 1)
+	 * @param number the number to display on the item (must be greater than 1)
 	 */
 	public MenuItem(String text, MaterialData icon, int number) {
 		this.text = StringUtil.formatColorCodes(text);
@@ -108,7 +108,7 @@ public abstract class MenuItem {
 		meta.setDisplayName(StringUtil.formatColorCodes(getText()));
 		itemStack.setItemMeta(meta);
 		return itemStack;
-//		return new ItemBuilder().name(getText()).amount(number).lore(descriptions).materialData(getIcon()).firstPageEnabled();
+//		return new ItemBuilder().name(getText()).amount(number).lore(descriptions).materialData(getIcon()).item();
 	}
 
 	public void close(Player player) {

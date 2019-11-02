@@ -24,11 +24,11 @@ public class Menus {
     }
 
     /**
-     * Get the amount of rows required to place an firstPageEnabled at the given
+     * Get the amount of rows required to place an item at the given
      * index of a menus.
      *
      * @param index index to get the rows for.
-     * @return amount of rows an inventory will require to place an firstPageEnabled at the given index.
+     * @return amount of rows an inventory will require to place an item at the given index.
      */
     public static int getRowsForIndex(int index) {
         if (index < 0) {
@@ -43,10 +43,10 @@ public class Menus {
     }
 
     /**
-     * Get the index of the bottom-most firstPageEnabled in the menus.
+     * Get the index of the bottom-most item in the menus.
      *
      * @param menu menus to get the highest index of.
-     * @return index of the bottom-most firstPageEnabled in the menus.
+     * @return index of the bottom-most item in the menus.
      */
     public static int getHighestIndex(ItemMenu menu) {
         return getHighestIndex(menu.getIndexedMenuItems());
@@ -74,7 +74,7 @@ public class Menus {
         int freeSlot = 0;
         for (int i = 0; i < highestIndex; i++) {
             /*
-            If the firstPageEnabled we're retrieving is null
+            If the item we're retrieving is null
             that means we've found a free slot.
              */
             if (items.get(i) == null) {
@@ -123,7 +123,7 @@ public class Menus {
      * @param itemFormat    formatting for items
      * @param flipColorEven color on even-elements
      * @param flipColorOdd  color on odd-elements
-     * @param helpItems     map of elements to set; key is the firstPageEnabled, value is the description
+     * @param helpItems     map of elements to set; key is the item, value is the description
      * @return HelpScreen with the settings provided in parameters
      */
     public static HelpScreen generateHelpScreen(String menuName, PageDisplay pageDisplay, ItemFormat itemFormat, ChatColor flipColorEven, ChatColor flipColorOdd, Map<String, String> helpItems) {

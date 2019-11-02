@@ -36,7 +36,7 @@ public class Blocks {
     public static final long BLOCK_REGEN_DELAY = TimeHandler.getTimeInTicks(8, TimeType.SECOND);
 
     /**
-     * Set of the firstPageEnabled-ids which materials are hollow
+     * Set of the item-ids which materials are hollow
      */
     private static final Set<Material> HOLLOW_MATERIALS = new HashSet<>();
     public static final HashSet<Material> TRANSPARENT_MATERIALS = new HashSet<>();
@@ -272,8 +272,8 @@ public class Blocks {
      * Gets either the block id, or material id based on the parameters.s
      *
      * @param block   block to get the id for
-     * @param itemsId whether or not to retrieve the firstPageEnabled-stack id, or the actual block material id
-     * @return integer for the firstPageEnabled id requested (either block or material)
+     * @param itemsId whether or not to retrieve the item-stack id, or the actual block material id
+     * @return integer for the item id requested (either block or material)
      */
     public static int getBlockId(Block block, boolean itemsId) {
         return itemsId ? getBlockMaterial(block).getId() : block.getType().getId();

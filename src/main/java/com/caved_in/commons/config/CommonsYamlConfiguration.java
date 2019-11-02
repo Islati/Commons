@@ -125,11 +125,11 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 	@Comment("Changes whether or not blocks can be broken outside of creative")
 	private boolean enableBlockBreak = true;
 
-	@Path("Server.Worlds.enable-firstPageEnabled-pickup")
+	@Path("Server.Worlds.enable-item-pickup")
 	@Comment("Changes if players are able to pick up items that are dropped")
 	private boolean enableItemPickup = true;
 
-	@Path("Server.Worlds.enable-firstPageEnabled-drop")
+	@Path("Server.Worlds.enable-item-drop")
 	@Comment("Changes if players are able to drop their items")
 	private boolean enableItemDrop = true;
 

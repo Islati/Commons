@@ -6,6 +6,9 @@ import com.caved_in.commons.game.guns.BaseGun;
 import com.caved_in.commons.game.item.Weapon;
 import com.caved_in.commons.inventory.HandSlot;
 import com.caved_in.commons.plugin.Plugins;
+import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -26,6 +29,10 @@ public class GadgetUseEvent extends Event implements Cancellable {
 
     private Player player;
     private Gadget gadget;
+
+    @Getter
+    @Setter
+    private Block block = null;
 
     public GadgetUseEvent(Player player, Action action, ItemStack item, HandSlot hand) {
         this.player = player;
@@ -86,6 +93,10 @@ public class GadgetUseEvent extends Event implements Cancellable {
         return hand;
     }
 
+    public boolean hasBlock() {
+        return getBlock() != null;
+    }
+
     public static void handle(GadgetUseEvent e) {
         if (e.isCancelled()) {
             return;
@@ -98,24 +109,17 @@ public class GadgetUseEvent extends Event implements Cancellable {
             return;
         }
 
-        //TODO Handle the usage of gadgets that have durability that's not an firstPageEnabled based durability.
+        //TODO Handle the usage of gadgets that have durability that's not an item based durability.
 
 
         //If the gadget's a hand-held weapon, then handle it respectively
         if (gadget instanceof Weapon) {
             Weapon weapon = (Weapon) gadget;
 
-			/* When the player interacts (right or left click) call respective actions. */
-            switch (e.getAction()) {
-                case RIGHT_CLICK_AIR:
-                case RIGHT_CLICK_BLOCK:
-                    weapon.onActivate(player);
-                    return;
-                case LEFT_CLICK_AIR:
-                case LEFT_CLICK_BLOCK:
-//					weapon.onSwing(player);
-                default:
-                    break;
+            /* When the player interacts (right or left click) call respective actions. */
+            if (e.getAction() == Action.RIGHT_CLICK_AIR) {
+                weapon.onActivate(player);
+                return;
             }
         }
 
@@ -126,6 +130,10 @@ public class GadgetUseEvent extends Event implements Cancellable {
             return;
         }
 
-        gadget.perform(player);
+        if (e.hasBlock() && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            gadget.onRightClockBlock(player, e.getBlock()); //default calls perform anyways.
+        } else {
+            gadget.perform(player);
+        }
     }
 }

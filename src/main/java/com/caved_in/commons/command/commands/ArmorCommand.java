@@ -25,5 +25,7 @@ public class ArmorCommand {
         }
 
         Players.setArmor(sender, set.getArmor());
+
+        Chat.actionMessage(sender,"&aEnjoy your &enew&a armor!");
     }
 }

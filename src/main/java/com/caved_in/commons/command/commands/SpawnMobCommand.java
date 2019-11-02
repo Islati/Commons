@@ -10,7 +10,9 @@ import com.caved_in.commons.entity.CreatureBuilder;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.permission.Perms;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.sound.Sounds;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,9 +25,7 @@ public class SpawnMobCommand {
                                   @FlagArg("baby") boolean baby,
                                   @FlagArg("age") @Arg(name = "age", def = "0") int age,
                                   @FlagArg("size") @Arg(name = "size", def = "0") int size,
-                                  @FlagArg("villager") boolean villager,
                                   @FlagArg("powered") boolean powered,
-                                  @FlagArg("wither") boolean wither,
                                   @FlagArg("helmet") @Arg(name = "helmet", def = "0") ItemStack helmet,
                                   @FlagArg("chest") @Arg(name = "chest", def = "0") ItemStack chest,
                                   @FlagArg("legs") @Arg(name = "legs", def = "0") ItemStack legs,
@@ -44,15 +44,10 @@ public class SpawnMobCommand {
         CreatureBuilder spawner = CreatureBuilder.of(type)
                 .asBaby(baby)
                 .age(age)
-                .size(size)
-                .asVillager(villager);
+                .size(size);
 
         if (powered) {
             spawner.powered();
-        }
-
-        if (wither) {
-            spawner.wither();
         }
 
         if (Items.isArmor(helmet)) {
@@ -80,5 +75,7 @@ public class SpawnMobCommand {
         }
 
         spawner.spawn(Players.getTargetLocation(player), amount);
+        Sounds.playSound(player, Sound.ENTITY_EXPERIENCE_ORB_PICKUP);
+        Chat.actionMessage(player,"&aYour creature has come to life!");
     }
 }

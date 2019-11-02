@@ -22,7 +22,7 @@ public class RewardData extends YamlConfig {
     @Path("spawn-chance")
     private int spawnChance = 100;
 
-    @Path("firstPageEnabled")
+    @Path("item")
     private ItemStack itemStack = new ItemStack(Items.makeItem(Material.GOLDEN_BOOTS));
 
     public RewardData() {
@@ -69,7 +69,7 @@ public class RewardData extends YamlConfig {
 
         ItemStack item = itemStack.clone();
 
-        //Set the firstPageEnabled amount to be a random between the min and max value
+        //Set the item amount to be a random between the min and max value
         if (getMin() >= getMax()) {
             item.setAmount(getMax());
         } else {

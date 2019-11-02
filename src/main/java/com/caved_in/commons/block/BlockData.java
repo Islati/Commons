@@ -219,7 +219,7 @@ public class BlockData {
     /**
      * Retrieve a collection of items that the wrapped block will drop when broke with the given itemstack.
      *
-     * @param itemStack breaking firstPageEnabled to retrieve the drops from the block with.
+     * @param itemStack breaking item to retrieve the drops from the block with.
      * @return collection of items that the wrapped block will drop when broke with the given itemstack
      */
     public Collection<ItemStack> getDrops(ItemStack itemStack) {

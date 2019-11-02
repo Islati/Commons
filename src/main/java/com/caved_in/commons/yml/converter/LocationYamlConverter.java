@@ -8,17 +8,24 @@ import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author geNAZt (fabian.fassbender42@googlemail.com)
- */
 public class LocationYamlConverter implements Converter {
 	public LocationYamlConverter(InternalConverter converter) {
 	}
 
 	@Override
 	public Object toConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception {
-		org.bukkit.Location location = (org.bukkit.Location) obj;
 		Map<String, Object> saveMap = new HashMap<>();
+		if (obj == null) {
+			saveMap.put("world","null");
+			saveMap.put("x",0);
+			saveMap.put("y",0);
+			saveMap.put("z",0);
+			saveMap.put("yaw",0);
+			saveMap.put("pitch",0);
+			return saveMap;
+		}
+
+		org.bukkit.Location location = (org.bukkit.Location) obj;
 		saveMap.put("world", location.getWorld().getName());
 		saveMap.put("x", location.getX());
 		saveMap.put("y", location.getY());
@@ -35,7 +42,15 @@ public class LocationYamlConverter implements Converter {
 		if (section instanceof Map) {
 			locationMap = (Map<String, Object>) section;
 		} else {
-			locationMap = (Map<String, Object>) ((ConfigSection) section).getRawMap();
+			try {
+				locationMap = (Map<String, Object>) ((ConfigSection) section).getRawMap();
+			} catch (NullPointerException ex) {
+				return null;
+			}
+		}
+
+		if (locationMap.get("world").equals("null")) {
+			return null;
 		}
 
 		Float yaw;

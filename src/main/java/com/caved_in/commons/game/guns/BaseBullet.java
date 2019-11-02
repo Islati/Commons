@@ -55,7 +55,7 @@ public abstract class BaseBullet implements Metadatable {
 
     private boolean gunless = false;
 
-    /* The firstPageEnabled the gun shoots */
+    /* The item the gun shoots */
     private ItemStack itemStack;
 
     /* The bullet (entity) */
@@ -149,8 +149,8 @@ public abstract class BaseBullet implements Metadatable {
 
         item = bullet;
 //
-//        firstPageEnabled.setVelocity(direction);
-//        firstPageEnabled.setPickupDelay(PICKUP_DELAY);
+//        item.setVelocity(direction);
+//        item.setPickupDelay(PICKUP_DELAY);
 
         int range = getGun().properties().range;
 
@@ -179,8 +179,8 @@ public abstract class BaseBullet implements Metadatable {
             }
 
 			/*
-            If the firstPageEnabled is on the ground, then we're done!
-			Remove the firstPageEnabled and break the loop!
+            If the item is on the ground, then we're done!
+			Remove the item and break the loop!
 			 */
             if (item.isOnGround()) {
                 Chat.debug("Bullet is on the ground!");
@@ -242,7 +242,7 @@ public abstract class BaseBullet implements Metadatable {
     }
 
     /**
-     * Get the firstPageEnabled that the
+     * Get the item that the
      * @return
      */
     protected Item getItem() {
@@ -262,9 +262,9 @@ public abstract class BaseBullet implements Metadatable {
     }
 
     /**
-     * Change the firstPageEnabled that the bullet is attached to.
+     * Change the item that the bullet is attached to.
      * DO NOT EVER CALL THIS. EVER. I WILL FIND YOU. <3
-     * @param i firstPageEnabled to assign.
+     * @param i item to assign.
      */
     protected void setItem(Item i) {
         this.item = i;

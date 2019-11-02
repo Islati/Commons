@@ -27,10 +27,10 @@ public class Hotbar {
     }
 
     /**
-     * Assign a slot (1 to 9) an firstPageEnabled.
+     * Assign a slot (1 to 9) an item.
      *
-     * @param slot slot to set the firstPageEnabled in (1 to 9)
-     * @param item firstPageEnabled to set in the slot.
+     * @param slot slot to set the item in (1 to 9)
+     * @param item item to set in the slot.
      * @return the hotbar instance.
      */
     public Hotbar set(int slot, ItemStack item) {

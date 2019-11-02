@@ -109,7 +109,7 @@ public class ItemMenu implements Menu {
     public boolean addMenuItem(MenuItem item, int index) {
         Inventory inventory = getInventory();
         ItemStack slot = inventory.getItem(index);
-        //If the firstPageEnabled's not air, we're not adding it.
+        //If the item's not air, we're not adding it.
         if (!rowsHasChanged && (slot != null && slot.getType() != Material.AIR)) {
             return false;
         }

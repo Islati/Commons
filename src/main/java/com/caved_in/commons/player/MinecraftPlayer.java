@@ -155,26 +155,6 @@ public class MinecraftPlayer extends User {
     }
 
     /**
-     * Check whether or not the player is viewing a recipe.
-     * Used internally.
-     *
-     * @return whether or not the player is viewing a recipe.
-     */
-    public boolean isViewingRecipe() {
-        return viewingRecipe;
-    }
-
-    /**
-     * Set whether or not the player is viewing a recipe menus, or not.
-     * Used internally in {@link com.caved_in.commons.command.commands.RecipeCommand}.
-     *
-     * @param viewingRecipe whether or not the player is viewing a recipe menus.
-     */
-    public void setViewingRecipe(boolean viewingRecipe) {
-        this.viewingRecipe = viewingRecipe;
-    }
-
-    /**
      * @return the players location prior to their most recent teleport
      */
     public PreTeleportLocation getPreTeleportLocation() {
