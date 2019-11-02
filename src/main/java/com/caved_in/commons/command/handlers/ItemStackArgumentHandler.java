@@ -35,14 +35,12 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
 
     @Override
     public ItemStack transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
-        MaterialData data;
         try {
-            data = Items.getMaterialDataFromString(value);
+            return new ItemStack(Items.getMaterialByName(value));
         } catch (InvalidMaterialNameException e) {
             throw new TransformError(e.getMessage());
         }
 
-        return data.toItemStack();
     }
 
     private static class ItemStackArgumentVariable implements ArgumentVariable<ItemStack> {

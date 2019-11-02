@@ -15,6 +15,7 @@ import com.caved_in.commons.sound.Sounds;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.NumberUtil;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
@@ -53,8 +54,8 @@ public class FlamingEnderSword extends BaseWeapon {
 
     @Override
     public void onSwing(Player p) {
-        Particles.sendToLocation(p.getLocation(), ParticleEffect.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
-        Particles.sendToLocation(Players.getTargetLocation(p, 30), ParticleEffect.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
+        Particles.sendToLocation(p.getLocation(), Particle.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
+        Particles.sendToLocation(Players.getTargetLocation(p, 30), Particle.SUSPENDED_DEPTH, NumberUtil.getRandomInRange(1, 4));
     }
 
     @Override
