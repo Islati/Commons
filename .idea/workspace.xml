@@ -3,25 +3,64 @@
   <component name="AnalysisUIOptions">
     <option name="SCOPE_TYPE" value="2" />
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/TitleBuilder.java" line="8" />
-  </component>
   <component name="ChangeListManager">
+    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/non_breaking_implementation/ActionMessageNonBreaking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons.iml" beforeDir="false" afterPath="$PROJECT_DIR$/commons.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/Messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/BlockData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/BlockData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/ChancedBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/ChancedBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/commands/IdCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/ItemStackArgumentHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/ItemStackArgumentHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/MaterialArgumentHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/handlers/MaterialArgumentHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugArmorBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugArmorBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugCreatureBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugCreatureBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/actions/DebugParticleEffects.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FishCannon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FishCannon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FlamingEnderSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/FlamingEnderSword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/ThrowableBrick.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/ThrowableBrick.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/effect/Particles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/effect/Particles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/entity/Entities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/Gadgets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/Gadgets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ContainerData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/RewardData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/RewardData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/world/Arena.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/ItemMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/ItemMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ArmorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ArmorType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/BlockID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/CustomEnchantment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ExtraItems.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ItemType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/StainedClay.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ToolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/ToolType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/WeaponType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/WeaponType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Wool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/item/Wool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockSpreadListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/BlockSpreadListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LauncherListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/LauncherListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerInteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerInteractListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/configmenu/items/OpenWorldConfigItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/configmenu/items/OpenWorldConfigItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/warpselection/WarpSelectionMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/warpselection/WarpSelectionMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/NMS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/ActionMessageHandler_1_12X.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/LoggedScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/LoggedScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/Plugins.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/plugin/Plugins.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/RunnableManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/threading/RunnableManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/InternalConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/InternalConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/BlockYamlConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryYamlConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/InventoryYamlConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+    </list>
     <list id="ef8d14aa-e801-4ba9-9630-24631cd1a623" name="Rejected commit: Default" comment="Added table creation statements&#10;Added method in commonUtils to parse uuid strings" />
     <list id="271e2f18-403a-4bcc-b060-430da332b221" name="Rejected commit: Default (2)" comment="New handler for Booleans in commands&#10;New BaseWeapon for Weapons&#10;Test-weapon the Ender Sword&#10;Began working on MobSpawner and MobAttributes&#10;&#10;Created the PlayerDamageEntityClause&#10;&#10;" />
-    <list default="true" id="51843ee8-672b-439f-96b0-a48a3fde3950" name="Default" comment="Refer to log.txt (Build 1.8.5)">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenuBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenuBuilder.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" afterPath="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" />
-    </list>
-    <ignored path="Commons.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="false" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,102 +117,6 @@
   <component name="FavoritesManager">
     <favorites_list name="Commons" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MultiPageMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="274" column="0" lean-forward="true" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/players/UserManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1627">
-              <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityDamageEntityListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/EntityDamageEntityListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="59" column="55" lean-forward="true" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameStateManager.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/GameStateManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="90" column="5" lean-forward="true" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2655">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThrowableBrick.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/ThrowableBrick.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerQuitListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Players.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="127" column="44" lean-forward="false" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PageSettings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="35" column="15" lean-forward="false" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -183,15 +126,6 @@
         <option value="Class" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>'</find>
-      <find>switchMen</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>&quot;</replace>
-    </replaceStrings>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -204,68 +138,6 @@
       <map>
         <entry key="$PROJECT_DIR$" value="1.9.2" />
       </map>
-    </option>
-  </component>
-  <component name="GradleLocalSettings">
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/menus/confirmation/ConfirmationMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/Menus.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/MiniIGameState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/IGameState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/CraftGameStateManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/CraftGameState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/GameState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/MiniGameState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/MiniGame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/CraftGame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/GameStateManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java" />
-        <option value="$PROJECT_DIR$/src/test/java/TimeHandlerTEst.java" />
-        <option value="$PROJECT_DIR$/src/test/java/TimeHandlerTest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/time/TimeHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/MenuGadget.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/SubMenuItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/NumberUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/WeaponProperties.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MultiPageItemMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/PageGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageSettings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/MenuItemClickHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/InlineMenuItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageSettings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/Menu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/ItemMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/log.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPageMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageItemMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/multipage/MultiPageMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/multipage/MultiPageMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ValueListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/help/ChatPages.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/PageDisplay.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/multipage/ItemPage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/multipage/MultiPageMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenuBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java" />
-      </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -286,35 +158,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="commons" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="commons" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="commons" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-      </expand>
-      <select />
-    </treeState>
-  </component>
   <component name="MavenRunner">
     <option name="skipTests" value="true" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="30" />
-    <option name="width" value="1366" />
-    <option name="height" value="738" />
-  </component>
+  <component name="ProjectId" id="1SqAN0kDM0xMWDhBS5QvNCBaVWx" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -436,261 +283,39 @@
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="listener" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="players" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="state" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="thread" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-              <item name="world" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="inventory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="inventory" type="462c0819:PsiDirectoryNode" />
-              <item name="menu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="listeners" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="location" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="menus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="nms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="nms" type="462c0819:PsiDirectoryNode" />
-              <item name="minecraft_1_8_R3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="commons" type="462c0819:PsiDirectoryNode" />
-              <item name="nms" type="462c0819:PsiDirectoryNode" />
-              <item name="minecraft_1_12_x" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Commons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Commons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
-  </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hcprisons" />
-    <property name="SearchEverywhereHistory" value="" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="LayoutCode.rearrangeEntriesXML" value="false" />
-    <property name="options.lastSelected" value="configurable.group.tools" />
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="LayoutCode.rearrangeEntries" value="false" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+    <property name="LayoutCode.rearrangeEntriesXML" value="false" />
     <property name="LayoutCode.rearrangeEntriesYaml" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="SearchEverywhereHistory" value="" />
+    <property name="SearchEverywhereHistoryKey" value="firstPageEnabled&#9;null&#9;null&#10;PageSett&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java&#10;PlayerQuit&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerQuitListener&#10;Brick&#9;PSI&#9;JAVA://com.caved_in.commons.debug.gadget.ThrowableBrick&#10;Mu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/multipage/MultiPageMenu.java&#10;ItemP&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/multipage/ItemPage.java&#10;ItemMenu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java&#10;Warps&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.warpselection.WarpPageSwitchMenuItem&#10;WeaponProperties&#9;PSI&#9;JAVA://com.caved_in.commons.game.item.WeaponProperties&#10;TimeType&#9;PSI&#9;JAVA://com.caved_in.commons.time.TimeType&#10;Time&#9;PSI&#9;JAVA://com.caved_in.commons.time.TimeHandler&#10;Blocks&#9;PSI&#9;JAVA://com.caved_in.commons.block.Blocks&#10;Locations&#9;PSI&#9;JAVA://com.caved_in.commons.location.Locations&#10;CraftGame&#9;PSI&#9;JAVA://com.caved_in.commons.game.CraftGame&#10;Menus&#9;PSI&#9;JAVA://com.caved_in.commons.menu.Menus&#10;Confirm&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/menus/confirmation/ConfirmationMenu.java&#10;ConfirmationMenu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/menus/confirmation/ConfirmationMenu.java&#10;InventoryList&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/InventoryListener.java&#10;IChat&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.IChatBaseComponent&#10;ChatComponentText&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.ChatComponentText&#10;ChatMessage&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.ChatMessage&#10;AnvilHand&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/nms/AnvilHandler.java&#10;AnvilHandler&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/AnvilHandler_1_12X.java&#10;DebugAnvil&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/debug/actions/DebugAnvilMenu.java&#10;Clea&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.warpselection.behaviours.CleanPaperBehaviour&#10;MenuOpenBe&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/MenuOpenBehaviour.java&#10;TeleportREques&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.TeleportRequestCommand&#10;MenuCloseBeh&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/MenuCloseBehaviour.java&#10;MenuOpen&#9;PSI&#9;JAVA://com.caved_in.commons.menu.inventory.MenuOpenBehaviour&#10;Teleportreq&#9;PSI&#9;JAVA://com.caved_in.commons.player.MinecraftPlayer.TeleportRequest&#10;ConfirmationM&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.confirmation.ConfirmationMenu&#10;InventoryListener&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/InventoryListener.java&#10;UserMana&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/players/UserManager.java&#10;User&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/player/User.java&#10;MenuBeha&#9;PSI&#9;JAVA://com.caved_in.commons.menu.MenuBehaviour&#10;USER&#9;PSI&#9;JAVA://com.caved_in.commons.player.User&#10;Chunks&#9;PSI&#9;JAVA://com.caved_in.commons.world.Chunks&#10;SetYaml&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.SetYamlConverter&#10;Hel&#9;PSI&#9;JAVA://com.caved_in.commons.menu.HelpScreen&#10;IdCommand&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.IdCommand&#10;Deserial&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/debug/actions/DebugItemDeserialize.java&#10;Items&#9;PSI&#9;JAVA://com.caved_in.commons.item.Items&#10;Arena&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.Arena&#10;ConfigMenu&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.configmenu.ConfigMenu&#10;DEBUGMODE&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.DebugModeCommand&#10;RegisterCommand&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.configmenu.items.RegisterCommandsItem&#10;Mess&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;log&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/log.txt&#10;Players&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/player/Players.java&#10;COMMONS&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/Commons.java" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="editorconfig.notification" value="Applied .editorconfig settings" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="configurable.group.tools" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="ignore_missing_gitignore" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="firstPageEnabled&#9;null&#9;null&#10;PageSett&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java&#10;PlayerQuit&#9;PSI&#9;JAVA://com.caved_in.commons.listeners.PlayerQuitListener&#10;Brick&#9;PSI&#9;JAVA://com.caved_in.commons.debug.gadget.ThrowableBrick&#10;Mu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/multipage/MultiPageMenu.java&#10;ItemP&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/inventory/menu/multipage/ItemPage.java&#10;ItemMenu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/ItemMenu.java&#10;Warps&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.warpselection.WarpPageSwitchMenuItem&#10;WeaponProperties&#9;PSI&#9;JAVA://com.caved_in.commons.game.item.WeaponProperties&#10;TimeType&#9;PSI&#9;JAVA://com.caved_in.commons.time.TimeType&#10;Time&#9;PSI&#9;JAVA://com.caved_in.commons.time.TimeHandler&#10;Blocks&#9;PSI&#9;JAVA://com.caved_in.commons.block.Blocks&#10;Locations&#9;PSI&#9;JAVA://com.caved_in.commons.location.Locations&#10;CraftGame&#9;PSI&#9;JAVA://com.caved_in.commons.game.CraftGame&#10;Menus&#9;PSI&#9;JAVA://com.caved_in.commons.menu.Menus&#10;Confirm&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/menus/confirmation/ConfirmationMenu.java&#10;ConfirmationMenu&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/menus/confirmation/ConfirmationMenu.java&#10;InventoryList&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/InventoryListener.java&#10;IChat&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.IChatBaseComponent&#10;ChatComponentText&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.ChatComponentText&#10;ChatMessage&#9;PSI&#9;JAVA://net.minecraft.server.v1_12_R1.ChatMessage&#10;AnvilHand&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/nms/AnvilHandler.java&#10;AnvilHandler&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/nms/minecraft_1_12_x/AnvilHandler_1_12X.java&#10;DebugAnvil&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/debug/actions/DebugAnvilMenu.java&#10;Clea&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.warpselection.behaviours.CleanPaperBehaviour&#10;MenuOpenBe&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/MenuOpenBehaviour.java&#10;TeleportREques&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.TeleportRequestCommand&#10;MenuCloseBeh&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/menu/inventory/MenuCloseBehaviour.java&#10;MenuOpen&#9;PSI&#9;JAVA://com.caved_in.commons.menu.inventory.MenuOpenBehaviour&#10;Teleportreq&#9;PSI&#9;JAVA://com.caved_in.commons.player.MinecraftPlayer.TeleportRequest&#10;ConfirmationM&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.confirmation.ConfirmationMenu&#10;InventoryListener&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/listeners/InventoryListener.java&#10;UserMana&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/game/players/UserManager.java&#10;User&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/player/User.java&#10;MenuBeha&#9;PSI&#9;JAVA://com.caved_in.commons.menu.MenuBehaviour&#10;USER&#9;PSI&#9;JAVA://com.caved_in.commons.player.User&#10;Chunks&#9;PSI&#9;JAVA://com.caved_in.commons.world.Chunks&#10;SetYaml&#9;PSI&#9;JAVA://com.caved_in.commons.yml.converter.SetYamlConverter&#10;Hel&#9;PSI&#9;JAVA://com.caved_in.commons.menu.HelpScreen&#10;IdCommand&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.IdCommand&#10;Deserial&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/debug/actions/DebugItemDeserialize.java&#10;Items&#9;PSI&#9;JAVA://com.caved_in.commons.item.Items&#10;Arena&#9;PSI&#9;JAVA://com.caved_in.commons.game.world.Arena&#10;ConfigMenu&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.configmenu.ConfigMenu&#10;DEBUGMODE&#9;PSI&#9;JAVA://com.caved_in.commons.command.commands.DebugModeCommand&#10;RegisterCommand&#9;PSI&#9;JAVA://com.caved_in.commons.menu.menus.configmenu.items.RegisterCommandsItem&#10;Mess&#9;PSI&#9;JAVA://com.caved_in.commons.Messages&#10;log&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/log.txt&#10;Players&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/player/Players.java&#10;COMMONS&#9;FILE&#9;file:///home/brandon/Projects/Java/Commons/src/main/java/com/caved_in/commons/Commons.java" />
     <property name="recentsLimit" value="5" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="editorconfig.notification" value="Applied .editorconfig settings" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -739,184 +364,6 @@
     </option>
   </component>
   <component name="RunManager" selected="JUnit.CommandsTest">
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration name="All in commons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="commons" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-    </configuration>
-    <configuration name="CommandsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.caved_in.commons.commands.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="commons" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.caved_in.commons.commands" />
-      <option name="MAIN_CLASS_NAME" value="com.caved_in.commons.commands.CommandsTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="GAPID_DISABLE_PCS" value="false" />
-      </Profilers>
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="DEBUGGER_TYPE" value="Java" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <Java />
-      <Profilers>
-        <option name="GAPID_DISABLE_PCS" value="false" />
-      </Profilers>
-      <method />
-    </configuration>
     <configuration default="true" type="ArquillianJUnit" factoryName="">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1047,22 +494,6 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
-    </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <setting name="vmparams" value="" />
       <setting name="cmdLine" value="run-app" />
@@ -1093,75 +524,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SCRATCH_FILE_ID" value="0" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="commons" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list />
-            </option>
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
       <method />
     </configuration>
     <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -1224,26 +587,190 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.All in commons" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.CommandsTest" />
+    <configuration default="true" type="AndroidRunConfigurationType">
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType">
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <Java />
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in commons" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="commons" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="commons" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.caved_in.commons.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.caved_in.commons.commands" />
+      <option name="MAIN_CLASS_NAME" value="com.caved_in.commons.commands.CommandsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <module name="" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.All in commons" />
+      <item itemvalue="JUnit.CommandsTest" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.CommandsTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.All in commons" />
+      <list>
+        <item itemvalue="JUnit.CommandsTest" />
+        <item itemvalue="JUnit.All in commons" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SliceManager">
     <option name="analysisUIOptions">
       <AnalysisUIOptions />
     </option>
   </component>
-  <component name="SvnConfiguration" myUseAcceleration="nothing">
+  <component name="SvnConfiguration">
     <configuration useDefault="false" />
   </component>
   <component name="TaskManager">
@@ -2031,49 +1558,21 @@
       <is-autoscroll-to-source value="false" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1366" height="738" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32692307" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26302084" sideWeight="0.38" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15681818" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733078" sideWeight="0.619375" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3069307" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22899505" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27424243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28830314" sideWeight="0.4996066" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1344411" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.1761174" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Kotlin Bytecode" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24949966" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948717" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294893" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3231162" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Jenkins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-    </layout>
-  </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.facetType" implementationName="JRebel" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -2082,9 +1581,6 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <confirmMoveToFailedCommit value="2" />
@@ -2117,12 +1613,6 @@
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="8" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
@@ -2131,414 +1621,6 @@
     <option name="selectedProfile" value="Complexity metrics" />
     <option name="autoscroll" value="false" />
     <option name="showOnlyWarnings" value="false" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/gadget/MenuGadget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/SubMenuItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="35" column="22" lean-forward="false" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
-          <folding>
-            <element signature="e#688#689#0" expanded="false" />
-            <element signature="e#706#707#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/utilities/NumberUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/location/Locations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
-          <folding>
-            <element signature="e#13447#13448#0" expanded="false" />
-            <element signature="e#13499#13500#0" expanded="false" />
-            <element signature="e#13570#13571#0" expanded="false" />
-            <element signature="e#13621#13622#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/WeaponProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="39" lean-forward="false" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menus/warpselection/WarpPageSwitchMenuItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/InventoryListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="123" column="37" lean-forward="false" selection-start-line="123" selection-start-column="37" selection-end-line="123" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/Debugger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="139" column="23" lean-forward="false" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/yml/converter/ItemStackYamlConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/Collection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="143" column="17" lean-forward="false" selection-start-line="143" selection-start-column="17" selection-end-line="143" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/PageGenerator.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MenuItemClickHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/InlineMenuItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#333#334#0" expanded="false" />
-            <element signature="e#360#361#0" expanded="false" />
-            <element signature="e#421#422#0" expanded="false" />
-            <element signature="e#454#455#0" expanded="false" />
-            <element signature="e#527#528#0" expanded="false" />
-            <element signature="e#568#569#0" expanded="false" />
-            <element signature="e#616#617#0" expanded="false" />
-            <element signature="e#646#647#0" expanded="false" />
-            <element signature="e#711#712#0" expanded="false" />
-            <element signature="e#749#750#0" expanded="false" />
-            <element signature="e#821#822#0" expanded="false" />
-            <element signature="e#870#871#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/MultiPageGenerator.java" />
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/List.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="543" column="6" lean-forward="false" selection-start-line="543" selection-start-column="6" selection-end-line="543" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MenuItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="67" column="5" lean-forward="false" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
-          <folding>
-            <element signature="e#1415#1416#0" expanded="false" />
-            <element signature="e#1438#1439#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/ItemMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret line="159" column="8" lean-forward="false" selection-start-line="159" selection-start-column="8" selection-end-line="171" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/ItemMenuBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="83" column="56" lean-forward="false" selection-start-line="83" selection-start-column="56" selection-end-line="83" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="97" lean-forward="false" selection-start-line="9" selection-start-column="97" selection-end-line="9" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/menu/inventory/multipage/ItemPageMenu.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/LineCallback.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8">
-          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ValueListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/LineBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatMenuListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatMenuComponentCheckbox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatMenuComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="22" lean-forward="false" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/Menus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1092">
-          <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
-          <folding>
-            <element signature="e#1462#1463#0" expanded="false" />
-            <element signature="e#1528#1529#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatMenuCommandListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ChatPages.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/PageDisplay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/ItemFormat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/chat/menu/HelpScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/block/Blocks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/warp/Warps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1543">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/vector/Vectors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/ItemPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/command/Command.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenuBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/item/ThrowableItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1335">
-          <caret line="22" column="22" lean-forward="false" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/PlayerQuitListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/player/Players.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="127" column="44" lean-forward="false" selection-start-line="127" selection-start-column="44" selection-end-line="127" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/debug/gadget/ThrowableBrick.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/PageSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="35" column="15" lean-forward="false" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/inventory/menu/MultiPageMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="274" column="0" lean-forward="true" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/players/UserManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1627">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/listeners/EntityDamageEntityListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="59" column="55" lean-forward="true" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/ReflectionsDebugActionFindTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="25" column="44" lean-forward="true" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2655">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/caved_in/commons/game/state/GameStateManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="90" column="5" lean-forward="true" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>

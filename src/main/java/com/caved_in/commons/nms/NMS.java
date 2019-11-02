@@ -9,6 +9,7 @@ import com.caved_in.commons.nms.minecraft_1_9x.*;
 import com.caved_in.commons.nms.no_implementation.ActionMessageHandlerNI;
 import com.caved_in.commons.nms.no_implementation.ParticleEffectsHandlerNI;
 import com.caved_in.commons.nms.no_implementation.UnhandledStackTraceNI;
+import com.caved_in.commons.nms.non_breaking_implementation.ActionMessageNonBreaking;
 import com.caved_in.commons.nms.non_breaking_implementation.ForceRespawnHandlerNonBreaking;
 import com.caved_in.commons.nms.non_breaking_implementation.NonBreakingInventoryHandler;
 import com.caved_in.commons.nms.non_breaking_implementation.TitleHandlerNonBreaking;
@@ -67,7 +68,7 @@ public class NMS {
                 break;
             default:
                 stackTraceHandler = new UnhandledStackTraceNI();
-                actionMessageHandler = new ActionMessageHandlerNI();
+                actionMessageHandler = new ActionMessageNonBreaking();
                 titleHandler = new TitleHandlerNonBreaking();
                 forceRespawnHandler = new ForceRespawnHandlerNonBreaking();
                 particleEffectsHandler = new ParticleEffectsHandlerNI();

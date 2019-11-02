@@ -70,14 +70,6 @@ public class BlockData {
     public Material getType() {
         return materialData.getItemType();
     }
-
-    /**
-     * @return the material ID for the block.
-     */
-    public int getTypeId() {
-        return materialData.getItemTypeId();
-    }
-
     /**
      * @return The light level the block provides.
      */
@@ -234,13 +226,6 @@ public class BlockData {
         return getBlock().getDrops(itemStack);
     }
 
-    /**
-     * @return the material id of the wrapped block.
-     */
-    public int getId() {
-        return getBlock().getTypeId();
-    }
-
     public byte getLightFromBlocks() {
         return lightFromBlocks;
     }
@@ -249,12 +234,12 @@ public class BlockData {
     public boolean equals(Object o) {
         if (o instanceof Block) {
             Block block = (Block) o;
-            return getWorld().equals(block.getWorld()) && getX() == block.getX() && getY() == block.getY() && getZ() == block.getZ() && getId() == block.getTypeId();
+            return getWorld().equals(block.getWorld()) && getX() == block.getX() && getY() == block.getY() && getZ() == block.getZ() && getType() == block.getType();
         }
 
         if (o instanceof BlockData) {
             BlockData blockData = (BlockData) o;
-            return blockData.getWorld().equals(getWorld()) && blockData.getId() == getId() && blockData.getX() == getX() && blockData.getZ() == getZ() && blockData.getY() == getY();
+            return blockData.getWorld().equals(getWorld()) && blockData.getType() == getType() && blockData.getX() == getX() && blockData.getZ() == getZ() && blockData.getY() == getY();
         }
         return false;
     }

@@ -918,9 +918,27 @@ public class Entities {
 				stone walls, then they are infact standing atop a block!
 				 */
                 switch (materialBeneathPlayer) {
-                    case FENCE:
-                    case NETHER_FENCE:
-                    case COBBLE_WALL:
+                    case ACACIA_FENCE:
+                    case BIRCH_FENCE:
+                    case DARK_OAK_FENCE:
+                    case JUNGLE_FENCE:
+                    case NETHER_BRICK_FENCE:
+                    case OAK_FENCE:
+                    case SPRUCE_FENCE:
+                    case ANDESITE_WALL:
+                    case BRICK_WALL:
+                    case COBBLESTONE_WALL:
+                    case DIORITE_WALL:
+                    case GRANITE_WALL:
+                    case END_STONE_BRICK_WALL:
+                    case MOSSY_COBBLESTONE_WALL:
+                    case MOSSY_STONE_BRICK_WALL:
+                    case RED_NETHER_BRICK_WALL:
+                    case NETHER_BRICK_WALL:
+                    case PRISMARINE_WALL:
+                    case RED_SANDSTONE_WALL:
+                    case SANDSTONE_WALL:
+                    case STONE_BRICK_WALL:
                         return true;
                     default:
                         break;

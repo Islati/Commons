@@ -23,9 +23,13 @@ public class WarpSelectionMenu extends ItemMenu {
         addMenuItem(new WarpPageSwitchMenuItem(WarpPageSwitchMenuItem.Direction.NEXT, page), 53);
         setExitOnClickOutside(false);
         List<Warp> warpPages = Warps.getWarpsPage(page);
-        for (int i = 0; i < warpPages.size(); i++) {
-            addMenuItem(new WarpMenuItem(warpPages.get(i)), i >= 45 ? i + 1 : i);
+
+        if (warpPages != null) {
+            for (int i = 0; i < warpPages.size(); i++) {
+                addMenuItem(new WarpMenuItem(warpPages.get(i)), i >= 45 ? i + 1 : i);
+            }
         }
+
         addBehaviour(MenuAction.CLOSE, CleanPaperBehaviour.getInstance());
     }
 

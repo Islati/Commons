@@ -9,7 +9,7 @@ public class BlockSpreadListener implements Listener {
 
     @EventHandler
     public void onBlockSpread(BlockSpreadEvent event) {
-        if (event.getSource().getType() == Material.MYCEL) {
+        if (event.getSource().getType() == Material.MYCELIUM) {
             event.setCancelled(true);
         }
     }

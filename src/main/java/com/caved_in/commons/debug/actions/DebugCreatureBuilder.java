@@ -16,8 +16,8 @@ public class DebugCreatureBuilder implements DebugAction {
         LivingEntity zombie = CreatureBuilder.of(EntityType.ZOMBIE)
                 .armor()
                 .withHelmet(Items.makeItem(Material.IRON_HELMET))
-                .withBoots(Items.makeItem(Material.GOLD_BOOTS))
-                .withMainHand(Items.makeItem(Material.WOOD_SWORD))
+                .withBoots(Items.makeItem(Material.GOLDEN_BOOTS))
+                .withMainHand(Items.makeItem(Material.WOODEN_SWORD))
                 .parent()
                 .spawn(player.getLocation());
 

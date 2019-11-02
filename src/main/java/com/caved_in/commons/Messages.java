@@ -31,13 +31,13 @@ public class Messages {
     public static final String NO_PENDING_FRIENDS = "&eYou don't have any pending friend requests";
     public static final String PLAYER_HEALED = "&aYou've been healed!";
     public static final String OUTDATED_VERSION = "&eYour bukkit version is outdated; Commons required the latest bukkit version";
-    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an firstPageEnabled in your main-hand or off-hand";
-    public static final String ITEM_IN_EITHER_HAND_REQUIRED = "&eYou need to have an firstPageEnabled in either of your hands.";
-    public static final String ITEM_IN_BOTH_HANDS_REQUIRED = "&eYou need to have an firstPageEnabled in both hands.";
-    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your firstPageEnabled; Is it a valid enchantment for the firstPageEnabled?";
+    public static final String ITEM_IN_HAND_REQUIRED = "&eYou need to have an item in your main-hand or off-hand";
+    public static final String ITEM_IN_EITHER_HAND_REQUIRED = "&eYou need to have an item in either of your hands.";
+    public static final String ITEM_IN_BOTH_HANDS_REQUIRED = "&eYou need to have an item in both hands.";
+    public static final String FAILED_TO_ENCHANT_ITEM = "&cFailed to enchant your item; Is it a valid enchantment for the item?";
     public static final String PLAYER_FED = "&aYou've been fed!";
     public static final String PLAYER_COMMAND_SENDER_REQUIRED = "&eThis command requires a player to issue it";
-    public static final String ITEMS_REPAIRED = "&aYour firstPageEnabled(s) has been repaired";
+    public static final String ITEMS_REPAIRED = "&aYour item(s) has been repaired";
     public static final String CHAT_UNSILENCED = "&eThe chat has been unsilenced.";
     public static final String MAINTENANCE_MODE_ENABLED = "&aMaintenance mode is now &eenabled&a, to disable it do &e/maintenance off&a or &e/Maintenance " +
             "toggle";
@@ -64,7 +64,7 @@ public class Messages {
 
     public static final String NO_WARPS = "&eNo Warps have been set; Create a warp with &c/setwarp <name>";
 
-    public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an firstPageEnabled in your hand to use this debug action";
+    public static final String DEBUG_ACTION_REQUIRES_HAND_ITEM = "You require an item in your hand to use this debug action";
 
     public static final String GADGET_RELOADED = "&7Your gadget's been reloaded.";
 
@@ -108,7 +108,7 @@ public class Messages {
     }
 
     public static String failedToEnchantItem(HandSlot hand) {
-        return String.format("&cFailed to enchant your %s firstPageEnabled; Is it a valid enchantment for the firstPageEnabled?", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+        return String.format("&cFailed to enchant your %s item; Is it a valid enchantment for the item?", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
     }
 
     public static String gadgetEquipError(Gadget gadget, HandSlot slot) {
@@ -128,7 +128,7 @@ public class Messages {
     }
 
     public static String itemInHandRequired(HandSlot hand) {
-        return String.format("&eYou need to have an firstPageEnabled in your %s.", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
+        return String.format("&eYou need to have an item in your %s.", hand == HandSlot.MAIN_HAND ? "Main-Hand" : "Off-Hand");
     }
 
     public static String playerDataLoadAttempt(String playerName) {
@@ -292,23 +292,15 @@ public class Messages {
     }
 
     public static String itemEnchantmentAdded(String enchantmentName) {
-        return String.format("&aYou've added the '&e%s&a' enchantment to your firstPageEnabled", enchantmentName);
+        return String.format("&aYou've added the '&e%s&a' enchantment to your item", enchantmentName);
     }
 
     public static String itemEnchantmentAdded(String enchantmentName, int level) {
-        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your firstPageEnabled", level, enchantmentName);
+        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your item", level, enchantmentName);
     }
 
     public static String itemEnchantmentAdded(String enchantmentName, int level, HandSlot hand) {
-        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your %s firstPageEnabled", level, enchantmentName, hand == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
-    }
-
-    public static String itemId(ItemStack item) {
-        return String.format("&eThe id for &o%s&r&e is &a%s", Items.getName(item), item.getTypeId());
-    }
-
-    public static String itemId(String name, Material material) {
-        return String.format("&aThe id for &e&o%s&r&e is &a%s.", name, material.getId());
+        return String.format("&aYou've added level &c%s &a'&e%s&a' enchantment to your %s item", level, enchantmentName, hand == HandSlot.MAIN_HAND ? "main-hand" : "off-hand");
     }
 
     public static String[] itemInfo(ItemStack itemStack) {
@@ -473,7 +465,7 @@ public class Messages {
     }
 
     public static String invalidItem(String itemName) {
-        return String.format("&cSorry, but &e%s&c isn't a valid firstPageEnabled", itemName);
+        return String.format("&cSorry, but &e%s&c isn't a valid item", itemName);
     }
 
     public static String invalidItemData(String input) {

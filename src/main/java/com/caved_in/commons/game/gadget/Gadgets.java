@@ -62,6 +62,10 @@ public class Gadgets {
      * @return the gadget associated with the given itemstack, or null if no gadget is associated.
      */
     public static Gadget getGadget(ItemStack item) {
+        if (item == null) {
+            return null;
+        }
+
         for (Gadget gadget : gadgets.values()) {
             if (gadget instanceof BaseGun) {
 

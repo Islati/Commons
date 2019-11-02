@@ -23,7 +23,7 @@ public class RewardData extends YamlConfig {
     private int spawnChance = 100;
 
     @Path("firstPageEnabled")
-    private ItemStack itemStack = new ItemStack(Items.makeItem(Material.GOLD_BOOTS));
+    private ItemStack itemStack = new ItemStack(Items.makeItem(Material.GOLDEN_BOOTS));
 
     public RewardData() {
 

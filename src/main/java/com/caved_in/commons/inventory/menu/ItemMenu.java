@@ -123,7 +123,7 @@ public class ItemMenu implements Menu {
     public boolean removeMenuItem(int index) {
         Inventory inventory = getInventory();
         ItemStack slot = inventory.getItem(index);
-        if (slot == null || slot.getTypeId() == 0) {
+        if (slot == null || slot.getType() == Material.AIR) {
             return false;
         }
 

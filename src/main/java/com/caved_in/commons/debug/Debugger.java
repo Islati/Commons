@@ -10,6 +10,7 @@ import com.caved_in.commons.chat.menu.PageDisplay;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.base.Splitter;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -130,10 +131,11 @@ public class Debugger {
 
 	public static void debugBlockBreakEvent(Player player, BlockBreakEvent event) {
 		Block block = event.getBlock();
-		int blockId = block.getTypeId();
+//		int blockId = block.getTypeId();
+		Material blockType = block.getType();
 		String blockName = Items.getFormattedMaterialName(block.getType());
 		int[] blockCords = Locations.getXYZ(block.getLocation());
-		String debugMessage = String.format(BLOCK_BREAK_MESSAGE, blockCords[0], blockCords[1], blockCords[2], blockId, blockName, block.getState().getData().getData(), block.getLightLevel());
+		String debugMessage = String.format(BLOCK_BREAK_MESSAGE, blockCords[0], blockCords[1], blockCords[2], blockType.getId(), blockName, block.getState().getData().getData(), block.getLightLevel());
 		Chat.message(player, debugMessage);
 	}
 

@@ -4,9 +4,11 @@ import com.caved_in.commons.Messages;
 import com.caved_in.commons.command.*;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.HandSlot;
-import com.caved_in.commons.item.ItemType;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
+import com.caved_in.commons.utilities.StringUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,17 +19,16 @@ import java.util.EnumSet;
 public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
     public ItemStackArgumentHandler() {
         //Add the sender variable,
-        addVariable("hand", "firstPageEnabled in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
-        addVariable("offhand", "firstPageEnabled in the off-hand of the command executor", ItemStackHandArgumentVariable.getInstance());
-        addVariable("sender", "firstPageEnabled in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("hand", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("offhand", "item in the off-hand of the command executor", ItemStackHandArgumentVariable.getInstance());
+        addVariable("sender", "item in the hand of the command executor", ItemStackHandArgumentVariable.getInstance());
 
-        for (ItemType itemType : EnumSet.allOf(ItemType.class)) {
-            //Add the items ID as a valid identifier.
-            addVariable(String.valueOf(itemType.getID()), itemType.getName(), ItemStackArgumentVariable.getInstance());
-
-            //For every alias that exists in the items data, register the variable for that firstPageEnabled.
-            for (String alias : itemType.getAliases()) {
-                addVariable(alias, itemType.getName(), ItemStackArgumentVariable.getInstance());
+        for(Material material : Material.values()) {
+            Bukkit.getLogger().info(String.format("Created ItemStackArgumentHandler %s", material.name().toLowerCase()));
+            try {
+                addVariable(material.name().toLowerCase(),material.name().toLowerCase(),ItemStackArgumentVariable.getInstance());
+            } catch (Exception ex) {
+                Bukkit.getLogger().info(StringUtil.getStackStr(ex));
             }
         }
     }
@@ -60,15 +61,12 @@ public class ItemStackArgumentHandler extends ArgumentHandler<ItemStack> {
 
         @Override
         public ItemStack var(CommandSender sender, CommandArgument argument, String varName) throws CommandError {
-            MaterialData data = null;
-
             try {
-                data = Items.getMaterialDataFromString(varName);
-            } catch (InvalidMaterialNameException e) {
-                throw new CommandError(e.getMessage());
+                return new ItemStack(Items.getMaterialByName(varName));
+            } catch (InvalidMaterialNameException e){
+                throw new TransformError(e.getMessage());
             }
 
-            return data.toItemStack();
         }
     }
 

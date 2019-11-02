@@ -10,13 +10,13 @@ import java.util.Set;
 
 public enum ToolType {
 
-    HOE(Material.WOOD_HOE, Material.STONE_HOE, Material.IRON_HOE, Material.GOLD_HOE, Material.DIAMOND_HOE),
-    AXE(Material.WOOD_AXE, Material.STONE_AXE, Material.IRON_AXE, Material.GOLD_AXE, Material.DIAMOND_AXE),
-    SHOVEL(Material.WOOD_SPADE, Material.STONE_SPADE, Material.IRON_SPADE, Material.GOLD_SPADE, Material.DIAMOND_SPADE),
-    PICK_AXE(Material.WOOD_PICKAXE, Material.STONE_PICKAXE, Material.IRON_PICKAXE, Material.GOLD_PICKAXE, Material.DIAMOND_PICKAXE),
+    HOE(Material.WOODEN_HOE, Material.STONE_HOE, Material.IRON_HOE, Material.GOLDEN_HOE, Material.DIAMOND_HOE),
+    AXE(Material.WOODEN_AXE, Material.STONE_AXE, Material.IRON_AXE, Material.GOLDEN_AXE, Material.DIAMOND_AXE),
+    SHOVEL(Material.WOODEN_SHOVEL, Material.STONE_SHOVEL, Material.IRON_SHOVEL, Material.GOLDEN_SHOVEL, Material.DIAMOND_SHOVEL),
+    PICK_AXE(Material.WOODEN_PICKAXE, Material.STONE_PICKAXE, Material.IRON_PICKAXE, Material.GOLDEN_PICKAXE, Material.DIAMOND_PICKAXE),
     FIRE_STARTER(Material.FLINT_AND_STEEL),
-    UTILITY(Material.BUCKET, Material.FISHING_ROD, Material.CARROT_STICK, Material.SHEARS),
-    REDSTONE(Material.REDSTONE, Material.REDSTONE_COMPARATOR, Material.REDSTONE_TORCH_ON, Material.REDSTONE_LAMP_OFF, Material.DAYLIGHT_DETECTOR, Material.STONE_BUTTON, Material.WOOD_BUTTON, Material.GOLD_PLATE, Material.IRON_PLATE, Material.WOOD_PLATE, Material.STONE_PLATE, Material.DISPENSER, Material.HOPPER, Material.DROPPER, Material.PISTON_BASE, Material.PISTON_STICKY_BASE, Material.NOTE_BLOCK, Material.TNT, Material.FENCE_GATE, Material.TRIPWIRE_HOOK, Material.REDSTONE_BLOCK, Material.getMaterial(356)/* Redstone repeater */, Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.TRAP_DOOR, Material.IRON_TRAPDOOR, Material.ACACIA_DOOR, Material.BIRCH_DOOR, Material.DARK_OAK_DOOR, Material.IRON_DOOR, Material.JUNGLE_DOOR, Material.SPRUCE_DOOR, Material.WOOD_DOOR);
+    UTILITY(Material.BUCKET, Material.FISHING_ROD, Material.CARROT_ON_A_STICK, Material.SHEARS),
+    REDSTONE(Material.REDSTONE, Material.COMPARATOR, Material.REDSTONE_TORCH, Material.REDSTONE_LAMP, Material.DAYLIGHT_DETECTOR, Material.STONE_BUTTON, Material.OAK_BUTTON, Material.ACACIA_BUTTON, Material.BIRCH_BUTTON, Material.JUNGLE_BUTTON, Material.SPRUCE_BUTTON, Material.DARK_OAK_BUTTON, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.DARK_OAK_PRESSURE_PLATE, Material.HEAVY_WEIGHTED_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.STONE_PRESSURE_PLATE, Material.DISPENSER, Material.HOPPER, Material.DROPPER, Material.PISTON, Material.NOTE_BLOCK, Material.TNT, Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, Material.NETHER_BRICK_FENCE, Material.OAK_FENCE, Material.SPRUCE_FENCE, Material.TRIPWIRE_HOOK, Material.REDSTONE_BLOCK, Material.REPEATER, Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, Material.SPRUCE_FENCE_GATE, Material.ACACIA_TRAPDOOR, Material.BIRCH_TRAPDOOR, Material.DARK_OAK_TRAPDOOR, Material.IRON_TRAPDOOR, Material.JUNGLE_TRAPDOOR, Material.OAK_TRAPDOOR, Material.SPRUCE_TRAPDOOR, Material.IRON_TRAPDOOR, Material.ACACIA_DOOR, Material.BIRCH_DOOR, Material.DARK_OAK_DOOR, Material.IRON_DOOR, Material.JUNGLE_DOOR, Material.SPRUCE_DOOR, Material.ACACIA_DOOR, Material.BIRCH_DOOR, Material.DARK_OAK_DOOR, Material.IRON_DOOR, Material.JUNGLE_DOOR, Material.OAK_DOOR, Material.SPRUCE_DOOR);
 
     private static Set<Material> validTools = Sets.newHashSet();
 

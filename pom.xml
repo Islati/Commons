@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.12.2</version>
+    <version>1.14.4</version>
 
     <properties>
         <powermock.version>1.6.1</powermock.version>
@@ -69,6 +69,7 @@
                                     <include>org.reflections:reflections:jar:*</include>
                                     <include>org.javassist:javassist:jar:*</include>
                                     <include>joda-time:joda-time:jar:*</include>
+                                    <include>org.apache.commons:commons-lang3:jar:*</include>
                                 </includes>
                             </artifactSet>
                             <filters>
@@ -127,13 +128,29 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--This adds the Bukkit API artifact to the build -->
+        <!-- Do not include this in the pom.xml file if the Spigot API is already added -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
         </dependency>
 
         <dependency>
@@ -201,7 +218,7 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
+            <version>0.9.11</version>
         </dependency>
 
         <dependency>

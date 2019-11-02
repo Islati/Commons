@@ -22,14 +22,10 @@ public class MaterialArgumentHandler extends ArgumentHandler<Material> {
     public Material transform(CommandSender sender, CommandArgument argument, String value) throws TransformError {
         Material material = null;
 
-        if (StringUtils.isNumeric(value)) {
-            material = Items.getMaterialById(Integer.parseInt(value));
-        } else {
-            try {
-                material = Items.getMaterialByName(value);
-            } catch (InvalidMaterialNameException ignored) {
-
-            }
+        try {
+            material = Items.getMaterialByName(value);
+        } catch (InvalidMaterialNameException ignored) {
+            throw new TransformError(argument.getMessage("parse_error"));
         }
 
         if (material == null) {

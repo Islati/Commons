@@ -24,37 +24,37 @@ public class RunnableManager {
     // Example: [GAME UPDATE] Started Tick!
 
     public int registerSyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-        int taskId = Plugins.getLoggedScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+        int taskId = Plugins.getScheduler().scheduleSyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
         runningTasks.put(name, taskId);
         runnableIds.put(taskId, task);
         return taskId;
     }
 
     public int registerAsyncRepeatTask(String name, Runnable task, long delayInTicks, long repeatTimeInTicks) {
-        int taskId = Plugins.getLoggedScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
+        int taskId = Plugins.getScheduler().scheduleAsyncRepeatingTask(plugin, task, delayInTicks, repeatTimeInTicks);
         runningTasks.put(name, taskId);
         runnableIds.put(taskId, task);
         return taskId;
     }
 
     public void runTaskNow(Runnable task) {
-        Plugins.getLoggedScheduler().runTask(this.plugin, task);
+        Plugins.getScheduler().runTask(this.plugin, task);
     }
 
     public void runTaskAsync(Runnable task) {
-        Plugins.getLoggedScheduler().runTaskAsynchronously(plugin, task);
+        Plugins.getScheduler().runTaskAsynchronously(plugin, task);
     }
 
     public void runTaskLater(Runnable task, long delayInTicks) {
-        Plugins.getLoggedScheduler().runTaskLater(plugin, task, delayInTicks);
+        Plugins.getScheduler().runTaskLater(plugin, task, delayInTicks);
     }
 
     public void runTaskOneTickLater(Runnable task) {
-        Plugins.getLoggedScheduler().runTaskLater(plugin, task, 1);
+        Plugins.getScheduler().runTaskLater(plugin, task, 1);
     }
 
     public void runTaskLaterAsync(Runnable task, long delay) {
-        Plugins.getLoggedScheduler().runTaskLaterAsynchronously(plugin, task, delay);
+        Plugins.getScheduler().runTaskLaterAsynchronously(plugin, task, delay);
     }
 
     public boolean cancelTask(String name) {
@@ -67,7 +67,7 @@ public class RunnableManager {
     }
 
     public void cancelTask(int taskId) {
-        Plugins.getLoggedScheduler().cancelTask(taskId);
+        Plugins.getScheduler().cancelTask(taskId);
     }
 
     public void cancelTasks() {

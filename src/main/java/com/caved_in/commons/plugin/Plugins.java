@@ -9,12 +9,15 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.function.Consumer;
 
 public class Plugins {
     public enum ExtractWhen {ALWAYS, IF_NOT_EXISTS, IF_NEWER}
@@ -26,7 +29,7 @@ public class Plugins {
 
     private static LoggedPluginManager events = null;
 
-    private static LoggedScheduler scheduler = null;
+//    private static LoggedScheduler scheduler = null;
 
     static {
         events = new LoggedPluginManager(pluginManager) {
@@ -36,19 +39,26 @@ public class Plugins {
             }
         };
 
+        /*
         scheduler = new LoggedScheduler(Bukkit.getScheduler()) {
+
             @Override
             protected void customHandler(int taskID, Throwable e) {
                 StackTraceEvent.call(e);
             }
         };
-
-
+         */
     }
 
-    public static LoggedScheduler getLoggedScheduler() {
-        return scheduler;
+    public static BukkitScheduler getScheduler() {
+        return Bukkit.getScheduler();
     }
+
+//
+//
+//    public static LoggedScheduler getLoggedScheduler() {
+//        return null;
+//    }
 
     public static boolean isEnabled(String name) {
         return pluginManager.isPluginEnabled(name);

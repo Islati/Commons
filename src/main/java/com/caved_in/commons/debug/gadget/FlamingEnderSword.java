@@ -35,7 +35,7 @@ public class FlamingEnderSword extends BaseWeapon {
         return instance;
     }
 
-    private BaseGun enderGun = new BaseGun(ItemBuilder.of(Material.ENDER_STONE)) {
+    private BaseGun enderGun = new BaseGun(ItemBuilder.of(Material.LEGACY_ENDER_STONE)) {
 
         @Override
         public void onFire(Player shooter) {
@@ -44,7 +44,7 @@ public class FlamingEnderSword extends BaseWeapon {
     };
 
     protected FlamingEnderSword() {
-        super(ItemBuilder.of(Material.WOOD_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
+        super(ItemBuilder.of(Material.WOODEN_SWORD).name("&2Sword of Enders").lore("&cScorch your foes!"));
         properties().droppable(true).breakable(false);
 
         enderGun.bulletProperties().speed(4).damage(5).damageCondition((shooter, target) -> target.getType() != EntityType.ENDERMAN);
@@ -85,7 +85,7 @@ public class FlamingEnderSword extends BaseWeapon {
 
     @Override
     public void onDrop(Player p, Item item) {
-        Sounds.playSound(p, Sound.ENTITY_ENDERMEN_STARE);
+        Sounds.playSound(p, Sound.ENTITY_ENDERMAN_STARE);
         Chat.message(p, "&7The dark-side isn't fond of that disrespect");
         Players.addPotionEffect(p, Potions.getPotionEffect(PotionEffectType.BLINDNESS, 1, 160));
         item.remove();

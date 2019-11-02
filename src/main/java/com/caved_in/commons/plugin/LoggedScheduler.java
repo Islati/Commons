@@ -161,9 +161,8 @@ public abstract class LoggedScheduler implements BukkitScheduler {
         return delegate.callSyncMethod(plugin, task);
     }
 
-    @Override
-    public void cancelAllTasks() {
-        delegate.cancelAllTasks();
+    public void cancelAllTasks(Plugin plugin) {
+        delegate.cancelTasks(plugin);
     }
 
     @Override

@@ -28,7 +28,6 @@ public class InternalConverter {
 			addConverter(SetYamlConverter.class);
 
 			addConverter(UuidYamlConverter.class);
-			addConverter(BlockYamlConverter.class);
 			addConverter(EntityTypeYamlConverter.class);
 			addConverter(InventoryYamlConverter.class);
 			addConverter(ItemStackYamlConverter.class);

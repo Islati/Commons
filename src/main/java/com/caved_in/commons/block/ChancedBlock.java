@@ -24,24 +24,8 @@ public class ChancedBlock {
         return new ChancedBlock(mat, id, chance);
     }
 
-    /**
-     * Create a new instance of ChancedBlock using an items id.
-     *
-     * @param id     id of the material to use
-     * @param data   data value to attach to the material
-     * @param chance chance the block has to spawn / place / pass
-     * @return ChancedBlock with the material, id, and chance assigned.
-     */
-    public static ChancedBlock of(int id, int data, int chance) {
-        return new ChancedBlock(id, data, chance);
-    }
-
     public ChancedBlock() {
 
-    }
-
-    public ChancedBlock(int blockId, int data, int chance) {
-        this(Items.getMaterialById(blockId), data, chance);
     }
 
     public ChancedBlock(Material material, int data, int chance) {

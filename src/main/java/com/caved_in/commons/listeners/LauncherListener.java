@@ -16,10 +16,15 @@ public class LauncherListener implements Listener {
         Location playerLocation = player.getLocation();
         Material playerBlock = playerLocation.getWorld().getBlockAt(playerLocation).getType();
         switch (playerBlock) {
-            case STONE_PLATE:
-            case WOOD_PLATE:
-            case GOLD_PLATE:
-            case IRON_PLATE:
+            case STONE_PRESSURE_PLATE:
+            case ACACIA_PRESSURE_PLATE:
+            case BIRCH_PRESSURE_PLATE:
+            case JUNGLE_PRESSURE_PLATE:
+            case DARK_OAK_PRESSURE_PLATE:
+            case HEAVY_WEIGHTED_PRESSURE_PLATE:
+            case LIGHT_WEIGHTED_PRESSURE_PLATE:
+            case OAK_PRESSURE_PLATE:
+            case SPRUCE_PRESSURE_PLATE:
                 player.setVelocity(playerLocation.getDirection().multiply(3));
                 player.setVelocity(new Vector(player.getVelocity().getX(), 1.0D, player.getVelocity().getZ()));
                 break;

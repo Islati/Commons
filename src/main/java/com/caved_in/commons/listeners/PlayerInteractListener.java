@@ -20,7 +20,15 @@ public class PlayerInteractListener implements Listener {
         ItemStack itemInHand = event.getItem();
         EquipmentSlot eSlot = event.getHand();
 
+        if (itemInHand == null) {
+            return;
+        }
+
         if (!Gadgets.isGadget(itemInHand)) {
+            return;
+        }
+
+        if (eSlot == null) {
             return;
         }
 

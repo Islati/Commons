@@ -1816,7 +1816,7 @@ public class Players {
             return;
         }
 
-        Plugins.getLoggedScheduler().scheduleSyncRepeatingTask(Commons.getInstance(), new BukkitRunnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Commons.getInstance(), new BukkitRunnable() {
             @Override
             public void run() {
                 try {

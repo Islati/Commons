@@ -24,7 +24,6 @@ public class InventoryYamlConverter implements Converter {
 
         Map<String, Object> saveMap = new HashMap<>();
 
-        saveMap.put("name",inventory.getName());
         saveMap.put("rows", Inventories.getRows(inventory.getSize()));
 
         Map<Integer, Object> contents = new HashMap<>();
@@ -38,10 +37,10 @@ public class InventoryYamlConverter implements Converter {
             }
             contents.put(i, itemstackConverter.toConfig(ItemStack.class,invItems[i],null));
         }
-
-        Object mapContents = converter.getConverter(contents.getClass()).toConfig(contents.getClass(),contents,TypeUtils.parameterize(contents.getClass(),contents.getClass().getGenericInterfaces()));
-
         saveMap.put("contents",contents);
+
+//        Object mapContents = converter.getConverter(contents.getClass()).toConfig(contents.getClass(),contents,TypeUtils.parameterize(contents.getClass(),contents.getClass().getGenericInterfaces()));
+
 
         return saveMap;
     }

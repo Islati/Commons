@@ -9,6 +9,7 @@ import com.caved_in.commons.yml.Skip;
 import com.caved_in.commons.yml.YamlConfig;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
@@ -44,10 +45,10 @@ public class Arena extends YamlConfig implements GameArena {
     private List<Location> spawns = new ArrayList<>();
 
     @Path("breakable-blocks")
-    private List<Integer> breakables = new ArrayList<>();
+    private List<Material> breakables = new ArrayList<>();
 
     @Path("placeable-blocks")
-    private List<Integer> placeables = new ArrayList<>();
+    private List<Material> placeables = new ArrayList<>();
 
     /**
      * Initiate using a file; Generally used to load a serialized arena.
@@ -57,7 +58,7 @@ public class Arena extends YamlConfig implements GameArena {
         super(file);
     }
 
-    public Arena(int id, String arenaName, String worldName, boolean enabled, boolean stormy, List<Location> spawns, List<Integer> breakables, List<Integer> placeables) {
+    public Arena(int id, String arenaName, String worldName, boolean enabled, boolean stormy, List<Location> spawns, List<Material> breakables, List<Material> placeables) {
         this.id = id;
         this.arenaName = arenaName;
         this.worldName = worldName;
@@ -116,21 +117,21 @@ public class Arena extends YamlConfig implements GameArena {
 
     @Override
     public boolean isBreakable(Block block) {
-        return breakables.contains(block.getTypeId());
+        return breakables.contains(block.getType());
     }
 
     @Override
     public boolean isPlaceable(Block block) {
-        return placeables.contains(block.getTypeId());
+        return placeables.contains(block.getType());
     }
 
-    public void setBreakable(int id) {
-        breakables.add(id);
+    public void setBreakable(Material material) {
+        breakables.add(material);
         ArenaModifiedEvent.throwEvent(this);
     }
 
-    public void setPlaceable(int id) {
-        placeables.add(id);
+    public void setPlaceable(Material material) {
+        placeables.add(material);
         ArenaModifiedEvent.throwEvent(this);
     }
 

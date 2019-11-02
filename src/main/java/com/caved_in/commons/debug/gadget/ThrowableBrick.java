@@ -21,7 +21,7 @@ public class ThrowableBrick extends ThrowableItem {
     }
 
     public ThrowableBrick() {
-        super(ItemBuilder.of(Material.CLAY_BRICK).lore("&eYou'll bash your eye out!"));
+        super(ItemBuilder.of(Material.BRICK).lore("&eYou'll bash your eye out!"));
 
         properties().delay(2).action(Action.DELAY);
     }

@@ -31,7 +31,7 @@ public class ItemStackYamlConverter implements Converter {
 		org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) obj;
 
 		Map<String, Object> saveMap = new HashMap<>();
-		saveMap.put("id", itemStack.getTypeId());
+		saveMap.put("id", itemStack.getType().name());
 
 		if (itemStack.getDurability() > 0) {
 			saveMap.put("data",itemStack.getDurability());
@@ -87,8 +87,8 @@ public class ItemStackYamlConverter implements Converter {
 			}
 		}
 
-		int id = (int)itemstackMap.get("id");
-		ItemBuilder itemBuilder = ItemBuilder.of(Items.getMaterialById(id));
+		Material itemMaterial = Material.getMaterial((String)itemstackMap.get("id"));
+		ItemBuilder itemBuilder = ItemBuilder.of(itemMaterial);
 
 		if (itemstackMap.containsKey("data")) {
 			short data = (short)itemstackMap.get("data");

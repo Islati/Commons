@@ -1,5 +1,6 @@
 package com.caved_in.commons.debug.gadget;
 
+import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.effect.ParticleEffect;
 import com.caved_in.commons.effect.Particles;
@@ -35,13 +36,13 @@ public class FishCannon extends BaseGun {
     }
 
     public FishCannon() {
-        super(ItemBuilder.of(Material.DIAMOND_BARDING).name("&eFish Cannon"));
+        super(ItemBuilder.of(Material.DIAMOND_HORSE_ARMOR).name("&eFish Cannon"));
         setBulletActions(FishCannonAction.getInstance());
         initProperties();
     }
 
     private void initProperties() {
-        properties().ammunition(ItemBuilder.of(Material.RAW_FISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
+        properties().ammunition(ItemBuilder.of(Material.PUFFERFISH).name("&3Live Ammo")).roundsPerShot(2).shotDelay(5).clipSize(100).reloadSpeed(2);
         bulletProperties().damage(10).delayBetweenRounds(1).spread(1.2).speed(5).effect(ParticleEffect.WATER_BUBBLE);
     }
 
@@ -65,7 +66,7 @@ public class FishCannon extends BaseGun {
 
             Effects.explode(hitLoc, 1.0f, false, false);
 
-            ItemStack item = Items.makeItem(Material.COOKED_FISH);
+            ItemStack item = Items.makeItem(Material.COOKED_SALMON);
 
             List<Location> circle = Locations.getCircle(hitLoc, 3);
             circle.forEach(l -> {
@@ -78,7 +79,9 @@ public class FishCannon extends BaseGun {
 
         @Override
         public void onHit(Player player, Block block) {
-            Particles.sendToLocation(block.getLocation(), ParticleEffect.CLOUD, NumberUtil.getRandomInRange(1, 3));
+            Location loc = block.getLocation();
+            Chat.actionMessage(player, String.format("&aIt's a hit &e(%s,%s,%s)!", loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()));
+//            Particles.sendToLocation(block.getLocation(), ParticleEffect.CLOUD, NumberUtil.getRandomInRange(1, 3));
         }
     }
 }

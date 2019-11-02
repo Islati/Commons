@@ -4,17 +4,14 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
-import com.caved_in.commons.item.BlockID;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
-import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.threading.tasks.BlockRegenThread;
 import com.caved_in.commons.threading.tasks.BlocksRegenThread;
 import com.caved_in.commons.time.TimeHandler;
 import com.caved_in.commons.time.TimeType;
 import com.caved_in.commons.utilities.ListUtils;
 import com.caved_in.commons.utilities.NumberUtil;
-import com.caved_in.commons.world.Worlds;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.bukkit.Location;
@@ -26,7 +23,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
@@ -48,43 +44,118 @@ public class Blocks {
     /* Initialize the materials which are hollow */
     static {
         HOLLOW_MATERIALS.add(Material.AIR);
-        HOLLOW_MATERIALS.add(Material.SAPLING);
+
+        //SAPPLINGS
+        HOLLOW_MATERIALS.add(Material.OAK_SAPLING);
+        HOLLOW_MATERIALS.add(Material.ACACIA_SAPLING);
+        HOLLOW_MATERIALS.add(Material.BAMBOO_SAPLING);
+        HOLLOW_MATERIALS.add(Material.BIRCH_SAPLING);
+        HOLLOW_MATERIALS.add(Material.DARK_OAK_SAPLING);
+        HOLLOW_MATERIALS.add(Material.JUNGLE_SAPLING);
+        HOLLOW_MATERIALS.add(Material.SPRUCE_SAPLING);
+
+        //GRASS
+        HOLLOW_MATERIALS.add(Material.TALL_GRASS);
+        HOLLOW_MATERIALS.add(Material.TALL_SEAGRASS);
+        HOLLOW_MATERIALS.add(Material.SEAGRASS);
+        HOLLOW_MATERIALS.add(Material.GRASS);
+
+        //FLOWERS
+        HOLLOW_MATERIALS.add(Material.CHORUS_FLOWER);
+        HOLLOW_MATERIALS.add(Material.DANDELION);
+        HOLLOW_MATERIALS.add(Material.AZURE_BLUET);
+        HOLLOW_MATERIALS.add(Material.LEGACY_YELLOW_FLOWER);
+        HOLLOW_MATERIALS.add(Material.LEGACY_RED_ROSE);
+        HOLLOW_MATERIALS.add(Material.ROSE_BUSH);
+        //SEEDS
+        HOLLOW_MATERIALS.add(Material.BEETROOT_SEEDS);
+        HOLLOW_MATERIALS.add(Material.MELON_SEEDS);
+        HOLLOW_MATERIALS.add(Material.PUMPKIN_SEEDS);
+        HOLLOW_MATERIALS.add(Material.WHEAT_SEEDS);
+
+        //SIGNS
+        HOLLOW_MATERIALS.add(Material.ACACIA_SIGN);
+        HOLLOW_MATERIALS.add(Material.BIRCH_SIGN);
+        HOLLOW_MATERIALS.add(Material.DARK_OAK_SIGN);
+        HOLLOW_MATERIALS.add(Material.JUNGLE_SIGN);
+        HOLLOW_MATERIALS.add(Material.OAK_SIGN);
+        HOLLOW_MATERIALS.add(Material.SPRUCE_SIGN);
+
+        //WALL SIGNS
+        HOLLOW_MATERIALS.add(Material.ACACIA_WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.BIRCH_WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.OAK_WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.DARK_OAK_WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.JUNGLE_WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.SPRUCE_WALL_SIGN);
+
+//        //DOORS
+//        HOLLOW_MATERIALS.add(Material.DARK_OAK_DOOR);
+//        HOLLOW_MATERIALS.add(Material.OAK_DOOR);
+//        HOLLOW_MATERIALS.add(Material.ACACIA_DOOR);
+//        HOLLOW_MATERIALS.add(Material.BIRCH_DOOR);
+//
+
+
         HOLLOW_MATERIALS.add(Material.POWERED_RAIL);
         HOLLOW_MATERIALS.add(Material.DETECTOR_RAIL);
-        HOLLOW_MATERIALS.add(Material.LONG_GRASS);
         HOLLOW_MATERIALS.add(Material.DEAD_BUSH);
-        HOLLOW_MATERIALS.add(Material.YELLOW_FLOWER);
-        HOLLOW_MATERIALS.add(Material.RED_ROSE);
         HOLLOW_MATERIALS.add(Material.BROWN_MUSHROOM);
         HOLLOW_MATERIALS.add(Material.RED_MUSHROOM);
         HOLLOW_MATERIALS.add(Material.TORCH);
         HOLLOW_MATERIALS.add(Material.REDSTONE_WIRE);
-        HOLLOW_MATERIALS.add(Material.SEEDS);
-        HOLLOW_MATERIALS.add(Material.SIGN_POST);
-        HOLLOW_MATERIALS.add(Material.WOODEN_DOOR);
         HOLLOW_MATERIALS.add(Material.LADDER);
-        HOLLOW_MATERIALS.add(Material.RAILS);
-        HOLLOW_MATERIALS.add(Material.WALL_SIGN);
+        HOLLOW_MATERIALS.add(Material.RAIL);
         HOLLOW_MATERIALS.add(Material.LEVER);
-        HOLLOW_MATERIALS.add(Material.STONE_PLATE);
-        HOLLOW_MATERIALS.add(Material.IRON_DOOR_BLOCK);
-        HOLLOW_MATERIALS.add(Material.WOOD_PLATE);
-        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_OFF);
-        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH_ON);
+
+        //PRESSURE PLATES
+        HOLLOW_MATERIALS.add(Material.STONE_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.ACACIA_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.BIRCH_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.JUNGLE_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.OAK_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.DARK_OAK_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE);
+        HOLLOW_MATERIALS.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
+
+        HOLLOW_MATERIALS.add(Material.REDSTONE_TORCH);
+        HOLLOW_MATERIALS.add(Material.REDSTONE_WALL_TORCH);
+
+        HOLLOW_MATERIALS.add(Material.SUGAR_CANE);
+
+        HOLLOW_MATERIALS.add(Material.LEGACY_DIODE_BLOCK_ON);
+        HOLLOW_MATERIALS.add(Material.LEGACY_DIODE_BLOCK_OFF);
+
+
         HOLLOW_MATERIALS.add(Material.STONE_BUTTON);
         HOLLOW_MATERIALS.add(Material.SNOW);
-        HOLLOW_MATERIALS.add(Material.SUGAR_CANE_BLOCK);
-        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_OFF);
-        HOLLOW_MATERIALS.add(Material.DIODE_BLOCK_ON);
         HOLLOW_MATERIALS.add(Material.PUMPKIN_STEM);
         HOLLOW_MATERIALS.add(Material.MELON_STEM);
         HOLLOW_MATERIALS.add(Material.VINE);
-        HOLLOW_MATERIALS.add(Material.FENCE_GATE);
-        HOLLOW_MATERIALS.add(Material.WATER_LILY);
-        HOLLOW_MATERIALS.add(Material.NETHER_WARTS);
+//        HOLLOW_MATERIALS.add(Material.ACACIA_FENCE_GATE);
+//        HOLLOW_MATERIALS.add(Material.BIRCH_FENCE_GATE);
+//        HOLLOW_MATERIALS.add(Material.BIRCH_FENCE_GATE);
+        HOLLOW_MATERIALS.add(Material.LILY_PAD);
+        HOLLOW_MATERIALS.add(Material.LILY_OF_THE_VALLEY);
+        HOLLOW_MATERIALS.add(Material.NETHER_WART_BLOCK);
 
         try {
-            HOLLOW_MATERIALS.add(Material.CARPET);
+            HOLLOW_MATERIALS.add(Material.BLACK_CARPET);
+            HOLLOW_MATERIALS.add(Material.BLUE_CARPET);
+            HOLLOW_MATERIALS.add(Material.RED_CARPET);
+            HOLLOW_MATERIALS.add(Material.CYAN_CARPET);
+            HOLLOW_MATERIALS.add(Material.BROWN_CARPET);
+            HOLLOW_MATERIALS.add(Material.GRAY_CARPET);
+            HOLLOW_MATERIALS.add(Material.GREEN_CARPET);
+            HOLLOW_MATERIALS.add(Material.LIGHT_BLUE_CARPET);
+            HOLLOW_MATERIALS.add(Material.LIGHT_GRAY_CARPET);
+            HOLLOW_MATERIALS.add(Material.LIME_CARPET);
+            HOLLOW_MATERIALS.add(Material.MAGENTA_CARPET);
+            HOLLOW_MATERIALS.add(Material.ORANGE_CARPET);
+            HOLLOW_MATERIALS.add(Material.YELLOW_CARPET);
+            HOLLOW_MATERIALS.add(Material.PINK_CARPET);
+            HOLLOW_MATERIALS.add(Material.PURPLE_CARPET);
+            HOLLOW_MATERIALS.add(Material.WHITE_CARPET);
         } catch (NoSuchFieldError e) {
             Chat.debug(Messages.OUTDATED_VERSION);
         }
@@ -94,7 +165,7 @@ public class Blocks {
 
         //Water is transparent, though not hollow
         TRANSPARENT_MATERIALS.add(Material.WATER);
-        TRANSPARENT_MATERIALS.add(Material.STATIONARY_WATER);
+        TRANSPARENT_MATERIALS.add(Material.LEGACY_STATIONARY_WATER);
     }
 
     /**
@@ -166,53 +237,12 @@ public class Blocks {
         return -1;
     }
 
-    /**
-     * Gets the corresponding material for blocks and materials.
-     * <p>
-     * For example: {@link org.bukkit.Material#WOODEN_DOOR} is the block-correspondant
-     * for {@link org.bukkit.Material#WOOD_DOOR}.
-     * <p/>
-     * Passing a block to this method will result in the corresponding firstPageEnabled-stack material for the block.
-     * </p>
-     *
-     * @param block block to get the material of
-     * @return the corresponding firstPageEnabled-stack material for the block.
-     */
+
     public static Material getBlockMaterial(Block block) {
         Material itemMaterial = block.getType();
         switch (itemMaterial) {
-            case WOODEN_DOOR:
-                itemMaterial = Material.WOOD_DOOR;
-                break;
-            case IRON_DOOR_BLOCK:
-                itemMaterial = Material.IRON_DOOR;
-                break;
-            case SIGN_POST:
-            case WALL_SIGN:
-                itemMaterial = Material.SIGN;
-                break;
-            case CROPS:
-                itemMaterial = Material.SEEDS;
-                break;
-            case CAKE_BLOCK:
-                itemMaterial = Material.CAKE;
-                break;
-            case BED_BLOCK:
-                itemMaterial = Material.BED;
-                break;
             case REDSTONE_WIRE:
                 itemMaterial = Material.REDSTONE;
-                break;
-            case REDSTONE_TORCH_OFF:
-            case REDSTONE_TORCH_ON:
-                itemMaterial = Material.REDSTONE_TORCH_ON;
-                break;
-            case DIODE_BLOCK_OFF:
-            case DIODE_BLOCK_ON:
-                itemMaterial = Material.DIODE;
-                break;
-            case DOUBLE_STEP:
-                itemMaterial = Material.STEP;
                 break;
             case FIRE:
                 itemMaterial = Material.AIR;
@@ -303,9 +333,7 @@ public class Blocks {
         Block blockBelow = getBlockBelow(block);
         switch (blockBelow.getType()) {
             case LAVA:
-            case STATIONARY_LAVA:
             case FIRE:
-            case BED_BLOCK:
                 return true;
             default:
                 return !HOLLOW_MATERIALS.contains(getBlockId(block, false)) || !HOLLOW_MATERIALS.contains(getBlockId(getBlockAbove(block), false));
@@ -402,30 +430,31 @@ public class Blocks {
     public static void breakTreeSafely(Player player, Block block, boolean leaves, boolean dropItems) {
         Material type = block.getType();
         ItemStack drop = null;
-        if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
-            drop = Items.convertBlockToItem(block);
-            BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
-
-            Plugins.callEvent(breakEvent);
-
-            if (breakEvent.isCancelled()) {
-                return;
-            }
-
-            breakBlock(block, true);
-            if (dropItems) {
-                Worlds.dropItem(block.getLocation(), drop);
-            }
-
-			/*
-            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
-			blocks (logs, and potentially leaves) until they're all gone!
-			 */
-
-            for (Block b : getBlocksSurrounding(block)) {
-                breakTreeSafely(player, b, leaves, dropItems);
-            }
-        }
+        //TODO FIX
+//        if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
+//            drop = Items.convertBlockToItem(block);
+//            BlockBreakEvent breakEvent = new BlockBreakEvent(block, player);
+//
+//            Plugins.callEvent(breakEvent);
+//
+//            if (breakEvent.isCancelled()) {
+//                return;
+//            }
+//
+//            breakBlock(block, true);
+//            if (dropItems) {
+//                Worlds.dropItem(block.getLocation(), drop);
+//            }
+//
+//			/*
+//            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
+//			blocks (logs, and potentially leaves) until they're all gone!
+//			 */
+//
+//            for (Block b : getBlocksSurrounding(block)) {
+//                breakTreeSafely(player, b, leaves, dropItems);
+//            }
+//        }
     }
 
     /**
@@ -436,25 +465,25 @@ public class Blocks {
      * @param leaves    whether or not to break the leaves aswell.
      * @param dropItems whether or not to drop the items when breaking the tree.
      */
-    public static void breakTree(Block block, boolean leaves, boolean dropItems) {
-        Material type = block.getType();
-        ItemStack drop = null;
-        if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
-            drop = Items.convertBlockToItem(block);
-            breakBlock(block, true);
-            if (dropItems) {
-                Worlds.dropItem(block.getLocation(), drop);
-            }
-
-			/*
-            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
-			blocks (logs, and potentially leaves) until they're all gone!
-			 */
-            getBlocksSurrounding(block).forEach(b -> {
-                breakTree(b, leaves, dropItems);
-            });
-        }
-    }
+//    public static void breakTree(Block block, boolean leaves, boolean dropItems) {
+//        Material type = block.getType();
+//        ItemStack drop = null;
+//        if (type == Material.LOG || type == Material.LOG_2 || (leaves && (type == Material.LEAVES || type == Material.LEAVES_2))) {
+//            drop = Items.convertBlockToItem(block);
+//            breakBlock(block, true);
+//            if (dropItems) {
+//                Worlds.dropItem(block.getLocation(), drop);
+//            }
+//
+//			/*
+//            For all the blocks surrounding the parentBuilder, we're going to continue breaking the
+//			blocks (logs, and potentially leaves) until they're all gone!
+//			 */
+//            getBlocksSurrounding(block).forEach(b -> {
+//                breakTree(b, leaves, dropItems);
+//            });
+//        }
+//    }
 
     /**
      * Schedule a block to be regenerated!
@@ -501,7 +530,8 @@ public class Blocks {
         //Update the type
         block.setType(blockData.getItemType());
         //Update the byte-data (Positioning, etc)
-        block.setData(block.getData());
+//        block.setData(block.getData());
+        //todo implement directional changes
         //Update the block state
         block.getState().update(true);
     }
@@ -601,14 +631,14 @@ public class Blocks {
      * @param z       z-Axis coordinate for the blocks location
      * @param blockId id of the block to destroy
      */
-    private void checkAndDestroyAround(World world, int x, int y, int z, int blockId) {
-        checkAndDestroy(world, x, y, z + 1, blockId);
-        checkAndDestroy(world, x, y, z - 1, blockId);
-        checkAndDestroy(world, x, y + 1, z, blockId);
-        checkAndDestroy(world, x, y - 1, z, blockId);
-        checkAndDestroy(world, x + 1, y, z, blockId);
-        checkAndDestroy(world, x - 1, y, z, blockId);
-    }
+//    private void checkAndDestroyAround(World world, int x, int y, int z, int blockId) {
+//        checkAndDestroy(world, x, y, z + 1, blockId);
+//        checkAndDestroy(world, x, y, z - 1, blockId);
+//        checkAndDestroy(world, x, y + 1, z, blockId);
+//        checkAndDestroy(world, x, y - 1, z, blockId);
+//        checkAndDestroy(world, x + 1, y, z, blockId);
+//        checkAndDestroy(world, x - 1, y, z, blockId);
+//    }
 
     /**
      * Check if a block at a specific location is the same as the block defined by <i>required</i>
@@ -620,11 +650,11 @@ public class Blocks {
      * @param z       z-Axis coordinate for the blocks location
      * @param blockId id of the block to destroy
      */
-    private void checkAndDestroy(World world, int x, int y, int z, int blockId) {
-        if (world.getBlockTypeIdAt(x, y, z) == blockId) {
-            world.getBlockAt(x, y, z).setTypeId(BlockID.AIR);
-        }
-    }
+//    private void checkAndDestroy(World world, int x, int y, int z, int blockId) {
+//        if (world.getBlockTypeIdAt(x, y, z) == blockId) {
+//            world.getBlockAt(x, y, z).setTypeId(BlockID.AIR);
+//        }
+//    }
 
     /**
      * Spawn primed tnt at a specific location
@@ -711,7 +741,7 @@ public class Blocks {
                 for (int x = -r; x <= r; x++) {
                     for (int y = -r; y <= r; y++) {
                         Block a = c.getRelative(o[0], x).getRelative(o[1], y);
-                        if (a.getTypeId() == 0 && a.getRelative(BlockFace.UP).getTypeId() == 0) {
+                        if (a.getType() == Material.AIR && a.getRelative(BlockFace.UP).getType() == Material.AIR) {
                             return a;
                         }
                     }
@@ -778,11 +808,16 @@ public class Blocks {
     }
 
     private static final Set<Material> GRASS_BLACKLIST = Sets.newHashSet(
-            Material.SAPLING,
-            Material.LONG_GRASS,
+            Material.ACACIA_SAPLING,
+            Material.BAMBOO_SAPLING,
+            Material.BIRCH_SAPLING,
+            Material.DARK_OAK_SAPLING,
+            Material.JUNGLE_SAPLING,
+            Material.OAK_SAPLING,
+            Material.TALL_GRASS,
             Material.DEAD_BUSH,
-            Material.YELLOW_FLOWER,
-            Material.RED_ROSE,
+            Material.DANDELION,
+            Material.ROSE_BUSH,
             Material.RED_MUSHROOM,
             Material.BROWN_MUSHROOM,
             Material.CACTUS,
@@ -795,29 +830,31 @@ public class Blocks {
             Material.SOUL_SAND
     );
 
+    //todo
     private static final List<ChancedBlock> GRASS_PATCH_BLOCKS = Lists.newArrayList(
-            ChancedBlock.of(31, 1, 100),
-            ChancedBlock.of(31, 2, 45),
-            ChancedBlock.of(37, 0, 5),
-            ChancedBlock.of(38, 0, 5),
-            ChancedBlock.of(86, 0, 2),
-            ChancedBlock.of(103, 0, 2),
-            ChancedBlock.of(38, 1, 2),
-            ChancedBlock.of(38, 2, 2),
-            ChancedBlock.of(38, 3, 2),
-            ChancedBlock.of(38, 4, 2),
-            ChancedBlock.of(38, 5, 2),
-            ChancedBlock.of(38, 6, 2),
-            ChancedBlock.of(38, 7, 2),
-            ChancedBlock.of(38, 8, 2),
-            ChancedBlock.of(39, 0, 1),
-            ChancedBlock.of(40, 0, 1),
-            ChancedBlock.of(175, 0, 5),
-            ChancedBlock.of(175, 1, 5),
-            ChancedBlock.of(175, 2, 10),
-            ChancedBlock.of(175, 3, 10),
-            ChancedBlock.of(175, 4, 5),
-            ChancedBlock.of(175, 5, 5)
+            ChancedBlock.of(Material.TALL_GRASS, 1, 100),
+            ChancedBlock.of(Material.TALL_GRASS, 2, 45),
+            ChancedBlock.of(Material.DANDELION, 0, 5),
+            ChancedBlock.of(Material.POPPY, 0, 5),
+            ChancedBlock.of(Material.PUMPKIN, 0, 2),
+            ChancedBlock.of(Material.MELON, 0, 2),
+            ChancedBlock.of(Material.BLUE_ORCHID, 1, 2),
+            ChancedBlock.of(Material.ALLIUM, 2, 2),
+            ChancedBlock.of(Material.AZURE_BLUET, 3, 2),
+            ChancedBlock.of(Material.RED_TULIP, 4, 2),
+            ChancedBlock.of(Material.ORANGE_TULIP, 5, 2),
+            ChancedBlock.of(Material.WHITE_TULIP, 6, 2),
+            ChancedBlock.of(Material.PINK_TULIP, 7, 2),
+            ChancedBlock.of(Material.OXEYE_DAISY, 8, 2),
+            ChancedBlock.of(Material.BROWN_MUSHROOM, 0, 1),
+            ChancedBlock.of(Material.RED_MUSHROOM, 0, 1),
+            ChancedBlock.of(Material.SUNFLOWER, 0, 5),
+            ChancedBlock.of(Material.LILAC, 1, 5),
+            ChancedBlock.of(Material.LEGACY_DOUBLE_PLANT, 2, 10),
+            ChancedBlock.of(Material.FERN, 3, 10),
+            ChancedBlock.of(Material.LARGE_FERN, 4, 5),
+            ChancedBlock.of(Material.ROSE_BUSH, 5, 5),
+            ChancedBlock.of(Material.PEONY,0,5)
     );
 
 
@@ -868,9 +905,7 @@ public class Blocks {
                     }
                 }
 
-//				Chat.debug("Replacing " + baseMat.name() + " with " + replacementBlock.getData().getItemType().name() + ":" + replacementBlock.getData().getData());
                 handle.setType(replacementBlock.getMaterial());
-                handle.setData(replacementBlock.getData());
 
                 //todo implement second check for flowers
             }
