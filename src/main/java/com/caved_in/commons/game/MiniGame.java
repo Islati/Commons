@@ -57,11 +57,11 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	public void onEnable() {
 		initLogger();
 
-		arenaManager = new ArenaManager(this);
-		loadArenas();
-		if (!arenaManager.hasArenas()) {
-			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
-		}
+////		arenaManager = new ArenaManager(this);
+//		loadArenas();
+//		if (!arenaManager.hasArenas()) {
+//			arenaManager.addArena(new Arena(Worlds.getDefaultWorld()));
+//		}
 
 		super.onEnable();
 
@@ -71,7 +71,7 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 
 		if (userManager == null) {
 			boolean hasClass = userManagerClass == null;
-			debug(String.format("User manager class %s", hasClass ? "is null" : "isn't null"));
+			debug(String.format("User manager class %s", hasClass ? "is nul; - fix this. " : "isn't null"));
 
 			if (hasClass) {
 				Constructor constructor = ReflectionUtilities.getConstructor(userManagerClass);
@@ -103,9 +103,9 @@ public abstract class MiniGame<T extends UserManager> extends CraftGame {
 	@Override
 	public void onDisable() {
 		super.onDisable();
-		if (arenaManager.hasArenas()) {
-			saveArenas();
-		}
+//		if (arenaManager.hasArenas()) {
+//			saveArenas();
+//		}
 
 		shutdown();
 

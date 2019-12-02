@@ -4,6 +4,7 @@ import com.caved_in.commons.Commons;
 import com.caved_in.commons.Messages;
 import com.caved_in.commons.block.Blocks;
 import com.caved_in.commons.chat.Chat;
+import com.caved_in.commons.enchantments.GlowingEnchant;
 import com.caved_in.commons.exceptions.InvalidMaterialNameException;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.player.MinecraftPlayer;
@@ -1343,4 +1344,33 @@ public class Items {
         return getMetadata(item).getItemFlags();
     }
 
+    public static boolean isGlowing(ItemStack item) {
+        return Items.hasEnchantment(item, GlowingEnchant.getInstance());
+    }
+
+    public static void addGlow(ItemStack item) {
+        Items.addEnchantment(item, GlowingEnchant.getInstance(), 1, true);
+    }
+
+    public static ItemStack removeGlow(ItemStack item) {
+        ItemBuilder clone = ItemBuilder.of(item);
+
+        Map<Enchantment, Integer> enchantments = item.getEnchantments();
+
+        if (enchantments.isEmpty()) {
+            return item.clone();
+        }
+
+        Map<Enchantment, Integer> newEnchants = new HashMap<>();
+
+        for (Entry<Enchantment, Integer> enchant : enchantments.entrySet()) {
+            if (enchant.getKey().getClass().isAssignableFrom(GlowingEnchant.class)) {
+                continue;
+            }
+
+            newEnchants.put(enchant.getKey(), enchant.getValue());
+        }
+
+        return clone.enchantments(newEnchants).item();
+    }
 }

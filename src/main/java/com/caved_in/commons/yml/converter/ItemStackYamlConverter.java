@@ -50,7 +50,7 @@ public class ItemStackYamlConverter implements Converter {
 		        saveEnchantMap.put(enchants.getKey().getName(),enchants.getValue());
             }
 
-            saveMap.put("enchantments",converter.getConverter(saveEnchantMap.getClass()).toConfig(saveEnchantMap.getClass(),saveEnchantMap, TypeUtils.parameterize(saveEnchantMap.getClass(),saveEnchantMap.getClass().getGenericInterfaces())));
+		    saveMap.put("enchantments",saveEnchantMap);
         }
 
 		//todo implement enchant serialize
@@ -123,7 +123,10 @@ public class ItemStackYamlConverter implements Converter {
 
 		    Map<String, Object> enchantmentMap = new HashMap<>();
 
-		    enchantmentMap = ((ConfigSection)converter.getConverter(enchantmentMap.getClass()).fromConfig(enchantmentMap.getClass(),itemstackMap.get("enchantments"),TypeUtils.parameterize(enchantmentMap.getClass(),enchantmentMap.getClass().getGenericInterfaces()))).getRawMap();
+		    Converter mapConverter = converter.getConverter(Map.class);
+
+//		    enchantmentMap = ((ConfigSection)converter.getConverter(enchantmentMap.getClass()).fromConfig(enchantmentMap.getClass(),itemstackMap.get("enchantments"),TypeUtils.parameterize(enchantmentMap.getClass(),enchantmentMap.getClass().getGenericInterfaces()))).getRawMap();
+			enchantmentMap = (Map<String, Object>)mapConverter.fromConfig(Map.class,itemstackMap.get("enchantments"),null);
 
 		    for (Map.Entry<String, Object> enchant : enchantmentMap.entrySet()) {
 		        Enchantment enchantment = Enchantment.getByName(enchant.getKey());

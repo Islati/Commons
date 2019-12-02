@@ -3,6 +3,7 @@ package com.caved_in.commons.inventory.menu;
 import com.caved_in.commons.inventory.Inventories;
 import com.caved_in.commons.inventory.menu.Menu;
 import com.caved_in.commons.inventory.menu.Menus;
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.player.Players;
 import com.caved_in.commons.utilities.StringUtil;
 import com.google.common.collect.Lists;
@@ -193,7 +194,7 @@ public class ItemMenu implements Menu {
             return;
         }
 
-        for(HumanEntity viewer : getViewers()) {
+        for (HumanEntity viewer : getViewers()) {
             if (!(viewer instanceof Player)) {
                 continue;
             }
@@ -222,6 +223,11 @@ public class ItemMenu implements Menu {
         return clone;
     }
 
+    @Override
+    public void updateMenu() {
+        getViewers().stream().filter(e -> e instanceof Player).forEach(p -> switchMenu((Player) p, this.clone()));
+    }
+
     public void updateMenu(Collection<HumanEntity> viewers) {
         if (rowsHasChanged) {
             /*
@@ -230,7 +236,7 @@ public class ItemMenu implements Menu {
 			 */
             viewers.stream().filter(e -> e instanceof Player).forEach(
                     p -> {
-                        switchMenu((Player) p, this);
+                        switchMenu((Player) p, this.clone());
                     }
             );
             return;
@@ -254,7 +260,7 @@ public class ItemMenu implements Menu {
         items.clear();
 
         if (inventory != null) {
-        /* Also clear the items from inventory */
+            /* Also clear the items from inventory */
             inventory.clear();
         }
     }
@@ -275,4 +281,17 @@ public class ItemMenu implements Menu {
         this.title = title;
         Inventories.rename(getInventory(), StringUtil.formatColorCodes(title));
     }
+
+    public void fillEmpty(MenuItem item) {
+        Inventory inv = getInventory();
+
+        for (int i = 0; i < inv.getSize(); i++) {
+            ItemStack invItem = inv.getItem(i);
+            if (invItem == null || Items.isAir(invItem)) {
+                items.put(i, item);
+            }
+        }
+    }
+
+
 }

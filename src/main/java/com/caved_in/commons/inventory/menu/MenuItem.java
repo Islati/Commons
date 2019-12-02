@@ -1,5 +1,6 @@
 package com.caved_in.commons.inventory.menu;
 
+import com.caved_in.commons.item.Items;
 import com.caved_in.commons.utilities.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,132 +14,153 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class MenuItem {
-	private static final MaterialData DEFAULT_ICON = new MaterialData(Material.PAPER);
-	private ItemMenu menu;
-	private int number;
-	private MaterialData icon;
-	private String text;
-	private List<String> descriptions = new ArrayList<>();
+    private static final MaterialData DEFAULT_ICON = new MaterialData(Material.PAPER);
+    private ItemMenu menu;
+    private int number;
+    private MaterialData icon;
+    private String text;
+    private List<String> descriptions = new ArrayList<>();
 
-	public MenuItem() {
-		this("", DEFAULT_ICON);
-	}
+    private ItemStack item = null;
 
-	public MenuItem(String text) {
-		this(text, DEFAULT_ICON);
-	}
+    public MenuItem() {
+        this("", DEFAULT_ICON);
+    }
 
-	public MenuItem(String text, MaterialData icon) {
-		this(text, icon, 1);
-	}
+    public MenuItem(String text) {
+        this(text, DEFAULT_ICON);
+    }
 
-	/**
-	 * Create a new menus item with the given title, using the given MaterialData for its icon, and displaying the number given.
-	 *
-	 * @param text   the title text to display on mouse over
-	 * @param icon   the material to use as its icon
-	 * @param number the number to display on the item (must be greater than 1)
-	 */
-	public MenuItem(String text, MaterialData icon, int number) {
-		this.text = StringUtil.formatColorCodes(text);
-		this.icon = icon;
-		this.number = number;
-	}
+    public MenuItem(String text, MaterialData icon) {
+        this(text, icon, 1);
+    }
 
-	protected void addToMenu(ItemMenu menu) {
-		this.menu = menu;
-	}
+    public MenuItem(String text, ItemStack item) {
+        this.text = text;
+        this.item = item.clone();
 
-	protected void removeFromMenu(ItemMenu menu) {
-		if (this.menu == menu) {
-			this.menu = null;
+        if (this.text != null) {
+			Items.setName(this.item, StringUtil.formatColorCodes(text));
 		}
-	}
+    }
 
-	public ItemMenu getMenu() {
-		return menu;
-	}
+    public MenuItem(ItemStack item) {
+        this.item = item.clone();
+    }
 
-	public int getNumber() {
-		return number;
-	}
+    /**
+     * Create a new menus item with the given title, using the given MaterialData for its icon, and displaying the number given.
+     *
+     * @param text   the title text to display on mouse over
+     * @param icon   the material to use as its icon
+     * @param number the number to display on the item (must be greater than 1)
+     */
+    public MenuItem(String text, MaterialData icon, int number) {
+        this.text = StringUtil.formatColorCodes(text);
+        this.icon = icon;
+        this.number = number;
+    }
 
-	public MaterialData getIcon() {
-		return icon;
-	}
+    protected void addToMenu(ItemMenu menu) {
+        this.menu = menu;
+    }
 
-	public void setIcon(MaterialData data) {
-		icon = data;
-	}
+    protected void removeFromMenu(ItemMenu menu) {
+        if (this.menu == menu) {
+            this.menu = null;
+        }
+    }
 
-	public String getText() {
-		return text;
-	}
+    public ItemMenu getMenu() {
+        return menu;
+    }
 
-	public void setText(String text) {
-		this.text = StringUtil.formatColorCodes(text);
-	}
+    public int getNumber() {
+        return number;
+    }
 
-	public void setDescriptions(List<String> lines) {
-		descriptions = StringUtil.formatColorCodes(lines);
-	}
+    public MaterialData getIcon() {
+        return icon;
+    }
 
-	public void setDescriptions(String... lines) {
-		descriptions = StringUtil.formatColorCodes(Arrays.asList(lines));
-	}
+    public void setIcon(MaterialData data) {
+        icon = data;
+    }
 
-	public void addDescriptions(String... line) {
-		for (String s : line) {
-			descriptions.add(StringUtil.formatColorCodes(s));
-		}
-	}
+    public void setIcon(ItemStack item) {
+        this.item = item;
+    }
 
-	public void setIconNumber(int num) {
-		this.number = num;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public int getIconNumber() {
-		return number;
-	}
+    public void setText(String text) {
+        this.text = StringUtil.formatColorCodes(text);
+    }
 
-	protected ItemStack getItemStack() {
-		ItemStack itemStack = new ItemStack(getIcon().getItemType(), getNumber(), getIcon().getData());
-		ItemMeta meta = itemStack.getItemMeta();
-		meta.setLore(descriptions);
-		meta.setDisplayName(StringUtil.formatColorCodes(getText()));
-		itemStack.setItemMeta(meta);
-		return itemStack;
+    public void setDescriptions(List<String> lines) {
+        descriptions = StringUtil.formatColorCodes(lines);
+    }
+
+    public void setDescriptions(String... lines) {
+        descriptions = StringUtil.formatColorCodes(Arrays.asList(lines));
+    }
+
+    public void addDescriptions(String... line) {
+        for (String s : line) {
+            descriptions.add(StringUtil.formatColorCodes(s));
+        }
+    }
+
+    public void setIconNumber(int num) {
+        this.number = num;
+    }
+
+    public int getIconNumber() {
+        return number;
+    }
+
+    protected ItemStack getItemStack() {
+        if (item != null) {
+            return item;
+        }
+
+        ItemStack itemStack = new ItemStack(getIcon().getItemType(), getNumber(), getIcon().getData());
+        Items.setLore(itemStack,descriptions);
+        Items.setName(itemStack,getText());
+        return itemStack;
 //		return new ItemBuilder().name(getText()).amount(number).lore(descriptions).materialData(getIcon()).item();
-	}
+    }
 
-	public void close(Player player) {
-		getMenu().closeMenu(player);
-	}
+    public void close(Player player) {
+        getMenu().closeMenu(player);
+    }
 
-	public MenuItem text(String text) {
-		setText(text);
-		return this;
-	}
+    public MenuItem text(String text) {
+        setText(text);
+        return this;
+    }
 
-	public MenuItem description(String... lines) {
-		setDescriptions(lines);
-		return this;
-	}
+    public MenuItem description(String... lines) {
+        setDescriptions(lines);
+        return this;
+    }
 
-	public MenuItem addDescription(String line) {
-		addDescriptions(line);
-		return this;
-	}
+    public MenuItem addDescription(String line) {
+        addDescriptions(line);
+        return this;
+    }
 
-	public MenuItem icon(MaterialData data) {
-		setIcon(data);
-		return this;
-	}
+    public MenuItem icon(MaterialData data) {
+        setIcon(data);
+        return this;
+    }
 
-	public MenuItem number(int num) {
-		setIconNumber(num);
-		return this;
-	}
+    public MenuItem number(int num) {
+        setIconNumber(num);
+        return this;
+    }
 
-	public abstract void onClick(Player player, ClickType type);
+    public abstract void onClick(Player player, ClickType type);
 }

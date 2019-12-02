@@ -6,6 +6,7 @@ import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.effect.Effects;
 import com.caved_in.commons.item.Items;
 import com.caved_in.commons.location.Locations;
+import com.caved_in.commons.plugin.Plugins;
 import com.caved_in.commons.threading.tasks.BlockRegenThread;
 import com.caved_in.commons.threading.tasks.BlocksRegenThread;
 import com.caved_in.commons.time.TimeHandler;
@@ -48,7 +49,9 @@ public class Blocks {
         //SAPPLINGS
         HOLLOW_MATERIALS.add(Material.OAK_SAPLING);
         HOLLOW_MATERIALS.add(Material.ACACIA_SAPLING);
-        HOLLOW_MATERIALS.add(Material.BAMBOO_SAPLING);
+        if (Plugins.getBukkitVersion().contains("1.14")) {
+            HOLLOW_MATERIALS.add(Material.BAMBOO_SAPLING);
+        }
         HOLLOW_MATERIALS.add(Material.BIRCH_SAPLING);
         HOLLOW_MATERIALS.add(Material.DARK_OAK_SAPLING);
         HOLLOW_MATERIALS.add(Material.JUNGLE_SAPLING);

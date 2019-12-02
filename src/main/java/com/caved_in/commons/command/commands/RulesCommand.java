@@ -20,13 +20,13 @@ public class RulesCommand {
         }
     }
 
-    @Command(identifier = "rules add", description = "Add a new rule to the list of rules")
+    @Command(identifier = "rules add", description = "Add a new rule to the list of rules", permissions="commons.commands.rules.add")
     public void onRulesAddCommand(Player player, @Wildcard @Arg(name = "rule") String rule) {
         Commons.Rules.add(rule);
         Chat.actionMessage(player, String.format("&eRule Added: &a%s", rule));
     }
 
-    @Command(identifier = "rules reload", description = "Reload the rules from file")
+    @Command(identifier = "rules reload", description = "Reload the rules from file",permissions="commons.commands.rules.reload")
     public void onRulesReloadCommand(Player player) {
         Commons.Rules.load();
     }

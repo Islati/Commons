@@ -20,7 +20,7 @@ public class CommonsYamlConfiguration extends YamlConfig implements Configuratio
 			"Wish to use Commons for only its API Features, then change this value to",
 			"False"
 	})
-	private boolean registerCommands = true;
+	private boolean registerCommands = false;
 
 	@Path("Commands.enable-bukkit-commands")
 	@Comments({

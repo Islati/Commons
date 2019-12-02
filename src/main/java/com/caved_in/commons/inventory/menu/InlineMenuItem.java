@@ -2,10 +2,11 @@ package com.caved_in.commons.inventory.menu;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 public class InlineMenuItem extends MenuItem {
-    private MenuItemClickHandler handler;
+    private MenuItemClickHandler handler = null;
 
     public InlineMenuItem() {
 
@@ -23,6 +24,10 @@ public class InlineMenuItem extends MenuItem {
         super(text, icon, number);
     }
 
+    public InlineMenuItem(String text, ItemStack item) {
+        super(text, item);
+    }
+
     public MenuItemClickHandler getHandler() {
         return handler;
     }
@@ -33,6 +38,8 @@ public class InlineMenuItem extends MenuItem {
 
     @Override
     public void onClick(Player player, ClickType type) {
-        handler.onClick(this,player,type);
+        if (handler != null) {
+            handler.onClick(this, player, type);
+        }
     }
 }

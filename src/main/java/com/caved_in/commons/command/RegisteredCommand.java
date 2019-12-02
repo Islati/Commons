@@ -14,7 +14,7 @@ public class RegisteredCommand {
     private String label;
     private RegisteredCommand parent;
     private String description;
-    private String[] permissions;
+    private String[] permissions = null;
     private boolean onlyPlayers;
     private Method method;
     private Object methodInstance;
@@ -309,6 +309,18 @@ public class RegisteredCommand {
     }
 
     public boolean testPermission(CommandSender sender) {
+        if (sender.isOp()) {
+            return true;
+        }
+
+        if (permissions == null) {
+            return true;
+        }
+
+        if (permissions.length == 0) {
+            return true;
+        }
+
         return Permissions.hasPermissions(sender, this.permissions);
     }
 

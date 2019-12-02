@@ -1,14 +1,17 @@
 name: Commons
 main: com.caved_in.commons.Commons
 version: ${project.version}
-description: An all-in-one plugin to provide features to both server owners, and developers.
-author: Brandon Curtis (TechnicalBro/MumbosHut)
-softdepend: [TagAPI, ProtocolLib]
-
+description: The definitive server framework for server developers.
+author: TheGamersCave
+softdepend: [ProtocolLib]
+api-version: 1.13
 commands:
-   chatmenu:
-      description: Used as a handler for all custom registered chat menus.
-      usage: /<command> [handler action]
+   gadgets:
+      usage: /<command>
+   clean:
+      usage: /<command> [subcommand] [-flags]
+   debug:
+      usage: /<command> [action]
 
 permissions:
    commons.*:

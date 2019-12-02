@@ -1,18 +1,123 @@
 name: Commons
 main: com.caved_in.commons.Commons
 version: ${project.version}
-description: The definitive server framework for server developers.
-author: TheGamersCave
+description: An all-in-one plugin to provide features to both server owners, and developers.
+author: Brandon Curtis (TechnicalBro/MumbosHut)
 softdepend: [ProtocolLib]
 api-version: 1.13
 commands:
+   msg:
+      usage: /msg <player> <message>
+      aliases: [m, t, tell, whisper]
+   ci:
+      usage: /<command> [player]
+      aliases: [clearinventory, clearinv]
+   tphere:
+      usage: /<command> <player>
+      aliases: [bring]
+   tpa:
+      usage: /<command> <player>
+   tpahere:
+      usage: /<command> <player>
+   tp:
+      usage: /<command> <player>
+      aliases: [teleport]
+   tpmenu:
+      usage: /<command> <enable/on/disable/off>
+   tpaccept:
+      usage: /<command>
+   tpdeny:
+      usage: /<command>
+   tpo:
+      usage: /<command> <player> <targetPlayer>
+      aliases: [tpother,teleportother]
+   tree:
+      usage: /<command> [--cursor] <treetype>
+   fly:
+      usage: /fly
+   fw:
+      usage: /fw
+   gm:
+      usage: /gm [Mode]
+   god:
+      usage: /god
+   maintenance:
+      usage: /maintenance [on/off/toggle]
+   silence:
+      usage: /silence
+   unsilence:
+      usage: /unsilence
+   r:
+      usage: /<command> <Message>
+   skull:
+      usage: /<command> <Name>
+   setspawn:
+      usage: /setspawn
+   more:
+      usage: /<command>
+   heal:
+      usage: /<command>
+   i:
+      usage: /<command> <> [Amount]
+      aliases: [item]
+   speed:
+      usage: /<command> <speed>
+   time:
+      usage: /<command> <time>
+   day:
+      usage: /<command>
+   night:
+      usage: /<command>
+   enchant:
+      usage: /<command> [<list [<Enchantment> <Level>]]
+   repair:
+      usage: /<command>
+   rules:
+      usage: /<command>
+   recipe:
+      usage: /<command> [item name or id]
+   feed:
+      usage: /<command> [player]
+   spawnmob:
+      usage: /<command> <Mob> [Amount]
+   workbench:
+      usage: /<command> [Player]
+      aliases: [wb, wbench]
+   tpall:
+      usage: /<command>
+   spawn:
+      usage: /<command>
+   tppos:
+      usage: /<command> <x> <y> <z>
+   warp:
+      usage: /<command> <name>
+   warps:
+      usage: /<command> [page]
+   setwarp:
+      usage: /<command> <name>
+   back:
+      usage: /<command>
+   potion:
+      usage: /<command> <type> [Level]
+   debug:
+      usage: /<command>
+   slay:
+      usage: /<command> <radius> [kill players (yes/no)]
+   armor:
+      usage: /<command> <type>
+   blocktext:
+      usage: /<command> <item-data> <text>...
+   set:
+      usage: /<command> [name]
+   clean:
+      usage: /<command> <mobs/s/fluids>
+   grass:
+      usage: /<command> <size> <density>
    gadgets:
       usage: /<command>
-   clean:
-      usage: /<command> [subcommand] [-flags]
-   debug:
-      usage: /<command> [action]
-
+   chatmenu:
+      description: Used as a handler for all custom registered chat menus.
+      usage: /<command> [handler action]
 permissions:
    commons.*:
       description: Gives all permission nodes within Commons!
@@ -25,14 +130,10 @@ permissions:
       description: Gives access to all the commands within Commons.
       default: op
       children:
-         commons.command.buypremium: true
-         commons.command.removepremium: true
          commons.command.addcurrency: true
          commond.command.armor: true
          commons.command.back: true
-         commons.command.blocktext: true
          commons.command.clean: true
-         commons.command.ban: true
          commons.command.clearinventory: true
          commons.command.clearinventory.other: true
          commons.command.time: true
@@ -49,7 +150,6 @@ permissions:
          commons.command.heal: true
          commons.command.heal.other: true
          commons.command.id: true
-         commons.command.item: true
          commons.command.message: true
          commons.command.more: true
          commons.command.potion: true
@@ -86,6 +186,7 @@ permissions:
         commons.command.*: true
         commons.admin.antikick: true
         commons.armor.*: true
+        commons.silence.bypass: true
    commons.armor.*:
       description: Gives players access to spawning all the armor sets!
       default: op
@@ -173,7 +274,7 @@ permissions:
    commons.silence.bypass:
       description: Allows players to bypass the silencing of chat
    commons.command.set:
-      description: Allows players to use the set command, for managing firstPageEnabled sets.
+      description: Allows players to use the set command, for managing item sets.
    commons.command.recipe:
       description: Allows player to use the recipe command.
    commons.command.repair:
@@ -182,13 +283,13 @@ permissions:
       description: Allows players to use the potions command.
       default: op
    commons.command.more:
-      description: Allows players to use the more command, giving them more items on the firstPageEnabled in their hand.
+      description: Allows players to use the more command, giving them more s on the item in their hand.
    commons.command.message:
       description: Allows players to use the message command.
    commons.command.id:
       description: Allows players to use the id command.
-   commons.command.item:
-      description: Allows players to use the firstPageEnabled command.
+   commons.command.:
+      description: Allows players to use the item command.
    commons.command.hat:
       description: Allows players to use the hat command.
    commons.command.heal:
@@ -241,4 +342,4 @@ permissions:
       default: op
    commons.command.removepremium:
       description: Allows players to use the removepremium command
-      default:
+      default: op
