@@ -12,6 +12,8 @@ commands:
       usage: /<command> [subcommand] [-flags]
    debug:
       usage: /<command> [action]
+   skull:
+      usage: /<command> <skullValue>
 
 permissions:
    commons.*:

@@ -3,6 +3,7 @@ package com.caved_in.commons;
 import com.caved_in.commons.chat.Chat;
 import com.caved_in.commons.chat.PrivateMessageManager;
 import com.caved_in.commons.command.RegisterCommandMethodException;
+import com.caved_in.commons.command.commands.*;
 import com.caved_in.commons.config.CommonsYamlConfiguration;
 import com.caved_in.commons.config.Configuration;
 import com.caved_in.commons.file.TextFile;
@@ -116,6 +117,13 @@ public class Commons extends BukkitPlugin {
         players = new Players();
 
         //If the commands are to be registered: do so.
+        registerCommands(
+                new DebugModeCommand(),
+                new GadgetsCommand(),
+                new SkullCommand(),
+                new CleanCommand()
+        );
+
         if (getConfiguration().registerCommands()) {
             try {
                 registerCommandsByPackage("com.caved_in.commons.command.commands");
