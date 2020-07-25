@@ -207,8 +207,8 @@ Next is to add your plugin as a dependency! If you're using maven enter the foll
 <dependency>
     <groupId>com.caved_in</groupId>
     <artifactId>commons</artifactId>
-    <version>1.8.8-3</version>
+    <version>{game-version}</version>
     <scope>system</scope>
-    <systemPath>commons-location/commons-{version}.jar</systemPath>
+    <systemPath>commons-location/commons-{game-version}.jar</systemPath>
 </dependency>
 ```
